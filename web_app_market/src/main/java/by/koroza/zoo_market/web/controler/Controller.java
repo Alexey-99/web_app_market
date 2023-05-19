@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.CommandProvider;
 import by.koroza.zoo_market.web.command.exception.CommandException;
-import by.koroza.zoo_market.web.command.exception.RuntimeCommandException;
+import by.koroza.zoo_market.web.command.exception.ControllerException;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -32,11 +32,7 @@ public class Controller extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			processRequest(request, response);
-		} catch (IOException | ServletException | CommandException e) {
-			throw new RuntimeCommandException(e);
-		}
+		processRequest(request, response);
 	}
 
 	/**
@@ -45,11 +41,7 @@ public class Controller extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			processRequest(request, response);
-		} catch (IOException | ServletException | CommandException e) {
-			throw new RuntimeCommandException(e);
-		}
+		processRequest(request, response);
 	}
 
 	/**
@@ -57,19 +49,25 @@ public class Controller extends HttpServlet {
 	 * @throws ServletException
 	 * @throws CommandException
 	 */
-	private void processRequest(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException, CommandException {
+	private void processRequest(HttpServletRequest request, HttpServletResponse response) {
 		String commandName = request.getParameter("command");
 		Optional<Command> optionalCommand = CommandProvider.getInstance().definaCommand(commandName);
-		Command command = (optionalCommand.isPresent() ? optionalCommand.get() : null); // TODO
-		Router router = command.execute(request);
-		switch (router.getType()) {
-		case REDIRECT -> response.sendRedirect(router.getPagePath());
-		case FORWARD -> request.getRequestDispatcher(router.getPagePath()).forward(request, response);
-		default -> {
-			LOGGER.log(Level.ERROR, "unknown router type: {}", router.getType());
-			// TODO response.sendRedirect(ERROR_404_PAGE);
-		}
+		Command command = (optionalCommand.isPresent() ? optionalCommand.get() : null);
+		try {
+			if (command == null) {
+				throw new CommandException("commnd is null");
+			}
+			Router router = command.execute(request);
+			switch (router.getType()) {
+			case REDIRECT -> response.sendRedirect(router.getPagePath());
+			case FORWARD -> request.getRequestDispatcher(router.getPagePath()).forward(request, response);
+			default -> {
+				LOGGER.log(Level.ERROR, "unknown router type: {}", router.getType());
+				// TODO response.sendRedirect(ERROR_404_PAGE);
+			}
+			}
+		} catch (IOException | ServletException | CommandException e) {
+			throw new ControllerException(e);
 		}
 	}
 }

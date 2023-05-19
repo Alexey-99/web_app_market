@@ -1,7 +1,6 @@
 package by.koroza.zoo_market.web.filter;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_INDEX_PAGE;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PREVIOUS_PAGE;
 
 import java.io.IOException;
 
@@ -40,7 +39,6 @@ public class PageRedirectSecurityFilter extends HttpFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		System.out.println("PageRedirectSecurityFilter.doFilter");
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		httpResponse.sendRedirect(httpRequest.getContextPath() + this.indexPath);

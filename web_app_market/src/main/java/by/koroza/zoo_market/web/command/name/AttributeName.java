@@ -1,11 +1,11 @@
 package by.koroza.zoo_market.web.command.name;
 
 public final class AttributeName {
-	
+
 	public static final String ATTRIBUTE_SESSION_LOCALE = "locale";
 	public static final String ATTRIBUTE_ENCODING = "encoding";
-	public static final String ATTRIBUTE_INDEX_PAGE = "encoding";
-	public static final String ATTRIBUTE_PREVIOUS_PAGE = "previous_page";
+	public static final String ATTRIBUTE_INDEX_PAGE = "index_page";
+	public static final String ATTRIBUTE_PREVIOUS_COMMAND = "previous_command";
 
 	public static final String ATTRIBUTE_USER = "user";
 	public static final String ATTRIBUTE_ORDER = "order";
