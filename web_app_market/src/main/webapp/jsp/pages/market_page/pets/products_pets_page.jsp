@@ -6,7 +6,7 @@
 <%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.ShowProductPetsIncludedFilterCommand"%>
+	import="by.koroza.zoo_market.web.command.impl.show.ShowProductPetsIncludedFilterCommand"%>
 <!DOCTYPE html>
 <html>
 <head>

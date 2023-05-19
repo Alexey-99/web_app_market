@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.impl;
+package by.koroza.zoo_market.web.command.impl.show;
 
 import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_BREED_PET;
 import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PET;

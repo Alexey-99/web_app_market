@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.impl;
+package by.koroza.zoo_market.web.command.impl.sign;
 
 import static by.koroza.zoo_market.web.command.name.InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_LOGIN;
 import static by.koroza.zoo_market.web.command.name.InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_PASSWORD;

@@ -5,7 +5,7 @@
 <%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.ChangeLoginAndPasswordCommand"%>
+	import="by.koroza.zoo_market.web.command.impl.change.ChangeLoginAndPasswordCommand"%>
 <!DOCTYPE html>
 <html>
 <head>

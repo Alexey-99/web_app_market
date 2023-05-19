@@ -1,25 +1,25 @@
 package by.koroza.zoo_market.web.command;
 
-import by.koroza.zoo_market.web.command.impl.ChangeLoginAndPasswordCommand;
-import by.koroza.zoo_market.web.command.impl.ChangePersonInformationCommand;
 import by.koroza.zoo_market.web.command.impl.OrderPaymentCommand;
 import by.koroza.zoo_market.web.command.impl.RegistrationUserCommand;
 import by.koroza.zoo_market.web.command.impl.SendOneMoreTimeVerificationCodeCommand;
-import by.koroza.zoo_market.web.command.impl.ShowBacketPageCommand;
-import by.koroza.zoo_market.web.command.impl.ShowHomePageCommand;
-import by.koroza.zoo_market.web.command.impl.ShowPersonalAccountPersonInfomationPageCommand;
-import by.koroza.zoo_market.web.command.impl.ShowProductFeedsAndOtherIncludedFilterCommand;
-import by.koroza.zoo_market.web.command.impl.ShowProductFeedsAndOtherOffFilterCommand;
-import by.koroza.zoo_market.web.command.impl.ShowProductPetsIncludedFilterCommand;
-import by.koroza.zoo_market.web.command.impl.ShowProductPetsOffFilterCommand;
-import by.koroza.zoo_market.web.command.impl.ShowVerificationPersonAccountFormCommand;
-import by.koroza.zoo_market.web.command.impl.SignInPersonAccountCommand;
-import by.koroza.zoo_market.web.command.impl.SignOutPersonalAccountCommand;
-import by.koroza.zoo_market.web.command.impl.VerificationPersonAccountCommand;
-import by.koroza.zoo_market.web.command.impl.VerificationRegistrationInformationCommand;
+import by.koroza.zoo_market.web.command.impl.change.ChangeLoginAndPasswordCommand;
+import by.koroza.zoo_market.web.command.impl.change.ChangePersonInformationCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetEnglishLocaleCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetRussinLocaleCommand;
-import by.koroza.zoo_market.web.command.impl.ShowPersonalAccountHistoryOrdersPageCommand;
+import by.koroza.zoo_market.web.command.impl.show.ShowBacketPageCommand;
+import by.koroza.zoo_market.web.command.impl.show.ShowHomePageCommand;
+import by.koroza.zoo_market.web.command.impl.show.ShowPersonalAccountHistoryOrdersPageCommand;
+import by.koroza.zoo_market.web.command.impl.show.ShowPersonalAccountPersonInfomationPageCommand;
+import by.koroza.zoo_market.web.command.impl.show.ShowProductFeedsAndOtherIncludedFilterCommand;
+import by.koroza.zoo_market.web.command.impl.show.ShowProductFeedsAndOtherOffFilterCommand;
+import by.koroza.zoo_market.web.command.impl.show.ShowProductPetsIncludedFilterCommand;
+import by.koroza.zoo_market.web.command.impl.show.ShowProductPetsOffFilterCommand;
+import by.koroza.zoo_market.web.command.impl.show.ShowVerificationPersonAccountFormCommand;
+import by.koroza.zoo_market.web.command.impl.sign.SignInPersonAccountCommand;
+import by.koroza.zoo_market.web.command.impl.sign.SignOutPersonalAccountCommand;
+import by.koroza.zoo_market.web.command.impl.varification.VerificationPersonAccountCommand;
+import by.koroza.zoo_market.web.command.impl.varification.VerificationRegistrationInformationCommand;
 
 public enum CommandType {
 	SHOW_PRODUCT_PETS_OFF_FILTER(new ShowProductPetsOffFilterCommand()),

@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.impl;
+package by.koroza.zoo_market.web.command.impl.varification;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 import static by.koroza.zoo_market.web.command.name.PagePathName.VERIFICATION_PERSONAL_ACCOUNT_PAGE_PATH;

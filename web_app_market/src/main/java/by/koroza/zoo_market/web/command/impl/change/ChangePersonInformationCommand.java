@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.impl;
+package by.koroza.zoo_market.web.command.impl.change;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_CHANGING_PERSON_INFOMATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;

@@ -1,18 +1,18 @@
-package by.koroza.zoo_market.web.command.impl;
+package by.koroza.zoo_market.web.command.impl.show;
 
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
-import by.koroza.zoo_market.web.command.name.PagePathName;
 import by.koroza.zoo_market.web.controler.Router;
+
+import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-public class ShowHomePageCommand implements Command {
+public class ShowPersonalAccountPersonInfomationPageCommand implements Command {
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
 		isRegistratedUser(request);
-		return new Router(PagePathName.HOME_PAGE_PATH);
+		return new Router(PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH);
 	}
-
 }

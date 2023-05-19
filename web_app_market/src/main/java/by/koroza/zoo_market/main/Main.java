@@ -15,7 +15,7 @@ import by.koroza.zoo_market.dao.impl.OrderDaoImpl;
 import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.reserved.User;
 import by.koroza.zoo_market.service.sender.EmailSender;
-import by.koroza.zoo_market.web.command.impl.ChangePersonInformationCommand;
+import by.koroza.zoo_market.web.command.impl.change.ChangePersonInformationCommand;
 
 public class Main {
 	private static final Logger log = LogManager.getLogger();

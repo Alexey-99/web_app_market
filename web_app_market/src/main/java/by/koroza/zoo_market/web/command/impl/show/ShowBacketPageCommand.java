@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.impl;
+package by.koroza.zoo_market.web.command.impl.show;
 
 import static by.koroza.zoo_market.web.command.name.PagePathName.BACKET_WITH_PRODUCTS_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;

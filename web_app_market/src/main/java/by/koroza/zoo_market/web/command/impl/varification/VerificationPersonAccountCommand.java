@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.impl;
+package by.koroza.zoo_market.web.command.impl.varification;
 
 import static by.koroza.zoo_market.web.command.name.InputName.VERIFICATION_PERSON_ACCOUNT_INPUT_CODE;
 
