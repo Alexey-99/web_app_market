@@ -1,0 +1,207 @@
+.person_account_menu_links {
+	flex-direction: column;
+	width: 100%;
+	/*border-radius: 0.4rem;
+    border: 1px solid;*/
+}
+
+/*.btn-group > .btn_last:nth-child(n+3), .btn-group > :not(.btn-check){
+border-bottom-right-radius: 0.4rem;
+border-bottom-left-radius: 0.4rem;
+}*/
+
+/*.btn-group > .btn_first:nth-child(n+3), .btn-group > .btn:not(:last-child):not(.dropdown-toggle){
+    border-top-right-radius: 0.4rem;
+    border-top-left-radius: 0.4rem;
+}*/
+
+/*.btn-group > .btn:not(:last-child):not(.dropdown-toggle){
+    border-top-right-radius: 0rem;
+    border-top-left-radius: 0rem;
+    border-bottom-right-radius: 0rem;
+border-bottom-left-radius: 0rem;
+}*/
+.btn {
+	border-radius: 0;
+	border-top-right-radius: 0rem;
+	border-top-left-radius: 0rem;
+	border-bottom-right-radius: 0rem;
+	border-bottom-left-radius: 0rem;
+}
+
+.btn-group>:not(.btn-check:first-child)+.btn, .btn-group>.btn-group:not(:first-child)
+	{
+	margin-left: 0;
+}
+
+.btn_first, .btn-group>.btn_first:not(:last-child):not(.dropdown-toggle)
+	{
+	border-top-right-radius: 0.4rem;
+	border-top-left-radius: 0.4rem;
+}
+
+.btn_last, .btn-group>.btn_last:nth-child(n+3) {
+	border-bottom-right-radius: 0.4rem;
+	border-bottom-left-radius: 0.4rem;
+}
+
+.person_account_menu_link {
+	background: var(--color2);
+	border-color: var(--color1);
+	color: #3e3e3e;
+	font-weight: 600;
+	font-size: 1.2em;
+}
+
+.person_account_menu_link.active, .person_account_menu_link:hover {
+	background: var(--color1);
+	color: #3e3e3e;
+	font-weight: 600;
+	border-color: var(--color1);
+}
+
+.btn {
+	margin-left: 0;
+}
+
+.person_part_title {
+	font-weight: 900;
+}
+
+.change_infomation_btn:hover svg path {
+	stroke: #3e3e3e;
+}
+
+.hide_password {
+	-webkit-text-security: disc;
+}
+
+.show_password {
+	-webkit-text-security: none;
+}
+
+.open_eye {
+	display: block;
+}
+
+.closed_eye {
+	display: none;
+}
+
+.general_infomation_form, .login_password_form {
+	z-index: 7;
+	background-color: rgba(0, 0, 0, 0.2);
+	backdrop-filter: blur(5px);
+}
+
+.general_infomation_form_inner, .login_password_form_inner {
+	max-width: 580px;
+	padding: 50px 30px 30px;
+	margin: 0 25px;
+	background: #fff;
+	border-radius: 20px;
+	box-shadow: 0 3px 12px rgb(0 0 0/ 10%);
+}
+
+.close_btn {
+	content: '';
+	background-image: url(http://127.0.0.1:5500/img/icons8-close-25.svg);
+	background-repeat: no-repeat;
+	background-size: contain;
+	position: absolute;
+	top: 30px;
+	right: 25px;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}
+
+.form_title, .part_title {
+	font-weight: 800;
+	font-size: 1.5em;
+	line-height: 1.25em;
+	color: #3e3e3e;
+}
+
+.general_infomation_form_fotter, .login_password_form_fotter {
+	margin-top: 30px;
+}
+
+.general_infomation_form_btn_submit, .login_password_form_btn_submit {
+	width: 200px;
+	background: linear-gradient(198.09deg, var(--color2) -4.56%,
+		var(--color1) 101.81%);
+	font-size: 1em;
+	line-height: 1.25em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 60px;
+	font-weight: 700;
+	border-radius: 35px;
+	border: none;
+	outline: none;
+	text-transform: uppercase;
+}
+
+.general_infomation_form_btn_submit:hover,
+	.login_password_form_btn_submit:hover {
+	border: 2px solid var(--color1);
+	transition: all 1s;
+}
+
+.general_infomation_form_btn_cancel, .login_password_form_btn_cancel {
+	text-transform: uppercase;
+	width: 140px;
+	margin-right: 10px;
+	border: 2px solid #e8e8e8;
+	color: #3e3e3e;
+	font-size: 1em;
+	line-height: 1.25em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 60px;
+	font-weight: 700;
+	border-radius: 35px;
+	outline: none;
+}
+
+.general_infomation_form_btn_cancel:hover,
+	.login_password_form_btn_cancel:hover {
+	border: 2px solid #3e3e3e;
+	transition: all 1s;
+}
+
+.accordion-item {
+	border: 1px solid var(--color1);
+}
+
+.accordion {
+	--bs-accordion-active-color: var(--color3);
+}
+
+.accordion-button:focus {
+	border-color: var(--color1);
+	--bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem var(--color1);
+}
+
+.accordion-button:not(.collapsed) {
+	background: linear-gradient(198.09deg, var(--color1) -4.56%,
+		var(--color2) 101.81%);
+}
+
+.accordion_item_four_span {
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+.accordion_header_btn {
+	background-color: var(--color2);
+}
+
+.accordion_footer {
+	border: 1px solid var(--color1);
+	background: linear-gradient(198.09deg, var(--color1) -4.56%,
+		var(--color2) 101.81%);
+}

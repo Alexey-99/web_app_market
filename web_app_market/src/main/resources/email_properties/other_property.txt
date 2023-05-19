@@ -1,0 +1,4 @@
+internet_address_gmail_from=zoo.market007@gmail.com
+internet_address_gmail_password_from=!zoo.market007!
+password_smtp=gxpqnbnknymtncjj
+internet_address_from=zoo.market007

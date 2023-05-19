@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+footer {
+	background: var(--color2);
+	background: -moz-linear-gradient(left, var(--color2) 0%, var(--color1)
+		100%);
+	background: -webkit-linear-gradient(left, var(--color2) 0%,
+		var(--color1) 100%);
+	background: linear-gradient(to right, var(--color2) 0%, var(--color1)
+		100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=var(--color2),
+		endColorstr=var(--color1), GradientType=1);
+}
+
+.footer {
+	display: flex;
+	align-items: center;
+	padding: 40px 0;
+}

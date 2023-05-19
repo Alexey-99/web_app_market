@@ -1,0 +1,85 @@
+package by.koroza.zoo_market.service.impl;
+
+import java.util.Optional;
+
+import by.koroza.zoo_market.dao.exception.DaoException;
+import by.koroza.zoo_market.dao.impl.UserDaoImpl;
+import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
+import by.koroza.zoo_market.service.UserService;
+import by.koroza.zoo_market.service.exception.ServiceException;
+
+public class UserServiceImpl implements UserService {
+	private static final UserService INSTANCE = new UserServiceImpl();
+
+	private UserServiceImpl() {
+	}
+
+	public static UserService getInstance() {
+		return INSTANCE;
+	}
+
+	@Override
+	public boolean addRegistratedUserToBD(AbstractRegistratedUser user) throws ServiceException {
+		try {
+			return UserDaoImpl.getInstance().addUser(user);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public boolean checkRepeatLogin(String login) throws ServiceException {
+		try {
+			return UserDaoImpl.getInstance().checkRepeatLogin(login);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public long getUserIdByLogin(String login) throws ServiceException {
+		try {
+			return UserDaoImpl.getInstance().getUserIdByLogin(login);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public boolean changeRoleStatus(long userId, int roleStatusId) throws ServiceException {
+		try {
+			return UserDaoImpl.getInstance().changeRoleStatus(userId, roleStatusId);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public Optional<AbstractRegistratedUser> getUserByLogin(String login, String password) throws ServiceException {
+		try {
+			return UserDaoImpl.getInstance().getUserByLogin(login, password);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public boolean changePersonInformation(AbstractRegistratedUser user, String name, String surname, String email)
+			throws ServiceException {
+		try {
+			return UserDaoImpl.getInstance().changePersonInformation(user, name, surname, email);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public boolean changeLoginAndPassword(AbstractRegistratedUser user, String login, String password)
+			throws ServiceException {
+		try {
+			return UserDaoImpl.getInstance().changeLoginAndPassword(user, login, password);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+}

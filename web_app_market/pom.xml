@@ -1,0 +1,113 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>by.koroza</groupId>
+	<artifactId>web_app_market</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>web_app_market</name>
+	<description>web_app_market</description>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<release>18</release>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.3</version>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>7.6.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.19.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.19.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-nop</artifactId>
+			<version>1.7.36</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.32</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>6.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/jakarta.servlet.jsp/jakarta.servlet.jsp-api -->
+		<dependency>
+			<groupId>jakarta.servlet.jsp</groupId>
+			<artifactId>jakarta.servlet.jsp-api</artifactId>
+			<version>3.1.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api -->
+		<dependency>
+			<groupId>jakarta.servlet.jsp.jstl</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/jakarta.el/jakarta.el-api -->
+		<dependency>
+			<groupId>jakarta.el</groupId>
+			<artifactId>jakarta.el-api</artifactId>
+			<version>5.0.1</version>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/jakarta.mail/jakarta.mail-api -->
+		<dependency>
+			<groupId>jakarta.mail</groupId>
+			<artifactId>jakarta.mail-api</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+
+		<!-- https://github.com/eclipse-ee4j/angus-mail -->
+		<dependency>
+			<groupId>org.eclipse.angus</groupId>
+			<artifactId>jakarta.mail</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+	</dependencies>
+</project>

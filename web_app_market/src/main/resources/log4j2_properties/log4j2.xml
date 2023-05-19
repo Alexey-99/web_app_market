@@ -1,0 +1,50 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<Configuration status="INFO">
+	<Properties>
+		<property name="LOG_FOLDER">logs</property>
+		<property name="LOG_ARCHIVE">archive</property>
+		<property name="pattern_file_info">%d{yyyy-MM-dd HH:mm:ss:SSSS} %-5level
+			%logger{}.%M - %msg%n</property>
+		<property name="pattern_file_debug">%d{yyyy-MM-dd HH:mm:ss:SSSS} %-5level
+			%logger{}.%M - line %L - %msg%n</property>
+		<property name="pattern_console">%d{HH:mm:ss} %-5level %logger{}.%M - %msg%n</property>
+	</Properties>
+	<Appenders>
+		<Console name="LogToConsole" target="SYSTEM_OUT">
+			<PatternLayout pattern="${pattern_console}" />
+		</Console>
+		<RollingFile name="LogToRollingFileInfo"
+			fileName="${LOG_FOLDER}/info_logs.txt" append="true"
+			filePattern="${LOG_FOLDER}/${LOG_ARCHIVE}/${date:yyyy-MM-dd}/info_logs/%d{yyyy-MM-dd_HH-mm}_%i.txt.gz">
+			<PatternLayout pattern="${pattern_file_info}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="200 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+		<RollingFile name="LogToRollingFileDebug"
+			fileName="${LOG_FOLDER}/debug_logs.txt" append="true"
+			filePattern="${LOG_FOLDER}/${LOG_ARCHIVE}/${date:yyyy-MM-dd}/debug_logs/%d{yyyy-MM-dd_HH-mm}_%i.txt.gz">
+			<PatternLayout pattern="${pattern_file_debug}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="200 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="by.koroza.web_app_market" level="TRACE"
+			additivity="false">
+			<AppenderRef ref="LogToConsole" />
+			<AppenderRef ref="LogToRollingFileInfo" />
+			<AppenderRef ref="LogToRollingFileDebug" />
+		</Logger>
+		<Root level="TRACE">
+			<AppenderRef ref="LogToConsole" level="INFO" />
+			<AppenderRef ref="LogToRollingFileInfo" level="INFO" />
+			<AppenderRef ref="LogToRollingFileDebug" level="DEBUG" />
+		</Root>
+	</Loggers>
+</Configuration>

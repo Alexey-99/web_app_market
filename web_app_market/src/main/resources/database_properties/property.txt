@@ -1,0 +1,3 @@
+db.url=jdbc:mysql://localhost:3306/market
+db.user=Alexey_99
+db.pass=8201499Alexey@mysql

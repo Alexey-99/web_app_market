@@ -1,0 +1,112 @@
+.sign_in_and_registration_form {
+	z-index: 7;
+	background-color: rgba(0, 0, 0, 0.2);
+	backdrop-filter: blur(5px);
+}
+
+.sign_in_and_registration_form_inner {
+	max-width: 580px;
+	padding: 50px 30px 30px;
+	margin: 0 25px;
+	background: #fff;
+	border-radius: 20px;
+	box-shadow: 0 3px 12px rgb(0 0 0/ 10%);
+}
+
+.close_btn {
+	content: '';
+	background-repeat: no-repeat;
+	background-size: contain;
+	position: absolute;
+	top: 25px;
+	right: 30px;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+	border: 0;
+	background: transparent;
+}
+
+.form_title, .part_title {
+	font-weight: 800;
+	font-size: 1.5em;
+	line-height: 1.25em;
+	color: #3e3e3e;
+}
+
+.sign_in_form_password_btn, .registration_form_password_btn {
+	border: transparent 1px solid;
+	margin-top: 4px;
+}
+
+.sign_in_form_password_btn:hover, .registration_form_password_btn:hover
+	{
+	border: var(--color3) 1px solid;
+	transition: all 0.5s;
+}
+
+.sign_in_form_fotter, .registration_form_fotter {
+	margin-top: 30px;
+}
+
+.sign_in_form_btn_cancel, .registration_form_btn_cancel {
+	text-transform: uppercase;
+	width: 140px;
+	margin-right: 10px;
+	border: 2px solid #e8e8e8;
+	color: #3e3e3e;
+	font-size: 1em;
+	line-height: 1.25em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 60px;
+	font-weight: 700;
+	border-radius: 35px;
+	outline: none;
+}
+
+.sign_in_form_btn_cancel:hover, .registration_form_btn_cancel:hover {
+	border: 2px solid #3e3e3e;
+	transition: all 1s;
+}
+
+.sign_in_form_btn_submit, .registration_form_btn_submit,
+	.sign_in_and_registration_form_top_btn.active {
+	width: 200px;
+	background: linear-gradient(198.09deg, var(--color2) -4.56%,
+		var(--color1) 101.81%);
+	font-size: 1em;
+	line-height: 1.25em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 60px;
+	font-weight: 700;
+	border-radius: 35px;
+	outline: none;
+	text-transform: uppercase;
+	border: 2px solid transparent;
+	color: #3e3e3e;
+}
+
+.sign_in_form_btn_submit:hover, .registration_form_btn_submit:hover,
+	.sign_in_and_registration_form_top_btn:hover {
+	border: 2px solid var(--color1);
+	transition: all 0.5s;
+}
+
+.sign_in_and_registration_form_top_btn {
+	text-transform: uppercase;
+	border-radius: 35px;
+	border: 2px solid transparent;
+	font-size: 1em;
+	line-height: 1.25em;
+	height: 60px;
+	font-weight: 700;
+	color: #3e3e3e;
+}
+
+.registration_form_body_label, .sign_in_form_body_label {
+	color: rgba(173, 181, 189, 0.75);
+}
