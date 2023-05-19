@@ -36,7 +36,7 @@ public class PreviousPageFilter extends HttpFilter implements Filter {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		String current = httpServletRequest.getRequestURI();
 		String url = httpServletRequest.getHeader("referer");
-		String subUrl = url.su
+		
 		System.out.println("current = " + current);
 		System.out.println("url = " + url);
 		System.out.println("current page " + current + url);
