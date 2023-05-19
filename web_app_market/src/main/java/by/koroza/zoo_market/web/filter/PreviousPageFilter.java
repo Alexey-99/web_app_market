@@ -2,8 +2,8 @@ package by.koroza.zoo_market.web.filter;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PREVIOUS_COMMAND;
 
-import static by.koroza.zoo_market.web.command.name.CommandName.COMMAND_SET_RUS_LOCALE;
-import static by.koroza.zoo_market.web.command.name.CommandName.COMMAND_SET_EN_LOCALE;
+import static by.koroza.zoo_market.web.command.name.CommandName.COMMAND_SET_RUSSIAN_LOCALE;
+import static by.koroza.zoo_market.web.command.name.CommandName.COMMAND_SET_ENGLISH_LOCALE;
 
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_COMMAND;
 
@@ -44,8 +44,8 @@ public class PreviousPageFilter extends HttpFilter implements Filter {
 				"------------------------------------PreviousPageFilter--------------------------------------");
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpSession session = httpServletRequest.getSession();
-		if (!request.getParameter(PARAMETER_COMMAND).equals(COMMAND_SET_RUS_LOCALE)
-				&& !request.getParameter(PARAMETER_COMMAND).equals(COMMAND_SET_EN_LOCALE)) {
+		if (!request.getParameter(PARAMETER_COMMAND).equals(COMMAND_SET_RUSSIAN_LOCALE)
+				&& !request.getParameter(PARAMETER_COMMAND).equals(COMMAND_SET_ENGLISH_LOCALE)) {
 			session.setAttribute(ATTRIBUTE_PREVIOUS_COMMAND, request.getParameter(PARAMETER_COMMAND));
 		}
 		chain.doFilter(request, response);

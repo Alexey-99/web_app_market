@@ -17,7 +17,8 @@ import by.koroza.zoo_market.web.command.impl.SignInPersonAccountCommand;
 import by.koroza.zoo_market.web.command.impl.SignOutPersonalAccountCommand;
 import by.koroza.zoo_market.web.command.impl.VerificationPersonAccountCommand;
 import by.koroza.zoo_market.web.command.impl.VerificationRegistrationInformationCommand;
-import by.koroza.zoo_market.web.command.impl.locale.SetRusLocaleCommand;
+import by.koroza.zoo_market.web.command.impl.locale.SetEnglishLocaleCommand;
+import by.koroza.zoo_market.web.command.impl.locale.SetRussinLocaleCommand;
 import by.koroza.zoo_market.web.command.impl.ShowPersonalAccountHistoryOrdersPageCommand;
 
 public enum CommandType {
@@ -36,7 +37,8 @@ public enum CommandType {
 	CHANGE_PERSON_INFORMATION(new ChangePersonInformationCommand()),
 	CHANGE_LOGIN_AND_PASSWORD(new ChangeLoginAndPasswordCommand()),
 	SEND_ONE_MORE_TIME_VERIFICATION_CODE(new SendOneMoreTimeVerificationCodeCommand()),
-	ORDER_PAYMENT(new OrderPaymentCommand()), SIGN_OUT_PERSONAL_ACCOUNT(new SignOutPersonalAccountCommand()), SET_RUS_LOCALE(new SetRusLocaleCommand());
+	ORDER_PAYMENT(new OrderPaymentCommand()), SIGN_OUT_PERSONAL_ACCOUNT(new SignOutPersonalAccountCommand()),
+	SET_RUSSIAN_LOCALE(new SetRussinLocaleCommand()), SET_ENGLISH_LOCALE(new SetEnglishLocaleCommand());
 
 	Command command;
 

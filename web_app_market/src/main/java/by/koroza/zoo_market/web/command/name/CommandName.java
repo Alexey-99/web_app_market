@@ -31,8 +31,8 @@ public class CommandName {
 
 	public static final String COMMAND_SIGN_OUT_PERSONAL_ACCOUNT = "sign_out_personal_account";
 
-	public static final String COMMAND_SET_RUS_LOCALE = "set_rus_locale";
-	public static final String COMMAND_SET_EN_LOCALE = "set_en_locale";
+	public static final String COMMAND_SET_RUSSIAN_LOCALE = "set_russian_locale";
+	public static final String COMMAND_SET_ENGLISH_LOCALE = "set_english_locale";
 
 	private CommandName() {
 	}

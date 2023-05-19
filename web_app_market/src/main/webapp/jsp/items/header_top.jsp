@@ -145,7 +145,7 @@
 		class="col-xl-2 col-lg-6 justify-content-center flex-row flags_icons_btns_xl">
 		<form class="me-3" action="Controller">
 			<input type="hidden" name="command"
-				value="${CommandName.COMMAND_SET_RUS_LOCALE}" />
+				value="${CommandName.COMMAND_SET_ENGLISH_LOCALE}" />
 			<button class="border-0 bg-transparent"
 				style="width: 60px; height: 40px">
 				<svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-gb"
@@ -164,7 +164,7 @@
 		</form>
 		<form class="" action="Controller">
 			<input type="hidden" name="command"
-				value="${CommandName.COMMAND_SET_RUS_LOCALE}" />
+				value="${CommandName.COMMAND_SET_RUSSIAN_LOCALE}" />
 			<button class="border-0 bg-transparent"
 				style="width: 60px; height: 40px">
 				<svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-ru"
@@ -285,7 +285,7 @@
 		<div class="col-lg-2 flags_icons_btns_lg">
 			<form class="me-3" action="Controller">
 				<input type="hidden" name="command"
-					value="${CommandName.COMMAND_SET_RUS_LOCALE}" />
+					value="${CommandName.COMMAND_SET_ENGLISH_LOCALE}" />
 				<button class="border-0 bg-transparent"
 					style="width: 60px; height: 40px">
 					<svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-gb"
@@ -304,7 +304,7 @@
 			</form>
 			<form class="" action="Controller">
 				<input type="hidden" name="command"
-					value="${CommandName.COMMAND_SET_RUS_LOCALE}" />
+					value="${CommandName.COMMAND_SET_RUSSIAN_LOCALE}" />
 				<button class="border-0 bg-transparent"
 					style="width: 60px; height: 40px">
 					<svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-ru"
