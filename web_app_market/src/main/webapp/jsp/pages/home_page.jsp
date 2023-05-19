@@ -6,7 +6,8 @@
 <%@ taglib uri="jakarta.tags.fmt" prefix="fmt"%>
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
 	scope="session" />
-<fmt:setBundle basename="${PagePathName.PAGE_CONTENT_RU_PROPERTIES}" />
+<fmt:setBundle
+	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +20,7 @@
 <title><fmt:message key="home_page.title" /></title>
 </head>
 <body>
+	<span>${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}</span>
 	<header class="header pb-5" style="height: 100vh;">
 		<div class="container">
 			<div class="row header_top">
@@ -32,7 +34,7 @@
 						<div class="col-6">
 							<form class="h-100" action="Controller" method="get">
 								<input type="hidden" name="command"
-									value="${CommandName.COMMAND_SHOW_PRODUCT_PETS_OFF_FILTER_PAGE }">
+									value="${CommandName.COMMAND_SHOW_PRODUCT_PETS_OFF_FILTER_PAGE}">
 								<button
 									class="btn btn-primary w-100 type_products_btn text-uppercase"
 									role="button">

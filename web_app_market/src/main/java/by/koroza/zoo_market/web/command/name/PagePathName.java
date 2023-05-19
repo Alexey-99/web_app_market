@@ -5,7 +5,7 @@ public final class PagePathName {
 	
 	public static final String ERROR_PAGE_500_PATH = "pages/error/error_page_500.jsp";
 	
-	public static final String PAGE_CONTENT_RU_PROPERTIES = "locale.pageContent_ru_RU";
+	public static final String PAGE_CONTENT_PROPERTIES = "locale.pageContent_";
 
 	public static final String PRODUCTS_PETS_PAGE_PATH = "jsp/pages/market_page/pets/products_pets_page.jsp";
 

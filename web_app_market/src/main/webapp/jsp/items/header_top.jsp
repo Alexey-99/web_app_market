@@ -5,12 +5,13 @@
 <%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
 <%@page
 	import="by.koroza.zoo_market.web.command.impl.RegistrationUserCommand"%>
 
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
 	scope="session" />
-<fmt:setBundle basename="${PagePathName.PAGE_CONTENT_RU_PROPERTIES}" />
+
 <!DOCTYPE html>
 <html>
 <head>
