@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <%@ taglib uri="jakarta.tags.fmt" prefix="fmt"%>
 <%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
@@ -392,11 +392,16 @@
 						</div>
 						<div class="sign_in_form_fotter d-flex justify-content-end">
 							<div class="btn sign_in_form_btn_cancel"
-								onclick="closeSignInAndRegistrationForm()"> отмена</div>
+								onclick="closeSignInAndRegistrationForm()">
+								<fmt:message
+									key="header_top.sign_in_and_registartion_form.sign_in_form.footer.button.cancel" />
+							</div>
 							<input type="hidden" name="command"
 								value="${CommandName.COMMAND_SIGN_IN_PERSON_ACCOUNT}" />
 							<button class="btn sign_in_form_btn_submit" role="button">
-								готово</button>
+								<fmt:message
+									key="header_top.sign_in_and_registartion_form.sign_in_form.footer.button.ok" />
+							</button>
 						</div>
 					</form>
 				</div>
@@ -405,8 +410,7 @@
 					<div class="sign_in_form_top">
 						<h2 class="form_title text-center mb-3 text-lowercase">
 							<fmt:message
-								key="header_top.sign_in_and_registartion_form.registartion_form.registartion_form_title.registration" />
-							регистрация
+								key="header_top.sign_in_and_registartion_form.registartion_form.title.registration" />
 						</h2>
 					</div>
 					<form class="registration_form_body" action="Controller">
@@ -416,8 +420,9 @@
 								placeholder="Robert"
 								value='<c:if test="${user.getName() != null && !user.getName().isBlank()}">${user.getName()}</c:if>' />
 							<label class="text-lowercase registration_form_body_label"
-								for="floatingInputName">имя <span>*</span>
-							</label>
+								for="floatingInputName"><fmt:message
+									key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name" />
+								<span>*</span> </label>
 						</div>
 						<div class="form-floating mb-3">
 							<input type="text" class="form-control "
@@ -426,7 +431,9 @@
 								value='<c:if test="${user.getSurname() != null && !user.getSurname().isBlank()}">${user.getSurname()}</c:if>'
 								placeholder="Robert" /> <label
 								class="text-lowercase registration_form_body_label"
-								for="floatingInputSurname">Фамилия<span>*</span>
+								for="floatingInputSurname"> <fmt:message
+									key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname" />
+								<span>*</span>
 							</label>
 						</div>
 						<div class="form-floating mb-3">
@@ -436,7 +443,9 @@
 								placeholder="name@example.com"
 								pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})" /> <label
 								class="text-lowercase registration_form_body_label"
-								for="floatingInputEmail">Адрес электронной почты </label>
+								for="floatingInputEmail"> <fmt:message
+									key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.email_address" />
+							</label>
 						</div>
 						<div class="form-floating mb-3">
 							<input type="text" class="form-control" id="floatingInputLogin"
@@ -444,7 +453,9 @@
 								value='<c:if test="${user.getLogin() != null && !user.getLogin().isBlank()}">${user.getLogin()}</c:if>'
 								placeholder="Robert" /> <label
 								class="text-lowercase registration_form_body_label"
-								for="floatingInputLogin">Логин </label>
+								for="floatingInputLogin"> <fmt:message
+									key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login" />
+							</label>
 						</div>
 						<div
 							class="password_form d-flex juctify-content-between align-items-center">
@@ -456,7 +467,9 @@
 									value='<c:if test="${user.getPassword() != null && !user.getPassword().isBlank()}">${user.getPassword()}</c:if>'
 									placeholder="123456" /> <label
 									class="text-lowercase registration_form_body_label"
-									for="floatingInputPassword">Пароль</label>
+									for="floatingInputPassword"><fmt:message
+										key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password" />
+								</label>
 							</div>
 							<div class="btn registration_form_password_btn mb-5 "
 								onclick="showPasswordRegistrationFormInput()">
@@ -476,16 +489,24 @@
 						</div>
 						<div class="form_description">
 							<h5>
-								<span>*</span> - поле не обязательное для заполнения
+								<span>* </span>
+								<fmt:message
+									key="header_top.sign_in_and_registartion_form.registartion_form.body.form_description.field_is_not_reguired_for_enter_information" />
 							</h5>
 						</div>
 
 						<div class="registration_form_fotter d-flex justify-content-end">
 							<div class="btn registration_form_btn_cancel"
-								onclick="closeSignInAndRegistrationForm()">отмена</div>
+								onclick="closeSignInAndRegistrationForm()">
+								<fmt:message
+									key="header_top.sign_in_and_registartion_form.registartion_form.footer.button.cancel" />
+							</div>
 							<input type="hidden" name="command"
 								value="${CommandName.COMMAND_REGISTRATION_USER}" />
-							<button class="btn registration_form_btn_submit" role="button">готово</button>
+							<button class="btn registration_form_btn_submit" role="button">
+								<fmt:message
+									key="header_top.sign_in_and_registartion_form.registartion_form.footer.button.ok" />
+							</button>
 						</div>
 					</form>
 				</div>
@@ -497,7 +518,6 @@
 	<script src="js/header_top.js"></script>
 	<script src="js/min_base.js"></script>
 	<script src="js/sign_in_and_registration_form.js"></script>
-
 
 </body>
 </html>
