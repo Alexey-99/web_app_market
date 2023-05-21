@@ -65,12 +65,12 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 				pets = ProductPetServiceImpl.getInstance().getProductsPetsByFilter(filter);
 				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, pets);
 				if (session.getAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER) == null) {
-					List<Pet> allProductsPets = ProductPetServiceImpl.getInstance().getAllProductsPets();
+					List<Pet> allProductsPets = ProductPetServiceImpl.getInstance().getAllHavingProductsPets();
 					Map<String, Set<String>> filterMap = createFilter(allProductsPets);
 					session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER, filterMap);
 				}
 			} catch (InputException e) {
-				pets = ProductPetServiceImpl.getInstance().getAllProductsPets();
+				pets = ProductPetServiceImpl.getInstance().getAllHavingProductsPets();
 				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, pets);
 				if (session.getAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER) == null) {
 					Map<String, Set<String>> filterMap = createFilter(pets);

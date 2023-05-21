@@ -9,7 +9,7 @@ import by.koroza.zoo_market.service.exception.ServiceException;
 
 public interface ProductPetService {
 
-	public List<Pet> getAllProductsPets() throws ServiceException;
+	public List<Pet> getAllHavingProductsPets() throws ServiceException;
 
 	public List<Pet> getProductsPetsById(Map<String, String> productsIdMap) throws ServiceException;
 

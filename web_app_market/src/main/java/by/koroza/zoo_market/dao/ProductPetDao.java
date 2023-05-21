@@ -9,7 +9,7 @@ import by.koroza.zoo_market.model.entity.market.product.Pet;
 
 public interface ProductPetDao {
 
-	public List<Pet> getAllProductsPets() throws DaoException;
+	public List<Pet> getAllHavingProductsPets() throws DaoException;
 
 	public List<Pet> getProductsPetsById(Map<String, String> productsIdMap) throws DaoException;
 

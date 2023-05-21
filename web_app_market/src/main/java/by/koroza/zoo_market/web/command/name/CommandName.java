@@ -7,6 +7,7 @@ public class CommandName {
 
 	public static final String COMMAND_SHOW_PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE = "show_personal_account_person_information_page";
 	public static final String COMMAND_SHOW_PERSONAL_ACCOUNT_HISTORY_ORDERS_PAGE = "show_personal_account_history_orders_page";
+	public static final String COMMAND_SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE = "show_personal_account_admin_page";
 
 	public static final String COMMAND_SHOW_PRODUCT_PETS_OFF_FILTER_PAGE = "show_product_pets_off_filter";
 	public static final String COMMAND_SHOW_PRODUCT_PETS_INCLUDED_FILTER_PAGE = "show_product_pets_included_filter";

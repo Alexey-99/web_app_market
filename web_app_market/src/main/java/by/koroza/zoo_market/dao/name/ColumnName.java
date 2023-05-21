@@ -25,6 +25,7 @@ public final class ColumnName {
 	public static final String PETS_PRICE = "pets.price";
 	public static final String PETS_STATUS_ID = "pets.status_id";
 	public static final String PETS_DISCOUNT = "pets.discount";
+	public static final String PETS_NUMBER_OF_UNITS_PRODUCT = "pets.number_of_units_products";
 	public static final String PETS_DATE_UPDATE = "pets.date_update";
 
 	public static final String FEEDS_AND_OTHER_ID = "feeds_and_other.id";
@@ -35,6 +36,7 @@ public final class ColumnName {
 	public static final String FEEDS_AND_OTHER_PRICE = "feeds_and_other.price";
 	public static final String FEEDS_AND_OTHER_STATUS_ID = "feeds_and_other.statuses_id";
 	public static final String FEEDS_AND_OTHER_DISCOUNT = "feeds_and_other.discount";
+	public static final String FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT = "feeds_and_other.number_of_units_products";
 	public static final String FEEDS_AND_OTHER_DATE_UPDATE = "feeds_and_other.date_update";
 
 	public static final String ORDER_STUTUSES_ID = "order_statuses.id";

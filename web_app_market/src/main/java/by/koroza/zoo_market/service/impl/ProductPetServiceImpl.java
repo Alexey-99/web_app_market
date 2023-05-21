@@ -22,9 +22,9 @@ public class ProductPetServiceImpl implements ProductPetService {
 	}
 
 	@Override
-	public List<Pet> getAllProductsPets() throws ServiceException {
+	public List<Pet> getAllHavingProductsPets() throws ServiceException {
 		try {
-			return ProductPetDaoImpl.getInstance().getAllProductsPets();
+			return ProductPetDaoImpl.getInstance().getAllHavingProductsPets();
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}

@@ -37,7 +37,7 @@ public class ShowProductPetsOffFilterCommand implements Command {
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		List<Pet> pets = new ArrayList<>();
 		try {
-			pets = ProductPetServiceImpl.getInstance().getAllProductsPets();
+			pets = ProductPetServiceImpl.getInstance().getAllHavingProductsPets();
 			session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, pets);
 			Map<String, Set<String>> filter = createFilter(pets);
 			session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER, filter);

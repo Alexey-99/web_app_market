@@ -9,6 +9,7 @@ import by.koroza.zoo_market.web.command.impl.locale.SetEnglishLocaleCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetRussinLocaleCommand;
 import by.koroza.zoo_market.web.command.impl.show.ShowBacketPageCommand;
 import by.koroza.zoo_market.web.command.impl.show.ShowHomePageCommand;
+import by.koroza.zoo_market.web.command.impl.show.ShowPersonalAccountAdminPage;
 import by.koroza.zoo_market.web.command.impl.show.ShowPersonalAccountHistoryOrdersPageCommand;
 import by.koroza.zoo_market.web.command.impl.show.ShowPersonalAccountPersonInfomationPageCommand;
 import by.koroza.zoo_market.web.command.impl.show.ShowProductFeedsAndOtherIncludedFilterCommand;
@@ -38,16 +39,17 @@ public enum CommandType {
 	CHANGE_LOGIN_AND_PASSWORD(new ChangeLoginAndPasswordCommand()),
 	SEND_ONE_MORE_TIME_VERIFICATION_CODE(new SendOneMoreTimeVerificationCodeCommand()),
 	ORDER_PAYMENT(new OrderPaymentCommand()), SIGN_OUT_PERSONAL_ACCOUNT(new SignOutPersonalAccountCommand()),
-	SET_RUSSIAN_LOCALE(new SetRussinLocaleCommand()), SET_ENGLISH_LOCALE(new SetEnglishLocaleCommand());
+	SET_RUSSIAN_LOCALE(new SetRussinLocaleCommand()), SET_ENGLISH_LOCALE(new SetEnglishLocaleCommand()),
+	SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE(new ShowPersonalAccountAdminPage());
 
-	Command command;
+	private Command command;
 
 	private CommandType(Command command) {
 		this.command = command;
 	}
 
 	public Command getCommand() {
-		return command;
+		return this.command;
 	}
 
 	public void setCommand(Command command) {

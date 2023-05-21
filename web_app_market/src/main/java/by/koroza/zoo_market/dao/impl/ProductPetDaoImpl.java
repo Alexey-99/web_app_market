@@ -35,19 +35,19 @@ public class ProductPetDaoImpl implements ProductPetDao {
 		return INSTANCE;
 	}
 
-	private static final String QUERY_SELECT_ALL_PRODUCTS_PETS = """
-			SELECT pets.id, pets.specie, pets.breed, pets.birth_date, pets.price, product_statuses.name, pets.discount, pets.date_update
+	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS = """
+			SELECT pets.id, pets.specie, pets.breed, pets.birth_date, pets.price, product_statuses.name, pets.discount, pets.date_update, pets.number_of_units_products
 			FROM pets
 			JOIN product_statuses
 			ON pets.status_id = product_statuses.id
-			WHERE pets.status_id = 1;
+			WHERE pets.status_id = 1 AND pets.number_of_units_products > 0;
 			""";
 
 	@Override
-	public List<Pet> getAllProductsPets() throws DaoException {
+	public List<Pet> getAllHavingProductsPets() throws DaoException {
 		List<Pet> listPets = new ArrayList<>();
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
-				PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_ALL_PRODUCTS_PETS);
+				PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS);
 				ResultSet resultSet = statement.executeQuery()) {
 			while (resultSet.next()) {
 				Pet pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
