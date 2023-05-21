@@ -40,8 +40,6 @@ public class PreviousPageFilter extends HttpFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		System.out.println(
-				"------------------------------------PreviousPageFilter--------------------------------------");
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpSession session = httpServletRequest.getSession();
 		if (!request.getParameter(PARAMETER_COMMAND).equals(COMMAND_SET_RUSSIAN_LOCALE)

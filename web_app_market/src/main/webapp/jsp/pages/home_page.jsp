@@ -6,6 +6,7 @@
 <%@ taglib uri="jakarta.tags.fmt" prefix="fmt"%>
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
 	scope="session" />
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 <fmt:setBundle
 	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
 <!DOCTYPE html>
@@ -64,7 +65,8 @@
 			<div class="row">
 				<div class="col-12 promotions_title">
 					<h5 class="text-center text-uppercase mb-5 mt-5 promotions_title">
-						Акции</h5>
+						<fmt:message key="header_top.promotions" />
+					</h5>
 				</div>
 			</div>
 			<div id="carouselExampleIndicators"
@@ -86,8 +88,8 @@
 					<div class="carousel-item active clide">
 						<div class="row">
 							<div class="col-6">
-								<img src="./img/header_background.jpeg"
-									class="d-block img-fluid carousel-item_img" alt="..." />
+								<img src="img/logo.svg"
+									class="d-block img-fluid carousel-item_img" alt="logo.svg" />
 							</div>
 							<div class="col-6">Lorem ipsum dolor sit amet consectetur
 								adipisicing elit. Maxime labore est blanditiis!</div>
@@ -96,8 +98,8 @@
 					<div class="carousel-item clide">
 						<div class="row">
 							<div class="col-6">
-								<img src="./img/alvan-nee-73flblFUksY-unsplash.jpg"
-									class="d-block img-fluid carousel-item_img" alt="..." />
+								<img src="img/logo.svg"
+									class="d-block img-fluid carousel-item_img" alt="logo.svg" />
 							</div>
 							<div class="col-6">Lorem ipsum dolor sit amet consectetur
 								adipisicing elit. Maxime labore est blanditiis!</div>
@@ -106,8 +108,8 @@
 					<div class="carousel-item clide">
 						<div class="row">
 							<div class="col-6">
-								<img src="./img/richard-burlton-2_dDPHPAr0Y-unsplash.jpg"
-									class="d-block img-fluid carousel-item_img" alt="..." />
+								<img src="img/logo.svg"
+									class="d-block img-fluid carousel-item_img" alt="logo.svg" />
 							</div>
 							<div class="col-6">Lorem ipsum dolor sit amet consectetur
 								adipisicing elit. Maxime labore est blanditiis!</div>
@@ -116,8 +118,8 @@
 					<div class="carousel-item img-fluid clide">
 						<div class="row">
 							<div class="col-6">
-								<img src="./img/pngwing.com.png"
-									class="d-block img-fluid carousel-item_img" alt="..." />
+								<img src="img/logo.svg"
+									class="d-block img-fluid carousel-item_img" alt="logo.svg" />
 							</div>
 							<div class="col-6">Lorem ipsum dolor sit amet consectetur
 								adipisicing elit. Maxime labore est blanditiis!</div>
@@ -126,8 +128,8 @@
 					<div class="carousel-item clide">
 						<div class="row">
 							<div class="col-6">
-								<img src="./img/pngwing.com_1.png"
-									class="d-block img-fluid carousel-item_img" alt="..." />
+								<img src="img/logo.svg"
+									class="d-block img-fluid carousel-item_img" alt="logo.svg" />
 							</div>
 							<div class="col-6">Lorem ipsum dolor sit amet consectetur
 								adipisicing elit. Maxime labore est blanditiis!</div>
@@ -137,12 +139,15 @@
 				<button class="carousel-control-prev" type="button"
 					data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
 					<span class="carousel-control-prev-icon clider_btn_icon"
-						aria-hidden="true"></span> <span class="visually-hidden">Предыдущий</span>
+						aria-hidden="true"></span> <span class="visually-hidden"> <fmt:message
+							key="slider_promotions.previous" />
+					</span>
 				</button>
 				<button class="carousel-control-next" type="button"
 					data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
 					<span class="carousel-control-next-icon clider_btn_icon"
-						aria-hidden="true"></span> <span class="visually-hidden">Следующий</span>
+						aria-hidden="true"></span> <span class="visually-hidden"><fmt:message
+							key="slider_promotions.next" /></span>
 				</button>
 			</div>
 		</div>

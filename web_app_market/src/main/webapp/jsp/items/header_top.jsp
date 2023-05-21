@@ -8,10 +8,11 @@
 <%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
 <%@page
 	import="by.koroza.zoo_market.web.command.impl.RegistrationUserCommand"%>
-
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
 	scope="session" />
-
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
+<fmt:setBundle
+	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -335,24 +336,33 @@
 					</div>
 					<button
 						class="btn text-uppercase active sign_in_and_registration_form_top_btn sign_in_and_registration_form_top_btn_sign_in"
-						role="button" onclick="openSignInForm()">Войти</button>
+						role="button" onclick="openSignInForm()">
+						<fmt:message
+							key="header_top.sign_in_and_registartion_form.sign_in_and_registartion_form_top.sign_in" />
+					</button>
 					<button
 						class="btn  text-uppercase sign_in_and_registration_form_top_btn sign_in_and_registration_form_top_btn_registration"
 						role="button" onclick="openRegistrationForm()">
-						Регистрация</button>
+						<fmt:message
+							key="header_top.sign_in_and_registartion_form.sign_in_and_registartion_form_top.registration" />
+					</button>
 				</div>
 
 				<div class="sign_in_form">
 					<div class="sign_in_form_top">
-						<h2 class="form_title text-center mb-3 text-lowercase">логин
-							и пароль</h2>
+						<h2 class="form_title text-center mb-3 text-lowercase">
+							<fmt:message
+								key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_top.form_title.login_and_password" />
+						</h2>
 					</div>
 					<form class="sign_in_form_body" action="Controller">
 						<div class="form-floating mb-3">
 							<input type="text" class="form-control" id="floatingInputLogin"
 								name="${InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_LOGIN}"
 								placeholder="Robert99" /> <label class="text-lowercase"
-								for="floatingInputLogin">Логин</label>
+								for="floatingInputLogin"><fmt:message
+									key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login" />
+							</label>
 						</div>
 						<div
 							class="form-floating mb-3 d-flex justify-content-center align-items-center">
@@ -361,7 +371,9 @@
 								id="floatingInputPassword"
 								name="${InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_PASSWORD}"
 								placeholder="123456" /> <label class="text-lowercase"
-								for="floatingInputPassword">Пароль</label>
+								for="floatingInputPassword"> <fmt:message
+									key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.password" />
+							</label>
 							<div class="btn sign_in_form_password_btn"
 								onclick="showPasswordSignInFormInput()">
 								<svg class="sign_in_form_open_eye"
@@ -380,7 +392,7 @@
 						</div>
 						<div class="sign_in_form_fotter d-flex justify-content-end">
 							<div class="btn sign_in_form_btn_cancel"
-								onclick="closeSignInAndRegistrationForm()">отмена</div>
+								onclick="closeSignInAndRegistrationForm()"> отмена</div>
 							<input type="hidden" name="command"
 								value="${CommandName.COMMAND_SIGN_IN_PERSON_ACCOUNT}" />
 							<button class="btn sign_in_form_btn_submit" role="button">
@@ -392,7 +404,10 @@
 				<div class="registration_form d-none">
 					<div class="sign_in_form_top">
 						<h2 class="form_title text-center mb-3 text-lowercase">
-							регистрация</h2>
+							<fmt:message
+								key="header_top.sign_in_and_registartion_form.registartion_form.registartion_form_title.registration" />
+							регистрация
+						</h2>
 					</div>
 					<form class="registration_form_body" action="Controller">
 						<div class="form-floating mb-3">

@@ -4,6 +4,7 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_IS_H
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 
 import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
+import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
 
 import java.io.IOException;
 
@@ -45,9 +46,11 @@ public class InitializeDefaultValuesFilter extends HttpFilter implements Filter 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		HttpServletRequest HttpServletRequest = (HttpServletRequest) request;
-		HttpSession session = HttpServletRequest.getSession();
-		if (session.getAttribute(ATTRIBUTE_SESSION_LOCALE) == null) {
+		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+		HttpSession session = httpServletRequest.getSession();
+		if (session.getAttribute(ATTRIBUTE_SESSION_LOCALE) == null
+				|| (!session.getAttribute(ATTRIBUTE_SESSION_LOCALE).equals(RUSSIAN)
+						&& !session.getAttribute(ATTRIBUTE_SESSION_LOCALE).equals(ENGLISH))) {
 			session.setAttribute(ATTRIBUTE_SESSION_LOCALE, RUSSIAN);
 		}
 		if (session.getAttribute(ATTRIBUTE_IS_HAVING_REGISTRATED_USER) == null) {
