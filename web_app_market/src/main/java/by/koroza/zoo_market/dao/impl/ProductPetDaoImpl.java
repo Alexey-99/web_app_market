@@ -7,7 +7,7 @@ import static by.koroza.zoo_market.dao.name.ColumnName.PETS_DISCOUNT;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_PRICE;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_SPECIE;
-import static by.koroza.zoo_market.dao.name.ColumnName.PRODUCT_STATUSES_NAME;
+import static by.koroza.zoo_market.dao.name.ColumnName.PETS_NUMBER_OF_UNITS_PRODUCT;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -50,16 +50,16 @@ public class ProductPetDaoImpl implements ProductPetDao {
 				PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS);
 				ResultSet resultSet = statement.executeQuery()) {
 			while (resultSet.next()) {
-				Pet pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
-						.setSpecie(resultSet.getString(PETS_SPECIE)).setBreed(resultSet.getString(PETS_BREED))
-						.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toString())
-						.setPrice(resultSet.getDouble(PETS_PRICE))
-						.setStutus(ProductStatus.findEqualProductStatus(resultSet.getString(PRODUCT_STATUSES_NAME)))
-						.setDiscount(resultSet.getDouble(PETS_DISCOUNT))
-						.setUpdateDateTime(resultSet.getDate(PETS_DATE_UPDATE).toLocalDate(),
-								resultSet.getTime(PETS_DATE_UPDATE).toLocalTime())
-						.build();
-				listPets.add(pet);
+				for (int i = 0; i < resultSet.getLong(PETS_NUMBER_OF_UNITS_PRODUCT); i++) {
+					Pet pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
+							.setSpecie(resultSet.getString(PETS_SPECIE)).setBreed(resultSet.getString(PETS_BREED))
+							.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toString())
+							.setPrice(resultSet.getDouble(PETS_PRICE)).setDiscount(resultSet.getDouble(PETS_DISCOUNT))
+							.setUpdateDateTime(resultSet.getDate(PETS_DATE_UPDATE).toLocalDate(),
+									resultSet.getTime(PETS_DATE_UPDATE).toLocalTime())
+							.build();
+					listPets.add(pet);
+				}
 			}
 		} catch (SQLException e) {
 			throw new DaoException(e);
@@ -79,9 +79,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 					Pet pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
 							.setSpecie(resultSet.getString(PETS_SPECIE)).setBreed(resultSet.getString(PETS_BREED))
 							.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toString())
-							.setPrice(resultSet.getDouble(PETS_PRICE))
-							.setStutus(ProductStatus.findEqualProductStatus(resultSet.getString(PRODUCT_STATUSES_NAME)))
-							.setDiscount(resultSet.getDouble(PETS_DISCOUNT))
+							.setPrice(resultSet.getDouble(PETS_PRICE)).setDiscount(resultSet.getDouble(PETS_DISCOUNT))
 							.setUpdateDateTime(resultSet.getDate(PETS_DATE_UPDATE).toLocalDate(),
 									resultSet.getTime(PETS_DATE_UPDATE).toLocalTime())
 							.build();
@@ -106,9 +104,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 					Pet pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
 							.setSpecie(resultSet.getString(PETS_SPECIE)).setBreed(resultSet.getString(PETS_BREED))
 							.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toString())
-							.setPrice(resultSet.getDouble(PETS_PRICE))
-							.setStutus(ProductStatus.findEqualProductStatus(resultSet.getString(PRODUCT_STATUSES_NAME)))
-							.setDiscount(resultSet.getDouble(PETS_DISCOUNT))
+							.setPrice(resultSet.getDouble(PETS_PRICE)).setDiscount(resultSet.getDouble(PETS_DISCOUNT))
 							.setUpdateDateTime(resultSet.getDate(PETS_DATE_UPDATE).toLocalDate().toString(),
 									resultSet.getTime(PETS_DATE_UPDATE).toLocalTime().toString())
 							.build();
@@ -131,9 +127,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 				Pet pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
 						.setSpecie(resultSet.getString(PETS_SPECIE)).setBreed(resultSet.getString(PETS_BREED))
 						.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toString())
-						.setPrice(resultSet.getDouble(PETS_PRICE))
-						.setStutus(ProductStatus.findEqualProductStatus(resultSet.getString(PRODUCT_STATUSES_NAME)))
-						.setDiscount(resultSet.getDouble(PETS_DISCOUNT))
+						.setPrice(resultSet.getDouble(PETS_PRICE)).setDiscount(resultSet.getDouble(PETS_DISCOUNT))
 						.setUpdateDateTime(resultSet.getDate(PETS_DATE_UPDATE).toLocalDate().toString(),
 								resultSet.getTime(PETS_DATE_UPDATE).toLocalTime().toString())
 						.build();
@@ -147,17 +141,17 @@ public class ProductPetDaoImpl implements ProductPetDao {
 
 	private static final char CODE_OF_TYPE_PRODUCT_PET = 'p';
 
-	private static final String QUERY_SELECT_ALL_PRODUCTS_PETS_NOT_CLOSED = """
+	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS_NOT_CLOSED = """
 			SELECT pets.id, pets.specie, pets.breed, pets.birth_date, pets.price, product_statuses.name, pets.discount, pets.date_update
 			FROM pets
 			JOIN product_statuses
 			ON pets.status_id = product_statuses.id
-			WHERE pets.status_id = 1
+			WHERE pets.status_id = 1 AND pets.number_of_units_products > 0
 			""";
 
 	private String createQueryGetProductsPetsByIdEnd(Map<String, String> productsIdMap) {
 		boolean haveFirstElement = false;
-		StringBuilder query = new StringBuilder(QUERY_SELECT_ALL_PRODUCTS_PETS_NOT_CLOSED);
+		StringBuilder query = new StringBuilder(QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS_NOT_CLOSED);
 		for (Map.Entry<String, String> entry : productsIdMap.entrySet()) {
 			String key = entry.getKey();
 			String value = entry.getValue();
@@ -194,7 +188,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	}
 
 	private String createQueryGetProductsPetsByFilter(FilterPet filter) {
-		StringBuilder query = new StringBuilder(QUERY_SELECT_ALL_PRODUCTS_PETS_NOT_CLOSED);
+		StringBuilder query = new StringBuilder(QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS_NOT_CLOSED);
 		int countParameters = 0;
 		if (filter.isOnlyProductsWithDiscont()) {
 			countParameters++;

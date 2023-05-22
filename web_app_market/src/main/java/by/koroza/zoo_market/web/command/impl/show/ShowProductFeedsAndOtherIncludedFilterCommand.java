@@ -60,7 +60,7 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 			try {
 				filterFeedsAndOther = getParametersFromFilter(request);
 				productsByFilter = ProductFeedsAndOtherServiceImpl.getInstance()
-						.getProductsPetsByFilter(filterFeedsAndOther);
+						.getProductsFeedAndOtherByFilter(filterFeedsAndOther);
 				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_FEEDS_AND_OTHER, productsByFilter);
 				if (session.getAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER) == null) {
 					List<FeedAndOther> allProductsFeedAndOther = ProductFeedsAndOtherServiceImpl.getInstance()

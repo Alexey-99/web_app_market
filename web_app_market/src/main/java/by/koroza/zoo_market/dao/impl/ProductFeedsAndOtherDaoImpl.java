@@ -8,7 +8,7 @@ import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_PET_TYPE;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_PRICE;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_TYPE;
-import static by.koroza.zoo_market.dao.name.ColumnName.PRODUCT_STATUSES_NAME;
+import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +21,6 @@ import by.koroza.zoo_market.dao.pool.ConnectionPool;
 import by.koroza.zoo_market.dao.pool.ProxyConnection;
 import by.koroza.zoo_market.model.entity.filter.FilterFeedsAndOther;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
-import by.koroza.zoo_market.model.entity.status.ProductStatus;
 import by.koroza.zoo_market.dao.ProductFeedsAndOtherDao;
 import by.koroza.zoo_market.dao.exception.DaoException;
 
@@ -35,51 +34,21 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 		return INSTANCE;
 	}
 
-	private static final String QUERY_SELECT_ALL_PRODUCTS_FEED_AND_OTHER_CLOSED = """
-			SELECT feeds_and_other.id, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description, feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, product_statuses.name
+	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_FEED_AND_OTHER = """
+			SELECT feeds_and_other.id, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description, feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, feeds_and_other.number_of_units_products
 			FROM feeds_and_other
-			INNER JOIN product_statuses
-			ON feeds_and_other.statuses_id = product_statuses.id
-			WHERE feeds_and_other.statuses_id = 1;
+			WHERE feeds_and_other.number_of_units_products > 0;
 			""";
 
 	@Override
-	public List<FeedAndOther> getAllProductsFeedAndOther() throws DaoException {
+	public List<FeedAndOther> getAllHavingProductsFeedAndOther() throws DaoException {
 		List<FeedAndOther> listFeedAndOther = new ArrayList<>();
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement(QUERY_SELECT_ALL_PRODUCTS_FEED_AND_OTHER_CLOSED);
+						.prepareStatement(QUERY_SELECT_ALL_HAVING_PRODUCTS_FEED_AND_OTHER);
 				ResultSet resultSet = statement.executeQuery()) {
 			while (resultSet.next()) {
-				FeedAndOther feedAndOther = new FeedAndOther.FeedAndOtherBuilder()
-						.setId(resultSet.getLong(FEEDS_AND_OTHER_ID))
-						.setProductType(resultSet.getString(FEEDS_AND_OTHER_TYPE))
-						.setBrand(resultSet.getString(FEEDS_AND_OTHER_BRAND))
-						.setDescriptions(resultSet.getString(FEEDS_AND_OTHER_DESCRIPTION))
-						.setPetTypes(resultSet.getString(FEEDS_AND_OTHER_PET_TYPE))
-						.setPrice(resultSet.getDouble(FEEDS_AND_OTHER_PRICE))
-						.setDiscount(resultSet.getDouble(FEEDS_AND_OTHER_DISCOUNT))
-						.setUpdateDateTime(resultSet.getDate(FEEDS_AND_OTHER_DATE_UPDATE).toLocalDate(),
-								resultSet.getTime(FEEDS_AND_OTHER_DATE_UPDATE).toLocalTime())
-						.setStutus(ProductStatus.findEqualProductStatus(resultSet.getString(PRODUCT_STATUSES_NAME)))
-						.build();
-				listFeedAndOther.add(feedAndOther);
-			}
-		} catch (SQLException e) {
-			throw new DaoException(e);
-		}
-		return listFeedAndOther;
-	}
-
-	@Override
-	public List<FeedAndOther> getProductsFeedAndOtherById(Map<String, String> productsIdMap) throws DaoException {
-		List<FeedAndOther> listFeedAndOther = new ArrayList<>();
-		String query = createQueryGetProductsFeedAndOtherById(productsIdMap);
-		if (query != null) {
-			try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
-					PreparedStatement statement = connection.prepareStatement(query);
-					ResultSet resultSet = statement.executeQuery()) {
-				while (resultSet.next()) {
+				for (int i = 0; i < resultSet.getLong(FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT); i++) {
 					FeedAndOther feedAndOther = new FeedAndOther.FeedAndOtherBuilder()
 							.setId(resultSet.getLong(FEEDS_AND_OTHER_ID))
 							.setProductType(resultSet.getString(FEEDS_AND_OTHER_TYPE))
@@ -90,13 +59,54 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 							.setDiscount(resultSet.getDouble(FEEDS_AND_OTHER_DISCOUNT))
 							.setUpdateDateTime(resultSet.getDate(FEEDS_AND_OTHER_DATE_UPDATE).toLocalDate(),
 									resultSet.getTime(FEEDS_AND_OTHER_DATE_UPDATE).toLocalTime())
-							.setStutus(ProductStatus.findEqualProductStatus(resultSet.getString(PRODUCT_STATUSES_NAME)))
 							.build();
 					listFeedAndOther.add(feedAndOther);
 				}
-			} catch (SQLException | NullPointerException e) {
-				throw new DaoException(e);
 			}
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		return listFeedAndOther;
+	}
+
+	private static final String QUERY_SELECT_PRODUCTS_FEED_AND_OTHER_HAVING_BY_ID = """
+			SELECT feeds_and_other.id, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description, feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, feeds_and_other.number_of_units_products
+			FROM feeds_and_other
+			WHERE feeds_and_other.number_of_units_products > 0 AND feeds_and_other.id = ?;
+			""";
+
+	@Override
+	public List<FeedAndOther> getHavingProductsFeedAndOtherById(Map<String, String> productsIdMap) throws DaoException {
+		List<FeedAndOther> listFeedAndOther = new ArrayList<>();
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
+			for (Map.Entry<String, String> entry : productsIdMap.entrySet()) {
+				char productType = entry.getKey().charAt(0);
+				String id = entry.getValue();
+				if (productType == CODE_OF_TYPE_PRODUCT_FEEDS_AND_OTHER) {
+					try (PreparedStatement statement = connection
+							.prepareStatement(QUERY_SELECT_PRODUCTS_FEED_AND_OTHER_HAVING_BY_ID)) {
+						statement.setLong(1, Long.parseLong(id));
+						try (ResultSet resultSet = statement.executeQuery()) {
+							while (resultSet.next()) {
+								FeedAndOther feedAndOther = new FeedAndOther.FeedAndOtherBuilder()
+										.setId(resultSet.getLong(FEEDS_AND_OTHER_ID))
+										.setProductType(resultSet.getString(FEEDS_AND_OTHER_TYPE))
+										.setBrand(resultSet.getString(FEEDS_AND_OTHER_BRAND))
+										.setDescriptions(resultSet.getString(FEEDS_AND_OTHER_DESCRIPTION))
+										.setPetTypes(resultSet.getString(FEEDS_AND_OTHER_PET_TYPE))
+										.setPrice(resultSet.getDouble(FEEDS_AND_OTHER_PRICE))
+										.setDiscount(resultSet.getDouble(FEEDS_AND_OTHER_DISCOUNT))
+										.setUpdateDateTime(resultSet.getDate(FEEDS_AND_OTHER_DATE_UPDATE).toLocalDate(),
+												resultSet.getTime(FEEDS_AND_OTHER_DATE_UPDATE).toLocalTime())
+										.build();
+								listFeedAndOther.add(feedAndOther);
+							}
+						}
+					}
+				}
+			}
+		} catch (SQLException e) {
+			throw new DaoException(e);
 		}
 		return listFeedAndOther;
 	}
@@ -118,47 +128,25 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 						.setDiscount(resultSet.getDouble(FEEDS_AND_OTHER_DISCOUNT))
 						.setUpdateDateTime(resultSet.getDate(FEEDS_AND_OTHER_DATE_UPDATE).toLocalDate().toString(),
 								resultSet.getTime(FEEDS_AND_OTHER_DATE_UPDATE).toLocalTime().toString())
-						.setStutus(ProductStatus.findEqualProductStatus(resultSet.getString(PRODUCT_STATUSES_NAME)))
 						.build();
 				listFeedAndOther.add(feedAndOther);
 			}
 		} catch (SQLException e) {
 			throw new DaoException(e);
 		}
-
 		return listFeedAndOther;
 	}
 
 	private static final char CODE_OF_TYPE_PRODUCT_FEEDS_AND_OTHER = 'o';
 
-	private static final String QUERY_SELECT_PRODUCTS_FEED_AND_OTHER_NOT_CLOSED = """
-			SELECT feeds_and_other.id, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description, feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, product_statuses.name
+	private static final String QUERY_SELECT_PRODUCTS_FEED_AND_OTHER_HAVING_BY_FILTER = """
+			SELECT feeds_and_other.id, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description, feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, feeds_and_other.number_of_units_products
 			FROM feeds_and_other
-			INNER JOIN product_statuses
-			ON feeds_and_other.statuses_id = product_statuses.id
-			WHERE feeds_and_other.statuses_id = 1
+			WHERE feeds_and_other.number_of_units_products > 0
 			""";
 
-	private String createQueryGetProductsFeedAndOtherById(Map<String, String> productsIdMap) {
-		boolean haveFirstElement = false;
-		StringBuilder query = new StringBuilder(QUERY_SELECT_PRODUCTS_FEED_AND_OTHER_NOT_CLOSED);
-		for (Map.Entry<String, String> entry : productsIdMap.entrySet()) {
-			String key = entry.getKey();
-			String val = entry.getValue();
-			if (key.charAt(0) == CODE_OF_TYPE_PRODUCT_FEEDS_AND_OTHER) {
-				if (haveFirstElement == false) {
-					query.append("and (").append(FEEDS_AND_OTHER_ID).append(" = ").append(val);
-					haveFirstElement = true;
-				} else {
-					query.append(" or ").append(FEEDS_AND_OTHER_ID).append(" = ").append(val);
-				}
-			}
-		}
-		return (haveFirstElement ? query.append(")").append(";").toString() : null);
-	}
-
 	private String createQueryGetProductsPetsByFilter(FilterFeedsAndOther filter) {
-		StringBuilder query = new StringBuilder(QUERY_SELECT_PRODUCTS_FEED_AND_OTHER_NOT_CLOSED);
+		StringBuilder query = new StringBuilder(QUERY_SELECT_PRODUCTS_FEED_AND_OTHER_HAVING_BY_FILTER);
 		int countParameters = 0;
 		if (filter.isOnlyProductsWithDiscont()) {
 			countParameters++;

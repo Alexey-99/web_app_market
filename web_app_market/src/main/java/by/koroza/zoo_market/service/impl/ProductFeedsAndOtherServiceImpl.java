@@ -14,8 +14,6 @@ import by.koroza.zoo_market.service.exception.ServiceException;
 public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherService {
 	private static final ProductFeedsAndOtherService INSTANCE = new ProductFeedsAndOtherServiceImpl();
 
-	private static final char CODE_OF_TYPE_PRODUCT_FEEDS_AND_OTHER = 'o';
-
 	private ProductFeedsAndOtherServiceImpl() {
 	}
 
@@ -26,41 +24,97 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	@Override
 	public List<FeedAndOther> getAllProductsFeedsAndOther() throws ServiceException {
 		try {
-			return ProductFeedsAndOtherDaoImpl.getInstance().getAllProductsFeedAndOther();
+			return ProductFeedsAndOtherDaoImpl.getInstance().getAllHavingProductsFeedAndOther();
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
 	}
 
 	@Override
-	public List<FeedAndOther> getProductsFeedsAndOtherById(Map<String, String> productsIdMap) throws ServiceException {
+	public List<FeedAndOther> getHavingProductsFeedAndOtherById(Map<String, String> productsIdMap)
+			throws ServiceException {
 		try {
-			List<FeedAndOther> productsBD = ProductFeedsAndOtherDaoImpl.getInstance()
-					.getProductsFeedAndOtherById(productsIdMap);
-			List<FeedAndOther> productsOrder = new ArrayList<>();
-			for (Map.Entry<String, String> entry : productsIdMap.entrySet()) {
-				String key = entry.getKey();
-				String val = entry.getValue();
-				if (key.charAt(0) == CODE_OF_TYPE_PRODUCT_FEEDS_AND_OTHER) {
-					for (FeedAndOther product : productsBD) {
-						if (product.getId() == Integer.parseInt(val)) {
-							productsOrder.add(product);
+			return ProductFeedsAndOtherDaoImpl.getInstance().getHavingProductsFeedAndOtherById(productsIdMap);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public List<FeedAndOther> getProductsFeedAndOtherByFilter(FilterFeedsAndOther filter) throws ServiceException {
+		List<FeedAndOther> listProductsWithFilter = new ArrayList<>();
+		try {
+			List<FeedAndOther> listAllHavingProducts = ProductFeedsAndOtherDaoImpl.getInstance()
+					.getAllHavingProductsFeedAndOther();
+			if (filter.isOnlyProductsWithDiscont()) {
+				listProductsWithFilter = listAllHavingProducts.stream().filter(product -> product.getDiscount() > 0)
+						.toList();
+			} else if (filter.getMaxDiscont() != 0 || filter.getMinDiscont() != 0) {
+				listProductsWithFilter = listProductsWithFilter.stream()
+						.filter(product -> product.getDiscount() >= filter.getMinDiscont()
+								&& product.getDiscount() <= filter.getMaxDiscont())
+						.toList();
+			}
+			if (filter.getMaxPrice() != 0 || filter.getMinPrice() != 0) {
+				listProductsWithFilter = listProductsWithFilter.stream()
+						.filter(product -> product.getPrice() >= filter.getMinPrice()
+								&& product.getPrice() <= filter.getMaxPrice())
+						.toList();
+			}
+			selectProductsWithTypeProduct(filter, listProductsWithFilter);
+			selectProductsForTypesPets(filter, listProductsWithFilter);
+			selectProductsWithBrand(filter, listProductsWithFilter);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+		return listProductsWithFilter;
+	}
+
+	private void selectProductsWithTypeProduct(FilterFeedsAndOther filter, List<FeedAndOther> listProductsWithFilter) {
+		String[] productTypes = filter.getChoosedTypesProduct();
+		if (productTypes != null) {
+			listProductsWithFilter = listProductsWithFilter.stream().filter(product -> {
+				boolean flag = false;
+				for (String productType : productTypes) {
+					if (product.getProductType().equalsIgnoreCase(productType)) {
+						flag = true;
+					}
+				}
+				return flag;
+			}).toList();
+		}
+	}
+
+	private void selectProductsForTypesPets(FilterFeedsAndOther filter, List<FeedAndOther> listProductsWithFilter) {
+		String[] typePets = filter.getChoosedTypesPets();
+		if (typePets != null) {
+			listProductsWithFilter = listProductsWithFilter.stream().filter(product -> {
+				boolean flag = false;
+				List<String> listPetTypes = product.getPetTypes();
+				if (listPetTypes != null) {
+					for (String petType : typePets) {
+						if (listPetTypes.contains(petType)) {
+							flag = true;
 						}
 					}
 				}
-			}
-			return productsOrder;
-		} catch (DaoException e) {
-			throw new ServiceException(e);
+				return flag;
+			}).toList();
 		}
 	}
 
-	@Override
-	public List<FeedAndOther> getProductsPetsByFilter(FilterFeedsAndOther filter) throws ServiceException {
-		try {
-			return ProductFeedsAndOtherDaoImpl.getInstance().getProductsFeedAndOtherWithFilter(filter);
-		} catch (DaoException e) {
-			throw new ServiceException(e);
+	private void selectProductsWithBrand(FilterFeedsAndOther filter, List<FeedAndOther> listProductsWithFilter) {
+		String[] brandProduct = filter.getChoosedProductBrend();
+		if (brandProduct != null) {
+			listProductsWithFilter = listProductsWithFilter.stream().filter(product -> {
+				boolean flag = false;
+				for (String brand : brandProduct) {
+					if (product.getBrand().equalsIgnoreCase(brand)) {
+						flag = true;
+					}
+				}
+				return flag;
+			}).toList();
 		}
 	}
 }

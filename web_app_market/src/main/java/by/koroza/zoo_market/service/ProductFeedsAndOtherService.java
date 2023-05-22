@@ -11,7 +11,8 @@ public interface ProductFeedsAndOtherService {
 
 	public List<FeedAndOther> getAllProductsFeedsAndOther() throws ServiceException;
 
-	public List<FeedAndOther> getProductsFeedsAndOtherById(Map<String, String> productsIdMap) throws ServiceException;
+	public List<FeedAndOther> getHavingProductsFeedAndOtherById(Map<String, String> productsIdMap)
+			throws ServiceException;
 
-	public List<FeedAndOther> getProductsPetsByFilter(FilterFeedsAndOther filter) throws ServiceException;
+	public List<FeedAndOther> getProductsFeedAndOtherByFilter(FilterFeedsAndOther filter) throws ServiceException;
 }

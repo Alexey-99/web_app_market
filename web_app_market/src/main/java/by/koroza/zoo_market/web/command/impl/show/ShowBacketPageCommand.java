@@ -45,7 +45,7 @@ public class ShowBacketPageCommand implements Command {
 			try {
 				productsPets = ProductPetServiceImpl.getInstance().getProductsPetsById(productsIdMap);
 				productsOther = ProductFeedsAndOtherServiceImpl.getInstance()
-						.getProductsFeedsAndOtherById(productsIdMap);
+						.getHavingProductsFeedAndOtherById(productsIdMap);
 				order = new Order.OrderBuilder().setUserId(user.getId()).setProductsPets(productsPets)
 						.setOtherProducts(productsOther)
 						.setTotalPaymentAmount(
