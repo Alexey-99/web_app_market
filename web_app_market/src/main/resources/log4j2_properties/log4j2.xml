@@ -11,7 +11,7 @@
 	</Properties>
 	<Appenders>
 		<Console name="LogToConsole" target="SYSTEM_OUT">
-			<PatternLayout pattern="${pattern_console}" />
+			<PatternLayout pattern="${pattern_file_debug}" />
 		</Console>
 		<RollingFile name="LogToRollingFileInfo"
 			fileName="${LOG_FOLDER}/info_logs.txt" append="true"
@@ -31,18 +31,18 @@
 				<TimeBasedTriggeringPolicy />
 				<SizeBasedTriggeringPolicy size="200 MB" />
 			</Policies>
-			<DefaultRolloverStrategy max="10" />
+			<DefaultRolloverStrategy max="100" />
 		</RollingFile>
 	</Appenders>
 	<Loggers>
-		<Logger name="by.koroza.web_app_market" level="TRACE"
-			additivity="false">
+		<Logger name="by.koroza.zoo_market" level="TRACE"
+			additivity="true">
 			<AppenderRef ref="LogToConsole" />
 			<AppenderRef ref="LogToRollingFileInfo" />
 			<AppenderRef ref="LogToRollingFileDebug" />
 		</Logger>
 		<Root level="TRACE">
-			<AppenderRef ref="LogToConsole" level="INFO" />
+			<AppenderRef ref="LogToConsole" level="DEBUG" />
 			<AppenderRef ref="LogToRollingFileInfo" level="INFO" />
 			<AppenderRef ref="LogToRollingFileDebug" level="DEBUG" />
 		</Root>

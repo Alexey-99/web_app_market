@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.koroza.zoo_market.dao.exception.DaoException;
 import by.koroza.zoo_market.dao.impl.ProductFeedsAndOtherDaoImpl;
 import by.koroza.zoo_market.model.entity.filter.FilterFeedsAndOther;
@@ -13,6 +16,7 @@ import by.koroza.zoo_market.service.exception.ServiceException;
 
 public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherService {
 	private static final ProductFeedsAndOtherService INSTANCE = new ProductFeedsAndOtherServiceImpl();
+	private static final Logger log = LogManager.getLogger();
 
 	private ProductFeedsAndOtherServiceImpl() {
 	}
@@ -43,27 +47,37 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	@Override
 	public List<FeedAndOther> getProductsFeedAndOtherByFilter(FilterFeedsAndOther filter) throws ServiceException {
 		List<FeedAndOther> listProductsWithFilter = new ArrayList<>();
+		log.debug("listProductsWithFilter = " + listProductsWithFilter);
 		try {
+//			return ProductFeedsAndOtherDaoImpl.getInstance().getProductsFeedAndOtherWithFilter(filter);
 			List<FeedAndOther> listAllHavingProducts = ProductFeedsAndOtherDaoImpl.getInstance()
 					.getAllHavingProductsFeedAndOther();
+			log.debug("listAllHavingProducts = " + listAllHavingProducts);
 			if (filter.isOnlyProductsWithDiscont()) {
 				listProductsWithFilter = listAllHavingProducts.stream().filter(product -> product.getDiscount() > 0)
 						.toList();
+				log.debug("listProductsWithFilter isOnlyProductsWithDiscont = " + listProductsWithFilter);
 			} else if (filter.getMaxDiscont() != 0 || filter.getMinDiscont() != 0) {
 				listProductsWithFilter = listProductsWithFilter.stream()
 						.filter(product -> product.getDiscount() >= filter.getMinDiscont()
 								&& product.getDiscount() <= filter.getMaxDiscont())
 						.toList();
+				log.debug("listProductsWithFilter = " + listProductsWithFilter);
 			}
 			if (filter.getMaxPrice() != 0 || filter.getMinPrice() != 0) {
 				listProductsWithFilter = listProductsWithFilter.stream()
 						.filter(product -> product.getPrice() >= filter.getMinPrice()
 								&& product.getPrice() <= filter.getMaxPrice())
 						.toList();
+				log.debug("listProductsWithFilter = " + listProductsWithFilter);
 			}
+			log.debug("listProductsWithFilter = " + listProductsWithFilter);
 			selectProductsWithTypeProduct(filter, listProductsWithFilter);
+			log.debug("listProductsWithFilter = " + listProductsWithFilter);
 			selectProductsForTypesPets(filter, listProductsWithFilter);
+			log.debug("listProductsWithFilter = " + listProductsWithFilter);
 			selectProductsWithBrand(filter, listProductsWithFilter);
+			log.debug("listProductsWithFilter = " + listProductsWithFilter);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}

@@ -126,8 +126,8 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 						.setPetTypes(resultSet.getString(FEEDS_AND_OTHER_PET_TYPE))
 						.setPrice(resultSet.getDouble(FEEDS_AND_OTHER_PRICE))
 						.setDiscount(resultSet.getDouble(FEEDS_AND_OTHER_DISCOUNT))
-						.setUpdateDateTime(resultSet.getDate(FEEDS_AND_OTHER_DATE_UPDATE).toLocalDate().toString(),
-								resultSet.getTime(FEEDS_AND_OTHER_DATE_UPDATE).toLocalTime().toString())
+						.setUpdateDateTime(resultSet.getDate(FEEDS_AND_OTHER_DATE_UPDATE).toLocalDate(),
+								resultSet.getTime(FEEDS_AND_OTHER_DATE_UPDATE).toLocalTime())
 						.build();
 				listFeedAndOther.add(feedAndOther);
 			}
