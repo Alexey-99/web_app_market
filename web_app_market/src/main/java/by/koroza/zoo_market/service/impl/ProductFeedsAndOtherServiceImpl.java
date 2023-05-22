@@ -16,6 +16,7 @@ import by.koroza.zoo_market.service.exception.ServiceException;
 
 public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherService {
 	private static final ProductFeedsAndOtherService INSTANCE = new ProductFeedsAndOtherServiceImpl();
+	@SuppressWarnings("unused")
 	private static final Logger log = LogManager.getLogger();
 
 	private ProductFeedsAndOtherServiceImpl() {
@@ -47,44 +48,34 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	@Override
 	public List<FeedAndOther> getProductsFeedAndOtherByFilter(FilterFeedsAndOther filter) throws ServiceException {
 		List<FeedAndOther> listProductsWithFilter = new ArrayList<>();
-		log.debug("listProductsWithFilter = " + listProductsWithFilter);
 		try {
-//			return ProductFeedsAndOtherDaoImpl.getInstance().getProductsFeedAndOtherWithFilter(filter);
-			List<FeedAndOther> listAllHavingProducts = ProductFeedsAndOtherDaoImpl.getInstance()
-					.getAllHavingProductsFeedAndOther();
-			log.debug("listAllHavingProducts = " + listAllHavingProducts);
-			if (filter.isOnlyProductsWithDiscont()) {
-				listProductsWithFilter = listAllHavingProducts.stream().filter(product -> product.getDiscount() > 0)
+			listProductsWithFilter = ProductFeedsAndOtherDaoImpl.getInstance().getAllHavingProductsFeedAndOther();
+			if (filter.isOnlyProductsWithDiscount()) {
+				listProductsWithFilter = listProductsWithFilter.stream().filter(product -> product.getDiscount() > 0)
 						.toList();
-				log.debug("listProductsWithFilter isOnlyProductsWithDiscont = " + listProductsWithFilter);
-			} else if (filter.getMaxDiscont() != 0 || filter.getMinDiscont() != 0) {
+			} else if (filter.getMaxDiscount() != 0 || filter.getMinDiscount() != 0) {
 				listProductsWithFilter = listProductsWithFilter.stream()
-						.filter(product -> product.getDiscount() >= filter.getMinDiscont()
-								&& product.getDiscount() <= filter.getMaxDiscont())
+						.filter(product -> product.getDiscount() >= filter.getMinDiscount()
+								&& product.getDiscount() <= filter.getMaxDiscount())
 						.toList();
-				log.debug("listProductsWithFilter = " + listProductsWithFilter);
 			}
 			if (filter.getMaxPrice() != 0 || filter.getMinPrice() != 0) {
 				listProductsWithFilter = listProductsWithFilter.stream()
 						.filter(product -> product.getPrice() >= filter.getMinPrice()
 								&& product.getPrice() <= filter.getMaxPrice())
 						.toList();
-				log.debug("listProductsWithFilter = " + listProductsWithFilter);
 			}
-			log.debug("listProductsWithFilter = " + listProductsWithFilter);
-			selectProductsWithTypeProduct(filter, listProductsWithFilter);
-			log.debug("listProductsWithFilter = " + listProductsWithFilter);
-			selectProductsForTypesPets(filter, listProductsWithFilter);
-			log.debug("listProductsWithFilter = " + listProductsWithFilter);
-			selectProductsWithBrand(filter, listProductsWithFilter);
-			log.debug("listProductsWithFilter = " + listProductsWithFilter);
+			listProductsWithFilter = selectProductsWithTypeProduct(filter, listProductsWithFilter);
+			listProductsWithFilter = selectProductsForTypesPets(filter, listProductsWithFilter);
+			listProductsWithFilter = selectProductsWithBrand(filter, listProductsWithFilter);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
 		return listProductsWithFilter;
 	}
 
-	private void selectProductsWithTypeProduct(FilterFeedsAndOther filter, List<FeedAndOther> listProductsWithFilter) {
+	private List<FeedAndOther> selectProductsWithTypeProduct(FilterFeedsAndOther filter,
+			List<FeedAndOther> listProductsWithFilter) {
 		String[] productTypes = filter.getChoosedTypesProduct();
 		if (productTypes != null) {
 			listProductsWithFilter = listProductsWithFilter.stream().filter(product -> {
@@ -97,9 +88,11 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 				return flag;
 			}).toList();
 		}
+		return listProductsWithFilter;
 	}
 
-	private void selectProductsForTypesPets(FilterFeedsAndOther filter, List<FeedAndOther> listProductsWithFilter) {
+	private List<FeedAndOther> selectProductsForTypesPets(FilterFeedsAndOther filter,
+			List<FeedAndOther> listProductsWithFilter) {
 		String[] typePets = filter.getChoosedTypesPets();
 		if (typePets != null) {
 			listProductsWithFilter = listProductsWithFilter.stream().filter(product -> {
@@ -107,7 +100,7 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 				List<String> listPetTypes = product.getPetTypes();
 				if (listPetTypes != null) {
 					for (String petType : typePets) {
-						if (listPetTypes.contains(petType)) {
+						if (listPetTypes.contains(petType.toLowerCase())) {
 							flag = true;
 						}
 					}
@@ -115,10 +108,12 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 				return flag;
 			}).toList();
 		}
+		return listProductsWithFilter;
 	}
 
-	private void selectProductsWithBrand(FilterFeedsAndOther filter, List<FeedAndOther> listProductsWithFilter) {
-		String[] brandProduct = filter.getChoosedProductBrend();
+	private List<FeedAndOther> selectProductsWithBrand(FilterFeedsAndOther filter,
+			List<FeedAndOther> listProductsWithFilter) {
+		String[] brandProduct = filter.getChoosedProductBrand();
 		if (brandProduct != null) {
 			listProductsWithFilter = listProductsWithFilter.stream().filter(product -> {
 				boolean flag = false;
@@ -130,5 +125,6 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 				return flag;
 			}).toList();
 		}
+		return listProductsWithFilter;
 	}
 }

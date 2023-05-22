@@ -148,12 +148,12 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 	private String createQueryGetProductsPetsByFilter(FilterFeedsAndOther filter) {
 		StringBuilder query = new StringBuilder(QUERY_SELECT_PRODUCTS_FEED_AND_OTHER_HAVING_BY_FILTER);
 		int countParameters = 0;
-		if (filter.isOnlyProductsWithDiscont()) {
+		if (filter.isOnlyProductsWithDiscount()) {
 			countParameters++;
 			query.append(" and (").append(FEEDS_AND_OTHER_DISCOUNT).append(" > 0");
-		} else if (filter.getMaxDiscont() != 0 || filter.getMinDiscont() != 0) {
+		} else if (filter.getMaxDiscount() != 0 || filter.getMinDiscount() != 0) {
 			countParameters++;
-			insertFilterParametersInQueryMinMaxDouble(query, filter.getMinDiscont(), filter.getMaxDiscont(),
+			insertFilterParametersInQueryMinMaxDouble(query, filter.getMinDiscount(), filter.getMaxDiscount(),
 					FEEDS_AND_OTHER_DISCOUNT);
 		}
 		if (filter.getMaxPrice() != 0 || filter.getMinPrice() != 0) {
@@ -171,7 +171,7 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 			countParameters++;
 			insertFilterParametersInQueryArrayStringWithMatch(query, typePets, FEEDS_AND_OTHER_PET_TYPE);
 		}
-		String[] brandProduct = filter.getChoosedProductBrend();
+		String[] brandProduct = filter.getChoosedProductBrand();
 		if (brandProduct != null) {
 			countParameters++;
 			insertFilterParametersInQueryArrayString(query, brandProduct, FEEDS_AND_OTHER_BRAND);

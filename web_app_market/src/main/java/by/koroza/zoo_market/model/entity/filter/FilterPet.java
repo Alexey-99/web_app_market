@@ -121,20 +121,67 @@ public class FilterPet extends AbstractFilter {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(super.toString()).append("\n");
-		builder.append("FilterPet [choosedTypesPets=");
-		builder.append(Arrays.toString(choosedTypesPets));
-		builder.append(", choosedBreedPets=");
-		builder.append(Arrays.toString(choosedBreedPets));
-		builder.append(", minNumberMonth=");
-		builder.append(minNumberMonth);
-		builder.append(", minNumberYear=");
-		builder.append(minNumberYear);
-		builder.append(", maxNumberMonth=");
-		builder.append(maxNumberMonth);
-		builder.append(", maxNumberYear=");
-		builder.append(maxNumberYear);
-		builder.append("]");
+		builder.append(super.toString());
+		if (this.choosedTypesPets != null && this.choosedTypesPets.length > 0) {
+			builder.append("Choosed types pets: ").append(Arrays.toString(this.choosedTypesPets).subSequence(1,
+					Arrays.toString(this.choosedTypesPets).length() - 2)).append("; ");
+		}
+		if (this.choosedBreedPets != null && this.choosedBreedPets.length > 0) {
+			builder.append("Choosed breeds: ").append(Arrays.toString(this.choosedBreedPets).subSequence(1,
+					Arrays.toString(this.choosedBreedPets).length() - 2)).append("; ");
+		}
+		if (minNumberMonth != 0 || minNumberYear != 0) {
+			builder.append("Min age: ");
+			if (minNumberYear != 0) {
+				builder.append(this.minNumberYear).append(this.minNumberYear > 1 ? "years" : "year").append("  ");
+			}
+			if (minNumberMonth != 0) {
+				builder.append(this.minNumberMonth).append(this.minNumberMonth > 1 ? "months" : "month").append("; ");
+			}
+		}
+		if (maxNumberMonth != 0 || maxNumberYear != 0) {
+			builder.append("Max age: ");
+			if (this.maxNumberYear != 0) {
+				builder.append(this.maxNumberYear).append(this.maxNumberYear > 1 ? "years" : "year").append("  ");
+			}
+			if (this.maxNumberMonth != 0) {
+				builder.append(this.maxNumberMonth).append(this.maxNumberMonth > 1 ? "months" : "month").append("; ");
+			}
+		}
+		return builder.toString();
+	}
+
+	public String toStringRus() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(super.toString());
+		if (this.choosedTypesPets != null && this.choosedTypesPets.length > 0) {
+			builder.append("Выбранные типы питомцев: ").append(Arrays.toString(this.choosedTypesPets).subSequence(1,
+					Arrays.toString(this.choosedTypesPets).length() - 2)).append("; ");
+		}
+		if (this.choosedBreedPets != null && this.choosedBreedPets.length > 0) {
+			builder.append("Выбранные породы питомцев: ").append(Arrays.toString(this.choosedBreedPets).subSequence(1,
+					Arrays.toString(this.choosedBreedPets).length() - 2)).append("; ");
+		}
+		if (minNumberMonth != 0 || minNumberYear != 0) {
+			builder.append("Минимальный возрост питомца: ");
+			if (minNumberYear != 0) {
+				builder.append(this.minNumberYear).append(this.minNumberYear > 1 ? "лет(года)" : "год").append("  ");
+			}
+			if (minNumberMonth != 0) {
+				builder.append(this.minNumberMonth).append(this.minNumberMonth > 1 ? "месяца(месяцев)" : "месяц")
+						.append("; ");
+			}
+		}
+		if (maxNumberMonth != 0 || maxNumberYear != 0) {
+			builder.append("максимальный возрост питомца: ");
+			if (this.maxNumberYear != 0) {
+				builder.append(this.maxNumberYear).append(this.maxNumberYear > 1 ? "лет(года)" : "год").append("  ");
+			}
+			if (this.maxNumberMonth != 0) {
+				builder.append(this.maxNumberMonth).append(this.maxNumberMonth > 1 ? "месяца(месяцев)" : "месяц")
+						.append("; ");
+			}
+		}
 		return builder.toString();
 	}
 
@@ -161,12 +208,12 @@ public class FilterPet extends AbstractFilter {
 		}
 
 		public FilterPetBuilder setMinDiscont(double minDiscont) {
-			this.filter.setMinDiscont(minDiscont);
+			this.filter.setMinDiscount(minDiscont);
 			return this;
 		}
 
 		public FilterPetBuilder setMaxDiscont(double maxDiscont) {
-			this.filter.setMaxDiscont(maxDiscont);
+			this.filter.setMaxDiscount(maxDiscont);
 			return this;
 		}
 

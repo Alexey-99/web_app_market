@@ -1,7 +1,7 @@
 <?xml version="1.1" encoding="UTF-8"?>
 <Configuration status="INFO">
 	<Properties>
-		<property name="LOG_FOLDER">logs</property>
+		<property name="LOG_FOLDER">E:\Alexey\git\web_app_market\web_app_market\logs</property>
 		<property name="LOG_ARCHIVE">archive</property>
 		<property name="pattern_file_info">%d{yyyy-MM-dd HH:mm:ss:SSSS} %-5level
 			%logger{}.%M - %msg%n</property>
@@ -14,17 +14,17 @@
 			<PatternLayout pattern="${pattern_file_debug}" />
 		</Console>
 		<RollingFile name="LogToRollingFileInfo"
-			fileName="${LOG_FOLDER}/info_logs.txt" append="true"
+			fileName="${LOG_FOLDER}/info_logs.txt" append="false"
 			filePattern="${LOG_FOLDER}/${LOG_ARCHIVE}/${date:yyyy-MM-dd}/info_logs/%d{yyyy-MM-dd_HH-mm}_%i.txt.gz">
 			<PatternLayout pattern="${pattern_file_info}" />
 			<Policies>
 				<TimeBasedTriggeringPolicy />
 				<SizeBasedTriggeringPolicy size="200 MB" />
 			</Policies>
-			<DefaultRolloverStrategy max="10" />
+			<DefaultRolloverStrategy max="100" />
 		</RollingFile>
 		<RollingFile name="LogToRollingFileDebug"
-			fileName="${LOG_FOLDER}/debug_logs.txt" append="true"
+			fileName="${LOG_FOLDER}/debug_logs.txt" append="false"
 			filePattern="${LOG_FOLDER}/${LOG_ARCHIVE}/${date:yyyy-MM-dd}/debug_logs/%d{yyyy-MM-dd_HH-mm}_%i.txt.gz">
 			<PatternLayout pattern="${pattern_file_debug}" />
 			<Policies>
@@ -36,7 +36,7 @@
 	</Appenders>
 	<Loggers>
 		<Logger name="by.koroza.zoo_market" level="TRACE"
-			additivity="true">
+			additivity="false">
 			<AppenderRef ref="LogToConsole" />
 			<AppenderRef ref="LogToRollingFileInfo" />
 			<AppenderRef ref="LogToRollingFileDebug" />

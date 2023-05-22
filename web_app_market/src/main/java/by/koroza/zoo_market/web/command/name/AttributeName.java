@@ -16,6 +16,7 @@ public final class AttributeName {
 
 	public static final String ATTRIBUTE_USER_HISTORY_ORDERS = "user_history_orders";
 
+	public static final String ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP = "products_pets_filter_map";
 	public static final String ATTRIBUTE_PRODUCTS_PETS_FILTER = "products_pets_filter";
 	public static final String ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "products_pets_filter_input_exception_type_and_message";
 	public static final String ATTRIBUTE_LIST_PRODUCTS_PETS = "list_products_pets";

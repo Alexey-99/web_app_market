@@ -1,5 +1,6 @@
 package by.koroza.zoo_market.service.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,25 +31,10 @@ public class ProductPetServiceImpl implements ProductPetService {
 		}
 	}
 
-	private static final char CODE_OF_TYPE_PRODUCT_PET = 'p';
-
 	@Override
 	public List<Pet> getProductsPetsById(Map<String, String> productsIdMap) throws ServiceException {
 		try {
-			List<Pet> productsBD = ProductPetDaoImpl.getInstance().getProductsPetsById(productsIdMap);
-			List<Pet> productsOrder = new ArrayList<>();
-			for (Map.Entry<String, String> entry : productsIdMap.entrySet()) {
-				String key = entry.getKey();
-				String val = entry.getValue();
-				if (key.charAt(0) == CODE_OF_TYPE_PRODUCT_PET) {
-					for (Pet pet : productsBD) {
-						if (pet.getId() == Integer.parseInt(val)) {
-							productsOrder.add(pet);
-						}
-					}
-				}
-			}
-			return productsOrder;
+			return ProductPetDaoImpl.getInstance().getProductsPetsById(productsIdMap);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
@@ -56,10 +42,75 @@ public class ProductPetServiceImpl implements ProductPetService {
 
 	@Override
 	public List<Pet> getProductsPetsByFilter(FilterPet filter) throws ServiceException {
+		List<Pet> listPetsWithFilter = new ArrayList<>();
 		try {
-			return ProductPetDaoImpl.getInstance().getProductsPetsWithFilter(filter);
+			listPetsWithFilter = ProductPetDaoImpl.getInstance().getAllHavingProductsPets();
+			if (filter.isOnlyProductsWithDiscount()) {
+				listPetsWithFilter = listPetsWithFilter.stream().filter(product -> product.getDiscount() > 0).toList();
+			} else if (filter.getMaxDiscount() != 0 || filter.getMinDiscount() != 0) {
+				listPetsWithFilter = listPetsWithFilter.stream()
+						.filter(product -> product.getDiscount() >= filter.getMinDiscount()
+								&& product.getDiscount() <= filter.getMaxDiscount())
+						.toList();
+			}
+			if (filter.getMaxPrice() != 0 || filter.getMinPrice() != 0) {
+				listPetsWithFilter = listPetsWithFilter.stream()
+						.filter(product -> product.getPrice() >= filter.getMinPrice()
+								&& product.getPrice() <= filter.getMaxPrice())
+						.toList();
+			}
+			listPetsWithFilter = selectProductsPetsByBirthDate(filter, listPetsWithFilter);
+			listPetsWithFilter = selectProductsPetsBySpecie(filter, listPetsWithFilter);
+			listPetsWithFilter = selectProductsPetsByBreed(filter, listPetsWithFilter);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
+		return listPetsWithFilter;
+	}
+
+	private List<Pet> selectProductsPetsByBirthDate(FilterPet filter, List<Pet> listPetsWithFilter) {
+		if ((filter.getMinNumberMonth() != 0 || filter.getMinNumberYear() != 0)
+				|| (filter.getMaxNumberMonth() != 0 || filter.getMaxNumberYear() != 0)) {
+			listPetsWithFilter = listPetsWithFilter.stream()
+					.filter(pet -> pet.getBirthDate()
+							.isAfter(LocalDate.now().minusYears(filter.getMaxNumberYear())
+									.minusMonths(filter.getMaxNumberMonth()))
+							&& pet.getBirthDate().isBefore(LocalDate.now().minusYears(filter.getMinNumberYear())
+									.minusMonths(filter.getMinNumberMonth())))
+					.toList();
+		}
+		return listPetsWithFilter;
+	}
+
+	private List<Pet> selectProductsPetsBySpecie(FilterPet filter, List<Pet> listPetsWithFilter) {
+		String[] typePets = filter.getChoosedTypesPets();
+		if (typePets != null) {
+			listPetsWithFilter = listPetsWithFilter.stream().filter(pet -> {
+				boolean flag = false;
+				for (String specie : typePets) {
+					if (pet.getSpecie().equalsIgnoreCase(specie)) {
+						flag = true;
+					}
+				}
+				return flag;
+			}).toList();
+		}
+		return listPetsWithFilter;
+	}
+
+	private List<Pet> selectProductsPetsByBreed(FilterPet filter, List<Pet> listPetsWithFilter) {
+		String[] breedPets = filter.getChoosedBreedPets();
+		if (breedPets != null) {
+			listPetsWithFilter = listPetsWithFilter.stream().filter(pet -> {
+				boolean flag = false;
+				for (String breed : breedPets) {
+					if (pet.getBreed().equalsIgnoreCase(breed)) {
+						flag = true;
+					}
+				}
+				return flag;
+			}).toList();
+		}
+		return listPetsWithFilter;
 	}
 }

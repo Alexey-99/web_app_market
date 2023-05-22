@@ -21,6 +21,7 @@ import static by.koroza.zoo_market.web.command.name.PagePathName.PRODUCTS_PETS_P
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_LIST_PRODUCTS_PETS;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER;
 
 import java.util.ArrayList;
@@ -58,23 +59,25 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 		HttpSession session = request.getSession();
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
+		session.removeAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER);
 		try {
 			FilterPet filter = null;
 			try {
 				filter = getParametersFromFilter(request);
 				pets = ProductPetServiceImpl.getInstance().getProductsPetsByFilter(filter);
 				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, pets);
-				if (session.getAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER) == null) {
+				if (session.getAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP) == null) {
 					List<Pet> allProductsPets = ProductPetServiceImpl.getInstance().getAllHavingProductsPets();
 					Map<String, Set<String>> filterMap = createFilter(allProductsPets);
-					session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER, filterMap);
+					session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP, filterMap);
+					session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER, filter);
 				}
 			} catch (InputException e) {
 				pets = ProductPetServiceImpl.getInstance().getAllHavingProductsPets();
 				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, pets);
-				if (session.getAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER) == null) {
+				if (session.getAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP) == null) {
 					Map<String, Set<String>> filterMap = createFilter(pets);
-					session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER, filterMap);
+					session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP, filterMap);
 				}
 			}
 		} catch (ServiceException e) {

@@ -24,6 +24,7 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PROD
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_LIST_PRODUCTS_PETS;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -35,12 +36,13 @@ public class ShowProductPetsOffFilterCommand implements Command {
 		HttpSession session = request.getSession();
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
+		session.removeAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER);
 		List<Pet> pets = new ArrayList<>();
 		try {
 			pets = ProductPetServiceImpl.getInstance().getAllHavingProductsPets();
 			session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, pets);
-			Map<String, Set<String>> filter = createFilter(pets);
-			session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER, filter);
+			Map<String, Set<String>> filterMap = createFilter(pets);
+			session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP, filterMap);
 		} catch (ServiceException e) {
 			throw new CommandException(e);
 		}

@@ -1,42 +1,42 @@
 package by.koroza.zoo_market.model.entity.filter;
 
 public abstract class AbstractFilter {
-	private boolean onlyProductsWithDiscont;
-	private double minDiscont;
-	private double maxDiscont;
+	private boolean onlyProductsWithDiscount;
+	private double minDiscount;
+	private double maxDiscount;
 	private double minPrice;
 	private double maxPrice;
 
 	public AbstractFilter() {
-		this.onlyProductsWithDiscont = false;
-		this.minDiscont = 0;
-		this.maxDiscont = 0;
+		this.onlyProductsWithDiscount = false;
+		this.minDiscount = 0;
+		this.maxDiscount = 0;
 		this.minPrice = 0;
 		this.maxPrice = 0;
 	}
 
-	public boolean isOnlyProductsWithDiscont() {
-		return this.onlyProductsWithDiscont;
+	public boolean isOnlyProductsWithDiscount() {
+		return this.onlyProductsWithDiscount;
 	}
 
 	public void setOnlyProductsWithDiscont(boolean onlyProductsWithDiscont) {
-		this.onlyProductsWithDiscont = onlyProductsWithDiscont;
+		this.onlyProductsWithDiscount = onlyProductsWithDiscont;
 	}
 
-	public double getMinDiscont() {
-		return this.minDiscont;
+	public double getMinDiscount() {
+		return this.minDiscount;
 	}
 
-	public void setMinDiscont(double minDiscont) {
-		this.minDiscont = minDiscont;
+	public void setMinDiscount(double minDiscount) {
+		this.minDiscount = minDiscount;
 	}
 
-	public double getMaxDiscont() {
-		return this.maxDiscont;
+	public double getMaxDiscount() {
+		return this.maxDiscount;
 	}
 
-	public void setMaxDiscont(double maxDiscont) {
-		this.maxDiscont = maxDiscont;
+	public void setMaxDiscount(double maxDiscount) {
+		this.maxDiscount = maxDiscount;
 	}
 
 	public double getMinPrice() {
@@ -59,9 +59,9 @@ public abstract class AbstractFilter {
 	public int hashCode() {
 		final int PRIME = 31;
 		int result = 1;
-		result = PRIME * result + Boolean.hashCode(this.onlyProductsWithDiscont);
-		result = PRIME * result + Double.hashCode(this.maxDiscont);
-		result = PRIME * result + Double.hashCode(this.minDiscont);
+		result = PRIME * result + Boolean.hashCode(this.onlyProductsWithDiscount);
+		result = PRIME * result + Double.hashCode(this.maxDiscount);
+		result = PRIME * result + Double.hashCode(this.minDiscount);
 		result = PRIME * result + Double.hashCode(this.maxPrice);
 		result = PRIME * result + Double.hashCode(this.minPrice);
 		return result;
@@ -79,13 +79,13 @@ public abstract class AbstractFilter {
 			return false;
 		}
 		AbstractFilter otherAbstractFilter = (AbstractFilter) object;
-		if (this.onlyProductsWithDiscont != otherAbstractFilter.onlyProductsWithDiscont) {
+		if (this.onlyProductsWithDiscount != otherAbstractFilter.onlyProductsWithDiscount) {
 			return false;
 		}
-		if (this.maxDiscont != otherAbstractFilter.maxDiscont) {
+		if (this.maxDiscount != otherAbstractFilter.maxDiscount) {
 			return false;
 		}
-		if (this.minDiscont != otherAbstractFilter.minDiscont) {
+		if (this.minDiscount != otherAbstractFilter.minDiscount) {
 			return false;
 		}
 		if (this.maxPrice != otherAbstractFilter.maxPrice) {
@@ -100,17 +100,43 @@ public abstract class AbstractFilter {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("AbstractFilter [onlyProductsWithDiscont=");
-		builder.append(onlyProductsWithDiscont);
-		builder.append(", minDiscont=");
-		builder.append(minDiscont);
-		builder.append(", maxDiscont=");
-		builder.append(maxDiscont);
-		builder.append(", minPrice=");
-		builder.append(minPrice);
-		builder.append(", maxPrice=");
-		builder.append(maxPrice);
-		builder.append("]");
+		if (this.onlyProductsWithDiscount == true) {
+			builder.append("Only products with discount: ").append(onlyProductsWithDiscount).append("; ");
+		} else {
+			if (minDiscount != 0) {
+				builder.append("min discount: ").append(minDiscount).append("; ");
+			}
+			if (maxDiscount != 0) {
+				builder.append("max discount: ").append(maxDiscount).append("; ");
+			}
+		}
+		if (minPrice != 0) {
+			builder.append("min price: ").append(minPrice).append("; ");
+		}
+		if (maxPrice != 0) {
+			builder.append("max price: ").append(maxPrice).append("; ");
+		}
+		return builder.toString();
+	}
+
+	public String toStringRus() {
+		StringBuilder builder = new StringBuilder();
+		if (this.onlyProductsWithDiscount == true) {
+			builder.append("Только товары со скидками: ").append("да").append("; ");
+		} else {
+			if (minDiscount != 0) {
+				builder.append("Минимальная скидка товара: ").append(minDiscount).append("%; ");
+			}
+			if (maxDiscount != 0) {
+				builder.append("максимальная скидка товара: ").append(maxDiscount).append("%; ");
+			}
+		}
+		if (minPrice != 0) {
+			builder.append("Минимальцая цена: ").append(minPrice).append("; ");
+		}
+		if (maxPrice != 0) {
+			builder.append("Максимальная цена: ").append(maxPrice).append("; ");
+		}
 		return builder.toString();
 	}
 }

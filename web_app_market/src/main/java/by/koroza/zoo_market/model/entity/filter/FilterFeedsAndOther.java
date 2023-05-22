@@ -4,14 +4,14 @@ import java.util.Arrays;
 
 public class FilterFeedsAndOther extends AbstractFilter {
 	private String[] choosedTypesProduct;
-	private String[] choosedProductBrend;
+	private String[] choosedProductBrand;
 	private String[] choosedTypesPets;
 
 	public FilterFeedsAndOther() {
 		super();
 		this.choosedTypesPets = null;
 		this.choosedTypesProduct = null;
-		this.choosedProductBrend = null;
+		this.choosedProductBrand = null;
 	}
 
 	public String[] getChoosedTypesProduct() {
@@ -22,12 +22,12 @@ public class FilterFeedsAndOther extends AbstractFilter {
 		this.choosedTypesProduct = choosedTypesProduct;
 	}
 
-	public String[] getChoosedProductBrend() {
-		return this.choosedProductBrend;
+	public String[] getChoosedProductBrand() {
+		return this.choosedProductBrand;
 	}
 
-	public void setChoosedProductBrend(String[] choosedProductBrend) {
-		this.choosedProductBrend = choosedProductBrend;
+	public void setChoosedProductBrand(String[] choosedProductBrand) {
+		this.choosedProductBrand = choosedProductBrand;
 	}
 
 	public String[] getChoosedTypesPets() {
@@ -44,7 +44,7 @@ public class FilterFeedsAndOther extends AbstractFilter {
 		int result = 1;
 		result = PRIME * result + super.hashCode();
 		result = PRIME * result + (this.choosedTypesProduct != null ? this.choosedTypesProduct.hashCode() : 1);
-		result = PRIME * result + (this.choosedProductBrend != null ? this.choosedProductBrend.hashCode() : 1);
+		result = PRIME * result + (this.choosedProductBrand != null ? this.choosedProductBrand.hashCode() : 1);
 		result = PRIME * result + (this.choosedTypesPets != null ? this.choosedTypesPets.hashCode() : 1);
 		return result;
 	}
@@ -62,11 +62,11 @@ public class FilterFeedsAndOther extends AbstractFilter {
 		} else if (!this.choosedTypesProduct.equals(otherFilterFeedsAndOther.choosedTypesProduct)) {
 			return false;
 		}
-		if (this.choosedProductBrend == null) {
-			if (otherFilterFeedsAndOther.choosedProductBrend != null) {
+		if (this.choosedProductBrand == null) {
+			if (otherFilterFeedsAndOther.choosedProductBrand != null) {
 				return false;
 			}
-		} else if (!this.choosedProductBrend.equals(otherFilterFeedsAndOther.choosedProductBrend)) {
+		} else if (!this.choosedProductBrand.equals(otherFilterFeedsAndOther.choosedProductBrand)) {
 			return false;
 		}
 		if (this.choosedTypesPets == null) {
@@ -82,15 +82,39 @@ public class FilterFeedsAndOther extends AbstractFilter {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(super.toString()).append("\n");
-		builder.append("FilterFeedsAndOther [choosedTypesProduct=");
-		builder.append(Arrays.toString(choosedTypesProduct));
-		builder.append(", choosedProductBrend=");
-		builder.append(Arrays.toString(choosedProductBrend));
-		builder.append(", choosedTypesPets=");
-		builder.append(Arrays.toString(choosedTypesPets));
-		builder.append("]");
+		builder.append(super.toString());
+		if (this.choosedTypesProduct != null && this.choosedTypesProduct.length > 0) {
+			builder.append("Choosed types products: ").append(Arrays.toString(this.choosedTypesProduct).subSequence(1,
+					Arrays.toString(this.choosedTypesProduct).length() - 2)).append("; ");
+		}
+		if (this.choosedTypesPets != null && this.choosedTypesPets.length > 0) {
+			builder.append("Choosed types pets: ").append(Arrays.toString(this.choosedTypesPets).subSequence(1,
+					Arrays.toString(this.choosedTypesPets).length() - 2)).append("; ");
+		}
+		if (this.choosedProductBrand != null && this.choosedProductBrand.length > 0) {
+			builder.append("Choosed product brand: ").append(Arrays.toString(this.choosedProductBrand).subSequence(1,
+					Arrays.toString(this.choosedProductBrand).length() - 2)).append("; ");
+		}
 		return builder.toString();
+	}
+
+	public String toStringRus() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(super.toString());
+		if (this.choosedTypesProduct != null && this.choosedTypesProduct.length > 0) {
+			builder.append("Выбранные типы продуктов: ").append(Arrays.toString(this.choosedTypesProduct).subSequence(1,
+					Arrays.toString(this.choosedTypesProduct).length() - 2)).append("; ");
+		}
+		if (this.choosedTypesPets != null && this.choosedTypesPets.length > 0) {
+			builder.append("Выбранные типы питомцев: ").append(Arrays.toString(this.choosedTypesPets).subSequence(1,
+					Arrays.toString(this.choosedTypesPets).length() - 2)).append("; ");
+		}
+		if (this.choosedProductBrand != null && this.choosedProductBrand.length > 0) {
+			builder.append("Выбранные брэнды товаров: ").append(Arrays.toString(this.choosedProductBrand).subSequence(1,
+					Arrays.toString(this.choosedProductBrand).length() - 2)).append("; ");
+		}
+		return builder.toString();
+
 	}
 
 	public static class FilterFeedsAndOtherBuilder {
@@ -111,12 +135,12 @@ public class FilterFeedsAndOther extends AbstractFilter {
 		}
 
 		public FilterFeedsAndOtherBuilder setMinDiscont(double minDiscont) {
-			this.filter.setMinDiscont(minDiscont);
+			this.filter.setMinDiscount(minDiscont);
 			return this;
 		}
 
 		public FilterFeedsAndOtherBuilder setMaxDiscont(double maxDiscont) {
-			this.filter.setMaxDiscont(maxDiscont);
+			this.filter.setMaxDiscount(maxDiscont);
 			return this;
 		}
 
@@ -131,7 +155,7 @@ public class FilterFeedsAndOther extends AbstractFilter {
 		}
 
 		public FilterFeedsAndOtherBuilder setChoosedProductBrend(String[] choosedProductBrend) {
-			this.filter.setChoosedProductBrend(choosedProductBrend);
+			this.filter.setChoosedProductBrand(choosedProductBrend);
 			return this;
 		}
 

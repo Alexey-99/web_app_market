@@ -7,11 +7,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import by.koroza.zoo_market.model.entity.market.abstraction.AbstractProduct;
-import by.koroza.zoo_market.model.entity.status.ProductStatus;
 
 public class Pet extends AbstractProduct {
 	private String specie;
-	private String breed; 
+	private String breed;
 	private LocalDate birthDate;
 
 	private static final String PATTERN_FORMATTER_DATE_BIRTH_DATE = "yyyy-MM-dd";
@@ -128,11 +127,6 @@ public class Pet extends AbstractProduct {
 			return this;
 		}
 
-		public PetBuilder setStutus(ProductStatus stutus) {
-			this.pet.setStutus(stutus);
-			return this;
-		}
-
 		public PetBuilder setDiscount(double discount) {
 			this.pet.setDiscount(discount);
 			return this;
@@ -169,11 +163,6 @@ public class Pet extends AbstractProduct {
 		}
 
 		public PetBuilder setUpdateDateTime(LocalDate dateUpdate, LocalTime timeUpdate) throws DateTimeParseException {
-			this.pet.setUpdateDateTime(dateUpdate, timeUpdate);
-			return this;
-		}
-
-		public PetBuilder setUpdateDateTime(String dateUpdate, String timeUpdate) throws DateTimeParseException {
 			this.pet.setUpdateDateTime(dateUpdate, timeUpdate);
 			return this;
 		}

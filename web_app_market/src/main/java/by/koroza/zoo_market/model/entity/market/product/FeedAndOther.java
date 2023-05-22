@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import by.koroza.zoo_market.model.entity.market.abstraction.AbstractProduct;
-import by.koroza.zoo_market.model.entity.status.ProductStatus;
 
 public class FeedAndOther extends AbstractProduct {
 	private static final String REG_EX_PATTERN_FOR_PARSE_PET_TYPES = "\\,\\s?";
@@ -80,7 +79,7 @@ public class FeedAndOther extends AbstractProduct {
 	private List<String> parsePetType(String petTypesLine) {
 		List<String> petTypes = new ArrayList<>();
 		String[] petTypesSplited = petTypesLine.split(REG_EX_PATTERN_FOR_PARSE_PET_TYPES);
-		Arrays.stream(petTypesSplited).forEach(type -> petTypes.add(type));
+		Arrays.stream(petTypesSplited).forEach(type -> petTypes.add(type.toLowerCase()));
 		return petTypes;
 	}
 
@@ -161,11 +160,6 @@ public class FeedAndOther extends AbstractProduct {
 
 		public FeedAndOtherBuilder setPrice(double price) {
 			this.feedAndOther.setPrice(price);
-			return this;
-		}
-
-		public FeedAndOtherBuilder setStutus(ProductStatus stutus) {
-			this.feedAndOther.setStutus(stutus);
 			return this;
 		}
 

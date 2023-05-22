@@ -5,6 +5,7 @@
 <%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.LanguageName"%>
 <%@page
 	import="by.koroza.zoo_market.web.command.impl.show.ShowProductPetsIncludedFilterCommand"%>
 <!DOCTYPE html>
@@ -19,8 +20,10 @@
 <link rel="stylesheet" href="css/items/toast.css" />
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 <!-- products_pets_filter_input_exception_type_and_message = AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE -->
+<!-- products_pets_filter_map = AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP -->
 <!-- products_pets_filter = AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER -->
 <!-- list_products_pets = AttributeName.ATTRIBUTE_LIST_PRODUCTS_PETS -->
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body class="body">
 
@@ -58,7 +61,7 @@
 												<form action="Controller">
 													<div class="accordion accordion_form" id="accordionExample">
 														<c:if
-															test="${products_pets_filter.containsKey(FilterName.CHOOSE_TYPE_PET) && products_pets_filter.get(FilterName.CHOOSE_TYPE_PET).size() > 0 == true}">
+															test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET) && products_pets_filter_map.get(FilterName.CHOOSE_TYPE_PET).size() > 0 == true}">
 															<div class="accordion-item">
 																<h2 class="accordion-header">
 																	<button
@@ -72,7 +75,7 @@
 																	class="accordion-collapse collapse show">
 																	<div class="accordion-body">
 																		<c:forEach
-																			items="${products_pets_filter.get(FilterName.CHOOSE_TYPE_PET)}"
+																			items="${products_pets_filter_map.get(FilterName.CHOOSE_TYPE_PET)}"
 																			var="value" varStatus="innerStutus">
 																			<label> <span
 																				class="span_input span_input_CHOOSE_TYPE_PET">
@@ -89,7 +92,7 @@
 														</c:if>
 
 														<c:if
-															test="${products_pets_filter.containsKey(FilterName.CHOOSE_BREED_PET) && products_pets_filter.get(FilterName.CHOOSE_BREED_PET).size() > 0 == true}">
+															test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_BREED_PET) && products_pets_filter_map.get(FilterName.CHOOSE_BREED_PET).size() > 0 == true}">
 															<div class="accordion-item">
 																<h2 class="accordion-header">
 																	<button
@@ -103,7 +106,7 @@
 																	class="accordion-collapse collapse ">
 																	<div class="accordion-body">
 																		<c:forEach
-																			items="${products_pets_filter.get(FilterName.CHOOSE_BREED_PET)}"
+																			items="${products_pets_filter_map.get(FilterName.CHOOSE_BREED_PET)}"
 																			var="value" varStatus="innerStutus">
 																			<label> <span
 																				class="span_input span_input_CHOOSE_BREED_PET }">
@@ -120,7 +123,7 @@
 														</c:if>
 
 														<c:if
-															test="${products_pets_filter.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT) && products_pets_filter.get(FilterName.CHOOSE_VALUE_DISCOUNT).size() > 0 == true}">
+															test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT) && products_pets_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT).size() > 0 == true}">
 															<div class="accordion-item">
 																<h2 class="accordion-header">
 																	<button
@@ -134,7 +137,7 @@
 																	class="accordion-collapse collapse ">
 																	<div class="accordion-body">
 																		<c:forEach
-																			items="${products_pets_filter.get(FilterName.CHOOSE_VALUE_DISCOUNT)}"
+																			items="${products_pets_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT)}"
 																			var="value" varStatus="innerStutus">
 																			<label> <span
 																				class="span_input span_input_${FilterName.CHOOSE_VALUE_DISCOUNT }">
@@ -251,7 +254,7 @@
 												<form action="Controller">
 													<div class="accordion accordion_form" id="accordionExample">
 														<c:if
-															test="${products_pets_filter.containsKey(FilterName.CHOOSE_TYPE_PET) && products_pets_filter.get(FilterName.CHOOSE_TYPE_PET).size() > 0 == true}">
+															test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET) && products_pets_filter_map.get(FilterName.CHOOSE_TYPE_PET).size() > 0 == true}">
 															<div class="accordion-item">
 																<h2 class="accordion-header">
 																	<button
@@ -265,7 +268,7 @@
 																	class="accordion-collapse collapse show">
 																	<div class="accordion-body">
 																		<c:forEach
-																			items="${products_pets_filter.get(FilterName.CHOOSE_TYPE_PET)}"
+																			items="${products_pets_filter_map.get(FilterName.CHOOSE_TYPE_PET)}"
 																			var="value" varStatus="innerStutus">
 																			<label> <span
 																				class="span_input span_input_CHOOSE_TYPE_PET">
@@ -282,7 +285,7 @@
 														</c:if>
 
 														<c:if
-															test="${products_pets_filter.containsKey(FilterName.CHOOSE_BREED_PET) && products_pets_filter.get(FilterName.CHOOSE_BREED_PET).size() > 0 == true}">
+															test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_BREED_PET) && products_pets_filter_map.get(FilterName.CHOOSE_BREED_PET).size() > 0 == true}">
 															<div class="accordion-item">
 																<h2 class="accordion-header">
 																	<button
@@ -296,7 +299,7 @@
 																	class="accordion-collapse collapse ">
 																	<div class="accordion-body">
 																		<c:forEach
-																			items="${products_pets_filter.get(FilterName.CHOOSE_BREED_PET)}"
+																			items="${products_pets_filter_map.get(FilterName.CHOOSE_BREED_PET)}"
 																			var="value" varStatus="innerStutus">
 																			<label> <span
 																				class="span_input span_input_${FilterName.CHOOSE_BREED_PET} }">
@@ -313,7 +316,7 @@
 														</c:if>
 
 														<c:if
-															test="${products_pets_filter.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT) && products_pets_filter.get(FilterName.CHOOSE_VALUE_DISCOUNT).size() > 0 == true}">
+															test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT) && products_pets_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT).size() > 0 == true}">
 															<div class="accordion-item">
 																<h2 class="accordion-header">
 																	<button
@@ -327,7 +330,7 @@
 																	class="accordion-collapse collapse ">
 																	<div class="accordion-body">
 																		<c:forEach
-																			items="${products_pets_filter.get(FilterName.CHOOSE_VALUE_DISCOUNT)}"
+																			items="${products_pets_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT)}"
 																			var="value" varStatus="innerStutus">
 																			<label> <span
 																				class="span_input span_input_${FilterName.CHOOSE_VALUE_DISCOUNT }">
@@ -545,6 +548,12 @@
 				</div>
 
 				<div class="col-11">
+					<c:if test="${locale == LanguageName.ENGLISH}">
+						<h6>${products_pets_filter.toString()}</h6>
+					</c:if>
+					<c:if test="${locale == LanguageName.RUSSIAN}">
+						<h6>${products_pets_filter.toStringRus()}</h6>
+					</c:if>
 					<c:if test="${list_products_pets.size() > 0}">
 						<div
 							class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 g-4 mb-4">
@@ -557,6 +566,7 @@
 											class="card-body d-flex flex-column justify-content-between">
 											<ul class="discription_top">
 												<li>ID: p-${pet.getId()}</li>
+												<li>Specie: ${pet.getSpecie()}</li>
 												<li>breed: ${pet.getBreed()}</li>
 												<li>date birthday: ${pet.getBirthDate()}</li>
 											</ul>
