@@ -4,6 +4,7 @@
 <%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
+<%@page import="by.koroza.zoo_market.model.entity.status.UserRole"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,13 +39,16 @@
 								<button class="btn btn-primary person_account_menu_link w-100"
 									role="button">Заказы</button>
 							</form>
-							<form action="Controller">
-								<input type="hidden" name="command"
-									value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE}" />
-								<button class="btn btn-primary w-100 person_account_menu_link"
-									role="button" aria-current="page">Страница
-									администратора</button>
-							</form>
+							<c:if
+								test="${user.getRole().getIdRole() == UserRole.ADMIN.getIdRole()}">
+								<form action="Controller">
+									<input type="hidden" name="command"
+										value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE}" />
+									<button class="btn btn-primary w-100 person_account_menu_link"
+										role="button" aria-current="page">Страница
+										администратора</button>
+								</form>
+							</c:if>
 							<form class="mt-3" action="Controller">
 								<input type="hidden" name="command"
 									value="${CommandName.COMMAND_SIGN_OUT_PERSONAL_ACCOUNT}" />

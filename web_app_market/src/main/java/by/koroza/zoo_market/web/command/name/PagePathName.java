@@ -2,23 +2,30 @@ package by.koroza.zoo_market.web.command.name;
 
 public final class PagePathName {
 	public static final String INDEX_PAGE_PATH = "index.jsp";
-
 	public static final String ERROR_PAGE_500_PATH = "pages/error/error_page_500.jsp";
 
+	/* PROPERTIES */
 	public static final String PAGE_CONTENT_PROPERTIES = "locale.pageContent_";
 
+	/* MARKET */
 	public static final String PRODUCTS_PETS_PAGE_PATH = "jsp/pages/market_page/pets/products_pets_page.jsp";
-
 	public static final String PRODUCTS_FEED_AND_OTHER_PAGE_PATH = "jsp/pages/market_page/other/products_feed_ond_other_page.jsp";
 
+	/* HOME */
 	public static final String HOME_PAGE_PATH = "jsp/pages/home_page.jsp";
 
+	/* BASKET */
 	public static final String BACKET_WITH_PRODUCTS_PAGE_PATH = "jsp/pages/backet/basket_with_products.jsp";
 
+	/* PERSONAL_ACCOUNT */
 	public static final String PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH = "jsp/pages/personal_account/personal_account_person_infomation.jsp";
 	public static final String PERSONAL_ACCOUNT_ORDERS_HISTORY_PAGE_PATH = "jsp/pages/personal_account/personal_account_orders.jsp";
 	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_PATH = "jsp/pages/personal_account/personal_account_admin_page.jsp";
 
+	/* ADMIN_PAGES */
+	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH = "jsp/pages/personal_account/admin_pages/all_products_page.jsp";
+
+	
 	public static final String REGISTRATION_FORM_PAGE_PATH = "jsp/pages/form/registration_form/registration_form.jsp";
 
 	public static final String VERIFICATION_REGISTRATION_INFORMATION_PAGE_PATH = "jsp/pages/form/verification_registration_information/verification_registration_information.jsp";

@@ -14,4 +14,6 @@ public interface ProductPetService {
 	public List<Pet> getProductsPetsById(Map<String, String> productsIdMap) throws ServiceException;
 
 	public List<Pet> getProductsPetsByFilter(FilterPet filter) throws ServiceException;
+
+	public Map<Pet, Long> getAllProductsPetsAndNumberOfUnits() throws ServiceException;
 }

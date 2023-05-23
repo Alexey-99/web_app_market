@@ -25,7 +25,7 @@ public class VerificationRegistrationInformationCommand implements Command {
 		AbstractRegistratedUser user = (AbstractRegistratedUser) session.getAttribute(ATTRIBUTE_USER);
 		try {
 			if (user != null) {
-				user.setRole(UserRole.WAITING_CODE_REGISTRATION);
+				user.setRole(UserRole.USER);
 				insertUserToBDW(user);
 				if (user.getId() == 0) {
 					user.setId(UserServiceImpl.getInstance().getUserIdByLogin(user.getLogin()));

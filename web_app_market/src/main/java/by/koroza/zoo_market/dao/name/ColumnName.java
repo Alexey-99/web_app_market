@@ -10,6 +10,7 @@ public final class ColumnName {
 	public static final String USERS_SURNAME = "users.surname";
 	public static final String USERS_ROLE_ID = "users.roles_id";
 	public static final String USERS_EMAIL = "users.email";
+	public static final String USERS_VERIFICATED_EMAIL = "users.verificated_email";
 	public static final String USERS_LOGIN = "users.login";
 	public static final String USERS_PASSWORD = "users.password";
 	public static final String USERS_DISCOUNT = "users.discount";

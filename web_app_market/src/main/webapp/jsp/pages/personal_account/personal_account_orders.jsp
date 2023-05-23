@@ -38,6 +38,16 @@
 									class="btn btn-primary active person_account_menu_link w-100 btn_last"
 									role="button">Заказы</button>
 							</form>
+							<c:if
+								test="${user.getRole().getIdRole() == UserRole.ADMIN.getIdRole()}">
+								<form action="Controller">
+									<input type="hidden" name="command"
+										value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE}" />
+									<button class="btn btn-primary w-100 person_account_menu_link"
+										role="button" aria-current="page">Страница
+										администратора</button>
+								</form>
+							</c:if>
 							<form class="mt-3" action="Controller">
 								<input type="hidden" name="command"
 									value="${CommandName.COMMAND_SIGN_OUT_PERSONAL_ACCOUNT}" />

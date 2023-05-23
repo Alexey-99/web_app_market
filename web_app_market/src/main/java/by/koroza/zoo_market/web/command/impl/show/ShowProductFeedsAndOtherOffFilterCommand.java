@@ -13,15 +13,23 @@ import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.controler.Router;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 
-import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PRODUCT;
-import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_BREND_PRODUCT;
-import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PET;
-import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_VALUE_DISCOUNT;
+import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PRODUCT_RUS;
+import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_BREND_PRODUCT_RUS;
+import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PET_RUS;
+import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_VALUE_DISCOUNT_RUS;
+import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PRODUCT_EN;
+import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_BREND_PRODUCT_EN;
+import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PET_EN;
+import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_VALUE_DISCOUNT_EN;
+
+import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
+import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_LIST_PRODUCTS_FEEDS_AND_OTHER;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP;
 
 import static by.koroza.zoo_market.web.command.name.PagePathName.PRODUCTS_FEED_AND_OTHER_PAGE_PATH;
 
@@ -39,8 +47,8 @@ public class ShowProductFeedsAndOtherOffFilterCommand implements Command {
 			List<FeedAndOther> productsFeedAndOther = ProductFeedsAndOtherServiceImpl.getInstance()
 					.getAllProductsFeedsAndOther();
 			session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_FEEDS_AND_OTHER, productsFeedAndOther);
-			Map<String, Set<String>> filter = createFilter(productsFeedAndOther);
-			session.setAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER, filter);
+			Map<String, Set<String>> filter = createFilter(productsFeedAndOther, session);
+			session.setAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP, filter);
 		} catch (ServiceException e) {
 			throw new CommandException(e);
 		}
@@ -48,22 +56,40 @@ public class ShowProductFeedsAndOtherOffFilterCommand implements Command {
 		return new Router(PRODUCTS_FEED_AND_OTHER_PAGE_PATH);
 	}
 
-	private Map<String, Set<String>> createFilter(List<FeedAndOther> products) {
+	private Map<String, Set<String>> createFilter(List<FeedAndOther> products, HttpSession session) {
 		Map<String, Set<String>> filterMap = new HashMap<>();
-		Set<String> typesProductsSet = createFilterByTypeProduct(products);
-		if (typesProductsSet.size() > 0) {
-			filterMap.put(CHOOSE_TYPE_PRODUCT, typesProductsSet);
-		}
-		Set<String> brandsProductsSet = createFilterByBrandProducts(products);
-		if (brandsProductsSet.size() > 0) {
-			filterMap.put(CHOOSE_BREND_PRODUCT, brandsProductsSet);
-		}
-		if (isHavingDiscountProducts(products)) {
-			filterMap.put(CHOOSE_VALUE_DISCOUNT, createFilterByDiscountProducts(products));
-		}
-		Set<String> typesPetsSet = createFilterByTypePet(products);
-		if (typesPetsSet.size() > 0) {
-			filterMap.put(CHOOSE_TYPE_PET, typesPetsSet);
+		if (session.getAttribute(ATTRIBUTE_SESSION_LOCALE).equals(RUSSIAN)) {
+			Set<String> typesProductsSet = createFilterByTypeProduct(products);
+			if (typesProductsSet.size() > 0) {
+				filterMap.put(CHOOSE_TYPE_PRODUCT_RUS, typesProductsSet);
+			}
+			Set<String> brandsProductsSet = createFilterByBrandProducts(products);
+			if (brandsProductsSet.size() > 0) {
+				filterMap.put(CHOOSE_BREND_PRODUCT_RUS, brandsProductsSet);
+			}
+			if (isHavingDiscountProducts(products)) {
+				filterMap.put(CHOOSE_VALUE_DISCOUNT_RUS, createFilterByDiscountProducts(products, session));
+			}
+			Set<String> typesPetsSet = createFilterByTypePet(products);
+			if (typesPetsSet.size() > 0) {
+				filterMap.put(CHOOSE_TYPE_PET_RUS, typesPetsSet);
+			}
+		} else if (session.getAttribute(ATTRIBUTE_SESSION_LOCALE).equals(ENGLISH)) {
+			Set<String> typesProductsSet = createFilterByTypeProduct(products);
+			if (typesProductsSet.size() > 0) {
+				filterMap.put(CHOOSE_TYPE_PRODUCT_EN, typesProductsSet);
+			}
+			Set<String> brandsProductsSet = createFilterByBrandProducts(products);
+			if (brandsProductsSet.size() > 0) {
+				filterMap.put(CHOOSE_BREND_PRODUCT_EN, brandsProductsSet);
+			}
+			if (isHavingDiscountProducts(products)) {
+				filterMap.put(CHOOSE_VALUE_DISCOUNT_EN, createFilterByDiscountProducts(products, session));
+			}
+			Set<String> typesPetsSet = createFilterByTypePet(products);
+			if (typesPetsSet.size() > 0) {
+				filterMap.put(CHOOSE_TYPE_PET_EN, typesPetsSet);
+			}
 		}
 		return filterMap;
 	}
@@ -80,11 +106,15 @@ public class ShowProductFeedsAndOtherOffFilterCommand implements Command {
 		return brandsProductsSet;
 	}
 
-	private Set<String> createFilterByDiscountProducts(List<FeedAndOther> products) {
+	private Set<String> createFilterByDiscountProducts(List<FeedAndOther> products, HttpSession session) {
 		Set<String> promotionsPetsSet = null;
 		if (isHavingDiscountProducts(products)) {
 			promotionsPetsSet = new HashSet<>();
-			promotionsPetsSet.add("только акционные товары");
+			if (session.getAttribute(ATTRIBUTE_SESSION_LOCALE).equals(RUSSIAN)) {
+				promotionsPetsSet.add("только акционные товары");
+			} else if (session.getAttribute(ATTRIBUTE_SESSION_LOCALE).equals(ENGLISH)) {
+				promotionsPetsSet.add("only products with discount");
+			}
 		}
 		return promotionsPetsSet;
 	}

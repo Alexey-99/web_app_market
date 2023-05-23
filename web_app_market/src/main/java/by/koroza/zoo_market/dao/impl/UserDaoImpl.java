@@ -10,6 +10,7 @@ import static by.koroza.zoo_market.dao.name.ColumnName.USERS_DISCOUNT;
 import static by.koroza.zoo_market.dao.name.ColumnName.USERS_PASSWORD;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_USER_LOGINS;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_LAST_INSERT_ID;
+import static by.koroza.zoo_market.dao.name.ColumnName.USERS_VERIFICATED_EMAIL;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -83,7 +84,6 @@ public class UserDaoImpl implements UserDao {
 				statement.setString(4, user.getPassword());
 				statement.setString(5, user.getEmail());
 				statement.setInt(6, user.getRole().getIdRole());
-				log.log(Level.INFO, statement.executeUpdate());
 				result = statement.executeUpdate() > 0;
 			}
 			try (PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_LAST_INSERT_ID);
@@ -141,8 +141,28 @@ public class UserDaoImpl implements UserDao {
 		return result;
 	}
 
+	private static final String QUERY_CHANGE_VERIFICATE_EMAIL_STATUS = """
+			UPDATE users
+			SET users.verificated_email = ?
+			WHERE users.id = ?;
+			""";
+
+	@Override
+	public boolean changeVerificationEmailStatus(long userId, boolean verificateStatus) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(QUERY_CHANGE_VERIFICATE_EMAIL_STATUS)) {
+			statement.setBoolean(1, verificateStatus);
+			statement.setLong(2, userId);
+			result = statement.executeUpdate() > 0;
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		return result;
+	}
+
 	private static final String QUERY_GET_USER_BY_LOGIN_AND_PASSWORD = """
-			SELECT users.id, users.name, users.surname, roles.name, users.email, users.login, users.password, users.discount, users.date_create
+			SELECT users.id, users.name, users.surname, roles.name, users.email, users.verificated_email, users.login, users.password, users.discount, users.date_create
 			FROM users INNER JOIN roles
 			ON users.roles_id = roles.id
 			WHERE users.login = ? AND users.password = ?;
@@ -159,7 +179,9 @@ public class UserDaoImpl implements UserDao {
 				while (resultSet.next()) {
 					AbstractRegistratedUser userBuild = new User.UserBuilder().setId(resultSet.getLong(USERS_ID))
 							.setName(resultSet.getString(USERS_NAME)).setSurname(resultSet.getString(USERS_SURNAME))
-							.setEmail(resultSet.getString(USERS_EMAIL)).setLogin(resultSet.getString(USERS_LOGIN))
+							.setEmail(resultSet.getString(USERS_EMAIL))
+							.setVerificatedEmail(resultSet.getBoolean(USERS_VERIFICATED_EMAIL))
+							.setLogin(resultSet.getString(USERS_LOGIN))
 							.setRole(UserRole.valueOf(resultSet.getString(ROLES_NAME)))
 							.setDiscount(resultSet.getDouble(USERS_DISCOUNT)).build();
 					userBuild.setPassword(resultSet.getString(USERS_PASSWORD));

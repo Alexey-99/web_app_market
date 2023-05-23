@@ -15,4 +15,6 @@ public interface ProductFeedsAndOtherService {
 			throws ServiceException;
 
 	public List<FeedAndOther> getProductsFeedAndOtherByFilter(FilterFeedsAndOther filter) throws ServiceException;
+
+	public Map<FeedAndOther, Long> getAllProductsFeedAndOtherAndNumberOfUnits() throws ServiceException;
 }

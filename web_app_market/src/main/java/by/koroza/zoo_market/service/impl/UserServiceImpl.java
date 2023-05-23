@@ -55,6 +55,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public boolean changeVerificationEmailStatus(long userId, boolean verificateStatus) throws ServiceException {
+		try {
+			return UserDaoImpl.getInstance().changeVerificationEmailStatus(userId, verificateStatus);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
 	public Optional<AbstractRegistratedUser> getUserByLogin(String login, String password) throws ServiceException {
 		try {
 			return UserDaoImpl.getInstance().getUserByLogin(login, password);

@@ -14,11 +14,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import by.koroza.zoo_market.dao.pool.ConnectionPool;
 import by.koroza.zoo_market.dao.pool.ProxyConnection;
+import by.koroza.zoo_market.model.calculation.Calculator;
 import by.koroza.zoo_market.model.entity.filter.FilterPet;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.dao.ProductPetDao;
@@ -55,6 +57,8 @@ public class ProductPetDaoImpl implements ProductPetDao {
 							.setUpdateDateTime(resultSet.getDate(PETS_DATE_UPDATE).toLocalDate(),
 									resultSet.getTime(PETS_DATE_UPDATE).toLocalTime())
 							.build();
+					pet.setTotalPrice(pet.getPrice()
+							- Calculator.getInstance().calcProcentFromSum(pet.getPrice(), pet.getDiscount()));
 					listPets.add(pet);
 				}
 			}
@@ -94,6 +98,8 @@ public class ProductPetDaoImpl implements ProductPetDao {
 										.setUpdateDateTime(resultSet.getDate(PETS_DATE_UPDATE).toLocalDate(),
 												resultSet.getTime(PETS_DATE_UPDATE).toLocalTime())
 										.build();
+								pet.setTotalPrice(pet.getPrice() - Calculator.getInstance()
+										.calcProcentFromSum(pet.getPrice(), pet.getDiscount()));
 								listPets.add(pet);
 							}
 						}
@@ -120,12 +126,43 @@ public class ProductPetDaoImpl implements ProductPetDao {
 						.setUpdateDateTime(resultSet.getDate(PETS_DATE_UPDATE).toLocalDate(),
 								resultSet.getTime(PETS_DATE_UPDATE).toLocalTime())
 						.build();
+				pet.setTotalPrice(pet.getPrice()
+						- Calculator.getInstance().calcProcentFromSum(pet.getPrice(), pet.getDiscount()));
 				listPets.add(pet);
 			}
 		} catch (SQLException e) {
 			throw new DaoException(e);
 		}
 		return listPets;
+	}
+
+	private static final String QUERY_SELECT_ALL_PRODUCTS_PETS = """
+			SELECT pets.id, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
+			FROM pets
+			""";
+
+	@Override
+	public Map<Pet, Long> getAllProductsPetsAndNumberOfUnits() throws DaoException {
+		Map<Pet, Long> mapPetsAndNumber = new HashMap<>();
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_ALL_PRODUCTS_PETS);
+				ResultSet resultSet = statement.executeQuery()) {
+			while (resultSet.next()) {
+				Pet pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
+						.setSpecie(resultSet.getString(PETS_SPECIE)).setBreed(resultSet.getString(PETS_BREED))
+						.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toString())
+						.setPrice(resultSet.getDouble(PETS_PRICE)).setDiscount(resultSet.getDouble(PETS_DISCOUNT))
+						.setUpdateDateTime(resultSet.getDate(PETS_DATE_UPDATE).toLocalDate(),
+								resultSet.getTime(PETS_DATE_UPDATE).toLocalTime())
+						.build();
+				pet.setTotalPrice(pet.getPrice()
+						- Calculator.getInstance().calcProcentFromSum(pet.getPrice(), pet.getDiscount()));
+				mapPetsAndNumber.put(pet, resultSet.getLong(PETS_NUMBER_OF_UNITS_PRODUCT));
+			}
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		return mapPetsAndNumber;
 	}
 
 	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS_NOT_CLOSED = """

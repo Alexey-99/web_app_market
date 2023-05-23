@@ -1,6 +1,8 @@
 package by.koroza.zoo_market.web.command.impl.locale;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PREVIOUS_COMMAND;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 
 import static by.koroza.zoo_market.web.command.name.CommandName.COMMAND_SHOW_HOME_PAGE;
@@ -23,7 +25,8 @@ public class SetEnglishLocaleCommand implements Command {
 		String previousCommand = session.getAttribute(ATTRIBUTE_PREVIOUS_COMMAND) != null
 				? (String) session.getAttribute(ATTRIBUTE_PREVIOUS_COMMAND)
 				: COMMAND_SHOW_HOME_PAGE;
-		Router router = new Router("/Controller?command=" + previousCommand);
-		return router;
+		session.removeAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP);
+		session.removeAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP);
+		return new Router("/Controller?command=" + previousCommand);
 	}
 }

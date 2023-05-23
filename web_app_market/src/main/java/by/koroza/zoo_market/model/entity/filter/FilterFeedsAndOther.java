@@ -85,33 +85,33 @@ public class FilterFeedsAndOther extends AbstractFilter {
 		builder.append(super.toString());
 		if (this.choosedTypesProduct != null && this.choosedTypesProduct.length > 0) {
 			builder.append("Choosed types products: ").append(Arrays.toString(this.choosedTypesProduct).subSequence(1,
-					Arrays.toString(this.choosedTypesProduct).length() - 2)).append("; ");
+					Arrays.toString(this.choosedTypesProduct).length() - 1)).append("; ");
 		}
 		if (this.choosedTypesPets != null && this.choosedTypesPets.length > 0) {
 			builder.append("Choosed types pets: ").append(Arrays.toString(this.choosedTypesPets).subSequence(1,
-					Arrays.toString(this.choosedTypesPets).length() - 2)).append("; ");
+					Arrays.toString(this.choosedTypesPets).length() - 1)).append("; ");
 		}
 		if (this.choosedProductBrand != null && this.choosedProductBrand.length > 0) {
 			builder.append("Choosed product brand: ").append(Arrays.toString(this.choosedProductBrand).subSequence(1,
-					Arrays.toString(this.choosedProductBrand).length() - 2)).append("; ");
+					Arrays.toString(this.choosedProductBrand).length() - 1)).append("; ");
 		}
 		return builder.toString();
 	}
 
 	public String toStringRus() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(super.toString());
+		builder.append(super.toStringRus());
 		if (this.choosedTypesProduct != null && this.choosedTypesProduct.length > 0) {
 			builder.append("Выбранные типы продуктов: ").append(Arrays.toString(this.choosedTypesProduct).subSequence(1,
-					Arrays.toString(this.choosedTypesProduct).length() - 2)).append("; ");
+					Arrays.toString(this.choosedTypesProduct).length() - 1)).append("; ");
 		}
 		if (this.choosedTypesPets != null && this.choosedTypesPets.length > 0) {
 			builder.append("Выбранные типы питомцев: ").append(Arrays.toString(this.choosedTypesPets).subSequence(1,
-					Arrays.toString(this.choosedTypesPets).length() - 2)).append("; ");
+					Arrays.toString(this.choosedTypesPets).length() - 1)).append("; ");
 		}
 		if (this.choosedProductBrand != null && this.choosedProductBrand.length > 0) {
 			builder.append("Выбранные брэнды товаров: ").append(Arrays.toString(this.choosedProductBrand).subSequence(1,
-					Arrays.toString(this.choosedProductBrand).length() - 2)).append("; ");
+					Arrays.toString(this.choosedProductBrand).length() - 1)).append("; ");
 		}
 		return builder.toString();
 

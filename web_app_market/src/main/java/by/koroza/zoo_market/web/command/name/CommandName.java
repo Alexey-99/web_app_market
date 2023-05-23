@@ -35,6 +35,10 @@ public class CommandName {
 	public static final String COMMAND_SET_RUSSIAN_LOCALE = "set_russian_locale";
 	public static final String COMMAND_SET_ENGLISH_LOCALE = "set_english_locale";
 
+	/* ADMIN */
+	public static final String COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_OFF_FILTER = "admin_page_show_all_products_off_filter";
+	public static final String COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_INCLUDED_FILTER = "admin_page_show_all_products_included_filter";
+
 	private CommandName() {
 	}
 }

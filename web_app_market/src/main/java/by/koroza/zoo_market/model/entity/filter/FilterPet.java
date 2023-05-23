@@ -124,11 +124,11 @@ public class FilterPet extends AbstractFilter {
 		builder.append(super.toString());
 		if (this.choosedTypesPets != null && this.choosedTypesPets.length > 0) {
 			builder.append("Choosed types pets: ").append(Arrays.toString(this.choosedTypesPets).subSequence(1,
-					Arrays.toString(this.choosedTypesPets).length() - 2)).append("; ");
+					Arrays.toString(this.choosedTypesPets).length() - 1)).append("; ");
 		}
 		if (this.choosedBreedPets != null && this.choosedBreedPets.length > 0) {
 			builder.append("Choosed breeds: ").append(Arrays.toString(this.choosedBreedPets).subSequence(1,
-					Arrays.toString(this.choosedBreedPets).length() - 2)).append("; ");
+					Arrays.toString(this.choosedBreedPets).length() - 1)).append("; ");
 		}
 		if (minNumberMonth != 0 || minNumberYear != 0) {
 			builder.append("Min age: ");
@@ -153,14 +153,14 @@ public class FilterPet extends AbstractFilter {
 
 	public String toStringRus() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(super.toString());
+		builder.append(super.toStringRus());
 		if (this.choosedTypesPets != null && this.choosedTypesPets.length > 0) {
 			builder.append("Выбранные типы питомцев: ").append(Arrays.toString(this.choosedTypesPets).subSequence(1,
-					Arrays.toString(this.choosedTypesPets).length() - 2)).append("; ");
+					Arrays.toString(this.choosedTypesPets).length() - 1)).append("; ");
 		}
 		if (this.choosedBreedPets != null && this.choosedBreedPets.length > 0) {
 			builder.append("Выбранные породы питомцев: ").append(Arrays.toString(this.choosedBreedPets).subSequence(1,
-					Arrays.toString(this.choosedBreedPets).length() - 2)).append("; ");
+					Arrays.toString(this.choosedBreedPets).length() - 1)).append("; ");
 		}
 		if (minNumberMonth != 0 || minNumberYear != 0) {
 			builder.append("Минимальный возрост питомца: ");
@@ -182,6 +182,8 @@ public class FilterPet extends AbstractFilter {
 						.append("; ");
 			}
 		}
+		
+		
 		return builder.toString();
 	}
 

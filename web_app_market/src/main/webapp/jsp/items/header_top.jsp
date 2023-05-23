@@ -83,7 +83,8 @@
 
 						<c:if
 							test="${is_hiving_registrated_user == true && user.getRole().getIdRole() >= 1}">
-							<c:if test="${user.getRole().getIdRole() == 1}">
+							<c:if
+								test="${user.getRole().getIdRole() == 1 || user.isVerificatedEmail() == false}">
 								<li class="nav-item">
 									<form action="Controller">
 										<input type="hidden" name="command"
@@ -97,7 +98,8 @@
 									</form>
 								</li>
 							</c:if>
-							<c:if test="${user.getRole().getIdRole() > 1}">
+							<c:if
+								test="${user.getRole().getIdRole() > 1 && user.isVerificatedEmail() == true}">
 								<li class="nav-item">
 									<form action="Controller">
 										<input type="hidden" name="command"
@@ -227,12 +229,14 @@
 						</li>
 						<c:if
 							test="${is_hiving_registrated_user == true && user.getRole().getIdRole() >= 1}">
-							<c:if test="${user.getRole().getIdRole() == 1}">
+							<c:if
+								test="${user.getRole().getIdRole() == 1 || user.isVerificatedEmail() == false}">
 								<li class="nav-item">
 									<form action="Controller">
 										<input type="hidden" name="command"
 											value="${CommandName.COMMAND_SHOW_VERIFICATION_PERSONAL_ACCOUNT_FORN}">
-										<button class="nav-link menu_link" role="button">
+										<button class="nav-link text-uppercase menu_link"
+											role="button">
 											<h5>
 												<fmt:message key="header_top.email_verification" />
 											</h5>
@@ -240,15 +244,16 @@
 									</form>
 								</li>
 							</c:if>
-							<c:if test="${user.getRole().getIdRole() > 1}">
+							<c:if
+								test="${user.getRole().getIdRole() > 1 && user.isVerificatedEmail() == true}">
 								<li class="nav-item">
 									<form action="Controller">
 										<input type="hidden" name="command"
 											value="${CommandName.COMMAND_SHOW_BACKET_PAGE}" /> <input
-											class="productsId" type="hidden"
+											class="productsIdXl" type="hidden"
 											name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE }" />
-										<button class="nav-link menu_link" role="button"
-											onclick="getProducts('.productsIdLg')">
+										<button class="nav-link text-uppercase menu_link"
+											role="button" onclick="getProducts('.productsIdXl')">
 											<h5>
 												<fmt:message key="header_top.basket" />
 											</h5>
@@ -259,7 +264,8 @@
 									<form action="Controller">
 										<input type="hidden" name="command"
 											value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE}">
-										<button class="nav-link menu_link" role="button">
+										<button class="nav-link text-uppercase menu_link"
+											role="button">
 											<h5>
 												<fmt:message key="header_top.personal_account" />
 											</h5>
@@ -268,7 +274,6 @@
 								</li>
 							</c:if>
 						</c:if>
-
 						<c:if
 							test="${is_hiving_registrated_user == false || user.getRole().getIdRole() < 1}">
 							<li class="nav-item">

@@ -74,6 +74,15 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 		return listProductsWithFilter;
 	}
 
+	@Override
+	public Map<FeedAndOther, Long> getAllProductsFeedAndOtherAndNumberOfUnits() throws ServiceException {
+		try {
+			return ProductFeedsAndOtherDaoImpl.getInstance().getAllProductsFeedAndOtherAndNumberOfUnits();
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+
 	private List<FeedAndOther> selectProductsWithTypeProduct(FilterFeedsAndOther filter,
 			List<FeedAndOther> listProductsWithFilter) {
 		String[] productTypes = filter.getChoosedTypesProduct();

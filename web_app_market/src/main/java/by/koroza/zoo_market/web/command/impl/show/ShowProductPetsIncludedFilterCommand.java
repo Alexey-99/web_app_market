@@ -122,7 +122,7 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 		}
 		String minPrice = request.getParameter(INPUT_MIN_PRICE_PET) != null ? request.getParameter(INPUT_MIN_PRICE_PET)
 				: "";
-		String maxPrice = request.getParameter(INPUT_MAX_PRICE_PET) != null ? request.getParameter(INPUT_MIN_PRICE_PET)
+		String maxPrice = request.getParameter(INPUT_MAX_PRICE_PET) != null ? request.getParameter(INPUT_MAX_PRICE_PET)
 				: "";
 		if (!FilterValidation.validInputValuesNumbersPrice(minPrice, maxPrice)) {
 			if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {

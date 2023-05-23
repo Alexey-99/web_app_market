@@ -8,7 +8,6 @@ import static by.koroza.zoo_market.web.command.name.PagePathName.REGISTRATION_FO
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 
-import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.UserServiceImpl;
@@ -38,9 +37,9 @@ public class VerificationPersonAccountCommand implements Command {
 				}
 				String code = VerificateServiceImpl.getInstance().getVerificateCodeByUserId(user.getId());
 				if (codeInput.equals(code)) {
-					user.setRole(UserRole.USER);
+					user.setVerificatedEmail(true);
 					session.setAttribute(ATTRIBUTE_USER, user);
-					UserServiceImpl.getInstance().changeRoleStatus(user.getId(), user.getRole().getIdRole());
+					UserServiceImpl.getInstance().changeVerificationEmailStatus(user.getId(), true);
 					VerificateServiceImpl.getInstance().changeVerificateCodeStatusByUserId(user.getId(), code,
 							VERIFICATE_CODE_STATUS_CLOSED);
 					router = new Router(HOME_PAGE_PATH);

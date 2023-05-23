@@ -14,11 +14,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import by.koroza.zoo_market.dao.pool.ConnectionPool;
 import by.koroza.zoo_market.dao.pool.ProxyConnection;
+import by.koroza.zoo_market.model.calculation.Calculator;
 import by.koroza.zoo_market.model.entity.filter.FilterFeedsAndOther;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.dao.ProductFeedsAndOtherDao;
@@ -35,7 +37,8 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 	}
 
 	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_FEED_AND_OTHER = """
-			SELECT feeds_and_other.id, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description, feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, feeds_and_other.number_of_units_products
+			SELECT feeds_and_other.id, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
+			feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, feeds_and_other.number_of_units_products
 			FROM feeds_and_other
 			WHERE feeds_and_other.number_of_units_products > 0;
 			""";
@@ -60,6 +63,8 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 							.setUpdateDateTime(resultSet.getDate(FEEDS_AND_OTHER_DATE_UPDATE).toLocalDate(),
 									resultSet.getTime(FEEDS_AND_OTHER_DATE_UPDATE).toLocalTime())
 							.build();
+					feedAndOther.setTotalPrice(feedAndOther.getPrice() - Calculator.getInstance()
+							.calcProcentFromSum(feedAndOther.getPrice(), feedAndOther.getDiscount()));
 					listFeedAndOther.add(feedAndOther);
 				}
 			}
@@ -70,7 +75,8 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 	}
 
 	private static final String QUERY_SELECT_PRODUCTS_FEED_AND_OTHER_HAVING_BY_ID = """
-			SELECT feeds_and_other.id, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description, feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, feeds_and_other.number_of_units_products
+			SELECT feeds_and_other.id, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
+			feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, feeds_and_other.number_of_units_products
 			FROM feeds_and_other
 			WHERE feeds_and_other.number_of_units_products > 0 AND feeds_and_other.id = ?;
 			""";
@@ -99,6 +105,8 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 										.setUpdateDateTime(resultSet.getDate(FEEDS_AND_OTHER_DATE_UPDATE).toLocalDate(),
 												resultSet.getTime(FEEDS_AND_OTHER_DATE_UPDATE).toLocalTime())
 										.build();
+								feedAndOther.setTotalPrice(feedAndOther.getPrice() - Calculator.getInstance()
+										.calcProcentFromSum(feedAndOther.getPrice(), feedAndOther.getDiscount()));
 								listFeedAndOther.add(feedAndOther);
 							}
 						}
@@ -129,12 +137,48 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 						.setUpdateDateTime(resultSet.getDate(FEEDS_AND_OTHER_DATE_UPDATE).toLocalDate(),
 								resultSet.getTime(FEEDS_AND_OTHER_DATE_UPDATE).toLocalTime())
 						.build();
+				feedAndOther.setTotalPrice(feedAndOther.getPrice() - Calculator.getInstance()
+						.calcProcentFromSum(feedAndOther.getPrice(), feedAndOther.getDiscount()));
 				listFeedAndOther.add(feedAndOther);
 			}
 		} catch (SQLException e) {
 			throw new DaoException(e);
 		}
 		return listFeedAndOther;
+	}
+
+	private static final String QUERY_SELECT_ALL_PRODUCTS_FEED_AND_OTHER = """
+			SELECT feeds_and_other.id, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
+			feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, feeds_and_other.number_of_units_products
+			FROM feeds_and_other;
+			""";
+
+	@Override
+	public Map<FeedAndOther, Long> getAllProductsFeedAndOtherAndNumberOfUnits() throws DaoException {
+		Map<FeedAndOther, Long> mapFeedAndOtherAndNumber = new HashMap<>();
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_ALL_PRODUCTS_FEED_AND_OTHER);
+				ResultSet resultSet = statement.executeQuery()) {
+			while (resultSet.next()) {
+				FeedAndOther feedAndOther = new FeedAndOther.FeedAndOtherBuilder()
+						.setId(resultSet.getLong(FEEDS_AND_OTHER_ID))
+						.setProductType(resultSet.getString(FEEDS_AND_OTHER_TYPE))
+						.setBrand(resultSet.getString(FEEDS_AND_OTHER_BRAND))
+						.setDescriptions(resultSet.getString(FEEDS_AND_OTHER_DESCRIPTION))
+						.setPetTypes(resultSet.getString(FEEDS_AND_OTHER_PET_TYPE))
+						.setPrice(resultSet.getDouble(FEEDS_AND_OTHER_PRICE))
+						.setDiscount(resultSet.getDouble(FEEDS_AND_OTHER_DISCOUNT))
+						.setUpdateDateTime(resultSet.getDate(FEEDS_AND_OTHER_DATE_UPDATE).toLocalDate(),
+								resultSet.getTime(FEEDS_AND_OTHER_DATE_UPDATE).toLocalTime())
+						.build();
+				feedAndOther.setTotalPrice(feedAndOther.getPrice() - Calculator.getInstance()
+						.calcProcentFromSum(feedAndOther.getPrice(), feedAndOther.getDiscount()));
+				mapFeedAndOtherAndNumber.put(feedAndOther, resultSet.getLong(FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT));
+			}
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		return mapFeedAndOtherAndNumber;
 	}
 
 	private static final char CODE_OF_TYPE_PRODUCT_FEEDS_AND_OTHER = 'o';

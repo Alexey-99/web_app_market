@@ -10,6 +10,7 @@ public abstract class AbstractRegistratedUser {
 	private String login;
 	private String password;
 	private String email;
+	private boolean isVerificatedEmail;
 	private UserRole role;
 	private double discount;
 
@@ -21,6 +22,7 @@ public abstract class AbstractRegistratedUser {
 		this.password = null;
 		this.email = null;
 		this.role = UserRole.REGISTRATING_USER;
+		this.isVerificatedEmail = false;
 		this.discount = 0;
 	}
 
@@ -80,6 +82,14 @@ public abstract class AbstractRegistratedUser {
 		this.email = email;
 	}
 
+	public boolean isVerificatedEmail() {
+		return isVerificatedEmail;
+	}
+
+	public void setVerificatedEmail(boolean isVerificatedEmail) {
+		this.isVerificatedEmail = isVerificatedEmail;
+	}
+
 	public UserRole getRole() {
 		return this.role;
 	}
@@ -107,6 +117,7 @@ public abstract class AbstractRegistratedUser {
 		result = result * PRIME + (this.login != null ? this.login.hashCode() : 1);
 		result = result * PRIME + (this.password != null ? this.password.hashCode() : 1);
 		result = result * PRIME + (this.email != null ? this.email.hashCode() : 1);
+		result = result * PRIME + Boolean.hashCode(this.isVerificatedEmail);
 		result = result * PRIME + (this.role != null ? this.role.hashCode() : 1);
 		return result;
 	}
@@ -167,6 +178,9 @@ public abstract class AbstractRegistratedUser {
 			}
 		} else if (!this.email.equals(otherReservedUser.email)) {
 			return false;
+		}
+		if (this.isVerificatedEmail != otherReservedUser.isVerificatedEmail) {
+
 		}
 		if (this.role == null) {
 			if (otherReservedUser.role != null) {

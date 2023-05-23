@@ -32,7 +32,8 @@ CREATE TABLE IF NOT EXISTS users (
     FOREIGN KEY (roles_id)
         REFERENCES roles (id),
     email VARCHAR(100) DEFAULT NULL,
-	login VARCHAR(150) NOT NULL,
+    verificated_email BOOLEAN DEFAULT FALSE,
+    login VARCHAR(150) NOT NULL,
     password VARCHAR(150) NOT NULL,
     discount TINYINT DEFAULT 0,
     date_create DATETIME DEFAULT NOW()

@@ -14,4 +14,6 @@ public interface ProductPetDao {
 	public List<Pet> getProductsPetsById(Map<String, String> productsIdMap) throws DaoException;
 
 	public List<Pet> getProductsPetsWithFilter(FilterPet filter) throws DaoException;
+
+	public Map<Pet, Long> getAllProductsPetsAndNumberOfUnits() throws DaoException;
 }

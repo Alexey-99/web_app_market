@@ -4,7 +4,7 @@ import java.util.List;
 
 import by.koroza.zoo_market.dao.exception.DaoException;
 import by.koroza.zoo_market.dao.impl.OrderDaoImpl;
-import by.koroza.zoo_market.model.calculation.Culculator;
+import by.koroza.zoo_market.model.calculation.Calculator;
 import by.koroza.zoo_market.model.entity.market.abstraction.AbstractProduct;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
@@ -54,7 +54,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public double calcTotalPersonDiscountAmount(double totalPaymentAmount, double totalProductsDiscountAmount,
 			double personalDiscountProcent) {
-		return Culculator.getInstance().calcProcentFromSum(totalPaymentAmount - totalProductsDiscountAmount,
+		return Calculator.getInstance().calcProcentFromSum(totalPaymentAmount - totalProductsDiscountAmount,
 				personalDiscountProcent);
 	}
 
@@ -82,7 +82,7 @@ public class OrderServiceImpl implements OrderService {
 		double totalProductsDiscountAmount = 0;
 		if (products != null) {
 			for (AbstractProduct product : products) {
-				totalProductsDiscountAmount += Culculator.getInstance().calcProcentFromSum(product.getPrice(),
+				totalProductsDiscountAmount += Calculator.getInstance().calcProcentFromSum(product.getPrice(),
 						product.getDiscount());
 			}
 		}

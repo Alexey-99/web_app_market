@@ -79,6 +79,11 @@ public class User extends AbstractRegistratedUser {
 			return this;
 		}
 
+		public UserBuilder setVerificatedEmail(boolean isVerificatedEmail) {
+			this.user.setVerificatedEmail(isVerificatedEmail);
+			return this;
+		}
+
 		public User build() {
 			return this.user;
 		}

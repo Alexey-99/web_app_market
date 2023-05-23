@@ -3,13 +3,13 @@ package by.koroza.zoo_market.model.calculation;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-public class Culculator {
-	private static final Culculator INSTANCE = new Culculator();
+public class Calculator {
+	private static final Calculator INSTANCE = new Calculator();
 
-	private Culculator() {
+	private Calculator() {
 	}
 
-	public static Culculator getInstance() {
+	public static Calculator getInstance() {
 		return INSTANCE;
 	}
 

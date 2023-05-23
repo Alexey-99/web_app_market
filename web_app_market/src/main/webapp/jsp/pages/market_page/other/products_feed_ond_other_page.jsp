@@ -5,6 +5,7 @@
 <%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.LanguageName"%>
 <%@page
 	import="by.koroza.zoo_market.web.command.impl.show.ShowProductFeedsAndOtherIncludedFilterCommand"%>
 <!DOCTYPE html>
@@ -19,8 +20,10 @@
 <link rel="stylesheet" href="css/items/toast.css" />
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 <!-- products_feeds_and_other_filter_input_exception_type_and_message = AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE -->
+<!-- products_feeds_and_other_filter_map = AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP -->
 <!-- products_feeds_and_other_filter = AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER -->
 <!-- list_products_feeds_and_other = AttributeName.ATTRIBUTE_LIST_PRODUCTS_FEEDS_AND_OTHER -->
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body>
 
@@ -45,408 +48,178 @@
 									<button type="button" class="btn-close"
 										data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
 								</div>
-								<div class="offcanvas-body">
-									<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-										<li class="nav-item dropdown">
-											<form action="Controller">
-												<input type="hidden" name="command"
-													value="${CommandName.COMMAND_SHOW_PRODUCT_FEED_AND_OTHER_OFF_FILTER_PAGE}" />
-												<button class="btn form_submit mb-3" role="button">Сбросить
-													фильтр</button>
-											</form> <c:if
-												test="${products_feeds_and_other_filter_input_exception_type_and_message.isEmpty() || products_feeds_and_other_filter_input_exception_type_and_message == null}">
+								<c:if test="${locale == LanguageName.ENGLISH}">
+									<div class="offcanvas-body">
+										<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+											<li class="nav-item dropdown">
 												<form action="Controller">
-													<div class="accordion accordion_form" id="accordionExample">
-														<c:if
-															test="${products_feeds_and_other_filter.containsKey(FilterName.CHOOSE_TYPE_PRODUCT) && products_feeds_and_other_filter.get(FilterName.CHOOSE_TYPE_PRODUCT).size() > 0 == true}">
-															<div class="accordion-item">
-																<h2 class="accordion-header">
-																	<button
-																		class="accordion-button collapsed text-uppercase"
-																		type="button" data-bs-toggle="collapse"
-																		data-bs-target="#collapse_CHOOSE_TYPE_PRODUCT"
-																		aria-expanded="false"
-																		aria-controls="collapse_CHOOSE_TYPE_PRODUCT">${FilterName.CHOOSE_TYPE_PRODUCT}</button>
-																</h2>
-																<div id="collapse_CHOOSE_TYPE_PRODUCT"
-																	class="accordion-collapse collapse show">
-																	<div class="accordion-body">
-																		<c:forEach
-																			items="${products_feeds_and_other_filter.get(FilterName.CHOOSE_TYPE_PRODUCT)}"
-																			var="value" varStatus="innerStutus">
-																			<label> <span
-																				class="span_input span_input_CHOOSE_TYPE_PRODUCT">
-																					<input type="checkbox"
-																					name="${InputName.INPUT_PRODUCT_TYPE}"
-																					value="${value}" /> ${value}
-																			</span>
-																			</label>
-																			<br />
-																		</c:forEach>
-																	</div>
-																</div>
-															</div>
-														</c:if>
-
-														<c:if
-															test="${products_feeds_and_other_filter.containsKey(FilterName.CHOOSE_BREND_PRODUCT) && products_feeds_and_other_filter.get(FilterName.CHOOSE_BREND_PRODUCT).size() > 0}">
-															<div class="accordion-item">
-																<h2 class="accordion-header">
-																	<button
-																		class="accordion-button collapsed text-uppercase"
-																		type="button" data-bs-toggle="collapse"
-																		data-bs-target="#collapse_CHOOSE_BREND_PRODUCT"
-																		aria-expanded="false"
-																		aria-controls="collapse_CHOOSE_BREND_PRODUCT">${FilterName.CHOOSE_BREND_PRODUCT}</button>
-																</h2>
-																<div id="collapse_CHOOSE_BREND_PRODUCT"
-																	class="accordion-collapse collapse">
-																	<div class="accordion-body">
-																		<c:forEach
-																			items="${products_feeds_and_other_filter.get(FilterName.CHOOSE_BREND_PRODUCT)}"
-																			var="value" varStatus="innerStutus">
-																			<label> <span
-																				class="span_input span_input_CHOOSE_BREND_PRODUCT">
-																					<input type="checkbox"
-																					name="${InputName.INPUT_PRODUCT_BREND}"
-																					value="${value}" /> ${value}
-																			</span>
-																			</label>
-																			<br />
-																		</c:forEach>
-																	</div>
-																</div>
-															</div>
-														</c:if>
-
-														<c:if
-															test="${products_feeds_and_other_filter.containsKey(FilterName.CHOOSE_TYPE_PET) && products_feeds_and_other_filter.get(FilterName.CHOOSE_TYPE_PET).size() > 0 == true}">
-															<div class="accordion-item">
-																<h2 class="accordion-header">
-																	<button
-																		class="accordion-button collapsed text-uppercase"
-																		type="button" data-bs-toggle="collapse"
-																		data-bs-target="#collapse_CHOOSE_TYPE_PET"
-																		aria-expanded="false"
-																		aria-controls="collapse_CHOOSE_TYPE_PET">${FilterName.CHOOSE_TYPE_PET}</button>
-																</h2>
-																<div id="collapse_CHOOSE_TYPE_PET"
-																	class="accordion-collapse collapse">
-																	<div class="accordion-body">
-																		<c:forEach
-																			items="${products_feeds_and_other_filter.get(FilterName.CHOOSE_TYPE_PET)}"
-																			var="value" varStatus="innerStutus">
-																			<label> <span
-																				class="span_input span_input_CHOOSE_TYPE_PET">
-																					<input type="checkbox"
-																					name="${InputName.INPUT_PET_TYPE}" value="${value}" />
-																					${value}
-																			</span>
-																			</label>
-																			<br />
-																		</c:forEach>
-																	</div>
-																</div>
-															</div>
-														</c:if>
-
-														<c:if
-															test="${products_feeds_and_other_filter.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT) && products_feeds_and_other_filter.get(FilterName.CHOOSE_VALUE_DISCOUNT).size() > 0 == true}">
-															<div class="accordion-item">
-																<h2 class="accordion-header">
-																	<button
-																		class="accordion-button collapsed text-uppercase"
-																		type="button" data-bs-toggle="collapse"
-																		data-bs-target="#collapse_${FilterName.CHOOSE_VALUE_DISCOUNT }"
-																		aria-expanded="false"
-																		aria-controls="collapse_${FilterName.CHOOSE_VALUE_DISCOUNT }">${FilterName.CHOOSE_VALUE_DISCOUNT }</button>
-																</h2>
-																<div id="collapse_${FilterName.CHOOSE_VALUE_DISCOUNT }"
-																	class="accordion-collapse collapse ">
-																	<div class="accordion-body">
-																		<c:forEach
-																			items="${products_feeds_and_other_filter.get(FilterName.CHOOSE_VALUE_DISCOUNT)}"
-																			var="value" varStatus="innerStutus">
-																			<label> <span
-																				class="span_input span_input_${FilterName.CHOOSE_VALUE_DISCOUNT }">
-																					<input type="checkbox"
-																					name="${InputName.CHOOSE_VALUE_DISCOUNT}"
-																					value="${value}" /> ${value}
-																			</span>
-																			</label>
-																			<br />
-																		</c:forEach>
-																		<div class="input-group mb-3 mt-3">
-																			<span
-																				class="input-group-text accordion_item_six_span">от</span>
-																			<input type="text" class="form-control"
-																				pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
-																				aria-label="Процент скидки"
-																				name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}" />
-																			<span class="span_procent"> <img
-																				class="span_procent_img" src="img/percent.svg"
-																				alt="percent.svg" />
-																			</span> <span
-																				class="input-group-text accordion_item_six_span">до</span>
-																			<input type="text" class="form-control"
-																				pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
-																				aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)"
-																				name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
-																			<span class="span_procent"> <img
-																				class="span_procent_img" src="img/percent.svg"
-																				alt="percent.svg" />
-																			</span>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</c:if>
-														<div class="accordion-item">
-															<h2 class="accordion-header">
-																<button
-																	class="accordion-button collapsed text-uppercase"
-																	type="button" data-bs-toggle="collapse"
-																	data-bs-target="#collapseThree" aria-expanded="false"
-																	aria-controls="collapseThree">${FilterName.CHOOSE_VALUE_PRICE}</button>
-															</h2>
-															<div id="collapseThree"
-																class="accordion-collapse collapse">
-																<div class="accordion-body">
-																	<div class="input-group mb-3">
-																		<span class="input-group-text">от</span> <input
-																			type="text" class="form-control"
-																			pattern="[0-9]+(\.[0-9]{2})?" placeHolder="00,00 руб"
-																			name="${InputName.INPUT_MIN_PRICE_PET}"
-																			aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
-																		<span class="input-group-text">до</span> <input
-																			type="text" pattern="[0-9]+(\.[0-9]{2})?"
-																			class="form-control" placeHolder="00,00 руб"
-																			name="${InputName.INPUT_MAX_PRICE_PET}"
-																			aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
 													<input type="hidden" name="command"
-														value="${CommandName.COMMAND_SHOW_PRODUCT_FEEDS_AND_OTHER_INCLUDED_FILTER_PAGE}" />
-													<input class="form_submit" type="submit" value="Поиск" />
-												</form>
-											</c:if> <c:if
-												test="${!products_feeds_and_other_filter_input_exception_type_and_message.isEmpty && products_feeds_and_other_filter_input_exception_type_and_message != null}">
-												<form action="Controller">
-													<div class="accordion accordion_form" id="accordionExample">
-														<c:if
-															test="${products_feeds_and_other_filter.containsKey(FilterName.CHOOSE_TYPE_PRODUCT) && products_feeds_and_other_filter.get(FilterName.CHOOSE_TYPE_PRODUCT).size() > 0 == true}">
-															<div class="accordion-item">
-																<h2 class="accordion-header">
-																	<button
-																		class="accordion-button collapsed text-uppercase"
-																		type="button" data-bs-toggle="collapse"
-																		data-bs-target="#collapse_CHOOSE_TYPE_PRODUCT"
-																		aria-expanded="false"
-																		aria-controls="collapse_CHOOSE_TYPE_PRODUCT">${FilterName.CHOOSE_TYPE_PRODUCT}</button>
-																</h2>
-																<div id="collapse_CHOOSE_TYPE_PRODUCT"
-																	class="accordion-collapse collapse show">
-																	<div class="accordion-body">
-																		<c:forEach
-																			items="${products_feeds_and_other_filter.get(FilterName.CHOOSE_TYPE_PRODUCT)}"
-																			var="value" varStatus="innerStutus">
-																			<label> <span
-																				class="span_input span_input_CHOOSE_TYPE_PRODUCT">
-																					<input type="checkbox"
-																					name="${InputName.INPUT_PRODUCT_TYPE}"
-																					value="${value}" /> ${value}
-																			</span>
-																			</label>
-																			<br />
-																		</c:forEach>
-																	</div>
-																</div>
-															</div>
-														</c:if>
-
-														<c:if
-															test="${products_feeds_and_other_filter.containsKey(FilterName.CHOOSE_BREND_PRODUCT) && products_feeds_and_other_filter.get(FilterName.CHOOSE_BREND_PRODUCT).size() > 0 == true}">
-															<div class="accordion-item">
-																<h2 class="accordion-header">
-																	<button
-																		class="accordion-button collapsed text-uppercase"
-																		type="button" data-bs-toggle="collapse"
-																		data-bs-target="#collapse_CHOOSE_BREND_PRODUCT"
-																		aria-expanded="false"
-																		aria-controls="collapse_CHOOSE_BREND_PRODUCT">${FilterName.CHOOSE_BREND_PRODUCT}</button>
-																</h2>
-																<div id="collapse_CHOOSE_BREND_PRODUCT"
-																	class="accordion-collapse collapse">
-																	<div class="accordion-body">
-																		<c:forEach
-																			items="${products_feeds_and_other_filter.get(FilterName.CHOOSE_BREND_PRODUCT)}"
-																			var="value" varStatus="innerStutus">
-																			<label> <span
-																				class="span_input span_input_CHOOSE_BREND_PRODUCT">
-																					<input type="checkbox"
-																					name="${InputName.INPUT_PRODUCT_BREND}"
-																					value="${value}" /> ${value}
-																			</span>
-																			</label>
-																			<br />
-																		</c:forEach>
-																	</div>
-																</div>
-															</div>
-														</c:if>
-
-														<c:if
-															test="${products_feeds_and_other_filter.containsKey(FilterName.CHOOSE_TYPE_PET) && products_feeds_and_other_filter.get(FilterName.CHOOSE_TYPE_PET).size() > 0 == true}">
-															<div class="accordion-item">
-																<h2 class="accordion-header">
-																	<button
-																		class="accordion-button collapsed text-uppercase"
-																		type="button" data-bs-toggle="collapse"
-																		data-bs-target="#collapse_CHOOSE_TYPE_PET"
-																		aria-expanded="false"
-																		aria-controls="collapse_CHOOSE_TYPE_PET">${FilterName.CHOOSE_TYPE_PET}</button>
-																</h2>
-																<div id="collapse_CHOOSE_TYPE_PET"
-																	class="accordion-collapse collapse">
-																	<div class="accordion-body">
-																		<c:forEach
-																			items="${products_feeds_and_other_filter.get(FilterName.CHOOSE_TYPE_PET)}"
-																			var="value" varStatus="innerStutus">
-																			<label> <span
-																				class="span_input span_input_CHOOSE_TYPE_PET">
-																					<input type="checkbox"
-																					name="${InputName.INPUT_PET_TYPE}" value="${value}" />
-																					${value}
-																			</span>
-																			</label>
-																			<br />
-																		</c:forEach>
-																	</div>
-																</div>
-															</div>
-														</c:if>
-
-														<c:if
-															test="${products_feeds_and_other_filter.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT) && products_feeds_and_other_filter.get(FilterName.CHOOSE_VALUE_DISCOUNT).size() > 0 == true}">
-															<div class="accordion-item">
-																<h2 class="accordion-header">
-																	<button
-																		class="accordion-button collapsed text-uppercase"
-																		type="button" data-bs-toggle="collapse"
-																		data-bs-target="#collapse_${FilterName.CHOOSE_VALUE_DISCOUNT}"
-																		aria-expanded="false"
-																		aria-controls="collapse_${FilterName.CHOOSE_VALUE_DISCOUNT }">${FilterName.CHOOSE_VALUE_DISCOUNT }</button>
-																</h2>
-																<div id="collapse_${FilterName.CHOOSE_VALUE_DISCOUNT }"
-																	class="accordion-collapse collapse ">
-																	<div class="accordion-body">
-																		<c:forEach
-																			items="${products_feeds_and_other_filter.get(FilterName.CHOOSE_VALUE_DISCOUNT)}"
-																			var="value" varStatus="innerStutus">
-																			<label> <span
-																				class="span_input span_input_${FilterName.CHOOSE_VALUE_DISCOUNT }">
-																					<input type="checkbox"
-																					name="${InputName.CHOOSE_VALUE_DISCOUNT}"
-																					value="${value}" /> ${value}
-																			</span>
-																			</label>
-																			<br />
-																		</c:forEach>
-																		<c:if
-																			test="${products_feeds_and_other_filter_input_exception_type_and_message.containsKey(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}">
-																			<div class="input-group mb-3 mt-3">
-																				<span
-																					class="input-group-text accordion_item_six_span">от</span>
-																				<input type="text" class="form-control is-invalid"
-																					pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
-																					aria-label="Процент скидки"
-																					name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}" />
-
-																				<span class="span_procent"> <img
-																					class="span_procent_img" src="img/percent.svg"
-																					alt="percent.svg" />
-																				</span> <span
-																					class="input-group-text accordion_item_six_span">до</span>
-																				<input type="text" class="form-control is-invalid"
-																					pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
-																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)"
-																					name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
-																				<span class="span_procent"> <img
-																					class="span_procent_img" src="img/percent.svg"
-																					alt="percent.svg" />
+														value="${CommandName.COMMAND_SHOW_PRODUCT_FEED_AND_OTHER_OFF_FILTER_PAGE}" />
+													<button class="btn form_submit mb-3" role="button">Сбросить
+														фильтр</button>
+												</form> <c:if
+													test="${products_feeds_and_other_filter_input_exception_type_and_message == null || products_feeds_and_other_filter_input_exception_type_and_message.isEmpty() }">
+													<form action="Controller">
+														<div class="accordion accordion_form"
+															id="accordionExample">
+															<c:if
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PRODUCT_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PRODUCT_EN).size() > 0 == true}">
+																<div class="accordion-item">
+																	<h2 class="accordion-header">
+																		<button
+																			class="accordion-button collapsed text-uppercase"
+																			type="button" data-bs-toggle="collapse"
+																			data-bs-target="#collapse_CHOOSE_TYPE_PRODUCT_EN"
+																			aria-expanded="false"
+																			aria-controls="collapse_CHOOSE_TYPE_PRODUCT_EN">${FilterName.CHOOSE_TYPE_PRODUCT_EN}</button>
+																	</h2>
+																	<div id="collapse_CHOOSE_TYPE_PRODUCT_EN"
+																		class="accordion-collapse collapse show">
+																		<div class="accordion-body">
+																			<c:forEach
+																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PRODUCT_EN)}"
+																				var="value" varStatus="innerStutus">
+																				<label> <span
+																					class="span_input span_input_CHOOSE_TYPE_PRODUCT_EN">
+																						<input type="checkbox"
+																						name="${InputName.INPUT_PRODUCT_TYPE}"
+																						value="${value}" /> ${value}
 																				</span>
-																				<div class="invalid-feedback">${products_feeds_and_other_filter_input_exception_type_and_message.get(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}</div>
-																			</div>
-																		</c:if>
-																		<c:if
-																			test="${!products_feeds_and_other_filter_input_exception_type_and_message.containsKey(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}">
-																			<div class="input-group mb-3 mt-3">
-																				<span
-																					class="input-group-text accordion_item_six_span">от</span>
-																				<input type="text" class="form-control"
-																					pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
-																					aria-label="Процент скидки"
-																					name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}" />
-																				<span class="span_procent"> <img
-																					class="span_procent_img" src="img/percent.svg"
-																					alt="percent.svg" />
-																				</span> <span
-																					class="input-group-text accordion_item_six_span">до</span>
-																				<input type="text" class="form-control"
-																					pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
-																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)"
-																					name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
-																				<span class="span_procent"> <img
-																					class="span_procent_img" src="img/percent.svg"
-																					alt="percent.svg" />
-																				</span>
-																			</div>
-																		</c:if>
-																	</div>
-																</div>
-															</div>
-														</c:if>
-
-
-														<div class="accordion-item">
-															<h2 class="accordion-header">
-																<button
-																	class="accordion-button collapsed text-uppercase"
-																	type="button" data-bs-toggle="collapse"
-																	data-bs-target="#collapseThree" aria-expanded="false"
-																	aria-controls="collapseThree">${FilterName.CHOOSE_VALUE_PRICE}</button>
-															</h2>
-															<div id="collapseThree"
-																class="accordion-collapse collapse">
-																<c:if
-																	test="${products_feeds_and_other_filter_input_exception_type_and_message.containsKey(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
-																	<div class="accordion-body">
-																		<div class="input-group mb-3">
-																			<span class="input-group-text">от</span> <input
-																				type="text" class="form-control is-invalid"
-																				pattern="[0-9]+(\.[0-9]{2})?"
-																				placeHolder="00,00 руб"
-																				name="${InputName.INPUT_MIN_PRICE_PET}"
-																				aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
-																			<span class="input-group-text">до</span> <input
-																				type="text" pattern="[0-9]+(\.[0-9]{2})?"
-																				class="form-control is-invalid"
-																				placeHolder="00,00 руб"
-																				name="${InputName.INPUT_MAX_PRICE_PET}"
-																				aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
-																			<div class="invalid-feedback">${products_feeds_and_other_filter_input_exception_type_and_message.get(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}</div>
+																				</label>
+																				<br />
+																			</c:forEach>
 																		</div>
 																	</div>
-																</c:if>
-																<c:if
-																	test="${!products_feeds_and_other_filter_input_exception_type_and_message.containsKey(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
+																</div>
+															</c:if>
+
+															<c:if
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_BREND_PRODUCT_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BREND_PRODUCT_EN).size() > 0}">
+																<div class="accordion-item">
+																	<h2 class="accordion-header">
+																		<button
+																			class="accordion-button collapsed text-uppercase"
+																			type="button" data-bs-toggle="collapse"
+																			data-bs-target="#collapse_CHOOSE_BREND_PRODUCT_EN"
+																			aria-expanded="false"
+																			aria-controls="collapse_CHOOSE_BREND_PRODUCT_EN">${FilterName.CHOOSE_BREND_PRODUCT_EN}</button>
+																	</h2>
+																	<div id="collapse_CHOOSE_BREND_PRODUCT_EN"
+																		class="accordion-collapse collapse">
+																		<div class="accordion-body">
+																			<c:forEach
+																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BREND_PRODUCT_EN)}"
+																				var="value" varStatus="innerStutus">
+																				<label> <span
+																					class="span_input span_input_CHOOSE_BREND_PRODUCT_EN">
+																						<input type="checkbox"
+																						name="${InputName.INPUT_PRODUCT_BREND}"
+																						value="${value}" /> ${value}
+																				</span>
+																				</label>
+																				<br />
+																			</c:forEach>
+																		</div>
+																	</div>
+																</div>
+															</c:if>
+
+															<c:if
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PET_EN).size() > 0 == true}">
+																<div class="accordion-item">
+																	<h2 class="accordion-header">
+																		<button
+																			class="accordion-button collapsed text-uppercase"
+																			type="button" data-bs-toggle="collapse"
+																			data-bs-target="#collapse_CHOOSE_TYPE_PET_EN"
+																			aria-expanded="false"
+																			aria-controls="collapse_CHOOSE_TYPE_PET_EN">${FilterName.CHOOSE_TYPE_PET_EN}</button>
+																	</h2>
+																	<div id="collapse_CHOOSE_TYPE_PET_EN"
+																		class="accordion-collapse collapse">
+																		<div class="accordion-body">
+																			<c:forEach
+																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PET_EN)}"
+																				var="value" varStatus="innerStutus">
+																				<label> <span
+																					class="span_input span_input_CHOOSE_TYPE_PET_EN">
+																						<input type="checkbox"
+																						name="${InputName.INPUT_PET_TYPE}"
+																						value="${value}" /> ${value}
+																				</span>
+																				</label>
+																				<br />
+																			</c:forEach>
+																		</div>
+																	</div>
+																</div>
+															</c:if>
+
+															<c:if
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_EN).size() > 0 == true}">
+																<div class="accordion-item">
+																	<h2 class="accordion-header">
+																		<button
+																			class="accordion-button collapsed text-uppercase"
+																			type="button" data-bs-toggle="collapse"
+																			data-bs-target="#collapse_CHOOSE_VALUE_DISCOUNT_EN"
+																			aria-expanded="false"
+																			aria-controls="collapse_CHOOSE_VALUE_DISCOUNT_EN">${FilterName.CHOOSE_VALUE_DISCOUNT_EN}</button>
+																	</h2>
+																	<div id="collapse_CHOOSE_VALUE_DISCOUNT_EN"
+																		class="accordion-collapse collapse ">
+																		<div class="accordion-body">
+																			<c:forEach
+																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_EN)}"
+																				var="value" varStatus="innerStutus">
+																				<label> <span
+																					class="span_input span_input_CHOOSE_VALUE_DISCOUNT_EN">
+																						<input type="checkbox"
+																						name="${InputName.CHOOSE_VALUE_DISCOUNT}"
+																						value="${value}" /> ${value}
+																				</span>
+																				</label>
+																				<br />
+																			</c:forEach>
+																			<div class="input-group mb-3 mt-3">
+																				<span
+																					class="input-group-text accordion_item_six_span">от</span>
+																				<input type="text" class="form-control"
+																					pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
+																					aria-label="Процент скидки"
+																					name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}" />
+																				<span class="span_procent"> <img
+																					class="span_procent_img" src="img/percent.svg"
+																					alt="percent.svg" />
+																				</span> <span
+																					class="input-group-text accordion_item_six_span">до</span>
+																				<input type="text" class="form-control"
+																					pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
+																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)"
+																					name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
+																				<span class="span_procent"> <img
+																					class="span_procent_img" src="img/percent.svg"
+																					alt="percent.svg" />
+																				</span>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</c:if>
+															<div class="accordion-item">
+																<h2 class="accordion-header">
+																	<button
+																		class="accordion-button collapsed text-uppercase"
+																		type="button" data-bs-toggle="collapse"
+																		data-bs-target="#collapseThree" aria-expanded="false"
+																		aria-controls="collapseThree">${FilterName.CHOOSE_VALUE_PRICE_EN}</button>
+																</h2>
+																<div id="collapseThree"
+																	class="accordion-collapse collapse">
 																	<div class="accordion-body">
 																		<div class="input-group mb-3">
 																			<span class="input-group-text">от</span> <input
-																				type="text" class="form-control "
+																				type="text" class="form-control"
 																				pattern="[0-9]+(\.[0-9]{2})?"
 																				placeHolder="00,00 руб"
 																				name="${InputName.INPUT_MIN_PRICE_PET}"
@@ -458,24 +231,719 @@
 																				aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
 																		</div>
 																	</div>
-																</c:if>
+																</div>
 															</div>
 														</div>
-													</div>
+														<input type="hidden" name="command"
+															value="${CommandName.COMMAND_SHOW_PRODUCT_FEEDS_AND_OTHER_INCLUDED_FILTER_PAGE}" />
+														<input class="form_submit" type="submit" value="Поиск" />
+													</form>
+												</c:if> <c:if
+													test="${!products_feeds_and_other_filter_input_exception_type_and_message.isEmpty && products_feeds_and_other_filter_input_exception_type_and_message != null}">
+													<form action="Controller">
+														<div class="accordion accordion_form"
+															id="accordionExample">
+															<c:if
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PRODUCT_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PRODUCT_EN).size() > 0 == true}">
+																<div class="accordion-item">
+																	<h2 class="accordion-header">
+																		<button
+																			class="accordion-button collapsed text-uppercase"
+																			type="button" data-bs-toggle="collapse"
+																			data-bs-target="#collapse_CHOOSE_TYPE_PRODUCT_EN"
+																			aria-expanded="false"
+																			aria-controls="collapse_CHOOSE_TYPE_PRODUCT_EN">${FilterName.CHOOSE_TYPE_PRODUCT_EN}</button>
+																	</h2>
+																	<div id="collapse_CHOOSE_TYPE_PRODUCT_EN"
+																		class="accordion-collapse collapse show">
+																		<div class="accordion-body">
+																			<c:forEach
+																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PRODUCT_EN)}"
+																				var="value" varStatus="innerStutus">
+																				<label> <span
+																					class="span_input span_input_CHOOSE_TYPE_PRODUCT_EN">
+																						<input type="checkbox"
+																						name="${InputName.INPUT_PRODUCT_TYPE}"
+																						value="${value}" /> ${value}
+																				</span>
+																				</label>
+																				<br />
+																			</c:forEach>
+																		</div>
+																	</div>
+																</div>
+															</c:if>
+
+															<c:if
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_BREND_PRODUCT_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BREND_PRODUCT_EN).size() > 0 == true}">
+																<div class="accordion-item">
+																	<h2 class="accordion-header">
+																		<button
+																			class="accordion-button collapsed text-uppercase"
+																			type="button" data-bs-toggle="collapse"
+																			data-bs-target="#collapse_CHOOSE_BREND_PRODUCT_EN"
+																			aria-expanded="false"
+																			aria-controls="collapse_CHOOSE_BREND_PRODUCT_EN">${FilterName.CHOOSE_BREND_PRODUCT_EN}</button>
+																	</h2>
+																	<div id="collapse_CHOOSE_BREND_PRODUCT_EN"
+																		class="accordion-collapse collapse">
+																		<div class="accordion-body">
+																			<c:forEach
+																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BREND_PRODUCT_EN)}"
+																				var="value" varStatus="innerStutus">
+																				<label> <span
+																					class="span_input span_input_CHOOSE_BREND_PRODUCT_EN">
+																						<input type="checkbox"
+																						name="${InputName.INPUT_PRODUCT_BREND}"
+																						value="${value}" /> ${value}
+																				</span>
+																				</label>
+																				<br />
+																			</c:forEach>
+																		</div>
+																	</div>
+																</div>
+															</c:if>
+
+															<c:if
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PET_EN).size() > 0 == true}">
+																<div class="accordion-item">
+																	<h2 class="accordion-header">
+																		<button
+																			class="accordion-button collapsed text-uppercase"
+																			type="button" data-bs-toggle="collapse"
+																			data-bs-target="#collapse_CHOOSE_TYPE_PET_EN"
+																			aria-expanded="false"
+																			aria-controls="collapse_CHOOSE_TYPE_PET_EN">${FilterName.CHOOSE_TYPE_PET_EN}</button>
+																	</h2>
+																	<div id="collapse_CHOOSE_TYPE_PET"
+																		class="accordion-collapse collapse">
+																		<div class="accordion-body">
+																			<c:forEach
+																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PET_EN)}"
+																				var="value" varStatus="innerStutus">
+																				<label> <span
+																					class="span_input span_input_CHOOSE_TYPE_PET_EN">
+																						<input type="checkbox"
+																						name="${InputName.INPUT_PET_TYPE}"
+																						value="${value}" /> ${value}
+																				</span>
+																				</label>
+																				<br />
+																			</c:forEach>
+																		</div>
+																	</div>
+																</div>
+															</c:if>
+
+															<c:if
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_EN).size() > 0 == true}">
+																<div class="accordion-item">
+																	<h2 class="accordion-header">
+																		<button
+																			class="accordion-button collapsed text-uppercase"
+																			type="button" data-bs-toggle="collapse"
+																			data-bs-target="#collapse_CHOOSE_VALUE_DISCOUNT_EN"
+																			aria-expanded="false"
+																			aria-controls="collapse_CHOOSE_VALUE_DISCOUNT_EN">${FilterName.CHOOSE_VALUE_DISCOUNT_EN }</button>
+																	</h2>
+																	<div id="collapse_CHOOSE_VALUE_DISCOUNT_EN"
+																		class="accordion-collapse collapse ">
+																		<div class="accordion-body">
+																			<c:forEach
+																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_EN)}"
+																				var="value" varStatus="innerStutus">
+																				<label> <span
+																					class="span_input span_input_CHOOSE_VALUE_DISCOUNT_EN">
+																						<input type="checkbox"
+																						name="${InputName.CHOOSE_VALUE_DISCOUNT}"
+																						value="${value}" /> ${value}
+																				</span>
+																				</label>
+																				<br />
+																			</c:forEach>
+																			<c:if
+																				test="${products_feeds_and_other_filter_input_exception_type_and_message.containsKey(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}">
+																				<div class="input-group mb-3 mt-3">
+																					<span
+																						class="input-group-text accordion_item_six_span">от</span>
+																					<input type="text" class="form-control is-invalid"
+																						pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
+																						aria-label="Процент скидки"
+																						name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}" />
+
+																					<span class="span_procent"> <img
+																						class="span_procent_img" src="img/percent.svg"
+																						alt="percent.svg" />
+																					</span> <span
+																						class="input-group-text accordion_item_six_span">до</span>
+																					<input type="text" class="form-control is-invalid"
+																						pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
+																						aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)"
+																						name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
+																					<span class="span_procent"> <img
+																						class="span_procent_img" src="img/percent.svg"
+																						alt="percent.svg" />
+																					</span>
+																					<div class="invalid-feedback">${products_feeds_and_other_filter_input_exception_type_and_message.get(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}</div>
+																				</div>
+																			</c:if>
+																			<c:if
+																				test="${!products_feeds_and_other_filter_input_exception_type_and_message.containsKey(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}">
+																				<div class="input-group mb-3 mt-3">
+																					<span
+																						class="input-group-text accordion_item_six_span">от</span>
+																					<input type="text" class="form-control"
+																						pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
+																						aria-label="Процент скидки"
+																						name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}" />
+																					<span class="span_procent"> <img
+																						class="span_procent_img" src="img/percent.svg"
+																						alt="percent.svg" />
+																					</span> <span
+																						class="input-group-text accordion_item_six_span">до</span>
+																					<input type="text" class="form-control"
+																						pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
+																						aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)"
+																						name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
+																					<span class="span_procent"> <img
+																						class="span_procent_img" src="img/percent.svg"
+																						alt="percent.svg" />
+																					</span>
+																				</div>
+																			</c:if>
+																		</div>
+																	</div>
+																</div>
+															</c:if>
+
+
+															<div class="accordion-item">
+																<h2 class="accordion-header">
+																	<button
+																		class="accordion-button collapsed text-uppercase"
+																		type="button" data-bs-toggle="collapse"
+																		data-bs-target="#collapseThree" aria-expanded="false"
+																		aria-controls="collapseThree">${FilterName.CHOOSE_VALUE_PRICE_EN}</button>
+																</h2>
+																<div id="collapseThree"
+																	class="accordion-collapse collapse">
+																	<c:if
+																		test="${products_feeds_and_other_filter_input_exception_type_and_message.containsKey(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
+																		<div class="accordion-body">
+																			<div class="input-group mb-3">
+																				<span class="input-group-text">от</span> <input
+																					type="text" class="form-control is-invalid"
+																					pattern="[0-9]+(\.[0-9]{2})?"
+																					placeHolder="00,00 руб"
+																					name="${InputName.INPUT_MIN_PRICE_PET}"
+																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
+																				<span class="input-group-text">до</span> <input
+																					type="text" pattern="[0-9]+(\.[0-9]{2})?"
+																					class="form-control is-invalid"
+																					placeHolder="00,00 руб"
+																					name="${InputName.INPUT_MAX_PRICE_PET}"
+																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
+																				<div class="invalid-feedback">${products_feeds_and_other_filter_input_exception_type_and_message.get(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}</div>
+																			</div>
+																		</div>
+																	</c:if>
+																	<c:if
+																		test="${!products_feeds_and_other_filter_input_exception_type_and_message.containsKey(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
+																		<div class="accordion-body">
+																			<div class="input-group mb-3">
+																				<span class="input-group-text">от</span> <input
+																					type="text" class="form-control "
+																					pattern="[0-9]+(\.[0-9]{2})?"
+																					placeHolder="00,00 руб"
+																					name="${InputName.INPUT_MIN_PRICE_PET}"
+																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
+																				<span class="input-group-text">до</span> <input
+																					type="text" pattern="[0-9]+(\.[0-9]{2})?"
+																					class="form-control" placeHolder="00,00 руб"
+																					name="${InputName.INPUT_MAX_PRICE_PET}"
+																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
+																			</div>
+																		</div>
+																	</c:if>
+																</div>
+															</div>
+														</div>
+														<input type="hidden" name="command"
+															value="${CommandName.COMMAND_SHOW_PRODUCT_FEEDS_AND_OTHER_INCLUDED_FILTER_PAGE}" />
+														<input class="form_submit" type="submit" value="Поиск" />
+													</form>
+												</c:if>
+											</li>
+										</ul>
+									</div>
+								</c:if>
+								<c:if test="${locale == LanguageName.RUSSIAN}">
+									<div class="offcanvas-body">
+										<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+											<li class="nav-item dropdown">
+												<form action="Controller">
 													<input type="hidden" name="command"
-														value="${CommandName.COMMAND_SHOW_PRODUCT_FEEDS_AND_OTHER_INCLUDED_FILTER_PAGE}" />
-													<input class="form_submit" type="submit" value="Поиск" />
-												</form>
-											</c:if>
-										</li>
-									</ul>
-								</div>
+														value="${CommandName.COMMAND_SHOW_PRODUCT_FEED_AND_OTHER_OFF_FILTER_PAGE}" />
+													<button class="btn form_submit mb-3" role="button">Сбросить
+														фильтр</button>
+												</form> <c:if
+													test="${products_feeds_and_other_filter_input_exception_type_and_message.isEmpty() || products_feeds_and_other_filter_input_exception_type_and_message == null}">
+													<form action="Controller">
+														<div class="accordion accordion_form"
+															id="accordionExample">
+															<c:if
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PRODUCT_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PRODUCT_RUS).size() > 0 == true}">
+																<div class="accordion-item">
+																	<h2 class="accordion-header">
+																		<button
+																			class="accordion-button collapsed text-uppercase"
+																			type="button" data-bs-toggle="collapse"
+																			data-bs-target="#collapse_CHOOSE_TYPE_PRODUCT_RUS"
+																			aria-expanded="false"
+																			aria-controls="collapse_CHOOSE_TYPE_PRODUCT_RUS">${FilterName.CHOOSE_TYPE_PRODUCT_RUS}</button>
+																	</h2>
+																	<div id="collapse_CHOOSE_TYPE_PRODUCT_RUS"
+																		class="accordion-collapse collapse show">
+																		<div class="accordion-body">
+																			<c:forEach
+																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PRODUCT_RUS)}"
+																				var="value" varStatus="innerStutus">
+																				<label> <span
+																					class="span_input span_input_CHOOSE_TYPE_PRODUCT_RUS">
+																						<input type="checkbox"
+																						name="${InputName.INPUT_PRODUCT_TYPE}"
+																						value="${value}" /> ${value}
+																				</span>
+																				</label>
+																				<br />
+																			</c:forEach>
+																		</div>
+																	</div>
+																</div>
+															</c:if>
+
+															<c:if
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_BREND_PRODUCT_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BREND_PRODUCT_RUS).size() > 0}">
+																<div class="accordion-item">
+																	<h2 class="accordion-header">
+																		<button
+																			class="accordion-button collapsed text-uppercase"
+																			type="button" data-bs-toggle="collapse"
+																			data-bs-target="#collapse_CHOOSE_BREND_PRODUCT_RUS"
+																			aria-expanded="false"
+																			aria-controls="collapse_CHOOSE_BREND_PRODUCT_RUS">${FilterName.CHOOSE_BREND_PRODUCT_RUS}</button>
+																	</h2>
+																	<div id="collapse_CHOOSE_BREND_PRODUCT_RUS"
+																		class="accordion-collapse collapse">
+																		<div class="accordion-body">
+																			<c:forEach
+																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BREND_PRODUCT_RUS)}"
+																				var="value" varStatus="innerStutus">
+																				<label> <span
+																					class="span_input span_input_CHOOSE_BREND_PRODUCT_RUS">
+																						<input type="checkbox"
+																						name="${InputName.INPUT_PRODUCT_BREND}"
+																						value="${value}" /> ${value}
+																				</span>
+																				</label>
+																				<br />
+																			</c:forEach>
+																		</div>
+																	</div>
+																</div>
+															</c:if>
+
+															<c:if
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PET_RUS).size() > 0 == true}">
+																<div class="accordion-item">
+																	<h2 class="accordion-header">
+																		<button
+																			class="accordion-button collapsed text-uppercase"
+																			type="button" data-bs-toggle="collapse"
+																			data-bs-target="#collapse_CHOOSE_TYPE_PET_RUS"
+																			aria-expanded="false"
+																			aria-controls="collapse_CHOOSE_TYPE_PET_RUS">${FilterName.CHOOSE_TYPE_PET_RUS}</button>
+																	</h2>
+																	<div id="collapse_CHOOSE_TYPE_PET_RUS"
+																		class="accordion-collapse collapse">
+																		<div class="accordion-body">
+																			<c:forEach
+																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PET_RUS)}"
+																				var="value" varStatus="innerStutus">
+																				<label> <span
+																					class="span_input span_input_CHOOSE_TYPE_PET_RUS">
+																						<input type="checkbox"
+																						name="${InputName.INPUT_PET_TYPE}"
+																						value="${value}" /> ${value}
+																				</span>
+																				</label>
+																				<br />
+																			</c:forEach>
+																		</div>
+																	</div>
+																</div>
+															</c:if>
+
+															<c:if
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_RUS).size() > 0 == true}">
+																<div class="accordion-item">
+																	<h2 class="accordion-header">
+																		<button
+																			class="accordion-button collapsed text-uppercase"
+																			type="button" data-bs-toggle="collapse"
+																			data-bs-target="#collapse_CHOOSE_VALUE_DISCOUNT_RUS"
+																			aria-expanded="false"
+																			aria-controls="collapse_CHOOSE_VALUE_DISCOUNT_RUS">${FilterName.CHOOSE_VALUE_DISCOUNT_RUS }</button>
+																	</h2>
+																	<div id="collapse_${FilterName.CHOOSE_VALUE_DISCOUNT }"
+																		class="accordion-collapse collapse ">
+																		<div class="accordion-body">
+																			<c:forEach
+																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_RUS)}"
+																				var="value" varStatus="innerStutus">
+																				<label> <span
+																					class="span_input span_input_CHOOSE_VALUE_DISCOUNT_RUS">
+																						<input type="checkbox"
+																						name="${InputName.CHOOSE_VALUE_DISCOUNT}"
+																						value="${value}" /> ${value}
+																				</span>
+																				</label>
+																				<br />
+																			</c:forEach>
+																			<div class="input-group mb-3 mt-3">
+																				<span
+																					class="input-group-text accordion_item_six_span">от</span>
+																				<input type="text" class="form-control"
+																					pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
+																					aria-label="Процент скидки"
+																					name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}" />
+																				<span class="span_procent"> <img
+																					class="span_procent_img" src="img/percent.svg"
+																					alt="percent.svg" />
+																				</span> <span
+																					class="input-group-text accordion_item_six_span">до</span>
+																				<input type="text" class="form-control"
+																					pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
+																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)"
+																					name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
+																				<span class="span_procent"> <img
+																					class="span_procent_img" src="img/percent.svg"
+																					alt="percent.svg" />
+																				</span>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</c:if>
+															<div class="accordion-item">
+																<h2 class="accordion-header">
+																	<button
+																		class="accordion-button collapsed text-uppercase"
+																		type="button" data-bs-toggle="collapse"
+																		data-bs-target="#collapseThree" aria-expanded="false"
+																		aria-controls="collapseThree">${FilterName.CHOOSE_VALUE_PRICE_RUS}</button>
+																</h2>
+																<div id="collapseThree"
+																	class="accordion-collapse collapse">
+																	<div class="accordion-body">
+																		<div class="input-group mb-3">
+																			<span class="input-group-text">от</span> <input
+																				type="text" class="form-control"
+																				pattern="[0-9]+(\.[0-9]{2})?"
+																				placeHolder="00,00 руб"
+																				name="${InputName.INPUT_MIN_PRICE_PET}"
+																				aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
+																			<span class="input-group-text">до</span> <input
+																				type="text" pattern="[0-9]+(\.[0-9]{2})?"
+																				class="form-control" placeHolder="00,00 руб"
+																				name="${InputName.INPUT_MAX_PRICE_PET}"
+																				aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<input type="hidden" name="command"
+															value="${CommandName.COMMAND_SHOW_PRODUCT_FEEDS_AND_OTHER_INCLUDED_FILTER_PAGE}" />
+														<input class="form_submit" type="submit" value="Поиск" />
+													</form>
+												</c:if> <c:if
+													test="${!products_feeds_and_other_filter_input_exception_type_and_message.isEmpty && products_feeds_and_other_filter_input_exception_type_and_message != null}">
+													<form action="Controller">
+														<div class="accordion accordion_form"
+															id="accordionExample">
+															<c:if
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PRODUCT_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PRODUCT_RUS).size() > 0 == true}">
+																<div class="accordion-item">
+																	<h2 class="accordion-header">
+																		<button
+																			class="accordion-button collapsed text-uppercase"
+																			type="button" data-bs-toggle="collapse"
+																			data-bs-target="#collapse_CHOOSE_TYPE_PRODUCT_RUS"
+																			aria-expanded="false"
+																			aria-controls="collapse_CHOOSE_TYPE_PRODUCT_RUS">${FilterName.CHOOSE_TYPE_PRODUCT_RUS}</button>
+																	</h2>
+																	<div id="collapse_CHOOSE_TYPE_PRODUCT"
+																		class="accordion-collapse collapse show">
+																		<div class="accordion-body">
+																			<c:forEach
+																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PRODUCT_RUS)}"
+																				var="value" varStatus="innerStutus">
+																				<label> <span
+																					class="span_input span_input_CHOOSE_TYPE_PRODUCT_RUS">
+																						<input type="checkbox"
+																						name="${InputName.INPUT_PRODUCT_TYPE}"
+																						value="${value}" /> ${value}
+																				</span>
+																				</label>
+																				<br />
+																			</c:forEach>
+																		</div>
+																	</div>
+																</div>
+															</c:if>
+
+															<c:if
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_BREND_PRODUCT_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BREND_PRODUCT_RUS).size() > 0 == true}">
+																<div class="accordion-item">
+																	<h2 class="accordion-header">
+																		<button
+																			class="accordion-button collapsed text-uppercase"
+																			type="button" data-bs-toggle="collapse"
+																			data-bs-target="#collapse_CHOOSE_BREND_PRODUCT_RUS"
+																			aria-expanded="false"
+																			aria-controls="collapse_CHOOSE_BREND_PRODUCT_RUS">${FilterName.CHOOSE_BREND_PRODUCT_RUS}</button>
+																	</h2>
+																	<div id="collapse_CHOOSE_BREND_PRODUCT_RUS"
+																		class="accordion-collapse collapse">
+																		<div class="accordion-body">
+																			<c:forEach
+																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BREND_PRODUCT_RUS)}"
+																				var="value" varStatus="innerStutus">
+																				<label> <span
+																					class="span_input span_input_CHOOSE_BREND_PRODUCT_RUS">
+																						<input type="checkbox"
+																						name="${InputName.INPUT_PRODUCT_BREND}"
+																						value="${value}" /> ${value}
+																				</span>
+																				</label>
+																				<br />
+																			</c:forEach>
+																		</div>
+																	</div>
+																</div>
+															</c:if>
+
+															<c:if
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PET_RUS).size() > 0 == true}">
+																<div class="accordion-item">
+																	<h2 class="accordion-header">
+																		<button
+																			class="accordion-button collapsed text-uppercase"
+																			type="button" data-bs-toggle="collapse"
+																			data-bs-target="#collapse_CHOOSE_TYPE_PET_RUS"
+																			aria-expanded="false"
+																			aria-controls="collapse_CHOOSE_TYPE_PET_RUS">${FilterName.CHOOSE_TYPE_PET_RUS}</button>
+																	</h2>
+																	<div id="collapse_CHOOSE_TYPE_PET"
+																		class="accordion-collapse collapse">
+																		<div class="accordion-body">
+																			<c:forEach
+																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PET_RUS)}"
+																				var="value" varStatus="innerStutus">
+																				<label> <span
+																					class="span_input span_input_CHOOSE_TYPE_PET_RUS">
+																						<input type="checkbox"
+																						name="${InputName.INPUT_PET_TYPE}"
+																						value="${value}" /> ${value}
+																				</span>
+																				</label>
+																				<br />
+																			</c:forEach>
+																		</div>
+																	</div>
+																</div>
+															</c:if>
+
+															<c:if
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_RUS).size() > 0 == true}">
+																<div class="accordion-item">
+																	<h2 class="accordion-header">
+																		<button
+																			class="accordion-button collapsed text-uppercase"
+																			type="button" data-bs-toggle="collapse"
+																			data-bs-target="#collapse_CHOOSE_VALUE_DISCOUNT_RUS"
+																			aria-expanded="false"
+																			aria-controls="collapse_CHOOSE_VALUE_DISCOUNT_RUS">${FilterName.CHOOSE_VALUE_DISCOUNT_RUS }</button>
+																	</h2>
+																	<div id="collapse_CHOOSE_VALUE_DISCOUNT_RUS"
+																		class="accordion-collapse collapse ">
+																		<div class="accordion-body">
+																			<c:forEach
+																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_RUS)}"
+																				var="value" varStatus="innerStutus">
+																				<label> <span
+																					class="span_input span_input_CHOOSE_VALUE_DISCOUNT_RUS">
+																						<input type="checkbox"
+																						name="${InputName.CHOOSE_VALUE_DISCOUNT}"
+																						value="${value}" /> ${value}
+																				</span>
+																				</label>
+																				<br />
+																			</c:forEach>
+																			<c:if
+																				test="${products_feeds_and_other_filter_input_exception_type_and_message.containsKey(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}">
+																				<div class="input-group mb-3 mt-3">
+																					<span
+																						class="input-group-text accordion_item_six_span">от</span>
+																					<input type="text" class="form-control is-invalid"
+																						pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
+																						aria-label="Процент скидки"
+																						name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}" />
+
+																					<span class="span_procent"> <img
+																						class="span_procent_img" src="img/percent.svg"
+																						alt="percent.svg" />
+																					</span> <span
+																						class="input-group-text accordion_item_six_span">до</span>
+																					<input type="text" class="form-control is-invalid"
+																						pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
+																						aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)"
+																						name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
+																					<span class="span_procent"> <img
+																						class="span_procent_img" src="img/percent.svg"
+																						alt="percent.svg" />
+																					</span>
+																					<div class="invalid-feedback">${products_feeds_and_other_filter_input_exception_type_and_message.get(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}</div>
+																				</div>
+																			</c:if>
+																			<c:if
+																				test="${!products_feeds_and_other_filter_input_exception_type_and_message.containsKey(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}">
+																				<div class="input-group mb-3 mt-3">
+																					<span
+																						class="input-group-text accordion_item_six_span">от</span>
+																					<input type="text" class="form-control"
+																						pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
+																						aria-label="Процент скидки"
+																						name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}" />
+																					<span class="span_procent"> <img
+																						class="span_procent_img" src="img/percent.svg"
+																						alt="percent.svg" />
+																					</span> <span
+																						class="input-group-text accordion_item_six_span">до</span>
+																					<input type="text" class="form-control"
+																						pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
+																						aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)"
+																						name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
+																					<span class="span_procent"> <img
+																						class="span_procent_img" src="img/percent.svg"
+																						alt="percent.svg" />
+																					</span>
+																				</div>
+																			</c:if>
+																		</div>
+																	</div>
+																</div>
+															</c:if>
+
+
+															<div class="accordion-item">
+																<h2 class="accordion-header">
+																	<button
+																		class="accordion-button collapsed text-uppercase"
+																		type="button" data-bs-toggle="collapse"
+																		data-bs-target="#collapseThree" aria-expanded="false"
+																		aria-controls="collapseThree">${FilterName.CHOOSE_VALUE_PRICE_RUS}</button>
+																</h2>
+																<div id="collapseThree"
+																	class="accordion-collapse collapse">
+																	<c:if
+																		test="${products_feeds_and_other_filter_input_exception_type_and_message.containsKey(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
+																		<div class="accordion-body">
+																			<div class="input-group mb-3">
+																				<span class="input-group-text">от</span> <input
+																					type="text" class="form-control is-invalid"
+																					pattern="[0-9]+(\.[0-9]{2})?"
+																					placeHolder="00,00 руб"
+																					name="${InputName.INPUT_MIN_PRICE_PET}"
+																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
+																				<span class="input-group-text">до</span> <input
+																					type="text" pattern="[0-9]+(\.[0-9]{2})?"
+																					class="form-control is-invalid"
+																					placeHolder="00,00 руб"
+																					name="${InputName.INPUT_MAX_PRICE_PET}"
+																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
+																				<div class="invalid-feedback">${products_feeds_and_other_filter_input_exception_type_and_message.get(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}</div>
+																			</div>
+																		</div>
+																	</c:if>
+																	<c:if
+																		test="${!products_feeds_and_other_filter_input_exception_type_and_message.containsKey(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
+																		<div class="accordion-body">
+																			<div class="input-group mb-3">
+																				<span class="input-group-text">от</span> <input
+																					type="text" class="form-control "
+																					pattern="[0-9]+(\.[0-9]{2})?"
+																					placeHolder="00,00 руб"
+																					name="${InputName.INPUT_MIN_PRICE_PET}"
+																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
+																				<span class="input-group-text">до</span> <input
+																					type="text" pattern="[0-9]+(\.[0-9]{2})?"
+																					class="form-control" placeHolder="00,00 руб"
+																					name="${InputName.INPUT_MAX_PRICE_PET}"
+																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
+																			</div>
+																		</div>
+																	</c:if>
+																</div>
+															</div>
+														</div>
+														<input type="hidden" name="command"
+															value="${CommandName.COMMAND_SHOW_PRODUCT_FEEDS_AND_OTHER_INCLUDED_FILTER_PAGE}" />
+														<input class="form_submit" type="submit" value="Поиск" />
+													</form>
+												</c:if>
+											</li>
+										</ul>
+									</div>
+								</c:if>
 							</div>
 						</div>
 					</nav>
 				</div>
 
 				<div class="col-11">
+					<c:if test="${locale == LanguageName.ENGLISH}">
+						<c:if
+							test="${products_feeds_and_other_filter_input_exception_type_and_message == null || products_feeds_and_other_filter_input_exception_type_and_message.isEmpty()}">
+							<h6>${products_pets_filter.toString()}</h6>
+						</c:if>
+						<c:if
+							test="${products_feeds_and_other_filter_input_exception_type_and_message != null && !products_feeds_and_other_filter_input_exception_type_and_message.isEmpty()}">
+							<h6>
+								Mistake in filter:
+								<c:forEach
+									items="${products_feeds_and_other_filter_input_exception_type_and_message.entrySet()}"
+									var="exception">${exception.getValue()};</c:forEach>
+							</h6>
+						</c:if>
+					</c:if>
+					<c:if test="${locale == LanguageName.RUSSIAN}">
+						<c:if
+							test="${products_feeds_and_other_filter_input_exception_type_and_message == null || products_feeds_and_other_filter_input_exception_type_and_message.isEmpty()}">
+							<h6>${products_pets_filter.toString()}</h6>
+						</c:if>
+						<c:if
+							test="${products_feeds_and_other_filter_input_exception_type_and_message != null && !products_feeds_and_other_filter_input_exception_type_and_message.isEmpty()}">
+							<h6>
+								Ошибка в фильтре:
+								<c:forEach
+									items="${products_feeds_and_other_filter_input_exception_type_and_message.entrySet()}"
+									var="exception">${exception.getValue()};</c:forEach>
+							</h6>
+						</c:if>
+					</c:if>
 					<c:if test="${list_products_feeds_and_other.size() > 0}">
 						<div
 							class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 g-4 mb-4">
@@ -510,7 +978,7 @@
 														<button class="w-100 h-100 body_btn_input"
 															id="liveToastBtn${product_item.getId()}" type="button"
 															onclick="addProductOtherProducts(${product_item.getId()})">в
-															карзину</button> 
+															карзину</button>
 													</div>
 												</div>
 											</c:if>

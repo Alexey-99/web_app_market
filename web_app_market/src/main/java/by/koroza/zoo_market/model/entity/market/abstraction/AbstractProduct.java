@@ -6,7 +6,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import by.koroza.zoo_market.model.calculation.Culculator;
+import by.koroza.zoo_market.model.calculation.Calculator;
 import by.koroza.zoo_market.model.entity.market.product.constituent.UpdateDateTime;
 
 public abstract class AbstractProduct {
@@ -73,20 +73,20 @@ public abstract class AbstractProduct {
 		LocalDateTime productUpdateDateTime = LocalDateTime.parse(dateUpdate.toString(),
 				DateTimeFormatter.ofPattern(PATTERN_FORMATTER_DATE_TIME_UPDATE));
 		this.updateDateTime = new UpdateDateTime(
-				Culculator.getInstance().calcUpdateDateTimeInSeconds(productUpdateDateTime));
+				Calculator.getInstance().calcUpdateDateTimeInSeconds(productUpdateDateTime));
 	}
 
 	public void setUpdateDateTime(String dateUpdate) throws DateTimeParseException {
 		LocalDateTime productUpdateDateTime = LocalDateTime.parse(dateUpdate,
 				DateTimeFormatter.ofPattern(PATTERN_FORMATTER_DATE_TIME_UPDATE));
 		this.updateDateTime = new UpdateDateTime(
-				Culculator.getInstance().calcUpdateDateTimeInSeconds(productUpdateDateTime));
+				Calculator.getInstance().calcUpdateDateTimeInSeconds(productUpdateDateTime));
 	}
 
 	public void setUpdateDateTime(LocalDate dateUpdate, LocalTime timeUpdate) throws DateTimeParseException {
 		LocalDateTime productUpdateDateTime = LocalDateTime.of(dateUpdate, timeUpdate);
 		this.updateDateTime = new UpdateDateTime(
-				Culculator.getInstance().calcUpdateDateTimeInSeconds(productUpdateDateTime));
+				Calculator.getInstance().calcUpdateDateTimeInSeconds(productUpdateDateTime));
 	}
 
 	public void setUpdateDateTime(String dateUpdate, String timeUpdate) throws DateTimeParseException {
@@ -94,7 +94,7 @@ public abstract class AbstractProduct {
 				LocalDate.parse(dateUpdate, DateTimeFormatter.ofPattern(PATTERN_FORMATTER_DATE_UPDATE)),
 				LocalTime.parse(timeUpdate, DateTimeFormatter.ofPattern(PATTERN_FORMATTER_TIME_UPDATE)));
 		this.updateDateTime = new UpdateDateTime(
-				Culculator.getInstance().calcUpdateDateTimeInSeconds(productUpdateDateTime));
+				Calculator.getInstance().calcUpdateDateTimeInSeconds(productUpdateDateTime));
 	}
 
 	@Override

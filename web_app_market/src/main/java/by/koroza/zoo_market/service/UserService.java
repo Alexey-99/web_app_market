@@ -15,6 +15,8 @@ public interface UserService {
 
 	public boolean changeRoleStatus(long userId, int roleStatusId) throws ServiceException;
 
+	public boolean changeVerificationEmailStatus(long userId, boolean verificateStatus) throws ServiceException;
+
 	public Optional<AbstractRegistratedUser> getUserByLogin(String login, String password) throws ServiceException;
 
 	public boolean changePersonInformation(AbstractRegistratedUser user, String name, String surname, String email)

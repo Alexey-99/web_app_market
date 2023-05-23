@@ -17,6 +17,7 @@ import by.koroza.zoo_market.web.command.impl.show.ShowProductFeedsAndOtherOffFil
 import by.koroza.zoo_market.web.command.impl.show.ShowProductPetsIncludedFilterCommand;
 import by.koroza.zoo_market.web.command.impl.show.ShowProductPetsOffFilterCommand;
 import by.koroza.zoo_market.web.command.impl.show.ShowVerificationPersonAccountFormCommand;
+import by.koroza.zoo_market.web.command.impl.show.admin.ShowAllProductsOffFilterCommand;
 import by.koroza.zoo_market.web.command.impl.sign.SignInPersonAccountCommand;
 import by.koroza.zoo_market.web.command.impl.sign.SignOutPersonalAccountCommand;
 import by.koroza.zoo_market.web.command.impl.varification.VerificationPersonAccountCommand;
@@ -40,7 +41,9 @@ public enum CommandType {
 	SEND_ONE_MORE_TIME_VERIFICATION_CODE(new SendOneMoreTimeVerificationCodeCommand()),
 	ORDER_PAYMENT(new OrderPaymentCommand()), SIGN_OUT_PERSONAL_ACCOUNT(new SignOutPersonalAccountCommand()),
 	SET_RUSSIAN_LOCALE(new SetRussinLocaleCommand()), SET_ENGLISH_LOCALE(new SetEnglishLocaleCommand()),
-	SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE(new ShowPersonalAccountAdminPage());
+	SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE(new ShowPersonalAccountAdminPage()),
+	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER(new ShowAllProductsOffFilterCommand()),
+	ADMIN_PAGE_SHOW_ALL_PRODUCTS_INCLUDED_FILTER(new ShowAllProductsOffFilterCommand());
 
 	private Command command;
 
