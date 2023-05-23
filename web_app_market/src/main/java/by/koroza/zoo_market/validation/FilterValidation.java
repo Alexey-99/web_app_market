@@ -24,7 +24,7 @@ public class FilterValidation {
 
 	public static boolean validInputValuesNumbersYearMonth(String minYear, String maxYear, String minMonth,
 			String maxMonth) {
-		String min = new StringBuilder().append(!minYear.isBlank() ? minYear : "0").append(".")
+		String min = new StringBuilder().append( !minYear.isBlank() ? minYear : "0").append(".")
 				.append(!minMonth.isBlank() ? (minMonth.length() < 2 ? "0" + minMonth : minMonth) : "0").toString();
 		String max = new StringBuilder().append(!maxYear.isBlank() ? maxYear : "0").append(".")
 				.append(!maxMonth.isBlank() ? (maxMonth.length() < 2 ? "0" + maxMonth : maxMonth) : "0").toString();

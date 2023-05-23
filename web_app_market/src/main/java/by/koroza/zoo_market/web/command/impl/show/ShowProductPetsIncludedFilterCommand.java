@@ -1,8 +1,11 @@
 package by.koroza.zoo_market.web.command.impl.show;
 
-import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_BREED_PET;
-import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PET;
-import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_VALUE_DISCOUNT;
+import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_BREED_PET_RUS;
+import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PET_RUS;
+import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_VALUE_DISCOUNT_RUS;
+import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_BREED_PET_EN;
+import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PET_EN;
+import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_VALUE_DISCOUNT_EN;
 
 import static by.koroza.zoo_market.web.command.name.InputName.INPUT_MAX_NUMBER_MONTHS_PET;
 import static by.koroza.zoo_market.web.command.name.InputName.INPUT_MAX_NUMBER_YEARS_PET;
@@ -23,6 +26,10 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PROD
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_LIST_PRODUCTS_PETS;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
+
+import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
+import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,15 +75,15 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, pets);
 				if (session.getAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP) == null) {
 					List<Pet> allProductsPets = ProductPetServiceImpl.getInstance().getAllHavingProductsPets();
-					Map<String, Set<String>> filterMap = createFilter(allProductsPets);
+					Map<String, Set<String>> filterMap = createFilter(allProductsPets, session);
 					session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP, filterMap);
-					session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER, filter);
 				}
+				session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER, filter);
 			} catch (InputException e) {
 				pets = ProductPetServiceImpl.getInstance().getAllHavingProductsPets();
 				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, pets);
 				if (session.getAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP) == null) {
-					Map<String, Set<String>> filterMap = createFilter(pets);
+					Map<String, Set<String>> filterMap = createFilter(pets, session);
 					session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP, filterMap);
 				}
 			}
@@ -103,28 +110,59 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 				: "";
 
 		if (!FilterValidation.validInputValuesNumbersDiscount(minDiscount, maxDiscount)) {
-			mapTypeAndMessageException.put(INPUT_EXCEPTION_TYPE_DESCOUNT,
-					"You input discount values incorrect: minDiscont = " + minDiscount + ", maxDiscont = "
-							+ maxDiscount);
+			if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+				mapTypeAndMessageException.put(INPUT_EXCEPTION_TYPE_DESCOUNT,
+						"Вы ввели не корректно величину скидки. Вы ввели: минимальная скидка = " + minDiscount
+								+ ", максимальная скидка = " + maxDiscount);
+			} else if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+				mapTypeAndMessageException.put(INPUT_EXCEPTION_TYPE_DESCOUNT,
+						"You input discount values incorrect: minDiscont = " + minDiscount + ", maxDiscont = "
+								+ maxDiscount);
+			}
 		}
-		String minPrice = request.getParameter(INPUT_MIN_PRICE_PET);
-		String maxPrice = request.getParameter(INPUT_MAX_PRICE_PET);
+		String minPrice = request.getParameter(INPUT_MIN_PRICE_PET) != null ? request.getParameter(INPUT_MIN_PRICE_PET)
+				: "";
+		String maxPrice = request.getParameter(INPUT_MAX_PRICE_PET) != null ? request.getParameter(INPUT_MIN_PRICE_PET)
+				: "";
 		if (!FilterValidation.validInputValuesNumbersPrice(minPrice, maxPrice)) {
-			mapTypeAndMessageException.put(INPUT_EXCEPTION_TYPE_PRICE,
-					"You input price values incorrect: min price = " + minPrice + ", max price = " + maxPrice);
+			if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+				mapTypeAndMessageException.put(INPUT_EXCEPTION_TYPE_DESCOUNT,
+						"Вы ввели не корректно цену. Вы ввели: минимальная цена = " + minPrice
+								+ ", максимальная цена = " + maxPrice);
+			} else if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+				mapTypeAndMessageException.put(INPUT_EXCEPTION_TYPE_PRICE,
+						"You input price values incorrect: min price = " + minPrice + ", max price = " + maxPrice);
+			}
 		}
-		String minYear = request.getParameter(INPUT_MIN_NUMBER_YEARS_PET);
-		String minMonths = request.getParameter(INPUT_MIN_NUMBER_MONTHS_PET);
-		String maxYear = request.getParameter(INPUT_MAX_NUMBER_YEARS_PET);
-		String maxMonths = request.getParameter(INPUT_MAX_NUMBER_MONTHS_PET);
+		String minYear = request.getParameter(INPUT_MIN_NUMBER_YEARS_PET) != null
+				? request.getParameter(INPUT_MIN_NUMBER_YEARS_PET)
+				: "";
+		String minMonths = request.getParameter(INPUT_MIN_NUMBER_MONTHS_PET) != null
+				? request.getParameter(INPUT_MIN_NUMBER_MONTHS_PET)
+				: "";
+		String maxYear = request.getParameter(INPUT_MAX_NUMBER_YEARS_PET) != null
+				? request.getParameter(INPUT_MAX_NUMBER_YEARS_PET)
+				: "";
+		String maxMonths = request.getParameter(INPUT_MAX_NUMBER_MONTHS_PET) != null
+				? request.getParameter(INPUT_MAX_NUMBER_MONTHS_PET)
+				: "";
 		if (!FilterValidation.validInputValuesNumbersYearMonth(minYear, maxYear, minMonths, maxMonths)) {
 			StringBuilder build = new StringBuilder();
-			mapTypeAndMessageException.put(INPUT_EXCEPTION_TYPE_YEAR_MONTH,
-					build.append("You input values year or month incorrect: ").append("minYear")
-							.append(!minYear.isBlank() ? minYear : 0).append(", minMonths = ")
-							.append(!minMonths.isBlank() ? minMonths : 0).append("; maxYear = ")
-							.append(!maxYear.isBlank() ? maxYear : 0).append(", maxMonths = ")
-							.append(!maxMonths.isBlank() ? maxMonths : 0).toString());
+			if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+				mapTypeAndMessageException.put(INPUT_EXCEPTION_TYPE_YEAR_MONTH,
+						build.append("Вы ввели не корректно год или месяц: ").append("минимальный возрост = ")
+								.append(!minYear.isBlank() ? minYear : 0).append("лет")
+								.append(!minMonths.isBlank() ? minMonths : 0).append("месяцев; максимальный возрост = ")
+								.append(!maxYear.isBlank() ? maxYear : 0).append("лет")
+								.append(!maxMonths.isBlank() ? maxMonths : 0).append("месяцев;").toString());
+			} else if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+				mapTypeAndMessageException.put(INPUT_EXCEPTION_TYPE_YEAR_MONTH,
+						build.append("You input values year or month incorrect: ").append("minYear")
+								.append(!minYear.isBlank() ? minYear : 0).append(", minMonths = ")
+								.append(!minMonths.isBlank() ? minMonths : 0).append("; maxYear = ")
+								.append(!maxYear.isBlank() ? maxYear : 0).append(", maxMonths = ")
+								.append(!maxMonths.isBlank() ? maxMonths : 0).toString());
+			}
 		}
 		if (mapTypeAndMessageException.size() > 0) {
 			request.getSession().setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
@@ -145,12 +183,20 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 		return filter;
 	}
 
-	private Map<String, Set<String>> createFilter(List<Pet> petsList) {
+	private Map<String, Set<String>> createFilter(List<Pet> petsList, HttpSession session) {
 		Map<String, Set<String>> filterMap = new HashMap<>();
-		filterMap.put(CHOOSE_TYPE_PET, createFilterBySpeciePets(petsList));
-		filterMap.put(CHOOSE_BREED_PET, createFilterByBreedPets(petsList));
-		if (isHavingPromotionsProductsPets(petsList)) {
-			filterMap.put(CHOOSE_VALUE_DISCOUNT, createFilterByPromotionsProductsPets(petsList));
+		if (session.getAttribute(ATTRIBUTE_SESSION_LOCALE).equals(RUSSIAN)) {
+			filterMap.put(CHOOSE_TYPE_PET_RUS, createFilterBySpeciePets(petsList));
+			filterMap.put(CHOOSE_BREED_PET_RUS, createFilterByBreedPets(petsList));
+			if (isHavingPromotionsProductsPets(petsList)) {
+				filterMap.put(CHOOSE_VALUE_DISCOUNT_RUS, createFilterByPromotionsProductsPets(petsList, session));
+			}
+		} else if (session.getAttribute(ATTRIBUTE_SESSION_LOCALE).equals(ENGLISH)) {
+			filterMap.put(CHOOSE_TYPE_PET_EN, createFilterBySpeciePets(petsList));
+			filterMap.put(CHOOSE_BREED_PET_EN, createFilterByBreedPets(petsList));
+			if (isHavingPromotionsProductsPets(petsList)) {
+				filterMap.put(CHOOSE_VALUE_DISCOUNT_EN, createFilterByPromotionsProductsPets(petsList, session));
+			}
 		}
 		return filterMap;
 	}
@@ -167,11 +213,15 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 		return breedsPetsSet;
 	}
 
-	private Set<String> createFilterByPromotionsProductsPets(List<Pet> petsList) {
+	private Set<String> createFilterByPromotionsProductsPets(List<Pet> petsList, HttpSession session) {
 		Set<String> promotionsPetsSet = null;
 		if (isHavingPromotionsProductsPets(petsList)) {
 			promotionsPetsSet = new HashSet<>();
-			promotionsPetsSet.add("только акционные товары");
+			if (session.getAttribute(ATTRIBUTE_SESSION_LOCALE).equals(RUSSIAN)) {
+				promotionsPetsSet.add("только акционные товары");
+			} else if (session.getAttribute(ATTRIBUTE_SESSION_LOCALE).equals(ENGLISH)) {
+				promotionsPetsSet.add("only products with discount");
+			}
 		}
 		return promotionsPetsSet;
 	}

@@ -129,12 +129,12 @@
 																	<button
 																		class="accordion-button collapsed text-uppercase"
 																		type="button" data-bs-toggle="collapse"
-																		data-bs-target="#collapse_${FilterName.CHOOSE_VALUE_DISCOUNT }"
+																		data-bs-target="#collapse_CHOOSE_VALUE_DISCOUNT"
 																		aria-expanded="false"
-																		aria-controls="collapse_${FilterName.CHOOSE_VALUE_DISCOUNT }">${FilterName.CHOOSE_VALUE_DISCOUNT }</button>
+																		aria-controls="collapse_CHOOSE_VALUE_DISCOUNT">${FilterName.CHOOSE_VALUE_DISCOUNT }</button>
 																</h2>
-																<div id="collapse_${FilterName.CHOOSE_VALUE_DISCOUNT }"
-																	class="accordion-collapse collapse ">
+																<div id="collapse_CHOOSE_VALUE_DISCOUNT"
+																	class="accordion-collapse collapse">
 																	<div class="accordion-body">
 																		<c:forEach
 																			items="${products_pets_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT)}"
@@ -291,11 +291,11 @@
 																	<button
 																		class="accordion-button collapsed text-uppercase"
 																		type="button" data-bs-toggle="collapse"
-																		data-bs-target="#collapse_${FilterName.CHOOSE_BREED_PET}"
+																		data-bs-target="#collapse_CHOOSE_BREED_PET"
 																		aria-expanded="false"
-																		aria-controls="collapse_${FilterName.CHOOSE_BREED_PET}">${FilterName.CHOOSE_BREED_PET }</button>
+																		aria-controls="collapse_CHOOSE_BREED_PET">${FilterName.CHOOSE_BREED_PET }</button>
 																</h2>
-																<div id="collapse_${FilterName.CHOOSE_BREED_PET}"
+																<div id="collapse_CHOOSE_BREED_PET"
 																	class="accordion-collapse collapse ">
 																	<div class="accordion-body">
 																		<c:forEach
@@ -322,11 +322,11 @@
 																	<button
 																		class="accordion-button collapsed text-uppercase"
 																		type="button" data-bs-toggle="collapse"
-																		data-bs-target="#collapse_${FilterName.CHOOSE_VALUE_DISCOUNT }"
+																		data-bs-target="#collapse_CHOOSE_VALUE_DISCOUNT"
 																		aria-expanded="false"
-																		aria-controls="collapse_${FilterName.CHOOSE_VALUE_DISCOUNT }">${FilterName.CHOOSE_VALUE_DISCOUNT }</button>
+																		aria-controls="collapse_CHOOSE_VALUE_DISCOUNT">${FilterName.CHOOSE_VALUE_DISCOUNT }</button>
 																</h2>
-																<div id="collapse_${FilterName.CHOOSE_VALUE_DISCOUNT }"
+																<div id="collapse_CHOOSE_VALUE_DISCOUNT"
 																	class="accordion-collapse collapse ">
 																	<div class="accordion-body">
 																		<c:forEach
