@@ -22,6 +22,7 @@ import by.koroza.zoo_market.dao.pool.ConnectionPool;
 import by.koroza.zoo_market.dao.pool.ProxyConnection;
 import by.koroza.zoo_market.model.calculation.Calculator;
 import by.koroza.zoo_market.model.entity.filter.FilterPet;
+import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.dao.ProductPetDao;
 import by.koroza.zoo_market.dao.exception.DaoException;
@@ -163,6 +164,52 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			throw new DaoException(e);
 		}
 		return mapPetsAndNumber;
+	}
+
+	private static final String QUERY_SELECT_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID = """
+			SELECT pets.number_of_units_products
+			FROM pets
+			WHERE pets.id = ?;
+			""";
+
+	private static final String QUERY_CHANGE_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID = """
+			UPDATE pets
+			SET pets.number_of_units_products = ?
+			WHERE pets.id = ?;
+			""";
+
+	@Override
+	public boolean changeNumberOfUnitsProducts(Order order) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
+			for (Pet productPet : order.getProductsPets()) {
+				long numberOfUnitsProduct = 0;
+				try (PreparedStatement statement = connection
+						.prepareStatement(QUERY_SELECT_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
+					statement.setLong(1, productPet.getId());
+					try (ResultSet resultSet = statement.executeQuery()) {
+						while (resultSet.next()) {
+							numberOfUnitsProduct = resultSet.getLong(PETS_NUMBER_OF_UNITS_PRODUCT);
+						}
+					}
+				}
+				if (numberOfUnitsProduct > 0) {
+					try (PreparedStatement statement = connection
+							.prepareStatement(QUERY_CHANGE_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
+						statement.setLong(1, numberOfUnitsProduct - 1);
+						statement.setLong(2, productPet.getId());
+						statement.execute(); // TODO NO RESULT ???
+					}
+				}
+			}
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		return result;
+	}
+	
+	public void addProductPet(Pet pet) {
+		
 	}
 
 	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS_NOT_CLOSED = """

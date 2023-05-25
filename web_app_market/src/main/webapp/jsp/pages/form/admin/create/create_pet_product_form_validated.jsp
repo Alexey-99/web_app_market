@@ -7,6 +7,8 @@
 <%@page import="by.koroza.zoo_market.model.entity.status.UserRole"%>
 <%@page import="by.koroza.zoo_market.web.command.name.LanguageName"%>
 <%@page import="by.koroza.zoo_market.model.entity.status.ProductType"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.impl.admin.CraetePetProductCommand"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +24,8 @@
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 <!-- map_product_pet_and_number_of_units = AttributeName.ATTRIBUTE_MAP_PRODUCT_PET_AND_NUMBER_OF_UNITS_PRODUCT -->
 <!-- map_product_feeds_and_other_and_number_of_units = AttributeName.ATTRIBUTE_MAP_PRODUCT_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT -->
+<!-- product_pet = AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET -->
+<!-- product_pet_number_of_units = AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT -->
 </head>
 <body>
 
@@ -273,7 +277,7 @@
 				<div class="row">
 					<div class="col-12">
 						<div
-							class="position-fixed d-none d-flex justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 add_product_form">
+							class="position-fixed d-flex justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 add_product_form">
 							<div
 								class="position-relative w-100 d-flex flex-column add_product_form_inner">
 								<div class="add_product_form_top">
@@ -283,13 +287,17 @@
 									</div>
 									<div
 										class="d-flex justify-content-center align-items-center mb-4 add_product_form_top_btns">
-										<div class="close_btn" onclick="closeAddProductForm()">
-											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-												width="25px" height="25px">
+										<form action="Controller">
+											<input type="hidden" name="command"
+												value="${CommandName.COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_OFF_FILTER }">
+											<button class="close_btn" role="button">
+												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+													width="25px" height="25px">
                         <path
-													d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z" />
+														d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z" />
                       </svg>
-										</div>
+											</button>
+										</form>
 										<button
 											class="btn text-uppercase active add_product_form_top_btn add_product_form_top_btn_product_pet"
 											role="button" onclick="openAddProductPetForm()">
@@ -302,60 +310,230 @@
 								</div>
 
 								<div class="add_product_pet_form">
-									<form class="add_product_pet_form_body" action="Controller">
-										<div class="form-floating mb-3">
-											<input type="text" class="form-control text-uppercase"
-												id="floatingInputSpecie"
-												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
-												placeholder="dog" /> <label class="text-lowercase"
-												for="floatingInputSpecie">тип питомца</label>
-										</div>
-										<div class="form-floating mb-3">
-											<input type="text" class="form-control text-uppercase"
-												id="floatingInputBreed"
-												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED}"
-												placeholder="Breed" /> <label class="text-lowercase"
-												for="floatingInputBreed">порода</label>
-										</div>
-										<div class="form-floating mb-3">
-											<input type="date" class="form-control text-uppercase"
-												id="floatingInputBirthDate"
-												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE}"
-												placeholder="BirthDate" /> <label class="text-lowercase"
-												for="floatingInputBirthDate">Дата рождения</label>
-										</div>
-										<div class="form-floating mb-3">
-											<input type="text" class="form-control text-uppercase"
-												id="floatingInputPrice"
-												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE}"
-												placeholder="Price" pattern="^(\d+)(\.\d{1,2})?$" /> <label
-												class="text-lowercase" for="floatingInputPrice">Цена</label>
-										</div>
-										<div class="form-floating mb-3">
-											<input type="text" class="form-control text-uppercase"
-												id="floatingInputDiscount"
-												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT}"
-												placeholder="Discount" pattern="^(\d+)(\.\d{1,2})?$" /> <label
-												class="text-lowercase" for="floatingInputDiscount">Скидка
-												(в %)</label>
-										</div>
-										<div class="form-floating mb-3">
-											<input type="number" class="form-control text-uppercase"
-												id="floatingInputNumberOfUnitsProducts"
-												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
-												placeholder="NumberOfUnitsProducts" pattern="^(\d+)$" /> <label
-												class="text-lowercase"
-												for="floatingInputNumberOfUnitsProducts">количество
-												единиц</label>
-										</div>
-										<div
-											class="add_product_pet_form_fotter d-flex justify-content-end">
-											<input type="hidden" name="command"
-												value="${CommandName.COMMAND_ADMIN_PAGE_CREATE_PET_PRODUCT}" />
-											<button class="btn add_product_pet_form_btn_submit"
-												role="button">готово</button>
-										</div>
-									</form>
+									<c:if
+										test="${admin_page_create_pet_product_input_exception_type_and_message == null || admin_page_create_pet_product_input_exception_type_and_message.isEmpty()}">
+										<form class="add_product_pet_form_body" action="Controller">
+											<div class="form-floating mb-3">
+												<input type="text" class="form-control text-uppercase"
+													id="floatingInputSpecie"
+													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
+													placeholder="dog" /> <label class="text-lowercase"
+													for="floatingInputSpecie">тип питомца</label>
+											</div>
+											<div class="form-floating mb-3">
+												<input type="text" class="form-control text-uppercase"
+													id="floatingInputBreed"
+													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED}"
+													placeholder="Breed" /> <label class="text-lowercase"
+													for="floatingInputBreed">порода</label>
+											</div>
+											<div class="form-floating mb-3">
+												<input type="date" class="form-control text-uppercase"
+													id="floatingInputBirthDate"
+													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE}"
+													placeholder="BirthDate" /> <label class="text-lowercase"
+													for="floatingInputBirthDate">Дата рождения</label>
+											</div>
+											<div class="form-floating mb-3">
+												<input type="text" class="form-control text-uppercase"
+													id="floatingInputPrice"
+													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE}"
+													placeholder="Price" pattern="^(\d+)(\.\d{1,2})?$" /> <label
+													class="text-lowercase" for="floatingInputPrice">Цена</label>
+											</div>
+											<div class="form-floating mb-3">
+												<input type="text" class="form-control text-uppercase"
+													id="floatingInputDiscount"
+													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT}"
+													placeholder="Discount" pattern="^(\d+)(\.\d{1,2})?$" /> <label
+													class="text-lowercase" for="floatingInputDiscount">Скидка
+													(в %)</label>
+											</div>
+											<div class="form-floating mb-3">
+												<input type="number" class="form-control text-uppercase"
+													id="floatingInputNumberOfUnitsProducts"
+													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
+													placeholder="NumberOfUnitsProducts" pattern="^(\d+)$" /> <label
+													class="text-lowercase"
+													for="floatingInputNumberOfUnitsProducts">количество
+													единиц</label>
+											</div>
+											<div
+												class="add_product_pet_form_fotter d-flex justify-content-end">
+												<input type="hidden" name="command"
+													value="${CommandName.COMMAND_ADMIN_PAGE_CREATE_PET_PRODUCT}" />
+												<button class="btn add_product_pet_form_btn_submit"
+													role="button">готово</button>
+											</div>
+										</form>
+									</c:if>
+									<c:if
+										test="${admin_page_create_pet_product_input_exception_type_and_message != null && !admin_page_create_pet_product_input_exception_type_and_message.isEmpty()}">
+										<form class="add_product_pet_form_body" action="Controller">
+											<c:if
+												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_SPECIE) }">
+												<div class="form-floating mb-3">
+													<input type="text"
+														class="form-control text-uppercase is-invalid"
+														id="floatingInputSpecie"
+														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
+														placeholder="dog" /> <label class="text-lowercase"
+														for="floatingInputSpecie">тип питомца</label>
+													<div class="invalid-feedback">${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_SPECIE)}</div>
+												</div>
+											</c:if>
+											<c:if
+												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_SPECIE) }">
+												<div class="form-floating mb-3">
+													<input type="text"
+														class="form-control text-uppercase is-valid"
+														id="floatingInputSpecie"
+														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
+														value="${product_pet.getSpecie()}" placeholder="dog" /> <label
+														class="text-lowercase" for="floatingInputSpecie">тип
+														питомца</label>
+													<div class="valid-feedback">Всё хорошо!!!</div>
+												</div>
+											</c:if>
+											<c:if
+												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BREED) }">
+												<div class="form-floating mb-3">
+													<input type="text"
+														class="form-control text-uppercase is-invalid"
+														id="floatingInputBreed"
+														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED}"
+														placeholder="Breed" /> <label class="text-lowercase"
+														for="floatingInputBreed">порода</label>
+													<div class="invalid-feedback">${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BREED)}</div>
+												</div>
+											</c:if>
+											<c:if
+												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BREED) }">
+												<div class="form-floating mb-3">
+													<input type="text"
+														class="form-control text-uppercase is-valid"
+														id="floatingInputBreed"
+														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED}"
+														value="${product_pet.getBreed()}" placeholder="Breed" />
+													<label class="text-lowercase" for="floatingInputBreed">порода</label>
+													<div class="valid-feedback">Всё хорошо!!!</div>
+												</div>
+											</c:if>
+											<c:if
+												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BIRTH_DATE) }">
+												<div class="form-floating mb-3">
+													<input type="date"
+														class="form-control text-uppercase is-invalid"
+														id="floatingInputBirthDate"
+														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE}"
+														placeholder="BirthDate" /> <label class="text-lowercase"
+														for="floatingInputBirthDate">Дата рождения</label>
+													<div class="invalid-feedback">${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BIRTH_DATE)}</div>
+												</div>
+											</c:if>
+											<c:if
+												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BIRTH_DATE) }">
+												<div class="form-floating mb-3">
+													<input type="date"
+														class="form-control text-uppercase is-valid"
+														id="floatingInputBirthDate"
+														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE}"
+														value="${product_pet.getBirthDate().toString()}"
+														placeholder="BirthDate" /> <label class="text-lowercase"
+														for="floatingInputBirthDate">Дата рождения</label>
+													<div class="valid-feedback">Всё хорошо!!!</div>
+												</div>
+											</c:if>
+											<c:if
+												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE) }">
+												<div class="form-floating mb-3">
+													<input type="text"
+														class="form-control text-uppercase is-invalid"
+														id="floatingInputPrice"
+														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE}"
+														placeholder="Price" pattern="^(\d+)(\.\d{1,2})?$" /> <label
+														class="text-lowercase" for="floatingInputPrice">Цена</label>
+													<div class="invalid-feedback">${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}</div>
+												</div>
+											</c:if>
+											<c:if
+												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE) }">
+												<div class="form-floating mb-3">
+													<input type="text"
+														class="form-control text-uppercase is-valid"
+														id="floatingInputPrice"
+														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE}"
+														value="${product_pet.getPrice()}" placeholder="Price"
+														pattern="^(\d+)(\.\d{1,2})?$" /> <label
+														class="text-lowercase" for="floatingInputPrice">Цена</label>
+													<div class="valid-feedback">Всё хорошо!!!</div>
+												</div>
+											</c:if>
+											<c:if
+												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT) }">
+												<div class="form-floating mb-3">
+													<input type="text"
+														class="form-control text-uppercase is-invalid"
+														id="floatingInputDiscount"
+														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT}"
+														placeholder="Discount" pattern="^(\d+)(\.\d{1,2})?$" /> <label
+														class="text-lowercase" for="floatingInputDiscount">Скидка
+														(в %)</label>
+													<div class="invalid-feedback">${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT)}</div>
+												</div>
+											</c:if>
+											<c:if
+												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT) }">
+												<div class="form-floating mb-3">
+													<input type="text"
+														class="form-control text-uppercase is-valid"
+														id="floatingInputDiscount"
+														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT}"
+														value="${product_pet.getDiscount()}"
+														placeholder="Discount" pattern="^(\d+)(\.\d{1,2})?$" /> <label
+														class="text-lowercase" for="floatingInputDiscount">Скидка
+														(в %)</label>
+													<div class="valid-feedback">Всё хорошо!!!</div>
+												</div>
+											</c:if>
+											<c:if
+												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT) }">
+												<div class="form-floating mb-3">
+													<input type="number"
+														class="form-control text-uppercase is-invalid"
+														id="floatingInputNumberOfUnitsProducts"
+														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
+														placeholder="NumberOfUnitsProducts" pattern="^(\d+)$" />
+													<label class="text-lowercase"
+														for="floatingInputNumberOfUnitsProducts">количество
+														единиц</label>
+													<div class="invalid-feedback">${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT)}</div>
+												</div>
+											</c:if>
+											<c:if
+												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT) }">
+												<div class="form-floating mb-3">
+													<input type="number"
+														class="form-control text-uppercase is-valid"
+														id="floatingInputNumberOfUnitsProducts"
+														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
+														value="${product_pet_number_of_units}"
+														placeholder="NumberOfUnitsProducts" pattern="^(\d+)$" />
+													<label class="text-lowercase"
+														for="floatingInputNumberOfUnitsProducts">количество
+														единиц</label>
+													<div class="valid-feedback">Всё хорошо!!!</div>
+												</div>
+											</c:if>
+											<div
+												class="add_product_pet_form_fotter d-flex justify-content-end">
+												<input type="hidden" name="command"
+													value="${CommandName.COMMAND_ADMIN_PAGE_CREATE_PET_PRODUCT}" />
+												<button class="btn add_product_pet_form_btn_submit"
+													role="button">готово</button>
+											</div>
+										</form>
+									</c:if>
 								</div>
 
 								<div class="add_other_product_form d-none">

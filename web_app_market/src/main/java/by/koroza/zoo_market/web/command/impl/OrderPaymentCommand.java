@@ -14,6 +14,8 @@ import by.koroza.zoo_market.model.entity.bank.BankCard;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.service.impl.OrderServiceImpl;
+import by.koroza.zoo_market.service.impl.ProductFeedsAndOtherServiceImpl;
+import by.koroza.zoo_market.service.impl.ProductPetServiceImpl;
 import by.koroza.zoo_market.validation.BankCardValidation;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
@@ -85,7 +87,8 @@ public class OrderPaymentCommand implements Command {
 						}
 						if (mapInputExceptions.isEmpty()) {
 							OrderServiceImpl.getInstance().addOrder(order, user.getId());
-							// send заказ to email
+							ProductPetServiceImpl.getInstance().changeNumberOfUnitsProducts(order);
+							ProductFeedsAndOtherServiceImpl.getInstance().changeNumberOfUnitsProducts(order);
 							router = new Router(SUCCESS_ORDER_PAYMENT_PAGE_PATH);
 						} else {
 							session.setAttribute(ATTRIBUTE_ORDER_PAYMENT_INPUT_EXCEPTION_TYPE_AND_MASSAGE,

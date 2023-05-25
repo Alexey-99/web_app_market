@@ -1,27 +1,11 @@
-function addProductPet(id) {
-	let i = localStorage.length + 1
-	let key = 'p = ' + i;
-	if (isHaveKeyInLocalStorage(key) == false) {
-		localStorage.setItem(key, id);
-	} else {
-		while (isHaveKeyInLocalStorage(key)) {
-			key = 'p = ' + ++i;
-		}
-		localStorage.setItem(key, id);
-	}
+function addProductPet(id, idElement) {
+	let key = `p = ${id} - ${idElement}`;
+	localStorage.setItem(key, id);
 }
 
-function addProductOtherProducts(id) {
-	let i = localStorage.length + 1
-	let key = 'o = ' + i;
-	if (isHaveKeyInLocalStorage(key) == false) {
-		localStorage.setItem(key, id);
-	} else {
-		while (isHaveKeyInLocalStorage(key)) {
-			key = 'o = ' + ++i;
-		}
-		localStorage.setItem(key, id);
-	}
+function addProductOtherProducts(id, idElement) {
+	let key = `o = ${id} - ${idElement}`;
+	localStorage.setItem(key, id);
 }
 
 function showToast(arrayProductsId) {

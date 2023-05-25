@@ -5,6 +5,7 @@ import java.util.Map;
 
 import by.koroza.zoo_market.dao.exception.DaoException;
 import by.koroza.zoo_market.model.entity.filter.FilterFeedsAndOther;
+import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 
 public interface ProductFeedsAndOtherDao {
@@ -16,4 +17,6 @@ public interface ProductFeedsAndOtherDao {
 	public List<FeedAndOther> getProductsFeedAndOtherWithFilter(FilterFeedsAndOther filter) throws DaoException;
 
 	public Map<FeedAndOther, Long> getAllProductsFeedAndOtherAndNumberOfUnits() throws DaoException;
+
+	public boolean changeNumberOfUnitsProducts(Order order) throws DaoException;
 }

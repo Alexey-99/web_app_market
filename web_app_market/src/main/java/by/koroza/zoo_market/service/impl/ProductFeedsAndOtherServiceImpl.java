@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import by.koroza.zoo_market.dao.exception.DaoException;
 import by.koroza.zoo_market.dao.impl.ProductFeedsAndOtherDaoImpl;
 import by.koroza.zoo_market.model.entity.filter.FilterFeedsAndOther;
+import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.service.ProductFeedsAndOtherService;
 import by.koroza.zoo_market.service.exception.ServiceException;
@@ -78,6 +79,15 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	public Map<FeedAndOther, Long> getAllProductsFeedAndOtherAndNumberOfUnits() throws ServiceException {
 		try {
 			return ProductFeedsAndOtherDaoImpl.getInstance().getAllProductsFeedAndOtherAndNumberOfUnits();
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public boolean changeNumberOfUnitsProducts(Order order) throws ServiceException {
+		try {
+			return ProductFeedsAndOtherDaoImpl.getInstance().changeNumberOfUnitsProducts(order);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}

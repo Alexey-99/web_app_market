@@ -23,11 +23,17 @@ public final class PagePathName {
 	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_PATH = "jsp/pages/personal_account/personal_account_admin_page.jsp";
 
 	/* ADMIN_PAGES */
+	/* ADMIN_OPERATIONS */
 	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH = "jsp/pages/personal_account/admin_pages/all_products_page.jsp";
 
-	
-	public static final String REGISTRATION_FORM_PAGE_PATH = "jsp/pages/form/registration_form/registration_form.jsp";
+	/* ADMIN_CREATE_PRODUCT_FORM */
+	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_PET_PRODUCT_FORM = "jsp/pages/form/admin/create/create_pet_product_form_validated.jsp";
+	/* ADMIN_VERIDICATION_INFORMATION */
+	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CREATE_PET_PRODUCT = "jsp/pages/form/admin/verification/verification_information_for_create_product_pet.jsp";
 
+	/* REGISTRATION */
+	public static final String REGISTRATION_FORM_PAGE_PATH = "jsp/pages/form/registration_form/registration_form.jsp";
+	/* VERIDICATION_REGISTRATION_INFORMATION */
 	public static final String VERIFICATION_REGISTRATION_INFORMATION_PAGE_PATH = "jsp/pages/form/verification_registration_information/verification_registration_information.jsp";
 
 	public static final String VERIFICATION_PERSONAL_ACCOUNT_PAGE_PATH = "jsp/pages/form/verification_personal_account_form/verification_personal_account.jsp";

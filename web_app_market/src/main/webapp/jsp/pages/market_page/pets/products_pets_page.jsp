@@ -1107,7 +1107,8 @@
 					<c:if test="${list_products_pets.size() > 0}">
 						<div
 							class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 g-4 mb-4">
-							<c:forEach items="${list_products_pets}" var="pet">
+							<c:forEach items="${list_products_pets}" var="pet"
+								varStatus="status">
 								<div class="col card_product">
 									<div class="card h-100 card_product_inner">
 										<img src="img/logo.svg" class="card-img-top card_img"
@@ -1134,9 +1135,8 @@
 														<input type="hidden" id="productId" value="${pet.getId()}" />
 														<button class="w-100 h-100 body_btn_input"
 															id="liveToastBtn${pet.getId()}" type="button"
-															onclick="addProductPet(${pet.getId()})">в
+															onclick="addProductPet(${pet.getId()}, ${status.getIndex()})">в
 															карзину</button>
-
 													</div>
 												</div>
 											</c:if>
@@ -1157,8 +1157,7 @@
 											<button type="button" class="btn-close"
 												data-bs-dismiss="toast" aria-label="Закрыть"></button>
 										</div>
-										<div class="toast-body${pet.getId()}">Вы добавили
-											следующий товар в корзину: ${pet.getDescription()}</div>
+										<div class="toast-body${pet.getId()}">Вы добавили товар</div>
 									</div>
 								</div>
 							</c:forEach>

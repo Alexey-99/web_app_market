@@ -81,3 +81,54 @@ function closeLoginPasswordForm() {
 	removeClass(element, 'd-flex');
 	addClass(element, 'd-none');
 }
+
+function showAddProductForm() {
+	const element = selectElement(".add_product_form");
+	removeClass(element, "d-none");
+}
+
+function closeAddProductForm() {
+	const element = selectElement(".add_product_form");
+	addClass(element, "d-none");
+}
+
+function openAddProductPetForm() {
+	const elementFormTopBtnAddProductPet = selectElement(
+		'.add_product_form_top_btn_product_pet'
+	);
+	const elementFormTopBtnAddOtherProduct = selectElement(
+		'.add_product_form_top_btn_other_product'
+	);
+	const elementAddProductPetForm = selectElement('.add_product_pet_form');
+	const elementAddOtherProductForm = selectElement('.add_other_product_form');
+	changeActiveBtn(elementFormTopBtnAddOtherProduct, elementFormTopBtnAddProductPet);
+	closeAddOtherProductForm(elementAddOtherProductForm, elementAddProductPetForm);
+}
+
+function openAddOtherProductForm() {
+	const elementFormTopBtnAddProductPet = selectElement(
+		'.add_product_form_top_btn_product_pet'
+	);
+	const elementFormTopBtnAddOtherProduct = selectElement(
+		'.add_product_form_top_btn_other_product'
+	);
+	const elementAddProductPetForm = selectElement('.add_product_pet_form');
+	const elementAddOtherProductForm = selectElement('.add_other_product_form');
+	changeActiveBtn(elementFormTopBtnAddProductPet, elementFormTopBtnAddOtherProduct);
+	closeAddOtherProductForm(elementAddProductPetForm, elementAddOtherProductForm);
+}
+
+function closeAddProductPetForm(elementAddClassNone, elementRemoveClassNone) {
+	addClass(elementAddClassNone, 'd-none');
+	removeClass(elementRemoveClassNone, 'd-none');
+}
+
+function closeAddOtherProductForm(elementAddClassNone, elementRemoveClassNone) {
+	addClass(elementAddClassNone, 'd-none');
+	removeClass(elementRemoveClassNone, 'd-none');
+}
+
+function changeActiveBtn(btnrRemoveActive, btnAddActive) {
+	removeClass(btnrRemoveActive, 'active');
+	addClass(btnAddActive, 'active');
+}

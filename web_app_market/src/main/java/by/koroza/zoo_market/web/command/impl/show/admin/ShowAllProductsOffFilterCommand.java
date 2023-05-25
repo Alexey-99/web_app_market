@@ -37,13 +37,6 @@ public class ShowAllProductsOffFilterCommand implements Command {
 				session.setAttribute(ATTRIBUTE_MAP_PRODUCT_PET_AND_NUMBER_OF_UNITS_PRODUCT, productPets);
 				session.setAttribute(AttributeName.ATTRIBUTE_MAP_PRODUCT_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT,
 						productFeedsAndOther);
-
-				for (Map.Entry<FeedAndOther, Long> entry : productFeedsAndOther.entrySet()) {
-					FeedAndOther key = entry.getKey();
-					Long val = entry.getValue();
-					System.out.println(
-							key.getPetTypes().toString().substring(1, key.getPetTypes().toString().length() - 1));
-				}
 				router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH);
 			} else {
 				router = new Router(HOME_PAGE_PATH);

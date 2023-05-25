@@ -18,6 +18,7 @@ public final class AttributeName {
 	public static final String ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "products_feeds_and_other_filter_input_exception_type_and_message";
 	public static final String ATTRIBUTE_CHANGING_PERSON_INFOMATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "changing_person_information_input_exception_type_and_message";
 	public static final String ATTRIBUTE_CHANGING_LOGIN_AND_PASSWORD_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "changing_login_and_password_input_exception_type_and_message";
+	public static final String ATTRIBUTE_ADMIN_PAGE_CREATE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "admin_page_create_pet_product_input_exception_type_and_message";
 
 	public static final String ATTRIBUTE_USER_HISTORY_ORDERS = "user_history_orders";
 
@@ -39,6 +40,10 @@ public final class AttributeName {
 
 	public static final String ATTRIBUTE_FOR_LIST_PETS = "productsPets";
 	public static final String ATTRIBUTE_FOR_LIST_FEEDS_AND_OTHER = "productsOther";
+
+	/* BUFFER */
+	public static final String ATTRIBUTE_BUFFER_PRODUCT_PET = "product_pet";
+	public static final String ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT = "product_pet_number_of_units";
 
 	public static final String ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE = "saved_products_id";
 

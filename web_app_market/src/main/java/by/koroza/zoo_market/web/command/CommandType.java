@@ -3,6 +3,7 @@ package by.koroza.zoo_market.web.command;
 import by.koroza.zoo_market.web.command.impl.OrderPaymentCommand;
 import by.koroza.zoo_market.web.command.impl.RegistrationUserCommand;
 import by.koroza.zoo_market.web.command.impl.SendOneMoreTimeVerificationCodeCommand;
+import by.koroza.zoo_market.web.command.impl.admin.product.pet.CraetePetProductCommand;
 import by.koroza.zoo_market.web.command.impl.change.ChangeLoginAndPasswordCommand;
 import by.koroza.zoo_market.web.command.impl.change.ChangePersonInformationCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetEnglishLocaleCommand;
@@ -43,7 +44,8 @@ public enum CommandType {
 	SET_RUSSIAN_LOCALE(new SetRussinLocaleCommand()), SET_ENGLISH_LOCALE(new SetEnglishLocaleCommand()),
 	SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE(new ShowPersonalAccountAdminPage()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER(new ShowAllProductsOffFilterCommand()),
-	ADMIN_PAGE_SHOW_ALL_PRODUCTS_INCLUDED_FILTER(new ShowAllProductsOffFilterCommand());
+	ADMIN_PAGE_SHOW_ALL_PRODUCTS_INCLUDED_FILTER(new ShowAllProductsOffFilterCommand()),
+	ADMIN_PAGE_CREATE_PET_PRODUCT(new CraetePetProductCommand());
 
 	private Command command;
 

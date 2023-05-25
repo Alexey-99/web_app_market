@@ -22,6 +22,7 @@ import by.koroza.zoo_market.dao.pool.ConnectionPool;
 import by.koroza.zoo_market.dao.pool.ProxyConnection;
 import by.koroza.zoo_market.model.calculation.Calculator;
 import by.koroza.zoo_market.model.entity.filter.FilterFeedsAndOther;
+import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.dao.ProductFeedsAndOtherDao;
 import by.koroza.zoo_market.dao.exception.DaoException;
@@ -179,6 +180,48 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 			throw new DaoException(e);
 		}
 		return mapFeedAndOtherAndNumber;
+	}
+
+	private static final String QUERY_SELECT_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID = """
+			SELECT feeds_and_other.number_of_units_products
+			FROM feeds_and_other
+			WHERE feeds_and_other.id = ?;
+			""";
+
+	private static final String QUERY_CHANGE_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID = """
+			UPDATE feeds_and_other
+			SET feeds_and_other.number_of_units_products = ?
+			WHERE feeds_and_other.id = ?;
+			""";
+
+	@Override
+	public boolean changeNumberOfUnitsProducts(Order order) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
+			for (FeedAndOther productFeedAndOther : order.getOtherProducts()) {
+				long numberOfUnitsProduct = 0;
+				try (PreparedStatement statement = connection
+						.prepareStatement(QUERY_SELECT_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
+					statement.setLong(1, productFeedAndOther.getId());
+					try (ResultSet resultSet = statement.executeQuery()) {
+						while (resultSet.next()) {
+							numberOfUnitsProduct = resultSet.getLong(FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT);
+						}
+					}
+				}
+				if (numberOfUnitsProduct > 0) {
+					try (PreparedStatement statement = connection
+							.prepareStatement(QUERY_CHANGE_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
+						statement.setLong(1, numberOfUnitsProduct - 1);
+						statement.setLong(2, productFeedAndOther.getId());
+						statement.execute(); // TODO NO RESULT ???
+					}
+				}
+			}
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		return result;
 	}
 
 	private static final char CODE_OF_TYPE_PRODUCT_FEEDS_AND_OTHER = 'o';

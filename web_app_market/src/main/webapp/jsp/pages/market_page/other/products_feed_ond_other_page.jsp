@@ -948,7 +948,7 @@
 						<div
 							class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 g-4 mb-4">
 							<c:forEach items="${list_products_feeds_and_other}"
-								var="product_item">
+								var="product_item" varStatus="status">
 								<div class="col card_product">
 									<div class="card h-100 card_product_inner">
 										<img src="img/logo.svg" class="card-img-top card_img"
@@ -977,7 +977,7 @@
 															value="${product_item.getId()}" />
 														<button class="w-100 h-100 body_btn_input"
 															id="liveToastBtn${product_item.getId()}" type="button"
-															onclick="addProductOtherProducts(${product_item.getId()})">в
+															onclick="addProductOtherProducts(${product_item.getId()}, ${status.getIndex()})">в
 															карзину</button>
 													</div>
 												</div>
@@ -1001,8 +1001,7 @@
 												data-bs-dismiss="toast" aria-label="Закрыть"></button>
 										</div>
 										<div class="toast-body${product_item.getId()}">Вы
-											добавили следующий товар в корзину:
-											${product_item.getDescription()}</div>
+											добавили товар</div>
 									</div>
 								</div>
 							</c:forEach>
