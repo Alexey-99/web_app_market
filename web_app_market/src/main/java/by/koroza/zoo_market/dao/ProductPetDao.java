@@ -19,4 +19,6 @@ public interface ProductPetDao {
 	public Map<Pet, Long> getAllProductsPetsAndNumberOfUnits() throws DaoException;
 
 	public boolean changeNumberOfUnitsProducts(Order order) throws DaoException;
+
+	public boolean addProductPet(Pet pet, long numberOfUnitsProduct) throws DaoException;
 }

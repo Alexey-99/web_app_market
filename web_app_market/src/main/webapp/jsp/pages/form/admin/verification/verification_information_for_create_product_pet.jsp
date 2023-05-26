@@ -72,11 +72,10 @@
 
 								<form action="Controller">
 									<input type="hidden" name="command"
-										value="${CommandName.COMMAND_VERIFICATION_REGISTRATION_INFORMATION}" />
+										value="${CommandName.COMMAND_ADMIN_PAGE_ADD_NEW_PET_PRODUCT}" />
 									<button
 										class="btn verification_information_for_create_product_pet_btn_correct"
-										role="button">Всё корректно!!!
-									</button>
+										role="button">Всё корректно!!!</button>
 								</form>
 							</div>
 						</div>

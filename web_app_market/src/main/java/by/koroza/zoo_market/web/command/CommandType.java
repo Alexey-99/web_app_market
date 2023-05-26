@@ -3,7 +3,9 @@ package by.koroza.zoo_market.web.command;
 import by.koroza.zoo_market.web.command.impl.OrderPaymentCommand;
 import by.koroza.zoo_market.web.command.impl.RegistrationUserCommand;
 import by.koroza.zoo_market.web.command.impl.SendOneMoreTimeVerificationCodeCommand;
+import by.koroza.zoo_market.web.command.impl.admin.product.pet.AddPetProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.product.pet.CraetePetProductCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.ShowAllProductsOffFilterCommand;
 import by.koroza.zoo_market.web.command.impl.change.ChangeLoginAndPasswordCommand;
 import by.koroza.zoo_market.web.command.impl.change.ChangePersonInformationCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetEnglishLocaleCommand;
@@ -18,7 +20,6 @@ import by.koroza.zoo_market.web.command.impl.show.ShowProductFeedsAndOtherOffFil
 import by.koroza.zoo_market.web.command.impl.show.ShowProductPetsIncludedFilterCommand;
 import by.koroza.zoo_market.web.command.impl.show.ShowProductPetsOffFilterCommand;
 import by.koroza.zoo_market.web.command.impl.show.ShowVerificationPersonAccountFormCommand;
-import by.koroza.zoo_market.web.command.impl.show.admin.ShowAllProductsOffFilterCommand;
 import by.koroza.zoo_market.web.command.impl.sign.SignInPersonAccountCommand;
 import by.koroza.zoo_market.web.command.impl.sign.SignOutPersonalAccountCommand;
 import by.koroza.zoo_market.web.command.impl.varification.VerificationPersonAccountCommand;
@@ -45,7 +46,7 @@ public enum CommandType {
 	SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE(new ShowPersonalAccountAdminPage()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER(new ShowAllProductsOffFilterCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_INCLUDED_FILTER(new ShowAllProductsOffFilterCommand()),
-	ADMIN_PAGE_CREATE_PET_PRODUCT(new CraetePetProductCommand());
+	ADMIN_PAGE_CREATE_PET_PRODUCT(new CraetePetProductCommand()), ADD_NEW_PRODUCT_PET(new AddPetProductCommand());
 
 	private Command command;
 

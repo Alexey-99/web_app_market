@@ -1129,7 +1129,7 @@
 												<li>TotalPrice: ${pet.getTotalPrice()}</li>
 											</ul>
 											<c:if
-												test="${AttributeName.ATTRIBUTE_USER != null && user.getRole().getIdRole() >= 2}">
+												test="${AttributeName.ATTRIBUTE_USER != null && user.getRole().getIdRole() >= 2 && user.isVerificatedEmail() == true}">
 												<div class="row body_btns w-100">
 													<div class="col-12 d-flex justify-content-center body_btn">
 														<input type="hidden" id="productId" value="${pet.getId()}" />

@@ -19,4 +19,6 @@ public interface ProductPetService {
 	public Map<Pet, Long> getAllProductsPetsAndNumberOfUnits() throws ServiceException;
 
 	public boolean changeNumberOfUnitsProducts(Order order) throws ServiceException;
+
+	public boolean addProductPet(Pet pet, long numberOfUnitsProduct) throws ServiceException;
 }

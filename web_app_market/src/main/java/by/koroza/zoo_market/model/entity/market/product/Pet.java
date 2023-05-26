@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
 
 import by.koroza.zoo_market.model.entity.market.abstraction.AbstractProduct;
 
-public class Pet extends AbstractProduct {
+public class Pet extends AbstractProduct implements Comparable<Pet> {
 	private String specie;
 	private String breed;
 	private LocalDate birthDate;
@@ -113,6 +113,11 @@ public class Pet extends AbstractProduct {
 		builder.append(birthDate);
 		builder.append("]");
 		return builder.toString();
+	}
+
+	@Override
+	public int compareTo(Pet otherPet) {
+		return (int) (this.getId() - otherPet.getId());
 	}
 
 	public static class PetBuilder {

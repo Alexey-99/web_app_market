@@ -1,6 +1,7 @@
 package by.koroza.zoo_market.dao.impl;
 
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_BREED;
+import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_LAST_INSERT_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_BIRTH_DATE;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_DATE_UPDATE;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_DISCOUNT;
@@ -198,7 +199,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 							.prepareStatement(QUERY_CHANGE_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
 						statement.setLong(1, numberOfUnitsProduct - 1);
 						statement.setLong(2, productPet.getId());
-						statement.execute(); // TODO NO RESULT ???
+						result = statement.executeUpdate() > 0;
 					}
 				}
 			}
@@ -207,9 +208,39 @@ public class ProductPetDaoImpl implements ProductPetDao {
 		}
 		return result;
 	}
-	
-	public void addProductPet(Pet pet) {
-		
+
+	private static final String QUERY_INSERT_PRODUCT_PET = """
+			INSERT INTO pets(pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.number_of_units_products)
+			VALUE(?, ?, ?, ?, ?, ?);
+			""";
+
+	private static final String QUERY_SELECT_LAST_INSERT_ID = """
+			SELECT LAST_INSERT_ID();
+			""";
+
+	@Override
+	public boolean addProductPet(Pet pet, long numberOfUnitsProduct) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
+			try (PreparedStatement statement = connection.prepareStatement(QUERY_INSERT_PRODUCT_PET)) {
+				statement.setString(1, pet.getSpecie());
+				statement.setString(2, pet.getBreed());
+				statement.setString(3, pet.getBirthDate().toString());
+				statement.setDouble(4, pet.getPrice());
+				statement.setDouble(5, pet.getDiscount());
+				statement.setLong(6, numberOfUnitsProduct);
+				result = statement.executeUpdate() > 0;
+			}
+			try (PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_LAST_INSERT_ID);
+					ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					pet.setId(resultSet.getLong(IDENTIFIER_LAST_INSERT_ID));
+				}
+			}
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		return result;
 	}
 
 	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS_NOT_CLOSED = """

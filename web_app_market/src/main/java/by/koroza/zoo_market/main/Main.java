@@ -5,21 +5,39 @@
  * */
 package by.koroza.zoo_market.main;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import by.koroza.zoo_market.dao.exception.DaoException;
+import by.koroza.zoo_market.dao.impl.ProductPetDaoImpl;
+import by.koroza.zoo_market.model.entity.market.product.Pet;
+
 public class Main {
 	private static final Logger log = LogManager.getLogger();
 
-	public static void main(String[] args)  {
-		Double.parseDouble("150.00");
-
+	public static void main(String[] args) throws DaoException {
+		Map<Pet, Long> map = ProductPetDaoImpl.getInstance().getAllProductsPetsAndNumberOfUnits();
+		sortingMap(map);
 	}
-	
-//	private static boolean isValidFormatDate(String line) {
-//		return DateTimeFormatter.ofPattern(PATTERN_FOR_BIRTH_DATE) != null;
-//	}
+
+	public static Map<Pet, Long> sortingMap(Map<Pet, Long> map) {
+		List<Entry<Pet, Long>> list = new ArrayList<>();
+		map.entrySet().stream().forEach(entry -> list.add(entry));
+		list.sort(new Comparator<Entry<Pet, Long>>() {
+			@Override
+			public int compare(Entry<Pet, Long> o1, Entry<Pet, Long> o2) {
+				return o1.getKey().getBreed().compareTo(o2.getKey().getBreed());
+			}
+		});
+		Map<Pet, Long> sortMap = new LinkedHashMap<>();
+		list.stream().forEach(entry -> sortMap.put(entry.getKey(), entry.getValue()));
+		return sortMap;
+	}
 }

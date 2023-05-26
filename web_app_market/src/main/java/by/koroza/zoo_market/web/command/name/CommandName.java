@@ -38,8 +38,9 @@ public class CommandName {
 	/* ADMIN */
 	public static final String COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_OFF_FILTER = "admin_page_show_all_products_off_filter";
 	public static final String COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_INCLUDED_FILTER = "admin_page_show_all_products_included_filter";
-	
+
 	public static final String COMMAND_ADMIN_PAGE_CREATE_PET_PRODUCT = "admin_page_create_pet_product";
+	public static final String COMMAND_ADMIN_PAGE_ADD_NEW_PET_PRODUCT = "add_new_product_pet";
 
 	private CommandName() {
 	}

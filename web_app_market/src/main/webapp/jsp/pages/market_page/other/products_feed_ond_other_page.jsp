@@ -970,7 +970,7 @@
 												<li>TotalPrice: ${product_item.getTotalPrice()}</li>
 											</ul>
 											<c:if
-												test="${AttributeName.ATTRIBUTE_USER != null && user.getRole().getIdRole() >= 2}">
+												test="${AttributeName.ATTRIBUTE_USER != null && user.getRole().getIdRole() >= 2 && user.isVerificatedEmail() == true}">
 												<div class="row body_btns w-100">
 													<div class="col-12 body_btn">
 														<input type="hidden" id="productId"

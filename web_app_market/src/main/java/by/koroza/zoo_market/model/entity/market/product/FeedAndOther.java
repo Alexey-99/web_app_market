@@ -10,7 +10,7 @@ import java.util.List;
 
 import by.koroza.zoo_market.model.entity.market.abstraction.AbstractProduct;
 
-public class FeedAndOther extends AbstractProduct {
+public class FeedAndOther extends AbstractProduct implements Comparable<FeedAndOther> {
 	private static final String REG_EX_PATTERN_FOR_PARSE_PET_TYPES = "\\,\\s?";
 
 	private String productType;
@@ -149,6 +149,11 @@ public class FeedAndOther extends AbstractProduct {
 			}
 		}
 		return builder.toString();
+	}
+
+	@Override
+	public int compareTo(FeedAndOther otherFeedAndOther) {
+		return (int) (this.getId() - otherFeedAndOther.getId());
 	}
 
 	public static class FeedAndOtherBuilder {

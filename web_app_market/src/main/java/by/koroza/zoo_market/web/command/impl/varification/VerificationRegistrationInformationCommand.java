@@ -7,13 +7,13 @@ import static by.koroza.zoo_market.web.command.name.PagePathName.REGISTRATION_FO
 import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.service.exception.ServiceException;
+import by.koroza.zoo_market.service.generator.GenerationVeriicationCode;
 import by.koroza.zoo_market.service.impl.UserServiceImpl;
 import by.koroza.zoo_market.service.impl.VerificateServiceImpl;
 import by.koroza.zoo_market.service.sender.EmailSender;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controler.Router;
-import by.koroza.zoo_market.web.generator.GenerationVeriicationCode;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 

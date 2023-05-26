@@ -87,6 +87,15 @@ public class ProductPetServiceImpl implements ProductPetService {
 		}
 	}
 
+	@Override
+	public boolean addProductPet(Pet pet, long numberOfUnitsProduct) throws ServiceException {
+		try {
+			return ProductPetDaoImpl.getInstance().addProductPet(pet, numberOfUnitsProduct);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+
 	private List<Pet> selectProductsPetsByBirthDate(FilterPet filter, List<Pet> listPetsWithFilter) {
 		if ((filter.getMinNumberMonth() != 0 || filter.getMinNumberYear() != 0)
 				|| (filter.getMaxNumberMonth() != 0 || filter.getMaxNumberYear() != 0)) {

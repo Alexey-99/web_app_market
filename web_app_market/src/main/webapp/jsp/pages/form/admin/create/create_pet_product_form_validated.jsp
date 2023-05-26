@@ -8,7 +8,7 @@
 <%@page import="by.koroza.zoo_market.web.command.name.LanguageName"%>
 <%@page import="by.koroza.zoo_market.model.entity.status.ProductType"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.admin.CraetePetProductCommand"%>
+	import="by.koroza.zoo_market.web.command.impl.admin.product.pet.CraetePetProductCommand"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -456,8 +456,10 @@
 													<div class="invalid-feedback">${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}</div>
 												</div>
 											</c:if>
+											<span>${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}
+											</span>
 											<c:if
-												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE) }">
+												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
 												<div class="form-floating mb-3">
 													<input type="text"
 														class="form-control text-uppercase is-valid"
@@ -469,6 +471,7 @@
 													<div class="valid-feedback">Всё хорошо!!!</div>
 												</div>
 											</c:if>
+											<span>${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT) }</span>
 											<c:if
 												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT) }">
 												<div class="form-floating mb-3">

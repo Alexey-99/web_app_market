@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.generator;
+package by.koroza.zoo_market.service.generator;
 
 import java.util.Random;
 
