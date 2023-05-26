@@ -312,7 +312,20 @@
 								<div class="add_product_pet_form">
 									<c:if
 										test="${admin_page_create_pet_product_input_exception_type_and_message == null || admin_page_create_pet_product_input_exception_type_and_message.isEmpty()}">
-										<form class="add_product_pet_form_body" action="Controller">
+										<form class="add_product_pet_form_body" method="post"
+											action="${pageContext.request.contextPath}/imageServlet"
+											enctype="multipart/form-data">
+											<div
+												class="form-floating mb-3 add_product_pet_form_body_form_floating">
+												<input type="file"
+													class="form-control text-uppercase add_product_pet_form_body_input_img"
+													id="floatingInputSpecie"
+													name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
+													placeholder="dog" /> <label
+													class="text-lowercase add_product_pet_form_body_label_img"
+													for="floatingInputSpecie">Выберите картинку для
+													товара</label>
+											</div>
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control text-uppercase"
 													id="floatingInputSpecie"
@@ -369,7 +382,20 @@
 									</c:if>
 									<c:if
 										test="${admin_page_create_pet_product_input_exception_type_and_message != null && !admin_page_create_pet_product_input_exception_type_and_message.isEmpty()}">
-										<form class="add_product_pet_form_body" action="Controller">
+										<form class="add_product_pet_form_body" method="post"
+											action="${pageContext.request.contextPath}/imageServlet"
+											enctype="multipart/form-data">
+											<div
+												class="form-floating mb-3 add_product_pet_form_body_form_floating">
+												<input type="file"
+													class="form-control text-uppercase add_product_pet_form_body_input_img"
+													id="floatingInputSpecie"
+													name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
+													placeholder="dog" /> <label
+													class="text-lowercase add_product_pet_form_body_label_img"
+													for="floatingInputSpecie">Выберите картинку для
+													товара</label>
+											</div>
 											<c:if
 												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_SPECIE) }">
 												<div class="form-floating mb-3">

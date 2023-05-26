@@ -19,4 +19,6 @@ public interface ProductFeedsAndOtherDao {
 	public Map<FeedAndOther, Long> getAllProductsFeedAndOtherAndNumberOfUnits() throws DaoException;
 
 	public boolean changeNumberOfUnitsProducts(Order order) throws DaoException;
+
+	public boolean addProduct(FeedAndOther product, long numberOfUnitsProduct) throws DaoException;
 }

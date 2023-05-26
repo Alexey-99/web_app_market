@@ -20,4 +20,6 @@ public interface ProductFeedsAndOtherService {
 	public Map<FeedAndOther, Long> getAllProductsFeedAndOtherAndNumberOfUnits() throws ServiceException;
 
 	public boolean changeNumberOfUnitsProducts(Order order) throws ServiceException;
+
+	public boolean addProduct(FeedAndOther product, long numberOfUnitsProduct) throws ServiceException;
 }

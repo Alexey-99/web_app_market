@@ -8,6 +8,7 @@ import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_PET_TYPE;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_PRICE;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_TYPE;
+import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_LAST_INSERT_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT;
 
 import java.sql.PreparedStatement;
@@ -214,8 +215,45 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 							.prepareStatement(QUERY_CHANGE_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
 						statement.setLong(1, numberOfUnitsProduct - 1);
 						statement.setLong(2, productFeedAndOther.getId());
-						statement.execute(); // TODO NO RESULT ???
+						result = statement.executeUpdate() > 0;
 					}
+				}
+			}
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		return result;
+	}
+
+	private static final String QUERY_INSERT_PRODUCT_PET = """
+			INSERT INTO feeds_and_other(feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
+			feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.number_of_units_products)
+			VALUE(?, ?, ?, ?, ?, ?, ?);
+			""";
+
+	private static final String QUERY_SELECT_LAST_INSERT_ID = """
+			SELECT LAST_INSERT_ID();
+			""";
+
+	@Override
+	public boolean addProduct(FeedAndOther product, long numberOfUnitsProduct) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
+			try (PreparedStatement statement = connection.prepareStatement(QUERY_INSERT_PRODUCT_PET)) {
+				statement.setString(1, product.getProductType());
+				statement.setString(2, product.getBrand());
+				statement.setString(3, product.getDescription());
+				statement.setString(4,
+						product.getPetTypes().toString().substring(1, product.getPetTypes().toString().length() - 1));
+				statement.setDouble(5, product.getPrice());
+				statement.setDouble(6, product.getDiscount());
+				statement.setLong(7, numberOfUnitsProduct);
+				result = statement.executeUpdate() > 0;
+			}
+			try (PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_LAST_INSERT_ID);
+					ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					product.setId(resultSet.getLong(IDENTIFIER_LAST_INSERT_ID));
 				}
 			}
 		} catch (SQLException e) {

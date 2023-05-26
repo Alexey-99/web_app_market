@@ -1,5 +1,6 @@
 package by.koroza.zoo_market.model.entity.market.abstraction;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -10,6 +11,7 @@ import by.koroza.zoo_market.model.calculation.Calculator;
 import by.koroza.zoo_market.model.entity.market.product.constituent.UpdateDateTime;
 
 public abstract class AbstractProduct {
+	private File img;
 	private long id;
 	private double price;
 	private double discount;
@@ -97,6 +99,14 @@ public abstract class AbstractProduct {
 				Calculator.getInstance().calcUpdateDateTimeInSeconds(productUpdateDateTime));
 	}
 
+	public File getImg() {
+		return this.img;
+	}
+
+	public void setImg(File img) {
+		this.img = img;
+	}
+
 	@Override
 	public int hashCode() {
 		final int PRIME = 31;
@@ -106,6 +116,7 @@ public abstract class AbstractProduct {
 		result = result * PRIME + Double.hashCode(this.discount);
 		result = result * PRIME + Double.hashCode(this.totalPrice);
 		result = result * PRIME + (this.updateDateTime != null ? this.updateDateTime.hashCode() : 1);
+		result = result * PRIME + (this.img != null ? this.img.hashCode() : 1);
 		return result;
 	}
 
@@ -138,6 +149,13 @@ public abstract class AbstractProduct {
 				return false;
 			}
 		} else if (!this.updateDateTime.equals(otherAbstractProduct.updateDateTime)) {
+			return false;
+		}
+		if (this.img == null) {
+			if (otherAbstractProduct.img != null) {
+				return false;
+			}
+		} else if (!this.img.equals(otherAbstractProduct.img)) {
 			return false;
 		}
 		return true;
