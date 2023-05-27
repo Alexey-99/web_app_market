@@ -1,6 +1,5 @@
 package by.koroza.zoo_market.model.entity.market.abstraction;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -9,9 +8,10 @@ import java.time.format.DateTimeParseException;
 
 import by.koroza.zoo_market.model.calculation.Calculator;
 import by.koroza.zoo_market.model.entity.market.product.constituent.UpdateDateTime;
+import jakarta.servlet.http.Part;
 
 public abstract class AbstractProduct {
-	private File img;
+	private Part imgPart;
 	private long id;
 	private double price;
 	private double discount;
@@ -24,6 +24,7 @@ public abstract class AbstractProduct {
 			+ PATTERN_FORMATTER_TIME_UPDATE;
 
 	public AbstractProduct() {
+		this.imgPart = null;
 		this.id = 0;
 		this.price = 0;
 		this.discount = 0;
@@ -99,12 +100,12 @@ public abstract class AbstractProduct {
 				Calculator.getInstance().calcUpdateDateTimeInSeconds(productUpdateDateTime));
 	}
 
-	public File getImg() {
-		return this.img;
+	public Part getImgPart() {
+		return imgPart;
 	}
 
-	public void setImg(File img) {
-		this.img = img;
+	public void setImgPart(Part imgPart) {
+		this.imgPart = imgPart;
 	}
 
 	@Override
@@ -116,7 +117,7 @@ public abstract class AbstractProduct {
 		result = result * PRIME + Double.hashCode(this.discount);
 		result = result * PRIME + Double.hashCode(this.totalPrice);
 		result = result * PRIME + (this.updateDateTime != null ? this.updateDateTime.hashCode() : 1);
-		result = result * PRIME + (this.img != null ? this.img.hashCode() : 1);
+		result = result * PRIME + (this.imgPart != null ? this.imgPart.hashCode() : 1);
 		return result;
 	}
 
@@ -151,11 +152,11 @@ public abstract class AbstractProduct {
 		} else if (!this.updateDateTime.equals(otherAbstractProduct.updateDateTime)) {
 			return false;
 		}
-		if (this.img == null) {
-			if (otherAbstractProduct.img != null) {
+		if (this.imgPart == null) {
+			if (otherAbstractProduct.imgPart != null) {
 				return false;
 			}
-		} else if (!this.img.equals(otherAbstractProduct.img)) {
+		} else if (!this.imgPart.equals(otherAbstractProduct.imgPart)) {
 			return false;
 		}
 		return true;

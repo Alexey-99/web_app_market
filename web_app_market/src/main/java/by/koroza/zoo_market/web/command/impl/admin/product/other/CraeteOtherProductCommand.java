@@ -41,6 +41,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
 public class CraeteOtherProductCommand implements Command {
+	public static final String INPUT_EXCEPTION_TYPE_IMAGE = TypeInputException.IMAGE.toString();
 	public static final String INPUT_EXCEPTION_TYPE_PRODUCT_TYPE = TypeInputException.PRODUCT_TYPE.toString();
 	public static final String INPUT_EXCEPTION_TYPE_BRAND = TypeInputException.BRAND.toString();
 	public static final String INPUT_EXCEPTION_TYPE_DESCRIPTION = TypeInputException.DESCRIPTION.toString();
@@ -49,7 +50,6 @@ public class CraeteOtherProductCommand implements Command {
 	public static final String INPUT_EXCEPTION_TYPE_DISCOUNT = TypeInputException.DISCOUNT.toString();
 	public static final String INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT = TypeInputException.NUMBER_OF_UNITS_PRODUCT
 			.toString();
-	public static final String INPUT_EXCEPTION_TYPE_IMAGE = TypeInputException.IMAGE.toString();
 
 	public enum TypeInputException {
 		IMAGE, PRODUCT_TYPE, BRAND, DESCRIPTION, PET_TYPES, PRICE, DISCOUNT, NUMBER_OF_UNITS_PRODUCT;
@@ -91,13 +91,9 @@ public class CraeteOtherProductCommand implements Command {
 			Map<String, String> mapInputExceptions) {
 		Map<FeedAndOther, Long> petAndNumber = new HashMap<>();
 		FeedAndOther productFeedAndOther = new FeedAndOther();
-
 		if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
 			Part part = (Part) request.getAttribute(PARAMETER_PART);
-//			 validate
-//			if( isValid == true ) {
-//				productFeedAndOther.setImg(file);
-//			}
+			productFeedAndOther.setImgPart(part);
 		} else {
 			if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 				mapInputExceptions.put(TypeInputException.IMAGE.toString(),

@@ -64,7 +64,7 @@
 								class="verification_information_for_create_product_pet_fotter d-flex justify-content-end">
 								<form action="Controller">
 									<input type="hidden" name="command"
-										value="${CommandName.COMMAND_ADMIN_PAGE_CREATE_PET_PRODUCT}" />
+										value="${CommandName.COMMAND_ADMIN_PAGE_SHOW_CREATE_PET_PRODUCT_FORM}" />
 									<button
 										class="btn verification_information_for_create_product_pet_btn_incorrect"
 										role="button">Назад</button>

@@ -3,8 +3,10 @@ package by.koroza.zoo_market.web.command;
 import by.koroza.zoo_market.web.command.impl.OrderPaymentCommand;
 import by.koroza.zoo_market.web.command.impl.RegistrationUserCommand;
 import by.koroza.zoo_market.web.command.impl.SendOneMoreTimeVerificationCodeCommand;
+import by.koroza.zoo_market.web.command.impl.admin.product.other.CraeteOtherProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.product.pet.AddPetProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.product.pet.CraetePetProductCommand;
+import by.koroza.zoo_market.web.command.impl.admin.product.pet.ShowCreatePetProductFormCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.ShowAllProductsOffFilterCommand;
 import by.koroza.zoo_market.web.command.impl.change.ChangeLoginAndPasswordCommand;
 import by.koroza.zoo_market.web.command.impl.change.ChangePersonInformationCommand;
@@ -46,7 +48,9 @@ public enum CommandType {
 	SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE(new ShowPersonalAccountAdminPage()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER(new ShowAllProductsOffFilterCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_INCLUDED_FILTER(new ShowAllProductsOffFilterCommand()),
-	ADMIN_PAGE_CREATE_PET_PRODUCT(new CraetePetProductCommand()), ADD_NEW_PRODUCT_PET(new AddPetProductCommand());
+	ADMIN_PAGE_CREATE_PET_PRODUCT(new CraetePetProductCommand()), ADD_NEW_PRODUCT_PET(new AddPetProductCommand()),
+	ADMIN_PAGE_SHOW_CREATE_PET_PRODUCT_FORM(new ShowCreatePetProductFormCommand()),
+	ADMIN_PAGE_CREATE_FEED_AND_OTHER_PRODUCT(new CraeteOtherProductCommand());
 
 	private Command command;
 

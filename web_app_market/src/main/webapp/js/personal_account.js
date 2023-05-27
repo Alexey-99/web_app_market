@@ -132,3 +132,13 @@ function changeActiveBtn(btnrRemoveActive, btnAddActive) {
 	removeClass(btnrRemoveActive, 'active');
 	addClass(btnAddActive, 'active');
 }
+
+function showProductImage() {
+  const element = selectElement(".image_product_id");
+  removeClass(element, "d-none");
+}
+
+function clesedProductImage() {
+  const element = selectElement(".image_product_id");
+  addClass(element, "d-none");
+}

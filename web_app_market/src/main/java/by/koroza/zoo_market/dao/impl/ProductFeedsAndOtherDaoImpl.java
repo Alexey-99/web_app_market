@@ -11,6 +11,7 @@ import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_TYPE;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_LAST_INSERT_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,7 +40,7 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 	}
 
 	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_FEED_AND_OTHER = """
-			SELECT feeds_and_other.id, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
+			SELECT feeds_and_other.id, feeds_and_other.part_img, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
 			feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, feeds_and_other.number_of_units_products
 			FROM feeds_and_other
 			WHERE feeds_and_other.number_of_units_products > 0;
@@ -77,7 +78,7 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 	}
 
 	private static final String QUERY_SELECT_PRODUCTS_FEED_AND_OTHER_HAVING_BY_ID = """
-			SELECT feeds_and_other.id, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
+			SELECT feeds_and_other.id, feeds_and_other.part_img, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
 			feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, feeds_and_other.number_of_units_products
 			FROM feeds_and_other
 			WHERE feeds_and_other.number_of_units_products > 0 AND feeds_and_other.id = ?;
@@ -150,7 +151,7 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 	}
 
 	private static final String QUERY_SELECT_ALL_PRODUCTS_FEED_AND_OTHER = """
-			SELECT feeds_and_other.id, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
+			SELECT feeds_and_other.id, feeds_and_other.part_img, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
 			feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, feeds_and_other.number_of_units_products
 			FROM feeds_and_other;
 			""";
@@ -225,10 +226,10 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 		return result;
 	}
 
-	private static final String QUERY_INSERT_PRODUCT_PET = """
-			INSERT INTO feeds_and_other(feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
+	private static final String QUERY_INSERT_PRODUCT_FEEDS_AND_OTHER = """
+			INSERT INTO feeds_and_other(feeds_and_other.part_img, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
 			feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.number_of_units_products)
-			VALUE(?, ?, ?, ?, ?, ?, ?);
+			VALUE(?, ?, ?, ?, ?, ?, ?, ?);
 			""";
 
 	private static final String QUERY_SELECT_LAST_INSERT_ID = """
@@ -239,15 +240,16 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 	public boolean addProduct(FeedAndOther product, long numberOfUnitsProduct) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
-			try (PreparedStatement statement = connection.prepareStatement(QUERY_INSERT_PRODUCT_PET)) {
-				statement.setString(1, product.getProductType());
-				statement.setString(2, product.getBrand());
-				statement.setString(3, product.getDescription());
-				statement.setString(4,
+			try (PreparedStatement statement = connection.prepareStatement(QUERY_INSERT_PRODUCT_FEEDS_AND_OTHER)) {
+				statement.setBlob(1, product.getImgPart() != null ? product.getImgPart().getInputStream() : null);
+				statement.setString(2, product.getProductType());
+				statement.setString(3, product.getBrand());
+				statement.setString(4, product.getDescription());
+				statement.setString(5,
 						product.getPetTypes().toString().substring(1, product.getPetTypes().toString().length() - 1));
-				statement.setDouble(5, product.getPrice());
-				statement.setDouble(6, product.getDiscount());
-				statement.setLong(7, numberOfUnitsProduct);
+				statement.setDouble(6, product.getPrice());
+				statement.setDouble(7, product.getDiscount());
+				statement.setLong(8, numberOfUnitsProduct);
 				result = statement.executeUpdate() > 0;
 			}
 			try (PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_LAST_INSERT_ID);
@@ -256,7 +258,7 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 					product.setId(resultSet.getLong(IDENTIFIER_LAST_INSERT_ID));
 				}
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | IOException e) {
 			throw new DaoException(e);
 		}
 		return result;
@@ -265,7 +267,7 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 	private static final char CODE_OF_TYPE_PRODUCT_FEEDS_AND_OTHER = 'o';
 
 	private static final String QUERY_SELECT_PRODUCTS_FEED_AND_OTHER_HAVING_BY_FILTER = """
-			SELECT feeds_and_other.id, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description, feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, feeds_and_other.number_of_units_products
+			SELECT feeds_and_other.id, feeds_and_other.part_img, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description, feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, feeds_and_other.number_of_units_products
 			FROM feeds_and_other
 			WHERE feeds_and_other.number_of_units_products > 0
 			""";

@@ -207,19 +207,95 @@
 							<table class="table table-striped table-hover">
 								<thead class="">
 									<tr class="align-middle">
-										<th scope="col">img</th>
-										<th scope="col">id</th>
-										<th scope="col">type</th>
-										<th scope="col">brand</th>
-										<th scope="col">description</th>
-										<th scope="col">pet_type</th>
-										<th scope="col">specie</th>
-										<th scope="col">breed</th>
-										<th scope="col">birth date</th>
-										<th scope="col">price</th>
-										<th scope="col">discount</th>
-										<th scope="col">total price</th>
-										<th scope="col">number</th>
+										<th scope="col">
+											<button class="border-0 bg-transparent" onclick="">
+												img</button>
+										</th>
+
+										<th scope="col">
+											<form action="Controller" method="get">
+												<input type="hidden" name="command" value="" />
+												<button class="border-0 bg-transparent text-lowercase"
+													role="button">id</button>
+											</form>
+										</th>
+										<th scope="col">
+											<form action="Controller" method="get">
+												<input type="hidden" name="command" value="" />
+												<button class="border-0 bg-transparent text-lowercase"
+													role="button">type</button>
+											</form>
+										</th>
+										<th scope="col">
+											<form action="Controller" method="get">
+												<input type="hidden" name="command" value="" />
+												<button class="border-0 bg-transparent text-lowercase"
+													role="button">brand</button>
+											</form>
+										</th>
+										<th scope="col">
+											<form action="Controller" method="get">
+												<input type="hidden" name="command" value="" />
+												<button class="border-0 bg-transparent text-lowercase"
+													role="button">description</button>
+											</form>
+										</th>
+										<th scope="col">
+											<form action="Controller" method="get">
+												<input type="hidden" name="command" value="" />
+												<button class="border-0 bg-transparent text-lowercase"
+													role="button">pet_type</button>
+											</form>
+										</th>
+										<th scope="col">
+											<form action="Controller" method="get">
+												<input type="hidden" name="command" value="" />
+												<button class="border-0 bg-transparent text-lowercase"
+													role="button">specie</button>
+											</form>
+										</th>
+										<th scope="col">
+											<form action="Controller" method="get">
+												<input type="hidden" name="command" value="" />
+												<button class="border-0 bg-transparent text-lowercase"
+													role="button">breed</button>
+											</form>
+										</th>
+										<th scope="col">
+											<form action="Controller" method="get">
+												<input type="hidden" name="command" value="" />
+												<button class="border-0 bg-transparent text-lowercase"
+													role="button">birth date</button>
+											</form>
+										</th>
+										<th scope="col">
+											<form action="Controller" method="get">
+												<input type="hidden" name="command" value="" />
+												<button class="border-0 bg-transparent text-lowercase"
+													role="button">price</button>
+											</form>
+										</th>
+										<th scope="col">
+											<form action="Controller" method="get">
+												<input type="hidden" name="command" value="" />
+												<button class="border-0 bg-transparent text-lowercase"
+													role="button">discount</button>
+											</form>
+										</th>
+										<th scope="col">
+											<form action="Controller" method="get">
+												<input type="hidden" name="command" value="" />
+												<button class="border-0 bg-transparent text-lowercase"
+													role="button">total price</button>
+											</form>
+										</th>
+										<th scope="col">
+											<form action="Controller" method="get">
+												<input type="hidden" name="command" value="" />
+												<button class="border-0 bg-transparent text-lowercase"
+													role="button">number</button>
+											</form>
+										</th>
 									</tr>
 								</thead>
 
@@ -228,7 +304,11 @@
 										items="${map_product_pet_and_number_of_units.entrySet()}"
 										var="pet">
 										<tr class="align-middle">
-											<td class="">img</td>
+											<td
+												class="d-flex justify-content-center align-items-center table_row_product_img"
+												onclick="showProductImage()"><img
+												class="mb-0 mt-0 me-auto ms-auto" src="/img/logo.svg" alt=""
+												style="width: 30px; height: 30px" /></td>
 											<th class="" scope="row">p-${pet.getKey().getId()}</th>
 											<td class="text-lowercase">${ProductType.PETS.toString()}</td>
 											<td class="">-</td>
@@ -271,6 +351,35 @@
 						</div>
 					</div>
 				</div>
+
+				<div class="row">
+					<div class="col-12">
+						<div
+							class="position-fixed d-flex justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 image_product_id image_product_id_1">
+							<div
+								class="position-relative w-100 d-flex flex-column image_product_id_inner image_product_id_1_inner"
+								style="height: 60vh; max-width: 70vh">
+								<div class="image_product_id_top">
+									<div class="close_btn" onclick="clesedProductImage()">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+											width="25px" height="25px">
+                      <path
+												d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z" />
+                    </svg>
+									</div>
+									<div class="add_product_form_top_title">
+										<h2 class="form_title text-center mb-3 text-lowercase">
+											фото товара</h2>
+									</div>
+								</div>
+								<div class="image_product_id_body h-100">
+									<img class="h-100" src="/img/logo.svg" alt="" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
 				<div class="row">
 					<div class="col-12">
 						<div
@@ -315,7 +424,8 @@
 												placeholder="dog" /> <label
 												class="text-lowercase add_product_pet_form_body_label_img"
 												for="floatingInputSpecie">Выберите картинку для
-												товара</label>
+												товара <span>*</span>
+											</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
@@ -373,71 +483,75 @@
 								</div>
 
 								<div class="add_other_product_form d-none">
-									<form class="registration_form_body" action="Controller">
-										<div class="form-floating mb-3">
-											<input type="text" class="form-control text-uppercase"
-												id="floatingInputName" name="floatingInputName"
-												placeholder="Robert" /> <label class="text-lowercase"
-												for="floatingInputName">имя <span>*</span>
-											</label>
-										</div>
-										<div class="form-floating mb-3">
-											<input type="text" class="form-control text-uppercase"
-												id="floatingInputSurname" name="floatingInputSurname"
-												placeholder="Robert" /> <label class="text-lowercase"
-												for="floatingInputSurname">Фамилия <span>*</span>
-											</label>
-										</div>
-										<div class="input-group mb-3">
-											<span class="input-group-text">+375 </span>
-											<div class="form-floating">
-												<input type="tel" class="form-control text-uppercase"
-													id="floatingInputTel" name="floatingInputTel"
-													placeholder="375 (25) 000-00-00"
-													pattern="^(17|25|29|33|44)(\s+)?[0-9]{3}-?[0-9]{2}-?[0-9]{2}$" />
-												<label class="text-lowercase" for="floatingInputTel">Телефон
-													<span>*</span>
-												</label>
-											</div>
-										</div>
-										<div class="form-floating mb-3">
-											<input type="email"
-												class="form-control text-uppercase is-invalid"
-												id="floatingInputEmail" name="floatingInputEmail"
-												placeholder="name@example.com"
-												pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})" />
-											<label class="text-lowercase" for="floatingInputEmail">Адрес
-												электронной почты</label>
-										</div>
-
-										<div class="form-floating mb-3">
-											<input type="text" class="form-control text-uppercase"
-												id="floatingInputLogin" name="floatingInputLogin"
-												placeholder="Robert" /> <label class="text-lowercase"
-												for="floatingInputLogin">Логин</label>
-										</div>
+									<form class="add_other_product_form_body" action="Controller">
 										<div
-											class="form-floating mb-3 d-flex justify-content-center align-items-center">
-											<input type="password"
-												class="form-control text-uppercase registration_form_input_password"
-												id="floatingInputPassword" name="floatingInputPassword"
-												placeholder="123456" /> <label class="text-lowercase"
-												for="floatingInputPassword">Пароль </label>
-											<div class="btn registration_form_password_btn"
-												onclick="showPasswordRegistrationFormInput()">
-												<svg class="registration_form_open_eye"
-													xmlns="http://www.w3.org/2000/svg" height="25"
-													viewBox="0 96 960 960" width="25">
-                          <path
-														d="M480.118 726Q551 726 600.5 676.382q49.5-49.617 49.5-120.5Q650 485 600.382 435.5q-49.617-49.5-120.5-49.5Q409 386 359.5 435.618q-49.5 49.617-49.5 120.5Q310 627 359.618 676.5q49.617 49.5 120.5 49.5Zm-.353-58Q433 668 400.5 635.265q-32.5-32.736-32.5-79.5Q368 509 400.735 476.5q32.736-32.5 79.5-32.5Q527 444 559.5 476.735q32.5 32.736 32.5 79.5Q592 603 559.265 635.5q-32.736 32.5-79.5 32.5ZM480 856q-146 0-264-83T40 556q58-134 176-217t264-83q146 0 264 83t176 217q-58 134-176 217t-264 83Zm0-300Zm-.169 240Q601 796 702.5 730.5 804 665 857 556q-53-109-154.331-174.5-101.332-65.5-222.5-65.5Q359 316 257.5 381.5 156 447 102 556q54 109 155.331 174.5 101.332 65.5 222.5 65.5Z" />
-                        </svg>
-												<svg class="registration_form_close_eye d-none"
-													xmlns="http://www.w3.org/2000/svg" height="25"
-													viewBox="0 96 960 960" width="25">
-                          <path
-														d="m629 637-44-44q26-71-27-118t-115-24l-44-44q17-11 38-16t43-5q71 0 120.5 49.5T650 556q0 22-5.5 43.5T629 637Zm129 129-40-40q49-36 85.5-80.5T857 556q-50-111-150-175.5T490 316q-42 0-86 8t-69 19l-46-47q35-16 89.5-28T485 256q143 0 261.5 81.5T920 556q-26 64-67 117t-95 93Zm58 226L648 827q-35 14-79 21.5t-89 7.5q-146 0-265-81.5T40 556q20-52 55.5-101.5T182 360L56 234l42-43 757 757-39 44ZM223 402q-37 27-71.5 71T102 556q51 111 153.5 175.5T488 796q33 0 65-4t48-12l-64-64q-11 5-27 7.5t-30 2.5q-70 0-120-49t-50-121q0-15 2.5-30t7.5-27l-97-97Zm305 142Zm-116 58Z" />
-                        </svg>
-											</div>
+											class="form-floating mb-3 add_other_product_form_body_form_floating">
+											<input type="file"
+												class="form-control text-uppercase add_other_product_form_body_input_img"
+												id="floatingInputImg"
+												name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
+												placeholder="file ..." /> <label
+												class="text-lowercase add_product_pet_form_body_label_img"
+												for="floatingInputImg">Выберите
+												картинку для товара <span>*</span>
+											</label>
+										</div>
+										<div class="form-floating mb-3">
+											<input type="text" class="form-control"
+												id="floatingInputProductType"
+												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
+												placeholder="product type ..." /> <label
+												class="text-lowercase" for="floatingInputProductType">тип
+												товара</label>
+										</div>
+										<div class="form-floating mb-3">
+											<input type="text" class="form-control"
+												id="floatingInputBrand"
+												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED}"
+												placeholder="brand ..." /> <label
+												class="text-lowercase" for="floatingInputBrand">брэнд</label>
+										</div>
+										<div class="form-floating mb-3">
+											<input type="text" class="form-control"
+												id="floatingInputProductDescription"
+												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE}"
+												placeholder="input product description ..." />
+											<label class="text-lowercase"
+												for="floatingInputProductDescription">описание
+												товара</label>
+										</div>
+										<div class="form-floating mb-3">
+											<input type="text" class="form-control"
+												id="floatingInputProductTypePets"
+												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE}"
+												placeholder="input types pets ..." />
+											<label class="text-lowercase"
+												for="floatingInputProductTypePets">Типы
+												питомцев, через запятую (,)</label>
+										</div>
+										<div class="form-floating mb-3">
+											<input type="text" class="form-control"
+												id="floatingInputPrice"
+												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE}"
+												placeholder="Price" pattern="^(\d+)(\.\d{1,2})?$" />
+											<label class="text-lowercase" for="floatingInputPrice">Цена</label>
+										</div>
+										<div class="form-floating mb-3">
+											<input type="text" class="form-control"
+												id="floatingInputDiscount"
+												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT}"
+												placeholder="Discount" pattern="^(\d+)(\.\d{1,2})?$" />
+											<label class="text-lowercase" for="floatingInputDiscount">Скидка
+												(в %)</label>
+										</div>
+										<div class="form-floating mb-3">
+											<input type="number" class="form-control"
+												id="floatingInputNumberOfUnitsProducts"
+												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
+												placeholder="NumberOfUnitsProducts" pattern="^(\d+)$" />
+											<label class="text-lowercase"
+												for="floatingInputNumberOfUnitsProducts">количество
+												единиц</label>
 										</div>
 										<div class="form_description">
 											<h5>
@@ -446,12 +560,10 @@
 										</div>
 
 										<div
-											class="registration_form_fotter d-flex justify-content-end">
-											<div class="btn registration_form_btn_cancel"
-												onclick="closeSignInAndRegistrationForm()">отмена</div>
+											class="add_other_product_form_fotter d-flex justify-content-end">
 											<input type="hidden" name="command"
 												value="show_personal_account_main_page" />
-											<button class="btn registration_form_btn_submit"
+											<button class="btn add_other_product_form_btn_submit"
 												role="button">готово</button>
 										</div>
 									</form>

@@ -10,6 +10,7 @@ import static by.koroza.zoo_market.dao.name.ColumnName.PETS_PRICE;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_SPECIE;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_NUMBER_OF_UNITS_PRODUCT;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,7 +40,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	}
 
 	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS = """
-			SELECT pets.id, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
+			SELECT pets.id, pets.part_img, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
 			FROM pets
 			WHERE pets.number_of_units_products > 0;
 			""";
@@ -73,7 +74,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	private static final char CODE_OF_TYPE_PRODUCT_PET = 'p';
 
 	private static final String QUERY_SELECT_HAVING_PRODUCT_PET_BY_ID = """
-			SELECT pets.id, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
+			SELECT pets.id, pets.part_img, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
 			FROM pets
 			WHERE pets.number_of_units_products > 0 AND pets.id = ?;
 			""";
@@ -139,7 +140,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	}
 
 	private static final String QUERY_SELECT_ALL_PRODUCTS_PETS = """
-			SELECT pets.id, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
+			SELECT pets.id, pets.part_img, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
 			FROM pets
 			""";
 
@@ -210,8 +211,8 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	}
 
 	private static final String QUERY_INSERT_PRODUCT_PET = """
-			INSERT INTO pets(pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.number_of_units_products)
-			VALUE(?, ?, ?, ?, ?, ?);
+			INSERT INTO pets(pets.part_img, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.number_of_units_products)
+			VALUE(?, ?, ?, ?, ?, ?, ?);
 			""";
 
 	private static final String QUERY_SELECT_LAST_INSERT_ID = """
@@ -223,12 +224,13 @@ public class ProductPetDaoImpl implements ProductPetDao {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
 			try (PreparedStatement statement = connection.prepareStatement(QUERY_INSERT_PRODUCT_PET)) {
-				statement.setString(1, pet.getSpecie());
-				statement.setString(2, pet.getBreed());
-				statement.setString(3, pet.getBirthDate().toString());
-				statement.setDouble(4, pet.getPrice());
-				statement.setDouble(5, pet.getDiscount());
-				statement.setLong(6, numberOfUnitsProduct);
+				statement.setBlob(1, pet.getImgPart() != null ? pet.getImgPart().getInputStream() : null);
+				statement.setString(2, pet.getSpecie());
+				statement.setString(3, pet.getBreed());
+				statement.setString(4, pet.getBirthDate().toString());
+				statement.setDouble(5, pet.getPrice());
+				statement.setDouble(6, pet.getDiscount());
+				statement.setLong(7, numberOfUnitsProduct);
 				result = statement.executeUpdate() > 0;
 			}
 			try (PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_LAST_INSERT_ID);
@@ -237,14 +239,14 @@ public class ProductPetDaoImpl implements ProductPetDao {
 					pet.setId(resultSet.getLong(IDENTIFIER_LAST_INSERT_ID));
 				}
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | IOException e) {
 			throw new DaoException(e);
 		}
 		return result;
 	}
 
 	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS_NOT_CLOSED = """
-			SELECT pets.id, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
+			SELECT pets.id, pets.part_img, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
 			FROM pets
 			WHERE pets.number_of_units_products > 0
 			""";
