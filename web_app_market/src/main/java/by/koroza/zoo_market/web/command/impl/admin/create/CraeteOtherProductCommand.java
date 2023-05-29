@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.impl.admin.product.other;
+package by.koroza.zoo_market.web.command.impl.admin.create;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
@@ -7,8 +7,8 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFF
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CREATE_PET_PRODUCT;
-import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_PET_PRODUCT_FORM;
+import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CREATE_FEEDS_AND_OTHER_PRODUCT;
+import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM;
 
 import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE;
 import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND;
@@ -22,8 +22,9 @@ import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
 import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
 
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_PART;
-import static by.koroza.zoo_market.web.command.name.ParameterName.*;
+import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_IS_CORRECT_FILE;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,39 +62,46 @@ public class CraeteOtherProductCommand implements Command {
 		HttpSession session = request.getSession();
 		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		AbstractRegistratedUser user = (AbstractRegistratedUser) session.getAttribute(ATTRIBUTE_USER);
-		if (user == null || user.isVerificatedEmail() == false
-				|| user.getRole().getIdRole() != UserRole.ADMIN.getIdRole()) {
-			router = new Router(HOME_PAGE_PATH);
-		} else {
-			Map<String, String> mapInputExceptions = new HashMap<>();
-			Map<FeedAndOther, Long> productAndNumber = getInputParameters(request, mapInputExceptions);
-			if (mapInputExceptions.isEmpty()) {
-				session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER,
-						(FeedAndOther) productAndNumber.keySet().toArray()[0]);
-				session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT,
-						productAndNumber.get((FeedAndOther) productAndNumber.keySet().toArray()[0]));
-				router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CREATE_PET_PRODUCT);
+		try {
+
+			if (user == null || user.isVerificatedEmail() == false
+					|| user.getRole().getIdRole() != UserRole.ADMIN.getIdRole()) {
+				router = new Router(HOME_PAGE_PATH);
 			} else {
-				session.setAttribute(
-						ATTRIBUTE_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
-						mapInputExceptions);
-				session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER,
-						(FeedAndOther) productAndNumber.keySet().toArray()[0]);
-				session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT,
-						productAndNumber.get((FeedAndOther) productAndNumber.keySet().toArray()[0]));
-				router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_PET_PRODUCT_FORM);
+				Map<String, String> mapInputExceptions = new HashMap<>();
+				Map<FeedAndOther, Long> productAndNumber = getInputParameters(request, mapInputExceptions);
+				if (mapInputExceptions.isEmpty()) {
+					session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER,
+							(FeedAndOther) productAndNumber.keySet().toArray()[0]);
+					session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT,
+							productAndNumber.get((FeedAndOther) productAndNumber.keySet().toArray()[0]));
+					router = new Router(
+							PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CREATE_FEEDS_AND_OTHER_PRODUCT);
+				} else {
+					session.setAttribute(
+							ATTRIBUTE_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
+							mapInputExceptions);
+					session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER,
+							(FeedAndOther) productAndNumber.keySet().toArray()[0]);
+					session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT,
+							productAndNumber.get((FeedAndOther) productAndNumber.keySet().toArray()[0]));
+					router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM);
+				}
 			}
+		} catch (IOException e) {
+			throw new CommandException(e);
 		}
+		isRegistratedUser(request);
 		return router;
 	}
 
 	private Map<FeedAndOther, Long> getInputParameters(HttpServletRequest request,
-			Map<String, String> mapInputExceptions) {
+			Map<String, String> mapInputExceptions) throws IOException {
 		Map<FeedAndOther, Long> petAndNumber = new HashMap<>();
 		FeedAndOther productFeedAndOther = new FeedAndOther();
 		if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
 			Part part = (Part) request.getAttribute(PARAMETER_PART);
-			productFeedAndOther.setImgPart(part);
+			productFeedAndOther.setImgBytes(part.getInputStream().readAllBytes());
 		} else {
 			if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 				mapInputExceptions.put(TypeInputException.IMAGE.toString(),
@@ -148,7 +156,7 @@ public class CraeteOtherProductCommand implements Command {
 						"You entered, type(types) of pets for whom this product, incorrect. Your input: " + petTypes);
 			}
 		} else {
-			productFeedAndOther.setDescriptions(description);
+			productFeedAndOther.setPetTypes(petTypes);
 		}
 		String price = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE);
 		if (!PetValidation.validPetPrice(price)) {

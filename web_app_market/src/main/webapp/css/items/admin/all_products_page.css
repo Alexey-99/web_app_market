@@ -40,7 +40,8 @@
 	color: #3e3e3e;
 }
 
-.add_product_pet_form_btn_submit, .add_product_form_top_btn.active {
+.add_product_pet_form_btn_submit, .add_other_product_form_btn_submit,
+	.add_product_form_top_btn.active {
 	width: 200px;
 	background: linear-gradient(198.09deg, var(--color2) -4.56%,
 		var(--color1) 101.81%);
@@ -58,8 +59,8 @@
 	color: #3e3e3e;
 }
 
-.add_product_pet_form_btn_submit:hover, .add_product_form_top_btn:hover
-	{
+.add_product_pet_form_btn_submit:hover, .add_product_form_top_btn:hover,
+	.add_other_product_form_btn_submit:hover {
 	border: 2px solid var(--color1);
 	transition: all 0.5s;
 }

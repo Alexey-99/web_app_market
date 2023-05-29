@@ -21,4 +21,6 @@ public interface ProductPetService {
 	public boolean changeNumberOfUnitsProducts(Order order) throws ServiceException;
 
 	public boolean addProductPet(Pet pet, long numberOfUnitsProduct) throws ServiceException;
+
+	public Pet getProductPetById(long id) throws ServiceException;
 }

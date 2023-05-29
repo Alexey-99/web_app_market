@@ -133,12 +133,23 @@ function changeActiveBtn(btnrRemoveActive, btnAddActive) {
 	addClass(btnAddActive, 'active');
 }
 
-function showProductImage() {
-  const element = selectElement(".image_product_id");
-  removeClass(element, "d-none");
+function showProductImage(productId) {
+	const element = selectElement(`.image_product_id_${productId}`);
+	removeClass(element, "d-none");
 }
 
-function clesedProductImage() {
-  const element = selectElement(".image_product_id");
-  addClass(element, "d-none");
+function clesedProductImage(productId) {
+	const element = selectElement(`.image_product_id_${productId}`);
+	addClass(element, "d-none");
+}
+
+
+function showChangeProductForm(productId) {
+	const element = selectElement(`.change_product_form_${productId}`);
+	removeClass(element, "d-none");
+}
+
+function clesedChangeProductForm(productId) {
+	const element = selectElement(`.change_product_form_${productId}`);
+	addClass(element, "d-none");
 }

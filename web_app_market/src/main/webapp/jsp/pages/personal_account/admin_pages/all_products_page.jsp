@@ -296,6 +296,7 @@
 													role="button">number</button>
 											</form>
 										</th>
+										<th scope="col">edit</th>
 									</tr>
 								</thead>
 
@@ -304,11 +305,10 @@
 										items="${map_product_pet_and_number_of_units.entrySet()}"
 										var="pet">
 										<tr class="align-middle">
-											<td
-												class="d-flex justify-content-center align-items-center table_row_product_img"
-												onclick="showProductImage()"><img
-												class="mb-0 mt-0 me-auto ms-auto" src="/img/logo.svg" alt=""
-												style="width: 30px; height: 30px" /></td>
+											<td class=" table_row_product_img"
+												onclick="showProductImage('p-${pet.getKey().getId()}')"
+												style=""><img class="" src="img/logo.svg" alt=""
+												style="width: 35px; height: 35px; margin: 0 auto; display: flex; justify-content: center; align-items: center;" /></td>
 											<th class="" scope="row">p-${pet.getKey().getId()}</th>
 											<td class="text-lowercase">${ProductType.PETS.toString()}</td>
 											<td class="">-</td>
@@ -321,13 +321,153 @@
 											<td class="">${pet.getKey().getDiscount()}</td>
 											<td class="">${pet.getKey().getTotalPrice()}</td>
 											<td class="">${pet.getValue()}</td>
+											<td class="edit_product_td"
+												onclick="showChangeProductForm('p-${pet.getKey().getId()}')">
+												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"
+													width="25px" height="25px">
+                      <path
+														d="M 22.828125 3 C 22.316375 3 21.804562 3.1954375 21.414062 3.5859375 L 19 6 L 24 11 L 26.414062 8.5859375 C 27.195062 7.8049375 27.195062 6.5388125 26.414062 5.7578125 L 24.242188 3.5859375 C 23.851688 3.1954375 23.339875 3 22.828125 3 z M 17 8 L 5.2597656 19.740234 C 5.2597656 19.740234 6.1775313 19.658 6.5195312 20 C 6.8615312 20.342 6.58 22.58 7 23 C 7.42 23.42 9.6438906 23.124359 9.9628906 23.443359 C 10.281891 23.762359 10.259766 24.740234 10.259766 24.740234 L 22 13 L 17 8 z M 4 23 L 3.0566406 25.671875 A 1 1 0 0 0 3 26 A 1 1 0 0 0 4 27 A 1 1 0 0 0 4.328125 26.943359 A 1 1 0 0 0 4.3378906 26.939453 L 4.3632812 26.931641 A 1 1 0 0 0 4.3691406 26.927734 L 7 26 L 5.5 24.5 L 4 23 z" />
+                    </svg>
+											</td>
 										</tr>
-									</c:forEach>
+										<div
+											class="position-fixed d-none d-flex justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 image_product_id image_product_id_p-${pet.getKey().getId()}">
+											<div
+												class="position-relative w-100 d-flex flex-column image_product_id_inner image_product_id_p-${pet.getKey().getId()}_inner"
+												style="height: 60vh; max-width: 70vh">
+												<div class="image_product_id_top">
+													<div class="close_btn"
+														onclick="clesedProductImage('p-${pet.getKey().getId()}')">
+														<svg xmlns="http://www.w3.org/2000/svg"
+															viewBox="0 0 24 24" width="25px" height="25px">
+                          <path
+																d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z" />
+                        </svg>
+													</div>
+													<div class="add_product_form_top_title">
+														<h2 class="form_title text-center mb-3 text-lowercase">
+															фото товара</h2>
+													</div>
+												</div>
+												<div
+													class="image_product_id_body h-100 d-flex justify-content-center align-items-center">
+													<img class="h-100" src="img/phone.svg" alt="" />
+												</div>
+											</div>
+										</div>
+
+										<div
+											class="position-fixed d-none d-flex justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 change_product_form change_product_form_p-${pet.getKey().getId()}">
+											<div
+												class="position-relative w-100 d-flex flex-column change_product_form_inner change_product_form_p-${pet.getKey().getId()}_inner">
+												<div class="image_product_id_top">
+													<div class="close_btn"
+														onclick="clesedChangeProductForm('p-${pet.getKey().getId()}')">
+														<svg xmlns="http://www.w3.org/2000/svg"
+															viewBox="0 0 24 24" width="25px" height="25px">
+                          <path
+																d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z" />
+                        </svg>
+													</div>
+													<div class="add_product_form_top_title">
+														<h2 class="form_title text-center mb-3 text-lowercase">
+															Изменение товара</h2>
+													</div>
+												</div>
+												<div class="change_product_form_body h-100">
+													<form class="change_product_form_body" method="post"
+														action="${pageContext.request.contextPath}/imageServlet"
+														enctype="multipart/form-data">
+														<input type="hidden"
+															name="${InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_ID} value=" ${pet.getKey().getId()}"/>
+														<div
+															class="form-floating mb-3 add_product_pet_form_body_form_floating">
+															<input type="file"
+																class="form-control text-uppercase add_product_pet_form_body_input_img"
+																id="floatingInputProductImg"
+																name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
+																placeholder="dog" /> <label
+																class="text-lowercase change_product_form_body_label_img"
+																for="floatingInputProductImg">Выберите картинку
+																для товара <span>*</span>
+															</label>
+															<div class="">
+																<c:if test="${pet.getKey().getImgPart() == null}">Вы не выбрали картинку фотографии</c:if>
+																<c:if test="${pet.getKey().getImgPart() != null}">Вы выбрали
+														файл: ${pet.getKey().getImgPart().getSubmittedFileName()}</c:if>
+															</div>
+														</div>
+														<div class="form-floating mb-3">
+															<input type="text" class="form-control"
+																id="floatingInputSpecie"
+																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
+																value="${pet.getKey().getSpecie()}" placeholder="dog" />
+															<label class="text-lowercase" for="floatingInputSpecie">тип
+																питомца</label>
+														</div>
+														<div class="form-floating mb-3">
+															<input type="text" class="form-control "
+																id="floatingInputBreed"
+																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED}"
+																value="${pet.getKey().getBreed()}" placeholder="Breed" />
+															<label class="text-lowercase" for="floatingInputBreed">порода</label>
+														</div>
+														<div class="form-floating mb-3">
+															<input type="date" class="form-control "
+																id="floatingInputBirthDate"
+																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE}"
+																value="${pet.getKey().getBirthDate()}"
+																placeholder="BirthDate" /> <label
+																class="text-lowercase" for="floatingInputBirthDate">Дата
+																рождения</label>
+														</div>
+														<div class="form-floating mb-3">
+															<input type="text" class="form-control"
+																id="floatingInputPrice"
+																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE}"
+																value="${pet.getKey().getPrice()}" placeholder="Price"
+																pattern="^(\d+)(\.\d{1,2})?$" /> <label
+																class="text-lowercase" for="floatingInputPrice">Цена</label>
+														</div>
+														<div class="form-floating mb-3">
+															<input type="text" class="form-control "
+																id="floatingInputDiscount"
+																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT}"
+																value="${pet.getKey().getDiscount()}"
+																placeholder="Discount" pattern="^(\d+)(\.\d{1,2})?$" />
+															<label class="text-lowercase" for="floatingInputDiscount">Скидка
+																(в %)</label>
+														</div>
+														<div class="form-floating mb-3">
+															<input type="number" class="form-control "
+																id="floatingInputNumberOfUnitsProducts"
+																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
+																value="${pet.getValue()}"
+																placeholder="NumberOfUnitsProducts" pattern="^(\d+)$" />
+															<label class="text-lowercase"
+																for="floatingInputNumberOfUnitsProducts">количество
+																единиц</label>
+														</div>
+														<div
+															class="change_product_form_fotter d-flex justify-content-end">
+															<input type="hidden" name="command"
+																value="${CommandName.COMMAND_ADMIN_PAGE_CHANGE_PET_PRODUCT}" />
+															<button class="btn change_product_form_btn_submit"
+																role="button">готово</button>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</c:forEach> 
 									<c:forEach
 										items="${map_product_feeds_and_other_and_number_of_units.entrySet()}"
 										var="product">
 										<tr class="align-middle">
-											<td>img</td>
+											<td class=" table_row_product_img"
+												onclick="showProductImage('o-${product.getKey().getId()}')"
+												style=""><img class="" src="img/logo.svg" alt=""
+												style="width: 35px; height: 35px; margin: 0 auto; display: flex; justify-content: center; align-items: center;" /></td>
 											<th class="text-lowercase" scope="row">o-${product.getKey().getId()}</th>
 											<td class="text-lowercase"><c:if
 													test="${product.getKey().getProductType() == null || product.getKey().getProductType().isBlank()}">${ProductType.PETS.toString()}</c:if>
@@ -345,6 +485,31 @@
 											<td class="">${product.getKey().getTotalPrice()}</td>
 											<td class="">${product.getValue()}</td>
 										</tr>
+										<div
+											class="position-fixed d-none d-flex justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 image_product_id image_product_id_o-${product.getKey().getId()}">
+											<div
+												class="position-relative w-100 d-flex flex-column image_product_id_inner image_product_id_o-${product.getKey().getId()}_inner"
+												style="height: 60vh; max-width: 70vh">
+												<div class="image_product_id_top">
+													<div class="close_btn"
+														onclick="clesedProductImage('o-${product.getKey().getId()}')">
+														<svg xmlns="http://www.w3.org/2000/svg"
+															viewBox="0 0 24 24" width="25px" height="25px">
+                          <path
+																d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z" />
+                        </svg>
+													</div>
+													<div class="add_product_form_top_title">
+														<h2 class="form_title text-center mb-3 text-lowercase">
+															фото товара</h2>
+													</div>
+												</div>
+												<div
+													class="image_product_id_body h-100 d-flex justify-content-center align-items-center">
+													<img class="h-100" src="img/phone.svg" alt="" />
+												</div>
+											</div>
+										</div>
 									</c:forEach>
 								</tbody>
 							</table>
@@ -355,7 +520,7 @@
 				<div class="row">
 					<div class="col-12">
 						<div
-							class="position-fixed d-flex justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 image_product_id image_product_id_1">
+							class="position-fixed d-none d-flex justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 image_product_id image_product_id_1">
 							<div
 								class="position-relative w-100 d-flex flex-column image_product_id_inner image_product_id_1_inner"
 								style="height: 60vh; max-width: 70vh">
@@ -373,7 +538,7 @@
 									</div>
 								</div>
 								<div class="image_product_id_body h-100">
-									<img class="h-100" src="/img/logo.svg" alt="" />
+									<img class="h-100" src="img/logo.svg" alt="" />
 								</div>
 							</div>
 						</div>
@@ -483,7 +648,9 @@
 								</div>
 
 								<div class="add_other_product_form d-none">
-									<form class="add_other_product_form_body" action="Controller">
+									<form class="add_product_pet_form_body" method="post"
+										action="${pageContext.request.contextPath}/imageServlet"
+										enctype="multipart/form-data">
 										<div
 											class="form-floating mb-3 add_other_product_form_body_form_floating">
 											<input type="file"
@@ -492,14 +659,14 @@
 												name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
 												placeholder="file ..." /> <label
 												class="text-lowercase add_product_pet_form_body_label_img"
-												for="floatingInputImg">Выберите
-												картинку для товара <span>*</span>
+												for="floatingInputImg">Выберите картинку для товара
+												<span>*</span>
 											</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
 												id="floatingInputProductType"
-												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
+												name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE}"
 												placeholder="product type ..." /> <label
 												class="text-lowercase" for="floatingInputProductType">тип
 												товара</label>
@@ -507,49 +674,47 @@
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
 												id="floatingInputBrand"
-												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED}"
-												placeholder="brand ..." /> <label
-												class="text-lowercase" for="floatingInputBrand">брэнд</label>
+												name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND}"
+												placeholder="brand ..." /> <label class="text-lowercase"
+												for="floatingInputBrand">брэнд</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
 												id="floatingInputProductDescription"
-												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE}"
-												placeholder="input product description ..." />
-											<label class="text-lowercase"
-												for="floatingInputProductDescription">описание
+												name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION}"
+												placeholder="input product description ..." /> <label
+												class="text-lowercase" for="floatingInputProductDescription">описание
 												товара</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
 												id="floatingInputProductTypePets"
-												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE}"
-												placeholder="input types pets ..." />
-											<label class="text-lowercase"
-												for="floatingInputProductTypePets">Типы
+												name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES}"
+												placeholder="input types pets ..." /> <label
+												class="text-lowercase" for="floatingInputProductTypePets">Типы
 												питомцев, через запятую (,)</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
 												id="floatingInputPrice"
-												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE}"
-												placeholder="Price" pattern="^(\d+)(\.\d{1,2})?$" />
-											<label class="text-lowercase" for="floatingInputPrice">Цена</label>
+												name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE}"
+												placeholder="Price" pattern="^(\d+)(\.\d{1,2})?$" /> <label
+												class="text-lowercase" for="floatingInputPrice">Цена</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
 												id="floatingInputDiscount"
-												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT}"
-												placeholder="Discount" pattern="^(\d+)(\.\d{1,2})?$" />
-											<label class="text-lowercase" for="floatingInputDiscount">Скидка
+												name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT}"
+												placeholder="Discount" pattern="^(\d+)(\.\d{1,2})?$" /> <label
+												class="text-lowercase" for="floatingInputDiscount">Скидка
 												(в %)</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="number" class="form-control"
 												id="floatingInputNumberOfUnitsProducts"
-												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
-												placeholder="NumberOfUnitsProducts" pattern="^(\d+)$" />
-											<label class="text-lowercase"
+												name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
+												placeholder="NumberOfUnitsProducts" pattern="^(\d+)$" /> <label
+												class="text-lowercase"
 												for="floatingInputNumberOfUnitsProducts">количество
 												единиц</label>
 										</div>
@@ -558,11 +723,10 @@
 												<span>*</span> - поле не обязательное для заполнения
 											</h5>
 										</div>
-
 										<div
 											class="add_other_product_form_fotter d-flex justify-content-end">
 											<input type="hidden" name="command"
-												value="show_personal_account_main_page" />
+												value="${CommandName.COMMAND_ADMIN_PAGE_CREATE_FEED_AND_OTHER_PRODUCT }" />
 											<button class="btn add_other_product_form_btn_submit"
 												role="button">готово</button>
 										</div>

@@ -9,8 +9,9 @@ import static by.koroza.zoo_market.dao.name.ColumnName.PETS_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_PRICE;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_SPECIE;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_NUMBER_OF_UNITS_PRODUCT;
+import static by.koroza.zoo_market.dao.name.ColumnName.PETS_IMAGE;
 
-import java.io.IOException;
+import java.io.ByteArrayInputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,7 +41,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	}
 
 	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS = """
-			SELECT pets.id, pets.part_img, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
+			SELECT pets.id, pets.image, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
 			FROM pets
 			WHERE pets.number_of_units_products > 0;
 			""";
@@ -54,6 +55,8 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			while (resultSet.next()) {
 				for (int i = 0; i < resultSet.getLong(PETS_NUMBER_OF_UNITS_PRODUCT); i++) {
 					Pet pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
+							.setImgBytes(resultSet.getBlob(PETS_IMAGE) != null ? resultSet.getBlob(PETS_IMAGE)
+									.getBytes(0, (int) resultSet.getBlob(PETS_IMAGE).length()) : null)
 							.setSpecie(resultSet.getString(PETS_SPECIE)).setBreed(resultSet.getString(PETS_BREED))
 							.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toString())
 							.setPrice(resultSet.getDouble(PETS_PRICE)).setDiscount(resultSet.getDouble(PETS_DISCOUNT))
@@ -74,7 +77,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	private static final char CODE_OF_TYPE_PRODUCT_PET = 'p';
 
 	private static final String QUERY_SELECT_HAVING_PRODUCT_PET_BY_ID = """
-			SELECT pets.id, pets.part_img, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
+			SELECT pets.id, pets.image, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
 			FROM pets
 			WHERE pets.number_of_units_products > 0 AND pets.id = ?;
 			""";
@@ -93,6 +96,10 @@ public class ProductPetDaoImpl implements ProductPetDao {
 						try (ResultSet resultSet = statement.executeQuery()) {
 							while (resultSet.next()) {
 								Pet pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
+										.setImgBytes(resultSet.getBlob(PETS_IMAGE) != null
+												? resultSet.getBlob(PETS_IMAGE).getBytes(0,
+														(int) resultSet.getBlob(PETS_IMAGE).length())
+												: null)
 										.setSpecie(resultSet.getString(PETS_SPECIE))
 										.setBreed(resultSet.getString(PETS_BREED))
 										.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toString())
@@ -123,6 +130,8 @@ public class ProductPetDaoImpl implements ProductPetDao {
 				ResultSet resultSet = statement.executeQuery()) {
 			while (resultSet.next()) {
 				Pet pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
+						.setImgBytes(resultSet.getBlob(PETS_IMAGE) != null ? resultSet.getBlob(PETS_IMAGE).getBytes(0,
+								(int) resultSet.getBlob(PETS_IMAGE).length()) : null)
 						.setSpecie(resultSet.getString(PETS_SPECIE)).setBreed(resultSet.getString(PETS_BREED))
 						.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toString())
 						.setPrice(resultSet.getDouble(PETS_PRICE)).setDiscount(resultSet.getDouble(PETS_DISCOUNT))
@@ -140,7 +149,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	}
 
 	private static final String QUERY_SELECT_ALL_PRODUCTS_PETS = """
-			SELECT pets.id, pets.part_img, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
+			SELECT pets.id, pets.image, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
 			FROM pets
 			""";
 
@@ -152,6 +161,8 @@ public class ProductPetDaoImpl implements ProductPetDao {
 				ResultSet resultSet = statement.executeQuery()) {
 			while (resultSet.next()) {
 				Pet pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
+						.setImgBytes(resultSet.getBlob(PETS_IMAGE) != null ? resultSet.getBlob(PETS_IMAGE).getBytes(0,
+								(int) resultSet.getBlob(PETS_IMAGE).length()) : null)
 						.setSpecie(resultSet.getString(PETS_SPECIE)).setBreed(resultSet.getString(PETS_BREED))
 						.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toString())
 						.setPrice(resultSet.getDouble(PETS_PRICE)).setDiscount(resultSet.getDouble(PETS_DISCOUNT))
@@ -166,6 +177,39 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			throw new DaoException(e);
 		}
 		return mapPetsAndNumber;
+	}
+
+	private static final String QUERY_SELECT_PRODUCT_PET_BY_ID = """
+			SELECT pets.id, pets.image, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
+			FROM pets
+			WHERE pets.id = ?;
+			""";
+
+	@Override
+	public Pet getProductPetById(long id) throws DaoException {
+		Pet pet = null;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_PRODUCT_PET_BY_ID)) {
+			statement.setLong(1, id);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
+							.setImgBytes(resultSet.getBlob(PETS_IMAGE) != null ? resultSet.getBlob(PETS_IMAGE)
+									.getBytes(0, (int) resultSet.getBlob(PETS_IMAGE).length()) : null)
+							.setSpecie(resultSet.getString(PETS_SPECIE)).setBreed(resultSet.getString(PETS_BREED))
+							.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toString())
+							.setPrice(resultSet.getDouble(PETS_PRICE)).setDiscount(resultSet.getDouble(PETS_DISCOUNT))
+							.setUpdateDateTime(resultSet.getDate(PETS_DATE_UPDATE).toLocalDate(),
+									resultSet.getTime(PETS_DATE_UPDATE).toLocalTime())
+							.build();
+					pet.setTotalPrice(pet.getPrice()
+							- Calculator.getInstance().calcProcentFromSum(pet.getPrice(), pet.getDiscount()));
+				}
+			}
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		return pet;
 	}
 
 	private static final String QUERY_SELECT_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID = """
@@ -211,7 +255,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	}
 
 	private static final String QUERY_INSERT_PRODUCT_PET = """
-			INSERT INTO pets(pets.part_img, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.number_of_units_products)
+			INSERT INTO pets(pets.image, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.number_of_units_products)
 			VALUE(?, ?, ?, ?, ?, ?, ?);
 			""";
 
@@ -224,7 +268,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
 			try (PreparedStatement statement = connection.prepareStatement(QUERY_INSERT_PRODUCT_PET)) {
-				statement.setBlob(1, pet.getImgPart() != null ? pet.getImgPart().getInputStream() : null);
+				statement.setBlob(1, pet.getImgBytes() != null ? new ByteArrayInputStream(pet.getImgBytes()) : null);
 				statement.setString(2, pet.getSpecie());
 				statement.setString(3, pet.getBreed());
 				statement.setString(4, pet.getBirthDate().toString());
@@ -239,14 +283,14 @@ public class ProductPetDaoImpl implements ProductPetDao {
 					pet.setId(resultSet.getLong(IDENTIFIER_LAST_INSERT_ID));
 				}
 			}
-		} catch (SQLException | IOException e) {
+		} catch (SQLException e) {
 			throw new DaoException(e);
 		}
 		return result;
 	}
 
 	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS_NOT_CLOSED = """
-			SELECT pets.id, pets.part_img, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
+			SELECT pets.id, pets.image, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
 			FROM pets
 			WHERE pets.number_of_units_products > 0
 			""";

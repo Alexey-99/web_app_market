@@ -10,8 +10,6 @@ import java.util.List;
 
 import by.koroza.zoo_market.model.entity.market.abstraction.AbstractProduct;
 
-import jakarta.servlet.http.Part;
-
 public class FeedAndOther extends AbstractProduct implements Comparable<FeedAndOther> {
 	private static final String REG_EX_PATTERN_FOR_PARSE_PET_TYPES = "\\,\\s?";
 
@@ -26,7 +24,6 @@ public class FeedAndOther extends AbstractProduct implements Comparable<FeedAndO
 		this.brand = null;
 		this.descriptions = null;
 		this.petTypes = new ArrayList<>();
-
 	}
 
 	public String getProductType() {
@@ -237,8 +234,8 @@ public class FeedAndOther extends AbstractProduct implements Comparable<FeedAndO
 			return this;
 		}
 
-		public FeedAndOtherBuilder setImgPart(Part imgPart) {
-			this.feedAndOther.setImgPart(imgPart);
+		public FeedAndOtherBuilder setImgBytes(byte[] imgBytes) {
+			this.feedAndOther.setImgBytes(imgBytes);
 			return this;
 		}
 

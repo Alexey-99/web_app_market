@@ -28,8 +28,10 @@ public final class PagePathName {
 
 	/* ADMIN_CREATE_PRODUCT_FORM */
 	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_PET_PRODUCT_FORM = "jsp/pages/form/admin/create/create_pet_product_form_validated.jsp";
+	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM = "jsp/pages/form/admin/create/create_feed_and_other_product_form_validated.jsp";
 	/* ADMIN_VERIDICATION_INFORMATION */
 	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CREATE_PET_PRODUCT = "jsp/pages/form/admin/verification/verification_information_for_create_product_pet.jsp";
+	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CREATE_FEEDS_AND_OTHER_PRODUCT = "jsp/pages/form/admin/verification/verification_information_for_create_product_feed_and_other.jsp";
 
 	/* REGISTRATION */
 	public static final String REGISTRATION_FORM_PAGE_PATH = "jsp/pages/form/registration_form/registration_form.jsp";

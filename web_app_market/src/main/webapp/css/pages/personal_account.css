@@ -238,11 +238,11 @@
 	transition: all 0.5s;
 }
 
-.table_row_product_img {
-	border: 1px transparent solid;
+.table_row_product_img, .edit_product_td {
+	border: 1px ghostwhite solid;
 }
 
-.table_row_product_img:hover {
+.table_row_product_img:hover, .edit_product_td:hover {
 	cursor: pointer;
 	border: 1px var(--color3) solid;
 }

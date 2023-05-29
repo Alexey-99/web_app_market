@@ -67,6 +67,15 @@ public class InputName {
 	public static final String ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT = "other_product_discount";
 	public static final String ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT = "other_product_number_of_units_product";
 
+	/* CREATE_PET_PRODUCT */
+	public static final String ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_ID = "product_pet_id";
+	public static final String ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_SPECIE = "product_pet_specie";
+	public static final String ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_BREED = "product_pet_breed";
+	public static final String ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE = "product_pet_birth_date";
+	public static final String ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_PRICE = "product_pet_price";
+	public static final String ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_DISCOUNT = "product_pet_discount";
+	public static final String ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT = "product_pet_number_of_units_product";
+
 	private InputName() {
 	}
 }

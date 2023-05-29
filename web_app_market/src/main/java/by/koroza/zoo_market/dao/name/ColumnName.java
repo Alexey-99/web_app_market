@@ -17,7 +17,7 @@ public final class ColumnName {
 	public static final String USERS_DATE_CREATE = "users.date_create";
 
 	public static final String PETS_ID = "pets.id";
-	public static final String PETS_PART_IMG = "pets.part_img";
+	public static final String PETS_IMAGE = "pets.image";
 	public static final String PETS_SPECIE = "pets.specie";
 	public static final String PETS_BREED = "pets.breed";
 	public static final String PETS_BIRTH_DATE = "pets.birth_date";
@@ -27,7 +27,7 @@ public final class ColumnName {
 	public static final String PETS_DATE_UPDATE = "pets.date_update";
 
 	public static final String FEEDS_AND_OTHER_ID = "feeds_and_other.id";
-	public static final String FEEDS_AND_OTHER_PART_IMG = "feeds_and_other.part_img";
+	public static final String FEEDS_AND_OTHER_IMAGE = "feeds_and_other.image";
 	public static final String FEEDS_AND_OTHER_TYPE = "feeds_and_other.type";
 	public static final String FEEDS_AND_OTHER_BRAND = "feeds_and_other.brand";
 	public static final String FEEDS_AND_OTHER_DESCRIPTION = "feeds_and_other.description";

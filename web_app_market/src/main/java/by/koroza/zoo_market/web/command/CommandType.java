@@ -3,11 +3,14 @@ package by.koroza.zoo_market.web.command;
 import by.koroza.zoo_market.web.command.impl.OrderPaymentCommand;
 import by.koroza.zoo_market.web.command.impl.RegistrationUserCommand;
 import by.koroza.zoo_market.web.command.impl.SendOneMoreTimeVerificationCodeCommand;
-import by.koroza.zoo_market.web.command.impl.admin.product.other.CraeteOtherProductCommand;
-import by.koroza.zoo_market.web.command.impl.admin.product.pet.AddPetProductCommand;
-import by.koroza.zoo_market.web.command.impl.admin.product.pet.CraetePetProductCommand;
-import by.koroza.zoo_market.web.command.impl.admin.product.pet.ShowCreatePetProductFormCommand;
+import by.koroza.zoo_market.web.command.impl.admin.add.AddOtherProductCommand;
+import by.koroza.zoo_market.web.command.impl.admin.add.AddPetProductCommand;
+import by.koroza.zoo_market.web.command.impl.admin.change.ChangeProductPetCommand;
+import by.koroza.zoo_market.web.command.impl.admin.create.CraeteOtherProductCommand;
+import by.koroza.zoo_market.web.command.impl.admin.create.CraetePetProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.ShowAllProductsOffFilterCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.ShowCreateFeedsAndOtherProductFormCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.ShowCreatePetProductFormCommand;
 import by.koroza.zoo_market.web.command.impl.change.ChangeLoginAndPasswordCommand;
 import by.koroza.zoo_market.web.command.impl.change.ChangePersonInformationCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetEnglishLocaleCommand;
@@ -50,7 +53,10 @@ public enum CommandType {
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_INCLUDED_FILTER(new ShowAllProductsOffFilterCommand()),
 	ADMIN_PAGE_CREATE_PET_PRODUCT(new CraetePetProductCommand()), ADD_NEW_PRODUCT_PET(new AddPetProductCommand()),
 	ADMIN_PAGE_SHOW_CREATE_PET_PRODUCT_FORM(new ShowCreatePetProductFormCommand()),
-	ADMIN_PAGE_CREATE_FEED_AND_OTHER_PRODUCT(new CraeteOtherProductCommand());
+	ADMIN_PAGE_CREATE_FEED_AND_OTHER_PRODUCT(new CraeteOtherProductCommand()),
+	ADD_NEW_PRODUCT_FEED_AND_OTHER(new AddOtherProductCommand()),
+	ADMIN_PAGE_SHOW_CREATE_FEED_AND_OTHER_PRODUCT_FORM(new ShowCreateFeedsAndOtherProductFormCommand()),
+	ADMIN_PAGE_CHANGE_PET_PRODUCT(new ChangeProductPetCommand()), ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT(new );
 
 	private Command command;
 

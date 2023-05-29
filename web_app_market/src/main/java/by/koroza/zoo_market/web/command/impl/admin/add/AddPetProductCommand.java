@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.impl.admin.product.pet;
+package by.koroza.zoo_market.web.command.impl.admin.add;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ADMIN_PAGE_CREATE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT;

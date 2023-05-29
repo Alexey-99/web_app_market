@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import by.koroza.zoo_market.model.entity.market.abstraction.AbstractProduct;
-import jakarta.servlet.http.Part;
 
 public class Pet extends AbstractProduct implements Comparable<Pet> {
 	private String specie;
@@ -183,8 +182,8 @@ public class Pet extends AbstractProduct implements Comparable<Pet> {
 			return this;
 		}
 
-		public PetBuilder setImgPart(Part imgPart) {
-			this.pet.setImgPart(imgPart);
+		public PetBuilder setImgBytes(byte[] imgBytes) {
+			this.pet.setImgBytes(imgBytes);
 			return this;
 		}
 
