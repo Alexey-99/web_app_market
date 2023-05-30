@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.controler;
+package by.koroza.zoo_market.web.controller;
 
 public class Router {
 	/**

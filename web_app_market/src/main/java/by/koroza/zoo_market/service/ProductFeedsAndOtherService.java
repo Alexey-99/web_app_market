@@ -22,4 +22,6 @@ public interface ProductFeedsAndOtherService {
 	public boolean changeNumberOfUnitsProducts(Order order) throws ServiceException;
 
 	public boolean addProduct(FeedAndOther product, long numberOfUnitsProduct) throws ServiceException;
+
+	public FeedAndOther getProductFeedAndOtherById(long id) throws ServiceException;
 }

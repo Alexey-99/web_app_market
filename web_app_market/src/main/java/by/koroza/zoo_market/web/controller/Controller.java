@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.controler;
+package by.koroza.zoo_market.web.controller;
 
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_COMMAND;
 
@@ -52,6 +52,7 @@ public class Controller extends HttpServlet {
 	 * @throws CommandException
 	 */
 	private void processRequest(HttpServletRequest request, HttpServletResponse response) {
+
 		String commandName = request.getParameter(PARAMETER_COMMAND);
 		Optional<Command> optionalCommand = CommandProvider.getInstance().definaCommand(commandName);
 		Command command = (optionalCommand.isPresent() ? optionalCommand.get() : null);

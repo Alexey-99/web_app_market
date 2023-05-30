@@ -1,11 +1,18 @@
 package by.koroza.zoo_market.web.command.name;
 
+import java.io.File;
+
 public final class PagePathName {
 	public static final String INDEX_PAGE_PATH = "index.jsp";
 	public static final String ERROR_PAGE_500_PATH = "pages/error/error_page_500.jsp";
 
 	/* PROPERTIES */
 	public static final String PAGE_CONTENT_PROPERTIES = "locale.pageContent_";
+
+	/* IMAGES */
+	public static final String STORAGE_IMAGES_FOLDER_PATH = "img/product_images";
+	public static final String STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH = STORAGE_IMAGES_FOLDER_PATH + File.separator;
+	public static final String STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH2 = STORAGE_IMAGES_FOLDER_PATH + File.separator;
 
 	/* MARKET */
 	public static final String PRODUCTS_PETS_PAGE_PATH = "jsp/pages/market_page/pets/products_pets_page.jsp";

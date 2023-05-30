@@ -21,8 +21,7 @@ import by.koroza.zoo_market.service.impl.ProductFeedsAndOtherServiceImpl;
 import by.koroza.zoo_market.service.sorting.SortingMapAbstractProduct;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
-import by.koroza.zoo_market.web.controler.Router;
-
+import by.koroza.zoo_market.web.controller.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 

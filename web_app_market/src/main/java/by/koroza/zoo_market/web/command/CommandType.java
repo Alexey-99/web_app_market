@@ -5,6 +5,7 @@ import by.koroza.zoo_market.web.command.impl.RegistrationUserCommand;
 import by.koroza.zoo_market.web.command.impl.SendOneMoreTimeVerificationCodeCommand;
 import by.koroza.zoo_market.web.command.impl.admin.add.AddOtherProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.add.AddPetProductCommand;
+import by.koroza.zoo_market.web.command.impl.admin.change.ChangeProductFeedsAndOtherCommand;
 import by.koroza.zoo_market.web.command.impl.admin.change.ChangeProductPetCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.CraeteOtherProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.CraetePetProductCommand;
@@ -56,7 +57,8 @@ public enum CommandType {
 	ADMIN_PAGE_CREATE_FEED_AND_OTHER_PRODUCT(new CraeteOtherProductCommand()),
 	ADD_NEW_PRODUCT_FEED_AND_OTHER(new AddOtherProductCommand()),
 	ADMIN_PAGE_SHOW_CREATE_FEED_AND_OTHER_PRODUCT_FORM(new ShowCreateFeedsAndOtherProductFormCommand()),
-	ADMIN_PAGE_CHANGE_PET_PRODUCT(new ChangeProductPetCommand()), ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT(new );
+	ADMIN_PAGE_CHANGE_PET_PRODUCT(new ChangeProductPetCommand()),
+	ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT(new ChangeProductFeedsAndOtherCommand());
 
 	private Command command;
 

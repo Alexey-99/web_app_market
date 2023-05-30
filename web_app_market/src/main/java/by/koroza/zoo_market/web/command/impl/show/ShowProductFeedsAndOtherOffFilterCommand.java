@@ -10,8 +10,8 @@ import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.ProductFeedsAndOtherServiceImpl;
 import by.koroza.zoo_market.web.command.Command;
-import by.koroza.zoo_market.web.controler.Router;
 import by.koroza.zoo_market.web.command.exception.CommandException;
+import by.koroza.zoo_market.web.controller.Router;
 
 import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PRODUCT_RUS;
 import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_BREND_PRODUCT_RUS;

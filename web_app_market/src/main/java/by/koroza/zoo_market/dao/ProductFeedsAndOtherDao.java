@@ -21,4 +21,6 @@ public interface ProductFeedsAndOtherDao {
 	public boolean changeNumberOfUnitsProducts(Order order) throws DaoException;
 
 	public boolean addProduct(FeedAndOther product, long numberOfUnitsProduct) throws DaoException;
+
+	public FeedAndOther getProductFeedAndOtherById(long id) throws DaoException;
 }

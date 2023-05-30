@@ -8,7 +8,7 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER
 
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
-import by.koroza.zoo_market.web.controler.Router;
+import by.koroza.zoo_market.web.controller.Router;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.OrderServiceImpl;

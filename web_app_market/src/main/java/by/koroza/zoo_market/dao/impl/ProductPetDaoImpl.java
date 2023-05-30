@@ -9,7 +9,8 @@ import static by.koroza.zoo_market.dao.name.ColumnName.PETS_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_PRICE;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_SPECIE;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_NUMBER_OF_UNITS_PRODUCT;
-import static by.koroza.zoo_market.dao.name.ColumnName.PETS_IMAGE;
+import static by.koroza.zoo_market.dao.name.ColumnName.PETS_NAME_IMAGE;
+import static by.koroza.zoo_market.dao.name.ColumnName.PETS_BYTES_IMAGE;
 
 import java.io.ByteArrayInputStream;
 import java.sql.PreparedStatement;
@@ -27,6 +28,7 @@ import by.koroza.zoo_market.model.calculation.Calculator;
 import by.koroza.zoo_market.model.entity.filter.FilterPet;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
+import by.koroza.zoo_market.model.entity.market.product.constituent.ImageFile;
 import by.koroza.zoo_market.dao.ProductPetDao;
 import by.koroza.zoo_market.dao.exception.DaoException;
 
@@ -41,7 +43,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	}
 
 	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS = """
-			SELECT pets.id, pets.image, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
+			SELECT pets.id, pets.name_image, pets.bytes_image, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
 			FROM pets
 			WHERE pets.number_of_units_products > 0;
 			""";
@@ -54,9 +56,17 @@ public class ProductPetDaoImpl implements ProductPetDao {
 				ResultSet resultSet = statement.executeQuery()) {
 			while (resultSet.next()) {
 				for (int i = 0; i < resultSet.getLong(PETS_NUMBER_OF_UNITS_PRODUCT); i++) {
-					Pet pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
-							.setImgBytes(resultSet.getBlob(PETS_IMAGE) != null ? resultSet.getBlob(PETS_IMAGE)
-									.getBytes(0, (int) resultSet.getBlob(PETS_IMAGE).length()) : null)
+					Pet pet = new Pet.PetBuilder()
+							.setId(resultSet
+									.getLong(PETS_ID))
+							.setImageFile(
+									new ImageFile.ImageFileBuilder().setName(resultSet.getString(PETS_NAME_IMAGE))
+											.setBytes(
+													resultSet.getBlob(PETS_BYTES_IMAGE) != null
+															? resultSet.getBlob(PETS_BYTES_IMAGE).getBytes(1,
+																	(int) resultSet.getBlob(PETS_BYTES_IMAGE).length())
+															: null)
+											.build())
 							.setSpecie(resultSet.getString(PETS_SPECIE)).setBreed(resultSet.getString(PETS_BREED))
 							.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toString())
 							.setPrice(resultSet.getDouble(PETS_PRICE)).setDiscount(resultSet.getDouble(PETS_DISCOUNT))
@@ -77,7 +87,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	private static final char CODE_OF_TYPE_PRODUCT_PET = 'p';
 
 	private static final String QUERY_SELECT_HAVING_PRODUCT_PET_BY_ID = """
-			SELECT pets.id, pets.image, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
+			SELECT pets.id, pets.name_image, pets.bytes_image, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
 			FROM pets
 			WHERE pets.number_of_units_products > 0 AND pets.id = ?;
 			""";
@@ -96,10 +106,13 @@ public class ProductPetDaoImpl implements ProductPetDao {
 						try (ResultSet resultSet = statement.executeQuery()) {
 							while (resultSet.next()) {
 								Pet pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
-										.setImgBytes(resultSet.getBlob(PETS_IMAGE) != null
-												? resultSet.getBlob(PETS_IMAGE).getBytes(0,
-														(int) resultSet.getBlob(PETS_IMAGE).length())
-												: null)
+										.setImageFile(new ImageFile.ImageFileBuilder()
+												.setName(resultSet.getString(PETS_NAME_IMAGE))
+												.setBytes(resultSet.getBlob(PETS_BYTES_IMAGE) != null
+														? resultSet.getBlob(PETS_BYTES_IMAGE).getBytes(1,
+																(int) resultSet.getBlob(PETS_BYTES_IMAGE).length())
+														: null)
+												.build())
 										.setSpecie(resultSet.getString(PETS_SPECIE))
 										.setBreed(resultSet.getString(PETS_BREED))
 										.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toString())
@@ -129,9 +142,17 @@ public class ProductPetDaoImpl implements ProductPetDao {
 				PreparedStatement statement = connection.prepareStatement(createQueryGetProductsPetsByFilter(filter));
 				ResultSet resultSet = statement.executeQuery()) {
 			while (resultSet.next()) {
-				Pet pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
-						.setImgBytes(resultSet.getBlob(PETS_IMAGE) != null ? resultSet.getBlob(PETS_IMAGE).getBytes(0,
-								(int) resultSet.getBlob(PETS_IMAGE).length()) : null)
+				Pet pet = new Pet.PetBuilder()
+						.setId(resultSet
+								.getLong(PETS_ID))
+						.setImageFile(
+								new ImageFile.ImageFileBuilder().setName(resultSet.getString(PETS_NAME_IMAGE))
+										.setBytes(
+												resultSet.getBlob(PETS_BYTES_IMAGE) != null
+														? resultSet.getBlob(PETS_BYTES_IMAGE).getBytes(1,
+																(int) resultSet.getBlob(PETS_BYTES_IMAGE).length())
+														: null)
+										.build())
 						.setSpecie(resultSet.getString(PETS_SPECIE)).setBreed(resultSet.getString(PETS_BREED))
 						.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toString())
 						.setPrice(resultSet.getDouble(PETS_PRICE)).setDiscount(resultSet.getDouble(PETS_DISCOUNT))
@@ -149,7 +170,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	}
 
 	private static final String QUERY_SELECT_ALL_PRODUCTS_PETS = """
-			SELECT pets.id, pets.image, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
+			SELECT pets.id, pets.name_image, pets.bytes_image, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
 			FROM pets
 			""";
 
@@ -160,9 +181,17 @@ public class ProductPetDaoImpl implements ProductPetDao {
 				PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_ALL_PRODUCTS_PETS);
 				ResultSet resultSet = statement.executeQuery()) {
 			while (resultSet.next()) {
-				Pet pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
-						.setImgBytes(resultSet.getBlob(PETS_IMAGE) != null ? resultSet.getBlob(PETS_IMAGE).getBytes(0,
-								(int) resultSet.getBlob(PETS_IMAGE).length()) : null)
+				Pet pet = new Pet.PetBuilder()
+						.setId(resultSet
+								.getLong(PETS_ID))
+						.setImageFile(
+								new ImageFile.ImageFileBuilder().setName(resultSet.getString(PETS_NAME_IMAGE))
+										.setBytes(
+												resultSet.getBlob(PETS_BYTES_IMAGE) != null
+														? resultSet.getBlob(PETS_BYTES_IMAGE).getBytes(1,
+																(int) resultSet.getBlob(PETS_BYTES_IMAGE).length())
+														: null)
+										.build())
 						.setSpecie(resultSet.getString(PETS_SPECIE)).setBreed(resultSet.getString(PETS_BREED))
 						.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toString())
 						.setPrice(resultSet.getDouble(PETS_PRICE)).setDiscount(resultSet.getDouble(PETS_DISCOUNT))
@@ -180,7 +209,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	}
 
 	private static final String QUERY_SELECT_PRODUCT_PET_BY_ID = """
-			SELECT pets.id, pets.image, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
+			SELECT pets.id, pets.name_image, pets.bytes_image, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
 			FROM pets
 			WHERE pets.id = ?;
 			""";
@@ -193,9 +222,17 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			statement.setLong(1, id);
 			try (ResultSet resultSet = statement.executeQuery()) {
 				while (resultSet.next()) {
-					pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
-							.setImgBytes(resultSet.getBlob(PETS_IMAGE) != null ? resultSet.getBlob(PETS_IMAGE)
-									.getBytes(0, (int) resultSet.getBlob(PETS_IMAGE).length()) : null)
+					pet = new Pet.PetBuilder()
+							.setId(resultSet
+									.getLong(PETS_ID))
+							.setImageFile(
+									new ImageFile.ImageFileBuilder().setName(resultSet.getString(PETS_NAME_IMAGE))
+											.setBytes(
+													resultSet.getBlob(PETS_BYTES_IMAGE) != null
+															? resultSet.getBlob(PETS_BYTES_IMAGE).getBytes(1,
+																	(int) resultSet.getBlob(PETS_BYTES_IMAGE).length())
+															: null)
+											.build())
 							.setSpecie(resultSet.getString(PETS_SPECIE)).setBreed(resultSet.getString(PETS_BREED))
 							.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toString())
 							.setPrice(resultSet.getDouble(PETS_PRICE)).setDiscount(resultSet.getDouble(PETS_DISCOUNT))
@@ -255,8 +292,8 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	}
 
 	private static final String QUERY_INSERT_PRODUCT_PET = """
-			INSERT INTO pets(pets.image, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.number_of_units_products)
-			VALUE(?, ?, ?, ?, ?, ?, ?);
+			INSERT INTO pets(pets.name_image, pets.bytes_image, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.number_of_units_products)
+			VALUE(?, ?, ?, ?, ?, ?, ?, ?);
 			""";
 
 	private static final String QUERY_SELECT_LAST_INSERT_ID = """
@@ -268,13 +305,16 @@ public class ProductPetDaoImpl implements ProductPetDao {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
 			try (PreparedStatement statement = connection.prepareStatement(QUERY_INSERT_PRODUCT_PET)) {
-				statement.setBlob(1, pet.getImgBytes() != null ? new ByteArrayInputStream(pet.getImgBytes()) : null);
-				statement.setString(2, pet.getSpecie());
-				statement.setString(3, pet.getBreed());
-				statement.setString(4, pet.getBirthDate().toString());
-				statement.setDouble(5, pet.getPrice());
-				statement.setDouble(6, pet.getDiscount());
-				statement.setLong(7, numberOfUnitsProduct);
+				statement.setString(1, pet.getImageFile().getName());
+				statement.setBlob(2,
+						pet.getImageFile().getBytes() != null ? new ByteArrayInputStream(pet.getImageFile().getBytes())
+								: null);
+				statement.setString(3, pet.getSpecie());
+				statement.setString(4, pet.getBreed());
+				statement.setString(5, pet.getBirthDate().toString());
+				statement.setDouble(6, pet.getPrice());
+				statement.setDouble(7, pet.getDiscount());
+				statement.setLong(8, numberOfUnitsProduct);
 				result = statement.executeUpdate() > 0;
 			}
 			try (PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_LAST_INSERT_ID);

@@ -67,7 +67,7 @@ public class InputName {
 	public static final String ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT = "other_product_discount";
 	public static final String ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT = "other_product_number_of_units_product";
 
-	/* CREATE_PET_PRODUCT */
+	/* CHANGE_PET_PRODUCT */
 	public static final String ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_ID = "product_pet_id";
 	public static final String ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_SPECIE = "product_pet_specie";
 	public static final String ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_BREED = "product_pet_breed";
@@ -75,6 +75,16 @@ public class InputName {
 	public static final String ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_PRICE = "product_pet_price";
 	public static final String ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_DISCOUNT = "product_pet_discount";
 	public static final String ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT = "product_pet_number_of_units_product";
+
+	/* CHANGE_FEED_AND_OTHER_PRODUCT */
+	public static final String ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_ID = "product_feed_and_other_id";
+	public static final String ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE = "other_product_product_type";
+	public static final String ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND = "other_product_brand";
+	public static final String ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION = "other_product_description";
+	public static final String ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES = "other_product_pet_types";
+	public static final String ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE = "other_product_price";
+	public static final String ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT = "other_product_discount";
+	public static final String ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT = "other_product_number_of_units_product";
 
 	private InputName() {
 	}

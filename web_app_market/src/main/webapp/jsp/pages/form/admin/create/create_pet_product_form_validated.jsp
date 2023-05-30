@@ -331,10 +331,11 @@
 													<span>*</span>
 												</label>
 												<div class="">
-													<c:if test="${product_pet.getImgPart() == null}">Вы не выбрали картинку фотографии</c:if>
-													<c:if test="${product_pet.getImgPart() != null}">Вы выбрали
-														файл: ${product_pet.getImgPart().getSubmittedFileName()}</c:if>
+													<c:if test="${product_pet.getImgBytes() == null}">Для данного товара нет фото</c:if>
+													<c:if test="${product_pet.getImgBytes() != null}">Вы выбрали
+														файл: ${response.getOutputStream().write(product_pet.getImgBytes()) }</c:if>
 												</div>
+												${response.getOutputStream().write(product_pet.getImgBytes()) }
 											</div>
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control text-uppercase"
@@ -397,6 +398,10 @@
 									</c:if>
 									<c:if
 										test="${admin_page_create_pet_product_input_exception_type_and_message != null && !admin_page_create_pet_product_input_exception_type_and_message.isEmpty()}">
+										<div>
+											${response.getOutputStream().write(product_pet.getImgBytes())}
+										</div>
+										<div>${product_pet.getImgBytes()}</div>
 										<form class="add_product_pet_form_body" method="post"
 											action="${pageContext.request.contextPath}/imageServlet"
 											enctype="multipart/form-data">
@@ -425,16 +430,18 @@
 														class="form-control text-uppercase add_product_pet_form_body_input_img is-valid"
 														id="floatingInputImg"
 														name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
-														value="${product_pet.getImgPart().getSubmittedFileName()}"
 														placeholder="dog" /> <label
 														class="text-lowercase add_product_pet_form_body_label_img"
 														for="floatingInputImg">Выберите картинку для
 														товара <span>*</span>
 													</label>
 													<div class="valid-feedback">
-														<c:if test="${product_pet.getImgPart() == null}">Вы не выбрали картинку фотографии</c:if>
-														<c:if test="${product_pet.getImgPart() != null}">Вы выбрали
-														файл: ${product_pet.getImgPart().getSubmittedFileName()}</c:if>
+														<c:if test="${product_pet.getImgBytes() == null}">Для данного товара нет фото</c:if>
+														<c:if test="${product_pet.getImgBytes() != null}">Вы выбрали
+														файл: ${response.getOutputStream().write(product_pet.getImgBytes())}</c:if>
+													</div>
+													<div>
+														${response.getOutputStream().write(product_pet.getImgBytes())}
 													</div>
 												</div>
 											</c:if>

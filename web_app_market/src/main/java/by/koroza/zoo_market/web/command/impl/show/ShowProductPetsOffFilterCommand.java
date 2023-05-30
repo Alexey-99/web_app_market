@@ -7,12 +7,14 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
+import by.koroza.zoo_market.model.entity.market.abstraction.AbstractProduct;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.service.exception.ServiceException;
+import by.koroza.zoo_market.service.impl.ImageFileServiceImpl;
 import by.koroza.zoo_market.service.impl.ProductPetServiceImpl;
 import by.koroza.zoo_market.web.command.Command;
-import by.koroza.zoo_market.web.controler.Router;
 import by.koroza.zoo_market.web.command.exception.CommandException;
+import by.koroza.zoo_market.web.controller.Router;
 
 import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PET_RUS;
 import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_VALUE_DISCOUNT_EN;
@@ -47,6 +49,7 @@ public class ShowProductPetsOffFilterCommand implements Command {
 		List<Pet> pets = new ArrayList<>();
 		try {
 			pets = ProductPetServiceImpl.getInstance().getAllHavingProductsPets();
+			createImagesInFolder(pets);
 			session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, pets);
 			Map<String, Set<String>> filterMap = createFilter(pets, session);
 			session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP, filterMap);
@@ -108,5 +111,13 @@ public class ShowProductPetsOffFilterCommand implements Command {
 			}
 		}
 		return havingPromotions;
+	}
+
+	private void createImagesInFolder(List<? extends AbstractProduct> products) throws ServiceException {
+		for (AbstractProduct product : products) {
+			if (product.getImageFile() != null) {
+				ImageFileServiceImpl.getInstance().createFileInFolder(product.getImageFile());
+			}
+		}
 	}
 }

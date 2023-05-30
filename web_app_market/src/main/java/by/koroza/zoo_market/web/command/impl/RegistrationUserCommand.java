@@ -14,7 +14,7 @@ import static by.koroza.zoo_market.web.command.name.PagePathName.VERIFICATION_RE
 
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
-import by.koroza.zoo_market.web.controler.Router;
+import by.koroza.zoo_market.web.controller.Router;
 import by.koroza.zoo_market.validation.UserValidation;
 import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.reserved.User;

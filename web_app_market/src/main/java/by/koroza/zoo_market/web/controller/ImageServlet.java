@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.controler;
+package by.koroza.zoo_market.web.controller;
 
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_PRODUCT_IMAGE;
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_COMMAND;
@@ -71,6 +71,7 @@ public class ImageServlet extends HttpServlet {
 					// String uploadFileDir = defineUploadFileDirectory(request);
 					request.setAttribute(PARAMETER_IS_CORRECT_FILE, true);
 					request.setAttribute(PARAMETER_PART, part);
+					request.getInputStream();
 					// request.setAttribute(PARAMETER_FILE_DERECTORY, uploadFileDir);
 					request.getRequestDispatcher(MAIN_SERVLET).forward(request, response);
 				} else {

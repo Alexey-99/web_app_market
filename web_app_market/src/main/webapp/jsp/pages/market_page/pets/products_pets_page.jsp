@@ -6,6 +6,7 @@
 <%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.LanguageName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
 <%@page
 	import="by.koroza.zoo_market.web.command.impl.show.ShowProductPetsIncludedFilterCommand"%>
 <!DOCTYPE html>
@@ -1113,8 +1114,15 @@
 									<div class="card h-100 card_product_inner">
 										<div class="card-img-top card_img"
 											style="border: 1px solid var(--bs-card-border-color);">
-											<c:if test="${pet.getImgBytes() != null}">${response.getOutputStream().write(pet.getImgBytes()) }</c:if>
-											<c:if test="${pet.getImgBytes() == null}">
+											<c:if
+												test="${pet.getImageFile() != null && pet.getImageFile().getName() != null && pet.getImageFile().getBytes() != null}">
+												<img class=""
+													src='<c:url value="C:\Users\Евгений\Desktop\img\product_images\product"/>'
+													alt="" style="width: 100%; height: 100%">
+											</c:if>
+
+											<c:if
+												test="${pet.getImageFile() == null || pet.getImageFile().getName() == null || pet.getImageFile().getBytes() == null}">
 												<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 													width="100%" height="100%" viewBox="0 0 64 64">
 <path

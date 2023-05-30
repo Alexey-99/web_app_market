@@ -5,13 +5,13 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
 
 import by.koroza.zoo_market.model.calculation.Calculator;
+import by.koroza.zoo_market.model.entity.market.product.constituent.ImageFile;
 import by.koroza.zoo_market.model.entity.market.product.constituent.UpdateDateTime;
 
 public abstract class AbstractProduct {
-	private byte[] imgBytes;
+	private ImageFile imageFile;
 	private long id;
 	private double price;
 	private double discount;
@@ -24,7 +24,7 @@ public abstract class AbstractProduct {
 			+ PATTERN_FORMATTER_TIME_UPDATE;
 
 	public AbstractProduct() {
-		this.imgBytes = null;
+		this.imageFile = null;
 		this.id = 0;
 		this.price = 0;
 		this.discount = 0;
@@ -100,12 +100,12 @@ public abstract class AbstractProduct {
 				Calculator.getInstance().calcUpdateDateTimeInSeconds(productUpdateDateTime));
 	}
 
-	public byte[] getImgBytes() {
-		return imgBytes;
+	public ImageFile getImageFile() {
+		return this.imageFile;
 	}
 
-	public void setImgBytes(byte[] imgBytes) {
-		this.imgBytes = imgBytes;
+	public void setImageFile(ImageFile imageFile) {
+		this.imageFile = imageFile;
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public abstract class AbstractProduct {
 		result = result * PRIME + Double.hashCode(this.discount);
 		result = result * PRIME + Double.hashCode(this.totalPrice);
 		result = result * PRIME + (this.updateDateTime != null ? this.updateDateTime.hashCode() : 1);
-		result = result * PRIME + (this.imgBytes != null ? Arrays.hashCode(this.imgBytes) : 1);
+		result = result * PRIME + (this.imageFile != null ? this.imageFile.hashCode() : 1);
 		return result;
 	}
 
@@ -152,11 +152,11 @@ public abstract class AbstractProduct {
 		} else if (!this.updateDateTime.equals(otherAbstractProduct.updateDateTime)) {
 			return false;
 		}
-		if (this.imgBytes == null) {
-			if (otherAbstractProduct.imgBytes != null) {
+		if (this.imageFile == null) {
+			if (otherAbstractProduct.imageFile != null) {
 				return false;
 			}
-		} else if (!Arrays.equals(this.imgBytes, otherAbstractProduct.imgBytes)) {
+		} else if (!this.imageFile.equals(otherAbstractProduct.imageFile)) {
 			return false;
 		}
 		return true;

@@ -29,14 +29,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
+import by.koroza.zoo_market.model.entity.market.product.constituent.ImageFile;
 import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.validation.FeedsAndOtherValidation;
 import by.koroza.zoo_market.validation.PetValidation;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
-import by.koroza.zoo_market.web.controler.Router;
-
+import by.koroza.zoo_market.web.controller.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
@@ -63,7 +63,6 @@ public class CraeteOtherProductCommand implements Command {
 		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		AbstractRegistratedUser user = (AbstractRegistratedUser) session.getAttribute(ATTRIBUTE_USER);
 		try {
-
 			if (user == null || user.isVerificatedEmail() == false
 					|| user.getRole().getIdRole() != UserRole.ADMIN.getIdRole()) {
 				router = new Router(HOME_PAGE_PATH);
@@ -101,7 +100,10 @@ public class CraeteOtherProductCommand implements Command {
 		FeedAndOther productFeedAndOther = new FeedAndOther();
 		if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
 			Part part = (Part) request.getAttribute(PARAMETER_PART);
-			productFeedAndOther.setImgBytes(part.getInputStream().readAllBytes());
+			if (part != null) {
+				productFeedAndOther.setImageFile(new ImageFile.ImageFileBuilder().setName(part.getSubmittedFileName())
+						.setBytes(part.getInputStream().readAllBytes()).build());
+			}
 		} else {
 			if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 				mapInputExceptions.put(TypeInputException.IMAGE.toString(),

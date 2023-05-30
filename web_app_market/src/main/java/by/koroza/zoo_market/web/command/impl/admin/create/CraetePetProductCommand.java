@@ -27,13 +27,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import by.koroza.zoo_market.model.entity.market.product.Pet;
+import by.koroza.zoo_market.model.entity.market.product.constituent.ImageFile;
 import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.validation.PetValidation;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
-import by.koroza.zoo_market.web.controler.Router;
-
+import by.koroza.zoo_market.web.controller.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
@@ -88,12 +88,12 @@ public class CraetePetProductCommand implements Command {
 	private Map<Pet, Long> getInputParameters(HttpServletRequest request, Map<String, String> mapInputExceptions)
 			throws IOException {
 		Map<Pet, Long> petAndNumber = new HashMap<>();
-
 		Pet pet = new Pet();
 		if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
 			Part part = (Part) request.getAttribute(PARAMETER_PART);
 			if (part != null && !part.getSubmittedFileName().isBlank()) {
-				pet.setImgBytes(part.getInputStream().readAllBytes());
+				pet.setImageFile(new ImageFile.ImageFileBuilder().setName(part.getSubmittedFileName())
+						.setBytes(part.getInputStream().readAllBytes()).build());
 			}
 		} else {
 			if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
