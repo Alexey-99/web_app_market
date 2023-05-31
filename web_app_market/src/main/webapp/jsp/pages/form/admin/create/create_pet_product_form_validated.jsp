@@ -331,11 +331,18 @@
 													<span>*</span>
 												</label>
 												<div class="">
-													<c:if test="${product_pet.getImgBytes() == null}">Для данного товара нет фото</c:if>
-													<c:if test="${product_pet.getImgBytes() != null}">Вы выбрали
-														файл: ${response.getOutputStream().write(product_pet.getImgBytes()) }</c:if>
+													<c:if
+														test="${product_pet.getImageFile() != null && product_pet.getImageFile().getName() != null && product_pet.getImageFile().getBytes() != null}">
+																	Выбрана картинка с названием ${product.getKey().getImageFile().getName()}
+																	<img class=""
+															src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(product_pet.getImageFile().getName())}"/>'
+															alt="" style="width: 35px; height: 35px">
+													</c:if>
+													<c:if
+														test="${product_pet.getImageFile() == null || product_pet.getImageFile().getName() == null || product_pet.getImageFile().getBytes() == null}">
+														картинка не выбрана 
+													</c:if>
 												</div>
-												${response.getOutputStream().write(product_pet.getImgBytes()) }
 											</div>
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control text-uppercase"
@@ -398,10 +405,6 @@
 									</c:if>
 									<c:if
 										test="${admin_page_create_pet_product_input_exception_type_and_message != null && !admin_page_create_pet_product_input_exception_type_and_message.isEmpty()}">
-										<div>
-											${response.getOutputStream().write(product_pet.getImgBytes())}
-										</div>
-										<div>${product_pet.getImgBytes()}</div>
 										<form class="add_product_pet_form_body" method="post"
 											action="${pageContext.request.contextPath}/imageServlet"
 											enctype="multipart/form-data">
@@ -435,13 +438,18 @@
 														for="floatingInputImg">Выберите картинку для
 														товара <span>*</span>
 													</label>
-													<div class="valid-feedback">
-														<c:if test="${product_pet.getImgBytes() == null}">Для данного товара нет фото</c:if>
-														<c:if test="${product_pet.getImgBytes() != null}">Вы выбрали
-														файл: ${response.getOutputStream().write(product_pet.getImgBytes())}</c:if>
-													</div>
-													<div>
-														${response.getOutputStream().write(product_pet.getImgBytes())}
+													<div class="">
+														<c:if
+															test="${product_pet.getImageFile() != null && product_pet.getImageFile().getName() != null && product_pet.getImageFile().getBytes() != null}">
+																	Выбрана картинка с названием ${product.getKey().getImageFile().getName()}
+																	<img class=""
+																src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(product_pet.getImageFile().getName())}"/>'
+																alt="" style="width: 35px; height: 35px">
+														</c:if>
+														<c:if
+															test="${product_pet.getImageFile() == null || product_pet.getImageFile().getName() == null || product_pet.getImageFile().getBytes() == null}">
+														картинка не выбрана 
+													</c:if>
 													</div>
 												</div>
 											</c:if>
@@ -531,8 +539,6 @@
 													<div class="invalid-feedback">${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}</div>
 												</div>
 											</c:if>
-											<span>${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}
-											</span>
 											<c:if
 												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
 												<div class="form-floating mb-3">
@@ -546,7 +552,6 @@
 													<div class="valid-feedback">Всё хорошо!!!</div>
 												</div>
 											</c:if>
-											<span>${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT) }</span>
 											<c:if
 												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT) }">
 												<div class="form-floating mb-3">

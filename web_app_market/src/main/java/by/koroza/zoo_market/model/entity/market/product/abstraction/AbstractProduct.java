@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.model.entity.market.abstraction;
+package by.koroza.zoo_market.model.entity.market.product.abstraction;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -7,11 +7,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import by.koroza.zoo_market.model.calculation.Calculator;
-import by.koroza.zoo_market.model.entity.market.product.constituent.ImageFile;
 import by.koroza.zoo_market.model.entity.market.product.constituent.UpdateDateTime;
 
 public abstract class AbstractProduct {
-	private ImageFile imageFile;
+	private String imagePath;
 	private long id;
 	private double price;
 	private double discount;
@@ -24,7 +23,7 @@ public abstract class AbstractProduct {
 			+ PATTERN_FORMATTER_TIME_UPDATE;
 
 	public AbstractProduct() {
-		this.imageFile = null;
+		this.imagePath = null;
 		this.id = 0;
 		this.price = 0;
 		this.discount = 0;
@@ -100,12 +99,12 @@ public abstract class AbstractProduct {
 				Calculator.getInstance().calcUpdateDateTimeInSeconds(productUpdateDateTime));
 	}
 
-	public ImageFile getImageFile() {
-		return this.imageFile;
+	public String getImagePath() {
+		return this.imagePath;
 	}
 
-	public void setImageFile(ImageFile imageFile) {
-		this.imageFile = imageFile;
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 	@Override
@@ -117,7 +116,7 @@ public abstract class AbstractProduct {
 		result = result * PRIME + Double.hashCode(this.discount);
 		result = result * PRIME + Double.hashCode(this.totalPrice);
 		result = result * PRIME + (this.updateDateTime != null ? this.updateDateTime.hashCode() : 1);
-		result = result * PRIME + (this.imageFile != null ? this.imageFile.hashCode() : 1);
+		result = result * PRIME + (this.imagePath != null ? this.imagePath.hashCode() : 1);
 		return result;
 	}
 
@@ -152,11 +151,11 @@ public abstract class AbstractProduct {
 		} else if (!this.updateDateTime.equals(otherAbstractProduct.updateDateTime)) {
 			return false;
 		}
-		if (this.imageFile == null) {
-			if (otherAbstractProduct.imageFile != null) {
+		if (this.imagePath == null) {
+			if (otherAbstractProduct.imagePath != null) {
 				return false;
 			}
-		} else if (!this.imageFile.equals(otherAbstractProduct.imageFile)) {
+		} else if (!this.imagePath.equals(otherAbstractProduct.imagePath)) {
 			return false;
 		}
 		return true;

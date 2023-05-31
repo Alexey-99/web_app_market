@@ -1,10 +1,10 @@
 package by.koroza.zoo_market.service;
 
-import by.koroza.zoo_market.model.entity.market.product.constituent.ImageFile;
 import by.koroza.zoo_market.service.exception.ServiceException;
+
+import jakarta.servlet.http.Part;
 
 public interface ImageFileService {
 
-	public boolean createFileInFolder(ImageFile file) throws ServiceException;
-
+	public String saveImageOnDisk(Part imagePart, String imageUploadDir) throws ServiceException;
 }

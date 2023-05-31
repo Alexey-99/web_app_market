@@ -1,6 +1,6 @@
 package by.koroza.zoo_market.web.command.name;
 
-import java.io.File;
+import static java.io.File.separator;
 
 public final class PagePathName {
 	public static final String INDEX_PAGE_PATH = "index.jsp";
@@ -10,9 +10,11 @@ public final class PagePathName {
 	public static final String PAGE_CONTENT_PROPERTIES = "locale.pageContent_";
 
 	/* IMAGES */
-	public static final String STORAGE_IMAGES_FOLDER_PATH = "img/product_images";
-	public static final String STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH = STORAGE_IMAGES_FOLDER_PATH + File.separator;
-	public static final String STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH2 = STORAGE_IMAGES_FOLDER_PATH + File.separator;
+	public static final String STORAGE_IMAGES_FOLDER_PATH = new StringBuilder().append("E:").append(separator)
+			.append("Alexey").append(separator).append("git").append(separator).append("web_app_market")
+			.append(separator).append("web_app_market").append(separator).append("src").append(separator).append("main")
+			.append(separator).append("img").append(separator).append("product_images").toString();
+	public static final String LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH = "http://localhost:8080/web_app_market/img/product_images/";
 
 	/* MARKET */
 	public static final String PRODUCTS_PETS_PAGE_PATH = "jsp/pages/market_page/pets/products_pets_page.jsp";
@@ -39,6 +41,9 @@ public final class PagePathName {
 	/* ADMIN_VERIDICATION_INFORMATION */
 	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CREATE_PET_PRODUCT = "jsp/pages/form/admin/verification/verification_information_for_create_product_pet.jsp";
 	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CREATE_FEEDS_AND_OTHER_PRODUCT = "jsp/pages/form/admin/verification/verification_information_for_create_product_feed_and_other.jsp";
+	/* ADMIN_CHANGE_PRODUCT_FORM */
+	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM = "jsp/pages/form/admin/change/change_pet_product_form_validated.jspp";
+	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM = "jsp/pages/form/admin/create/create_feed_and_other_product_form_validated.jsp";
 
 	/* REGISTRATION */
 	public static final String REGISTRATION_FORM_PAGE_PATH = "jsp/pages/form/registration_form/registration_form.jsp";

@@ -33,9 +33,7 @@
 					style="height: 50vh">
 					<div class="row w-100" style="height: 40vh;">
 						<div class="col-6">
-							<form class="h-100"
-								action="${pageContext.request.contextPath}/web/controller/Controller"
-								method="get">
+							<form class="h-100" action="Controller" method="get">
 								<input type="hidden" name="command"
 									value="${CommandName.COMMAND_SHOW_PRODUCT_PETS_OFF_FILTER_PAGE}">
 								<button

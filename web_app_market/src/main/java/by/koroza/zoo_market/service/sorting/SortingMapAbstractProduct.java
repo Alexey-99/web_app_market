@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import by.koroza.zoo_market.model.entity.market.abstraction.AbstractProduct;
+import by.koroza.zoo_market.model.entity.market.product.abstraction.AbstractProduct;
 import by.koroza.zoo_market.service.exception.SortingException;
 
 public class SortingMapAbstractProduct {

@@ -7,6 +7,7 @@ public final class ParameterName {
 	public static final String PARAMETER_FILE_DERECTORY = "upload_file_directory";
 	public static final String PARAMETER_IS_CORRECT_FILE = "is_correct_file";
 	public static final String PARAMETER_CHANGING_PRODUCT_ID = "changing_product_id";
+	public static final String PARAMETER_UPLOAD_FILE_EXCEPTION = "upload_file_exception";
 
 	private ParameterName() {
 	}

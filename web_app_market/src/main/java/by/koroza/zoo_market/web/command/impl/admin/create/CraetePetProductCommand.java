@@ -4,6 +4,7 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ADMI
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_UPLOAD_FILE_DIRECTORY;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
@@ -27,13 +28,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import by.koroza.zoo_market.model.entity.market.product.Pet;
-import by.koroza.zoo_market.model.entity.market.product.constituent.ImageFile;
 import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
+import by.koroza.zoo_market.service.exception.ServiceException;
+import by.koroza.zoo_market.service.impl.ImageFileServiceImpl;
 import by.koroza.zoo_market.validation.PetValidation;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
@@ -79,36 +82,37 @@ public class CraetePetProductCommand implements Command {
 					router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_PET_PRODUCT_FORM);
 				}
 			}
-		} catch (IOException e) {
+		} catch (IOException | ServiceException e) {
 			throw new CommandException(e);
 		}
 		return router;
 	}
 
 	private Map<Pet, Long> getInputParameters(HttpServletRequest request, Map<String, String> mapInputExceptions)
-			throws IOException {
+			throws IOException, ServiceException {
 		Map<Pet, Long> petAndNumber = new HashMap<>();
+		HttpSession session = request.getSession();
 		Pet pet = new Pet();
 		if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
 			Part part = (Part) request.getAttribute(PARAMETER_PART);
 			if (part != null && !part.getSubmittedFileName().isBlank()) {
-				pet.setImageFile(new ImageFile.ImageFileBuilder().setName(part.getSubmittedFileName())
-						.setBytes(part.getInputStream().readAllBytes()).build());
+				pet.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part,
+						(String) request.getAttribute(ATTRIBUTE_UPLOAD_FILE_DIRECTORY)));
 			}
 		} else {
-			if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+			if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 				mapInputExceptions.put(TypeInputException.IMAGE.toString(),
 						"Вы выбрали не корретный файл для картинки для товара");
-			} else if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+			} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
 				mapInputExceptions.put(TypeInputException.IMAGE.toString(), "You choosed image incorrect for product");
 			}
 		}
 		String specie = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE);
 		if (!PetValidation.validPetSpecie(specie)) {
-			if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+			if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 				mapInputExceptions.put(TypeInputException.SPECIE.toString(),
 						"Вы ввели не корректно тип питомца. Вы ввели: " + specie);
-			} else if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+			} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
 				mapInputExceptions.put(TypeInputException.SPECIE.toString(),
 						"You input pet specie incorrect. Your input: " + specie);
 			}
@@ -117,10 +121,10 @@ public class CraetePetProductCommand implements Command {
 		}
 		String breed = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED);
 		if (!PetValidation.validPetBreed(breed)) {
-			if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+			if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 				mapInputExceptions.put(TypeInputException.BREED.toString(),
 						"Вы ввели не корректно породу питомца. Вы ввели: " + breed);
-			} else if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+			} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
 				mapInputExceptions.put(TypeInputException.BREED.toString(),
 						"You input pet breed incorrect. Your input: " + breed);
 			}
@@ -129,10 +133,10 @@ public class CraetePetProductCommand implements Command {
 		}
 		String birthDate = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE);
 		if (!PetValidation.validPetBirthDate(birthDate)) {
-			if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+			if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 				mapInputExceptions.put(TypeInputException.BIRTH_DATE.toString(),
 						"Вы ввели не корректно дату рождения питомца. Вы ввели: " + birthDate);
-			} else if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+			} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
 				mapInputExceptions.put(TypeInputException.BIRTH_DATE.toString(),
 						"You input pet birth date incorrect. Your input: " + birthDate);
 			}
@@ -141,10 +145,10 @@ public class CraetePetProductCommand implements Command {
 		}
 		String price = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE);
 		if (!PetValidation.validPetPrice(price)) {
-			if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+			if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 				mapInputExceptions.put(TypeInputException.PRICE.toString(),
 						"Вы ввели не корректно цену питомца. Вы ввели: " + price);
-			} else if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+			} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
 				mapInputExceptions.put(TypeInputException.PRICE.toString(),
 						"You input pet price incorrect. Your input: " + price);
 			}
@@ -153,10 +157,10 @@ public class CraetePetProductCommand implements Command {
 		}
 		String discount = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT);
 		if (!PetValidation.validPetDiscount(discount)) {
-			if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+			if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 				mapInputExceptions.put(TypeInputException.DISCOUNT.toString(),
 						"Вы ввели не корректно скидку питомца. Вы ввели: " + discount);
-			} else if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+			} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
 				mapInputExceptions.put(TypeInputException.DISCOUNT.toString(),
 						"You input pet discount incorrect. Your input: " + discount);
 			}
@@ -166,10 +170,10 @@ public class CraetePetProductCommand implements Command {
 		String numberOfUnitsProduct = request
 				.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT);
 		if (!PetValidation.validPetNumberOfUnitsProduct(numberOfUnitsProduct)) {
-			if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+			if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 				mapInputExceptions.put(TypeInputException.NUMBER_OF_UNITS_PRODUCT.toString(),
 						"Вы ввели не корректно количество данного товара питомца. Вы ввели: " + numberOfUnitsProduct);
-			} else if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+			} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
 				mapInputExceptions.put(TypeInputException.NUMBER_OF_UNITS_PRODUCT.toString(),
 						"You input number of units pet incorrect. Your input: " + numberOfUnitsProduct);
 			}

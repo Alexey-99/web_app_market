@@ -1,26 +1,17 @@
 package by.koroza.zoo_market.web.command.impl.show;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Set;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_LIST_PRODUCTS_PETS;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 
-import by.koroza.zoo_market.model.entity.market.abstraction.AbstractProduct;
-import by.koroza.zoo_market.model.entity.market.product.Pet;
-import by.koroza.zoo_market.service.exception.ServiceException;
-import by.koroza.zoo_market.service.impl.ImageFileServiceImpl;
-import by.koroza.zoo_market.service.impl.ProductPetServiceImpl;
-import by.koroza.zoo_market.web.command.Command;
-import by.koroza.zoo_market.web.command.exception.CommandException;
-import by.koroza.zoo_market.web.controller.Router;
-
-import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PET_RUS;
-import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_VALUE_DISCOUNT_EN;
 import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_BREED_PET_EN;
 import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_BREED_PET_RUS;
 import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PET_EN;
+import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PET_RUS;
+import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_VALUE_DISCOUNT_EN;
 import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_VALUE_DISCOUNT_RUS;
 
 import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
@@ -28,12 +19,19 @@ import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
 
 import static by.koroza.zoo_market.web.command.name.PagePathName.PRODUCTS_PETS_PAGE_PATH;
 
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_LIST_PRODUCTS_PETS;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import by.koroza.zoo_market.model.entity.market.product.Pet;
+import by.koroza.zoo_market.service.exception.ServiceException;
+import by.koroza.zoo_market.service.impl.ProductPetServiceImpl;
+import by.koroza.zoo_market.web.command.Command;
+import by.koroza.zoo_market.web.command.exception.CommandException;
+import by.koroza.zoo_market.web.controller.Router;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -49,7 +47,6 @@ public class ShowProductPetsOffFilterCommand implements Command {
 		List<Pet> pets = new ArrayList<>();
 		try {
 			pets = ProductPetServiceImpl.getInstance().getAllHavingProductsPets();
-			createImagesInFolder(pets);
 			session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, pets);
 			Map<String, Set<String>> filterMap = createFilter(pets, session);
 			session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP, filterMap);
@@ -111,13 +108,5 @@ public class ShowProductPetsOffFilterCommand implements Command {
 			}
 		}
 		return havingPromotions;
-	}
-
-	private void createImagesInFolder(List<? extends AbstractProduct> products) throws ServiceException {
-		for (AbstractProduct product : products) {
-			if (product.getImageFile() != null) {
-				ImageFileServiceImpl.getInstance().createFileInFolder(product.getImageFile());
-			}
-		}
 	}
 }

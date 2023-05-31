@@ -1105,6 +1105,7 @@
 							</h6>
 						</c:if>
 					</c:if>
+
 					<c:if test="${list_products_pets.size() > 0}">
 						<div
 							class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 g-4 mb-4">
@@ -1117,7 +1118,7 @@
 											<c:if
 												test="${pet.getImageFile() != null && pet.getImageFile().getName() != null && pet.getImageFile().getBytes() != null}">
 												<img class=""
-													src='<c:url value="C:\Users\Евгений\Desktop\img\product_images\product"/>'
+													src='<c:url value="${pageContext.request.contextPath}/img/product_images/product.png"/>'
 													alt="" style="width: 100%; height: 100%">
 											</c:if>
 
@@ -1179,6 +1180,8 @@
 								</div>
 							</c:forEach>
 						</div>
+
+
 						<nav aria-label="Пример навигации по страницам">
 							<ul
 								class="pagination d-flex justify-content-center align-items-center">

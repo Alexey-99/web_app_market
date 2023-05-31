@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import by.koroza.zoo_market.model.entity.market.abstraction.AbstractMatket;
-import by.koroza.zoo_market.model.entity.market.abstraction.AbstractProduct;
+import by.koroza.zoo_market.model.entity.market.product.abstraction.AbstractProduct;
 
 public class ZooMarket extends AbstractMatket {
 	private List<AbstractProduct> products;

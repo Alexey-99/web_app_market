@@ -41,7 +41,9 @@ public class CommandName {
 
 	public static final String COMMAND_ADMIN_PAGE_CREATE_PET_PRODUCT = "admin_page_create_pet_product";
 	public static final String COMMAND_ADMIN_PAGE_ADD_NEW_PET_PRODUCT = "add_new_product_pet";
+	public static final String COMMAND_ADMIN_PAGE_UPDATE_CHANGED_PET_PRODUCT = "updete_changed_product_pet";
 	public static final String COMMAND_ADMIN_PAGE_SHOW_CREATE_PET_PRODUCT_FORM = "admin_page_show_create_pet_product_form";
+	public static final String COMMAND_ADMIN_PAGE_SHOW_CHANGE_PET_PRODUCT_FORM = "admin_page_show_change_pet_product_form";
 	public static final String COMMAND_ADMIN_PAGE_CHANGE_PET_PRODUCT = "admin_page_change_pet_product";
 
 	public static final String COMMAND_ADMIN_PAGE_CREATE_FEED_AND_OTHER_PRODUCT = "admin_page_create_feed_and_other_product";

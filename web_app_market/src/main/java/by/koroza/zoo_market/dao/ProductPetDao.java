@@ -23,4 +23,6 @@ public interface ProductPetDao {
 	public boolean addProductPet(Pet pet, long numberOfUnitsProduct) throws DaoException;
 
 	public Pet getProductPetById(long id) throws DaoException;
+
+	public boolean upadateProductPetById(Pet pet) throws DaoException;
 }

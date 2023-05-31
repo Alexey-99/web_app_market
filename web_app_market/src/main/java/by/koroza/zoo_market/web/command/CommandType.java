@@ -10,8 +10,10 @@ import by.koroza.zoo_market.web.command.impl.admin.change.ChangeProductPetComman
 import by.koroza.zoo_market.web.command.impl.admin.create.CraeteOtherProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.CraetePetProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.ShowAllProductsOffFilterCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.ShowChangePetProductFormCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.ShowCreateFeedsAndOtherProductFormCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.ShowCreatePetProductFormCommand;
+import by.koroza.zoo_market.web.command.impl.admin.updete.UpdateChangedPetProductCommand;
 import by.koroza.zoo_market.web.command.impl.change.ChangeLoginAndPasswordCommand;
 import by.koroza.zoo_market.web.command.impl.change.ChangePersonInformationCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetEnglishLocaleCommand;
@@ -58,7 +60,9 @@ public enum CommandType {
 	ADD_NEW_PRODUCT_FEED_AND_OTHER(new AddOtherProductCommand()),
 	ADMIN_PAGE_SHOW_CREATE_FEED_AND_OTHER_PRODUCT_FORM(new ShowCreateFeedsAndOtherProductFormCommand()),
 	ADMIN_PAGE_CHANGE_PET_PRODUCT(new ChangeProductPetCommand()),
-	ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT(new ChangeProductFeedsAndOtherCommand());
+	ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT(new ChangeProductFeedsAndOtherCommand()),
+	ADMIN_PAGE_SHOW_CHANGE_PET_PRODUCT_FORM(new ShowChangePetProductFormCommand()),
+	UPDATE_CHANGED_PRODUCT_PET(new UpdateChangedPetProductCommand());
 
 	private Command command;
 

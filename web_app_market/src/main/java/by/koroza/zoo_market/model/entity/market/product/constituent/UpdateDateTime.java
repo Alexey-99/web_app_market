@@ -118,7 +118,7 @@ public class UpdateDateTime {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(this.value).append("").append(this.unit.toString().toLowerCase());
+		builder.append(this.value).append(" ").append(this.unit.toString().toLowerCase());
 		return builder.toString();
 	}
 
