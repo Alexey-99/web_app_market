@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<taglib xmlns="http://java.sun.com//JSP/TagLibraryDescriptor"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/jsee/web-jsptagLibrary_2_0.xsd"
+	version="2.0">
+
+	<tlib-version>1.0</tlib-version>
+	<short-name>pgn</short-name>
+	<uri>customtags</uri>
+	<tag>
+		<name>pagination</name>
+		<tag-class>by/koroza/zoo_market/web/tag/PaginationTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>max</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>
