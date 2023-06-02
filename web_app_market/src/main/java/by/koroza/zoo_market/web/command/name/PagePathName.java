@@ -10,10 +10,7 @@ public final class PagePathName {
 	public static final String PAGE_CONTENT_PROPERTIES = "locale.pageContent_";
 
 	/* IMAGES */
-	public static final String STORAGE_IMAGES_FOLDER_PATH = new StringBuilder().append("E:").append(separator)
-			.append("Alexey").append(separator).append("git").append(separator).append("web_app_market")
-			.append(separator).append("web_app_market").append(separator).append("src").append(separator).append("main")
-			.append(separator).append("img").append(separator).append("product_images").toString();
+	public static final String STORAGE_IMAGES_FOLDER_PATH = "E:/Alexey/image";
 	public static final String LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH = "http://localhost:8080/web_app_market/img/product_images/";
 
 	/* MARKET */

@@ -331,15 +331,13 @@
 													<span>*</span>
 												</label>
 												<div class="">
-													<c:if
-														test="${product_pet.getImageFile() != null && product_pet.getImageFile().getName() != null && product_pet.getImageFile().getBytes() != null}">
-																	Выбрана картинка с названием ${product.getKey().getImageFile().getName()}
+													<c:if test="${product_pet.getImagePath() != null}">
+																	Выбрана картинка с названием ${product.getKey().getImagePath()}
 																	<img class=""
-															src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(product.getKey().getImageFile().getName())}"/>'
+															src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(product.getKey().getImagepath())}"/>'
 															alt="" style="width: 35px; height: 35px">
 													</c:if>
-													<c:if
-														test="${product_pet.getImageFile() == null || product_pet.getImageFile().getName() == null || product_pet.getImageFile().getBytes() == null}">
+													<c:if test="${product_pet.getImagePath() == null}">
 														картинка не выбрана 
 													</c:if>
 												</div>
@@ -439,15 +437,13 @@
 														товара <span>*</span>
 													</label>
 													<div class="valid-feedback">
-														<c:if
-															test="${product_pet.getImageFile() != null && product_pet.getImageFile().getName() != null && product_pet.getImageFile().getBytes() != null}">
-																	Выбрана картинка с названием ${product.getKey().getImageFile().getName()}
+														<c:if test="${product_pet.getImagePath() != null}">
+																	Выбрана картинка с названием ${product.getKey().getImagePath()}
 																	<img class=""
-																src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(product_pet.getImageFile().getName())}"/>'
+																src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(product_pet.getImagePath())}"/>'
 																alt="" style="width: 35px; height: 35px">
 														</c:if>
-														<c:if
-															test="${product_pet.getImageFile() == null || product_pet.getImageFile().getName() == null || product_pet.getImageFile().getBytes() == null}">
+														<c:if test="${product_pet.getImagePath() == null}">
 														картинка не выбрана 
 													</c:if>
 													</div>
@@ -643,14 +639,14 @@
 												</label>
 												<div class="">
 													<c:if
-														test="${product_feeds_and_other.getImageFile() != null && product_feeds_and_other.getImageFile().getName() != null && product_feeds_and_other.getImageFile().getBytes() != null}">
+														test="${product_feeds_and_other.getImagePath() != null}">
 																	Выбрана картинка с названием ${product.getKey().getImageFile().getName()}
 																	<img class=""
-															src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(product_feeds_and_other.getImageFile().getName())}"/>'
+															src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(product_feeds_and_other.getImagePath())}"/>'
 															alt="" style="width: 35px; height: 35px">
 													</c:if>
 													<c:if
-														test="${product_feeds_and_other.getImageFile() == null || product_feeds_and_other.getImageFile().getName() == null || product_feeds_and_other.getImageFile().getBytes() == null}">
+														test="${product_feeds_and_other.getImagePath() == null}">
 														картинка не выбрана 
 													</c:if>
 												</div>
@@ -768,14 +764,14 @@
 													</label>
 													<div class="valid-feedback">
 														<c:if
-															test="${product_feeds_and_other.getImageFile() != null && product_feeds_and_other.getImageFile().getName() != null && product_feeds_and_other.getImageFile().getBytes() != null}">
-																	Выбрана картинка с названием ${product.getKey().getImageFile().getName()}
+															test="${product_feeds_and_other.getImagePath() != null}">
+																	Выбрана картинка с названием ${product.getKey().getImagePath()}
 																	<img class=""
-																src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(product_feeds_and_other.getImageFile().getName())}"/>'
+																src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(product_feeds_and_other.getImagePath())}"/>'
 																alt="" style="width: 35px; height: 35px">
 														</c:if>
 														<c:if
-															test="${product_feeds_and_other.getImageFile() == null || product_feeds_and_other.getImageFile().getName() == null || product_feeds_and_other.getImageFile().getBytes() == null}">
+															test="${product_feeds_and_other.getImagePath() == null}">
 														картинка не выбрана 
 													</c:if>
 													</div>

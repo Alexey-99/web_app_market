@@ -322,7 +322,7 @@
 											<div
 												class="form-floating mb-3 add_product_pet_form_body_form_floating">
 												<input type="file"
-													class="form-control text-uppercase add_product_pet_form_body_input_img"
+													class="form-control add_product_pet_form_body_input_img"
 													id="floatingInputImg"
 													name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
 													placeholder="dog" /> <label
@@ -331,21 +331,19 @@
 													<span>*</span>
 												</label>
 												<div class="">
-													<c:if
-														test="${product_pet.getImageFile() != null && product_pet.getImageFile().getName() != null && product_pet.getImageFile().getBytes() != null}">
-																	Выбрана картинка с названием ${product.getKey().getImageFile().getName()}
+													<c:if test="${product_pet.getImagePath() != null}">
+																	Выбрана картинка с названием ${product.getKey().getImagePath()}
 																	<img class=""
-															src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(product_pet.getImageFile().getName())}"/>'
+															src='<c:url value="${product_pet.getImagePath()}"/>'
 															alt="" style="width: 35px; height: 35px">
 													</c:if>
-													<c:if
-														test="${product_pet.getImageFile() == null || product_pet.getImageFile().getName() == null || product_pet.getImageFile().getBytes() == null}">
+													<c:if test="${product_pet.getImagePath() == null}">
 														картинка не выбрана 
 													</c:if>
 												</div>
 											</div>
 											<div class="form-floating mb-3">
-												<input type="text" class="form-control text-uppercase"
+												<input type="text" class="form-control "
 													id="floatingInputSpecie"
 													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
 													value="${product_pet.getSpecie()}" placeholder="dog" /> <label
@@ -353,14 +351,14 @@
 													питомца</label>
 											</div>
 											<div class="form-floating mb-3">
-												<input type="text" class="form-control text-uppercase"
+												<input type="text" class="form-control "
 													id="floatingInputBreed"
 													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED}"
 													value="${product_pet.getBreed()}" placeholder="Breed" /> <label
 													class="text-lowercase" for="floatingInputBreed">порода</label>
 											</div>
 											<div class="form-floating mb-3">
-												<input type="date" class="form-control text-uppercase"
+												<input type="date" class="form-control "
 													id="floatingInputBirthDate"
 													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE}"
 													value="${product_pet.getBirthDate()}"
@@ -368,7 +366,7 @@
 													for="floatingInputBirthDate">Дата рождения</label>
 											</div>
 											<div class="form-floating mb-3">
-												<input type="text" class="form-control text-uppercase"
+												<input type="text" class="form-control "
 													id="floatingInputPrice"
 													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE}"
 													value="${product_pet.getPrice()}" placeholder="Price"
@@ -376,7 +374,7 @@
 													class="text-lowercase" for="floatingInputPrice">Цена</label>
 											</div>
 											<div class="form-floating mb-3">
-												<input type="text" class="form-control text-uppercase"
+												<input type="text" class="form-control "
 													id="floatingInputDiscount"
 													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT}"
 													value="${product_pet.getDiscount()}" placeholder="Discount"
@@ -385,7 +383,7 @@
 													(в %)</label>
 											</div>
 											<div class="form-floating mb-3">
-												<input type="number" class="form-control text-uppercase"
+												<input type="number" class="form-control "
 													id="floatingInputNumberOfUnitsProducts"
 													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
 													value="${product_pet_number_of_units}"
@@ -413,7 +411,7 @@
 												<div
 													class="form-floating mb-3 add_product_pet_form_body_form_floating ">
 													<input type="file"
-														class="form-control text-uppercase add_product_pet_form_body_input_img is-invalid"
+														class="form-control add_product_pet_form_body_input_img is-invalid"
 														id="floatingInputImg"
 														name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
 														placeholder="dog" /> <label
@@ -430,7 +428,7 @@
 												<div
 													class="form-floating mb-3 add_product_pet_form_body_form_floating ">
 													<input type="file"
-														class="form-control text-uppercase add_product_pet_form_body_input_img is-valid"
+														class="form-control add_product_pet_form_body_input_img is-valid"
 														id="floatingInputImg"
 														name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
 														placeholder="dog" /> <label
@@ -439,25 +437,22 @@
 														товара <span>*</span>
 													</label>
 													<div class="">
-														<c:if
-															test="${product_pet.getImageFile() != null && product_pet.getImageFile().getName() != null && product_pet.getImageFile().getBytes() != null}">
-																	Выбрана картинка с названием ${product.getKey().getImageFile().getName()}
+														<c:if test="${product_pet.getImagePath() != null}">
+																	Выбрана картинка с названием ${product.getKey().getImagePath()}
 																	<img class=""
-																src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(product_pet.getImageFile().getName())}"/>'
+																src='<c:url value="${product_pet.getImagePath()}"/>'
 																alt="" style="width: 35px; height: 35px">
 														</c:if>
-														<c:if
-															test="${product_pet.getImageFile() == null || product_pet.getImageFile().getName() == null || product_pet.getImageFile().getBytes() == null}">
+														<c:if test="${product_pet.getImagePath() == null}">
 														картинка не выбрана 
-													</c:if>
+														</c:if>
 													</div>
 												</div>
 											</c:if>
 											<c:if
 												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_SPECIE) }">
 												<div class="form-floating mb-3">
-													<input type="text"
-														class="form-control text-uppercase is-invalid"
+													<input type="text" class="form-control is-invalid"
 														id="floatingInputSpecie"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
 														placeholder="dog" /> <label class="text-lowercase"
@@ -468,8 +463,7 @@
 											<c:if
 												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_SPECIE) }">
 												<div class="form-floating mb-3">
-													<input type="text"
-														class="form-control text-uppercase is-valid"
+													<input type="text" class="form-control is-valid"
 														id="floatingInputSpecie"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
 														value="${product_pet.getSpecie()}" placeholder="dog" /> <label
@@ -481,8 +475,7 @@
 											<c:if
 												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BREED) }">
 												<div class="form-floating mb-3">
-													<input type="text"
-														class="form-control text-uppercase is-invalid"
+													<input type="text" class="form-control is-invalid"
 														id="floatingInputBreed"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED}"
 														placeholder="Breed" /> <label class="text-lowercase"
@@ -493,8 +486,7 @@
 											<c:if
 												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BREED) }">
 												<div class="form-floating mb-3">
-													<input type="text"
-														class="form-control text-uppercase is-valid"
+													<input type="text" class="form-control is-valid"
 														id="floatingInputBreed"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED}"
 														value="${product_pet.getBreed()}" placeholder="Breed" />
@@ -505,8 +497,7 @@
 											<c:if
 												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BIRTH_DATE) }">
 												<div class="form-floating mb-3">
-													<input type="date"
-														class="form-control text-uppercase is-invalid"
+													<input type="date" class="form-control is-invalid"
 														id="floatingInputBirthDate"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE}"
 														placeholder="BirthDate" /> <label class="text-lowercase"
@@ -517,8 +508,7 @@
 											<c:if
 												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BIRTH_DATE) }">
 												<div class="form-floating mb-3">
-													<input type="date"
-														class="form-control text-uppercase is-valid"
+													<input type="date" class="form-control is-valid"
 														id="floatingInputBirthDate"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE}"
 														value="${product_pet.getBirthDate().toString()}"
@@ -530,8 +520,7 @@
 											<c:if
 												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE) }">
 												<div class="form-floating mb-3">
-													<input type="text"
-														class="form-control text-uppercase is-invalid"
+													<input type="text" class="form-control  is-invalid"
 														id="floatingInputPrice"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE}"
 														placeholder="Price" pattern="^(\d+)(\.\d{1,2})?$" /> <label
@@ -542,8 +531,7 @@
 											<c:if
 												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
 												<div class="form-floating mb-3">
-													<input type="text"
-														class="form-control text-uppercase is-valid"
+													<input type="text" class="form-control  is-valid"
 														id="floatingInputPrice"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE}"
 														value="${product_pet.getPrice()}" placeholder="Price"
@@ -555,8 +543,7 @@
 											<c:if
 												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT) }">
 												<div class="form-floating mb-3">
-													<input type="text"
-														class="form-control text-uppercase is-invalid"
+													<input type="text" class="form-control is-invalid"
 														id="floatingInputDiscount"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT}"
 														placeholder="Discount" pattern="^(\d+)(\.\d{1,2})?$" /> <label
@@ -568,8 +555,7 @@
 											<c:if
 												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT) }">
 												<div class="form-floating mb-3">
-													<input type="text"
-														class="form-control text-uppercase is-valid"
+													<input type="text" class="form-control is-valid"
 														id="floatingInputDiscount"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT}"
 														value="${product_pet.getDiscount()}"
@@ -582,8 +568,7 @@
 											<c:if
 												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT) }">
 												<div class="form-floating mb-3">
-													<input type="number"
-														class="form-control text-uppercase is-invalid"
+													<input type="number" class="form-control is-invalid"
 														id="floatingInputNumberOfUnitsProducts"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
 														placeholder="NumberOfUnitsProducts" pattern="^(\d+)$" />
@@ -596,8 +581,7 @@
 											<c:if
 												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT) }">
 												<div class="form-floating mb-3">
-													<input type="number"
-														class="form-control text-uppercase is-valid"
+													<input type="number" class="form-control is-valid"
 														id="floatingInputNumberOfUnitsProducts"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
 														value="${product_pet_number_of_units}"
@@ -631,7 +615,7 @@
 										<div
 											class="form-floating mb-3 add_other_product_form_body_form_floating">
 											<input type="file"
-												class="form-control text-uppercase add_other_product_form_body_input_img"
+												class="form-control add_other_product_form_body_input_img"
 												id="floatingInputImg"
 												name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
 												placeholder="file ..." /> <label

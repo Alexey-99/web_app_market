@@ -311,15 +311,13 @@
 												style="height: auto;">
 												<div class="card-img-top"
 													style="border: 1px solid var(--bs-card-border-color); margin: 0 auto; display: flex; justify-content: center; align-items: center; height: auto;">
-													<c:if
-														test="${pet.getKey().getImageFile() != null && pet.getKey().getImageFile().getName() != null && pet.getKey().getImageFile().getBytes() != null}">
+													<c:if test="${pet.getKey().getImagePath() != null}">
 														<img class=""
-															src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(pet.getKey().getImageFile().getName())}"/>'
+															src='<c:url value="${pet.getKey().getImagePath()}"/>'
 															alt="" style="width: 35px; height: 35px">
 													</c:if>
 
-													<c:if
-														test="${pet.getKey().getImageFile() == null || pet.getKey().getImageFile().getName() == null || pet.getKey().getImageFile().getBytes() == null}">
+													<c:if test="${pet.getKey().getImagePath() == null}">
 														<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 															width="35px" height="35px" viewBox="0 0 64 64">
 <path
@@ -370,15 +368,13 @@
 												</div>
 												<div
 													class="image_product_id_body h-100 d-flex justify-content-center align-items-center">
-													<c:if
-														test="${pet.getKey().getImageFile() != null && pet.getKey().getImageFile().getName() != null && pet.getKey().getImageFile().getBytes() != null}">
+													<c:if test="${pet.getKey().getImagePath() != null}">
 														<img class=""
-															src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(pet.getKey().getImageFile().getName())}"/>'
+															src='<c:url value="${pet.getKey().getImagePath()}"/>'
 															alt="" style="width: auto; height: 100%" />
 													</c:if>
 
-													<c:if
-														test="${pet.getKey().getImageFile() == null || pet.getKey().getImageFile().getName() == null || pet.getKey().getImageFile().getBytes() == null}">
+													<c:if test="${pet.getKey().getImagePath() == null}">
 														<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 															width="auto" height="100%" viewBox="0 0 64 64">
 <path
@@ -426,13 +422,10 @@
 																для товара <span>*</span>
 															</label>
 															<div class="">
-																<c:if
-																	test="${pet.getKey().getImageFile() == null || pet.getKey().getImageFile().getName() == null || pet.getKey().getImageFile().getBytes() == null}">Для товара не выбрана картинка</c:if>
-																<c:if
-																	test="${pet.getKey().getImageFile() != null && pet.getKey().getImageFile().getName() != null && pet.getKey().getImageFile().getBytes() != null}">Вы выбрали
-														файл с названием ${pet.getKey().getImageFile().getName()}: <img
-																		class=""
-																		src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(pet.getKey().getImageFile().getName())}"/>'
+																<c:if test="${pet.getKey().getImagePath() == null}">Для товара не выбрана картинка</c:if>
+																<c:if test="${pet.getKey().getImagePath() != null}">Вы выбрали файл с названием ${pet.getKey().getImagePath()}: 
+																	<img class=""
+																		src='<c:url value="${pet.getKey().getImagePath()}"/>'
 																		alt="" style="width: 35px; height: 35px" />
 																</c:if>
 															</div>
@@ -508,14 +501,12 @@
 												onclick="showProductImage('o-${product.getKey().getId()}')"
 												style=""><div class="card-img-top"
 													style="border: 1px solid var(--bs-card-border-color); margin: 0 auto; display: flex; justify-content: center; align-items: center; height: auto;">
-													<c:if
-														test="${product.getKey().getImageFile() != null && product.getKey().getImageFile().getName() != null && product.getKey().getImageFile().getBytes() != null}">
+													<c:if test="${product.getKey().getImagePath() != null}">
 														<img class=""
-															src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(product.getKey().getImageFile().getName())}"/>'
+															src='<c:url value="${product.getKey().getImagePath()}"/>'
 															alt="" style="width: 35px; height: 35px">
 													</c:if>
-													<c:if
-														test="${product.getKey().getImageFile() == null || product.getKey().getImageFile().getName() == null || product.getKey().getImageFile().getBytes() == null}">
+													<c:if test="${product.getKey().getImagePath() == null}">
 														<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 															width="35px" height="35px" viewBox="0 0 64 64">
 <path
@@ -569,14 +560,12 @@
 												</div>
 												<div
 													class="image_product_id_body h-100 d-flex justify-content-center align-items-center">
-													<c:if
-														test="${product.getKey().getImageFile() != null && product.getKey().getImageFile().getName() != null && product.getKey().getImageFile().getBytes() != null}">
+													<c:if test="${product.getKey().getImagePath() != null}">
 														<img class=""
-															src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(product.getKey().getImageFile().getName())}"/>'
+															src='<c:url value="${product.getKey().getImagePath()}"/>'
 															alt="" style="width: 35px; height: 35px">
 													</c:if>
-													<c:if
-														test="${product.getKey().getImageFile() == null || product.getKey().getImageFile().getName() == null || product.getKey().getImageFile().getBytes() == null}">
+													<c:if test="${product.getKey().getImagePath() == null}">
 														<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 															width="auto" height="100%" viewBox="0 0 64 64">
 <path
@@ -624,17 +613,15 @@
 																товара <span>*</span>
 															</label>
 															<div class="">
-																<c:if
-																	test="${product.getKey().getImageFile() != null && product.getKey().getImageFile().getName() != null && product.getKey().getImageFile().getBytes() != null}">
-																	Выбрана картинка с названием ${product.getKey().getImageFile().getName()}
+																<c:if test="${product.getKey().getImagePath() != null}">
+																	Выбрана картинка с названием ${product.getKey().getImagePath()}
 																	<img class=""
-																		src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(product.getKey().getImageFile().getName())}"/>'
+																		src='<c:url value="${product.getKey().getImagePath()}"/>'
 																		alt="" style="width: 35px; height: 35px">
 																</c:if>
-																<c:if
-																	test="${product.getKey().getImageFile() == null || product.getKey().getImageFile().getName() == null || product.getKey().getImageFile().getBytes() == null}">
-														картинка не выбрана 
-													</c:if>
+																<c:if test="${product.getKey().getImagePath() == null}">
+																	картинка не выбрана
+																</c:if>
 															</div>
 														</div>
 

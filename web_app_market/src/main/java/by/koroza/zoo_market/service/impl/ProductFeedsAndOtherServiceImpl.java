@@ -111,6 +111,15 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 		}
 	}
 
+	@Override
+	public boolean upadateProductById(FeedAndOther product, long numberOfUnitsProduct) throws ServiceException {
+		try {
+			return ProductFeedsAndOtherDaoImpl.getInstance().upadateProductById(product, numberOfUnitsProduct);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+
 	private List<FeedAndOther> selectProductsWithTypeProduct(FilterFeedsAndOther filter,
 			List<FeedAndOther> listProductsWithFilter) {
 		String[] productTypes = filter.getChoosedTypesProduct();

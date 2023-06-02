@@ -4,6 +4,7 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ADMI
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_UPLOAD_FILE_DIRECTORY;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 
 import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_ID;
@@ -28,10 +29,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
-import by.koroza.zoo_market.model.entity.market.product.constituent.ImageFile;
 import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.service.exception.ServiceException;
+import by.koroza.zoo_market.service.impl.ImageFileServiceImpl;
 import by.koroza.zoo_market.service.impl.ProductFeedsAndOtherServiceImpl;
 import by.koroza.zoo_market.validation.FeedsAndOtherValidation;
 import by.koroza.zoo_market.validation.PetValidation;
@@ -39,6 +40,7 @@ import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.command.impl.admin.create.CraeteOtherProductCommand.TypeInputException;
 import by.koroza.zoo_market.web.controller.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
@@ -86,6 +88,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 	private Map<FeedAndOther, Long> getInputParameters(HttpServletRequest request,
 			Map<String, String> mapInputExceptions) throws IOException, CommandException, ServiceException {
 		Map<FeedAndOther, Long> petAndNumber = new HashMap<>();
+		HttpSession session = request.getSession();
 		long id = Long.parseLong(request.getParameter(ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_ID));
 		FeedAndOther productFeedAndOtherOld = ProductFeedsAndOtherServiceImpl.getInstance()
 				.getProductFeedAndOtherById(id);
@@ -95,27 +98,26 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 			if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
 				Part part = (Part) request.getAttribute(PARAMETER_PART);
 				if (part != null && !part.getSubmittedFileName().isBlank()) {
-					productFeedAndOther
-							.setImageFile(new ImageFile.ImageFileBuilder().setName(part.getSubmittedFileName())
-									.setBytes(part.getInputStream().readAllBytes()).build());
+					productFeedAndOther.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part,
+							(String) request.getAttribute(ATTRIBUTE_UPLOAD_FILE_DIRECTORY)));
 				} else {
-					productFeedAndOther.setImageFile(productFeedAndOtherOld.getImageFile());
+					productFeedAndOther.setImagePath(productFeedAndOtherOld.getImagePath());
 				}
 			} else {
-				if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.IMAGE.toString(),
 							"Вы выбрали не корретный файл для картинки для товара");
-				} else if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+				} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
 					mapInputExceptions.put(TypeInputException.IMAGE.toString(),
 							"You choosed image incorrect for product");
 				}
 			}
 			String type = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE);
 			if (!FeedsAndOtherValidation.validPetType(type)) {
-				if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.PRODUCT_TYPE.toString(),
 							"Вы ввели не корректно тип товара. Вы ввели: " + type);
-				} else if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+				} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
 					mapInputExceptions.put(TypeInputException.PRODUCT_TYPE.toString(),
 							"You input product type incorrect. Your input: " + type);
 				}
@@ -124,10 +126,10 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 			}
 			String brand = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND);
 			if (!FeedsAndOtherValidation.validBrand(brand)) {
-				if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.BRAND.toString(),
 							"Вы ввели не корректно брэнд товара. Вы ввели: " + brand);
-				} else if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+				} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
 					mapInputExceptions.put(TypeInputException.BRAND.toString(),
 							"You input brand of product incorrect. Your input: " + brand);
 				}
@@ -136,10 +138,10 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 			}
 			String description = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION);
 			if (!FeedsAndOtherValidation.validDescrription(description)) {
-				if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.DESCRIPTION.toString(),
 							"Вы ввели не корректно описание товара. Вы ввели: " + description);
-				} else if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+				} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
 					mapInputExceptions.put(TypeInputException.DESCRIPTION.toString(),
 							"You input description of product incorrect. Your input: " + description);
 				}
@@ -148,10 +150,10 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 			}
 			String petTypes = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES);
 			if (!FeedsAndOtherValidation.validPetType(petTypes)) {
-				if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.PET_TYPES.toString(),
 							"Вы ввели не корректно типы(тип) питомцев для кого данный товар. Вы ввели: " + petTypes);
-				} else if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+				} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
 					mapInputExceptions.put(TypeInputException.PET_TYPES.toString(),
 							"You entered, type(types) of pets for whom this product, incorrect. Your input: "
 									+ petTypes);
@@ -161,10 +163,10 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 			}
 			String price = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE);
 			if (!PetValidation.validPetPrice(price)) {
-				if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.PRICE.toString(),
 							"Вы ввели не корректно цену товара. Вы ввели: " + price);
-				} else if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+				} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
 					mapInputExceptions.put(TypeInputException.PRICE.toString(),
 							"You input product price incorrect. Your input: " + price);
 				}
@@ -173,10 +175,10 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 			}
 			String discount = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT);
 			if (!PetValidation.validPetDiscount(discount)) {
-				if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.DISCOUNT.toString(),
 							"Вы ввели не корректно скидку на продукт. Вы ввели: " + discount);
-				} else if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+				} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
 					mapInputExceptions.put(TypeInputException.DISCOUNT.toString(),
 							"You input product discount incorrect. Your input: " + discount);
 				}
@@ -186,10 +188,10 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 			String numberOfUnitsProduct = request
 					.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT);
 			if (!PetValidation.validPetNumberOfUnitsProduct(numberOfUnitsProduct)) {
-				if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.NUMBER_OF_UNITS_PRODUCT.toString(),
 							"Вы ввели не корректно количество данного товара. Вы ввели: " + numberOfUnitsProduct);
-				} else if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+				} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
 					mapInputExceptions.put(TypeInputException.NUMBER_OF_UNITS_PRODUCT.toString(),
 							"You input number of units product incorrect. Your input: " + numberOfUnitsProduct);
 				}

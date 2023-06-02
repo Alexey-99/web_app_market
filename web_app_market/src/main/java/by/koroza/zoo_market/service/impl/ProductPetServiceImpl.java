@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import by.koroza.zoo_market.dao.ProductPetDao;
 import by.koroza.zoo_market.dao.exception.DaoException;
 import by.koroza.zoo_market.dao.impl.ProductPetDaoImpl;
 import by.koroza.zoo_market.model.entity.filter.FilterPet;
@@ -15,6 +16,7 @@ import by.koroza.zoo_market.service.exception.ServiceException;
 
 public class ProductPetServiceImpl implements ProductPetService {
 	private static final ProductPetService INSTANCE = new ProductPetServiceImpl();
+	private ProductPetDao productPetDao = ProductPetDaoImpl.getInstance();
 
 	private ProductPetServiceImpl() {
 	}
@@ -26,7 +28,7 @@ public class ProductPetServiceImpl implements ProductPetService {
 	@Override
 	public List<Pet> getAllHavingProductsPets() throws ServiceException {
 		try {
-			return ProductPetDaoImpl.getInstance().getAllHavingProductsPets();
+			return this.productPetDao.getAllHavingProductsPets();
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
@@ -35,7 +37,7 @@ public class ProductPetServiceImpl implements ProductPetService {
 	@Override
 	public List<Pet> getProductsPetsById(Map<String, String> productsIdMap) throws ServiceException {
 		try {
-			return ProductPetDaoImpl.getInstance().getProductsPetsById(productsIdMap);
+			return this.productPetDao.getProductsPetsById(productsIdMap);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
@@ -45,7 +47,7 @@ public class ProductPetServiceImpl implements ProductPetService {
 	public List<Pet> getProductsPetsByFilter(FilterPet filter) throws ServiceException {
 		List<Pet> listPetsWithFilter = new ArrayList<>();
 		try {
-			listPetsWithFilter = ProductPetDaoImpl.getInstance().getAllHavingProductsPets();
+			listPetsWithFilter = this.productPetDao.getAllHavingProductsPets();
 			if (filter.isOnlyProductsWithDiscount()) {
 				listPetsWithFilter = listPetsWithFilter.stream().filter(product -> product.getDiscount() > 0).toList();
 			} else if (filter.getMaxDiscount() != 0 || filter.getMinDiscount() != 0) {
@@ -72,7 +74,7 @@ public class ProductPetServiceImpl implements ProductPetService {
 	@Override
 	public Map<Pet, Long> getAllProductsPetsAndNumberOfUnits() throws ServiceException {
 		try {
-			return ProductPetDaoImpl.getInstance().getAllProductsPetsAndNumberOfUnits();
+			return this.productPetDao.getAllProductsPetsAndNumberOfUnits();
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
@@ -81,7 +83,7 @@ public class ProductPetServiceImpl implements ProductPetService {
 	@Override
 	public boolean changeNumberOfUnitsProducts(Order order) throws ServiceException {
 		try {
-			return ProductPetDaoImpl.getInstance().changeNumberOfUnitsProducts(order);
+			return this.productPetDao.changeNumberOfUnitsProducts(order);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
@@ -90,7 +92,7 @@ public class ProductPetServiceImpl implements ProductPetService {
 	@Override
 	public boolean addProductPet(Pet pet, long numberOfUnitsProduct) throws ServiceException {
 		try {
-			return ProductPetDaoImpl.getInstance().addProductPet(pet, numberOfUnitsProduct);
+			return this.productPetDao.addProductPet(pet, numberOfUnitsProduct);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
@@ -99,7 +101,16 @@ public class ProductPetServiceImpl implements ProductPetService {
 	@Override
 	public Pet getProductPetById(long id) throws ServiceException {
 		try {
-			return ProductPetDaoImpl.getInstance().getProductPetById(id);
+			return this.productPetDao.getProductPetById(id);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public boolean upadateProductPetById(Pet pet, long numberOfUnitsProduct) throws ServiceException {
+		try {
+			return this.productPetDao.upadateProductPetById(pet, numberOfUnitsProduct);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}

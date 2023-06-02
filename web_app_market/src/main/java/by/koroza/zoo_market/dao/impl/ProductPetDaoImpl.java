@@ -248,7 +248,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 
 	private static final String QUERY_INSERT_PRODUCT_PET = """
 			INSERT INTO pets(pets.image_path, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.number_of_units_products)
-			VALUE(?, ?, ?, ?, ?, ?, ?, ?);
+			VALUE(?, ?, ?, ?, ?, ?, ?);
 			""";
 
 	private static final String QUERY_SELECT_LAST_INSERT_ID = """
@@ -282,15 +282,36 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	}
 
 	private static final String QUERY_UPDETE_PRODUCT_PET_BY_ID = """
-			SELECT pets.id, pets.image_path, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
-			FROM pets
-			WHERE pets.number_of_units_products > 0
+			UPDETE pets
+			SET pets.image_path = ?
+			AND pets.specie = ?
+			AND pets.breed = ?
+			AND pets.birth_date = ?
+			AND pets.price = ?
+			AND pets.discount = ?
+			AND pets.date_update = ?
+			AND pets.number_of_units_products = ?
+			WHERE pets.id = ?;
 			""";
 
 	@Override
-	public boolean upadateProductPetById(Pet pet) throws DaoException {
-
-		return false;
+	public boolean upadateProductPetById(Pet pet, long numberOfUnitsProduct) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
+			try (PreparedStatement statement = connection.prepareStatement(QUERY_UPDETE_PRODUCT_PET_BY_ID)) {
+				statement.setString(1, pet.getImagePath());
+				statement.setString(2, pet.getSpecie());
+				statement.setString(3, pet.getBreed());
+				statement.setString(4, pet.getBirthDate().toString());
+				statement.setDouble(5, pet.getPrice());
+				statement.setDouble(6, pet.getDiscount());
+				statement.setLong(7, numberOfUnitsProduct);
+				result = statement.executeUpdate() > 0;
+			}
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		return result;
 	}
 
 	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS_NOT_CLOSED = """

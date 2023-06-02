@@ -23,4 +23,6 @@ public interface ProductFeedsAndOtherDao {
 	public boolean addProduct(FeedAndOther product, long numberOfUnitsProduct) throws DaoException;
 
 	public FeedAndOther getProductFeedAndOtherById(long id) throws DaoException;
+
+	public boolean upadateProductById(FeedAndOther product, long numberOfUnitsProduct) throws DaoException;
 }

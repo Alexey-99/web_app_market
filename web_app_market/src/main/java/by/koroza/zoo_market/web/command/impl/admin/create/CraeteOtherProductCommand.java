@@ -5,7 +5,7 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
-
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_UPLOAD_FILE_DIRECTORY;
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CREATE_FEEDS_AND_OTHER_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM;
@@ -29,9 +29,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
-import by.koroza.zoo_market.model.entity.market.product.constituent.ImageFile;
 import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
+import by.koroza.zoo_market.service.exception.ServiceException;
+import by.koroza.zoo_market.service.impl.ImageFileServiceImpl;
 import by.koroza.zoo_market.validation.FeedsAndOtherValidation;
 import by.koroza.zoo_market.validation.PetValidation;
 import by.koroza.zoo_market.web.command.Command;
@@ -87,7 +88,7 @@ public class CraeteOtherProductCommand implements Command {
 					router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM);
 				}
 			}
-		} catch (IOException e) {
+		} catch (IOException | ServiceException e) {
 			throw new CommandException(e);
 		}
 		isRegistratedUser(request);
@@ -95,14 +96,14 @@ public class CraeteOtherProductCommand implements Command {
 	}
 
 	private Map<FeedAndOther, Long> getInputParameters(HttpServletRequest request,
-			Map<String, String> mapInputExceptions) throws IOException {
+			Map<String, String> mapInputExceptions) throws IOException, ServiceException {
 		Map<FeedAndOther, Long> petAndNumber = new HashMap<>();
 		FeedAndOther productFeedAndOther = new FeedAndOther();
 		if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
 			Part part = (Part) request.getAttribute(PARAMETER_PART);
 			if (part != null) {
-				productFeedAndOther.setImageFile(new ImageFile.ImageFileBuilder().setName(part.getSubmittedFileName())
-						.setBytes(part.getInputStream().readAllBytes()).build());
+				productFeedAndOther.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part,
+						(String) request.getAttribute(ATTRIBUTE_UPLOAD_FILE_DIRECTORY)));
 			}
 		} else {
 			if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {

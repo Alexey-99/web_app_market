@@ -12,7 +12,6 @@ import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_LAST_INSERT_ID
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_IMAGE_PATH;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT;
 
-import java.io.ByteArrayInputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -234,7 +233,7 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 	private static final String QUERY_INSERT_PRODUCT_FEEDS_AND_OTHER = """
 			INSERT INTO feeds_and_other(feeds_and_other.image_path, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
 			feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.number_of_units_products)
-			VALUE(?, ?, ?, ?, ?, ?, ?, ?, ?);
+			VALUE(?, ?, ?, ?, ?, ?, ?, ?);
 			""";
 
 	private static final String QUERY_SELECT_LAST_INSERT_ID = """
@@ -303,6 +302,42 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 			throw new DaoException(e);
 		}
 		return feedAndOther;
+	}
+
+	private static final String QUERY_UPDETE_PRODUCT_BY_ID = """
+			UPDETE feeds_and_other
+			AND feeds_and_other.image_path = ?
+			AND feeds_and_other.type = ?
+			AND feeds_and_other.brand = ?
+			AND feeds_and_other.description = ?
+			AND feeds_and_other.pet_type = ?
+			AND feeds_and_other.price = ?
+			AND feeds_and_other.discount = ?
+			AND feeds_and_other.date_update = ?
+			AND feeds_and_other.number_of_units_products = ?
+			WHERE feeds_and_other.id = ?;
+			""";
+
+	@Override
+	public boolean upadateProductById(FeedAndOther product, long numberOfUnitsProduct) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
+			try (PreparedStatement statement = connection.prepareStatement(QUERY_UPDETE_PRODUCT_BY_ID)) {
+				statement.setString(1, product.getImagePath());
+				statement.setString(2, product.getProductType());
+				statement.setString(3, product.getBrand());
+				statement.setString(4, product.getDescriptions());
+				statement.setString(5,
+						product.getPetTypes().toString().substring(1, product.getPetTypes().toString().length() - 1));
+				statement.setDouble(6, product.getPrice());
+				statement.setDouble(7, product.getDiscount());
+				statement.setLong(8, numberOfUnitsProduct);
+				result = statement.executeUpdate() > 0;
+			}
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		return result;
 	}
 
 	private static final char CODE_OF_TYPE_PRODUCT_FEEDS_AND_OTHER = 'o';

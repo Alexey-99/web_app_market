@@ -16,15 +16,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.dao.exception.DaoException;
-import by.koroza.zoo_market.dao.impl.ProductPetDaoImpl;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 
 public class Main {
+	@SuppressWarnings("unused")
 	private static final Logger log = LogManager.getLogger();
 
 	public static void main(String[] args) throws DaoException {
-		Map<Pet, Long> map = ProductPetDaoImpl.getInstance().getAllProductsPetsAndNumberOfUnits();
-		sortingMap(map);
+
 	}
 
 	public static Map<Pet, Long> sortingMap(Map<Pet, Long> map) {
