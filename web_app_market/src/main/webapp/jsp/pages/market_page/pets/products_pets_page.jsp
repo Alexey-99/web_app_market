@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
-<%@ taglib uri="customtags" prefix="pgn"%>
+<%@ taglib prefix="pgn" uri="customtags"%>
 <%@page import="by.koroza.zoo_market.web.command.name.FilterName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
@@ -1179,8 +1179,11 @@
 							</c:forEach>
 						</div>
 
+						<pgn:pagination_pet numberPage="3" maxCountPage="4" />
 
-						<nav aria-label="Пример навигации по страницам">
+
+
+						<nav>
 							<ul
 								class="pagination d-flex justify-content-center align-items-center">
 								<li class="page-item"><a class="page-link" href="#">Предыдущая</a>
