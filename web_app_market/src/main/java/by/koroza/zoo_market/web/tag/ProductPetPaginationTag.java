@@ -2,6 +2,8 @@ package by.koroza.zoo_market.web.tag;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_LIST_PRODUCTS_PETS;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
+import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
+import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,23 +17,26 @@ public class ProductPetPaginationTag extends TagSupport {
 	private static final long serialVersionUID = -8639846713001679127L;
 	private static final int NUMBER_FIRST_PAGE = 1;
 	private static int numberLastPage;
-	private int maxCountPage;
-	private int numberPage;
+	private int maxcountpage;
+	private int numberpage;
 
-	public void setMaxCountPage(int maxCountPage) {
-		this.maxCountPage = maxCountPage;
+	public void setMaxcountpage(int maxcountpage) {
+		this.maxcountpage = maxcountpage;
 	}
 
-	public void setNumberPage(int numberPage) {
-		this.numberPage = numberPage;
+	public void setNumberpage(int numberpage) {
+		this.numberpage = numberpage;
 	}
 
 	@Override
 	public int doStartTag() throws JspException {
 		try {
+			pageContext.getRequest().getRequestDispatcher("");
 			HttpSession session = pageContext.getSession();
+			String locale = (String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE);
+			@SuppressWarnings("unchecked")
 			List<Pet> listProductPets = (List<Pet>) session.getAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS);
-			printPagination(listProductPets);
+			printPagination(listProductPets, locale);
 			printProducts();
 		} catch (IOException e) {
 			throw new JspException(e);
@@ -45,46 +50,55 @@ public class ProductPetPaginationTag extends TagSupport {
 
 	}
 
-	/*
-	 * <nav> <ul
-	 * class="pagination d-flex justify-content-center align-items-center"> <li
-	 * class="page-item"><a class="page-link" href="#">Предыдущая</a> </li> <li
-	 * class="page-item"><a class="page-link" href="#">1</a></li> <li
-	 * class="page-item"><a class="page-link" href="#">2</a></li> <li
-	 * class="page-item"><a class="page-link" href="#">3</a></li> <li
-	 * class="page-item"><a class="page-link" href="#">Следующая</a> </li> </ul>
-	 * </nav>
-	 */
-
-	private void printPagination(List<Pet> listProductPets) throws IOException {
+	private void printPagination(List<Pet> listProductPets, String locale) throws IOException {
 
 		StringBuilder builder = new StringBuilder();
-		int countPage = (int) Math.ceil(listProductPets.size() / maxCountPage);
+		int countPage = (int) Math.ceil(listProductPets.size() / maxcountpage);
 		numberLastPage = countPage;
 		builder.append("<nav>");
 		builder.append("<ul class=\"pagination d-flex justify-content-center align-items-center\">");
-		if (numberPage > NUMBER_FIRST_PAGE) {
+		if (numberpage > NUMBER_FIRST_PAGE) {
 			builder.append("<li class=\"page-item \">");
-			builder.append("<button class=\"page-link\" >");
-			builder.append("Предыдущая");
+			builder.append("<button ").append("class=\"page-link pagination_page_list_item_btn\"")
+					.append("onclick=\"selectPage(").append(numberpage - 1).append(",").append(countPage).append(")\"")
+					.append(">");
+			if (locale.equalsIgnoreCase(RUSSIAN)) {
+				builder.append("Предыдущая");
+			} else if (locale.equalsIgnoreCase(ENGLISH)) {
+				builder.append("Previous");
+			} else {
+				builder.append("Previous");
+			}
 			builder.append("</button>");
 			builder.append("</li>");
 		}
 		for (int i = 1; i < countPage + 1; i++) {
-			if (i == numberPage) {
-				builder.append("<li class=\"page-item active\">");
+			if (i == numberpage) {
+				builder.append("<li class=\"page-item active pagination_page_list_item_").append(i).append("\"")
+						.append(">");
 			} else {
-				builder.append("<li class=\"page-item \">");
+				builder.append("<li class=\"page-item pagination_page_list_item_").append(i).append("\"").append(">");
 			}
-			builder.append("<button class=\"page-link\" >");
+			builder.append("<button ")
+					.append("class=\"page-link pagination_page_list_item_btn pagination_page_list_item_btn_").append(i)
+					.append("\"").append("onclick=\"selectPage(").append(i).append(",").append(countPage).append(")\"")
+					.append(">");
 			builder.append(i);
 			builder.append("</button>");
 			builder.append("</li>");
 		}
-		if (numberPage < numberLastPage) {
+		if (numberpage < numberLastPage) {
 			builder.append("<li class=\"page-item \">");
-			builder.append("<button class=\"page-link\" >");
-			builder.append("Следующая");
+			builder.append("<button ").append("class=\"page-link pagination_page_list_item_btn").append("\"")
+					.append("onclick=\"selectPage(").append(numberpage + 1).append(",").append(countPage).append(")\"")
+					.append(">");
+			if (locale.equalsIgnoreCase(RUSSIAN)) {
+				builder.append("Следующая");
+			} else if (locale.equalsIgnoreCase(ENGLISH)) {
+				builder.append("Next");
+			} else {
+				builder.append("Next");
+			}
 			builder.append("</button>");
 			builder.append("</li>");
 		}

@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.impl.show;
+package by.koroza.zoo_market.web.command.impl.show.pesonal;
 
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;

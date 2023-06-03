@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.impl.show;
+package by.koroza.zoo_market.web.command.impl.show.market;
 
 import java.util.HashMap;
 import java.util.HashSet;

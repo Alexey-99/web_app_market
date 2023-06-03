@@ -10,7 +10,7 @@
 <%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.show.ShowProductPetsIncludedFilterCommand"%>
+	import="by.koroza.zoo_market.web.command.impl.show.market.ShowProductPetsIncludedFilterCommand"%>
 
 <!DOCTYPE html>
 <html>
@@ -1178,15 +1178,17 @@
 								</div>
 							</c:forEach>
 						</div>
-
-						<pgn:pagination_pet numberPage="3" maxCountPage="4" />
+						<div class="pagination_block">
+							<pgn:pagination_pet numberpage="3" maxcountpage="4" />
+						</div>
 
 
 
 						<nav>
 							<ul
 								class="pagination d-flex justify-content-center align-items-center">
-								<li class="page-item"><a class="page-link" href="#">Предыдущая</a>
+								<li class="page-item"><a class="page-link"
+									href="Controller?command=${PagePathName.PRODUCTS_PETS_PAGE_PATH}?page=1">Предыдущая</a>
 								</li>
 								<li class="page-item"><a class="page-link" href="#">1</a></li>
 								<li class="page-item"><a class="page-link" href="#">2</a></li>
@@ -1233,7 +1235,9 @@
 	<%@ include file="/jsp/items/footer.jsp"%>
 
 	<script src="js/bootstrap.bundle.js"></script>
+	<script src="js/min_base.js"></script>
 	<script src="js/products_pages.js"></script>
+	<script src="js/pagination.js"></script>
 
 	<script>
 		showToast(${list_products_pets.stream().map(pet -> pet.getId()).toList()});

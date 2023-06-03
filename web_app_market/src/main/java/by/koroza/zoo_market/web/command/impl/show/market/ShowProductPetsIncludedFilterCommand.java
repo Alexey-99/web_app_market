@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.impl.show;
+package by.koroza.zoo_market.web.command.impl.show.market;
 
 import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_BREED_PET_RUS;
 import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PET_RUS;

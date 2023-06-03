@@ -8,7 +8,7 @@
 <%@page import="by.koroza.zoo_market.web.command.name.LanguageName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.show.ShowProductFeedsAndOtherIncludedFilterCommand"%>
+	import="by.koroza.zoo_market.web.command.impl.show.market.ShowProductFeedsAndOtherIncludedFilterCommand"%>
 <!DOCTYPE html>
 <html>
 <head>

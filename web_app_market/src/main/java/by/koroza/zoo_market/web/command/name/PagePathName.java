@@ -1,7 +1,5 @@
 package by.koroza.zoo_market.web.command.name;
 
-import static java.io.File.separator;
-
 public final class PagePathName {
 	public static final String INDEX_PAGE_PATH = "index.jsp";
 	public static final String ERROR_PAGE_500_PATH = "pages/error/error_page_500.jsp";

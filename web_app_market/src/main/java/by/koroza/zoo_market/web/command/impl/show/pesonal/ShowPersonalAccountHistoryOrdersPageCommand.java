@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.impl.show;
+package by.koroza.zoo_market.web.command.impl.show.pesonal;
 
 import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ORDERS_HISTORY_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
