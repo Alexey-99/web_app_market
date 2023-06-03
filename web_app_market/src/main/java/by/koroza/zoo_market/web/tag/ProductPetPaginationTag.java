@@ -164,7 +164,7 @@ public class ProductPetPaginationTag extends TagSupport {
 										""")
 					.append(pet.getId()).append("""
 									">Вы добавили товар</div>
-								</div>                                                                    *
+								</div>
 							</div>
 												""");
 		}
