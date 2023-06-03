@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.impl.show.market;
+package by.koroza.zoo_market.web.command.impl.show.market.pet;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_LIST_PRODUCTS_PETS;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE;

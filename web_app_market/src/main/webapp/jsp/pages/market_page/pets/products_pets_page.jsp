@@ -10,7 +10,7 @@
 <%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.show.market.ShowProductPetsIncludedFilterCommand"%>
+	import="by.koroza.zoo_market.web.command.impl.show.market.pet.ShowProductPetsIncludedFilterCommand"%>
 
 <!DOCTYPE html>
 <html>

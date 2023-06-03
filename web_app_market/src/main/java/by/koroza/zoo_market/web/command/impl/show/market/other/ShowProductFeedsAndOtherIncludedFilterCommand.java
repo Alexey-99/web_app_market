@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.impl.show.market;
+package by.koroza.zoo_market.web.command.impl.show.market.other;
 
 import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PRODUCT_RUS;
 import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_BREND_PRODUCT_RUS;
