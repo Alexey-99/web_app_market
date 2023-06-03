@@ -1,6 +1,7 @@
 package by.koroza.zoo_market.web.controller;
 
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_COMMAND;
+import static by.koroza.zoo_market.web.command.name.ServletName.MAIN_SERVLET_CONTROLLER_NAME;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -23,7 +24,7 @@ import jakarta.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Controller
  */
-@WebServlet("/Controller")
+@WebServlet("/" + MAIN_SERVLET_CONTROLLER_NAME)
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOGGER = LogManager.getLogger();

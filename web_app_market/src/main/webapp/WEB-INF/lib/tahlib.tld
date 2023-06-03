@@ -13,13 +13,13 @@
 		</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
-			<name>maxcountpage</name>
+			<name>maxCountProductsOnPage</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>java.lang.Integer</type>
 		</attribute>
 		<attribute>
-			<name>numberpage</name>
+			<name>numberPage</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>java.lang.Integer</type>
@@ -32,14 +32,14 @@
 		<body-content>empty</body-content>
 		<attribute>
 			<name>
-				maxcountpage
+				maxCountProductsOnPage
 			</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>java.lang.Integer</type>
 		</attribute>
 		<attribute>
-			<name>numberpage</name>
+			<name>numberPage</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>java.lang.Integer</type>

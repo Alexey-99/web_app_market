@@ -42,6 +42,8 @@ public final class AttributeName {
 	public static final String ATTRIBUTE_FOR_LIST_PETS = "productsPets";
 	public static final String ATTRIBUTE_FOR_LIST_FEEDS_AND_OTHER = "productsOther";
 
+	public static final String REQUEST_ATTRIBUTE_NUMBER_PAGE = "number_page";
+
 	/* BUFFER */
 	public static final String ATTRIBUTE_BUFFER_PRODUCT_PET = "product_pet";
 	public static final String ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT = "product_pet_number_of_units";

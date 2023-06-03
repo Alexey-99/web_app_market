@@ -19,6 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = "/showImageServlet")
 public class ShowImageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String RESPONSE_CONTENT_TYPE_IMG = "img/*";
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -30,7 +31,7 @@ public class ShowImageServlet extends HttpServlet {
 		if (!imagePath.isBlank()) {
 			File fileImage = new File(imagePath);
 			if (fileImage.exists()) {
-				response.setContentType("img/*");
+				response.setContentType(RESPONSE_CONTENT_TYPE_IMG);
 				String formatNameImage = imagePath.substring(imagePath.lastIndexOf(".") + 1);
 				ImageIO.write(ImageIO.read(fileImage), formatNameImage, response.getOutputStream());
 			}

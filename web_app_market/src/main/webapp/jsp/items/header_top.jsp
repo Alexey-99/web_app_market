@@ -6,6 +6,7 @@
 <%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
 <%@page
 	import="by.koroza.zoo_market.web.command.impl.RegistrationUserCommand"%>
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
@@ -27,8 +28,8 @@
 <body>
 
 	<div class="col-xl-2 col-lg-12 logo">
-		<form action="Controller">
-			<input type="hidden" name="command"
+		<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+			<input type="hidden" name="${ParameterName.PARAMETER_COMMAND }"
 				value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 			<button class="logo_link" role="button">
 				<img class="img img-fluid" src="img/logo.svg" alt="logo" />
@@ -48,8 +49,8 @@
 					id="navbarNavDropdown">
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<form action="Controller">
-								<input type="hidden" name="command"
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND }"
 									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 								<button class="nav-link menu_link text-uppercase" role="button">
 									<h5>
@@ -59,8 +60,8 @@
 							</form>
 						</li>
 						<li class="nav-item">
-							<form action="Controller">
-								<input type="hidden" name="command"
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND }"
 									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 								<button class="nav-link text-uppercase menu_link" role="button">
 									<h5>
@@ -70,8 +71,8 @@
 							</form>
 						</li>
 						<li class="nav-item menu_item">
-							<form action="Controller">
-								<input type="hidden" name="command"
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND }"
 									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 								<button class="nav-link text-uppercase menu_link" role="button">
 									<h5>
@@ -86,8 +87,9 @@
 							<c:if
 								test="${user.getRole().getIdRole() == 1 || user.isVerificatedEmail() == false}">
 								<li class="nav-item">
-									<form action="Controller">
-										<input type="hidden" name="command"
+									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+										<input type="hidden"
+											name="${ParameterName.PARAMETER_COMMAND }"
 											value="${CommandName.COMMAND_SHOW_VERIFICATION_PERSONAL_ACCOUNT_FORN}">
 										<button class="nav-link text-uppercase menu_link"
 											role="button">
@@ -101,8 +103,8 @@
 							<c:if
 								test="${user.getRole().getIdRole() > 1 && user.isVerificatedEmail() == true}">
 								<li class="nav-item">
-									<form action="Controller">
-										<input type="hidden" name="command"
+									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_SHOW_BACKET_PAGE}" /> <input
 											class="productsIdXl" type="hidden"
 											name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE }" />
@@ -115,8 +117,8 @@
 									</form>
 								</li>
 								<li class="nav-item">
-									<form action="Controller">
-										<input type="hidden" name="command"
+									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE}">
 										<button class="nav-link text-uppercase menu_link"
 											role="button">
@@ -147,8 +149,9 @@
 	</div>
 	<div
 		class="col-xl-2 col-lg-6 justify-content-center flex-row flags_icons_btns_xl">
-		<form class="me-3" action="Controller">
-			<input type="hidden" name="command"
+		<form class="me-3"
+			action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+			<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 				value="${CommandName.COMMAND_SET_ENGLISH_LOCALE}" />
 			<button class="border-0 bg-transparent"
 				style="width: 60px; height: 40px">
@@ -166,8 +169,8 @@
                 </svg>
 			</button>
 		</form>
-		<form class="" action="Controller">
-			<input type="hidden" name="command"
+		<form class="" action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+			<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 				value="${CommandName.COMMAND_SET_RUSSIAN_LOCALE}" />
 			<button class="border-0 bg-transparent"
 				style="width: 60px; height: 40px">
@@ -195,8 +198,8 @@
 					id="navbarNavDropdown">
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<form action="Controller">
-								<input type="hidden" name="command"
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 								<button class="nav-link menu_link" role="button">
 									<h5>
@@ -206,8 +209,8 @@
 							</form>
 						</li>
 						<li class="nav-item">
-							<form action="Controller">
-								<input type="hidden" name="command"
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 								<button class="nav-link menu_link" role="button">
 									<h5>
@@ -217,8 +220,8 @@
 							</form>
 						</li>
 						<li class="nav-item menu_item">
-							<form action="Controller">
-								<input type="hidden" name="command"
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 								<button class="nav-link menu_link" role="button">
 									<h5>
@@ -232,8 +235,8 @@
 							<c:if
 								test="${user.getRole().getIdRole() == 1 || user.isVerificatedEmail() == false}">
 								<li class="nav-item">
-									<form action="Controller">
-										<input type="hidden" name="command"
+									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_SHOW_VERIFICATION_PERSONAL_ACCOUNT_FORN}">
 										<button class="nav-link text-uppercase menu_link"
 											role="button">
@@ -247,8 +250,8 @@
 							<c:if
 								test="${user.getRole().getIdRole() > 1 && user.isVerificatedEmail() == true}">
 								<li class="nav-item">
-									<form action="Controller">
-										<input type="hidden" name="command"
+									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_SHOW_BACKET_PAGE}" /> <input
 											class="productsIdXl" type="hidden"
 											name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE }" />
@@ -261,8 +264,8 @@
 									</form>
 								</li>
 								<li class="nav-item">
-									<form action="Controller">
-										<input type="hidden" name="command"
+									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE}">
 										<button class="nav-link text-uppercase menu_link"
 											role="button">
@@ -290,8 +293,9 @@
 			</div>
 		</nav>
 		<div class="col-lg-2 flags_icons_btns_lg">
-			<form class="me-3" action="Controller">
-				<input type="hidden" name="command"
+			<form class="me-3"
+				action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+				<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 					value="${CommandName.COMMAND_SET_ENGLISH_LOCALE}" />
 				<button class="border-0 bg-transparent"
 					style="width: 60px; height: 40px">
@@ -309,8 +313,8 @@
                   </svg>
 				</button>
 			</form>
-			<form class="" action="Controller">
-				<input type="hidden" name="command"
+			<form class="" action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+				<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 					value="${CommandName.COMMAND_SET_RUSSIAN_LOCALE}" />
 				<button class="border-0 bg-transparent"
 					style="width: 60px; height: 40px">
@@ -360,7 +364,8 @@
 								key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_top.form_title.login_and_password" />
 						</h2>
 					</div>
-					<form class="sign_in_form_body" action="Controller">
+					<form class="sign_in_form_body"
+						action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 						<div class="form-floating mb-3">
 							<input type="text" class="form-control" id="floatingInputLogin"
 								name="${InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_LOGIN}"
@@ -401,7 +406,7 @@
 								<fmt:message
 									key="header_top.sign_in_and_registartion_form.sign_in_form.footer.button.cancel" />
 							</div>
-							<input type="hidden" name="command"
+							<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 								value="${CommandName.COMMAND_SIGN_IN_PERSON_ACCOUNT}" />
 							<button class="btn sign_in_form_btn_submit" role="button">
 								<fmt:message
@@ -418,7 +423,8 @@
 								key="header_top.sign_in_and_registartion_form.registartion_form.title.registration" />
 						</h2>
 					</div>
-					<form class="registration_form_body" action="Controller">
+					<form class="registration_form_body"
+						action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 						<div class="form-floating mb-3">
 							<input type="text" class="form-control" id="floatingInputName"
 								name="${InputName.REGISTRATION_INPUT_USER_NAME}"
@@ -506,7 +512,7 @@
 								<fmt:message
 									key="header_top.sign_in_and_registartion_form.registartion_form.footer.button.cancel" />
 							</div>
-							<input type="hidden" name="command"
+							<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 								value="${CommandName.COMMAND_REGISTRATION_USER}" />
 							<button class="btn registration_form_btn_submit" role="button">
 								<fmt:message

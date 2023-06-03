@@ -2,11 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ParameterValue"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib uri="jakarta.tags.fmt" prefix="fmt"%>
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
 	scope="session" />
-<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 <fmt:setBundle
 	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
 <!DOCTYPE html>
@@ -19,6 +21,7 @@
 	href="css/items/home_page/main_types_products_btns.css" />
 <link rel="stylesheet" href="css/items/home_page/promtions.css" />
 <title><fmt:message key="home_page.title" /></title>
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body>
 	<span>${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}</span>
@@ -33,9 +36,14 @@
 					style="height: 50vh">
 					<div class="row w-100" style="height: 40vh;">
 						<div class="col-6">
-							<form class="h-100" action="Controller" method="get">
-								<input type="hidden" name="command"
-									value="${CommandName.COMMAND_SHOW_PRODUCT_PETS_OFF_FILTER_PAGE}">
+							<form class="h-100"
+								action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+								method="get">
+								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND }"
+									value="${CommandName.COMMAND_SHOW_PRODUCT_PETS_OFF_FILTER_PAGE}" />
+								<input type="hidden"
+									name="${ParameterName.PARAMETER_NUMBER_PAGE}"
+									value="${ParameterValue.NUMBER_FIRST_PAGE_VALUE}" />
 								<button
 									class="btn btn-primary w-100 type_products_btn text-uppercase"
 									role="button">
@@ -44,8 +52,9 @@
 							</form>
 						</div>
 						<div class="col-6">
-							<form class="h-100" action="Controller">
-								<input type="hidden" name="command"
+							<form class="h-100"
+								action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND }"
 									value="${CommandName.COMMAND_SHOW_PRODUCT_FEED_AND_OTHER_OFF_FILTER_PAGE}">
 								<button
 									class="btn btn-primary w-100 text-uppercase type_products_btn"

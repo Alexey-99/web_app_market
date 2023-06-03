@@ -9,6 +9,7 @@ public final class ParameterName {
 	public static final String PARAMETER_CHANGING_PRODUCT_ID = "changing_product_id";
 	public static final String PARAMETER_UPLOAD_FILE_EXCEPTION = "upload_file_exception";
 	public static final String PARAMETER_IMAGE_FILE_PATH = "image_path";
+	public static final String PARAMETER_NUMBER_PAGE = "number_page";
 
 	private ParameterName() {
 	}

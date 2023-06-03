@@ -20,6 +20,7 @@ import static by.koroza.zoo_market.web.command.name.InputName.INPUT_PET_TYPE;
 import static by.koroza.zoo_market.web.command.name.InputName.INPUT_PROMOTIONS;
 
 import static by.koroza.zoo_market.web.command.name.PagePathName.PRODUCTS_PETS_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_NUMBER_PAGE;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
@@ -27,6 +28,7 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_LIST
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
+import static by.koroza.zoo_market.web.command.name.AttributeName.REQUEST_ATTRIBUTE_NUMBER_PAGE;
 
 import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
 import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
@@ -89,6 +91,7 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 		} catch (ServiceException e) {
 			throw new CommandException(e);
 		}
+		request.setAttribute(REQUEST_ATTRIBUTE_NUMBER_PAGE, request.getParameter(PARAMETER_NUMBER_PAGE));
 		isRegistratedUser(request);
 		return new Router(PRODUCTS_PETS_PAGE_PATH);
 	}
