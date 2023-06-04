@@ -1,5 +1,8 @@
 package by.koroza.zoo_market.web.tag;
 
+import static by.koroza.zoo_market.web.command.name.PagePathName.LOGO_SVG_IMAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.PagePathName.ICON_PERCENT_SVG_IMAGE_PATH;
+
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_LIST_PRODUCTS_PETS;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
@@ -63,20 +66,24 @@ public class ProductPetPaginationTag extends TagSupport {
 			throws IOException {
 		StringBuilder builder = new StringBuilder();
 		int indexFirstElement = maxCountProductsOnPage * (numberPage - 1);
-		builder.append("<div class=\"row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 g-4 mb-4\">"); // 1
+		builder.append("""
+				<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 g-4 mb-4">
+				""");
 		for (int i = indexFirstElement; i < listProductPets.size()
 				&& i < indexFirstElement + maxCountProductsOnPage; i++) {
 			Pet pet = listProductPets.get(i);
-			builder.append(
-					"""
-							<div class=\"col card_product\">
-								<div class=\"card h-100 card_product_inner\">
-									<div class=\"card-img-top card_img\" style=\"border: 1px solid var(--bs-card-border-color)\">
-							""");
+			builder.append("""
+					<div class="col card_product">
+						<div class="card h-100 card_product_inner">
+							<div class="card-img-top card_img" style="border: 1px solid var(--bs-card-border-color)">
+					""");
 			if (pet.getImagePath() != null) {
-				builder.append("<img ").append("class=\"w-100 h-100\"").append("alt=\"\"").append("src=\"")
-						.append(SERVLET_SHOW_IMMAGE_NAME).append("?").append(PARAMETER_IMAGE_FILE_PATH).append("=")
-						.append(pet.getImagePath()).append("\" />");
+				builder.append("""
+						<img class="w-100 h-100" alt="" src="
+						""").append(SERVLET_SHOW_IMMAGE_NAME).append("?").append(PARAMETER_IMAGE_FILE_PATH).append("=")
+						.append(pet.getImagePath()).append("""
+								" />
+								""");
 			} else {
 				builder.append(
 						"""
@@ -87,8 +94,8 @@ public class ProductPetPaginationTag extends TagSupport {
 			}
 			builder.append("""
 					</div>
-					<div class=\"card-body d-flex flex-column justify-content-between\">
-						<ul class=\"discription_top\">
+					<div class="card-body d-flex flex-column justify-content-between">
+						<ul class="discription_top">
 					""");
 			if (locale.equalsIgnoreCase(RUSSIAN)) {
 				builder.append("<li> номер товара: p-").append(pet.getId()).append("</li>");
@@ -108,28 +115,64 @@ public class ProductPetPaginationTag extends TagSupport {
 			}
 			builder.append("""
 					</ul>
-					<ul class=\"discription_botton\">
+					<ul class="discription_botton">
 					""");
-			builder.append("<li> price: ").append(pet.getPrice()).append("</li>"); // TODO RUS
-			builder.append("<li> discount: ").append(pet.getDiscount())
-					.append("<img class=\"discription_botton_discont_procent_img\" src=\"")
-					.append(SERVLET_SHOW_IMMAGE_NAME).append("?").append(PARAMETER_IMAGE_FILE_PATH).append("=?\"")
-					.append("alt=\"percent.svg\" />").append("</li>");
-			builder.append("<li> total price: ").append(pet.getTotalPrice()).append("</li>");
+			if (locale.equalsIgnoreCase(RUSSIAN)) {
+				builder.append("<li> цена: ").append(pet.getPrice()).append("</li>");
+				builder.append("<li> скидка: ").append(pet.getDiscount())
+						.append("""
+								<svg class="discription_botton_discont_procent_img" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48">
+									<path d="M289.899 516Q236 516 198 477.899t-38-92Q160 332 198.101 294t92-38Q344 256 382 294.101t38 92Q420 440 381.899 478t-92 38Zm-.017-60Q319 456 339.5 435.618q20.5-20.383 20.5-49.5Q360 357 339.618 336.5q-20.383-20.5-49.5-20.5Q261 316 240.5 336.382q-20.5 20.383-20.5 49.5Q220 415 240.382 435.5q20.383 20.5 49.5 20.5Zm380.017 440Q616 896 578 857.899t-38-92Q540 712 578.101 674t92-38Q724 636 762 674.101t38 92Q800 820 761.899 858t-92 38Zm-.017-60Q699 836 719.5 815.618q20.5-20.383 20.5-49.5Q740 737 719.618 716.5q-20.383-20.5-49.5-20.5Q641 696 620.5 716.382q-20.5 20.383-20.5 49.5Q600 795 620.382 815.5q20.383 20.5 49.5 20.5ZM202 896l-42-42 598-598 42 42-598 598Z"/>
+								</svg>
+								</li>
+								<li> стоимость со скодкой:
+										""")
+						.append(" ").append(pet.getTotalPrice()).append("</li>");
+			} else if (locale.equalsIgnoreCase(ENGLISH)) {
+				builder.append("<li> price: ").append(pet.getPrice()).append("</li>");
+				builder.append("<li> discount: ").append(pet.getDiscount())
+						.append("""
+								<svg class="discription_botton_discont_procent_img" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48">
+									<path d="M289.899 516Q236 516 198 477.899t-38-92Q160 332 198.101 294t92-38Q344 256 382 294.101t38 92Q420 440 381.899 478t-92 38Zm-.017-60Q319 456 339.5 435.618q20.5-20.383 20.5-49.5Q360 357 339.618 336.5q-20.383-20.5-49.5-20.5Q261 316 240.5 336.382q-20.5 20.383-20.5 49.5Q220 415 240.382 435.5q20.383 20.5 49.5 20.5Zm380.017 440Q616 896 578 857.899t-38-92Q540 712 578.101 674t92-38Q724 636 762 674.101t38 92Q800 820 761.899 858t-92 38Zm-.017-60Q699 836 719.5 815.618q20.5-20.383 20.5-49.5Q740 737 719.618 716.5q-20.383-20.5-49.5-20.5Q641 696 620.5 716.382q-20.5 20.383-20.5 49.5Q600 795 620.382 815.5q20.383 20.5 49.5 20.5ZM202 896l-42-42 598-598 42 42-598 598Z"/>
+								</svg>
+								</li>
+								<li> total price:
+										""")
+						.append(" ").append(pet.getTotalPrice()).append("</li>");
+			} else {
+				builder.append("<li> price: ").append(pet.getPrice()).append("</li>");
+				builder.append("<li> discount: ").append(pet.getDiscount())
+						.append("""
+								<svg class="discription_botton_discont_procent_img" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48">
+									<path d="M289.899 516Q236 516 198 477.899t-38-92Q160 332 198.101 294t92-38Q344 256 382 294.101t38 92Q420 440 381.899 478t-92 38Zm-.017-60Q319 456 339.5 435.618q20.5-20.383 20.5-49.5Q360 357 339.618 336.5q-20.383-20.5-49.5-20.5Q261 316 240.5 336.382q-20.5 20.383-20.5 49.5Q220 415 240.382 435.5q20.383 20.5 49.5 20.5Zm380.017 440Q616 896 578 857.899t-38-92Q540 712 578.101 674t92-38Q724 636 762 674.101t38 92Q800 820 761.899 858t-92 38Zm-.017-60Q699 836 719.5 815.618q20.5-20.383 20.5-49.5Q740 737 719.618 716.5q-20.383-20.5-49.5-20.5Q641 696 620.5 716.382q-20.5 20.383-20.5 49.5Q600 795 620.382 815.5q20.383 20.5 49.5 20.5ZM202 896l-42-42 598-598 42 42-598 598Z"/>
+								</svg>
+								</li>
+								<li> total price:
+										""")
+						.append(" ").append(pet.getTotalPrice()).append("</li>");
+			}
 			builder.append("</ul>");
 			if (user != null && user.getRole().getIdRole() >= UserRole.USER.getIdRole()
 					&& user.isVerificatedEmail() == true) {
 				builder.append("""
 						<div class="row body_btns w-100">
 							<div class="col-12 d-flex justify-content-center body_btn">
-						""");
-				builder.append("<input type=\"hidden\" id=\"productId\" value=\"").append(pet.getId()).append("\" />");
-				builder.append("<button class=\"w-100 h-100 body_btn_input\" id=\"liveToastBtn").append(pet.getId())
-						.append("\" type=\"button\" onclick=\"addProductPet(").append(pet.getId()).append(", ")
-						.append(i).append(")\">").append("в карзину").append("</button>");
+								<input type="hidden" id="productId" value="
+						""").append(pet.getId()).append("""
+						" />
 
-				builder.append("</div>");
-				builder.append("</div>");
+						""").append("<button class=\"w-100 h-100 body_btn_input\" id=\"liveToastBtn")
+						.append(pet.getId()).append("""
+								" type="button" onclick="addProductPet(
+								""").append(pet.getId()).append(", ").append(i).append("""
+								) ">
+														в карзину
+												</button>
+								""");
+				builder.append("""
+							</div>
+						</div>
+						""");
 			}
 			builder.append("</div>");
 
@@ -138,35 +181,82 @@ public class ProductPetPaginationTag extends TagSupport {
 						<small class="text-body-secondary">
 							Последнее обновление
 							""").append(pet.getUpdateDateTime().toString()).append("""
-									назад
-									</small>
-								</div>
-					""");
-			builder.append("""
+											назад
+								</small>
+							</div>
 						</div>
 					</div>
-					""");
-			builder.append("<div class=\"toast-container position-fixed bottom-0 end-0 p-3\">");
-			builder.append("<div id=\"liveToast").append(pet.getId()).append("""
-					" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-						<div class="toast-header">
-							<img src="
-					""").append(SERVLET_SHOW_IMMAGE_NAME).append("?").append(PARAMETER_IMAGE_FILE_PATH).append("=")
-					.append("/").append("""
-							" class="rounded me-2 toast_logo" alt="logo.svg">
-							<strong class="me-auto">
-							""").append("Zoo ковчег")
+					<div class="toast-container position-fixed bottom-0 end-0 p-3">
+							""").append("<div id=\"liveToast").append(pet.getId())
 					.append("""
-							</strong>
-							<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
-							</div>
-							<div class="toast-body
-										""")
-					.append(pet.getId()).append("""
-									">Вы добавили товар</div>
+							" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+							<div class="toast-header">
+							<svg class="rounded me-2 toast_logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="40px" height="40px" xml:space="preserve"> <desc>Created with Fabric.js 1.6.0-rc.1</desc> <defs></defs>
+							<g transform="translate(187.65 219.51) scale(1.71 1.71)"> <text font-family="Chunky" font-size="40" font-style="italic" font-weight="normal"
+								style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #992900; fill-rule: nonzero; opacity: 1;">
+							<tspan x="-103.39" y="8.98"
+								style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; fill: #992900; fill-rule: ; opacity: 1;">Z</tspan>
+							<tspan x="-71.14" y="8.98"
+								style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; fill: #992900; fill-rule: ; opacity: 1;">o</tspan>
+							<tspan x="-43.02" y="8.98"
+								style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; fill: #992900; fill-rule: ; opacity: 1;">o</tspan>
+							<tspan x="-14.89" y="8.98"
+								style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; fill: #992900; fill-rule: ; opacity: 1;">
+							</tspan>
+							<tspan x="-5.13" y="8.98"
+								style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; fill: #992900; fill-rule: ; opacity: 1;">к</tspan>
+							<tspan x="13.58" y="8.98"
+								style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; fill: #992900; fill-rule: ; opacity: 1;">о</tspan>
+							<tspan x="33.58" y="8.98"
+								style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; fill: #992900; fill-rule: ; opacity: 1;">в</tspan>
+							<tspan x="50.95" y="8.98"
+								style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; fill: #992900; fill-rule: ; opacity: 1;">ч</tspan>
+							<tspan x="70.03" y="8.98"
+								style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; fill: #992900; fill-rule: ; opacity: 1;">е</tspan>
+							<tspan x="87.78" y="8.98"
+								style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; fill: #992900; fill-rule: ; opacity: 1;">г</tspan></text>
+							</g> <g
+								style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;"
+								transform="translate(130 73.82999999999998) scale(0.23 0.23)"> <path
+								d="M 399.88 495.373 H 112.12 c -9.223 0 -16.7 -7.477 -16.7 -16.7 V 162.946 c 0 -4.732 2.007 -9.241 5.522 -12.408 L 244.822 20.92 c 6.354 -5.724 16.002 -5.724 22.356 0 l 143.88 129.617 c 3.515 3.166 5.522 7.677 5.522 12.408 v 315.727 C 416.58 487.896 409.103 495.373 399.88 495.373 z"
+								style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #99E5FF; fill-rule: nonzero; opacity: 1;"
+								transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" /> <path
+								d="M 411.058 150.537 L 267.178 20.92 C 264.001 18.059 260 16.628 256 16.628 v 478.745 h 143.88 c 9.223 0 16.7 -7.477 16.7 -16.7 V 162.946 C 416.58 158.214 414.573 153.704 411.058 150.537 z"
+								style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #4AD0FF; fill-rule: nonzero; opacity: 1;"
+								transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" /> <path
+								d="M 331.627 495.373 H 180.372 V 361.97 c 0 -41.502 32.955 -76.134 74.453 -76.766 c 42.236 -0.645 76.803 33.527 76.803 75.618 V 495.373 z"
+								style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #325763; fill-rule: nonzero; opacity: 1;"
+								transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" /> <path
+								d="M 314.927 219.295 H 197.072 c -9.223 0 -16.7 -7.477 -16.7 -16.7 c 0 -9.223 7.477 -16.7 16.7 -16.7 h 117.854 c 9.223 0 16.7 7.477 16.7 16.7 C 331.626 211.818 324.15 219.295 314.927 219.295 z"
+								style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #16A5D9; fill-rule: nonzero; opacity: 1;"
+								transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" /> <path
+								d="M 484.122 261.309 L 256 55.806 L 27.878 261.309 c -6.854 6.174 -17.413 5.622 -23.585 -1.23 c -6.174 -6.853 -5.622 -17.413 1.23 -23.585 L 244.822 20.92 c 6.353 -5.724 16.002 -5.724 22.355 0 l 239.3 215.573 c 6.853 6.172 7.404 16.733 1.23 23.585 C 501.534 266.932 490.973 267.481 484.122 261.309 z"
+								style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #FB5858; fill-rule: nonzero; opacity: 1;"
+								transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" /> <path
+								d="M 331.627 360.822 c 0 -41.7 -33.929 -75.604 -75.627 -75.606 v 210.157 h 75.627 V 360.822 z"
+								style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #072F3D; fill-rule: nonzero; opacity: 1;"
+								transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" /> <path
+								d="M 314.927 185.894 H 256 v 33.401 h 58.927 c 9.223 0 16.7 -7.477 16.7 -16.7 C 331.627 193.372 324.15 185.894 314.927 185.894 z"
+								style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #325763; fill-rule: nonzero; opacity: 1;"
+								transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" /> <path
+								d="M 506.477 236.493 L 267.177 20.92 c -3.176 -2.861 -7.177 -4.292 -11.178 -4.292 v 39.178 L 484.121 261.31 c 6.85 6.172 17.412 5.624 23.585 -1.23 C 513.881 253.226 513.33 242.667 506.477 236.493 z"
+								style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #F72349; fill-rule: nonzero; opacity: 1;"
+								transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" /> </g> <g
+								transform="translate(35.32 36.72)"> <text font-family="ADAMCG PRO"
+								font-size="40" font-weight="normal"
+								style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #000000; fill-rule: nonzero; opacity: 1;">
+							<tspan x="0" y="8.98" fill="#000000"></tspan></text> </g> </svg>
+							""")
+					.append("""
+										<strong class="me-auto">
+											Zoo ковчег
+										</strong>
+									<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+									</div>
+									<div class="toast-body">Вы добавили товар</div>
 								</div>
 							</div>
-												""");
+									""");
 		}
 		builder.append("</div>");
 		pageContext.getOut().write(builder.toString());
@@ -178,16 +268,17 @@ public class ProductPetPaginationTag extends TagSupport {
 		numberLastPage = countPage;
 		builder.append("""
 				<nav>
-					<ul class=\"pagination d-flex justify-content-center align-items-center\">
+					<ul class="pagination d-flex justify-content-center align-items-center">
 				""");
 		if (this.numberPage > NUMBER_FIRST_PAGE_VALUE) {
 			builder.append("""
-						<li class=\"page-item\" style=\"cursor: pointer\">
-							<a class=\"page-link\" href=\"
-					""");
-			builder.append(MAIN_SERVLET_CONTROLLER_NAME).append("?").append(PARAMETER_COMMAND).append("=")
+						<li class="page-item" style="cursor: pointer">
+							<a class="page-link" href="
+					""").append(MAIN_SERVLET_CONTROLLER_NAME).append("?").append(PARAMETER_COMMAND).append("=")
 					.append(COMMAND_SHOW_MAKET_PAGE_PRODUCT_PETS_BY_NUMBER_PAGE).append("&")
-					.append(PARAMETER_NUMBER_PAGE).append("=").append(this.numberPage - 1).append("\">");
+					.append(PARAMETER_NUMBER_PAGE).append("=").append(this.numberPage - 1).append("""
+							">
+							""");
 			if (locale.equalsIgnoreCase(RUSSIAN)) {
 				builder.append("Предыдущая");
 			} else if (locale.equalsIgnoreCase(ENGLISH)) {
@@ -202,13 +293,21 @@ public class ProductPetPaginationTag extends TagSupport {
 		}
 		for (int i = 1; i < countPage + 1; i++) {
 			if (i == this.numberPage) {
-				builder.append("<li class=\"page-item active\" style=\"cursor: pointer\">");
+				builder.append("""
+						<li class="page-item active" style="cursor: pointer">
+						""");
 			} else {
-				builder.append("<li class=\"page-item\" style=\"cursor: pointer\">");
+				builder.append("""
+						<li class="page-item" style="cursor: pointer">
+						""");
 			}
-			builder.append("<a ").append("class=\"page-link\" href=\"").append(MAIN_SERVLET_CONTROLLER_NAME).append("?")
-					.append(PARAMETER_COMMAND).append("=").append(COMMAND_SHOW_MAKET_PAGE_PRODUCT_PETS_BY_NUMBER_PAGE)
-					.append("&").append(PARAMETER_NUMBER_PAGE).append("=").append(i).append("\">");
+			builder.append("""
+					<a class="page-link" href="
+					""").append(MAIN_SERVLET_CONTROLLER_NAME).append("?").append(PARAMETER_COMMAND).append("=")
+					.append(COMMAND_SHOW_MAKET_PAGE_PRODUCT_PETS_BY_NUMBER_PAGE).append("&")
+					.append(PARAMETER_NUMBER_PAGE).append("=").append(i).append("""
+							" >
+							""");
 			builder.append(i);
 			builder.append("""
 							</a>
@@ -217,12 +316,13 @@ public class ProductPetPaginationTag extends TagSupport {
 		}
 		if (this.numberPage < numberLastPage) {
 			builder.append("""
-					<li class=\"page-item\" style=\"cursor: pointer\">
-						<a class=\"page-link\" href=\"
-					""");
-			builder.append(MAIN_SERVLET_CONTROLLER_NAME).append("?").append(PARAMETER_COMMAND).append("=")
+					<li class="page-item" style="cursor: pointer">
+						<a class="page-link" href="
+					""").append(MAIN_SERVLET_CONTROLLER_NAME).append("?").append(PARAMETER_COMMAND).append("=")
 					.append(COMMAND_SHOW_MAKET_PAGE_PRODUCT_PETS_BY_NUMBER_PAGE).append("&")
-					.append(PARAMETER_NUMBER_PAGE).append("=").append(this.numberPage + 1).append("\">");
+					.append(PARAMETER_NUMBER_PAGE).append("=").append(this.numberPage + 1).append("""
+							" >
+							""");
 			if (locale.equalsIgnoreCase(RUSSIAN)) {
 				builder.append("Следующая");
 			} else if (locale.equalsIgnoreCase(ENGLISH)) {

@@ -4,7 +4,6 @@ import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_IMAG
 
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 
 import jakarta.servlet.ServletException;
@@ -12,6 +11,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import com.groupdocs.conversion.Converter;
+import com.groupdocs.conversion.licensing.License;
+import com.groupdocs.conversion.options.convert.ImageConvertOptions;
 
 /**
  * Servlet implementation class ShowImageServlet
@@ -36,5 +39,16 @@ public class ShowImageServlet extends HttpServlet {
 				ImageIO.write(ImageIO.read(fileImage), formatNameImage, response.getOutputStream());
 			}
 		}
+	}
+
+	private void svgToPng() {
+		// Как преобразовать файл SVG в формат JPG в Java, используя параметры по
+		// умолчанию
+		Converter converter = new Converter("path/vector-graphics.svg");
+
+		ImageConvertOptions options = new ImageConvertOptions();
+		options.setFormat(ImageFileType.Jpg);
+
+		converter.convert("path/svg-to-jpg.jpg", options);
 	}
 }

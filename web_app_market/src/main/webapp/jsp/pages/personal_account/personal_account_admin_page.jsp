@@ -25,14 +25,14 @@
 				<c:if test="${user != null}">
 					<div class="col-md-2 col-sm-3 col-xs-4">
 						<div class="btn-group person_account_menu_links">
-							<form action="Controller">
+							<form action="controller">
 								<input type="hidden" name="command"
 									value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE}" />
 								<button
 									class="btn btn-primary w-100 person_account_menu_link btn_first"
 									role="button" aria-current="page">Профиль</button>
 							</form>
-							<form action="Controller">
+							<form action="controller">
 								<input type="hidden" name="command"
 									value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_HISTORY_ORDERS_PAGE}" />
 								<button class="btn btn-primary person_account_menu_link w-100"
@@ -40,15 +40,16 @@
 							</form>
 							<c:if
 								test="${user.getRole().getIdRole() == UserRole.ADMIN.getIdRole()}">
-								<form action="Controller">
+								<form action="controller">
 									<input type="hidden" name="command"
 										value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE}" />
-									<button class="btn btn-primary active w-100 person_account_menu_link"
+									<button
+										class="btn btn-primary active w-100 person_account_menu_link"
 										role="button" aria-current="page">Страница
 										администратора</button>
 								</form>
 							</c:if>
-							<form class="mt-3" action="Controller">
+							<form class="mt-3" action="controller">
 								<input type="hidden" name="command"
 									value="${CommandName.COMMAND_SIGN_OUT_PERSONAL_ACCOUNT}" />
 								<button
@@ -65,20 +66,20 @@
 						<div
 							class="btn-group flex-column person_account_admin_menu_links mt-4"
 							style="width: 80%; margin: 0 auto">
-							<form action="Controller">
+							<form action="controller">
 								<input type="hidden" name="command"
 									value="show_personal_account_main_page" />
 								<button
 									class="btn btn-primary w-100 person_account_menu_link btn_first"
 									role="button" aria-current="page">добавить товар</button>
 							</form>
-							<form action="Controller">
+							<form action="controller">
 								<input type="hidden" name="command"
 									value="${CommandName.COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_OFF_FILTER}" />
 								<button class="btn btn-primary person_account_menu_link w-100"
 									role="button">показать все товары</button>
 							</form>
-							<form action="Controller">
+							<form action="controller">
 								<input type="hidden" name="command"
 									value="show_personal_account_main_page" />
 								<button class="btn btn-primary person_account_menu_link w-100"

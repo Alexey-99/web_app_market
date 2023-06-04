@@ -63,12 +63,12 @@
 										<div class="offcanvas-body">
 											<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 												<li class="nav-item dropdown">
-													<form action="Controller">
+													<form action="controller">
 														<input type="hidden" name="command" value="" />
 														<button class="btn form_submit mb-3" role="button">
 															Сбросить фильтр</button>
 													</form>
-													<form action="Controller">
+													<form action="controller">
 														<div class="accordion accordion_form"
 															id="accordionExample">
 															<div class="accordion-item">
@@ -126,12 +126,12 @@
 										<div class="offcanvas-body">
 											<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 												<li class="nav-item dropdown">
-													<form action="Controller">
+													<form action="controller">
 														<input type="hidden" name="command" value="" />
 														<button class="btn form_submit mb-3" role="button">
 															Сбросить фильтр</button>
 													</form>
-													<form action="Controller">
+													<form action="controller">
 														<div class="accordion accordion_form"
 															id="accordionExample">
 															<div class="accordion-item">
@@ -191,7 +191,7 @@
 					</div>
 					<div class="col-11">
 						<div class="top_btns d-flex justify-content-between">
-							<form action="Controller">
+							<form action="controller">
 								<input type="hidden" name="command"
 									value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE }" />
 								<button class="btn top_btns_add_product" role="button">
@@ -213,35 +213,35 @@
 											<button class="border-0 bg-transparent">картинка</button>
 										</th>
 										<th scope="col">
-											<form action="Controller" method="get">
+											<form action="controller" method="get">
 												<input type="hidden" name="command" value="" />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">номер</button>
 											</form>
 										</th>
 										<th scope="col">
-											<form action="Controller" method="get">
+											<form action="controller" method="get">
 												<input type="hidden" name="command" value="" />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">тип продукта</button>
 											</form>
 										</th>
 										<th scope="col">
-											<form action="Controller" method="get">
+											<form action="controller" method="get">
 												<input type="hidden" name="command" value="" />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">брэнд</button>
 											</form>
 										</th>
 										<th scope="col">
-											<form action="Controller" method="get">
+											<form action="controller" method="get">
 												<input type="hidden" name="command" value="" />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">описание</button>
 											</form>
 										</th>
 										<th scope="col">
-											<form action="Controller" method="get">
+											<form action="controller" method="get">
 												<input type="hidden" name="command" value="" />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">типы питомцев для которых подходит
@@ -249,49 +249,49 @@
 											</form>
 										</th>
 										<th scope="col">
-											<form action="Controller" method="get">
+											<form action="controller" method="get">
 												<input type="hidden" name="command" value="" />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">specie</button>
 											</form>
 										</th>
 										<th scope="col">
-											<form action="Controller" method="get">
+											<form action="controller" method="get">
 												<input type="hidden" name="command" value="" />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">breed</button>
 											</form>
 										</th>
 										<th scope="col">
-											<form action="Controller" method="get">
+											<form action="controller" method="get">
 												<input type="hidden" name="command" value="" />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">birth date</button>
 											</form>
 										</th>
 										<th scope="col">
-											<form action="Controller" method="get">
+											<form action="controller" method="get">
 												<input type="hidden" name="command" value="" />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">price</button>
 											</form>
 										</th>
 										<th scope="col">
-											<form action="Controller" method="get">
+											<form action="controller" method="get">
 												<input type="hidden" name="command" value="" />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">discount</button>
 											</form>
 										</th>
 										<th scope="col">
-											<form action="Controller" method="get">
+											<form action="controller" method="get">
 												<input type="hidden" name="command" value="" />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">total price</button>
 											</form>
 										</th>
 										<th scope="col">
-											<form action="Controller" method="get">
+											<form action="controller" method="get">
 												<input type="hidden" name="command" value="" />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">number</button>

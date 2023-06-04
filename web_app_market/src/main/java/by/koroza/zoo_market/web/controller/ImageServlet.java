@@ -37,7 +37,7 @@ public class ImageServlet extends HttpServlet {
 	private static final Logger logger = LogManager.getLogger();
 	private static final String UPLOAD_DIR = "images";
 	private static final String MIME_TYPE_IMAGE = "image/";
-	private static final String MAIN_SERVLET = "/Controller";
+	private static final String MAIN_SERVLET = "/controller";
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

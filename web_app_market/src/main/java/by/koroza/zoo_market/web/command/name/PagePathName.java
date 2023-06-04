@@ -9,7 +9,8 @@ public final class PagePathName {
 
 	/* IMAGES */
 	public static final String STORAGE_IMAGES_FOLDER_PATH = "E:/Alexey/image";
-	public static final String LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH = "http://localhost:8080/web_app_market/img/product_images/";
+	public static final String LOGO_SVG_IMAGE_PATH = STORAGE_IMAGES_FOLDER_PATH + "/logo.svg";
+	public static final String ICON_PERCENT_SVG_IMAGE_PATH = STORAGE_IMAGES_FOLDER_PATH + "/percent.svg";
 
 	/* MARKET */
 	public static final String PRODUCTS_PETS_PAGE_PATH = "jsp/pages/market_page/pets/products_pets_page.jsp";
