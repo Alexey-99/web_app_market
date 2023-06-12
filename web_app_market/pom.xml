@@ -112,14 +112,5 @@
 			<version>1.0.0</version>
 		</dependency>
 
-		<!--
-		https://mvnrepository.com/artifact/com.groupdocs/groupdocs-conversion -->
-		<dependency>
-			<groupId>com.groupdocs</groupId>
-			<artifactId>groupdocs-conversion</artifactId>
-			<version>17.12</version>
-		</dependency>
-
-
 	</dependencies>
 </project>

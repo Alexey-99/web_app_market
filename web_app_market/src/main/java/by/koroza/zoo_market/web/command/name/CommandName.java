@@ -36,6 +36,7 @@ public class CommandName {
 	public static final String COMMAND_SET_ENGLISH_LOCALE = "set_english_locale";
 
 	public static final String COMMAND_SHOW_MAKET_PAGE_PRODUCT_PETS_BY_NUMBER_PAGE = "show_market_page_product_pets_by_number_page";
+	public static final String COMMAND_SHOW_MAKET_PAGE_PRODUCT_FEEDS_AND_OTHER_BY_NUMBER_PAGE = "show_market_page_product_feeds_and_other_by_number_page";
 
 	/* ADMIN */
 	public static final String COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_OFF_FILTER = "admin_page_show_all_products_off_filter";

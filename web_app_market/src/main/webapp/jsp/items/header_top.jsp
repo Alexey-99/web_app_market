@@ -7,6 +7,8 @@
 <%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ImagePath"%>
 <%@page
 	import="by.koroza.zoo_market.web.command.impl.RegistrationUserCommand"%>
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
@@ -32,7 +34,9 @@
 			<input type="hidden" name="${ParameterName.PARAMETER_COMMAND }"
 				value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 			<button class="logo_link" role="button">
-				<img class="img img-fluid" src="img/logo.svg" alt="logo" />
+				<img class="img img-fluid"
+					src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.LOGO_PNG_IMAGE_PATH}"
+					alt="logo" />
 			</button>
 		</form>
 	</div>

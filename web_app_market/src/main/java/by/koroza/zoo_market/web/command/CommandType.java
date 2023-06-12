@@ -22,6 +22,7 @@ import by.koroza.zoo_market.web.command.impl.show.basket.ShowBacketPageCommand;
 import by.koroza.zoo_market.web.command.impl.show.home.ShowHomePageCommand;
 import by.koroza.zoo_market.web.command.impl.show.market.other.ShowProductFeedsAndOtherIncludedFilterCommand;
 import by.koroza.zoo_market.web.command.impl.show.market.other.ShowProductFeedsAndOtherOffFilterCommand;
+import by.koroza.zoo_market.web.command.impl.show.market.other.page.ShowProductFeedsAndOtherNumberPageCommand;
 import by.koroza.zoo_market.web.command.impl.show.market.pet.ShowProductPetsIncludedFilterCommand;
 import by.koroza.zoo_market.web.command.impl.show.market.pet.ShowProductPetsOffFilterCommand;
 import by.koroza.zoo_market.web.command.impl.show.market.pet.page.ShowProductPetNumberPageCommand;
@@ -64,7 +65,8 @@ public enum CommandType {
 	ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT(new ChangeProductFeedsAndOtherCommand()),
 	ADMIN_PAGE_SHOW_CHANGE_PET_PRODUCT_FORM(new ShowChangePetProductFormCommand()),
 	UPDATE_CHANGED_PRODUCT_PET(new UpdateChangedPetProductCommand()),
-	SHOW_MARKET_PAGE_PRODUCT_PETS_BY_NUMBER_PAGE(new ShowProductPetNumberPageCommand());
+	SHOW_MARKET_PAGE_PRODUCT_PETS_BY_NUMBER_PAGE(new ShowProductPetNumberPageCommand()),
+	SHOW_MARKET_PAGE_PRODUCT_FEEDS_AND_OTHER_BY_NUMBER_PAGE(new ShowProductFeedsAndOtherNumberPageCommand());
 
 	private Command command;
 

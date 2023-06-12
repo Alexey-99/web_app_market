@@ -10,6 +10,8 @@ import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_IS_C
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_UPLOAD_FILE_EXCEPTION;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_UPLOAD_FILE_DIRECTORY;
 
+import static by.koroza.zoo_market.web.command.name.ServletName.MAIN_SERVLET_CONTROLLER_NAME;
+
 import java.io.IOException;
 
 import org.apache.logging.log4j.Level;
@@ -37,7 +39,7 @@ public class ImageServlet extends HttpServlet {
 	private static final Logger logger = LogManager.getLogger();
 	private static final String UPLOAD_DIR = "images";
 	private static final String MIME_TYPE_IMAGE = "image/";
-	private static final String MAIN_SERVLET = "/controller";
+	private static final String MAIN_SERVLET = "/" + MAIN_SERVLET_CONTROLLER_NAME;
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

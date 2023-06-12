@@ -7,6 +7,8 @@ import static by.koroza.zoo_market.web.command.name.CommandName.COMMAND_SET_ENGL
 
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_COMMAND;
 
+import static by.koroza.zoo_market.web.command.name.ServletName.MAIN_SERVLET_CONTROLLER_NAME;
+
 import java.io.IOException;
 
 import jakarta.servlet.Filter;
@@ -24,7 +26,7 @@ import jakarta.servlet.http.HttpSession;
  * Servlet Filter implementation class PreviousPageFilter
  */
 @SuppressWarnings("serial")
-@WebFilter(filterName = "/PreviousPageFilter", urlPatterns = { "/Controller" })
+@WebFilter(filterName = "/PreviousPageFilter", urlPatterns = { "/" + MAIN_SERVLET_CONTROLLER_NAME })
 public class PreviousPageFilter extends HttpFilter implements Filter {
 
 	/**

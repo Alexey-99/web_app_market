@@ -117,8 +117,120 @@ public class UpdateDateTime {
 
 	@Override
 	public String toString() {
+		return toStringEn();
+	}
+
+	public String toStringEn() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(this.value).append(" ").append(this.unit.toString().toLowerCase());
+		switch (this.unit) {
+		case YEARS -> {
+			if (this.value == 1) {
+				builder.append(this.value).append(" ").append("year");
+			} else {
+				builder.append(this.value).append(" ").append("years");
+			}
+		}
+		case MONTHS -> {
+			if (this.value == 1) {
+				builder.append(this.value).append(" ").append("month");
+			} else {
+				builder.append(this.value).append(" ").append("months");
+			}
+		}
+		case DAYS -> {
+			if (this.value == 1) {
+				builder.append(this.value).append(" ").append("day");
+			} else {
+				builder.append(this.value).append(" ").append("days");
+			}
+		}
+		case HOURS -> {
+			if (this.value == 1) {
+				builder.append(this.value).append(" ").append("hour");
+			} else {
+				builder.append(this.value).append(" ").append("hours");
+			}
+		}
+		case MINUTS -> {
+			if (this.value == 1) {
+				builder.append(this.value).append(" ").append("minut");
+			} else {
+				builder.append(this.value).append(" ").append("minuts");
+			}
+		}
+		case SECONDS -> {
+			if (this.value == 1) {
+				builder.append(this.value).append(" ").append("second");
+			} else {
+				builder.append(this.value).append(" ").append("seconds");
+			}
+		}
+		}
+		return builder.toString();
+	}
+
+	public String toStringRus() {
+		StringBuilder builder = new StringBuilder();
+		switch (this.unit) {
+		case YEARS -> {
+			if (this.value == 1) {
+				builder.append(this.value).append(" ").append("год");
+			} else if (this.value > 1 && this.value < 5) {
+				builder.append(this.value).append(" ").append("года");
+			} else {
+				builder.append(this.value).append(" ").append("лет");
+			}
+		}
+		case MONTHS -> {
+			if (this.value == 1) {
+				builder.append(this.value).append(" ").append("месяц");
+			} else if (this.value > 1 && this.value < 5) {
+				builder.append(this.value).append(" ").append("месяца");
+			} else {
+				builder.append(this.value).append(" ").append("месяцев");
+			}
+		}
+		case DAYS -> {
+			if (this.value == 1 || this.value == 21 || this.value == 31) {
+				builder.append(this.value).append(" ").append("день");
+			} else if ((this.value > 1 && this.value < 5) || (this.value > 21 && this.value <= 24)) {
+				builder.append(this.value).append(" ").append("дня");
+			} else {
+				builder.append(this.value).append(" ").append("дней");
+			}
+		}
+		case HOURS -> {
+			if (this.value == 1 || this.value == 21) {
+				builder.append(this.value).append(" ").append("час");
+			} else if ((this.value > 1 && this.value < 5) || (this.value > 21 && this.value <= 24)) {
+				builder.append(this.value).append(" ").append("часа");
+			} else {
+				builder.append(this.value).append(" ").append("часов");
+			}
+		}
+		case MINUTS -> {
+			if (this.value == 1 || this.value == 21 || this.value == 31 || this.value == 41 || this.value == 51) {
+				builder.append(this.value).append(" ").append("минута");
+			} else if ((this.value > 1 && this.value < 5) || (this.value > 21 && this.value <= 24)
+					|| (this.value > 31 && this.value <= 34) || (this.value > 41 && this.value <= 44)
+					|| (this.value > 51 && this.value <= 54)) {
+				builder.append(this.value).append(" ").append("минуты");
+			} else {
+				builder.append(this.value).append(" ").append("минут");
+			}
+		}
+		case SECONDS -> {
+			if (this.value == 1 || this.value == 21 || this.value == 31 || this.value == 41 || this.value == 51) {
+				builder.append(this.value).append(" ").append("секунда");
+			} else if ((this.value > 1 && this.value < 5) || (this.value > 21 && this.value <= 24)
+					|| (this.value > 31 && this.value <= 34) || (this.value > 41 && this.value <= 44)
+					|| (this.value > 51 && this.value <= 54)) {
+				builder.append(this.value).append(" ").append("секунды");
+			} else {
+				builder.append(this.value).append(" ").append("секунд");
+			}
+		}
+		}
 		return builder.toString();
 	}
 

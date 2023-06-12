@@ -7,11 +7,6 @@ public final class PagePathName {
 	/* PROPERTIES */
 	public static final String PAGE_CONTENT_PROPERTIES = "locale.pageContent_";
 
-	/* IMAGES */
-	public static final String STORAGE_IMAGES_FOLDER_PATH = "E:/Alexey/image";
-	public static final String LOGO_SVG_IMAGE_PATH = STORAGE_IMAGES_FOLDER_PATH + "/logo.svg";
-	public static final String ICON_PERCENT_SVG_IMAGE_PATH = STORAGE_IMAGES_FOLDER_PATH + "/percent.svg";
-
 	/* MARKET */
 	public static final String PRODUCTS_PETS_PAGE_PATH = "jsp/pages/market_page/pets/products_pets_page.jsp";
 	public static final String PRODUCTS_FEED_AND_OTHER_PAGE_PATH = "jsp/pages/market_page/other/products_feed_ond_other_page.jsp";
