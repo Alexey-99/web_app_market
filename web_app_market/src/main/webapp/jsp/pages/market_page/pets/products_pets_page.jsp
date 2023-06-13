@@ -36,7 +36,6 @@
 <!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body class="body">
-	<span>${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}</span>
 
 	<%@ include file="/jsp/items/header_block_header_top.jsp"%>
 

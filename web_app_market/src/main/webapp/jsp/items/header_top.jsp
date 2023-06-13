@@ -29,6 +29,8 @@
 </head>
 <body>
 
+	<span>${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}</span>
+
 	<div class="col-xl-2 col-lg-12 logo">
 		<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 			<input type="hidden" name="${ParameterName.PARAMETER_COMMAND }"
@@ -155,9 +157,12 @@
 		class="col-xl-2 col-lg-6 justify-content-center flex-row flags_icons_btns_xl">
 		<form class="me-3"
 			action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+			<input class="productsIdXlFlagEn" type="hidden"
+				name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE }" />
 			<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 				value="${CommandName.COMMAND_SET_ENGLISH_LOCALE}" />
 			<button class="border-0 bg-transparent"
+				onclick="getProducts('.productsIdXlFlagEn')"
 				style="width: 60px; height: 40px">
 				<svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-gb"
 					viewBox="0 0 640 480">
@@ -174,9 +179,12 @@
 			</button>
 		</form>
 		<form class="" action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+			<input class="productsIdXlFlagRus" type="hidden"
+				name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE }" />
 			<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 				value="${CommandName.COMMAND_SET_RUSSIAN_LOCALE}" />
 			<button class="border-0 bg-transparent"
+				onclick="getProducts('.productsIdXlFlagRus')"
 				style="width: 60px; height: 40px">
 				<svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-ru"
 					viewBox="0 0 640 480">
@@ -257,10 +265,10 @@
 									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_SHOW_BACKET_PAGE}" /> <input
-											class="productsIdXl" type="hidden"
+											class="productsIdLg" type="hidden"
 											name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE }" />
 										<button class="nav-link text-uppercase menu_link"
-											role="button" onclick="getProducts('.productsIdXl')">
+											role="button" onclick="getProducts('.productsIdLg')">
 											<h5>
 												<fmt:message key="header_top.basket" />
 											</h5>
@@ -299,9 +307,12 @@
 		<div class="col-lg-2 flags_icons_btns_lg">
 			<form class="me-3"
 				action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+				<input class="productsIdLgFlagEn" type="hidden"
+					name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE }" />
 				<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 					value="${CommandName.COMMAND_SET_ENGLISH_LOCALE}" />
 				<button class="border-0 bg-transparent"
+					onclick="getProducts('.productsIdLgFlagEn')"
 					style="width: 60px; height: 40px">
 					<svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-gb"
 						viewBox="0 0 640 480">
@@ -318,9 +329,12 @@
 				</button>
 			</form>
 			<form class="" action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+				<input class="productsIdLgFlagRus" type="hidden"
+					name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE }" />
 				<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 					value="${CommandName.COMMAND_SET_RUSSIAN_LOCALE}" />
 				<button class="border-0 bg-transparent"
+					onclick="getProducts('.productsIdLgFlagRus')"
 					style="width: 60px; height: 40px">
 					<svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-ru"
 						viewBox="0 0 640 480">

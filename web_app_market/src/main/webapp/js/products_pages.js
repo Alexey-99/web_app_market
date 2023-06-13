@@ -10,7 +10,6 @@ function addProductOtherProducts(id, idElement) {
 
 function showToast(arrayProductsId) {
 	for (let id of arrayProductsId) {
-		console.log("productId = " + id)
 		let toastTrigger = document.getElementById("liveToastBtn" + id);
 		let toastLiveExample = document.getElementById("liveToast" + id);
 		if (toastTrigger) {

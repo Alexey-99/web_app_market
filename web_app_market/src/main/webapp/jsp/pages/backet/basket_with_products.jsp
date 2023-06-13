@@ -1,9 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
 <%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ParameterValue"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ImagePath"%>
+<%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
+<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
+	scope="session" />
+<fmt:setBundle
+	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +23,7 @@
 <link rel="stylesheet" href="css/pages/basket_with_products.css" />
 <link rel="stylesheet" href="css/items/product_card.css" />
 <link rel="stylesheet" href="css/items/payment_information_form.css" />
-<title>basket_with_products.jsp</title>
+<title><fmt:message key="basket_page.title" /></title>
 <!-- order = AttributeName.ATTRIBUTE_ORDER -->
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 </head>
@@ -27,33 +37,42 @@
 				<c:if test="${user != null}">
 					<div class="col-9 products_order">
 						<div class="products_order_top">
-							<div class="row">
-								<div class="col-6">
-									<div class="products_order_top_form">
-										<form class="h-100" action="Controller">
-											<input type="hidden" name="command"
+							<div class="row pb-3">
+								<div
+									class="col-12 d-flex justify-content-around align-items-center">
+									<div class="products_order_top_form h-100">
+										<form class="h-100" style="width: 50vh"
+											action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+											<input type="hidden"
+												name="${ParameterName.PARAMETER_NUMBER_PAGE}"
+												value="${ParameterValue.NUMBER_FIRST_PAGE_VALUE}" /> <input
+												type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 												value="${CommandName.COMMAND_SHOW_PRODUCT_PETS_OFF_FILTER_PAGE }">
-											<button
+											<button style="min-width: 42vh"
 												class="btn mx-auto h-100 d-flex justify-content-center align-items-center products_order_top_form_btn"
 												role="button">
-												<h2
-													class="h-100 d-flex justify-content-center align-items-center">Добавить
-													питомца</h2>
+												<h5
+													class="h-100 d-flex justify-content-center align-items-center">
+													<fmt:message key="basket_page.add_product_pet" />
+												</h5>
 											</button>
 										</form>
 									</div>
-								</div>
-								<div class="col-6">
-									<div class="products_order_top_form">
-										<form class="h-100" action="Controller">
-											<input type="hidden" name="command"
+									<div class="products_order_top_form h-100">
+										<form class="h-100" style="width: 50vh"
+											action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+											<input type="hidden"
+												name="${ParameterName.PARAMETER_NUMBER_PAGE}"
+												value="${ParameterValue.NUMBER_FIRST_PAGE_VALUE}" /> <input
+												type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 												value="${CommandName.COMMAND_SHOW_PRODUCT_FEED_AND_OTHER_OFF_FILTER_PAGE}">
-											<button
-												class="btn mx-auto h-100 d-flex justify-content-center align-items-center"
+											<button style="min-width: 42vh"
+												class="btn mx-auto h-100 d-flex justify-content-center align-items-center products_order_top_form_btn"
 												role="button">
-												<h2
-													class="h-100 d-flex justify-content-center align-items-center products_order_top_form_btn">Добавить
-													товар для питомца</h2>
+												<h5
+													class="h-100 d-flex justify-content-center align-items-center ">
+													<fmt:message key="basket_page.add_product_for_pet" />
+												</h5>
 											</button>
 										</form>
 									</div>
@@ -67,9 +86,12 @@
 								<div class="col card_product">
 									<div class="card h-100 card_product_inner">
 										<div class="card-img-top card_img"
-											style="border: 1px solid var(--bs-card-border-color);">
-											<c:if test="${pet.getImgBytes() != null}">${response.getOutputStream().write(pet.getImgBytes()) }</c:if>
-											<c:if test="${pet.getImgBytes() == null}">
+											style="border: 1px solid var(--bs-card-border-color)">
+											<c:if test="${pet.getImagePath() != null}">
+												<img class="w-100 h-100" alt=""
+													src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${pet.getImagePath()}" />
+											</c:if>
+											<c:if test="${pet.getImagePath() == null}">
 												<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 													width="100%" height="100%" viewBox="0 0 64 64">
 <path
@@ -80,31 +102,42 @@
 										<div class="card-body card_body">
 											<div class="discription">
 												<ul class="discription_top">
-													<li>
-														<h2>ID: P - ${pet.getId()}</h2>
-													</li>
-													<li>breed: ${pet.getBreed()}</li>
-													<li>date birthday: ${pet.getBirthDate()}</li>
+													<li><fmt:message key="basket_page.product.number" />
+														p-${pet.getId()}</li>
+													<li><fmt:message key="basket_page.product_pet.type" />
+														${pet.getBreed()}</li>
+													<li><fmt:message key="basket_page.product_pet.breed" />
+														${pet.getBreed()}</li>
+													<li><fmt:message
+															key="basket_page.product_pet.birth_date" />
+														${pet.getBirthDate()}</li>
 												</ul>
 												<ul class="discription_botton">
-													<li>price: ${pet.getPrice()}</li>
-													<li>Discount: ${pet.getDiscount()} <img
+													<li><fmt:message key="basket_page.product.price" />
+														${String.format("%,.2f", pet.getPrice())}</li>
+													<li><fmt:message key="basket_page.product.discount" />
+														${pet.getDiscount()} <img
 														class="discription_botton_discont_procent_img"
-														src="img/percent.svg" alt="percent.svg" /></li>
-													<li>TotalPrice: ${pet.getTotalPrice()}</li>
+														src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
+														alt="percent" /></li>
+													<li><fmt:message key="basket_page.product.total_price" />
+														${String.format("%,.2f", pet.getTotalPrice())}</li>
 												</ul>
 											</div>
 											<div class="row body_btns w-100">
 												<div class="col-12 body_btn">
-													<form action="Controller">
-														<input type="hidden" name="command"
+													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+														<input type="hidden"
+															name="${ParameterName.PARAMETER_COMMAND}"
 															value="${CommandName.COMMAND_SHOW_BACKET_PAGE}" /><input
 															class="productsId_cards_pet_${status.getIndex()}"
 															type="hidden"
 															name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
 														<button class="w-100 h-100 body_btn_input"
 															id="liveToastBtn${status.getIndex()}" role="button"
-															onclick="deleteProducAndGetProducts('.productsId_cards_pet_${status.getIndex()}' ,'p', ${pet.getId()})">удалить</button>
+															onclick="deleteProducAndGetProducts('.productsId_cards_pet_${status.getIndex()}' ,'p', ${pet.getId()})">
+															<fmt:message key="basket_page.product.delete" />
+														</button>
 													</form>
 												</div>
 											</div>
@@ -115,15 +148,16 @@
 									<div id="liveToast${status.getIndex()}" class="toast"
 										role="alert" aria-live="assertive" aria-atomic="true">
 										<div class="toast-header">
-											<img src="img/logo.svg" class="rounded me-2 toast_logo"
-												alt="logo.svg"> <strong class="me-auto">Zoo
+											<img class="rounded me-2 toast_logo"
+												src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.LOGO_PNG_IMAGE_PATH}"
+												alt="logo"> <strong class="me-auto">Zoo
 												ковчег</strong>
 											<button type="button" class="btn-close"
 												data-bs-dismiss="toast" aria-label="Закрыть"></button>
 										</div>
-										<div class="toast-body${status.getIndex()}">Вы удалили
-											из корзтны следующий товар:
-											${productsPets.get(status.getIndex()).getDescription()}</div>
+										<div class="toast-body${status.getIndex()}">
+											<fmt:message key="basket_page.product.toast.massege" />
+										</div>
 									</div>
 								</div>
 							</c:forEach>
@@ -134,8 +168,11 @@
 									<div class="card h-100 card_product_inner">
 										<div class="card-img-top card_img"
 											style="border: 1px solid var(--bs-card-border-color);">
-											<c:if test="${item.getImgBytes() != null}">${response.getOutputStream().write(item.getImgBytes()) }</c:if>
-											<c:if test="${item.getImgBytes() == null}">
+											<c:if test="${item.getImagePath() != null}">
+												<img class="w-100 h-100" alt=""
+													src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${item.getImagePath()}" />
+											</c:if>
+											<c:if test="${item.getImagePath() == null}">
 												<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 													width="100%" height="100%" viewBox="0 0 64 64">
 <path
@@ -146,27 +183,38 @@
 										<div class="card-body card_body">
 											<div class="discription">
 												<ul class="discription_top">
-													<li>
-														<h2>ID: O - ${item.getId()}</h2>
-													</li>
-													<li>Product type: ${item.getProductType()}</li>
-													<li>Brand: ${item.getBrand()}</li>
-													<li>Description: ${item.getDescriptions().toString()}</li>
-													<li>For pets: ${item.getPetTypes().toString()}</li>
+													<li><fmt:message key="basket_page.product.number" />
+														o-${item.getId()}</li>
+													<li><fmt:message
+															key="basket_page.product_feed_and_other.type" />
+														${item.getProductType()}</li>
+													<li><fmt:message
+															key="basket_page.product_feed_and_other.brand" />
+														${item.getBrand()}</li>
+													<li><fmt:message
+															key="basket_page.product_feed_and_other.description" />
+														${item.getDescriptions()}</li>
+													<li><fmt:message
+															key="basket_page.product_feed_and_other.pet_types" />
+														${item.getPetTypes().toString().substring(1, item.getPetTypes().toString().length() - 1)}</li>
 												</ul>
 												<ul class="discription_botton">
-													<li>Price: ${item.getPrice()}</li>
-													<li>Discont: ${item.getDiscount()}<img
+													<li><fmt:message key="basket_page.product.price" />
+														${String.format("%,.2f", item.getPrice())}</li>
+													<li><fmt:message key="basket_page.product.discount" />
+														${item.getDiscount()}<img
 														class="discription_botton_discont_procent_img"
-														src="img/percent.svg" alt="percent.svg" />
-													</li>
-													<li>TotalPrice: ${item.getTotalPrice()}</li>
+														src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
+														alt="percent" /></li>
+													<li><fmt:message key="basket_page.product.total_price" />
+														${String.format("%,.2f", item.getTotalPrice())}</li>
 												</ul>
 											</div>
 											<div class="row body_btns w-100 ">
 												<div class="col body_btn">
-													<form action="Controller">
-														<input type="hidden" name="command"
+													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+														<input type="hidden"
+															name="${ParameterName.PARAMETER_COMMAND}"
 															value="${CommandName.COMMAND_SHOW_BACKET_PAGE}" /> <input
 															class="productsId_cards_item_${status.getIndex()}"
 															type="hidden"
@@ -186,59 +234,90 @@
 										class="toast" role="alert" aria-live="assertive"
 										aria-atomic="true">
 										<div class="toast-header">
-											<img src="img/logo.svg" class="rounded me-2 toast_logo"
-												alt="logo.svg"> <strong class="me-auto">Zoo
+											<img class="rounded me-2 toast_logo"
+												src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.LOGO_PNG_IMAGE_PATH}"
+												alt="logo"> <strong class="me-auto">Zoo
 												ковчег</strong>
 											<button type="button" class="btn-close"
 												data-bs-dismiss="toast" aria-label="Закрыть"></button>
 										</div>
 										<div
-											class="toast-body${order.getProductsPets().size() + status.getIndex()}">Вы
-											удалили из корзтны следующий товар:
-											${order.getOtherProducts().get(status.getIndex()).getDescription()}</div>
+											class="toast-body${order.getProductsPets().size() + status.getIndex()}">
+											<fmt:message key="basket_page.product.toast.massege" />
+										</div>
 									</div>
 								</div>
 							</c:forEach>
 							<c:if
 								test="${order.getProductsPets().size() == 0 && order.getOtherProducts().size() == 0} ">
 								<div class="text">
-									<h4 class="text-center">Ваша корзина пуста.</h4>
+									<h4 class="text-center">
+										<fmt:message key="basket_page.if_basket_empty.massege" />
+									</h4>
 								</div>
 							</c:if>
 						</div>
 					</div>
 					<div class="col-3">
-						<h1 class="text-uppercase d-flex justify-content-center">Заказ</h1>
+						<h1 class="text-uppercase d-flex justify-content-center">
+							<fmt:message key="basket_page.order" />
+						</h1>
 						<div class="description_body">
 							<ul class="description_body_list">
 								<c:forEach items="${order.getProductsPets()}" var="pet"
 									varStatus="status">
 									<li class="body_list_item"><span class="fw-bolder">
-											${status.getIndex() + 1}. </span> ${pet.getDescription()}<br />
-										Price: ${pet.getPrice()} <br /> Discount: ${pet.getPrice() * pet.getDiscount() / 100}
-										<br /> Price with discount: ${pet.getTotalPrice()}</li>
+											${status.getIndex() + 1}. </span> <fmt:message
+											key="basket_page.product.number" /> p-${pet.getId()}<br />
+										<fmt:message key="basket_page.product.price" />
+										${String.format("%,.2f", pet.getPrice())} <br /> <fmt:message
+											key="basket_page.product.discount" />
+										${String.format("%,.2f", pet.getPrice() * pet.getDiscount() / 100)}
+										<br /> <fmt:message key="basket_page.product.total_price" />
+										${String.format("%,.2f", pet.getTotalPrice())}</li>
 								</c:forEach>
 								<c:forEach items="${order.getOtherProducts()}" var="item"
 									varStatus="status">
 									<li class="body_list_item"><span class="fw-bolder">
-											${status.getIndex() + 1}. </span>${item.getDescription()}<br />
-										Price: ${item.getPrice()} <br /> Discount: ${item.getPrice() * item.getDiscount() / 100}
-										<br /> Price with discount: ${item.getTotalPrice()}</li>
+											${status.getIndex() + 1}. </span> <fmt:message
+											key="basket_page.product.number" /> o-${item.getId()}<br />
+										<fmt:message key="basket_page.product.price" />
+										${String.format("%,.2f", item.getPrice())} <br /> <fmt:message
+											key="basket_page.product.discount" />
+										${String.format("%,.2f", item.getPrice() * item.getDiscount() / 100)}
+										<br /> <fmt:message key="basket_page.product.total_price" />
+										${String.format("%,.2f", item.getTotalPrice())}</li>
 								</c:forEach>
 							</ul>
 							<div class="description_footer">
 								<div class="description_footer_totat">
-									<p>Итого: ${String.format("%,.2f", order.getTotalPaymentAmount())}</p>
-									<p>Скидка на акционные товары: ${String.format("%,.2f", order.getTotalProductsDiscountAmount())}</p>
-									<p>Скидка персональная: ${String.format("%,.2f", order.getTotalPersonDiscountAmount())}</p>
-									<p>Игого скидка: ${String.format("%,.2f", order.getTotalDiscountAmount())}</p>
-									<p>Итого со скидкой к оплате: ${String.format("%,.2f", order.getTotalPaymentWithDiscountAmount())}</p>
+									<p>
+										<fmt:message key="basket_page.order.price" />
+										${String.format("%,.2f", order.getTotalPaymentAmount())}
+									</p>
+									<p>
+										<fmt:message key="basket_page.order.discount_from_products" />
+										${String.format("%,.2f", order.getTotalProductsDiscountAmount())}
+									</p>
+									<p>
+										<fmt:message key="basket_page.order.discount_personal" />
+										${String.format("%,.2f", order.getTotalPersonDiscountAmount())}
+									</p>
+									<p>
+										<fmt:message key="basket_page.order.total_discount" />
+										${String.format("%,.2f", order.getTotalDiscountAmount())}
+									</p>
+									<p>
+										<fmt:message key="basket_page.order.total_price_with_discount" />
+										${String.format("%,.2f", order.getTotalPaymentWithDiscountAmount())}
+									</p>
 								</div>
 								<div class="description_footer_btns">
 									<div class="description_footer">
 										<button class="description_footer_btn"
-											onclick="showPaymentInformationForm()">Оформить
-											заказ</button>
+											onclick="showPaymentInformationForm()">
+											<fmt:message key="basket_page.pay" />
+										</button>
 									</div>
 								</div>
 							</div>
@@ -259,10 +338,16 @@
                     </svg>
 									</div>
 
-									<h2 class="form_title text-center mb-3">Данные для оплаты</h2>
+									<h2 class="form_title text-center mb-3">
+										<fmt:message key="basket_page.paymant_form.title" />
+									</h2>
 								</div>
-								<form class=" " action="Controller">
-									<h6>Введите номер банковской карты</h6>
+								<form class=""
+									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<h6>
+										<fmt:message
+											key="basket_page.paymant_form.input.enter_number_bank_card" />
+									</h6>
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control"
 											id="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_NUMBER_BANK_CARD}"
@@ -270,12 +355,17 @@
 											placeholder="1234 5678 8765 4321"
 											pattern="\d{4}\s\d{4}\s\d{4}\s\d{4}" required /> <label
 											class="text-lowercase"
-											for="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_NUMBER_BANK_CARD}">Введите
-											номер карты</label>
+											for="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_NUMBER_BANK_CARD}">
+											<fmt:message
+												key="basket_page.paymant_form.input.enter_number_bank_card" />
+										</label>
 									</div>
 									<div class="input-group mb-3">
 										<div class="input_group_title">
-											<h6>Введите месяц и год окончания работы карты</h6>
+											<h6>
+												<fmt:message
+													key="basket_page.paymant_form.input.enter_month_and_year_end_card" />
+											</h6>
 										</div>
 										<div class="input_group_forms d-flex flex-row w-100">
 											<div class="form-floating" style="width: inherit">
@@ -285,7 +375,8 @@
 													pattern="^(12|11|10|(0)?9|(0)?8|(0)?7|(0)?6|(0)?5|(0)?4|(0)?3|(0)?2|(0)?1)$"
 													name="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_MONTH}"
 													required /> <label class="text-lowercase"
-													for="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_MONTH}">месяц</label>
+													for="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_MONTH}"><fmt:message
+														key="basket_page.paymant_form.lable.month" /></label>
 											</div>
 											<span class="input-group-text">/</span>
 											<div class="form-floating" style="width: inherit">
@@ -294,26 +385,31 @@
 													placeholder="год" pattern="\d{2}"
 													name="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_YEAR}"
 													required /> <label class="text-lowercase"
-													for="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_YEAR}">год</label>
+													for="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_YEAR}"><fmt:message
+														key="basket_page.paymant_form.lable.year" /></label>
 											</div>
 										</div>
 									</div>
-									<h6>Введите SVC (3 цифры)</h6>
+									<h6>
+										<fmt:message key="basket_page.paymant_form.input.enter_cvc" />
+									</h6>
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control"
 											id="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_CVC}"
 											name="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_CVC}"
 											placeholder="123" pattern="\d{3}" required /> <label
 											class="text-lowercase"
-											for="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_CVC}">Введите
-											CVS</label>
+											for="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_CVC}"><fmt:message
+												key="basket_page.paymant_form.input.enter_cvc" /></label>
 									</div>
 									<div
 										class="payment_information_form_fotter d-flex justify-content-end">
-										<input type="hidden" name="command"
+										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_ORDER_PAYMENT}" />
 										<button class="btn payment_information_form_btn_submit"
-											role="button">готово</button>
+											role="button">
+											<fmt:message key="basket_page.paymant_form.ready" />
+										</button>
 									</div>
 								</form>
 							</div>
@@ -324,8 +420,9 @@
 					<div class="col-12">
 						<h3
 							class="text-center d-flex flex-column justify-content-center align-items-center"
-							style="min-height: 47.8vh">Ваше время сессии завершено.
-							Перезайдите в учётную запись.</h3>
+							style="min-height: 47.8vh">
+							<fmt:message key="basket_page.if_finish_session.massege" />
+						</h3>
 					</div>
 				</c:if>
 			</div>
@@ -336,6 +433,7 @@
 
 	<script src="js/bootstrap.bundle.js"></script>
 	<script src="js/min_base.js"></script>
+	<script src="js/header_top.js"></script>
 	<script src="js/basket.js"></script>
 
 	<script>

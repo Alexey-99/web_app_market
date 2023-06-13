@@ -113,7 +113,7 @@ public class ProductFeedsAndOtherPaginationTag extends TagSupport {
 				builder.append("<li> type of product: ").append(feedAndOther.getProductType()).append("</li>");
 				builder.append("<li> brand of product: ").append(feedAndOther.getBrand()).append("</li>");
 				builder.append("<li> description of product: ").append(feedAndOther.getDescriptions()).append("</li>");
-				builder.append("<li> This product is suitable for the following types of pets: ").append(feedAndOther
+				builder.append("<li> this product is suitable for the following types of pets: ").append(feedAndOther
 						.getPetTypes().toString().substring(1, feedAndOther.getPetTypes().toString().length() - 1))
 						.append("</li>");
 			} else {
@@ -174,9 +174,8 @@ public class ProductFeedsAndOtherPaginationTag extends TagSupport {
 						" />
 
 						""").append("<button class=\"w-100 h-100 body_btn_input\" id=\"liveToastBtn")
-						.append(feedAndOther.getId()).append("""
-								" type="button" onclick="addProductPet(
-								""").append(feedAndOther.getId()).append(", ").append(i).append(") \">");
+						.append(feedAndOther.getId()).append("\" type=\"button\" onclick=\"addProductOtherProducts(")
+						.append(feedAndOther.getId()).append(", ").append(i).append(") \">");
 				if (locale.equalsIgnoreCase(RUSSIAN)) {
 					builder.append("в карзину");
 				} else if (locale.equalsIgnoreCase(ENGLISH)) {
