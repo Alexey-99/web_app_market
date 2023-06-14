@@ -1,10 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
 <%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
 <%@page import="by.koroza.zoo_market.model.entity.status.UserRole"%>
+<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
+	scope="session" />
+<fmt:setBundle
+	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,12 +21,12 @@
 <link rel="stylesheet" href="css/items/root.css" />
 <link rel="stylesheet" href="css/items/main_header.css" />
 <link rel="stylesheet" href="css/pages/personal_account.css" />
-<title>personal_account_person_infomation.jsp</title>
+<title><fmt:message
+		key="personal_account_person_infomation.title" /></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 </head>
 <body>
 	<%@ include file="/jsp/items/header_block_header_top.jsp"%>
-
 
 	<main class="mb-5">
 		<div class="container">
@@ -26,35 +34,43 @@
 				<c:if test="${user != null}">
 					<div class="col-md-2 col-sm-3 col-xs-4">
 						<div class="btn-group person_account_menu_links">
-							<form action="controller">
-								<input type="hidden" name="command"
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 									value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE}" />
 								<button
 									class="btn btn-primary w-100 active person_account_menu_link btn_first"
-									role="button" aria-current="page">Профиль</button>
+									role="button" aria-current="page">
+									<fmt:message key="personal_account.profile" />
+								</button>
 							</form>
-							<form action="controller">
-								<input type="hidden" name="command"
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 									value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_HISTORY_ORDERS_PAGE}" />
 								<button class="btn btn-primary person_account_menu_link w-100"
-									role="button">Заказы</button>
+									role="button">
+									<fmt:message key="personal_account.history_orders" />
+								</button>
 							</form>
 							<c:if
 								test="${user.getRole().getIdRole() == UserRole.ADMIN.getIdRole()}">
-								<form action="controller">
-									<input type="hidden" name="command"
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE}" />
 									<button class="btn btn-primary w-100 person_account_menu_link"
-										role="button" aria-current="page">Страница
-										администратора</button>
+										role="button" aria-current="page">
+										<fmt:message key="personal_account.admin_page" />
+									</button>
 								</form>
 							</c:if>
-							<form class="mt-3" action="Controller">
-								<input type="hidden" name="command"
+							<form class="mt-3"
+								action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 									value="${CommandName.COMMAND_SIGN_OUT_PERSONAL_ACCOUNT}" />
 								<button
 									class="btn btn-primary person_account_menu_link w-100 btn_first btn_last"
-									role="button">Выйти</button>
+									role="button">
+									<fmt:message key="personal_account.exit" />
+								</button>
 							</form>
 						</div>
 					</div>
@@ -62,7 +78,9 @@
 					<div class="col-md-10 col-sm-9 col-xs-8 person_part">
 						<div class="row">
 							<div class="col-12 mb-5">
-								<h1 class="person_part_title">Профиль</h1>
+								<h1 class="person_part_title">
+									<fmt:message key="personal_account.profile" />
+								</h1>
 							</div>
 						</div>
 						<div class="row">
@@ -71,7 +89,8 @@
 									class="row row-cols-1 row-cols-sm-1 row-cols-lg-2 row-cols-xxl-3 g-4 personal_infomation">
 									<div class="general_infomation">
 										<h4 class="d-flex align-items-center mb-4 part_title">
-											Общая информация
+											<fmt:message
+												key="personal_account_person_infomation.general_information" />
 											<button
 												class="btn pb-0 pt-0 change_infomation_btn general_infomation_btn"
 												onclick="showGeneralInfomationForm()">
@@ -92,17 +111,25 @@
                         </svg>
 											</button>
 										</h4>
-										<span>имя</span>
+										<span><fmt:message
+												key="personal_account_person_infomation.general_information.name" />
+										</span>
 										<h5>${user.getName()}</h5>
-										<span>фамилия</span>
+										<span><fmt:message
+												key="personal_account_person_infomation.general_information.surname" />
+										</span>
 										<h5>${user.getSurname()}</h5>
-										<span>e-mail</span>
+										<span><fmt:message
+												key="personal_account_person_infomation.general_information.email" /></span>
 										<h5>${user.getEmail()}</h5>
 									</div>
 									<div class="personal_discont">
 										<h4 class="d-flex align-items-center mb-4 part_title">
-											Персональная скидка</h4>
-										<span>размер</span>
+											<fmt:message
+												key="personal_account_person_infomation.general_information.personal_discount" />
+										</h4>
+										<span><fmt:message
+												key="personal_account_person_infomation.general_information.personal_discount.value" /></span>
 										<h5 class="d-flex align-items-center">
 											<c:if test="${user.getDiscount() == 0}">0</c:if>
 											<c:if test="${user.getDiscount() > 0}">${user.getDiscount()}</c:if>
@@ -117,7 +144,8 @@
 									</div>
 									<div class="login_password">
 										<h4 class="d-flex align-items-center mb-4 part_title">
-											Логин и пароль
+											<fmt:message
+												key="personal_account_person_infomation.login_and_password" />
 											<button
 												class="btn pb-0 pt-0 change_infomation_btn login_password_btn"
 												onclick="showLoginPasswordForm()">
@@ -138,9 +166,12 @@
                         </svg>
 											</button>
 										</h4>
-										<span>логин</span>
+										<span><fmt:message
+												key="personal_account_person_infomation.login_and_password.login" />
+										</span>
 										<h5>${user.getLogin()}</h5>
-										<span>пароль</span>
+										<span><fmt:message
+												key="personal_account_person_infomation.login_and_password.password" /></span>
 										<div class="d-flex flex-row align-items-center">
 											<h5 class="text_password hide_password mb-1">${user.getPassword()}</h5>
 											<button class="btn password_btn" onclick="showPassword()">
@@ -175,22 +206,27 @@
 	<path
 												d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z" /></svg>
 									</div>
-									<h2 class="form_title text-center mb-3">Изменение общей
-										информации</h2>
+									<h2 class="form_title text-center mb-3">
+										<fmt:message
+											key="personal_account_person_infomation.changing_general_information_form.title" />
+									</h2>
 								</div>
-								<form class=" " action="Controller">
+								<form class=""
+									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control" id="floatingInputName"
 											name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_NAME}"
 											value="${user.getName()}" placeholder="Robert" /> <label
-											class="text-lowercase" for="floatingInputName">Имя</label>
+											class="text-lowercase" for="floatingInputName"><fmt:message
+												key="personal_account_person_infomation.changing_general_information_form.name" /></label>
 									</div>
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control"
 											id="floatingInputSurname"
 											name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_SURNAME}"
 											value="${user.getSurname()}" placeholder="Downey" /> <label
-											class="text-lowercase" for="floatingInputSurname">Фамилия</label>
+											class="text-lowercase" for="floatingInputSurname"><fmt:message
+												key="personal_account_person_infomation.changing_general_information_form.surname" /></label>
 									</div>
 									<div class="form-floating mb-3">
 										<input type="email" class="form-control"
@@ -198,16 +234,24 @@
 											pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})"
 											name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_EMAIL}"
 											value="${user.getEmail()}" /> <label class="text-lowercase"
-											for="floatingInputEmail">Адрес электронной почты</label>
+											for="floatingInputEmail"><fmt:message
+												key="personal_account_person_infomation.changing_general_information_form.email" />
+										</label>
 									</div>
 									<div
 										class="general_infomation_form_fotter d-flex justify-content-end">
 										<div class="btn general_infomation_form_btn_cancel"
-											onclick="closeGeneralInfomationForm()">отмена</div>
-										<input type="hidden" name="command"
+											onclick="closeGeneralInfomationForm()">
+											<fmt:message
+												key="personal_account_person_infomation.changing_general_information_form.cancel" />
+										</div>
+										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_CHANGING_PERSON_INFORMATION}" />
 										<button class="btn general_infomation_form_btn_submit"
-											role="button">готово</button>
+											role="button">
+											<fmt:message
+												key="personal_account_person_infomation.changing_general_information_form.ok" />
+										</button>
 									</div>
 								</form>
 							</div>
@@ -229,13 +273,16 @@
 									<h2 class="form_title text-center mb-3">Изменение логина /
 										пароля</h2>
 								</div>
-								<form class=" " action="Controller">
+								<form class=""
+									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control"
 											id="floatingInputLogin"
 											name="${InputName.CHANGING_LOGIN_AND_PASSWORD_INPUT_USER_LOGIN}"
 											value="${user.getLogin()}" placeholder="Robert_99" /> <label
-											class="text-lowercase" for="floatingInputLogin">Логин</label>
+											class="text-lowercase" for="floatingInputLogin"><fmt:message
+												key="personal_account_person_infomation.changing_login_and_password_form.login" />
+										</label>
 									</div>
 									<div
 										class="form-floating mb-3 d-flex justify-content-center align-items-center">
@@ -244,7 +291,8 @@
 											id="floatingInputPassword"
 											name="${InputName.CHANGING_LOGIN_AND_PASSWORD_INPUT_USER_PASSWORD}"
 											value="${user.getPassword()}" placeholder="123456" /> <label
-											class="text-lowercase" for="floatingInputPassword">Пароль</label>
+											class="text-lowercase" for="floatingInputPassword"><fmt:message
+												key="personal_account_person_infomation.changing_login_and_password_form.password" /></label>
 										<div class="btn login_password_form_password_btn"
 											onclick="showPasswordInLoginPasswordFormInput()">
 											<svg class="login_password_form_open_eye"
@@ -264,11 +312,17 @@
 									<div
 										class="login_password_form_fotter d-flex justify-content-end">
 										<div class="btn login_password_form_btn_cancel"
-											onclick="closeLoginPasswordForm()">отмена</div>
-										<input type="hidden" name="command"
+											onclick="closeLoginPasswordForm()">
+											<fmt:message
+												key="personal_account_person_infomation.changing_general_information_form.cancel" />
+										</div>
+										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_CHANGING_LOGIN_AND_PASSWORD}" />
 										<button class="btn login_password_form_btn_submit"
-											role="button">готово</button>
+											role="button">
+											<fmt:message
+												key="personal_account_person_infomation.changing_general_information_form.ok" />
+										</button>
 									</div>
 								</form>
 							</div>
@@ -279,8 +333,10 @@
 					<div class="col-12">
 						<h3
 							class="text-center d-flex flex-column justify-content-center align-items-center"
-							style="min-height: 45.3vh">Ваше время сессии завершено.
-							Перезайдите в учётную запись.</h3>
+							style="min-height: 45.3vh">
+							<fmt:message
+								key="personal_account_person_infomation.end_session.message" />
+						</h3>
 					</div>
 				</c:if>
 			</div>
