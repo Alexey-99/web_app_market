@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
 <%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
-<%@page
-	import="by.koroza.zoo_market.web.command.impl.RegistrationUserCommand"%>
+<%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
+<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
+	scope="session" />
+<fmt:setBundle
+	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +21,7 @@
 <link rel="stylesheet" href="css/items/header_top.css" />
 <link rel="stylesheet"
 	href="css/items/verification_personal_account.css" />
-<title>verification_registration_information.jsp</title>
+<title><fmt:message key="verification_email.title" /></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 </head>
 <body>
@@ -29,8 +35,8 @@
 							class="position-relative w-100 d-flex flex-column verification_personal_account_inner">
 							<div
 								class="d-flex justify-content-center align-items-center mb-4 verification_personal_account_top">
-								<form action="Controller">
-									<input type="hidden" name="command"
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_HOME_PAGE}" />
 									<button class="close_btn border-0 bg-transparent" role="button">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -40,13 +46,16 @@
                       </svg>
 									</button>
 								</form>
-								<h4 class="text-center">Введите код отправленный на email
-									"${user.getEmail()}"</h4>
+								<h4 class="text-center">
+									<fmt:message
+										key="verification_email.massege.enter_verification_code" />
+									<span> </span> "${user.getEmail()}"<span>)</span>
+								</h4>
 							</div>
 							<div
 								class="d-flex justify-content-center align-items-center flex-column verification_personal_account_body">
 								<form class="w-100 verification_personal_account_form"
-									action="Controller">
+									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 									<div
 										class="form-floating mb-3 w-100 verification_personal_account_body">
 										<input type="text"
@@ -55,25 +64,33 @@
 											name="${InputName.VERIFICATION_PERSON_ACCOUNT_INPUT_CODE}"
 											placeholder="name@example.com" /> <label
 											class="text-lowercase verification_personal_account_form_body_label w-100 text-center"
-											for="floatingInputCode">Введите пароль ...</label>
+											for="floatingInputCode"><fmt:message
+												key="verification_email.lable.massege.enter_password" />
+											...</label>
 									</div>
 									<div
 										class="verification_personal_account_form_fotter d-flex justify-content-end">
 										<div class="verification_personal_account_form_fotter_btn">
-											<input type="hidden" name="command"
+											<input type="hidden"
+												name="${ParameterName.PARAMETER_COMMAND}"
 												value="${CommandName.COMMAND_VERIFICATION_PERSONAL_ACCOUNT}" />
 											<button
 												class="btn verification_personal_account_btn_submit text-uppercase"
-												role="button">ок</button>
+												role="button">
+												<fmt:message key="verification_email.ok" />
+											</button>
 										</div>
 									</div>
 								</form>
-								<form action="Controller">
-									<input type="hidden" name="command"
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SEND_ONE_MORE_TIME_VERIFICATION_CODE}" />
 									<button
 										class="btn verification_personal_account_btn_submit text-uppercase"
-										role="button">отправить ещё раз</button>
+										role="button">
+										<fmt:message
+											key="verification_email.send_verification_code_one_more_tim" />
+									</button>
 								</form>
 							</div>
 						</div>

@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
 <%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
-<%@page
-	import="by.koroza.zoo_market.web.command.impl.RegistrationUserCommand"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
+<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
+	scope="session" />
+<fmt:setBundle
+	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +20,8 @@
 <link rel="stylesheet" href="css/items/header_top.css" />
 <link rel="stylesheet"
 	href="css/items/verification_registration_information.css" />
-<title>verification_registration_information.jsp</title>
+<title><fmt:message
+		key="verification_registration_information.title" /></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 </head>
 <body>
@@ -29,8 +35,8 @@
 							class="position-relative w-100 d-flex flex-column verification_registration_information_inner">
 							<div
 								class="d-flex justify-content-center align-items-center mb-4 verification_registration_information_top_btns">
-								<form action="Controller">
-									<input type="hidden" name="command"
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 									<button class="close_btn border-0 bg-transparent" role="button"
 										style="top: 25px; right: 30px">
@@ -40,37 +46,50 @@
 												d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z" /></svg>
 									</button>
 								</form>
-								<h4>Проверка информации для регистрации</h4>
+								<h4>
+									<fmt:message
+										key="verification_registration_information.form.title" />
+								</h4>
 							</div>
 							<div
 								class="d-flex justify-content-center align-items-center flex-column verification_registration_information_body">
-								<span>имя</span>
+								<span> <fmt:message
+										key="verification_registration_information.form.user_name" />
+								</span>
 								<h5>
 									<c:if
 										test="${user.getName() != null && !user.getName().isBlank()}">${user.getName()}</c:if>
 									<c:if
-										test="${user.getName() == null && user.getName().isBlank()}">(не указано)</c:if>
+										test="${user.getName() == null && user.getName().isBlank()}">(<fmt:message
+											key="verification_registration_information.form.not_entered" />)</c:if>
 								</h5>
-								<span>фамилия</span>
+								<span><fmt:message
+										key="verification_registration_information.form.user_surname" />
+								</span>
 								<h5>
 									<c:if
 										test="${user.getSurname() != null && !user.getSurname().isBlank()}">${user.getSurname()}</c:if>
 									<c:if
-										test="${user.getSurname() == null && user.getSurname().isBlank()}">(не указано)</c:if>
+										test="${user.getSurname() == null && user.getSurname().isBlank()}">(<fmt:message
+											key="verification_registration_information.form.not_entered" />)</c:if>
 								</h5>
-								<span>e-mail</span>
+								<span><fmt:message
+										key="verification_registration_information.form.user_email" />
+								</span>
 								<h5>
 									<c:if
 										test="${user.getEmail() != null && !user.getEmail().isBlank()}">${user.getEmail()}</c:if>
 									<c:if
-										test="${user.getEmail() == null && user.getEmail().isBlank()}">(не указано)</c:if>
+										test="${user.getEmail() == null && user.getEmail().isBlank()}">(<fmt:message
+											key="verification_registration_information.form.not_entered" />)</c:if>
 								</h5>
 								<span>логин</span>
 								<h5>
 									<c:if
 										test="${user.getLogin() != null && !user.getLogin().isBlank()}">${user.getLogin()}</c:if>
 									<c:if
-										test="${user.getLogin() == null && user.getLogin().isBlank()}">(не указано)</c:if>
+										test="${user.getLogin() == null && user.getLogin().isBlank()}">(<fmt:message
+											key="verification_registration_information.form.not_entered" />)</c:if>
 								</h5>
 								<span>пароль</span>
 								<div class="d-flex flex-row align-items-center">
@@ -78,7 +97,8 @@
 										<c:if
 											test="${user.getPassword() != null && !user.getPassword().isBlank()}">${user.getPassword()}</c:if>
 										<c:if
-											test="${user.getPassword() == null && user.getPassword().isBlank()}">(не указано)</c:if>
+											test="${user.getPassword() == null && user.getPassword().isBlank()}">(<fmt:message
+												key="verification_registration_information.form.not_entered" />)</c:if>
 									</h5>
 									<button class="btn password_btn" onclick="showPassword()">
 										<svg class="open_eye" xmlns="http://www.w3.org/2000/svg"
@@ -97,20 +117,24 @@
 							</div>
 							<div
 								class="verification_registration_information_fotter d-flex justify-content-end">
-								<form action="Controller">
-									<input type="hidden" name="command"
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_REGISTRATION_USER}" />
 									<button
 										class="btn verification_registration_information_btn_incorrect"
-										role="button">Нужно что-то исправить</button>
+										role="button">
+										<fmt:message key="verification_registration_information.back" />
+									</button>
 								</form>
 
-								<form action="Controller">
-									<input type="hidden" name="command"
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_VERIFICATION_REGISTRATION_INFORMATION}" />
 									<button
 										class="btn verification_registration_information_btn_correct"
-										role="button">Всё корректно!!!</button>
+										role="button">
+										<fmt:message key="verification_registration_information.ok" />
+									</button>
 								</form>
 							</div>
 						</div>

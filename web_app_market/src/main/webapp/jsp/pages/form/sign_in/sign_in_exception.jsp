@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
 <%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
 <%@page
 	import="by.koroza.zoo_market.web.command.impl.RegistrationUserCommand"%>
+<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
+	scope="session" />
+<fmt:setBundle
+	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,8 +21,8 @@
 <link rel="stylesheet" href="css/items/header_top.css" />
 <link rel="stylesheet"
 	href="css/items/sign_in_and_registration_form.css" />
-<title>sign_in_exception.jsp</title>
-<!-- registrationInputException = AttributeName.ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION -->
+<title><fmt:message key="sign_in_and_registartion_form.title" />
+</title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 <!-- isHivingReservedUser = AttributeName.ATTRIBUTE_IS_HAVING_RESERVED_USER -->
 </head>
@@ -31,8 +37,8 @@
 							class="position-relative w-100 d-flex flex-column sign_in_and_registration_form_inner">
 							<div
 								class="d-flex justify-content-center align-items-center mb-4 sign_in_and_registration_form_top_btns">
-								<form action="Controller">
-									<input type="hidden" name="command"
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_HOME_PAGE}" />
 									<button class="close_btn" role="button"
 										style="border: 0; background: transparent; top: 20px; right: 30px;">
@@ -45,26 +51,36 @@
 								</form>
 								<button
 									class="btn text-uppercase active sign_in_and_registration_form_top_btn sign_in_and_registration_form_top_btn_sign_in"
-									role="button" onclick="openSignInForm()">Войти</button>
+									role="button" onclick="openSignInForm()">
+									<fmt:message
+										key="header_top.sign_in_and_registartion_form.sign_in_and_registartion_form_top.sign_in" />
+								</button>
 								<button
 									class="btn  text-uppercase sign_in_and_registration_form_top_btn sign_in_and_registration_form_top_btn_registration"
 									role="button" onclick="openRegistrationForm()">
-									Регистрация</button>
+									<fmt:message
+										key="header_top.sign_in_and_registartion_form.sign_in_and_registartion_form_top.registration" />
+								</button>
 							</div>
 
 							<div class="sign_in_form">
 								<div class="sign_in_form_top">
-									<h2 class="form_title text-center mb-3 text-lowercase">логин
-										и пароль</h2>
+									<h2 class="form_title text-center mb-3 text-lowercase">
+										<fmt:message
+											key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_top.form_title.login_and_password" />
+									</h2>
 								</div>
-								<form class="sign_in_form_body" action="Controller">
+								<form class="sign_in_form_body"
+									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control is-invalid "
 											id="floatingInputLogin"
 											name="${InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_LOGIN}"
 											placeholder="Robert99" /> <label
 											class="text-lowercase sign_in_form_body_label"
-											for="floatingInputLogin">Логин</label>
+											for="floatingInputLogin"><fmt:message
+												key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login" />
+										</label>
 									</div>
 									<div
 										class="password_form d-flex juctify-content-between align-items-center">
@@ -74,10 +90,14 @@
 												id="floatingInputPassword"
 												name="${InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_PASSWORD}"
 												placeholder="123456" />
-											<div class="invalid-feedback">вы ввели логин или пароль
-												не корректно</div>
+											<div class="invalid-feedback">
+												<fmt:message
+													key="sign_in_and_registartion_form.sign_in_form.sign_in_form_top.form_title.invalid_feed_back_login_and_password" />
+											</div>
 											<label class="text-lowercase sign_in_form_body_label"
-												for="floatingInputPassword">Пароль</label>
+												for="floatingInputPassword"><fmt:message
+													key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.password" />
+											</label>
 										</div>
 										<div class="btn sign_in_form_password_btn mb-5 "
 											onclick="showPasswordSignInFormInput()">
@@ -96,10 +116,12 @@
 										</div>
 									</div>
 									<div class="sign_in_form_fotter d-flex justify-content-end">
-										<input type="hidden" name="command"
+										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_SIGN_IN_PERSON_ACCOUNT}" />
 										<button class="btn sign_in_form_btn_submit" role="button">
-											готово</button>
+											<fmt:message
+												key="header_top.sign_in_and_registartion_form.registartion_form.footer.button.ok" />
+										</button>
 									</div>
 								</form>
 							</div>
@@ -107,17 +129,21 @@
 							<div class="registration_form d-none">
 								<div class="sign_in_form_top">
 									<h2 class="form_title text-center mb-3 text-lowercase">
-										регистрация</h2>
+										<fmt:message
+											key="header_top.sign_in_and_registartion_form.registartion_form.title.registration" />
+									</h2>
 								</div>
-								<form class="registration_form_body" action="Controller">
+								<form class="registration_form_body"
+									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control" id="floatingInputName"
 											name="${InputName.REGISTRATION_INPUT_USER_NAME}"
 											placeholder="Robert"
 											value='<c:if test="${user.getName() != null && !user.getName().isBlank()}">${user.getName()}</c:if>' />
 										<label class="text-lowercase registration_form_body_label"
-											for="floatingInputName">имя <span>*</span>
-										</label>
+											for="floatingInputName"><fmt:message
+												key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name" />
+											<span>*</span> </label>
 									</div>
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control "
@@ -126,8 +152,9 @@
 											value='<c:if test="${user.getSurname() != null && !user.getSurname().isBlank()}">${user.getSurname()}</c:if>'
 											placeholder="Robert" /> <label
 											class="text-lowercase registration_form_body_label"
-											for="floatingInputSurname">Фамилия<span>*</span>
-										</label>
+											for="floatingInputSurname"><fmt:message
+												key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname" />
+											<span>*</span> </label>
 									</div>
 									<div class="form-floating mb-3">
 										<input type="email" class="form-control"
@@ -137,7 +164,9 @@
 											placeholder="name@example.com"
 											pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})" />
 										<label class="text-lowercase registration_form_body_label"
-											for="floatingInputEmail">Адрес электронной почты </label>
+											for="floatingInputEmail"><fmt:message
+												key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.email_address" />
+										</label>
 									</div>
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control"
@@ -146,7 +175,9 @@
 											value='<c:if test="${user.getLogin() != null && !user.getLogin().isBlank()}">${user.getLogin()}</c:if>'
 											placeholder="Robert" /> <label
 											class="text-lowercase registration_form_body_label"
-											for="floatingInputLogin">Логин</label>
+											for="floatingInputLogin"><fmt:message
+												key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login" />
+										</label>
 									</div>
 									<div
 										class="password_form d-flex juctify-content-between align-items-center">
@@ -158,7 +189,9 @@
 												value='<c:if test="${user.getPassword() != null && !user.getPassword().isBlank()}">${user.getPassword()}</c:if>'
 												placeholder="123456" /> <label
 												class="text-lowercase registration_form_body_label"
-												for="floatingInputPassword">Пароль</label>
+												for="floatingInputPassword"><fmt:message
+													key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password" />
+											</label>
 										</div>
 										<div class="btn registration_form_password_btn mb-5 "
 											onclick="showPasswordRegistrationFormInput()">
@@ -178,15 +211,19 @@
 									</div>
 									<div class="form_description">
 										<h5>
-											<span>*</span> - поле не обязательное для заполнения
+											<span>* </span>
+											<fmt:message
+												key="header_top.sign_in_and_registartion_form.registartion_form.body.form_description.field_is_not_reguired_for_enter_information" />
 										</h5>
 									</div>
-
 									<div
 										class="registration_form_fotter d-flex justify-content-end">
-										<input type="hidden" name="command"
+										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_REGISTRATION_USER}" />
-										<button class="btn registration_form_btn_submit" role="button">готово</button>
+										<button class="btn registration_form_btn_submit" role="button">
+											<fmt:message
+												key="header_top.sign_in_and_registartion_form.registartion_form.footer.button.ok" />
+										</button>
 									</div>
 								</form>
 							</div>
@@ -201,7 +238,6 @@
 	<script src="js/header_top.js"></script>
 	<script src="js/min_base.js"></script>
 	<script src="js/sign_in_and_registration_form.js"></script>
-
 
 </body>
 </html>
