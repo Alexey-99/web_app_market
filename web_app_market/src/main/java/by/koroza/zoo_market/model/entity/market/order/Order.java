@@ -6,34 +6,9 @@ import java.util.List;
 
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
+import by.koroza.zoo_market.model.entity.status.OrderStatus;
 
 public class Order {
-
-	public enum OrderStatus {
-		OPEN(1), WAITING_PAY(2), CLOSED(3);
-
-		private int statusId;
-
-		private OrderStatus(int statusId) {
-			this.statusId = statusId;
-		}
-
-		public int getStatusId() {
-			return statusId;
-		}
-
-		public static OrderStatus findStatusByStatusId(int id) {
-			OrderStatus status = null;
-			switch (id) {
-			case 1 -> status = OPEN;
-			case 2 -> status = WAITING_PAY;
-			case 3 -> status = CLOSED;
-			default -> throw new IllegalArgumentException("Unexpected value: " + id);
-			}
-			return status;
-		}
-	}
-
 	private long id;
 	private long userId;
 	private List<Pet> productsPets;

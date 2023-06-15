@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import by.koroza.zoo_market.model.entity.market.product.Pet;
+import by.koroza.zoo_market.model.entity.status.OrderStatus;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
@@ -22,6 +23,7 @@ import by.koroza.zoo_market.service.impl.ProductPetServiceImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -51,7 +53,7 @@ public class ShowBacketPageCommand implements Command {
 								OrderServiceImpl.getInstance().calcTotalPaymentAmount(productsPets, productsOther))
 						.setTotalProductsDiscountAmount(OrderServiceImpl.getInstance()
 								.calcTotalProductsDiscountAmount(productsPets, productsOther))
-						.setStatus(Order.OrderStatus.OPEN).build();
+						.setStatus(OrderStatus.OPEN).build();
 				order.setTotalPersonDiscountAmount(OrderServiceImpl.getInstance().calcTotalPersonDiscountAmount(
 						order.getTotalPaymentAmount(), order.getTotalProductsDiscountAmount(), user.getDiscount()));
 				order.setTotalDiscountAmount(OrderServiceImpl.getInstance().calcTotalDiscountAmount(

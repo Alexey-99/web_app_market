@@ -43,20 +43,33 @@
 									<fmt:message key="personal_account.profile" />
 								</button>
 							</form>
-							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
-								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-									value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_HISTORY_ORDERS_PAGE}" />
-								<button class="btn btn-primary person_account_menu_link w-100"
-									role="button">
-									<fmt:message key="personal_account.history_orders" />
-								</button>
-							</form>
+							<c:if
+								test="${user.getRole().getIdRole() != UserRole.ADMIN.getIdRole()}">
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
+										value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_HISTORY_ORDERS_PAGE}" />
+									<button
+										class="btn btn-primary person_account_menu_link w-100 btn_last"
+										role="button">
+										<fmt:message key="personal_account.history_orders" />
+									</button>
+								</form>
+							</c:if>
 							<c:if
 								test="${user.getRole().getIdRole() == UserRole.ADMIN.getIdRole()}">
 								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
+										value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_HISTORY_ORDERS_PAGE}" />
+									<button class="btn btn-primary person_account_menu_link w-100"
+										role="button">
+										<fmt:message key="personal_account.history_orders" />
+									</button>
+								</form>
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE}" />
-									<button class="btn btn-primary w-100 person_account_menu_link"
+									<button
+										class="btn btn-primary w-100 person_account_menu_link btn_last"
 										role="button" aria-current="page">
 										<fmt:message key="personal_account.admin_page" />
 									</button>

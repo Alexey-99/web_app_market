@@ -30,6 +30,7 @@ import by.koroza.zoo_market.dao.pool.ProxyConnection;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
+import by.koroza.zoo_market.model.entity.status.OrderStatus;
 import by.koroza.zoo_market.model.entity.status.ProductType;
 import by.koroza.zoo_market.dao.OrderDao;
 import by.koroza.zoo_market.dao.exception.DaoException;
@@ -153,7 +154,7 @@ public class OrderDaoImpl implements OrderDao {
 				statement.setDouble(4, order.getTotalPersonDiscountAmount());
 				statement.setDouble(5, order.getTotalDiscountAmount());
 				statement.setDouble(6, order.getTotalPaymentWithDiscountAmount());
-				statement.setInt(7, Order.OrderStatus.WAITING_PAY.getStatusId());
+				statement.setInt(7, OrderStatus.WAITING_PAY.getStatusId());
 				resultInsetOrder = statement.executeUpdate() > 0;
 			}
 			try (PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_LAST_INSERT_ID);
