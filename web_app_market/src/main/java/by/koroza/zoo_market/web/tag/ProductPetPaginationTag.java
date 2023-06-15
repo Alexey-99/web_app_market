@@ -10,7 +10,7 @@ import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
 import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
 
 import static by.koroza.zoo_market.web.command.name.ServletName.MAIN_SERVLET_CONTROLLER_NAME;
-import static by.koroza.zoo_market.web.command.name.ServletName.SERVLET_SHOW_IMMAGE_NAME;
+import static by.koroza.zoo_market.web.command.name.ServletName.SERVLET_SHOW_IMAGE_NAME;
 
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_COMMAND;
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_NUMBER_PAGE;
@@ -83,7 +83,7 @@ public class ProductPetPaginationTag extends TagSupport {
 			if (pet.getImagePath() != null) {
 				builder.append("""
 						<img class="w-100 h-100" alt="" src="
-						""").append(SERVLET_SHOW_IMMAGE_NAME).append("?").append(PARAMETER_IMAGE_FILE_PATH).append("=")
+						""").append(SERVLET_SHOW_IMAGE_NAME).append("?").append(PARAMETER_IMAGE_FILE_PATH).append("=")
 						.append(pet.getImagePath()).append("""
 								" />
 								""");
@@ -205,7 +205,7 @@ public class ProductPetPaginationTag extends TagSupport {
 							""").append("<div id=\"liveToast").append(pet.getId()).append("""
 					" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
 					<div class="toast-header">
-					""").append("<img class=\"rounded me-2 toast_logo\" src=\"").append(SERVLET_SHOW_IMMAGE_NAME)
+					""").append("<img class=\"rounded me-2 toast_logo\" src=\"").append(SERVLET_SHOW_IMAGE_NAME)
 					.append("?").append(PARAMETER_IMAGE_FILE_PATH).append("=").append(LOGO_PNG_IMAGE_PATH)
 					.append("\" alt=\"logo\"").append("/>")
 					.append("""

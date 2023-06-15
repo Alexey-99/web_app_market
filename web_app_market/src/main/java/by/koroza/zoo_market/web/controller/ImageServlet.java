@@ -32,7 +32,7 @@ import jakarta.servlet.http.Part;
 /**
  * Servlet implementation class ImageServlet
  */
-@WebServlet("/imageServlet")
+@WebServlet("/uploadImageServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 25)
 public class ImageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

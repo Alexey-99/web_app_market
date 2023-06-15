@@ -413,7 +413,7 @@
 													style="border: 1px solid var(--bs-card-border-color); margin: 0 auto; display: flex; justify-content: center; align-items: center; height: auto;">
 													<c:if test="${pet.getKey().getImagePath() != null}">
 														<img class="" style="width: 35px; height: 35px" alt=""
-															src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${pet.getKey().getImagePath()}" />
+															src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${pet.getKey().getImagePath()}" />
 													</c:if>
 													<c:if test="${pet.getKey().getImagePath() == null}">
 														<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -480,7 +480,7 @@
 													class="image_product_id_body h-100 d-flex justify-content-center align-items-center">
 													<c:if test="${pet.getKey().getImagePath() != null}">
 														<img style="height: 45vh" alt=""
-															src=" ${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${pet.getKey().getImagePath()}" />
+															src=" ${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${pet.getKey().getImagePath()}" />
 													</c:if>
 													<c:if test="${pet.getKey().getImagePath() == null}">
 														<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -513,7 +513,7 @@
 												</div>
 												<div class="change_product_form_body h-100">
 													<form class="change_product_form_body" method="post"
-														action="${pageContext.request.contextPath}/imageServlet"
+														action="${pageContext.request.contextPath}/${ServletName.SERVLET_UPLOAD_IMAGE_NAME}"
 														enctype="multipart/form-data">
 														<input type="hidden"
 															name="${InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_ID}"
@@ -534,7 +534,7 @@
 																<c:if test="${pet.getKey().getImagePath() != null}">
 																	Выбрана картинка с названием ${pet.getKey().getImagePath()}
 																	<img class="" style="width: 35px; height: 35px" alt=""
-																		src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${pet.getKey().getImagePath()}" />
+																		src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${pet.getKey().getImagePath()}" />
 																</c:if>
 															</div>
 														</div>
@@ -612,7 +612,7 @@
 													style="border: 1px solid var(--bs-card-border-color); margin: 0 auto; display: flex; justify-content: center; align-items: center; height: auto;">
 													<c:if test="${product.getKey().getImagePath() != null}">
 														<img class="" style="width: 35px; height: 35px" alt=""
-															src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product.getKey().getImagePath()}" />
+															src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product.getKey().getImagePath()}" />
 													</c:if>
 													<c:if test="${product.getKey().getImagePath() == null}">
 														<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -681,7 +681,7 @@
 													class="image_product_id_body h-100 d-flex justify-content-center align-items-center">
 													<c:if test="${product.getKey().getImagePath() != null}">
 														<img style="height: 45vh" alt=""
-															src=" ${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product.getKey().getImagePath()}" />
+															src=" ${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product.getKey().getImagePath()}" />
 													</c:if>
 													<c:if test="${product.getKey().getImagePath() == null}">
 														<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -714,7 +714,7 @@
 												</div>
 												<div class="change_product_form_body h-100">
 													<form class="change_product_form_body" method="post"
-														action="${pageContext.request.contextPath}/imageServlet"
+														action="${pageContext.request.contextPath}/${ServletName.SERVLET_UPLOAD_IMAGE_NAME}"
 														enctype="multipart/form-data">
 														<input type="hidden"
 															name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_ID}"
@@ -734,7 +734,7 @@
 																<c:if test="${product.getKey().getImagePath() != null}">
 																	Выбрана картинка с названием ${product.getKey().getImagePath()}
 																	<img class="" style="width: 35px; height: 35px" alt=""
-																		src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product.getKey().getImagePath()}" />
+																		src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product.getKey().getImagePath()}" />
 																</c:if>
 																<c:if test="${product.getKey().getImagePath() == null}">
 																	картинка не выбрана
@@ -864,7 +864,7 @@
 
 								<div class="add_product_pet_form">
 									<form class="add_product_pet_form_body" method="post"
-										action="${pageContext.request.contextPath}/imageServlet"
+										action="${pageContext.request.contextPath}/${ServletName.SERVLET_UPLOAD_IMAGE_NAME}"
 										enctype="multipart/form-data">
 										<div
 											class="form-floating mb-3 add_product_pet_form_body_form_floating">
@@ -936,7 +936,7 @@
 
 								<div class="add_other_product_form d-none">
 									<form class="add_product_pet_form_body" method="post"
-										action="${pageContext.request.contextPath}/imageServlet"
+										action="${pageContext.request.contextPath}/${ServletName.SERVLET_UPLOAD_IMAGE_NAME}"
 										enctype="multipart/form-data">
 										<div
 											class="form-floating mb-3 add_other_product_form_body_form_floating">

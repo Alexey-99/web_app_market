@@ -12,7 +12,7 @@ import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_IMAG
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_NUMBER_PAGE;
 import static by.koroza.zoo_market.web.command.name.ParameterValue.NUMBER_FIRST_PAGE_VALUE;
 import static by.koroza.zoo_market.web.command.name.ServletName.MAIN_SERVLET_CONTROLLER_NAME;
-import static by.koroza.zoo_market.web.command.name.ServletName.SERVLET_SHOW_IMMAGE_NAME;
+import static by.koroza.zoo_market.web.command.name.ServletName.SERVLET_SHOW_IMAGE_NAME;
 
 import java.io.IOException;
 import java.util.List;
@@ -83,7 +83,7 @@ public class ProductFeedsAndOtherPaginationTag extends TagSupport {
 			if (feedAndOther.getImagePath() != null) {
 				builder.append("""
 						<img class="w-100 h-100" alt="" src="
-						""").append(SERVLET_SHOW_IMMAGE_NAME).append("?").append(PARAMETER_IMAGE_FILE_PATH).append("=")
+						""").append(SERVLET_SHOW_IMAGE_NAME).append("?").append(PARAMETER_IMAGE_FILE_PATH).append("=")
 						.append(feedAndOther.getImagePath()).append("""
 								" />
 								""");
@@ -213,7 +213,7 @@ public class ProductFeedsAndOtherPaginationTag extends TagSupport {
 							""").append("<div id=\"liveToast").append(feedAndOther.getId()).append("""
 					" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
 					<div class="toast-header">
-					""").append("<img class=\"rounded me-2 toast_logo\" src=\"").append(SERVLET_SHOW_IMMAGE_NAME)
+					""").append("<img class=\"rounded me-2 toast_logo\" src=\"").append(SERVLET_SHOW_IMAGE_NAME)
 					.append("?").append(PARAMETER_IMAGE_FILE_PATH).append("=").append(LOGO_PNG_IMAGE_PATH)
 					.append("\" alt=\"logo\"").append("/>")
 					.append("""

@@ -1004,7 +1004,7 @@
 					<c:if test="${list_products_feeds_and_other.size() == 0}">
 						<div class="logo d-flex justify-content-center">
 							<img class="img logo_img"
-								src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.LOGO_PNG_IMAGE_PATH}"
+								src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.LOGO_PNG_IMAGE_PATH}"
 								alt="logo" />
 						</div>
 						<div class="text">

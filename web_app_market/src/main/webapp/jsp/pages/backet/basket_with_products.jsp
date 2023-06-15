@@ -118,7 +118,7 @@
 													<li><fmt:message key="basket_page.product.discount" />
 														${pet.getDiscount()} <img
 														class="discription_botton_discont_procent_img"
-														src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
+														src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
 														alt="percent" /></li>
 													<li><fmt:message key="basket_page.product.total_price" />
 														${String.format("%,.2f", pet.getTotalPrice())}</li>
@@ -149,7 +149,7 @@
 										role="alert" aria-live="assertive" aria-atomic="true">
 										<div class="toast-header">
 											<img class="rounded me-2 toast_logo"
-												src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.LOGO_PNG_IMAGE_PATH}"
+												src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.LOGO_PNG_IMAGE_PATH}"
 												alt="logo"> <strong class="me-auto">Zoo
 												ковчег</strong>
 											<button type="button" class="btn-close"
@@ -170,7 +170,7 @@
 											style="border: 1px solid var(--bs-card-border-color);">
 											<c:if test="${item.getImagePath() != null}">
 												<img class="w-100 h-100" alt=""
-													src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${item.getImagePath()}" />
+													src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${item.getImagePath()}" />
 											</c:if>
 											<c:if test="${item.getImagePath() == null}">
 												<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -204,7 +204,7 @@
 													<li><fmt:message key="basket_page.product.discount" />
 														${item.getDiscount()}<img
 														class="discription_botton_discont_procent_img"
-														src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
+														src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
 														alt="percent" /></li>
 													<li><fmt:message key="basket_page.product.total_price" />
 														${String.format("%,.2f", item.getTotalPrice())}</li>
@@ -235,7 +235,7 @@
 										aria-atomic="true">
 										<div class="toast-header">
 											<img class="rounded me-2 toast_logo"
-												src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.LOGO_PNG_IMAGE_PATH}"
+												src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.LOGO_PNG_IMAGE_PATH}"
 												alt="logo"> <strong class="me-auto">Zoo
 												ковчег</strong>
 											<button type="button" class="btn-close"

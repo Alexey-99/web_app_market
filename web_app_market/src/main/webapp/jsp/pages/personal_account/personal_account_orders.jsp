@@ -194,7 +194,7 @@
 																			style="border: 1px solid var(--bs-card-border-color)">
 																			<c:if test="${pet.getImagePath() != null}">
 																				<img class="w-100 h-100" alt=""
-																					src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${pet.getImagePath()}" />
+																					src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${pet.getImagePath()}" />
 																			</c:if>
 																			<c:if test="${pet.getImagePath() == null}">
 																				<svg xmlns="http://www.w3.org/2000/svg" x="0px"
@@ -234,7 +234,7 @@
 																			style="border: 1px solid var(--bs-card-border-color);">
 																			<c:if test="${product_item.getImagePath() != null}">
 																				<img class="w-100 h-100" alt=""
-																					src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${item.getImagePath()}" />
+																					src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${item.getImagePath()}" />
 																			</c:if>
 																			<c:if test="${product_item.getImagePath() == null}">
 																				<svg xmlns="http://www.w3.org/2000/svg" x="0px"
