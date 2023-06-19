@@ -19,7 +19,8 @@
 <link rel="stylesheet" href="css/items/root.css" />
 <link rel="stylesheet"
 	href="css/items/admin/verification/verification_information_for_create_product.css" />
-<title>Insert title here</title>
+<title><fmt:message
+		key="verification_information_for_creating_product_pet.title" /></title>
 <!-- product_pet = AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET -->
 <!-- product_pet_number_of_units = AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT -->
 </head>
@@ -46,42 +47,58 @@
                       </svg>
 									</button>
 								</form>
-								<h4 class="text-center">Проверка информации для создания
-									товара (питомца)</h4>
+								<h4 class="text-center">
+									<fmt:message
+										key="verification_information_for_creating_product_pet.title" />
+								</h4>
 							</div>
 							<div
 								class="d-flex justify-content-center align-items-center flex-column verification_information_for_create_product_pet_body">
-								<span>Фото</span>
-
-								<c:if test="${product_pet.getImagePath() != null}">
-									<div
-										class="d-flex justify-content-center align-items-center flex-column">
-										<h5>${product_pet.getImagePath()}</h5>
-										<div>
-											<img class="mb-3 mt-3"
-												style="min-width: 150px; min-height: 100px" alt=""
-												src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product_pet.getImagePath()}" />
+								<span><fmt:message
+										key="verification_information_for_creating_product_pet.field_name.image" />
+								</span>
+								<h5>
+									<c:if test="${product_pet.getImagePath() != null}">
+										<div
+											class="d-flex justify-content-center align-items-center flex-column">
+											<div>${product_pet.getImagePath()}</div>
+											<div>
+												<img class="mb-3 mt-3 mw-100" style="max-height: 200px"
+													alt=""
+													src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product_pet.getImagePath()}" />
+											</div>
 										</div>
-									</div>
-								</c:if>
-								<c:if test="${product_pet.getImagePath() == null}">
-									<h5>
-										<fmt:message
-											key="add_product_form_validated.add_pet.input.choose_image_product.massage.not_choosed_image" />
-									</h5>
-								</c:if>
-
-								<span>Тип питомца</span>
+									</c:if>
+									<c:if test="${product_pet.getImagePath() == null}">
+										<div>
+											<fmt:message
+												key="verification_information_for_creating_product_pet.field_value.massage.not_choosed_image" />
+										</div>
+									</c:if>
+								</h5>
+								<span><fmt:message
+										key="verification_information_for_creating_product_pet.field_name.type_pet" />
+								</span>
 								<h5>${product_pet.getSpecie()}</h5>
-								<span>Порода питомца</span>
+								<span><fmt:message
+										key="verification_information_for_creating_product_pet.field_name.breed_pet" />
+								</span>
 								<h5>${product_pet.getBreed()}</h5>
-								<span>Дата рождения</span>
+								<span><fmt:message
+										key="verification_information_for_creating_product_pet.field_name.birth_date_pet" />
+								</span>
 								<h5>${product_pet.getBirthDate()}</h5>
-								<span>Цена</span>
+								<span><fmt:message
+										key="verification_information_for_creating_product_pet.field_name.price_pet" />
+								</span>
 								<h5>${product_pet.getPrice()}</h5>
-								<span>Процент скидки</span>
+								<span><fmt:message
+										key="verification_information_for_creating_product_pet.field_name.discount_pet" />
+								</span>
 								<h5>${product_pet.getDiscount()}</h5>
-								<span>Количество</span>
+								<span><fmt:message
+										key="verification_information_for_creating_product_pet.field_name.number_unit_pet" />
+								</span>
 								<h5>${product_pet_number_of_units}</h5>
 							</div>
 							<div
@@ -91,18 +108,22 @@
 										value="${CommandName.COMMAND_ADMIN_PAGE_SHOW_CREATE_PET_PRODUCT_FORM}" />
 									<button
 										class="btn verification_information_for_create_product_pet_btn_incorrect"
-										role="button">Назад</button>
+										role="button">
+										<fmt:message
+											key="verification_information_for_creating_product_pet.back" />
+									</button>
 								</form>
-
 								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_ADMIN_PAGE_ADD_NEW_PET_PRODUCT}" />
 									<button
 										class="btn verification_information_for_create_product_pet_btn_correct"
-										role="button">Всё корректно!!!</button>
+										role="button">
+										<fmt:message
+											key="verification_information_for_creating_product_pet.ok" />
+									</button>
 								</form>
 							</div>
-
 						</div>
 					</div>
 				</div>

@@ -471,7 +471,9 @@
 												<div
 													class="image_product_id_body h-100 d-flex justify-content-center align-items-center">
 													<c:if test="${pet.getKey().getImagePath() != null}">
-														<img style="height: 45vh" alt=""
+
+														<img class="" style="max-height: 420px; max-width: 550px;"
+															alt=""
 															src=" ${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${pet.getKey().getImagePath()}" />
 													</c:if>
 													<c:if test="${pet.getKey().getImagePath() == null}">
@@ -672,7 +674,9 @@
 												<div
 													class="image_product_id_body h-100 d-flex justify-content-center align-items-center">
 													<c:if test="${product.getKey().getImagePath() != null}">
-														<img style="height: 45vh" alt=""
+
+														<img class="" style="max-height: 420px; max-width: 550px;"
+															alt=""
 															src=" ${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product.getKey().getImagePath()}" />
 													</c:if>
 													<c:if test="${product.getKey().getImagePath() == null}">

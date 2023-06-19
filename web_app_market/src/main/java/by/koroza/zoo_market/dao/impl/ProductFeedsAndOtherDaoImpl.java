@@ -248,7 +248,7 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 				statement.setString(1, product.getImagePath());
 				statement.setString(2, product.getProductType());
 				statement.setString(3, product.getBrand());
-				statement.setString(4, product.getDescription());
+				statement.setString(4, product.getDescriptions());
 				statement.setString(5,
 						product.getPetTypes().toString().substring(1, product.getPetTypes().toString().length() - 1));
 				statement.setDouble(6, product.getPrice());

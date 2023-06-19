@@ -45,8 +45,7 @@
 				<div class="row">
 					<div class="col-12">
 						<div
-							class=" d-flex justify-content-center align-items-center top-0 end-0 right-0 w-100   add_product_form"
-							style="position: absolute; height: 113%;">
+							class="position-absolute d-flex justify-content-center align-items-center top-0 end-0 right-0 w-100 add_product_form">
 							<div
 								class="position-relative w-100 d-flex flex-column add_product_form_inner">
 								<div class="add_product_form_top">
@@ -102,15 +101,12 @@
 													class="text-lowercase add_product_pet_form_body_label_img"
 													for="add_product_form_validated.add_pet.lable.choose_image_product"><fmt:message
 														key="add_product_form_validated.add_pet.lable.choose_image_product" />
-													<span>*</span> </label> <input type="checkbox" class="form-control"
-													id="" name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
-													placeholder='<fmt:message key=""/>' /> <label
-													class="text-lowercase " for=""><fmt:message key="" />оставить
-													без картинки <span>*</span> </label>
+													<span>*</span> </label>
 												<div class="">
 													<c:if test="${product_pet.getImagePath() != null}">
 														<fmt:message
-															key="add_product_form_validated.add_pet.input.choose_image_product.massage.choosed_image_with_name" /> 	Выбрана картинка с названием ${product.getKey().getImagePath()}
+															key="add_product_form_validated.add_pet.input.choose_image_product.massage.choosed_image_with_name" /> 
+															${product.getKey().getImagePath()}
 														<img class="" style="width: 35px; height: 35px" alt=""
 															src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product_pet.getImagePath()}" />
 													</c:if>
@@ -118,6 +114,18 @@
 														<fmt:message
 															key="add_product_form_validated.add_pet.input.choose_image_product.massage.not_choosed_image" />
 													</c:if>
+												</div>
+											</div>
+											<div class="form-floating mb-3">
+												<div class="input-group mb-3 mt-3">
+													<label> <span class="span_input span_input_1">
+															<input type="checkbox"
+															name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+															value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
+															<fmt:message
+																key="add_product_form_validated.add_pet.input.without_image" />
+													</span>
+													</label>
 												</div>
 											</div>
 											<div class="form-floating mb-3">
@@ -229,6 +237,18 @@
 													</label>
 													<div class="invalid-feedback">
 														${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_IMAGE)}</div>
+												</div>
+												<div class="form-floating mb-3">
+													<div class="input-group mb-3 mt-3">
+														<label> <span class="span_input span_input_1">
+																<input type="checkbox"
+																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+																value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
+																<fmt:message
+																	key="add_product_form_validated.add_pet.input.without_image" />
+														</span>
+														</label>
+													</div>
 												</div>
 											</c:if>
 											<c:if

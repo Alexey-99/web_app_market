@@ -105,7 +105,7 @@
 												<div class="">
 													<c:if test="${product_pet.getImagePath() != null}">
 														<fmt:message
-															key="add_product_form_validated.add_pet.input.choose_image_product.massage.choosed_image_with_name" /> ${product.getKey().getImagePath()}
+															key="add_product_form_validated.add_pet.input.choose_image_product.massage.choosed_image_with_name" /> ${product_pet.getImagePath()}
 														<img class="" style="width: 35px; height: 35px" alt=""
 															src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product_pet.getImagePath()}" />
 													</c:if>
@@ -236,6 +236,18 @@
 													</label>
 													<div class="invalid-feedback">
 														${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_IMAGE)}</div>
+												</div>
+												<div class="form-floating mb-3">
+													<div class="input-group mb-3 mt-3">
+														<label> <span class="span_input span_input_1">
+																<input type="checkbox"
+																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+																value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
+																<fmt:message
+																	key="add_product_form_validated.add_pet.input.without_image" />
+														</span>
+														</label>
+													</div>
 												</div>
 											</c:if>
 											<c:if

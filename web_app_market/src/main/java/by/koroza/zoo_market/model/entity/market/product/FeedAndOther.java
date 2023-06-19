@@ -66,15 +66,6 @@ public class FeedAndOther extends AbstractProduct implements Comparable<FeedAndO
 		this.petTypes.add(petType);
 	}
 
-	public String getDescription() {
-		StringBuilder builder = new StringBuilder("Description");
-		builder.append("Product Type = ").append(this.productType).append("; ");
-		builder.append("Brand = ").append(this.brand).append("; ");
-		builder.append("Description = ").append(this.descriptions).append("; ");
-		builder.append("This product for: ").append(this.petTypes.toString()).append("\n");
-		return builder.toString();
-	}
-
 	private List<String> parsePetType(String petTypesLine) {
 		List<String> petTypes = new ArrayList<>();
 		String[] petTypesSplited = petTypesLine.split(REG_EX_PATTERN_FOR_PARSE_PET_TYPES);
