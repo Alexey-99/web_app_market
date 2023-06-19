@@ -11,6 +11,7 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_UPLO
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_UPLOAD_FILE_DIRECTORY;
 
 import static by.koroza.zoo_market.web.command.name.ServletName.MAIN_SERVLET_CONTROLLER_NAME;
+import static by.koroza.zoo_market.web.command.name.ServletName.SERVLET_UPLOAD_IMAGE_NAME;
 
 import java.io.IOException;
 
@@ -32,7 +33,7 @@ import jakarta.servlet.http.Part;
 /**
  * Servlet implementation class ImageServlet
  */
-@WebServlet("/uploadImageServlet")
+@WebServlet("/" + SERVLET_UPLOAD_IMAGE_NAME)
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 25)
 public class ImageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

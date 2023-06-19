@@ -210,7 +210,7 @@
 																					name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}" />
 																				<span class="span_procent"> <img
 																					class="span_procent_img"
-																					src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
+																					src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
 																					alt="percent" />
 																				</span> <span
 																					class="input-group-text accordion_item_six_span"><fmt:message
@@ -221,7 +221,7 @@
 																					name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
 																				<span class="span_procent"> <img
 																					class="span_procent_img"
-																					src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
+																					src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
 																					alt="percent" />
 																				</span>
 																			</div>
@@ -402,7 +402,7 @@
 
 																					<span class="span_procent"> <img
 																						class="span_procent_img"
-																						src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
+																						src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
 																						alt="percent" />
 																					</span> <span
 																						class="input-group-text accordion_item_six_span"><fmt:message
@@ -413,7 +413,7 @@
 																						name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
 																					<span class="span_procent"> <img
 																						class="span_procent_img"
-																						src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
+																						src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
 																						alt="percent" />
 																					</span>
 																					<div class="invalid-feedback">${products_feeds_and_other_filter_input_exception_type_and_message.get(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}</div>
@@ -431,7 +431,7 @@
 																						name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}" />
 																					<span class="span_procent"> <img
 																						class="span_procent_img"
-																						src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
+																						src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
 																						alt="percent" />
 																					</span> <span
 																						class="input-group-text accordion_item_six_span"><fmt:message
@@ -442,7 +442,7 @@
 																						name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
 																					<span class="span_procent"> <img
 																						class="span_procent_img"
-																						src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
+																						src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
 																						alt="percent" />
 																					</span>
 																				</div>
@@ -664,7 +664,7 @@
 																					name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}" />
 																				<span class="span_procent"> <img
 																					class="span_procent_img"
-																					src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
+																					src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
 																					alt="percent" />
 																				</span> <span
 																					class="input-group-text accordion_item_six_span"><fmt:message
@@ -675,7 +675,7 @@
 																					name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
 																				<span class="span_procent"> <img
 																					class="span_procent_img"
-																					src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
+																					src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
 																					alt="percent" />
 																				</span>
 																			</div>
@@ -855,7 +855,7 @@
 																						name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}" />
 																					<span class="span_procent"> <img
 																						class="span_procent_img"
-																						src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
+																						src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
 																						alt="percent" />
 																					</span> <span
 																						class="input-group-text accordion_item_six_span"><fmt:message
@@ -866,7 +866,7 @@
 																						name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
 																					<span class="span_procent"> <img
 																						class="span_procent_img"
-																						src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
+																						src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
 																						alt="percent" />
 																					</span>
 																					<div class="invalid-feedback">${products_feeds_and_other_filter_input_exception_type_and_message.get(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}</div>
@@ -884,7 +884,7 @@
 																						name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}" />
 																					<span class="span_procent"> <img
 																						class="span_procent_img"
-																						src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
+																						src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
 																						alt="percent" />
 																					</span> <span
 																						class="input-group-text accordion_item_six_span"><fmt:message
@@ -895,7 +895,7 @@
 																						name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
 																					<span class="span_procent"> <img
 																						class="span_procent_img"
-																						src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
+																						src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
 																						alt="percent" />
 																					</span>
 																				</div>

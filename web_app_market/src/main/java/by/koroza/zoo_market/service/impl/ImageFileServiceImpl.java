@@ -38,7 +38,7 @@ public class ImageFileServiceImpl implements ImageFileService {
 			if (!path.exists()) {
 				path.mkdirs();
 			}
-			imagePath = STORAGE_IMAGES_FOLDER_PATH.concat(File.separator).concat(submittedName);
+			imagePath = STORAGE_IMAGES_FOLDER_PATH.concat("/").concat(submittedName);
 			Files.copy(inputStream, Path.of(imagePath), StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			log.log(Level.ERROR, "exception in method saveImageToDisk()", e);

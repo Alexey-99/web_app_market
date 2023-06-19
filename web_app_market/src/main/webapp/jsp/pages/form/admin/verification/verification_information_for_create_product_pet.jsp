@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
 <%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
-<%@page import="by.koroza.zoo_market.model.entity.status.UserRole"%>
-<%@page import="by.koroza.zoo_market.web.command.name.LanguageName"%>
-<%@page import="by.koroza.zoo_market.model.entity.status.ProductType"%>
+<%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
+<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
+	scope="session" />
+<fmt:setBundle
+	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,8 +34,8 @@
 							class="position-relative w-100 d-flex flex-column verification_information_for_create_product_pet_inner">
 							<div
 								class="d-flex justify-content-center align-items-center mb-4 verification_information_for_create_product_pet_top_btns">
-								<form action="Controller">
-									<input type="hidden" name="command"
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_OFF_FILTER}" />
 									<button class="close_btn border-0 bg-transparent" role="button"
 										style="top: 25px; right: 30px">
@@ -47,6 +51,26 @@
 							</div>
 							<div
 								class="d-flex justify-content-center align-items-center flex-column verification_information_for_create_product_pet_body">
+								<span>Фото</span>
+
+								<c:if test="${product_pet.getImagePath() != null}">
+									<div
+										class="d-flex justify-content-center align-items-center flex-column">
+										<h5>${product_pet.getImagePath()}</h5>
+										<div>
+											<img class="mb-3 mt-3"
+												style="min-width: 150px; min-height: 100px" alt=""
+												src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product_pet.getImagePath()}" />
+										</div>
+									</div>
+								</c:if>
+								<c:if test="${product_pet.getImagePath() == null}">
+									<h5>
+										<fmt:message
+											key="add_product_form_validated.add_pet.input.choose_image_product.massage.not_choosed_image" />
+									</h5>
+								</c:if>
+
 								<span>Тип питомца</span>
 								<h5>${product_pet.getSpecie()}</h5>
 								<span>Порода питомца</span>
@@ -62,22 +86,23 @@
 							</div>
 							<div
 								class="verification_information_for_create_product_pet_fotter d-flex justify-content-end">
-								<form action="Controller">
-									<input type="hidden" name="command"
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_ADMIN_PAGE_SHOW_CREATE_PET_PRODUCT_FORM}" />
 									<button
 										class="btn verification_information_for_create_product_pet_btn_incorrect"
 										role="button">Назад</button>
 								</form>
 
-								<form action="Controller">
-									<input type="hidden" name="command"
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_ADMIN_PAGE_ADD_NEW_PET_PRODUCT}" />
 									<button
 										class="btn verification_information_for_create_product_pet_btn_correct"
 										role="button">Всё корректно!!!</button>
 								</form>
 							</div>
+
 						</div>
 					</div>
 				</div>

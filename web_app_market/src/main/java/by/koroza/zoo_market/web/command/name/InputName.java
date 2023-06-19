@@ -51,6 +51,8 @@ public class InputName {
 
 	/* ADMIN_PAGE */
 	/* CREATE_PET_PRODUCT */
+	public static final String ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRODUCT_IMAGE = "product_image";
+	public static final String ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE = "without_image";
 	public static final String ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE = "product_pet_specie";
 	public static final String ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED = "product_pet_breed";
 	public static final String ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE = "product_pet_birth_date";

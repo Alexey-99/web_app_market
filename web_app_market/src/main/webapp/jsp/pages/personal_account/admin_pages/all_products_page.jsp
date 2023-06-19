@@ -224,8 +224,7 @@
 									<tr class="align-middle">
 										<th scope="col">
 											<div class="border-0 bg-transparent" style="font-weight: 400">
-												<fmt:message
-													key="admin_page.all_products.add_product.col.picture" />
+												<fmt:message key="admin_page.all_products.col.picture" />
 											</div>
 										</th>
 										<th scope="col">
@@ -237,8 +236,46 @@
 													name="${ParameterName.PARAMETER_COMMAND}" value="" />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
-													<fmt:message
-														key="admin_page.all_products.add_product.col.number" />
+													<fmt:message key="admin_page.all_products.col.number" />
+												</button>
+											</form>
+										</th>
+										<th scope="col">
+											<form
+												class="d-flex justify-content-center align-items-center"
+												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+												method="get">
+												<input type="hidden"
+													name="${ParameterName.PARAMETER_COMMAND}" value="" />
+												<button class="border-0 bg-transparent text-lowercase"
+													role="button">
+													<fmt:message key="admin_page.all_products.col.product_type" />
+												</button>
+											</form>
+										</th>
+										<th scope="col">
+											<form
+												class="d-flex justify-content-center align-items-center"
+												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+												method="get">
+												<input type="hidden"
+													name="${ParameterName.PARAMETER_COMMAND}" value="" />
+												<button class="border-0 bg-transparent text-lowercase"
+													role="button">
+													<fmt:message key="admin_page.all_products.col.brand" />
+												</button>
+											</form>
+										</th>
+										<th scope="col">
+											<form
+												class="d-flex justify-content-center align-items-center"
+												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+												method="get">
+												<input type="hidden"
+													name="${ParameterName.PARAMETER_COMMAND}" value="" />
+												<button class="border-0 bg-transparent text-lowercase"
+													role="button">
+													<fmt:message key="admin_page.all_products.col.description" />
 												</button>
 											</form>
 										</th>
@@ -252,7 +289,33 @@
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message
-														key="admin_page.all_products.add_product.col.product_type" />
+														key="admin_page.all_products.col.types_pet_for_product" />
+												</button>
+											</form>
+										</th>
+										<th scope="col">
+											<form
+												class="d-flex justify-content-center align-items-center"
+												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+												method="get">
+												<input type="hidden"
+													name="${ParameterName.PARAMETER_COMMAND}" value="" />
+												<button class="border-0 bg-transparent text-lowercase"
+													role="button">
+													<fmt:message key="admin_page.all_products.col.specie_pet" />
+												</button>
+											</form>
+										</th>
+										<th scope="col">
+											<form
+												class="d-flex justify-content-center align-items-center"
+												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+												method="get">
+												<input type="hidden"
+													name="${ParameterName.PARAMETER_COMMAND}" value="" />
+												<button class="border-0 bg-transparent text-lowercase"
+													role="button">
+													<fmt:message key="admin_page.all_products.col.breed_pet" />
 												</button>
 											</form>
 										</th>
@@ -266,7 +329,33 @@
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message
-														key="admin_page.all_products.add_product.col.brand" />
+														key="admin_page.all_products.col.birth_date_pet" />
+												</button>
+											</form>
+										</th>
+										<th scope="col">
+											<form
+												class="d-flex justify-content-center align-items-center"
+												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+												method="get">
+												<input type="hidden"
+													name="${ParameterName.PARAMETER_COMMAND}" value="" />
+												<button class="border-0 bg-transparent text-lowercase"
+													role="button">
+													<fmt:message key="admin_page.all_products.col.price" />
+												</button>
+											</form>
+										</th>
+										<th scope="col">
+											<form
+												class="d-flex justify-content-center align-items-center"
+												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+												method="get">
+												<input type="hidden"
+													name="${ParameterName.PARAMETER_COMMAND}" value="" />
+												<button class="border-0 bg-transparent text-lowercase"
+													role="button">
+													<fmt:message key="admin_page.all_products.col.discount" />
 												</button>
 											</form>
 										</th>
@@ -280,7 +369,7 @@
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message
-														key="admin_page.all_products.add_product.col.description" />
+														key="admin_page.all_products.col.price_with_discount" />
 												</button>
 											</form>
 										</th>
@@ -293,110 +382,13 @@
 													name="${ParameterName.PARAMETER_COMMAND}" value="" />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
-													<fmt:message
-														key="admin_page.all_products.add_product.col.types_pet_for_product" />
+													<fmt:message key="admin_page.all_products.col.number" />
 												</button>
-											</form>
-										</th>
-										<th scope="col">
-											<form
-												class="d-flex justify-content-center align-items-center"
-												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-												method="get">
-												<input type="hidden"
-													name="${ParameterName.PARAMETER_COMMAND}" value="" />
-												<button class="border-0 bg-transparent text-lowercase"
-													role="button">
-													<fmt:message
-														key="admin_page.all_products.add_product.col.specie_pet" />
-												</button>
-											</form>
-										</th>
-										<th scope="col">
-											<form
-												class="d-flex justify-content-center align-items-center"
-												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-												method="get">
-												<input type="hidden"
-													name="${ParameterName.PARAMETER_COMMAND}" value="" />
-												<button class="border-0 bg-transparent text-lowercase"
-													role="button">
-													<fmt:message
-														key="admin_page.all_products.add_product.col.breed_pet" />
-												</button>
-											</form>
-										</th>
-										<th scope="col">
-											<form
-												class="d-flex justify-content-center align-items-center"
-												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-												method="get">
-												<input type="hidden"
-													name="${ParameterName.PARAMETER_COMMAND}" value="" />
-												<button class="border-0 bg-transparent text-lowercase"
-													role="button">
-													<fmt:message
-														key="admin_page.all_products.add_product.col.birth_date_pet" />
-												</button>
-											</form>
-										</th>
-										<th scope="col">
-											<form
-												class="d-flex justify-content-center align-items-center"
-												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-												method="get">
-												<input type="hidden"
-													name="${ParameterName.PARAMETER_COMMAND}" value="" />
-												<button class="border-0 bg-transparent text-lowercase"
-													role="button">
-													<fmt:message
-														key="admin_page.all_products.add_product.col.price" />
-												</button>
-											</form>
-										</th>
-										<th scope="col">
-											<form
-												class="d-flex justify-content-center align-items-center"
-												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-												method="get">
-												<input type="hidden"
-													name="${ParameterName.PARAMETER_COMMAND}" value="" />
-												<button class="border-0 bg-transparent text-lowercase"
-													role="button">
-													<fmt:message
-														key="admin_page.all_products.add_product.col.discount" />
-												</button>
-											</form>
-										</th>
-										<th scope="col">
-											<form
-												class="d-flex justify-content-center align-items-center"
-												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-												method="get">
-												<input type="hidden"
-													name="${ParameterName.PARAMETER_COMMAND}" value="" />
-												<button class="border-0 bg-transparent text-lowercase"
-													role="button">
-													<fmt:message
-														key="admin_page.all_products.add_product.col.price_with_discount" />
-												</button>
-											</form>
-										</th>
-										<th scope="col">
-											<form
-												class="d-flex justify-content-center align-items-center"
-												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-												method="get">
-												<input type="hidden"
-													name="${ParameterName.PARAMETER_COMMAND}" value="" />
-												<button class="border-0 bg-transparent text-lowercase"
-													role="button">number</button>
 											</form>
 										</th>
 										<th scope="col"><div class="border-0 bg-transparent"
 												style="font-weight: 400">
-												<fmt:message
-													key="admin_page.all_products.add_product.col.change" />
+												<fmt:message key="admin_page.all_products.col.change" />
 											</div></th>
 									</tr>
 								</thead>
@@ -840,7 +832,9 @@
 								<div class="add_product_form_top">
 									<div class="add_product_form_top_title">
 										<h2 class="form_title text-center mb-3 text-lowercase">
-											Добавление товара</h2>
+											<fmt:message
+												key="admin_page.all_products.add_product_form.title" />
+										</h2>
 									</div>
 									<div
 										class="d-flex justify-content-center align-items-center mb-4 add_product_form_top_btns">
@@ -854,11 +848,15 @@
 										<button
 											class="btn text-uppercase active add_product_form_top_btn add_product_form_top_btn_product_pet"
 											role="button" onclick="openAddProductPetForm()">
-											Питомцы</button>
+											<fmt:message
+												key="admin_page.all_products.add_product_form.add_pet.title" />
+										</button>
 										<button
 											class="btn text-uppercase add_product_form_top_btn add_product_form_top_btn_other_product"
 											role="button" onclick="openAddOtherProductForm()">
-											товары для питомцев</button>
+											<fmt:message
+												key="admin_page.all_products.add_product_form.add_feeds_and_other.title" />
+										</button>
 									</div>
 								</div>
 
@@ -870,58 +868,87 @@
 											class="form-floating mb-3 add_product_pet_form_body_form_floating">
 											<input type="file"
 												class="form-control text-uppercase add_product_pet_form_body_input_img"
-												id="floatingInputSpecie"
+												id="admin_page.all_products.add_product_form.add_pet.lable.choose_image_product"
 												name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
-												placeholder="dog" /> <label
+												placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_pet.lable.choose_image_product"/>' />
+											<label
 												class="text-lowercase add_product_pet_form_body_label_img"
-												for="floatingInputSpecie">Выберите картинку для
-												товара <span>*</span>
+												for="admin_page.all_products.add_product_form.add_pet.lable.choose_image_product"><fmt:message
+													key="admin_page.all_products.add_product_form.add_pet.lable.choose_image_product" />
+												<span> *</span></label>
+										</div>
+										<div class="form-floating mb-3">
+											<div class="input-group mb-3 mt-3">
+												<label> <span class="span_input span_input_1">
+														<input type="checkbox"
+														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+														value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
+														<fmt:message
+															key="add_product_form_validated.add_pet.input.without_image" />
+												</span>
+												</label>
+											</div>
+										</div>
+										<div class="form-floating mb-3">
+											<input type="text" class="form-control"
+												id="admin_page.all_products.add_product_form.add_pet.lable.type_pet"
+												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
+												placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_pet.lable.type_pet"/>' />
+											<label class="text-lowercase"
+												for="admin_page.all_products.add_product_form.add_pet.lable.type_pet"><fmt:message
+													key="admin_page.all_products.add_product_form.add_pet.lable.type_pet" />
+											</label>
+										</div>
+										<div class="form-floating mb-3">
+											<input type="text" class="form-control "
+												id="admin_page.all_products.add_product_form.add_pet.lable.breed_pet"
+												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED}"
+												placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_pet.lable.breed_pet"/>' />
+											<label class="text-lowercase"
+												for="admin_page.all_products.add_product_form.add_pet.lable.breed_pet"><fmt:message
+													key="admin_page.all_products.add_product_form.add_pet.lable.breed_pet" />
+											</label>
+										</div>
+										<div class="form-floating mb-3">
+											<input type="date" class="form-control "
+												id="admin_page.all_products.add_product_form.add_pet.lable.birth_date_pet"
+												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE}"
+												placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_pet.lable.birth_date_pet"/>' />
+											<label class="text-lowercase"
+												for="admin_page.all_products.add_product_form.add_pet.lable.birth_date_pet"><fmt:message
+													key="admin_page.all_products.add_product_form.add_pet.lable.birth_date_pet" />
 											</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
-												id="floatingInputSpecie"
-												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
-												placeholder="dog" /> <label class="text-lowercase"
-												for="floatingInputSpecie">тип питомца</label>
-										</div>
-										<div class="form-floating mb-3">
-											<input type="text" class="form-control "
-												id="floatingInputBreed"
-												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED}"
-												placeholder="Breed" /> <label class="text-lowercase"
-												for="floatingInputBreed">порода</label>
-										</div>
-										<div class="form-floating mb-3">
-											<input type="date" class="form-control "
-												id="floatingInputBirthDate"
-												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE}"
-												placeholder="BirthDate" /> <label class="text-lowercase"
-												for="floatingInputBirthDate">Дата рождения</label>
-										</div>
-										<div class="form-floating mb-3">
-											<input type="text" class="form-control"
-												id="floatingInputPrice"
+												id="admin_page.all_products.add_product_form.add_pet.lable.price_pet"
 												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE}"
-												placeholder="Price" pattern="^(\d+)(\.\d{1,2})?$" /> <label
-												class="text-lowercase" for="floatingInputPrice">Цена</label>
+												placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_pet.lable.price_pet"/>'
+												pattern="^(\d+)(\.\d{1,2})?$" /> <label
+												class="text-lowercase"
+												for="admin_page.all_products.add_product_form.add_pet.lable.price_pet"><fmt:message
+													key="admin_page.all_products.add_product_form.add_pet.lable.price_pet" />
+											</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control "
-												id="floatingInputDiscount"
+												id="admin_page.all_products.add_product_form.add_pet.lable.discount_pet"
 												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT}"
-												placeholder="Discount" pattern="^(\d+)(\.\d{1,2})?$" /> <label
-												class="text-lowercase" for="floatingInputDiscount">Скидка
-												(в %)</label>
+												placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_pet.lable.discount_pet"/>'
+												pattern="^(\d+)(\.\d{1,2})?$" /> <label
+												class="text-lowercase"
+												for="admin_page.all_products.add_product_form.add_pet.lable.discount_pet"><fmt:message
+													key="admin_page.all_products.add_product_form.add_pet.lable.discount_pet" />
+											</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="number" class="form-control "
-												id="floatingInputNumberOfUnitsProducts"
+												id="admin_page.all_products.add_product_form.add_pet.lable.number_unit_pet"
 												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
-												placeholder="NumberOfUnitsProducts" pattern="^(\d+)$" /> <label
-												class="text-lowercase"
-												for="floatingInputNumberOfUnitsProducts">количество
-												единиц</label>
+												placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_pet.lable.number_unit_pet"/>'
+												pattern="^(\d+)$" /> <label class="text-lowercase"
+												for="admin_page.all_products.add_product_form.add_pet.lable.number_unit_pet"><fmt:message
+													key="admin_page.all_products.add_product_form.add_pet.lable.number_unit_pet" /></label>
 										</div>
 										<div
 											class="add_product_pet_form_fotter d-flex justify-content-end">
@@ -929,7 +956,10 @@
 												name="${ParameterName.PARAMETER_COMMAND}"
 												value="${CommandName.COMMAND_ADMIN_PAGE_CREATE_PET_PRODUCT}" />
 											<button class="btn add_product_pet_form_btn_submit"
-												role="button">готово</button>
+												role="button">
+												<fmt:message
+													key="admin_page.all_products.add_product_form.add_pet.ok" />
+											</button>
 										</div>
 									</form>
 								</div>
@@ -942,72 +972,103 @@
 											class="form-floating mb-3 add_other_product_form_body_form_floating">
 											<input type="file"
 												class="form-control text-uppercase add_other_product_form_body_input_img"
-												id="floatingInputImg"
+												id="admin_page.all_products.add_product_form.add_feeds_and_other.choose_image_product"
 												name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
-												placeholder="file ..." /> <label
+												placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_feeds_and_other.choose_image_product"/>' />
+											<label
 												class="text-lowercase add_product_pet_form_body_label_img"
-												for="floatingInputImg">Выберите картинку для товара
-												<span>*</span>
+												for="admin_page.all_products.add_product_form.add_feeds_and_other.choose_image_product"><fmt:message
+													key="admin_page.all_products.add_product_form.add_feeds_and_other.choose_image_product" />
+												<span>*</span> </label>
+										</div>
+										<div class="form-floating mb-3">
+											<div class="input-group mb-3 mt-3">
+												<label> <span class="span_input span_input_1">
+														<input type="checkbox"
+														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+														value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.input.without_image" />
+												</span>
+												</label>
+											</div>
+										</div>
+										<div class="form-floating mb-3">
+											<input type="text" class="form-control"
+												id="admin_page.all_products.add_product_form.add_feeds_and_other.lable.type_product"
+												name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE}"
+												placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_feeds_and_other.lable.type_product"/>' />
+											<label class="text-lowercase"
+												for="admin_page.all_products.add_product_form.add_feeds_and_other.lable.type_product"><fmt:message
+													key="admin_page.all_products.add_product_form.add_feeds_and_other.lable.type_product" />
 											</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
-												id="floatingInputProductType"
-												name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE}"
-												placeholder="product type ..." /> <label
-												class="text-lowercase" for="floatingInputProductType">тип
-												товара</label>
-										</div>
-										<div class="form-floating mb-3">
-											<input type="text" class="form-control"
-												id="floatingInputBrand"
+												id="admin_page.all_products.add_product_form.add_feeds_and_other.lable.brand_product"
 												name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND}"
-												placeholder="brand ..." /> <label class="text-lowercase"
-												for="floatingInputBrand">брэнд</label>
+												placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_feeds_and_other.lable.brand_product"/>' />
+											<label class="text-lowercase"
+												for="admin_page.all_products.add_product_form.add_feeds_and_other.lable.brand_product"><fmt:message
+													key="admin_page.all_products.add_product_form.add_feeds_and_other.lable.brand_product" /></label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
-												id="floatingInputProductDescription"
+												id="admin_page.all_products.add_product_form.add_feeds_and_other.lable.description_product"
 												name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION}"
-												placeholder="input product description ..." /> <label
-												class="text-lowercase" for="floatingInputProductDescription">описание
-												товара</label>
+												placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_feeds_and_other.lable.description_product"/>' />
+											<label class="text-lowercase"
+												for="admin_page.all_products.add_product_form.add_feeds_and_other.lable.description_product"><fmt:message
+													key="admin_page.all_products.add_product_form.add_feeds_and_other.lable.description_product" />
+											</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
-												id="floatingInputProductTypePets"
+												id="admin_page.all_products.add_product_form.add_feeds_and_other.lable.types_pet_for_product"
 												name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES}"
-												placeholder="input types pets ..." /> <label
-												class="text-lowercase" for="floatingInputProductTypePets">Типы
-												питомцев, через запятую (,)</label>
+												placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_feeds_and_other.lable.types_pet_for_product"/>' />
+											<label class="text-lowercase"
+												for="admin_page.all_products.add_product_form.add_feeds_and_other.lable.types_pet_for_product"><fmt:message
+													key="admin_page.all_products.add_product_form.add_feeds_and_other.lable.types_pet_for_product" />
+											</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
-												id="floatingInputPrice"
+												id="admin_page.all_products.add_product_form.add_feeds_and_other.lable.price_product"
 												name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE}"
-												placeholder="Price" pattern="^(\d+)(\.\d{1,2})?$" /> <label
-												class="text-lowercase" for="floatingInputPrice">Цена</label>
+												placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_feeds_and_other.lable.price_product"/>'
+												pattern="^(\d+)(\.\d{1,2})?$" /> <label
+												class="text-lowercase"
+												for="admin_page.all_products.add_product_form.add_feeds_and_other.lable.price_product"><fmt:message
+													key="admin_page.all_products.add_product_form.add_feeds_and_other.lable.price_product" />
+											</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
-												id="floatingInputDiscount"
+												id="admin_page.all_products.add_product_form.add_feeds_and_other.lable.discount_product"
 												name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT}"
-												placeholder="Discount" pattern="^(\d+)(\.\d{1,2})?$" /> <label
-												class="text-lowercase" for="floatingInputDiscount">Скидка
-												(в %)</label>
+												placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_feeds_and_other.lable.discount_product"/>'
+												pattern="^(\d+)(\.\d{1,2})?$" /> <label
+												class="text-lowercase"
+												for="admin_page.all_products.add_product_form.add_feeds_and_other.lable.discount_product"><fmt:message
+													key="admin_page.all_products.add_product_form.add_feeds_and_other.lable.discount_product" />
+											</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="number" class="form-control"
-												id="floatingInputNumberOfUnitsProducts"
+												id="admin_page.all_products.add_product_form.add_feeds_and_other.lable.number_unit_product"
 												name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
-												placeholder="NumberOfUnitsProducts" pattern="^(\d+)$" /> <label
-												class="text-lowercase"
-												for="floatingInputNumberOfUnitsProducts">количество
-												единиц</label>
+												placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_feeds_and_other.lable.number_unit_product"/>'
+												pattern="^(\d+)$" /> <label class="text-lowercase"
+												for="admin_page.all_products.add_product_form.add_feeds_and_other.lable.number_unit_product"><fmt:message
+													key="admin_page.all_products.add_product_form.add_feeds_and_other.lable.number_unit_product" />
+											</label>
 										</div>
 										<div class="form_description">
 											<h5>
-												<span>*</span> - поле не обязательное для заполнения
+												<span>* </span>
+												<fmt:message
+													key="admin_page.all_products.add_product_form.form_description.field_is_not_reguired_for_enter_information" />
 											</h5>
 										</div>
 										<div
@@ -1016,7 +1077,10 @@
 												name="${ParameterName.PARAMETER_COMMAND}"
 												value="${CommandName.COMMAND_ADMIN_PAGE_CREATE_FEED_AND_OTHER_PRODUCT }" />
 											<button class="btn add_other_product_form_btn_submit"
-												role="button">готово</button>
+												role="button">
+												<fmt:message
+													key="admin_page.all_products.add_product_form.add_feeds_and_other.ok" />
+											</button>
 										</div>
 									</form>
 								</div>
@@ -1030,8 +1094,9 @@
 					<div class="col-12">
 						<h3
 							class="text-center d-flex flex-column justify-content-center align-items-center"
-							style="min-height: 45.3vh">Ваше время сессии завершено.
-							Перезайдите в учётную запись.</h3>
+							style="min-height: 45.3vh">
+							<fmt:message key="admin_page.all_products.end_session.message" />
+						</h3>
 					</div>
 				</div>
 			</c:if>

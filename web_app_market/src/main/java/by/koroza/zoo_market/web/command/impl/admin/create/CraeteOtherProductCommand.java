@@ -6,6 +6,7 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFF
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_UPLOAD_FILE_DIRECTORY;
+
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CREATE_FEEDS_AND_OTHER_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM;
@@ -22,6 +23,7 @@ import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
 import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
 
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_PART;
+import static by.koroza.zoo_market.web.command.name.ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE;
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_IS_CORRECT_FILE;
 
 import java.io.IOException;
@@ -38,6 +40,7 @@ import by.koroza.zoo_market.validation.PetValidation;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
@@ -98,20 +101,28 @@ public class CraeteOtherProductCommand implements Command {
 	private Map<FeedAndOther, Long> getInputParameters(HttpServletRequest request,
 			Map<String, String> mapInputExceptions) throws IOException, ServiceException {
 		Map<FeedAndOther, Long> petAndNumber = new HashMap<>();
-		FeedAndOther productFeedAndOther = new FeedAndOther();
-		if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
-			Part part = (Part) request.getAttribute(PARAMETER_PART);
-			if (part != null) {
-				productFeedAndOther.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part,
-						(String) request.getAttribute(ATTRIBUTE_UPLOAD_FILE_DIRECTORY)));
+		HttpSession session = request.getSession();
+		FeedAndOther productFeedAndOther = session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER) != null
+				? (FeedAndOther) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER)
+				: new FeedAndOther();
+		if (request.getParameter(ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE) == null) {
+			if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
+				Part part = (Part) request.getAttribute(PARAMETER_PART);
+				if (part != null) {
+					productFeedAndOther.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part,
+							(String) request.getAttribute(ATTRIBUTE_UPLOAD_FILE_DIRECTORY)));
+				}
+			} else {
+				if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+					mapInputExceptions.put(TypeInputException.IMAGE.toString(),
+							"Вы выбрали не корретный файл для картинки для товара");
+				} else if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+					mapInputExceptions.put(TypeInputException.IMAGE.toString(),
+							"You choosed image incorrect for product");
+				}
 			}
 		} else {
-			if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
-				mapInputExceptions.put(TypeInputException.IMAGE.toString(),
-						"Вы выбрали не корретный файл для картинки для товара");
-			} else if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
-				mapInputExceptions.put(TypeInputException.IMAGE.toString(), "You choosed image incorrect for product");
-			}
+			productFeedAndOther.setImagePath(null);
 		}
 		String type = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE);
 		if (!FeedsAndOtherValidation.validPetType(type)) {

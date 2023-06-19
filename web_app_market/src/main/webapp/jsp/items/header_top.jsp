@@ -37,7 +37,7 @@
 				value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 			<button class="logo_link" role="button">
 				<img class="img img-fluid"
-					src="${ServletName.SERVLET_SHOW_IMMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.LOGO_PNG_IMAGE_PATH}"
+					src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.LOGO_PNG_IMAGE_PATH}"
 					alt="logo" />
 			</button>
 		</form>

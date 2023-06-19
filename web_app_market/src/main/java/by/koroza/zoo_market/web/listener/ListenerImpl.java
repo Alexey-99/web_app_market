@@ -1,6 +1,7 @@
 package by.koroza.zoo_market.web.listener;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
+import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
 
 import jakarta.servlet.annotation.WebListener;
 import jakarta.servlet.http.HttpSessionEvent;
@@ -24,8 +25,7 @@ public class ListenerImpl implements HttpSessionListener {
 	 */
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {
-		se.getSession().setAttribute(ATTRIBUTE_SESSION_LOCALE, "ru_RU");
-		String sessionId = se.getSession().getId();
+		se.getSession().setAttribute(ATTRIBUTE_SESSION_LOCALE, RUSSIAN);
 		System.out.println(
 				"--------------------------------- session created -------------------------------------------------------------");
 	}

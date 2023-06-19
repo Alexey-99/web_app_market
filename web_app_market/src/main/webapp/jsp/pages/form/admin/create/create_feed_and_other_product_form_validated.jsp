@@ -1,17 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
 <%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
-<%@page import="by.koroza.zoo_market.model.entity.status.UserRole"%>
-<%@page import="by.koroza.zoo_market.web.command.name.LanguageName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
-<%@page import="by.koroza.zoo_market.model.entity.status.ProductType"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ParameterValue"%>
+<%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
 <%@page
 	import="by.koroza.zoo_market.web.command.impl.admin.create.CraetePetProductCommand"%>
 <%@page
 	import="by.koroza.zoo_market.web.command.impl.admin.create.CraeteOtherProductCommand"%>
+<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
+	scope="session" />
+<fmt:setBundle
+	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,260 +28,20 @@
 <link rel="stylesheet" href="css/pages/products_page.css" />
 <link rel="stylesheet" href="css/items/product_card.css" />
 <link rel="stylesheet" href="css/items/admin/all_products_page.css" />
-<title>Insert title here</title>
+<title><fmt:message key="add_product_form_validated.title" /></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 <!-- map_product_pet_and_number_of_units = AttributeName.ATTRIBUTE_MAP_PRODUCT_PET_AND_NUMBER_OF_UNITS_PRODUCT -->
 <!-- map_product_feeds_and_other_and_number_of_units = AttributeName.ATTRIBUTE_MAP_PRODUCT_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT -->
 <!-- product_pet = AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET -->
 <!-- product_pet_number_of_units = AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT -->
 </head>
-<body>
+<body
+	style="height: 1087px; display: flex; flex-direction: column; justify-content: space-between;">
 
 	<%@ include file="/jsp/items/header_block_header_top.jsp"%>
 	<main class="mb-5" style="min-height: 53vh">
 		<div class="container" style="max-width: 1500px">
 			<c:if test="${user != null}">
-				<div class="row">
-					<div class="col-1">
-						<nav class="navbar bg-body-tertiary">
-							<div class="container-fluid justify-content-center">
-								<button class="navbar-toggler" type="button"
-									data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-									aria-controls="offcanvasNavbar">
-									<svg fill="#000000" height="20px" width="20px" version="1.1"
-										id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-										xmlns:xlink="http://www.w3.org/1999/xlink"
-										viewBox="0 0 512 512" xml:space="preserve">
-<g>
-	<g>
-		<path
-											d="M8.959,0v81.89l201.666,201.666V512l90.75-60.5V283.556L503.041,81.89V0H8.959z M271.125,435.31l-30.25,20.167V292.416
-			h30.25V435.31z M279.985,262.166h-47.969L60.6,90.75h390.802L279.985,262.166z M472.791,60.5H39.209V30.25h433.582V60.5z" />
-	</g>
-</g>
-</svg>
-								</button>
-								<div class="offcanvas offcanvas-start" tabindex="-1"
-									id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-									<div class="offcanvas-header">
-										<h5 class="offcanvas-title text-uppercase"
-											id="offcanvasNavbarLabel">фильтр</h5>
-										<button type="button" class="btn-close"
-											data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
-									</div>
-									<c:if test="${locale == LanguageName.ENGLISH}">
-										<div class="offcanvas-body">
-											<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-												<li class="nav-item dropdown">
-													<form action="Controller">
-														<input type="hidden" name="command" value="" />
-														<button class="btn form_submit mb-3" role="button">
-															Сбросить фильтр</button>
-													</form>
-													<form action="Controller">
-														<div class="accordion accordion_form"
-															id="accordionExample">
-															<div class="accordion-item">
-																<h2 class="accordion-header">
-																	<button
-																		class="accordion-button collapsed text-uppercase"
-																		type="button" data-bs-toggle="collapse"
-																		data-bs-target="#collapse_CHOOSE_TYPE_PET"
-																		aria-expanded="false"
-																		aria-controls="collapse_CHOOSE_TYPE_PET">Тип
-																		продукта</button>
-																</h2>
-																<div id="collapse_CHOOSE_TYPE_PET"
-																	class="accordion-collapse collapse show">
-																	<div class="accordion-body">
-																		<c:forEach
-																			items="${products_pets_filter_map.get(FilterName.CHOOSE_TYPE_PET_EN)}"
-																			var="value" varStatus="innerStutus">
-																			<label> <span
-																				class="span_input span_input_CHOOSE_TYPE_PET">
-																					<input type="checkbox"
-																					name="${InputName.INPUT_PET_TYPE}" value="${value}" />
-																					${value}
-																			</span>
-																			</label>
-																			<br />
-																		</c:forEach>
-																		<label> <span
-																			class="span_input span_input_CHOOSE_TYPE_PET text-lowercase">
-																				<input type="checkbox"
-																				name="${InputName.INPUT_PET_TYPE}" value="${value}" />
-																				Pet
-																		</span>
-																		</label> <br /> <label> <span
-																			class="span_input span_input_CHOOSE_TYPE_PET text-lowercase">
-																				<input type="checkbox"
-																				name="${InputName.INPUT_PET_TYPE}" value="${value}" />
-																				Feed_and_other
-																		</span>
-																		</label>
-																	</div>
-																</div>
-															</div>
-														</div>
-
-														<input type="hidden" name="command"
-															value="${CommandName.COMMAND_SHOW_PRODUCT_PETS_INCLUDED_FILTER_PAGE}" />
-														<input class="form_submit" type="submit" value="Поиск" />
-													</form>
-												</li>
-											</ul>
-										</div>
-									</c:if>
-									<c:if test="${locale == LanguageName.RUSSIAN}">
-										<div class="offcanvas-body">
-											<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-												<li class="nav-item dropdown">
-													<form action="Controller">
-														<input type="hidden" name="command" value="" />
-														<button class="btn form_submit mb-3" role="button">
-															Сбросить фильтр</button>
-													</form>
-													<form action="Controller">
-														<div class="accordion accordion_form"
-															id="accordionExample">
-															<div class="accordion-item">
-																<h2 class="accordion-header">
-																	<button
-																		class="accordion-button collapsed text-uppercase"
-																		type="button" data-bs-toggle="collapse"
-																		data-bs-target="#collapse_CHOOSE_TYPE_PET"
-																		aria-expanded="false"
-																		aria-controls="collapse_CHOOSE_TYPE_PET">Тип
-																		продукта</button>
-																</h2>
-																<div id="collapse_CHOOSE_TYPE_PET"
-																	class="accordion-collapse collapse show">
-																	<div class="accordion-body">
-																		<c:forEach
-																			items="${products_pets_filter_map.get(FilterName.CHOOSE_TYPE_PET_EN)}"
-																			var="value" varStatus="innerStutus">
-																			<label> <span
-																				class="span_input span_input_CHOOSE_TYPE_PET">
-																					<input type="checkbox"
-																					name="${InputName.INPUT_PET_TYPE}" value="${value}" />
-																					${value}
-																			</span>
-																			</label>
-																			<br />
-																		</c:forEach>
-																		<label> <span
-																			class="span_input span_input_CHOOSE_TYPE_PET text-lowercase">
-																				<input type="checkbox"
-																				name="${InputName.INPUT_PET_TYPE}" value="${value}" />
-																				Pet
-																		</span>
-																		</label> <br /> <label> <span
-																			class="span_input span_input_CHOOSE_TYPE_PET text-lowercase">
-																				<input type="checkbox"
-																				name="${InputName.INPUT_PET_TYPE}" value="${value}" />
-																				Feed_and_other
-																		</span>
-																		</label>
-																	</div>
-																</div>
-															</div>
-														</div>
-
-														<input type="hidden" name="command"
-															value="${CommandName.COMMAND_SHOW_PRODUCT_PETS_INCLUDED_FILTER_PAGE}" />
-														<input class="form_submit" type="submit" value="Поиск" />
-													</form>
-												</li>
-											</ul>
-										</div>
-									</c:if>
-								</div>
-							</div>
-						</nav>
-					</div>
-					<div class="col-11">
-						<div class="top_btns d-flex justify-content-between">
-							<form action="Controller">
-								<input type="hidden" name="command"
-									value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE }" />
-								<button class="btn top_btns_add_product" role="button">
-									Назад</button>
-							</form>
-							<div class="top_btns_operations">
-								<button class="btn top_btns_add_product"
-									onclick="showAddProductForm()">Добавить товар</button>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-12">
-							<table class="table table-striped table-hover">
-								<thead class="">
-									<tr class="align-middle">
-										<th scope="col">img</th>
-										<th scope="col">id</th>
-										<th scope="col">type</th>
-										<th scope="col">brand</th>
-										<th scope="col">description</th>
-										<th scope="col">pet_type</th>
-										<th scope="col">specie</th>
-										<th scope="col">breed</th>
-										<th scope="col">birth date</th>
-										<th scope="col">price</th>
-										<th scope="col">discount</th>
-										<th scope="col">total price</th>
-										<th scope="col">number</th>
-									</tr>
-								</thead>
-
-								<tbody class="">
-									<c:forEach
-										items="${map_product_pet_and_number_of_units.entrySet()}"
-										var="pet">
-										<tr class="align-middle">
-											<td class="">img</td>
-											<th class="" scope="row">p-${pet.getKey().getId()}</th>
-											<td class="text-lowercase">${ProductType.PETS.toString()}</td>
-											<td class="">-</td>
-											<td class="">-</td>
-											<td class="">-</td>
-											<td class="text-lowercase">${pet.getKey().getSpecie()}</td>
-											<td class="text-lowercase">${pet.getKey().getBreed()}</td>
-											<td class="">${pet.getKey().getBirthDate().toString()}</td>
-											<td class="">${pet.getKey().getPrice()}</td>
-											<td class="">${pet.getKey().getDiscount()}</td>
-											<td class="">${pet.getKey().getTotalPrice()}</td>
-											<td class="">${pet.getValue()}</td>
-										</tr>
-									</c:forEach>
-									<c:forEach
-										items="${map_product_feeds_and_other_and_number_of_units.entrySet()}"
-										var="product">
-										<tr class="align-middle">
-											<td>img</td>
-											<th class="text-lowercase" scope="row">o-${product.getKey().getId()}</th>
-											<td class="text-lowercase"><c:if
-													test="${product.getKey().getProductType() == null || product.getKey().getProductType().isBlank()}">${ProductType.PETS.toString()}</c:if>
-												<c:if
-													test="${product.getKey().getProductType() != null && !product.getKey().getProductType().isBlank()}">${product.getKey().getProductType()}</c:if>
-											</td>
-											<td class="">${product.getKey().getBrand()}</td>
-											<td class="">${product.getKey().getDescriptions()}</td>
-											<td class="text-lowercase">${product.getKey().getPetTypes().toString().substring(1, product.getKey().getPetTypes().toString().length() - 1)}</td>
-											<td class="">-</td>
-											<td class="">-</td>
-											<td class="">-</td>
-											<td class="">${product.getKey().getPrice()}</td>
-											<td class="">${product.getKey().getDiscount()}</td>
-											<td class="">${product.getKey().getTotalPrice()}</td>
-											<td class="">${product.getValue()}</td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
 				<div class="row">
 					<div class="col-12">
 						<div
@@ -287,12 +52,15 @@
 								<div class="add_product_form_top">
 									<div class="add_product_form_top_title">
 										<h2 class="form_title text-center mb-3 text-lowercase">
-											Добавление товара</h2>
+											<fmt:message
+												key="admin_page.all_products.add_product_form.title" />
+										</h2>
 									</div>
 									<div
 										class="d-flex justify-content-center align-items-center mb-4 add_product_form_top_btns">
-										<form action="Controller">
-											<input type="hidden" name="command"
+										<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+											<input type="hidden"
+												name="${ParameterName.PARAMETER_COMMAND}"
 												value="${CommandName.COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_OFF_FILTER }">
 											<button class="close_btn" role="button">
 												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -303,13 +71,17 @@
 											</button>
 										</form>
 										<button
-											class="btn text-uppercase  add_product_form_top_btn add_product_form_top_btn_product_pet"
+											class="btn text-uppercase add_product_form_top_btn add_product_form_top_btn_product_pet"
 											role="button" onclick="openAddProductPetForm()">
-											Питомцы</button>
+											<fmt:message
+												key="admin_page.all_products.add_product_form.add_pet.title" />
+										</button>
 										<button
 											class="btn text-uppercase active add_product_form_top_btn add_product_form_top_btn_other_product"
 											role="button" onclick="openAddOtherProductForm()">
-											товары для питомцев</button>
+											<fmt:message
+												key="admin_page.all_products.add_product_form.add_feeds_and_other.title" />
+										</button>
 									</div>
 								</div>
 
@@ -317,107 +89,143 @@
 									<c:if
 										test="${admin_page_create_pet_product_input_exception_type_and_message == null || admin_page_create_pet_product_input_exception_type_and_message.isEmpty()}">
 										<form class="add_product_pet_form_body" method="post"
-											action="${pageContext.request.contextPath}/imageServlet"
+											action="${pageContext.request.contextPath}/${ServletName.SERVLET_UPLOAD_IMAGE_NAME}"
 											enctype="multipart/form-data">
 											<div
 												class="form-floating mb-3 add_product_pet_form_body_form_floating">
 												<input type="file"
-													class="form-control text-uppercase add_product_pet_form_body_input_img"
-													id="floatingInputImg"
+													class="form-control add_product_pet_form_body_input_img"
+													id="add_product_form_validated.add_pet.lable.choose_image_product"
 													name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
-													placeholder="dog" /> <label
+													placeholder='<fmt:message key="add_product_form_validated.add_pet.lable.choose_image_product"/>' />
+												<label
 													class="text-lowercase add_product_pet_form_body_label_img"
-													for="floatingInputImg">Выберите картинку для товара
-													<span>*</span>
-												</label>
+													for="add_product_form_validated.add_pet.lable.choose_image_product"><fmt:message
+														key="add_product_form_validated.add_pet.lable.choose_image_product" />
+													<span>*</span> </label> <input type="checkbox" class="form-control"
+													id="" name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
+													placeholder='<fmt:message key=""/>' /> <label
+													class="text-lowercase " for=""><fmt:message key="" />оставить
+													без картинки <span>*</span> </label>
 												<div class="">
 													<c:if test="${product_pet.getImagePath() != null}">
-																	Выбрана картинка с названием ${product.getKey().getImagePath()}
-																	<img class=""
-															src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(product.getKey().getImagepath())}"/>'
-															alt="" style="width: 35px; height: 35px">
+														<fmt:message
+															key="add_product_form_validated.add_pet.input.choose_image_product.massage.choosed_image_with_name" /> 	Выбрана картинка с названием ${product.getKey().getImagePath()}
+														<img class="" style="width: 35px; height: 35px" alt=""
+															src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product_pet.getImagePath()}" />
 													</c:if>
 													<c:if test="${product_pet.getImagePath() == null}">
-														картинка не выбрана 
+														<fmt:message
+															key="add_product_form_validated.add_pet.input.choose_image_product.massage.not_choosed_image" />
 													</c:if>
 												</div>
 											</div>
 											<div class="form-floating mb-3">
-												<input type="text" class="form-control text-uppercase"
-													id="floatingInputSpecie"
+												<input type="text" class="form-control "
+													id="add_product_form_validated.add_pet.lable.type_pet"
 													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
-													value="${product_pet.getSpecie()}" placeholder="dog" /> <label
-													class="text-lowercase" for="floatingInputSpecie">тип
-													питомца</label>
+													value="${product_pet.getSpecie()}"
+													placeholder='<fmt:message key="add_product_form_validated.add_pet.lable.type_pet"/>' />
+												<label class="text-lowercase"
+													for="add_product_form_validated.add_pet.lable.type_pet">
+													<fmt:message
+														key="add_product_form_validated.add_pet.lable.type_pet" />
+												</label>
 											</div>
 											<div class="form-floating mb-3">
-												<input type="text" class="form-control text-uppercase"
-													id="floatingInputBreed"
+												<input type="text" class="form-control "
+													id="add_product_form_validated.add_pet.lable.breed_pet"
 													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED}"
-													value="${product_pet.getBreed()}" placeholder="Breed" /> <label
-													class="text-lowercase" for="floatingInputBreed">порода</label>
+													value="${product_pet.getBreed()}"
+													placeholder='<fmt:message key="add_product_form_validated.add_pet.lable.breed_pet"/>' />
+												<label class="text-lowercase"
+													for="add_product_form_validated.add_pet.lable.breed_pet">
+													<fmt:message
+														key="add_product_form_validated.add_pet.lable.breed_pet" />
+												</label>
 											</div>
 											<div class="form-floating mb-3">
-												<input type="date" class="form-control text-uppercase"
-													id="floatingInputBirthDate"
+												<input type="date" class="form-control "
+													id="add_product_form_validated.add_pet.lable.birth_date_pet"
 													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE}"
 													value="${product_pet.getBirthDate()}"
-													placeholder="BirthDate" /> <label class="text-lowercase"
-													for="floatingInputBirthDate">Дата рождения</label>
+													placeholder='<fmt:message key="add_product_form_validated.add_pet.lable.birth_date_pet"/>' />
+												<label class="text-lowercase"
+													for="add_product_form_validated.add_pet.lable.birth_date_pet">
+													<fmt:message
+														key="add_product_form_validated.add_pet.lable.birth_date_pet" />
+												</label>
 											</div>
 											<div class="form-floating mb-3">
-												<input type="text" class="form-control text-uppercase"
-													id="floatingInputPrice"
+												<input type="text" class="form-control "
+													id="add_product_form_validated.add_pet.lable.price_pet"
 													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE}"
-													value="${product_pet.getPrice()}" placeholder="Price"
+													value="${product_pet.getPrice()}"
+													placeholder='<fmt:message key="add_product_form_validated.add_pet.lable.price_pet"/>'
 													pattern="^(\d+)(\.\d{1,2})?$" /> <label
-													class="text-lowercase" for="floatingInputPrice">Цена</label>
+													class="text-lowercase"
+													for="add_product_form_validated.add_pet.lable.price_pet">
+													<fmt:message
+														key="add_product_form_validated.add_pet.lable.price_pet" />
+												</label>
 											</div>
 											<div class="form-floating mb-3">
-												<input type="text" class="form-control text-uppercase"
-													id="floatingInputDiscount"
+												<input type="text" class="form-control "
+													id="add_product_form_validated.add_pet.lable.discount_pet"
 													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT}"
-													value="${product_pet.getDiscount()}" placeholder="Discount"
+													value="${product_pet.getDiscount()}"
+													placeholder='<fmt:message key="add_product_form_validated.add_pet.lable.discount_pet"/>'
 													pattern="^(\d+)(\.\d{1,2})?$" /> <label
-													class="text-lowercase" for="floatingInputDiscount">Скидка
-													(в %)</label>
+													class="text-lowercase"
+													for="add_product_form_validated.add_pet.lable.discount_pet">
+													<fmt:message
+														key="add_product_form_validated.add_pet.lable.discount_pet" />
+												</label>
 											</div>
 											<div class="form-floating mb-3">
-												<input type="number" class="form-control text-uppercase"
-													id="floatingInputNumberOfUnitsProducts"
+												<input type="number" class="form-control "
+													id="add_product_form_validated.add_pet.lable.number_unit_pet"
 													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
 													value="${product_pet_number_of_units}"
-													placeholder="NumberOfUnitsProducts" pattern="^(\d+)$" /> <label
-													class="text-lowercase"
-													for="floatingInputNumberOfUnitsProducts">количество
-													единиц</label>
+													placeholder='<fmt:message key="add_product_form_validated.add_pet.lable.number_unit_pet"/>'
+													pattern="^(\d+)$" /> <label class="text-lowercase"
+													for="add_product_form_validated.add_pet.lable.number_unit_pet">
+													<fmt:message
+														key="add_product_form_validated.add_pet.lable.number_unit_pet" />
+												</label>
 											</div>
 											<div
 												class="add_product_pet_form_fotter d-flex justify-content-end">
-												<input type="hidden" name="command"
+												<input type="hidden"
+													name="${ParameterName.PARAMETER_COMMAND}"
 													value="${CommandName.COMMAND_ADMIN_PAGE_CREATE_PET_PRODUCT}" />
 												<button class="btn add_product_pet_form_btn_submit"
-													role="button">готово</button>
+													role="button">
+													<fmt:message key="add_product_form_validated.add_pet.ok" />
+												</button>
 											</div>
 										</form>
 									</c:if>
 									<c:if
 										test="${admin_page_create_pet_product_input_exception_type_and_message != null && !admin_page_create_pet_product_input_exception_type_and_message.isEmpty()}">
 										<form class="add_product_pet_form_body" method="post"
-											action="${pageContext.request.contextPath}/imageServlet"
+											action="${pageContext.request.contextPath}/${ServletName.SERVLET_UPLOAD_IMAGE_NAME}"
 											enctype="multipart/form-data">
 											<c:if
 												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_IMAGE) }">
 												<div
 													class="form-floating mb-3 add_product_pet_form_body_form_floating ">
 													<input type="file"
-														class="form-control text-uppercase add_product_pet_form_body_input_img is-invalid"
-														id="floatingInputImg"
+														class="form-control add_product_pet_form_body_input_img is-invalid"
+														id="add_product_form_validated.add_pet.lable.choose_image_product"
 														name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
-														placeholder="dog" /> <label
+														placeholder='<fmt:message key="add_product_form_validated.add_pet.lable.choose_image_product"/>' />
+													<label
 														class="text-lowercase add_product_pet_form_body_label_img"
-														for="floatingInputImg">Выберите картинку для
-														товара <span>*</span>
+														for="add_product_form_validated.add_pet.lable.choose_image_product">
+														<fmt:message
+															key="add_product_form_validated.add_pet.lable.choose_image_product" />
+														<span>*</span>
 													</label>
 													<div class="invalid-feedback">
 														${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_IMAGE)}</div>
@@ -428,193 +236,268 @@
 												<div
 													class="form-floating mb-3 add_product_pet_form_body_form_floating ">
 													<input type="file"
-														class="form-control text-uppercase add_product_pet_form_body_input_img is-valid"
-														id="floatingInputImg"
-														name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
-														placeholder="dog" /> <label
+														class="form-control add_product_pet_form_body_input_img is-valid"
+														id="add_product_form_validated.add_pet.lable.choose_image_product"
+														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRODUCT_IMAGE}"
+														placeholder='<fmt:message key="add_product_form_validated.add_pet.lable.choose_image_product"/>' />
+													<label
 														class="text-lowercase add_product_pet_form_body_label_img"
-														for="floatingInputImg">Выберите картинку для
-														товара <span>*</span>
+														for="add_product_form_validated.add_pet.lable.choose_image_product">
+														<fmt:message
+															key="add_product_form_validated.add_pet.lable.choose_image_product" />
+														<span>*</span>
 													</label>
-													<div class="valid-feedback">
+													<div class="">
 														<c:if test="${product_pet.getImagePath() != null}">
-																	Выбрана картинка с названием ${product.getKey().getImagePath()}
-																	<img class=""
-																src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(product_pet.getImagePath())}"/>'
-																alt="" style="width: 35px; height: 35px">
+															<fmt:message
+																key="add_product_form_validated.add_pet.input.choose_image_product.massage.choosed_image_with_name" />
+																	 ${product_pet.getImagePath()}
+																	 <img class="" style="width: 35px; height: 35px" alt=""
+																src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product_pet.getImagePath()}" />
 														</c:if>
 														<c:if test="${product_pet.getImagePath() == null}">
-														картинка не выбрана 
-													</c:if>
+															<fmt:message
+																key="add_product_form_validated.add_pet.input.choose_image_product.massage.not_choosed_image" />
+														</c:if>
+													</div>
+												</div>
+												<div class="form-floating mb-3">
+													<div class="input-group mb-3 mt-3">
+														<label> <span class="span_input span_input_1">
+																<input type="checkbox"
+																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+																value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
+																<fmt:message
+																	key="add_product_form_validated.add_pet.input.without_image" />
+														</span>
+														</label>
 													</div>
 												</div>
 											</c:if>
 											<c:if
 												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_SPECIE) }">
 												<div class="form-floating mb-3">
-													<input type="text"
-														class="form-control text-uppercase is-invalid"
-														id="floatingInputSpecie"
+													<input type="text" class="form-control is-invalid"
+														id="add_product_form_validated.add_pet.lable.type_pet"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
-														placeholder="dog" /> <label class="text-lowercase"
-														for="floatingInputSpecie">тип питомца</label>
+														placeholder='<fmt:message key="add_product_form_validated.add_pet.lable.type_pet"/>' />
+													<label class="text-lowercase"
+														for="add_product_form_validated.add_pet.lable.type_pet">
+														<fmt:message
+															key="add_product_form_validated.add_pet.lable.type_pet" />
+													</label>
 													<div class="invalid-feedback">${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_SPECIE)}</div>
 												</div>
 											</c:if>
 											<c:if
 												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_SPECIE) }">
 												<div class="form-floating mb-3">
-													<input type="text"
-														class="form-control text-uppercase is-valid"
-														id="floatingInputSpecie"
+													<input type="text" class="form-control is-valid"
+														id="add_product_form_validated.add_pet.lable.type_pet"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
-														value="${product_pet.getSpecie()}" placeholder="dog" /> <label
-														class="text-lowercase" for="floatingInputSpecie">тип
-														питомца</label>
-													<div class="valid-feedback">Всё хорошо!!!</div>
+														value="${product_pet.getSpecie()}"
+														placeholder='<fmt:message key=""/>' /> <label
+														class="text-lowercase"
+														for="add_product_form_validated.add_pet.lable.type_pet">
+														<fmt:message
+															key="add_product_form_validated.add_pet.lable.type_pet" />
+													</label>
+													<div class="valid-feedback">
+														<fmt:message
+															key="add_product_form_validated.add_pet.positive_feed_back" />
+													</div>
 												</div>
 											</c:if>
 											<c:if
 												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BREED) }">
 												<div class="form-floating mb-3">
-													<input type="text"
-														class="form-control text-uppercase is-invalid"
-														id="floatingInputBreed"
+													<input type="text" class="form-control is-invalid"
+														id="add_product_form_validated.add_pet.lable.breed_pet"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED}"
-														placeholder="Breed" /> <label class="text-lowercase"
-														for="floatingInputBreed">порода</label>
+														placeholder='<fmt:message key="add_product_form_validated.add_pet.lable.breed_pet"/>' />
+													<label class="text-lowercase"
+														for="add_product_form_validated.add_pet.lable.breed_pet">
+														<fmt:message
+															key="add_product_form_validated.add_pet.lable.breed_pet" />
+													</label>
 													<div class="invalid-feedback">${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BREED)}</div>
 												</div>
 											</c:if>
 											<c:if
 												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BREED) }">
 												<div class="form-floating mb-3">
-													<input type="text"
-														class="form-control text-uppercase is-valid"
-														id="floatingInputBreed"
+													<input type="text" class="form-control is-valid"
+														id="add_product_form_validated.add_pet.lable.breed_pet"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED}"
-														value="${product_pet.getBreed()}" placeholder="Breed" />
-													<label class="text-lowercase" for="floatingInputBreed">порода</label>
-													<div class="valid-feedback">Всё хорошо!!!</div>
+														value="${product_pet.getBreed()}"
+														placeholder='<fmt:message key="add_product_form_validated.add_pet.lable.breed_pet"/>' />
+													<label class="text-lowercase"
+														for="add_product_form_validated.add_pet.lable.breed_pet">
+														<fmt:message
+															key="add_product_form_validated.add_pet.lable.breed_pet" />
+													</label>
+													<div class="valid-feedback">
+														<fmt:message
+															key="add_product_form_validated.add_pet.positive_feed_back" />
+													</div>
 												</div>
 											</c:if>
 											<c:if
 												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BIRTH_DATE) }">
 												<div class="form-floating mb-3">
-													<input type="date"
-														class="form-control text-uppercase is-invalid"
-														id="floatingInputBirthDate"
+													<input type="date" class="form-control is-invalid"
+														id="add_product_form_validated.add_pet.lable.birth_date_pet"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE}"
-														placeholder="BirthDate" /> <label class="text-lowercase"
-														for="floatingInputBirthDate">Дата рождения</label>
+														placeholder='<fmt:message key="add_product_form_validated.add_pet.lable.birth_date_pet"/>' />
+													<label class="text-lowercase"
+														for="add_product_form_validated.add_pet.lable.birth_date_pet">
+														<fmt:message
+															key="add_product_form_validated.add_pet.lable.birth_date_pet" />
+													</label>
 													<div class="invalid-feedback">${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BIRTH_DATE)}</div>
 												</div>
 											</c:if>
 											<c:if
 												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BIRTH_DATE) }">
 												<div class="form-floating mb-3">
-													<input type="date"
-														class="form-control text-uppercase is-valid"
-														id="floatingInputBirthDate"
+													<input type="date" class="form-control is-valid"
+														id="add_product_form_validated.add_pet.lable.birth_date_pet"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE}"
 														value="${product_pet.getBirthDate().toString()}"
-														placeholder="BirthDate" /> <label class="text-lowercase"
-														for="floatingInputBirthDate">Дата рождения</label>
-													<div class="valid-feedback">Всё хорошо!!!</div>
+														placeholder='<fmt:message key="add_product_form_validated.add_pet.lable.birth_date_pet"/>' />
+													<label class="text-lowercase"
+														for="add_product_form_validated.add_pet.lable.birth_date_pet">
+														<fmt:message
+															key="add_product_form_validated.add_pet.lable.birth_date_pet" />
+													</label>
+													<div class="valid-feedback">
+														<fmt:message
+															key="add_product_form_validated.add_pet.positive_feed_back" />
+													</div>
 												</div>
 											</c:if>
 											<c:if
 												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE) }">
 												<div class="form-floating mb-3">
-													<input type="text"
-														class="form-control text-uppercase is-invalid"
-														id="floatingInputPrice"
+													<input type="text" class="form-control  is-invalid"
+														id="add_product_form_validated.add_pet.lable.price_pe"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE}"
-														placeholder="Price" pattern="^(\d+)(\.\d{1,2})?$" /> <label
-														class="text-lowercase" for="floatingInputPrice">Цена</label>
+														placeholder='<fmt:message key="add_product_form_validated.add_pet.lable.price_pet"/>'
+														pattern="^(\d+)(\.\d{1,2})?$" /> <label
+														class="text-lowercase"
+														for="add_product_form_validated.add_pet.lable.price_pet">
+														<fmt:message
+															key="add_product_form_validated.add_pet.lable.price_pet" />
+													</label>
 													<div class="invalid-feedback">${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}</div>
 												</div>
 											</c:if>
 											<c:if
 												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
 												<div class="form-floating mb-3">
-													<input type="text"
-														class="form-control text-uppercase is-valid"
-														id="floatingInputPrice"
+													<input type="text" class="form-control  is-valid"
+														id="add_product_form_validated.add_pet.lable.price_pet"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE}"
-														value="${product_pet.getPrice()}" placeholder="Price"
+														value="${product_pet.getPrice()}"
+														placeholder='<fmt:message key="add_product_form_validated.add_pet.lable.price_pet"/>'
 														pattern="^(\d+)(\.\d{1,2})?$" /> <label
-														class="text-lowercase" for="floatingInputPrice">Цена</label>
-													<div class="valid-feedback">Всё хорошо!!!</div>
+														class="text-lowercase"
+														for="add_product_form_validated.add_pet.lable.price_pet">
+														<fmt:message
+															key="add_product_form_validated.add_pet.lable.price_pet" />
+													</label>
+													<div class="valid-feedback">
+														<fmt:message
+															key="add_product_form_validated.add_pet.positive_feed_back" />
+													</div>
 												</div>
 											</c:if>
 											<c:if
 												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT) }">
 												<div class="form-floating mb-3">
-													<input type="text"
-														class="form-control text-uppercase is-invalid"
-														id="floatingInputDiscount"
+													<input type="text" class="form-control is-invalid"
+														id="add_product_form_validated.add_pet.lable.discount_pet"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT}"
-														placeholder="Discount" pattern="^(\d+)(\.\d{1,2})?$" /> <label
-														class="text-lowercase" for="floatingInputDiscount">Скидка
-														(в %)</label>
+														placeholder='<fmt:message key="add_product_form_validated.add_pet.lable.discount_pet"/>'
+														pattern="^(\d+)(\.\d{1,2})?$" /> <label
+														class="text-lowercase"
+														for="add_product_form_validated.add_pet.lable.discount_pet">
+														<fmt:message
+															key="add_product_form_validated.add_pet.lable.discount_pet" />
+													</label>
 													<div class="invalid-feedback">${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT)}</div>
 												</div>
 											</c:if>
 											<c:if
 												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT) }">
 												<div class="form-floating mb-3">
-													<input type="text"
-														class="form-control text-uppercase is-valid"
-														id="floatingInputDiscount"
+													<input type="text" class="form-control is-valid"
+														id="add_product_form_validated.add_pet.lable.discount_pet"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT}"
 														value="${product_pet.getDiscount()}"
-														placeholder="Discount" pattern="^(\d+)(\.\d{1,2})?$" /> <label
-														class="text-lowercase" for="floatingInputDiscount">Скидка
-														(в %)</label>
-													<div class="valid-feedback">Всё хорошо!!!</div>
+														placeholder='<fmt:message key="add_product_form_validated.add_pet.lable.discount_pet"/>'
+														pattern="^(\d+)(\.\d{1,2})?$" /> <label
+														class="text-lowercase"
+														for="add_product_form_validated.add_pet.lable.discount_pet">
+														<fmt:message
+															key="add_product_form_validated.add_pet.lable.discount_pet" />
+													</label>
+													<div class="valid-feedback">
+														<fmt:message
+															key="add_product_form_validated.add_pet.positive_feed_back" />
+													</div>
 												</div>
 											</c:if>
 											<c:if
 												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT) }">
 												<div class="form-floating mb-3">
-													<input type="number"
-														class="form-control text-uppercase is-invalid"
-														id="floatingInputNumberOfUnitsProducts"
+													<input type="number" class="form-control is-invalid"
+														id="add_product_form_validated.add_pet.lable.number_unit_pet"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
-														placeholder="NumberOfUnitsProducts" pattern="^(\d+)$" />
-													<label class="text-lowercase"
-														for="floatingInputNumberOfUnitsProducts">количество
-														единиц</label>
+														placeholder='<fmt:message key="add_product_form_validated.add_pet.lable.number_unit_pet"/>'
+														pattern="^(\d+)$" /> <label class="text-lowercase"
+														for="add_product_form_validated.add_pet.lable.number_unit_pet">
+														<fmt:message
+															key="add_product_form_validated.add_pet.lable.number_unit_pet" />
+													</label>
 													<div class="invalid-feedback">${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT)}</div>
 												</div>
 											</c:if>
 											<c:if
 												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT) }">
 												<div class="form-floating mb-3">
-													<input type="number"
-														class="form-control text-uppercase is-valid"
-														id="floatingInputNumberOfUnitsProducts"
+													<input type="number" class="form-control is-valid"
+														id="add_product_form_validated.add_pet.lable.number_unit_pet"
 														name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
 														value="${product_pet_number_of_units}"
-														placeholder="NumberOfUnitsProducts" pattern="^(\d+)$" />
-													<label class="text-lowercase"
-														for="floatingInputNumberOfUnitsProducts">количество
-														единиц</label>
-													<div class="valid-feedback">Всё хорошо!!!</div>
+														placeholder='<fmt:message key="add_product_form_validated.add_pet.lable.number_unit_pet"/>'
+														pattern="^(\d+)$" /> <label class="text-lowercase"
+														for="add_product_form_validated.add_pet.lable.number_unit_pet">
+														<fmt:message
+															key="add_product_form_validated.add_pet.lable.number_unit_pet" />
+													</label>
+													<div class="valid-feedback">
+														<fmt:message
+															key="add_product_form_validated.add_pet.positive_feed_back" />
+													</div>
 												</div>
 											</c:if>
 											<div class="form_description">
 												<h5>
-													<span>*</span> - поле не обязательное для заполнения
+													<span>* </span>
+													<fmt:message
+														key="add_product_form_validated.form_description.field_is_not_reguired_for_enter_information" />
 												</h5>
 											</div>
 											<div
 												class="add_product_pet_form_fotter d-flex justify-content-end">
-												<input type="hidden" name="command"
+												<input type="hidden"
+													name="${ParameterName.PARAMETER_COMMAND}"
 													value="${CommandName.COMMAND_ADMIN_PAGE_CREATE_PET_PRODUCT}" />
 												<button class="btn add_product_pet_form_btn_submit"
-													role="button">готово</button>
+													role="button">
+													<fmt:message key="add_product_form_validated.add_pet.ok" />
+												</button>
 											</div>
 										</form>
 									</c:if>
@@ -624,114 +507,160 @@
 									<c:if
 										test="${admin_page_create_feeds_and_other_product_input_exception_type_and_message == null || admin_page_create_feeds_and_other_product_input_exception_type_and_message.isEmpty()}">
 										<form class="add_other_product_form_body" method="post"
-											action="${pageContext.request.contextPath}/imageServlet"
+											action="${pageContext.request.contextPath}/${ServletName.SERVLET_UPLOAD_IMAGE_NAME}"
 											enctype="multipart/form-data">
 											<div
 												class="form-floating mb-3 add_other_product_form_body_form_floating">
 												<input type="file"
 													class="form-control text-uppercase add_other_product_form_body_input_img"
-													id="floatingInputImg"
+													id="add_product_form_validated.add_feeds_and_other.lable.choose_image_product"
 													name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
-													placeholder="file ..." /> <label
+													placeholder='<fmt:message key="add_product_form_validated.add_feeds_and_other.lable.choose_image_product"/>' />
+												<label
 													class="text-lowercase add_product_pet_form_body_label_img"
-													for="floatingInputImg">Выберите картинку для товара
+													for="add_product_form_validated.add_feeds_and_other.lable.choose_image_product">
+													<fmt:message
+														key="add_product_form_validated.add_feeds_and_other.lable.choose_image_product" />
 													<span>*</span>
 												</label>
 												<div class="">
 													<c:if
 														test="${product_feeds_and_other.getImagePath() != null}">
-																	Выбрана картинка с названием ${product.getKey().getImageFile().getName()}
-																	<img class=""
-															src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(product_feeds_and_other.getImagePath())}"/>'
-															alt="" style="width: 35px; height: 35px">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.input.choose_image_product.massage.choosed_image_with_name" />
+																	 ${product_feeds_and_other.getImagePath()}
+														<img class="" style="width: 35px; height: 35px" alt=""
+															src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product_feeds_and_other.getImagePath()}" />
 													</c:if>
 													<c:if
 														test="${product_feeds_and_other.getImagePath() == null}">
-														картинка не выбрана 
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.input.choose_image_product.massage.not_choosed_image" />
 													</c:if>
 												</div>
 											</div>
 											<div class="form-floating mb-3">
+												<div class="input-group mb-3 mt-3">
+													<label> <span class="span_input span_input_1">
+															<input type="checkbox"
+															name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+															value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
+															<fmt:message
+																key="add_product_form_validated.add_feeds_and_other.input.without_image" />
+													</span>
+													</label>
+												</div>
+											</div>
+											<div class="form-floating mb-3">
 												<input type="text" class="form-control"
-													id="floatingInputProductType"
+													id="add_product_form_validated.add_feeds_and_other.lable.type_product"
 													name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE}"
 													value="${product_feeds_and_other.getProductType()}"
-													placeholder="product type ..." /> <label
-													class="text-lowercase" for="floatingInputProductType">тип
-													товара</label>
+													placeholder='<fmt:message key="add_product_form_validated.add_feeds_and_other.lable.type_product"/>' />
+												<label class="text-lowercase"
+													for="add_product_form_validated.add_feeds_and_other.lable.type_product">
+													<fmt:message
+														key="add_product_form_validated.add_feeds_and_other.lable.type_product" />
+												</label>
 											</div>
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control"
-													id="floatingInputBrand"
+													id="add_product_form_validated.add_feeds_and_other.lable.brand_product"
 													name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND}"
 													value="${product_feeds_and_other.getBrand()}"
-													placeholder="brand ..." /> <label class="text-lowercase"
-													for="floatingInputBrand">брэнд</label>
+													placeholder='<fmt:message key="add_product_form_validated.add_feeds_and_other.lable.brand_product"/>' />
+												<label class="text-lowercase"
+													for="add_product_form_validated.add_feeds_and_other.lable.brand_product">
+													<fmt:message
+														key="add_product_form_validated.add_feeds_and_other.lable.brand_product" />
+												</label>
 											</div>
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control"
-													id="floatingInputProductDescription"
+													id="add_product_form_validated.add_feeds_and_other.lable.description_product"
 													name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION}"
 													value="${product_feeds_and_other.getDescriptions()}"
-													placeholder="input product description ..." /> <label
-													class="text-lowercase"
-													for="floatingInputProductDescription">описание
-													товара</label>
+													placeholder='<fmt:message key="add_product_form_validated.add_feeds_and_other.lable.description_product"/>' />
+												<label class="text-lowercase"
+													for="add_product_form_validated.add_feeds_and_other.lable.description_product">
+													<fmt:message
+														key="add_product_form_validated.add_feeds_and_other.lable.description_product" />
+												</label>
 											</div>
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control"
-													id="floatingInputProductTypePets"
+													id="add_product_form_validated.add_feeds_and_other.lable.types_pet_for_product"
 													name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES}"
 													value='<c:if test="${product_feeds_and_other.getPetTypes() != null}">${product_feeds_and_other.getPetTypes().toString().substring(1, product_feeds_and_other.getPetTypes().toString().length() - 1)}</c:if>'
-													placeholder="input types pets ..." /> <label
-													class="text-lowercase" for="floatingInputProductTypePets">Типы
-													питомцев, через запятую (,)</label>
+													placeholder='<fmt:message key="add_product_form_validated.add_feeds_and_other.lable.types_pet_for_product"/>' />
+												<label class="text-lowercase"
+													for="add_product_form_validated.add_feeds_and_other.lable.types_pet_for_product">
+													<fmt:message
+														key="add_product_form_validated.add_feeds_and_other.lable.types_pet_for_product" />
+												</label>
 											</div>
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control"
-													id="floatingInputPrice"
+													id="add_product_form_validated.add_feeds_and_other.lable.price_product"
 													name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE}"
 													value="${product_feeds_and_other.getPrice()}"
-													placeholder="Price" pattern="^(\d+)(\.\d{1,2})?$" /> <label
-													class="text-lowercase" for="floatingInputPrice">Цена</label>
+													placeholder='<fmt:message key="add_product_form_validated.add_feeds_and_other.lable.price_product"/>'
+													pattern="^(\d+)(\.\d{1,2})?$" /> <label
+													class="text-lowercase"
+													for="add_product_form_validated.add_feeds_and_other.lable.price_product">
+													<fmt:message
+														key="add_product_form_validated.add_feeds_and_other.lable.price_product" />
+												</label>
 											</div>
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control"
-													id="floatingInputDiscount"
+													id="add_product_form_validated.add_feeds_and_other.lable.discount_product"
 													name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT}"
 													value="${product_feeds_and_other.getDiscount()}"
-													placeholder="Discount" pattern="^(\d+)(\.\d{1,2})?$" /> <label
-													class="text-lowercase" for="floatingInputDiscount">Скидка
-													(в %)</label>
+													placeholder='<fmt:message key="add_product_form_validated.add_feeds_and_other.lable.discount_product"/>'
+													pattern="^(\d+)(\.\d{1,2})?$" /> <label
+													class="text-lowercase"
+													for="add_product_form_validated.add_feeds_and_other.lable.discount_product">
+													<fmt:message
+														key="add_product_form_validated.add_feeds_and_other.lable.discount_product" />
+												</label>
 											</div>
 											<div class="form-floating mb-3">
 												<input type="number" class="form-control"
-													id="floatingInputNumberOfUnitsProducts"
+													id="add_product_form_validated.add_feeds_and_other.lable.number_unit_product"
 													name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
 													value="${product_feeds_and_other_number_of_units}"
-													placeholder="NumberOfUnitsProducts" pattern="^(\d+)$" /> <label
-													class="text-lowercase"
-													for="floatingInputNumberOfUnitsProducts">количество
-													единиц</label>
+													placeholder='<fmt:message key="add_product_form_validated.add_feeds_and_other.lable.number_unit_product"/>'
+													pattern="^(\d+)$" /> <label class="text-lowercase"
+													for="add_product_form_validated.add_feeds_and_other.lable.number_unit_product">
+													<fmt:message
+														key="add_product_form_validated.add_feeds_and_other.lable.number_unit_product" />
+												</label>
 											</div>
 											<div class="form_description">
 												<h5>
-													<span>*</span> - поле не обязательное для заполнения
+													<span>* </span>
+													<fmt:message
+														key="add_product_form_validated.form_description.field_is_not_reguired_for_enter_information" />
 												</h5>
 											</div>
 											<div
 												class="add_other_product_form_fotter d-flex justify-content-end">
-												<input type="hidden" name="command"
+												<input type="hidden"
+													name="${ParameterName.PARAMETER_COMMAND}"
 													value="${CommandName.COMMAND_ADMIN_PAGE_CREATE_FEED_AND_OTHER_PRODUCT }" />
 												<button class="btn add_other_product_form_btn_submit"
-													role="button">готово</button>
+													role="button">
+													<fmt:message
+														key="add_product_form_validated.add_feeds_and_other.ok" />
+												</button>
 											</div>
 										</form>
 									</c:if>
 									<c:if
 										test="${admin_page_create_feeds_and_other_product_input_exception_type_and_message != null && !admin_page_create_feeds_and_other_product_input_exception_type_and_message.isEmpty()}">
 										<form class="add_other_product_form_body" method="post"
-											action="${pageContext.request.contextPath}/imageServlet"
+											action="${pageContext.request.contextPath}/${ServletName.SERVLET_UPLOAD_IMAGE_NAME}"
 											enctype="multipart/form-data">
 											<c:if
 												test="${admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_IMAGE)}">
@@ -739,14 +668,29 @@
 													class="form-floating mb-3 add_other_product_form_body_form_floating">
 													<input type="file"
 														class="form-control text-uppercase add_other_product_form_body_input_img is-invalid"
-														id="floatingInputImg"
+														id="add_product_form_validated.add_feeds_and_other.lable.choose_image_product"
 														name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
-														placeholder="file ..." /> <label
+														placeholder='<fmt:message key="add_product_form_validated.add_feeds_and_other.lable.choose_image_product"/>' />
+													<label
 														class="text-lowercase add_product_pet_form_body_label_img"
-														for="floatingInputImg">Выберите картинку для
-														товара <span>*</span>
+														for="add_product_form_validated.add_feeds_and_other.lable.choose_image_product">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.lable.choose_image_product" />
+														<span>*</span>
 													</label>
 													<div class="invalid-feedback">${admin_page_create_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_IMAGE)}</div>
+												</div>
+												<div class="form-floating mb-3">
+													<div class="input-group mb-3 mt-3">
+														<label> <span class="span_input span_input_1">
+																<input type="checkbox"
+																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+																value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
+																<fmt:message
+																	key="add_product_form_validated.add_feeds_and_other.input.without_image" />
+														</span>
+														</label>
+													</div>
 												</div>
 											</c:if>
 											<c:if
@@ -755,25 +699,42 @@
 													class="form-floating mb-3 add_other_product_form_body_form_floating">
 													<input type="file"
 														class="form-control text-uppercase add_other_product_form_body_input_img is-valid"
-														id="floatingInputImg"
+														id="add_product_form_validated.add_feeds_and_other.lable.choose_image_product"
 														name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
-														placeholder="file ..." /> <label
+														placeholder='<fmt:message key="add_product_form_validated.add_feeds_and_other.lable.choose_image_product"/>' />
+													<label
 														class="text-lowercase add_product_pet_form_body_label_img"
-														for="floatingInputImg">Выберите картинку для
-														товара <span>*</span>
+														for="add_product_form_validated.add_feeds_and_other.lable.choose_image_product">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.lable.choose_image_product" />
+														<span>*</span>
 													</label>
 													<div class="valid-feedback">
 														<c:if
 															test="${product_feeds_and_other.getImagePath() != null}">
-																	Выбрана картинка с названием ${product.getKey().getImagePath()}
-																	<img class=""
-																src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(product_feeds_and_other.getImagePath())}"/>'
-																alt="" style="width: 35px; height: 35px">
+															<fmt:message
+																key="add_product_form_validated.add_feeds_and_other.input.choose_image_product.massage.choosed_image_with_name" />
+																	 ${product_feeds_and_other.getImagePath()}
+														<img class="" style="width: 35px; height: 35px" alt=""
+																src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product_feeds_and_other.getImagePath()}" />
 														</c:if>
 														<c:if
 															test="${product_feeds_and_other.getImagePath() == null}">
-														картинка не выбрана 
-													</c:if>
+															<fmt:message
+																key="add_product_form_validated.add_feeds_and_other.input.choose_image_product.massage.not_choosed_image" />
+														</c:if>
+													</div>
+												</div>
+												<div class="form-floating mb-3">
+													<div class="input-group mb-3 mt-3">
+														<label> <span class="span_input span_input_1">
+																<input type="checkbox"
+																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+																value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
+																<fmt:message
+																	key="add_product_form_validated.add_feeds_and_other.input.without_image" />
+														</span>
+														</label>
 													</div>
 												</div>
 											</c:if>
@@ -781,12 +742,15 @@
 												test="${admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRODUCT_TYPE)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
-														id="floatingInputProductType"
+														id="add_product_form_validated.add_feeds_and_other.lable.type_product"
 														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE}"
 														value="${product_feeds_and_other.getProductType()}"
-														placeholder="product type ..." /> <label
-														class="text-lowercase" for="floatingInputProductType">тип
-														товара</label>
+														placeholder='<fmt:message key="add_product_form_validated.add_feeds_and_other.lable.type_product"/>' />
+													<label class="text-lowercase"
+														for="add_product_form_validated.add_feeds_and_other.lable.type_product">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.lable.type_product" />
+													</label>
 													<div class="invalid-feedback">${admin_page_create_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRODUCT_TYPE)}</div>
 												</div>
 											</c:if>
@@ -794,24 +758,34 @@
 												test="${!admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRODUCT_TYPE)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
-														id="floatingInputProductType"
+														id="add_product_form_validated.add_feeds_and_other.lable.type_product"
 														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE}"
 														value="${product_feeds_and_other.getProductType()}"
-														placeholder="product type ..." /> <label
-														class="text-lowercase" for="floatingInputProductType">тип
-														товара</label>
-													<div class="valid-feedback">Всё хорошо!!!</div>
+														placeholder='<fmt:message key="add_product_form_validated.add_feeds_and_other.lable.type_product"/>' />
+													<label class="text-lowercase"
+														for="add_product_form_validated.add_feeds_and_other.lable.type_product">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.lable.type_product" />
+													</label>
+													<div class="valid-feedback">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.positive_feed_back" />
+													</div>
 												</div>
 											</c:if>
 											<c:if
 												test="${admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_BRAND)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
-														id="floatingInputBrand"
+														id="add_product_form_validated.add_feeds_and_other.lable.brand_product"
 														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND}"
 														value="${product_feeds_and_other.getBrand()}"
-														placeholder="brand ..." /> <label class="text-lowercase"
-														for="floatingInputBrand">брэнд</label>
+														placeholder='<fmt:message key="add_product_form_validated.add_feeds_and_other.lable.brand_product"/>' />
+													<label class="text-lowercase"
+														for="add_product_form_validated.add_feeds_and_other.lable.brand_product">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.lable.brand_product" />
+													</label>
 													<div class="invalid-feedback">${admin_page_create_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_BRAND)}</div>
 												</div>
 											</c:if>
@@ -819,25 +793,34 @@
 												test="${!admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_BRAND)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
-														id="floatingInputBrand"
+														id="add_product_form_validated.add_feeds_and_other.lable.brand_product"
 														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND}"
 														value="${product_feeds_and_other.getBrand()}"
-														placeholder="brand ..." /> <label class="text-lowercase"
-														for="floatingInputBrand">брэнд</label>
-													<div class="valid-feedback">Всё хорошо!!!</div>
+														placeholder='<fmt:message key="add_product_form_validated.add_feeds_and_other.lable.brand_product"/>' />
+													<label class="text-lowercase"
+														for="add_product_form_validated.add_feeds_and_other.lable.brand_product">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.lable.brand_product" />
+													</label>
+													<div class="valid-feedback">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.positive_feed_back" />
+													</div>
 												</div>
 											</c:if>
 											<c:if
 												test="${admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DESCRIPTION)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
-														id="floatingInputProductDescription"
+														id="add_product_form_validated.add_feeds_and_other.lable.description_product"
 														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION}"
 														value="${product_feeds_and_other.getDescriptions()}"
-														placeholder="input product description ..." /> <label
-														class="text-lowercase"
-														for="floatingInputProductDescription">описание
-														товара</label>
+														placeholder='<fmt:message key="add_product_form_validated.add_feeds_and_other.lable.description_product"/>' />
+													<label class="text-lowercase"
+														for="add_product_form_validated.add_feeds_and_other.lable.description_product">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.lable.description_product" />
+													</label>
 													<div class="invalid-feedback">${admin_page_create_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DESCRIPTION)}</div>
 												</div>
 											</c:if>
@@ -845,26 +828,36 @@
 												test="${!admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DESCRIPTION)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
-														id="floatingInputProductDescription"
+														id="add_product_form_validated.add_feeds_and_other.lable.description_product"
 														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION}"
 														value="${product_feeds_and_other.getDescriptions()}"
-														placeholder="input product description ..." /> <label
-														class="text-lowercase"
-														for="floatingInputProductDescription">описание
-														товара</label>
-													<div class="valid-feedback">Всё хорошо!!!</div>
+														placeholder='<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.lable.description_product" />' />
+													<label class="text-lowercase"
+														for="add_product_form_validated.add_feeds_and_other.lable.description_product">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.lable.description_product" />
+													</label>
+													<div class="valid-feedback">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.positive_feed_back" />
+													</div>
 												</div>
 											</c:if>
 											<c:if
 												test="${admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PET_TYPES)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
-														id="floatingInputProductTypePets"
+														id="add_product_form_validated.add_feeds_and_other.lable.types_pet_for_product"
 														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES}"
 														value='<c:if test="${product_feeds_and_other.getPetTypes() != null}">${product_feeds_and_other.getPetTypes().toString().substring(1, product_feeds_and_other.getPetTypes().toString().length() - 1)}</c:if>'
-														placeholder="input types pets ..." /> <label
-														class="text-lowercase" for="floatingInputProductTypePets">Типы
-														питомцев, через запятую (,)</label>
+														placeholder='<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.lable.types_pet_for_product" />' />
+													<label class="text-lowercase"
+														for="add_product_form_validated.add_feeds_and_other.lable.types_pet_for_product">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.lable.types_pet_for_product" />
+													</label>
 													<div class="invalid-feedback">${admin_page_create_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PET_TYPES)}</div>
 												</div>
 											</c:if>
@@ -872,24 +865,34 @@
 												test="${!admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PET_TYPES)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
-														id="floatingInputProductTypePets"
+														id="add_product_form_validated.add_feeds_and_other.lable.types_pet_for_product"
 														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES}"
 														value='<c:if test="${product_feeds_and_other.getPetTypes() != null}">${product_feeds_and_other.getPetTypes().toString().substring(1, product_feeds_and_other.getPetTypes().toString().length() - 1)}</c:if>'
-														placeholder="input types pets ..." /> <label
-														class="text-lowercase" for="floatingInputProductTypePets">Типы
-														питомцев, через запятую (,)</label>
-													<div class="valid-feedback">Всё хорошо!!!</div>
+														placeholder='<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.lable.types_pet_for_product" />' />
+													<label class="text-lowercase"
+														for="add_product_form_validated.add_feeds_and_other.lable.types_pet_for_product"><fmt:message
+															key="add_product_form_validated.add_feeds_and_other.lable.types_pet_for_product" /></label>
+													<div class="valid-feedback">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.positive_feed_back" />
+													</div>
 												</div>
 											</c:if>
 											<c:if
 												test="${admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
-														id="floatingInputPrice"
+														id="add_product_form_validated.add_feeds_and_other.lable.price_product"
 														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE}"
 														value="${product_feeds_and_other.getPrice()}"
-														placeholder="Price" pattern="^(\d+)(\.\d{1,2})?$" /> <label
-														class="text-lowercase" for="floatingInputPrice">Цена</label>
+														placeholder='<fmt:message key="add_product_form_validated.add_feeds_and_other.lable.price_product" />'
+														pattern="^(\d+)(\.\d{1,2})?$" /> <label
+														class="text-lowercase"
+														for="add_product_form_validated.add_feeds_and_other.lable.price_product">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.lable.price_product" />
+													</label>
 													<div class="invalid-feedback">${admin_page_create_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}</div>
 												</div>
 											</c:if>
@@ -897,12 +900,21 @@
 												test="${!admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
-														id="floatingInputPrice"
+														id="add_product_form_validated.add_feeds_and_other.lable.price_product"
 														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE}"
 														value="${product_feeds_and_other.getPrice()}"
-														placeholder="Price" pattern="^(\d+)(\.\d{1,2})?$" /> <label
-														class="text-lowercase" for="floatingInputPrice">Цена</label>
-													<div class="valid-feedback">Всё хорошо!!!</div>
+														placeholder='<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.lable.price_product" />'
+														pattern="^(\d+)(\.\d{1,2})?$" /> <label
+														class="text-lowercase"
+														for="add_product_form_validated.add_feeds_and_other.lable.price_product">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.lable.price_product" />
+													</label>
+													<div class="valid-feedback">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.positive_feed_back" />
+													</div>
 												</div>
 											</c:if>
 											<c:if
@@ -912,9 +924,12 @@
 														id="floatingInputDiscount"
 														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT}"
 														value="${product_feeds_and_other.getDiscount()}"
-														placeholder="Discount" pattern="^(\d+)(\.\d{1,2})?$" /> <label
-														class="text-lowercase" for="floatingInputDiscount">Скидка
-														(в %)</label>
+														placeholder='<fmt:message key="add_product_form_validated.add_feeds_and_other.lable.discount_product" />'
+														pattern="^(\d+)(\.\d{1,2})?$" /> <label
+														class="text-lowercase" for="floatingInputDiscount">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.lable.discount_product" />
+													</label>
 													<div class="invalid-feedback">${admin_page_create_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT)}</div>
 												</div>
 											</c:if>
@@ -922,26 +937,35 @@
 												test="${!admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
-														id="floatingInputDiscount"
+														id="add_product_form_validated.add_feeds_and_other.lable.discount_product"
 														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT}"
 														value="${product_feeds_and_other.getDiscount()}"
-														placeholder="Discount" pattern="^(\d+)(\.\d{1,2})?$" /> <label
-														class="text-lowercase" for="floatingInputDiscount">Скидка
-														(в %)</label>
-													<div class="valid-feedback">Всё хорошо!!!</div>
+														placeholder='<fmt:message key="add_product_form_validated.add_feeds_and_other.lable.discount_product" />'
+														pattern="^(\d+)(\.\d{1,2})?$" /> <label
+														class="text-lowercase"
+														for="add_product_form_validated.add_feeds_and_other.lable.discount_product">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.lable.discount_product" />
+													</label>
+													<div class="valid-feedback">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.positive_feed_back" />
+													</div>
 												</div>
 											</c:if>
 											<c:if
 												test="${admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT)}">
 												<div class="form-floating mb-3">
 													<input type="number" class="form-control is-invalid"
-														id="floatingInputNumberOfUnitsProducts"
+														id="add_product_form_validated.add_feeds_and_other.lable.number_unit_product"
 														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
 														value="${product_feeds_and_other_number_of_units}"
-														placeholder="NumberOfUnitsProducts" pattern="^(\d+)$" />
-													<label class="text-lowercase"
-														for="floatingInputNumberOfUnitsProducts">количество
-														единиц</label>
+														placeholder='<fmt:message key="add_product_form_validated.add_feeds_and_other.lable.number_unit_product" />'
+														pattern="^(\d+)$" /> <label class="text-lowercase"
+														for="add_product_form_validated.add_feeds_and_other.lable.number_unit_product">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.lable.number_unit_product" />
+													</label>
 													<div class="invalid-feedback">${admin_page_create_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT)}</div>
 												</div>
 											</c:if>
@@ -949,27 +973,38 @@
 												test="${!admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT)}">
 												<div class="form-floating mb-3">
 													<input type="number" class="form-control is-valid"
-														id="floatingInputNumberOfUnitsProducts"
+														id="add_product_form_validated.add_feeds_and_other.lable.number_unit_product"
 														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
 														value="${product_feeds_and_other_number_of_units}"
-														placeholder="NumberOfUnitsProducts" pattern="^(\d+)$" />
-													<label class="text-lowercase"
-														for="floatingInputNumberOfUnitsProducts">количество
-														единиц</label>
-													<div class="valid-feedback">Всё хорошо!!!</div>
+														placeholder='<fmt:message key="add_product_form_validated.add_feeds_and_other.lable.number_unit_product" />'
+														pattern="^(\d+)$" /> <label class="text-lowercase"
+														for="add_product_form_validated.add_feeds_and_other.lable.number_unit_product">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.lable.number_unit_product" />
+													</label>
+													<div class="valid-feedback">
+														<fmt:message
+															key="add_product_form_validated.add_feeds_and_other.positive_feed_back" />
+													</div>
 												</div>
 											</c:if>
 											<div class="form_description">
 												<h5>
-													<span>*</span> - поле не обязательное для заполнения
+													<span>* </span>
+													<fmt:message
+														key="add_product_form_validated.form_description.field_is_not_reguired_for_enter_information" />
 												</h5>
 											</div>
 											<div
 												class="add_other_product_form_fotter d-flex justify-content-end">
-												<input type="hidden" name="command"
+												<input type="hidden"
+													name="${ParameterName.PARAMETER_COMMAND}"
 													value="${CommandName.COMMAND_ADMIN_PAGE_CREATE_FEED_AND_OTHER_PRODUCT }" />
 												<button class="btn add_other_product_form_btn_submit"
-													role="button">готово</button>
+													role="button">
+													<fmt:message
+														key="add_product_form_validated.add_feeds_and_other.ok" />
+												</button>
 											</div>
 										</form>
 									</c:if>
@@ -984,8 +1019,9 @@
 					<div class="col-12">
 						<h3
 							class="text-center d-flex flex-column justify-content-center align-items-center"
-							style="min-height: 45.3vh">Ваше время сессии завершено.
-							Перезайдите в учётную запись.</h3>
+							style="min-height: 45.3vh">
+							<fmt:message key="add_product_form_validated.end_session.message" />
+						</h3>
 					</div>
 				</div>
 			</c:if>
