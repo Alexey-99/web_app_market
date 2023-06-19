@@ -465,7 +465,8 @@
 													</div>
 													<div class="add_product_form_top_title">
 														<h2 class="form_title text-center mb-3 text-lowercase">
-															фото товара</h2>
+															<fmt:message key="big_product_image.title" />
+														</h2>
 													</div>
 												</div>
 												<div
@@ -668,7 +669,8 @@
 													</div>
 													<div class="add_product_form_top_title">
 														<h2 class="form_title text-center mb-3 text-lowercase">
-															фото товара</h2>
+															<fmt:message key="big_product_image.title" />
+														</h2>
 													</div>
 												</div>
 												<div
