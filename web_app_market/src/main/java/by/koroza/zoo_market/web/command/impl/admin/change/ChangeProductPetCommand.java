@@ -20,9 +20,10 @@ import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
 
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM;
-import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CREATE_PET_PRODUCT;
+import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CHANGE_PET_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_IS_CORRECT_FILE;
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_PART;
+import static by.koroza.zoo_market.web.command.name.ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -60,7 +61,7 @@ public class ChangeProductPetCommand implements Command {
 					session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET, (Pet) petAndNumber.keySet().toArray()[0]);
 					session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT,
 							petAndNumber.get((Pet) petAndNumber.keySet().toArray()[0]));
-					router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CREATE_PET_PRODUCT);
+					router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CHANGE_PET_PRODUCT);
 				} else {
 					session.setAttribute(ATTRIBUTE_ADMIN_PAGE_CREATE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
 							mapInputExceptions);
@@ -84,26 +85,28 @@ public class ChangeProductPetCommand implements Command {
 		Map<Pet, Long> petAndNumber = new HashMap<>();
 		HttpSession session = request.getSession();
 		long id = Long.parseLong(request.getParameter(ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_ID));
-		Pet petOld = ProductPetServiceImpl.getInstance().getProductPetById(id);
-		if (petOld != null) {
-			Pet pet = new Pet();
-			pet.setId(id);
-			if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
-				Part part = (Part) request.getAttribute(PARAMETER_PART);
-				if (part != null && !part.getSubmittedFileName().isBlank()) {
-					pet.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part,
-							(String) request.getAttribute(ATTRIBUTE_UPLOAD_FILE_DIRECTORY)));
+		Pet pet = session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET) != null
+				? (Pet) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET)
+				: ProductPetServiceImpl.getInstance().getProductPetById(id);
+		if (pet != null) {
+			if (request.getParameter(ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE) == null) {
+				if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
+					Part part = (Part) request.getAttribute(PARAMETER_PART);
+					if (part != null && !part.getSubmittedFileName().isBlank()) {
+						pet.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part,
+								(String) request.getAttribute(ATTRIBUTE_UPLOAD_FILE_DIRECTORY)));
+					}
 				} else {
-					pet.setImagePath(petOld.getImagePath());
+					if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+						mapInputExceptions.put(TypeInputException.IMAGE.toString(),
+								"Вы выбрали не корретный файл для картинки для товара");
+					} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+						mapInputExceptions.put(TypeInputException.IMAGE.toString(),
+								"You choosed image incorrect for product");
+					}
 				}
 			} else {
-				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
-					mapInputExceptions.put(TypeInputException.IMAGE.toString(),
-							"Вы выбрали не корретный файл для картинки для товара");
-				} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
-					mapInputExceptions.put(TypeInputException.IMAGE.toString(),
-							"You choosed image incorrect for product");
-				}
+				pet.setImagePath(null);
 			}
 			String specie = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE);
 			if (!PetValidation.validPetSpecie(specie)) {
