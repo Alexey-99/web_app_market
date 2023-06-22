@@ -108,9 +108,9 @@ public class ProductPetServiceImpl implements ProductPetService {
 	}
 
 	@Override
-	public boolean upadateProductPetById(Pet pet, long numberOfUnitsProduct) throws ServiceException {
+	public boolean upadateProductPet(Pet pet, long numberOfUnitsProduct) throws ServiceException {
 		try {
-			return this.productPetDao.upadateProductPetById(pet, numberOfUnitsProduct);
+			return this.productPetDao.upadateProductPet(pet, numberOfUnitsProduct);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}

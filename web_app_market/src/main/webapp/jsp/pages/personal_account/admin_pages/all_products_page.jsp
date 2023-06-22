@@ -503,7 +503,9 @@
 													</div>
 													<div class="add_product_form_top_title">
 														<h2 class="form_title text-center mb-3 text-lowercase">
-															Изменение товара</h2>
+															<fmt:message
+																key="admin_page.all_products.change_product_form.title" />
+														</h2>
 													</div>
 												</div>
 												<div class="change_product_form_body h-100">
@@ -517,17 +519,26 @@
 															class="form-floating mb-3 add_product_pet_form_body_form_floating">
 															<input type="file"
 																class="form-control text-uppercase add_product_pet_form_body_input_img"
-																id="floatingInputProductImg"
+																id="admin_page.all_products.change_product_form.change_pet.lable.choose_image_product"
 																name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
-																accept="image/*" placeholder="dog" /> <label
+																accept="image/*"
+																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_pet.lable.choose_image_product"/>' />
+															<label
 																class="text-lowercase change_product_form_body_label_img"
-																for="floatingInputProductImg">Выберите картинку
-																для товара <span>*</span>
+																for="admin_page.all_products.change_product_form.change_pet.lable.choose_image_product">
+																<fmt:message
+																	key="admin_page.all_products.change_product_form.change_pet.lable.choose_image_product" />
+																<span>*</span>
 															</label>
 															<div class="">
-																<c:if test="${pet.getKey().getImagePath() == null}">Для товара не выбрана картинка</c:if>
+																<c:if test="${pet.getKey().getImagePath() == null}">
+																	<fmt:message
+																		key="admin_page.all_products.change_product_form.change_pet.input.choose_image_product.massage.not_choosed_image" />
+																</c:if>
 																<c:if test="${pet.getKey().getImagePath() != null}">
-																	Выбрана картинка с названием ${pet.getKey().getImagePath()}
+																	<fmt:message
+																		key="admin_page.all_products.change_product_form.change_pet.input.choose_image_product.massage.choosed_image_with_name" />
+																		 ${pet.getKey().getImagePath()}
 																	<img class="" style="width: 35px; height: 35px" alt=""
 																		src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${pet.getKey().getImagePath()}" />
 																</c:if>
@@ -540,61 +551,84 @@
 																		name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
 																		value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
 																		<fmt:message
-																			key="add_product_form_validated.add_pet.input.without_image" />
+																			key="admin_page.all_products.change_product_form.change_pet.input.without_image" />
 																</span>
 																</label>
 															</div>
 														</div>
 														<div class="form-floating mb-3">
 															<input type="text" class="form-control"
-																id="floatingInputSpecie"
+																id="admin_page.all_products.change_product_form.change_pet.lable.type_pet"
 																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
-																value="${pet.getKey().getSpecie()}" placeholder="dog" />
-															<label class="text-lowercase" for="floatingInputSpecie">тип
-																питомца</label>
-														</div>
-														<div class="form-floating mb-3">
-															<input type="text" class="form-control "
-																id="floatingInputBreed"
-																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED}"
-																value="${pet.getKey().getBreed()}" placeholder="Breed" />
-															<label class="text-lowercase" for="floatingInputBreed">порода</label>
-														</div>
-														<div class="form-floating mb-3">
-															<input type="date" class="form-control "
-																id="floatingInputBirthDate"
-																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE}"
-																value="${pet.getKey().getBirthDate()}"
-																placeholder="BirthDate" /> <label
-																class="text-lowercase" for="floatingInputBirthDate">Дата
-																рождения</label>
+																value="${pet.getKey().getSpecie()}"
+																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_pet.lable.type_pet"/>' />
+															<label class="text-lowercase"
+																for="admin_page.all_products.change_product_form.change_pet.lable.type_pet">
+																<fmt:message
+																	key="admin_page.all_products.change_product_form.change_pet.lable.type_pet" />
+															</label>
 														</div>
 														<div class="form-floating mb-3">
 															<input type="text" class="form-control"
-																id="floatingInputPrice"
-																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE}"
-																value="${pet.getKey().getPrice()}" placeholder="Price"
-																pattern="^(\d+)(\.\d{1,2})?$" /> <label
-																class="text-lowercase" for="floatingInputPrice">Цена</label>
+																id="admin_page.all_products.change_product_form.change_pet.lable.breed_pet"
+																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED}"
+																value="${pet.getKey().getBreed()}"
+																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_pet.lable.breed_pet"/>' />
+															<label class="text-lowercase"
+																for="admin_page.all_products.change_product_form.change_pet.lable.breed_pet">
+																<fmt:message
+																	key="admin_page.all_products.change_product_form.change_pet.lable.breed_pet" />
+															</label>
 														</div>
 														<div class="form-floating mb-3">
-															<input type="text" class="form-control "
-																id="floatingInputDiscount"
+															<input type="date" class="form-control"
+																id="admin_page.all_products.change_product_form.change_pet.lable.birth_date_pet"
+																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE}"
+																value="${pet.getKey().getBirthDate()}"
+																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_pet.lable.birth_date_pet"/>' />
+															<label class="text-lowercase"
+																for="admin_page.all_products.change_product_form.change_pet.lable.birth_date_pet">
+																<fmt:message
+																	key="admin_page.all_products.change_product_form.change_pet.lable.birth_date_pet" />
+															</label>
+														</div>
+														<div class="form-floating mb-3">
+															<input type="text" class="form-control"
+																id="admin_page.all_products.change_product_form.change_pet.lable.price_pet"
+																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE}"
+																value="${pet.getKey().getPrice()}"
+																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_pet.lable.price_pet"/>'
+																pattern="^(\d+)(\.\d{1,2})?$" /> <label
+																class="text-lowercase"
+																for="admin_page.all_products.change_product_form.change_pet.lable.price_pet">
+																<fmt:message
+																	key="admin_page.all_products.change_product_form.change_pet.lable.price_pet" />
+															</label>
+														</div>
+														<div class="form-floating mb-3">
+															<input type="text" class="form-control"
+																id="admin_page.all_products.change_product_form.change_pet.lable.discount_pet"
 																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT}"
 																value="${pet.getKey().getDiscount()}"
-																placeholder="Discount" pattern="^(\d+)(\.\d{1,2})?$" />
-															<label class="text-lowercase" for="floatingInputDiscount">Скидка
-																(в %)</label>
+																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_pet.lable.discount_pet"/>'
+																pattern="^(\d+)(\.\d{1,2})?$" /> <label
+																class="text-lowercase"
+																for="admin_page.all_products.change_product_form.change_pet.lable.discount_pet">
+																<fmt:message
+																	key="admin_page.all_products.change_product_form.change_pet.lable.discount_pet" />
+															</label>
 														</div>
 														<div class="form-floating mb-3">
-															<input type="number" class="form-control "
-																id="floatingInputNumberOfUnitsProducts"
+															<input type="number" class="form-control"
+																id="admin_page.all_products.change_product_form.change_pet.lable.number_unit_pet"
 																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
 																value="${pet.getValue()}"
-																placeholder="NumberOfUnitsProducts" pattern="^(\d+)$" />
-															<label class="text-lowercase"
-																for="floatingInputNumberOfUnitsProducts">количество
-																единиц</label>
+																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_pet.lable.number_unit_pet"/>'
+																pattern="^(\d+)$" /> <label class="text-lowercase"
+																for="admin_page.all_products.change_product_form.change_pet.lable.number_unit_pet">
+																<fmt:message
+																	key="admin_page.all_products.change_product_form.change_pet.lable.number_unit_pet" />
+															</label>
 														</div>
 														<div
 															class="change_product_form_fotter d-flex justify-content-end">
@@ -602,7 +636,10 @@
 																name="${ParameterName.PARAMETER_COMMAND}"
 																value="${CommandName.COMMAND_ADMIN_PAGE_CHANGE_PET_PRODUCT}" />
 															<button class="btn change_product_form_btn_submit"
-																role="button">готово</button>
+																role="button">
+																<fmt:message
+																	key="admin_page.all_products.change_product_form.change_pet.ok" />
+															</button>
 														</div>
 													</form>
 												</div>
@@ -719,7 +756,9 @@
 													</div>
 													<div class="add_product_form_top_title">
 														<h2 class="form_title text-center mb-3 text-lowercase">
-															Изменение товара</h2>
+															<fmt:message
+																key="admin_page.all_products.change_product_form.title" />
+														</h2>
 													</div>
 												</div>
 												<div class="change_product_form_body h-100">
@@ -733,21 +772,28 @@
 															class="form-floating mb-3 add_other_product_form_body_form_floating">
 															<input type="file"
 																class="form-control text-uppercase add_other_product_form_body_input_img"
-																id="floatingInputImg"
+																id="admin_page.all_products.change_product_form.change_pet.lable.choose_image_product"
 																name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
-																accept="image/*" placeholder="file ..." /> <label
+																accept="image/*"
+																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_pet.lable.choose_image_product"/>' />
+															<label
 																class="text-lowercase add_product_pet_form_body_label_img"
-																for="floatingInputImg">Выберите картинку для
-																товара <span>*</span>
+																for="admin_page.all_products.change_product_form.change_pet.lable.choose_image_product">
+																<fmt:message
+																	key="admin_page.all_products.change_product_form.change_pet.lable.choose_image_product" />
+																<span>*</span>
 															</label>
 															<div class="">
 																<c:if test="${product.getKey().getImagePath() != null}">
-																	Выбрана картинка с названием ${product.getKey().getImagePath()}
+																	<fmt:message
+																		key="admin_page.all_products.change_product_form.change_pet.input.choose_image_product.massage.choosed_image_with_name" /> 
+																		 ${product.getKey().getImagePath()}
 																	<img class="" style="width: 35px; height: 35px" alt=""
 																		src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product.getKey().getImagePath()}" />
 																</c:if>
 																<c:if test="${product.getKey().getImagePath() == null}">
-																	картинка не выбрана
+																	<fmt:message
+																		key="admin_page.all_products.change_product_form.change_pet.input.choose_image_product.massage.not_choosed_image" />
 																</c:if>
 															</div>
 														</div>
@@ -758,34 +804,39 @@
 																		name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
 																		value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
 																		<fmt:message
-																			key="add_product_form_validated.add_pet.input.without_image" />
+																			key="admin_page.all_products.change_product_form.change_pet.input.without_image" />
 																</span>
 																</label>
 															</div>
 														</div>
 														<div class="form-floating mb-3">
 															<input type="text" class="form-control"
-																id="floatingInputProductType"
+																id="admin_page.all_products.change_product_form.change_pet.lable.type_pet"
 																name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE}"
 																value="${product.getKey().getProductType()}"
-																placeholder="product type ..." /> <label
-																class="text-lowercase" for="floatingInputProductType">тип
-																товара</label>
+																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_pet.lable.type_pet"/>' />
+															<label class="text-lowercase"
+																for="admin_page.all_products.change_product_form.change_pet.lable.type_pet">
+																<fmt:message
+																	key="admin_page.all_products.change_product_form.change_pet.lable.type_pet" />
+															</label>
 														</div>
 														<div class="form-floating mb-3">
 															<input type="text" class="form-control"
-																id="floatingInputBrand"
+																id="admin_page.all_products.change_product_form.change_pet.lable.breed_pet"
 																name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND}"
 																value="${product.getKey().getBrand()}"
-																placeholder="brand ..." /> <label
-																class="text-lowercase" for="floatingInputBrand">брэнд</label>
+																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_pet.lable.breed_pet"/>' />
+															<label class="text-lowercase"
+																for="admin_page.all_products.change_product_form.change_pet.lable.breed_pet"><fmt:message
+																	key="admin_page.all_products.change_product_form.change_pet.lable.breed_pet" /></label>
 														</div>
 														<div class="form-floating mb-3">
 															<input type="text" class="form-control"
 																id="floatingInputProductDescription"
 																name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION}"
 																value="${product.getKey().getDescriptions()}"
-																placeholder="input product description ..." /> <label
+																placeholder='<fmt:message key=""/>' /> <label
 																class="text-lowercase"
 																for="floatingInputProductDescription">описание
 																товара</label>
@@ -795,7 +846,7 @@
 																id="floatingInputProductTypePets"
 																name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES}"
 																value='<c:if test="${product.getKey().getPetTypes() != null}">${product.getKey().getPetTypes().toString().substring(1, product.getKey().getPetTypes().toString().length() - 1)}</c:if>'
-																placeholder="input types pets ..." /> <label
+																placeholder='<fmt:message key=""/>' /> <label
 																class="text-lowercase"
 																for="floatingInputProductTypePets">Типы
 																питомцев, через запятую (,)</label>
@@ -805,7 +856,8 @@
 																id="floatingInputPrice"
 																name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE}"
 																value="${product.getKey().getPrice()}"
-																placeholder="Price" pattern="^(\d+)(\.\d{1,2})?$" /> <label
+																placeholder='<fmt:message key=""/>'
+																pattern="^(\d+)(\.\d{1,2})?$" /> <label
 																class="text-lowercase" for="floatingInputPrice">Цена</label>
 														</div>
 														<div class="form-floating mb-3">
@@ -813,8 +865,9 @@
 																id="floatingInputDiscount"
 																name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT}"
 																value="${product.getKey().getDiscount()}"
-																placeholder="Discount" pattern="^(\d+)(\.\d{1,2})?$" />
-															<label class="text-lowercase" for="floatingInputDiscount">Скидка
+																placeholder='<fmt:message key=""/>'
+																pattern="^(\d+)(\.\d{1,2})?$" /> <label
+																class="text-lowercase" for="floatingInputDiscount">Скидка
 																(в %)</label>
 														</div>
 														<div class="form-floating mb-3">
@@ -822,7 +875,7 @@
 																id="floatingInputNumberOfUnitsProducts"
 																name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
 																value="${product_feeds_and_other_number_of_units}"
-																placeholder="NumberOfUnitsProducts" pattern="^(\d+)$" />
+																placeholder='<fmt:message key=""/>' pattern="^(\d+)$" />
 															<label class="text-lowercase"
 																for="floatingInputNumberOfUnitsProducts">количество
 																единиц</label>

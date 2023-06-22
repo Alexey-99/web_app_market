@@ -282,20 +282,20 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	}
 
 	private static final String QUERY_UPDETE_PRODUCT_PET_BY_ID = """
-			UPDETE pets
-			SET pets.image_path = ?
-			AND pets.specie = ?
-			AND pets.breed = ?
-			AND pets.birth_date = ?
-			AND pets.price = ?
-			AND pets.discount = ?
-			AND pets.date_update = ?
-			AND pets.number_of_units_products = ?
+			UPDATE pets
+			SET pets.image_path = ?,
+			pets.specie = ?,
+			pets.breed = ?,
+			pets.birth_date = ?,
+			pets.price = ?,
+			pets.discount = ?,
+			pets.date_update = NOW(),
+			pets.number_of_units_products = ?
 			WHERE pets.id = ?;
 			""";
 
 	@Override
-	public boolean upadateProductPetById(Pet pet, long numberOfUnitsProduct) throws DaoException {
+	public boolean upadateProductPet(Pet pet, long numberOfUnitsProduct) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
 			try (PreparedStatement statement = connection.prepareStatement(QUERY_UPDETE_PRODUCT_PET_BY_ID)) {
@@ -306,6 +306,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 				statement.setDouble(5, pet.getPrice());
 				statement.setDouble(6, pet.getDiscount());
 				statement.setLong(7, numberOfUnitsProduct);
+				statement.setLong(8, pet.getId());
 				result = statement.executeUpdate() > 0;
 			}
 		} catch (SQLException e) {

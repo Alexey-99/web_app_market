@@ -19,7 +19,8 @@
 <link rel="stylesheet" href="css/items/root.css" />
 <link rel="stylesheet"
 	href="css/items/admin/verification/verification_information_for_create_product.css" />
-<title>Insert title here</title>
+<title><fmt:message
+		key="verification_information_for_change_product_pet.title" /></title>
 <!-- product_pet = AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET -->
 <!-- product_pet_number_of_units = AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT -->
 </head>
@@ -34,8 +35,8 @@
 							class="position-relative w-100 d-flex flex-column verification_information_for_create_product_pet_inner">
 							<div
 								class="d-flex justify-content-center align-items-center mb-4 verification_information_for_create_product_pet_top_btns">
-								<form action="Controller">
-									<input type="hidden" name="command"
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_OFF_FILTER}" />
 									<button class="close_btn border-0 bg-transparent" role="button"
 										style="top: 25px; right: 30px">
@@ -46,57 +47,81 @@
                       </svg>
 									</button>
 								</form>
-								<h4 class="text-center">Проверка информации для изменения
-									товара (питомца)</h4>
+								<h4 class="text-center">
+									<fmt:message
+										key="verification_information_for_change_product_pet.title" />
+								</h4>
 							</div>
 							<div
 								class="d-flex justify-content-center align-items-center flex-column verification_information_for_create_product_pet_body">
-								<span>Выбранная картинка:
-									<div
-										class="image_product_id_body h-100 d-flex justify-content-center align-items-center">
-										<c:if
-											test="${product_pet.getImageFile() != null && product_pet.getImageFile().getName() != null && product_pet.getImageFile().getBytes() != null}">
-											<img class=""
-												src='<c:url value="${PagePathName.LOCALHOST_STORAGE_IMAGES_FOLDER_AND_SEPORATOR_PATH.concat(product_pet.getImageFile().getName())}"/>'
-												alt="" style="width: auto; height: 100%" />
-										</c:if>
-
-										<c:if
-											test="${product_pet.getImageFile() == null || product_pet.getImageFile().getName() == null || product_pet.getImageFile().getBytes() == null}">
-										картинка не выбрана
-										</c:if>
-									</div>
+								<span><fmt:message
+										key="verification_information_for_change_product_pet.field_name.image" />
+								</span>
+								<h5>
+									<c:if test="${product_pet.getImagePath() != null}">
+										<div
+											class="d-flex justify-content-center align-items-center flex-column">
+											<div>${product_pet.getImagePath()}</div>
+											<div>
+												<img class="mb-3 mt-3 mw-100" style="max-height: 200px"
+													alt=""
+													src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product_pet.getImagePath()}" />
+											</div>
+										</div>
+									</c:if>
+									<c:if test="${product_pet.getImagePath() == null}">
+										<div>
+											<fmt:message
+												key="verification_information_for_change_product_pet.field_value.massage.not_choosed_image" />
+										</div>
+									</c:if>
+								</h5>
+								<span><fmt:message
+										key="verification_information_for_change_product_pet.field_name.type_pet" />
 								</span>
 								<h5>${product_pet.getSpecie()}</h5>
-								<span>Тип питомца</span>
-								<h5>${product_pet.getSpecie()}</h5>
-								<span>Порода питомца</span>
+								<span><fmt:message
+										key="verification_information_for_change_product_pet.field_name.breed_pet" />
+								</span>
 								<h5>${product_pet.getBreed()}</h5>
-								<span>Дата рождения</span>
+								<span><fmt:message
+										key="verification_information_for_change_product_pet.field_name.birth_date_pet" />
+								</span>
 								<h5>${product_pet.getBirthDate()}</h5>
-								<span>Цена</span>
+								<span><fmt:message
+										key="verification_information_for_change_product_pet.field_name.price_pet" />
+								</span>
 								<h5>${product_pet.getPrice()}</h5>
-								<span>Процент скидки</span>
+								<span><fmt:message
+										key="verification_information_for_change_product_pet.field_name.discount_pet" />
+								</span>
 								<h5>${product_pet.getDiscount()}</h5>
-								<span>Количество</span>
+								<span><fmt:message
+										key="verification_information_for_change_product_pet.field_name.number_unit_pet" />
+								</span>
 								<h5>${product_pet_number_of_units}</h5>
 							</div>
 							<div
 								class="verification_information_for_create_product_pet_fotter d-flex justify-content-end">
-								<form action="Controller">
-									<input type="hidden" name="command"
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_ADMIN_PAGE_SHOW_CHANGE_PET_PRODUCT_FORM}" />
 									<button
 										class="btn verification_information_for_create_product_pet_btn_incorrect"
-										role="button">Назад</button>
+										role="button">
+										<fmt:message
+											key="verification_information_for_change_product_pet.back" />
+									</button>
 								</form>
-
-								<form action="Controller">
-									<input type="hidden" name="command"
-										value="${CommandName.COMMAND_ADMIN_PAGE_ADD_NEW_PET_PRODUCT}" />
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
+										value="${CommandName.COMMAND_ADMIN_PAGE_UPDATE_CHANGED_PET_PRODUCT}" />
 									<button
 										class="btn verification_information_for_create_product_pet_btn_correct"
-										role="button">Всё корректно!!!</button>
+										role="button">
+										<fmt:message
+											key="verification_information_for_change_product_pet.ok" />
+									</button>
 								</form>
 							</div>
 						</div>

@@ -52,6 +52,7 @@ public class ChangeProductPetCommand implements Command {
 		Router router = null;
 		HttpSession session = request.getSession();
 		AbstractRegistratedUser user = (AbstractRegistratedUser) session.getAttribute(ATTRIBUTE_USER);
+		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CREATE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		try {
 			if (user != null && user.isVerificatedEmail() == true
 					&& user.getRole().getIdRole() == UserRole.ADMIN.getIdRole()) {

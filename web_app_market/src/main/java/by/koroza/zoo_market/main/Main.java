@@ -15,14 +15,13 @@ import java.util.ArrayList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import by.koroza.zoo_market.dao.exception.DaoException;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 
 public class Main {
 	@SuppressWarnings("unused")
 	private static final Logger log = LogManager.getLogger();
 
-	public static void main(String[] args) throws DaoException {
+	public static void main(String[] args) {
 
 	}
 
