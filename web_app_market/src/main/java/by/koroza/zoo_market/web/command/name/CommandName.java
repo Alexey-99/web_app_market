@@ -35,8 +35,8 @@ import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_CREATE_FEE
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_ADD_NEW_PRODUCT_FEED_AND_OTHER;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_CREATE_FEED_AND_OTHER_PRODUCT_FORM;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT;
-import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_PET;
-import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_CHANGE_PET_PRODUCT_FORM;
+import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_FEED_AND_OTHER;
+import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_CHANGE_FEED_AND_OTHER_PRODUCT_FORM;
 
 public class CommandName {
 	public static final String COMMAND_SHOW_HOME_PAGE = SHOW_HOME_PAGE.toString().toLowerCase();
@@ -115,6 +115,10 @@ public class CommandName {
 			.toString().toLowerCase();
 	/* change product feeds and other */
 	public static final String COMMAND_ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT = ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT
+			.toString().toLowerCase();
+	public static final String COMMAND_ADMIN_PAGE_UPDATE_CHANGED_FEED_AND_OTHER_PRODUCT = ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_FEED_AND_OTHER
+			.toString().toLowerCase();
+	public static final String COMMAND_ADMIN_PAGE_SHOW_CHANGE_FEED_AND_OTHER_PRODUCT_FORM = ADMIN_PAGE_SHOW_CHANGE_FEED_AND_OTHER_PRODUCT_FORM
 			.toString().toLowerCase();
 
 	private CommandName() {

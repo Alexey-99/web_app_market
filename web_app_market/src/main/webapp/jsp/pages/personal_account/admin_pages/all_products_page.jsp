@@ -772,15 +772,13 @@
 															class="form-floating mb-3 add_other_product_form_body_form_floating">
 															<input type="file"
 																class="form-control text-uppercase add_other_product_form_body_input_img"
-																id="admin_page.all_products.change_product_form.change_pet.lable.choose_image_product"
-																name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
-																accept="image/*"
-																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_pet.lable.choose_image_product"/>' />
+																id="" name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
+																accept="image/*" placeholder='<fmt:message key=""/>' />
 															<label
 																class="text-lowercase add_product_pet_form_body_label_img"
-																for="admin_page.all_products.change_product_form.change_pet.lable.choose_image_product">
+																for="">
 																<fmt:message
-																	key="admin_page.all_products.change_product_form.change_pet.lable.choose_image_product" />
+																	key="" />
 																<span>*</span>
 															</label>
 															<div class="">

@@ -86,7 +86,10 @@ public enum CommandType {
 	ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_PET(new UpdateChangedPetProductCommand()),
 	ADMIN_PAGE_SHOW_CHANGE_PET_PRODUCT_FORM(new ShowChangePetProductFormCommand()),
 	/* change feeds and other */
-	ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT(new ChangeProductFeedsAndOtherCommand()),;
+	ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT(new ChangeProductFeedsAndOtherCommand()),
+	ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_FEED_AND_OTHER(null),
+	ADMIN_PAGE_SHOW_CHANGE_FEED_AND_OTHER_PRODUCT_FORM(null),
+	;
 
 	private Command command;
 

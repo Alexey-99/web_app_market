@@ -18,15 +18,22 @@ import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CREATE_
 
 import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
 import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
+
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM;
 import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CREATE_FEEDS_AND_OTHER_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_IS_CORRECT_FILE;
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_PART;
 
+import static by.koroza.zoo_market.web.command.name.ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.status.UserRole;
@@ -35,7 +42,6 @@ import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.ImageFileServiceImpl;
 import by.koroza.zoo_market.service.impl.ProductFeedsAndOtherServiceImpl;
 import by.koroza.zoo_market.validation.FeedsAndOtherValidation;
-import by.koroza.zoo_market.validation.PetValidation;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.command.impl.admin.create.CraeteOtherProductCommand.TypeInputException;
@@ -46,6 +52,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
 public class ChangeProductFeedsAndOtherCommand implements Command {
+	private static final Logger LOGGER = LogManager.getLogger();
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
@@ -79,6 +86,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 				}
 			}
 		} catch (IOException | ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
 		isRegistratedUser(request);
@@ -90,27 +98,30 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 		Map<FeedAndOther, Long> petAndNumber = new HashMap<>();
 		HttpSession session = request.getSession();
 		long id = Long.parseLong(request.getParameter(ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_ID));
-		FeedAndOther productFeedAndOtherOld = ProductFeedsAndOtherServiceImpl.getInstance()
-				.getProductFeedAndOtherById(id);
-		if (productFeedAndOtherOld != null) {
-			FeedAndOther productFeedAndOther = new FeedAndOther();
-			productFeedAndOther.setId(id);
-			if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
-				Part part = (Part) request.getAttribute(PARAMETER_PART);
-				if (part != null && !part.getSubmittedFileName().isBlank()) {
-					productFeedAndOther.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part,
-							(String) request.getAttribute(ATTRIBUTE_UPLOAD_FILE_DIRECTORY)));
+		FeedAndOther productFeedAndOther = session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER) != null
+				? (FeedAndOther) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER)
+				: ProductFeedsAndOtherServiceImpl.getInstance().getProductFeedAndOtherById(id);
+		if (productFeedAndOther != null) {
+			if (request.getParameter(ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE) == null) {
+				if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
+					Part part = (Part) request.getAttribute(PARAMETER_PART);
+					if (part != null && !part.getSubmittedFileName().isBlank()) {
+						productFeedAndOther.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part,
+								(String) request.getAttribute(ATTRIBUTE_UPLOAD_FILE_DIRECTORY)));
+					} else {
+						productFeedAndOther.setImagePath(null);
+					}
 				} else {
-					productFeedAndOther.setImagePath(productFeedAndOtherOld.getImagePath());
+					if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+						mapInputExceptions.put(TypeInputException.IMAGE.toString(),
+								"Вы выбрали не корретный файл для картинки для товара");
+					} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+						mapInputExceptions.put(TypeInputException.IMAGE.toString(),
+								"You choosed image incorrect for product");
+					}
 				}
 			} else {
-				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
-					mapInputExceptions.put(TypeInputException.IMAGE.toString(),
-							"Вы выбрали не корретный файл для картинки для товара");
-				} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
-					mapInputExceptions.put(TypeInputException.IMAGE.toString(),
-							"You choosed image incorrect for product");
-				}
+				productFeedAndOther.setImagePath(null);
 			}
 			String type = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE);
 			if (!FeedsAndOtherValidation.validPetType(type)) {
@@ -162,7 +173,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 				productFeedAndOther.setPetTypes(petTypes);
 			}
 			String price = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE);
-			if (!PetValidation.validPetPrice(price)) {
+			if (!FeedsAndOtherValidation.validPetPrice(price)) {
 				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.PRICE.toString(),
 							"Вы ввели не корректно цену товара. Вы ввели: " + price);
@@ -174,7 +185,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 				productFeedAndOther.setPrice(Double.parseDouble(price));
 			}
 			String discount = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT);
-			if (!PetValidation.validPetDiscount(discount)) {
+			if (!FeedsAndOtherValidation.validPetDiscount(discount)) {
 				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.DISCOUNT.toString(),
 							"Вы ввели не корректно скидку на продукт. Вы ввели: " + discount);
@@ -187,7 +198,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 			}
 			String numberOfUnitsProduct = request
 					.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT);
-			if (!PetValidation.validPetNumberOfUnitsProduct(numberOfUnitsProduct)) {
+			if (!FeedsAndOtherValidation.validPetNumberOfUnitsProduct(numberOfUnitsProduct)) {
 				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.NUMBER_OF_UNITS_PRODUCT.toString(),
 							"Вы ввели не корректно количество данного товара. Вы ввели: " + numberOfUnitsProduct);
@@ -200,6 +211,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 				petAndNumber.put(productFeedAndOther, Long.parseLong(numberOfUnitsProduct));
 			}
 		} else {
+			LOGGER.log(Level.ERROR, "This product pet can't change because product didn't found in database.");
 			throw new CommandException("This product pet can't change because product didn't found in database.");
 		}
 		return petAndNumber;

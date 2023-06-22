@@ -96,6 +96,8 @@ public class ChangeProductPetCommand implements Command {
 					if (part != null && !part.getSubmittedFileName().isBlank()) {
 						pet.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part,
 								(String) request.getAttribute(ATTRIBUTE_UPLOAD_FILE_DIRECTORY)));
+					} else {
+						pet.setImagePath(null);
 					}
 				} else {
 					if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
