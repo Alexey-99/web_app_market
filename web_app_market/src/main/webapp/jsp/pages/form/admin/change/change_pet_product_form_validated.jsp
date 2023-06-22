@@ -5,7 +5,6 @@
 <%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.LanguageName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>

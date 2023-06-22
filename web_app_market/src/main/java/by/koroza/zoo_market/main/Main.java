@@ -16,13 +16,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.model.entity.market.product.Pet;
+import by.koroza.zoo_market.web.command.name.CommandName;
 
 public class Main {
 	@SuppressWarnings("unused")
 	private static final Logger log = LogManager.getLogger();
 
 	public static void main(String[] args) {
-
+		System.out.println(CommandName.COMMAND_SHOW_HOME_PAGE);
 	}
 
 	public static Map<Pet, Long> sortingMap(Map<Pet, Long> map) {

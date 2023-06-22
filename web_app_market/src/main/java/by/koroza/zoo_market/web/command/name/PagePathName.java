@@ -35,18 +35,18 @@ public final class PagePathName {
 
 	/* ADMIN_CHANGE_PRODUCT_FORM */
 	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM = "jsp/pages/form/admin/change/change_pet_product_form_validated.jsp";
-	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM = "jsp/pages/form/admin/create/create_feed_and_other_product_form_validated.jsp";
+	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM = "jsp/pages/form/admin/change/change_feed_and_other_product_form_validated.jsp";
 	/* ADMIN_VERIDICATION_INFORMATION */
 	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CHANGE_PET_PRODUCT = "jsp/pages/form/admin/change/verification/verification_information_for_change_product_pet.jsp";
 	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CHANGE_FEED_AND_OTHER_PRODUCT = "jsp/pages/form/admin/change/verification/verification_information_for_change_product_pet.jsp";
 
 	/* REGISTRATION */
-	public static final String REGISTRATION_FORM_PAGE_PATH = "jsp/pages/form/registration_form/registration_form.jsp";
+	public static final String REGISTRATION_FORM_PAGE_PATH = "jsp/pages/form/registration/registration_form.jsp";
 	/* VERIDICATION_REGISTRATION_INFORMATION */
-	public static final String VERIFICATION_REGISTRATION_INFORMATION_PAGE_PATH = "jsp/pages/form/verification_registration_information/verification_registration_information.jsp";
+	public static final String VERIFICATION_REGISTRATION_INFORMATION_PAGE_PATH = "jsp/pages/form/registration/verification/verification_registration_information.jsp";
 
-	public static final String VERIFICATION_PERSONAL_ACCOUNT_PAGE_PATH = "jsp/pages/form/verification_personal_account_form/verification_personal_account.jsp";
-	public static final String VERIFICATION_PERSONAL_ACCOUNT_VALIDATED_PAGE_PATH = "jsp/pages/form/verification_personal_account_form/verification_personal_account_with_exception.jsp";
+	public static final String VERIFICATION_PERSONAL_ACCOUNT_PAGE_PATH = "jsp/pages/form/verification_email/verification_email.jsp";
+	public static final String VERIFICATION_PERSONAL_ACCOUNT_VALIDATED_PAGE_PATH = "jsp/pages/form/verification_email/verification_email_with_exception.jsp";
 
 	public static final String SIGN_IN_VALIDATED_PAGE_PATH = "jsp/pages/form/sign_in/sign_in_exception.jsp";
 

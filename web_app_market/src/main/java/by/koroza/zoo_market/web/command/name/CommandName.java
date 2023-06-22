@@ -1,58 +1,121 @@
 package by.koroza.zoo_market.web.command.name;
 
+import static by.koroza.zoo_market.web.command.CommandType.SHOW_HOME_PAGE;
+import static by.koroza.zoo_market.web.command.CommandType.SHOW_BACKET_PAGE;
+import static by.koroza.zoo_market.web.command.CommandType.SHOW_PERSONAL_ACCOUNT_PERSON_INFORMATION_PAGE;
+import static by.koroza.zoo_market.web.command.CommandType.SHOW_PERSONAL_ACCOUNT_HISTORY_ORDERS_PAGE;
+import static by.koroza.zoo_market.web.command.CommandType.SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE;
+import static by.koroza.zoo_market.web.command.CommandType.SHOW_PRODUCT_PETS_OFF_FILTER;
+import static by.koroza.zoo_market.web.command.CommandType.SHOW_PRODUCT_PETS_INCLUDED_FILTER;
+import static by.koroza.zoo_market.web.command.CommandType.SHOW_MARKET_PAGE_PRODUCT_PETS_BY_NUMBER_PAGE;
+import static by.koroza.zoo_market.web.command.CommandType.SHOW_PRODUCT_FEEDS_AND_OTHER_OFF_FILTER;
+import static by.koroza.zoo_market.web.command.CommandType.SHOW_PRODUCT_FEEDS_AND_OTHER_INCLUDED_FILTER;
+import static by.koroza.zoo_market.web.command.CommandType.SHOW_MARKET_PAGE_PRODUCT_FEEDS_AND_OTHER_BY_NUMBER_PAGE;
+import static by.koroza.zoo_market.web.command.CommandType.REGISTRATION_USER;
+import static by.koroza.zoo_market.web.command.CommandType.VERIFICATION_REGISTRATION_INFORMATION;
+import static by.koroza.zoo_market.web.command.CommandType.CONFIMATION_EMAIL;
+import static by.koroza.zoo_market.web.command.CommandType.SHOW_CONFIMATION_EMAIL_FORM;
+import static by.koroza.zoo_market.web.command.CommandType.SEND_ONE_MORE_TIME_CONFIMATION_EMAIL_CODE;
+import static by.koroza.zoo_market.web.command.CommandType.SIGN_IN_PERSON_ACCOUNT;
+import static by.koroza.zoo_market.web.command.CommandType.SIGN_OUT_PERSONAL_ACCOUNT;
+import static by.koroza.zoo_market.web.command.CommandType.CHANGE_PERSON_INFORMATION;
+import static by.koroza.zoo_market.web.command.CommandType.CHANGE_LOGIN_AND_PASSWORD;
+import static by.koroza.zoo_market.web.command.CommandType.ORDER_PAYMENT;
+import static by.koroza.zoo_market.web.command.CommandType.SET_ENGLISH_LOCALE;
+import static by.koroza.zoo_market.web.command.CommandType.SET_RUSSIAN_LOCALE;
+import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER;
+import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_ALL_PRODUCTS_INCLUDED_FILTER;
+import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_CREATE_PET_PRODUCT;
+import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_ADD_NEW_PRODUCT_PET;
+import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_CREATE_PET_PRODUCT_FORM;
+import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_CHANGE_PET_PRODUCT;
+import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_PET;
+import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_CHANGE_PET_PRODUCT_FORM;
+import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_CREATE_FEED_AND_OTHER_PRODUCT;
+import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_ADD_NEW_PRODUCT_FEED_AND_OTHER;
+import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_CREATE_FEED_AND_OTHER_PRODUCT_FORM;
+import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT;
+import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_PET;
+import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_CHANGE_PET_PRODUCT_FORM;
+
 public class CommandName {
-	public static final String COMMAND_SHOW_HOME_PAGE = "show_home_page";
+	public static final String COMMAND_SHOW_HOME_PAGE = SHOW_HOME_PAGE.toString().toLowerCase();
 
-	public static final String COMMAND_SHOW_BACKET_PAGE = "show_backet_page";
+	public static final String COMMAND_SHOW_BACKET_PAGE = SHOW_BACKET_PAGE.toString().toLowerCase();
 
-	public static final String COMMAND_SHOW_PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE = "show_personal_account_person_information_page";
-	public static final String COMMAND_SHOW_PERSONAL_ACCOUNT_HISTORY_ORDERS_PAGE = "show_personal_account_history_orders_page";
-	public static final String COMMAND_SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE = "show_personal_account_admin_page";
+	public static final String COMMAND_SHOW_PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE = SHOW_PERSONAL_ACCOUNT_PERSON_INFORMATION_PAGE
+			.toString().toLowerCase();
+	public static final String COMMAND_SHOW_PERSONAL_ACCOUNT_HISTORY_ORDERS_PAGE = SHOW_PERSONAL_ACCOUNT_HISTORY_ORDERS_PAGE
+			.toString().toLowerCase();
+	public static final String COMMAND_SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE = SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE.toString()
+			.toLowerCase();
 
-	public static final String COMMAND_SHOW_PRODUCT_PETS_OFF_FILTER_PAGE = "show_product_pets_off_filter";
-	public static final String COMMAND_SHOW_PRODUCT_PETS_INCLUDED_FILTER_PAGE = "show_product_pets_included_filter";
+	public static final String COMMAND_SHOW_PRODUCT_PETS_OFF_FILTER_PAGE = SHOW_PRODUCT_PETS_OFF_FILTER.toString()
+			.toLowerCase();
+	public static final String COMMAND_SHOW_PRODUCT_PETS_INCLUDED_FILTER_PAGE = SHOW_PRODUCT_PETS_INCLUDED_FILTER
+			.toString().toLowerCase();
+	public static final String COMMAND_SHOW_MAKET_PAGE_PRODUCT_PETS_BY_NUMBER_PAGE = SHOW_MARKET_PAGE_PRODUCT_PETS_BY_NUMBER_PAGE
+			.toString().toLowerCase();
 
-	public static final String COMMAND_SHOW_PRODUCT_FEED_AND_OTHER_OFF_FILTER_PAGE = "show_product_feeds_and_other_off_filter";
-	public static final String COMMAND_SHOW_PRODUCT_FEEDS_AND_OTHER_INCLUDED_FILTER_PAGE = "show_product_feeds_and_other_included_filter";
+	public static final String COMMAND_SHOW_PRODUCT_FEED_AND_OTHER_OFF_FILTER_PAGE = SHOW_PRODUCT_FEEDS_AND_OTHER_OFF_FILTER
+			.toString().toLowerCase();
+	public static final String COMMAND_SHOW_PRODUCT_FEEDS_AND_OTHER_INCLUDED_FILTER_PAGE = SHOW_PRODUCT_FEEDS_AND_OTHER_INCLUDED_FILTER
+			.toString().toLowerCase();
+	public static final String COMMAND_SHOW_MAKET_PAGE_PRODUCT_FEEDS_AND_OTHER_BY_NUMBER_PAGE = SHOW_MARKET_PAGE_PRODUCT_FEEDS_AND_OTHER_BY_NUMBER_PAGE
+			.toString().toLowerCase();
 
-	public static final String COMMAND_REGISTRATION_USER = "registration_user";
-	public static final String COMMAND_VERIFICATION_REGISTRATION_INFORMATION = "verification_registration_information";
+	public static final String COMMAND_REGISTRATION_USER = REGISTRATION_USER.toString().toLowerCase();
+	public static final String COMMAND_VERIFICATION_REGISTRATION_INFORMATION = VERIFICATION_REGISTRATION_INFORMATION
+			.toString().toLowerCase();
 
-	public static final String COMMAND_VERIFICATION_PERSONAL_ACCOUNT = "verification_personal_account";
-	public static final String COMMAND_SHOW_VERIFICATION_PERSONAL_ACCOUNT_FORN = "show_verification_personal_account_form";
+	public static final String COMMAND_CONFIRMATION_EMAIL = CONFIMATION_EMAIL.toString().toLowerCase();
+	public static final String COMMAND_SHOW_CONFIRMATION_EMAIL_FORN = SHOW_CONFIMATION_EMAIL_FORM.toString()
+			.toLowerCase();
+	public static final String COMMAND_SEND_ONE_MORE_TIME_CONFIMATION_EMAIL_CODE = SEND_ONE_MORE_TIME_CONFIMATION_EMAIL_CODE
+			.toString().toLowerCase();
 
-	public static final String COMMAND_SIGN_IN_PERSON_ACCOUNT = "sign_in_person_account";
+	public static final String COMMAND_SIGN_IN_PERSON_ACCOUNT = SIGN_IN_PERSON_ACCOUNT.toString().toLowerCase();
+	public static final String COMMAND_SIGN_OUT_PERSONAL_ACCOUNT = SIGN_OUT_PERSONAL_ACCOUNT.toString().toLowerCase();
 
-	public static final String COMMAND_CHANGING_PERSON_INFORMATION = "change_person_information";
-	public static final String COMMAND_CHANGING_LOGIN_AND_PASSWORD = "change_login_and_password";
+	public static final String COMMAND_CHANGING_PERSON_INFORMATION = CHANGE_PERSON_INFORMATION.toString().toLowerCase();
+	public static final String COMMAND_CHANGING_LOGIN_AND_PASSWORD = CHANGE_LOGIN_AND_PASSWORD.toString().toLowerCase();
 
-	public static final String COMMAND_SEND_ONE_MORE_TIME_VERIFICATION_CODE = "send_one_more_time_verification_code";
+	public static final String COMMAND_ORDER_PAYMENT = ORDER_PAYMENT.toString().toLowerCase();
 
-	public static final String COMMAND_ORDER_PAYMENT = "order_payment";
+	public static final String COMMAND_SET_ENGLISH_LOCALE = SET_ENGLISH_LOCALE.toString().toLowerCase();
+	public static final String COMMAND_SET_RUSSIAN_LOCALE = SET_RUSSIAN_LOCALE.toString().toLowerCase();
 
-	public static final String COMMAND_SIGN_OUT_PERSONAL_ACCOUNT = "sign_out_personal_account";
+	/* ADMIN part */
+	public static final String COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_OFF_FILTER = ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER
+			.toString().toLowerCase();
+	public static final String COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_INCLUDED_FILTER = ADMIN_PAGE_SHOW_ALL_PRODUCTS_INCLUDED_FILTER
+			.toString().toLowerCase();
 
-	public static final String COMMAND_SET_RUSSIAN_LOCALE = "set_russian_locale";
-	public static final String COMMAND_SET_ENGLISH_LOCALE = "set_english_locale";
+	/* create product pet */
+	public static final String COMMAND_ADMIN_PAGE_CREATE_PET_PRODUCT = ADMIN_PAGE_CREATE_PET_PRODUCT.toString()
+			.toLowerCase();
+	public static final String COMMAND_ADMIN_PAGE_ADD_NEW_PET_PRODUCT = ADMIN_PAGE_ADD_NEW_PRODUCT_PET.toString()
+			.toLowerCase();
+	public static final String COMMAND_ADMIN_PAGE_SHOW_CREATE_PET_PRODUCT_FORM = ADMIN_PAGE_SHOW_CREATE_PET_PRODUCT_FORM
+			.toString().toLowerCase();
+	/* change product pet */
+	public static final String COMMAND_ADMIN_PAGE_CHANGE_PET_PRODUCT = ADMIN_PAGE_CHANGE_PET_PRODUCT.toString()
+			.toLowerCase();
+	public static final String COMMAND_ADMIN_PAGE_UPDATE_CHANGED_PET_PRODUCT = ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_PET
+			.toString().toLowerCase();
+	public static final String COMMAND_ADMIN_PAGE_SHOW_CHANGE_PET_PRODUCT_FORM = ADMIN_PAGE_SHOW_CHANGE_PET_PRODUCT_FORM
+			.toString().toLowerCase();
 
-	public static final String COMMAND_SHOW_MAKET_PAGE_PRODUCT_PETS_BY_NUMBER_PAGE = "show_market_page_product_pets_by_number_page";
-	public static final String COMMAND_SHOW_MAKET_PAGE_PRODUCT_FEEDS_AND_OTHER_BY_NUMBER_PAGE = "show_market_page_product_feeds_and_other_by_number_page";
-
-	/* ADMIN */
-	public static final String COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_OFF_FILTER = "admin_page_show_all_products_off_filter";
-	public static final String COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_INCLUDED_FILTER = "admin_page_show_all_products_included_filter";
-
-	public static final String COMMAND_ADMIN_PAGE_CREATE_PET_PRODUCT = "admin_page_create_pet_product";
-	public static final String COMMAND_ADMIN_PAGE_ADD_NEW_PET_PRODUCT = "add_new_product_pet";
-	public static final String COMMAND_ADMIN_PAGE_SHOW_CREATE_PET_PRODUCT_FORM = "admin_page_show_create_pet_product_form";
-	public static final String COMMAND_ADMIN_PAGE_CHANGE_PET_PRODUCT = "admin_page_change_pet_product";
-	public static final String COMMAND_ADMIN_PAGE_UPDATE_CHANGED_PET_PRODUCT = "update_changed_product_pet";
-	public static final String COMMAND_ADMIN_PAGE_SHOW_CHANGE_PET_PRODUCT_FORM = "admin_page_show_change_pet_product_form";
-
-	public static final String COMMAND_ADMIN_PAGE_CREATE_FEED_AND_OTHER_PRODUCT = "admin_page_create_feed_and_other_product";
-	public static final String COMMAND_ADMIN_PAGE_ADD_NEW_FEED_AND_OTHER_PRODUCT = "add_new_product_feed_and_other";
-	public static final String COMMAND_ADMIN_PAGE_SHOW_CREATE_FEED_AND_OTHER_PRODUCT_FORM = "admin_page_show_create_feed_and_other_product_form";
-	public static final String COMMAND_ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT = "admin_page_change_feed_and_other_product";
+	/* create product feeds and other */
+	public static final String COMMAND_ADMIN_PAGE_CREATE_FEED_AND_OTHER_PRODUCT = ADMIN_PAGE_CREATE_FEED_AND_OTHER_PRODUCT
+			.toString().toLowerCase();
+	public static final String COMMAND_ADMIN_PAGE_ADD_NEW_FEED_AND_OTHER_PRODUCT = ADMIN_PAGE_ADD_NEW_PRODUCT_FEED_AND_OTHER
+			.toString().toLowerCase();
+	public static final String COMMAND_ADMIN_PAGE_SHOW_CREATE_FEED_AND_OTHER_PRODUCT_FORM = ADMIN_PAGE_SHOW_CREATE_FEED_AND_OTHER_PRODUCT_FORM
+			.toString().toLowerCase();
+	/* change product feeds and other */
+	public static final String COMMAND_ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT = ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT
+			.toString().toLowerCase();
 
 	private CommandName() {
 	}
