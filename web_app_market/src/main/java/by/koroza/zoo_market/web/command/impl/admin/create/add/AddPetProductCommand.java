@@ -1,8 +1,8 @@
-package by.koroza.zoo_market.web.command.impl.admin.updete;
+package by.koroza.zoo_market.web.command.impl.admin.create.add;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ADMIN_PAGE_CREATE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_MAP_PRODUCT_PET_AND_NUMBER_OF_UNITS_PRODUCT;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_MAP_PRODUCTS_PET_AND_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET;
 
@@ -11,6 +11,7 @@ import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUN
 
 import java.util.Map;
 
+import by.koroza.zoo_market.model.calculation.Calculator;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
@@ -21,11 +22,10 @@ import by.koroza.zoo_market.service.sorting.SortingMapAbstractProduct;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-public class UpdateChangedPetProductCommand implements Command {
+public class AddPetProductCommand implements Command {
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -43,11 +43,14 @@ public class UpdateChangedPetProductCommand implements Command {
 				if (pet != null) {
 					long numberOfUnitsProduct = (long) session
 							.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT);
-					ProductPetServiceImpl.getInstance().upadateProductPet(pet, numberOfUnitsProduct);
-					if (session.getAttribute(ATTRIBUTE_MAP_PRODUCT_PET_AND_NUMBER_OF_UNITS_PRODUCT) != null) {
-						Map<Pet, Long> productsPetAndNumber = ProductPetServiceImpl.getInstance()
-								.getAllProductsPetsAndNumberOfUnits();
-						session.setAttribute(ATTRIBUTE_MAP_PRODUCT_PET_AND_NUMBER_OF_UNITS_PRODUCT,
+					ProductPetServiceImpl.getInstance().addProductPet(pet, numberOfUnitsProduct);
+					if (session.getAttribute(ATTRIBUTE_MAP_PRODUCTS_PET_AND_NUMBER_OF_UNITS_PRODUCT) != null) {
+						Map<Pet, Long> productsPetAndNumber = (Map<Pet, Long>) session
+								.getAttribute(ATTRIBUTE_MAP_PRODUCTS_PET_AND_NUMBER_OF_UNITS_PRODUCT);
+						pet.setTotalPrice(pet.getPrice()
+								- Calculator.getInstance().calcProcentFromSum(pet.getPrice(), pet.getDiscount()));
+						productsPetAndNumber.put(pet, numberOfUnitsProduct);
+						session.setAttribute(ATTRIBUTE_MAP_PRODUCTS_PET_AND_NUMBER_OF_UNITS_PRODUCT,
 								(Map<Pet, Long>) SortingMapAbstractProduct.getInstance()
 										.sortMapById(productsPetAndNumber));
 						router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH);

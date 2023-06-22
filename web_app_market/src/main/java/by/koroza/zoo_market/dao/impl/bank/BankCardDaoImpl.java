@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.dao.impl;
+package by.koroza.zoo_market.dao.impl.bank;
 
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_BANK_CARDS_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.BANK_CARDS_SUM;

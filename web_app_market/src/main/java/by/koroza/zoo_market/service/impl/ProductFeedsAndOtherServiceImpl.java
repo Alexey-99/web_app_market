@@ -8,7 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.dao.exception.DaoException;
-import by.koroza.zoo_market.dao.impl.ProductFeedsAndOtherDaoImpl;
+import by.koroza.zoo_market.dao.impl.product.ProductFeedsAndOtherDaoImpl;
 import by.koroza.zoo_market.model.entity.filter.FilterFeedsAndOther;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
@@ -112,9 +112,9 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	}
 
 	@Override
-	public boolean upadateProductById(FeedAndOther product, long numberOfUnitsProduct) throws ServiceException {
+	public boolean updateProductById(FeedAndOther product, long numberOfUnitsProduct) throws ServiceException {
 		try {
-			return ProductFeedsAndOtherDaoImpl.getInstance().upadateProductById(product, numberOfUnitsProduct);
+			return ProductFeedsAndOtherDaoImpl.getInstance().updateProductById(product, numberOfUnitsProduct);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}

@@ -10,7 +10,7 @@
 <%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.ImagePath"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.RegistrationUserCommand"%>
+	import="by.koroza.zoo_market.web.command.impl.user.registration.RegistrationUserCommand"%>
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
 	scope="session" />
 <!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->

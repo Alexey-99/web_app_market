@@ -3,7 +3,7 @@ package by.koroza.zoo_market.service.impl;
 import java.util.Optional;
 
 import by.koroza.zoo_market.dao.exception.DaoException;
-import by.koroza.zoo_market.dao.impl.UserDaoImpl;
+import by.koroza.zoo_market.dao.impl.user.UserDaoImpl;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.service.UserService;
 import by.koroza.zoo_market.service.exception.ServiceException;

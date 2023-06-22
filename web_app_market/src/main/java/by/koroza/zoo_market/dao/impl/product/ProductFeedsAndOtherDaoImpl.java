@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.dao.impl;
+package by.koroza.zoo_market.dao.impl.product;
 
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_BRAND;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_DATE_UPDATE;
@@ -306,20 +306,20 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 
 	private static final String QUERY_UPDETE_PRODUCT_BY_ID = """
 			UPDETE feeds_and_other
-			AND feeds_and_other.image_path = ?
-			AND feeds_and_other.type = ?
-			AND feeds_and_other.brand = ?
-			AND feeds_and_other.description = ?
-			AND feeds_and_other.pet_type = ?
-			AND feeds_and_other.price = ?
-			AND feeds_and_other.discount = ?
-			AND feeds_and_other.date_update = ?
-			AND feeds_and_other.number_of_units_products = ?
+			feeds_and_other.image_path = ?,
+			feeds_and_other.type = ?,
+			feeds_and_other.brand = ?,
+			feeds_and_other.description = ?,
+			feeds_and_other.pet_type = ?,
+			feeds_and_other.price = ?,
+			feeds_and_other.discount = ?,
+			feeds_and_other.date_update = NOW(),
+			feeds_and_other.number_of_units_products = ?
 			WHERE feeds_and_other.id = ?;
 			""";
 
 	@Override
-	public boolean upadateProductById(FeedAndOther product, long numberOfUnitsProduct) throws DaoException {
+	public boolean updateProductById(FeedAndOther product, long numberOfUnitsProduct) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
 			try (PreparedStatement statement = connection.prepareStatement(QUERY_UPDETE_PRODUCT_BY_ID)) {
@@ -332,6 +332,7 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 				statement.setDouble(6, product.getPrice());
 				statement.setDouble(7, product.getDiscount());
 				statement.setLong(8, numberOfUnitsProduct);
+				statement.setLong(9, product.getId());
 				result = statement.executeUpdate() > 0;
 			}
 		} catch (SQLException e) {

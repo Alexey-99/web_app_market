@@ -36,8 +36,8 @@ public final class AttributeName {
 	public static final String ATTRIBUTE_LIST_PRODUCTS_FEEDS_AND_OTHER = "list_products_feeds_and_other";
 
 	/* MAP_PRODUCT_AND_NUMBER_OF_UNITS_PRODUCT */
-	public static final String ATTRIBUTE_MAP_PRODUCT_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT = "map_product_feeds_and_other_and_number_of_units";
-	public static final String ATTRIBUTE_MAP_PRODUCT_PET_AND_NUMBER_OF_UNITS_PRODUCT = "map_product_pet_and_number_of_units";
+	public static final String ATTRIBUTE_MAP_PRODUCTS_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT = "map_product_feeds_and_other_and_number_of_units";
+	public static final String ATTRIBUTE_MAP_PRODUCTS_PET_AND_NUMBER_OF_UNITS_PRODUCT = "map_product_pet_and_number_of_units";
 
 	public static final String ATTRIBUTE_FOR_LIST_PETS = "productsPets";
 	public static final String ATTRIBUTE_FOR_LIST_FEEDS_AND_OTHER = "productsOther";

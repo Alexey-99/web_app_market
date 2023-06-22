@@ -4,8 +4,8 @@ import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUN
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_MAP_PRODUCT_PET_AND_NUMBER_OF_UNITS_PRODUCT;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_MAP_PRODUCT_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_MAP_PRODUCTS_PET_AND_NUMBER_OF_UNITS_PRODUCT;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_MAP_PRODUCTS_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT;
 
 import java.util.Map;
 
@@ -39,9 +39,9 @@ public class ShowAllProductsOffFilterCommand implements Command {
 				Map<Pet, Long> productPets = ProductPetServiceImpl.getInstance().getAllProductsPetsAndNumberOfUnits();
 				Map<FeedAndOther, Long> productFeedsAndOther = ProductFeedsAndOtherServiceImpl.getInstance()
 						.getAllProductsFeedAndOtherAndNumberOfUnits();
-				session.setAttribute(ATTRIBUTE_MAP_PRODUCT_PET_AND_NUMBER_OF_UNITS_PRODUCT,
+				session.setAttribute(ATTRIBUTE_MAP_PRODUCTS_PET_AND_NUMBER_OF_UNITS_PRODUCT,
 						(Map<Pet, Long>) SortingMapAbstractProduct.getInstance().sortMapById(productPets));
-				session.setAttribute(ATTRIBUTE_MAP_PRODUCT_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT,
+				session.setAttribute(ATTRIBUTE_MAP_PRODUCTS_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT,
 						(Map<FeedAndOther, Long>) SortingMapAbstractProduct.getInstance()
 								.sortMapById(productFeedsAndOther));
 				router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH);

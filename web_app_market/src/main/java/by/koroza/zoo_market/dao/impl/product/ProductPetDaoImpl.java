@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.dao.impl;
+package by.koroza.zoo_market.dao.impl.product;
 
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_BREED;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_LAST_INSERT_ID;

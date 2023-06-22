@@ -1,7 +1,7 @@
-package by.koroza.zoo_market.web.command.impl.admin.add;
+package by.koroza.zoo_market.web.command.impl.admin.create.add;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_MAP_PRODUCT_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_MAP_PRODUCTS_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT;
@@ -46,13 +46,13 @@ public class AddOtherProductCommand implements Command {
 							.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT);
 					ProductFeedsAndOtherServiceImpl.getInstance().addProduct(otherProduct, numberOfUnitsProduct);
 					if (session
-							.getAttribute(ATTRIBUTE_MAP_PRODUCT_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT) != null) {
+							.getAttribute(ATTRIBUTE_MAP_PRODUCTS_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT) != null) {
 						Map<FeedAndOther, Long> productsPetAndNumber = (Map<FeedAndOther, Long>) session
-								.getAttribute(ATTRIBUTE_MAP_PRODUCT_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT);
+								.getAttribute(ATTRIBUTE_MAP_PRODUCTS_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT);
 						otherProduct.setTotalPrice(otherProduct.getPrice() - Calculator.getInstance()
 								.calcProcentFromSum(otherProduct.getPrice(), otherProduct.getDiscount()));
 						productsPetAndNumber.put(otherProduct, numberOfUnitsProduct);
-						session.setAttribute(ATTRIBUTE_MAP_PRODUCT_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT,
+						session.setAttribute(ATTRIBUTE_MAP_PRODUCTS_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT,
 								(Map<FeedAndOther, Long>) SortingMapAbstractProduct.getInstance()
 										.sortMapById(productsPetAndNumber));
 						router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH);

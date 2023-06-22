@@ -138,7 +138,7 @@ function showProductImage(productId) {
 	removeClass(element, "d-none");
 }
 
-function clesedProductImage(productId) {
+function closedProductImage(productId) {
 	const element = selectElement(`.image_product_id_${productId}`);
 	addClass(element, "d-none");
 }
@@ -149,7 +149,7 @@ function showChangeProductForm(productId) {
 	removeClass(element, "d-none");
 }
 
-function clesedChangeProductForm(productId) {
+function closedChangeProductForm(productId) {
 	const element = selectElement(`.change_product_form_${productId}`);
 	addClass(element, "d-none");
 }

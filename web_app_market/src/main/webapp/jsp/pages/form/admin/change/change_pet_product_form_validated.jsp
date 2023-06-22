@@ -64,11 +64,11 @@
                       </svg>
 											</button>
 										</form>
-										<button
-											class="btn text-uppercase active add_product_form_top_btn add_product_form_top_btn_product_pet"
-											role="button" onclick="openAddProductPetForm()">
-											<fmt:message key="change_product_form_validated.title" />
-										</button>
+										<div
+											class="text-uppercase active add_product_form_top_btn add_product_form_top_btn_product_pet">
+											<fmt:message
+												key="change_product_form_validated.change_pet.title" />
+										</div>
 									</div>
 								</div>
 

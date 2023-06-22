@@ -7,7 +7,7 @@ import java.util.Map;
 
 import by.koroza.zoo_market.dao.ProductPetDao;
 import by.koroza.zoo_market.dao.exception.DaoException;
-import by.koroza.zoo_market.dao.impl.ProductPetDaoImpl;
+import by.koroza.zoo_market.dao.impl.product.ProductPetDaoImpl;
 import by.koroza.zoo_market.model.entity.filter.FilterPet;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.Pet;

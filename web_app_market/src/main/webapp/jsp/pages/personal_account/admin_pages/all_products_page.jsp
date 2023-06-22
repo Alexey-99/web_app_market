@@ -10,7 +10,6 @@
 <%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
 <%@page import="by.koroza.zoo_market.model.entity.status.ProductType"%>
-<%@page import="by.koroza.zoo_market.model.entity.status.UserRole"%>
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
 	scope="session" />
 <fmt:setBundle
@@ -38,168 +37,7 @@
 		<div class="container" style="max-width: 1500px">
 			<c:if test="${user != null}">
 				<div class="row">
-					<div class="col-1">
-						<nav class="navbar bg-body-tertiary">
-							<div class="container-fluid justify-content-center">
-								<button class="navbar-toggler" type="button"
-									data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-									aria-controls="offcanvasNavbar">
-									<svg fill="#000000" height="20px" width="20px" version="1.1"
-										id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-										xmlns:xlink="http://www.w3.org/1999/xlink"
-										viewBox="0 0 512 512" xml:space="preserve">
-<g>
-	<g>
-		<path
-											d="M8.959,0v81.89l201.666,201.666V512l90.75-60.5V283.556L503.041,81.89V0H8.959z M271.125,435.31l-30.25,20.167V292.416
-			h30.25V435.31z M279.985,262.166h-47.969L60.6,90.75h390.802L279.985,262.166z M472.791,60.5H39.209V30.25h433.582V60.5z" />
-	</g>
-</g>
-</svg>
-								</button>
-								<div class="offcanvas offcanvas-start" tabindex="-1"
-									id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-									<div class="offcanvas-header">
-										<h5 class="offcanvas-title text-uppercase"
-											id="offcanvasNavbarLabel">фильтр</h5>
-										<button type="button" class="btn-close"
-											data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
-									</div>
-									<c:if test="${locale == LanguageName.ENGLISH}">
-										<div class="offcanvas-body">
-											<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-												<li class="nav-item dropdown">
-													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
-														<input type="hidden"
-															name="${ParameterName.PARAMETER_COMMAND}" value="" />
-														<button class="btn form_submit mb-3" role="button">
-															Сбросить фильтр</button>
-													</form>
-													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
-														<div class="accordion accordion_form"
-															id="accordionExample">
-															<div class="accordion-item">
-																<h2 class="accordion-header">
-																	<button
-																		class="accordion-button collapsed text-uppercase"
-																		type="button" data-bs-toggle="collapse"
-																		data-bs-target="#collapse_CHOOSE_TYPE_PET"
-																		aria-expanded="false"
-																		aria-controls="collapse_CHOOSE_TYPE_PET">Тип
-																		продукта</button>
-																</h2>
-																<div id="collapse_CHOOSE_TYPE_PET"
-																	class="accordion-collapse collapse show">
-																	<div class="accordion-body">
-																		<c:forEach
-																			items="${products_pets_filter_map.get(FilterName.CHOOSE_TYPE_PET_EN)}"
-																			var="value" varStatus="innerStutus">
-																			<label> <span
-																				class="span_input span_input_CHOOSE_TYPE_PET">
-																					<input type="checkbox"
-																					name="${InputName.INPUT_PET_TYPE}" value="${value}" />
-																					${value}
-																			</span>
-																			</label>
-																			<br />
-																		</c:forEach>
-																		<label> <span
-																			class="span_input span_input_CHOOSE_TYPE_PET text-lowercase">
-																				<input type="checkbox"
-																				name="${InputName.INPUT_PET_TYPE}" value="${value}" />
-																				Pet
-																		</span>
-																		</label> <br /> <label> <span
-																			class="span_input span_input_CHOOSE_TYPE_PET text-lowercase">
-																				<input type="checkbox"
-																				name="${InputName.INPUT_PET_TYPE}" value="${value}" />
-																				Feed_and_other
-																		</span>
-																		</label>
-																	</div>
-																</div>
-															</div>
-														</div>
-
-														<input type="hidden"
-															name="${ParameterName.PARAMETER_COMMAND}"
-															value="${CommandName.COMMAND_SHOW_PRODUCT_PETS_INCLUDED_FILTER_PAGE}" />
-														<input class="form_submit" type="submit" value="Поиск" />
-													</form>
-												</li>
-											</ul>
-										</div>
-									</c:if>
-									<c:if test="${locale == LanguageName.RUSSIAN}">
-										<div class="offcanvas-body">
-											<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-												<li class="nav-item dropdown">
-													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
-														<input type="hidden"
-															name="${ParameterName.PARAMETER_COMMAND}" value="" />
-														<button class="btn form_submit mb-3" role="button">
-															Сбросить фильтр</button>
-													</form>
-													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
-														<div class="accordion accordion_form"
-															id="accordionExample">
-															<div class="accordion-item">
-																<h2 class="accordion-header">
-																	<button
-																		class="accordion-button collapsed text-uppercase"
-																		type="button" data-bs-toggle="collapse"
-																		data-bs-target="#collapse_CHOOSE_TYPE_PET"
-																		aria-expanded="false"
-																		aria-controls="collapse_CHOOSE_TYPE_PET">Тип
-																		продукта</button>
-																</h2>
-																<div id="collapse_CHOOSE_TYPE_PET"
-																	class="accordion-collapse collapse show">
-																	<div class="accordion-body">
-																		<c:forEach
-																			items="${products_pets_filter_map.get(FilterName.CHOOSE_TYPE_PET_EN)}"
-																			var="value" varStatus="innerStutus">
-																			<label> <span
-																				class="span_input span_input_CHOOSE_TYPE_PET">
-																					<input type="checkbox"
-																					name="${InputName.INPUT_PET_TYPE}" value="${value}" />
-																					${value}
-																			</span>
-																			</label>
-																			<br />
-																		</c:forEach>
-																		<label> <span
-																			class="span_input span_input_CHOOSE_TYPE_PET text-lowercase">
-																				<input type="checkbox"
-																				name="${InputName.INPUT_PET_TYPE}" value="${value}" />
-																				Pet
-																		</span>
-																		</label> <br /> <label> <span
-																			class="span_input span_input_CHOOSE_TYPE_PET text-lowercase">
-																				<input type="checkbox"
-																				name="${InputName.INPUT_PET_TYPE}" value="${value}" />
-																				Feed_and_other
-																		</span>
-																		</label>
-																	</div>
-																</div>
-															</div>
-														</div>
-
-														<input type="hidden"
-															name="${ParameterName.PARAMETER_COMMAND}"
-															value="${CommandName.COMMAND_SHOW_PRODUCT_PETS_INCLUDED_FILTER_PAGE}" />
-														<input class="form_submit" type="submit" value="Поиск" />
-													</form>
-												</li>
-											</ul>
-										</div>
-									</c:if>
-								</div>
-							</div>
-						</nav>
-					</div>
-					<div class="col-11">
+					<div class="col-12">
 						<div class="top_btns d-flex justify-content-between">
 							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
@@ -456,7 +294,7 @@
 												style="height: 60vh; max-width: 70vh">
 												<div class="image_product_id_top">
 													<div class="close_btn"
-														onclick="clesedProductImage('p-${pet.getKey().getId()}')">
+														onclick="closedProductImage('p-${pet.getKey().getId()}')">
 														<svg xmlns="http://www.w3.org/2000/svg"
 															viewBox="0 0 24 24" width="25px" height="25px">
                           <path
@@ -494,7 +332,7 @@
 												class="position-relative w-100 d-flex flex-column change_product_form_inner change_product_form_p-${pet.getKey().getId()}_inner">
 												<div class="image_product_id_top">
 													<div class="close_btn"
-														onclick="clesedChangeProductForm('p-${pet.getKey().getId()}')">
+														onclick="closedChangeProductForm('p-${pet.getKey().getId()}')">
 														<svg xmlns="http://www.w3.org/2000/svg"
 															viewBox="0 0 24 24" width="25px" height="25px">
                           <path
@@ -709,7 +547,7 @@
 												style="height: 60vh; max-width: 70vh">
 												<div class="image_product_id_top">
 													<div class="close_btn"
-														onclick="clesedProductImage('o-${product.getKey().getId()}')">
+														onclick="closedProductImage('o-${product.getKey().getId()}')">
 														<svg xmlns="http://www.w3.org/2000/svg"
 															viewBox="0 0 24 24" width="25px" height="25px">
                           <path
@@ -747,7 +585,7 @@
 												class="position-relative w-100 d-flex flex-column change_product_form_inner change_product_form_o-${product.getKey().getId()}_inner">
 												<div class="image_product_id_top">
 													<div class="close_btn"
-														onclick="clesedChangeProductForm('o-${product.getKey().getId()}')">
+														onclick="closedChangeProductForm('o-${product.getKey().getId()}')">
 														<svg xmlns="http://www.w3.org/2000/svg"
 															viewBox="0 0 24 24" width="25px" height="25px">
                           <path
@@ -772,26 +610,28 @@
 															class="form-floating mb-3 add_other_product_form_body_form_floating">
 															<input type="file"
 																class="form-control text-uppercase add_other_product_form_body_input_img"
-																id="" name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
-																accept="image/*" placeholder='<fmt:message key=""/>' />
+																id="admin_page.all_products.change_product_form.change_feeds_and_other.lable.choose_image_product"
+																name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
+																accept="image/*"
+																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_feeds_and_other.lable.choose_image_product"/>' />
 															<label
 																class="text-lowercase add_product_pet_form_body_label_img"
-																for="">
+																for="admin_page.all_products.change_product_form.change_feeds_and_other.lable.choose_image_product">
 																<fmt:message
-																	key="" />
+																	key="admin_page.all_products.change_product_form.change_feeds_and_other.lable.choose_image_product" />
 																<span>*</span>
 															</label>
 															<div class="">
 																<c:if test="${product.getKey().getImagePath() != null}">
 																	<fmt:message
-																		key="admin_page.all_products.change_product_form.change_pet.input.choose_image_product.massage.choosed_image_with_name" /> 
+																		key="admin_page.all_products.change_product_form.change_feeds_and_other.input.choose_image_product.massage.choosed_image_with_name" /> 
 																		 ${product.getKey().getImagePath()}
 																	<img class="" style="width: 35px; height: 35px" alt=""
 																		src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product.getKey().getImagePath()}" />
 																</c:if>
 																<c:if test="${product.getKey().getImagePath() == null}">
 																	<fmt:message
-																		key="admin_page.all_products.change_product_form.change_pet.input.choose_image_product.massage.not_choosed_image" />
+																		key="admin_page.all_products.change_product_form.change_feeds_and_other.input.choose_image_product.massage.not_choosed_image" />
 																</c:if>
 															</div>
 														</div>
@@ -802,94 +642,114 @@
 																		name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
 																		value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
 																		<fmt:message
-																			key="admin_page.all_products.change_product_form.change_pet.input.without_image" />
+																			key="admin_page.all_products.change_product_form.change_feeds_and_other.input.without_image" />
 																</span>
 																</label>
 															</div>
 														</div>
 														<div class="form-floating mb-3">
 															<input type="text" class="form-control"
-																id="admin_page.all_products.change_product_form.change_pet.lable.type_pet"
+																id="admin_page.all_products.change_product_form.change_feeds_and_other.lable.type_product"
 																name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE}"
 																value="${product.getKey().getProductType()}"
-																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_pet.lable.type_pet"/>' />
+																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_feeds_and_other.lable.type_product"/>' />
 															<label class="text-lowercase"
-																for="admin_page.all_products.change_product_form.change_pet.lable.type_pet">
+																for="admin_page.all_products.change_product_form.change_feeds_and_other.lable.type_product">
 																<fmt:message
-																	key="admin_page.all_products.change_product_form.change_pet.lable.type_pet" />
+																	key="admin_page.all_products.change_product_form.change_feeds_and_other.lable.type_product" />
 															</label>
 														</div>
 														<div class="form-floating mb-3">
 															<input type="text" class="form-control"
-																id="admin_page.all_products.change_product_form.change_pet.lable.breed_pet"
+																id="admin_page.all_products.change_product_form.change_feeds_and_other.lable.brand_product"
 																name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND}"
 																value="${product.getKey().getBrand()}"
-																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_pet.lable.breed_pet"/>' />
+																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_feeds_and_other.lable.brand_product"/>' />
 															<label class="text-lowercase"
-																for="admin_page.all_products.change_product_form.change_pet.lable.breed_pet"><fmt:message
-																	key="admin_page.all_products.change_product_form.change_pet.lable.breed_pet" /></label>
+																for="admin_page.all_products.change_product_form.change_feeds_and_other.lable.brand_product">
+																<fmt:message
+																	key="admin_page.all_products.change_product_form.change_feeds_and_other.lable.brand_product" />
+															</label>
 														</div>
 														<div class="form-floating mb-3">
 															<input type="text" class="form-control"
-																id="floatingInputProductDescription"
+																id="admin_page.all_products.change_product_form.change_feeds_and_other.lable.description_product"
 																name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION}"
 																value="${product.getKey().getDescriptions()}"
-																placeholder='<fmt:message key=""/>' /> <label
-																class="text-lowercase"
-																for="floatingInputProductDescription">описание
-																товара</label>
+																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_feeds_and_other.lable.description_product"/>' />
+															<label class="text-lowercase"
+																for="admin_page.all_products.change_product_form.change_feeds_and_other.lable.description_product">
+																<fmt:message
+																	key="admin_page.all_products.change_product_form.change_feeds_and_other.lable.description_product" />
+															</label>
 														</div>
 														<div class="form-floating mb-3">
 															<input type="text" class="form-control"
-																id="floatingInputProductTypePets"
+																id="admin_page.all_products.change_product_form.change_feeds_and_other.lable.types_pet_for_product"
 																name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES}"
 																value='<c:if test="${product.getKey().getPetTypes() != null}">${product.getKey().getPetTypes().toString().substring(1, product.getKey().getPetTypes().toString().length() - 1)}</c:if>'
-																placeholder='<fmt:message key=""/>' /> <label
-																class="text-lowercase"
-																for="floatingInputProductTypePets">Типы
-																питомцев, через запятую (,)</label>
+																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_feeds_and_other.lable.types_pet_for_product"/>' />
+															<label class="text-lowercase"
+																for="admin_page.all_products.change_product_form.change_feeds_and_other.lable.types_pet_for_product">
+																<fmt:message
+																	key="admin_page.all_products.change_product_form.change_feeds_and_other.lable.types_pet_for_product" />
+															</label>
 														</div>
 														<div class="form-floating mb-3">
 															<input type="text" class="form-control"
-																id="floatingInputPrice"
+																id="admin_page.all_products.change_product_form.change_feeds_and_other.lable.price_product"
 																name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE}"
 																value="${product.getKey().getPrice()}"
-																placeholder='<fmt:message key=""/>'
+																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_feeds_and_other.lable.price_product"/>'
 																pattern="^(\d+)(\.\d{1,2})?$" /> <label
-																class="text-lowercase" for="floatingInputPrice">Цена</label>
+																class="text-lowercase"
+																for="admin_page.all_products.change_product_form.change_feeds_and_other.lable.price_product">
+																<fmt:message
+																	key="admin_page.all_products.change_product_form.change_feeds_and_other.lable.price_product" />
+															</label>
 														</div>
 														<div class="form-floating mb-3">
 															<input type="text" class="form-control"
-																id="floatingInputDiscount"
+																id="admin_page.all_products.change_product_form.change_feeds_and_other.lable.discount_product"
 																name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT}"
 																value="${product.getKey().getDiscount()}"
-																placeholder='<fmt:message key=""/>'
+																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_feeds_and_other.lable.discount_product"/>'
 																pattern="^(\d+)(\.\d{1,2})?$" /> <label
-																class="text-lowercase" for="floatingInputDiscount">Скидка
-																(в %)</label>
+																class="text-lowercase"
+																for="admin_page.all_products.change_product_form.change_feeds_and_other.lable.discount_product">
+																<fmt:message
+																	key="admin_page.all_products.change_product_form.change_feeds_and_other.lable.discount_product" />
+															</label>
 														</div>
 														<div class="form-floating mb-3">
 															<input type="number" class="form-control"
-																id="floatingInputNumberOfUnitsProducts"
+																id="admin_page.all_products.change_product_form.change_feeds_and_other.lable.number_unit_product"
 																name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
-																value="${product_feeds_and_other_number_of_units}"
-																placeholder='<fmt:message key=""/>' pattern="^(\d+)$" />
-															<label class="text-lowercase"
-																for="floatingInputNumberOfUnitsProducts">количество
-																единиц</label>
+																value="${product.getValue()}"
+																placeholder='<fmt:message key="admin_page.all_products.change_product_form.change_feeds_and_other.lable.number_unit_product"/>'
+																pattern="^(\d+)$" /> <label class="text-lowercase"
+																for="admin_page.all_products.change_product_form.change_feeds_and_other.lable.number_unit_product">
+																<fmt:message
+																	key="admin_page.all_products.change_product_form.change_feeds_and_other.lable.number_unit_product" />
+															</label>
 														</div>
 														<div class="form_description">
 															<h5>
-																<span>*</span> - поле не обязательное для заполнения
+																<span>* </span>
+																<fmt:message
+																	key="admin_page.all_products.change_product_form.form_description.field_is_not_reguired_for_enter_information" />
 															</h5>
 														</div>
 														<div
 															class="add_other_product_form_fotter d-flex justify-content-end">
 															<input type="hidden"
 																name="${ParameterName.PARAMETER_COMMAND}"
-																value="${CommandName.COMMAND_ADMIN_PAGE_CREATE_FEED_AND_OTHER_PRODUCT }" />
+																value="${CommandName.COMMAND_ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT }" />
 															<button class="btn change_product_form_btn_submit"
-																role="button">готово</button>
+																role="button">
+																<fmt:message
+																	key="admin_page.all_products.change_product_form.change_feeds_and_other.ok" />
+															</button>
 														</div>
 													</form>
 												</div>

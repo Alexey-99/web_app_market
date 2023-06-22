@@ -1,31 +1,31 @@
-package by.koroza.zoo_market.web.command.impl.admin.add;
+package by.koroza.zoo_market.web.command.impl.admin.change.update;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ADMIN_PAGE_CREATE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_MAP_PRODUCT_PET_AND_NUMBER_OF_UNITS_PRODUCT;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_MAP_PRODUCTS_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET;
 
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH;
 
 import java.util.Map;
 
-import by.koroza.zoo_market.model.calculation.Calculator;
-import by.koroza.zoo_market.model.entity.market.product.Pet;
+import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.exception.SortingException;
-import by.koroza.zoo_market.service.impl.ProductPetServiceImpl;
+import by.koroza.zoo_market.service.impl.ProductFeedsAndOtherServiceImpl;
 import by.koroza.zoo_market.service.sorting.SortingMapAbstractProduct;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-public class AddPetProductCommand implements Command {
+public class UpdateChangedFeedsAndOtherProductCommand implements Command {
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -39,26 +39,20 @@ public class AddPetProductCommand implements Command {
 					|| user.getRole().getIdRole() != UserRole.ADMIN.getIdRole()) {
 				router = new Router(HOME_PAGE_PATH);
 			} else {
-				Pet pet = (Pet) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET);
-				if (pet != null) {
+				FeedAndOther productFeedAndOther = (FeedAndOther) session
+						.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER);
+				if (productFeedAndOther != null) {
 					long numberOfUnitsProduct = (long) session
-							.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT);
-					ProductPetServiceImpl.getInstance().addProductPet(pet, numberOfUnitsProduct);
-					if (session.getAttribute(ATTRIBUTE_MAP_PRODUCT_PET_AND_NUMBER_OF_UNITS_PRODUCT) != null) {
-						Map<Pet, Long> productsPetAndNumber = (Map<Pet, Long>) session
-								.getAttribute(ATTRIBUTE_MAP_PRODUCT_PET_AND_NUMBER_OF_UNITS_PRODUCT);
-						pet.setTotalPrice(pet.getPrice()
-								- Calculator.getInstance().calcProcentFromSum(pet.getPrice(), pet.getDiscount()));
-						productsPetAndNumber.put(pet, numberOfUnitsProduct);
-						session.setAttribute(ATTRIBUTE_MAP_PRODUCT_PET_AND_NUMBER_OF_UNITS_PRODUCT,
-								(Map<Pet, Long>) SortingMapAbstractProduct.getInstance()
-										.sortMapById(productsPetAndNumber));
-						router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH);
-					} else {
-						router = new Router(HOME_PAGE_PATH);
-					}
-					session.removeAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET);
-					session.removeAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT);
+							.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT);
+					ProductFeedsAndOtherServiceImpl.getInstance().updateProductById(productFeedAndOther,
+							numberOfUnitsProduct);
+					Map<FeedAndOther, Long> productsPetAndNumber = ProductFeedsAndOtherServiceImpl.getInstance()
+							.getAllProductsFeedAndOtherAndNumberOfUnits();
+					session.setAttribute(ATTRIBUTE_MAP_PRODUCTS_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT,
+							(Map<FeedAndOther, Long>) SortingMapAbstractProduct.getInstance()
+									.sortMapById(productsPetAndNumber));
+					router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH);
+					removeBufferAtributes(session);
 				} else {
 					router = new Router(HOME_PAGE_PATH);
 				}
@@ -68,5 +62,10 @@ public class AddPetProductCommand implements Command {
 		}
 		isRegistratedUser(request);
 		return router;
+	}
+
+	private void removeBufferAtributes(HttpSession session) {
+		session.removeAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER);
+		session.removeAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT);
 	}
 }

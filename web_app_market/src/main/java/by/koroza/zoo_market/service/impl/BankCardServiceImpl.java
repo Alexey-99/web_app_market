@@ -1,7 +1,7 @@
 package by.koroza.zoo_market.service.impl;
 
 import by.koroza.zoo_market.dao.exception.DaoException;
-import by.koroza.zoo_market.dao.impl.BankCardDaoImpl;
+import by.koroza.zoo_market.dao.impl.bank.BankCardDaoImpl;
 import by.koroza.zoo_market.model.entity.bank.BankCard;
 import by.koroza.zoo_market.service.BankCardService;
 import by.koroza.zoo_market.service.exception.ServiceException;

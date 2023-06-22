@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.dao.impl;
+package by.koroza.zoo_market.dao.impl.user;
 
 import static by.koroza.zoo_market.dao.name.ColumnName.USERS_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.USERS_NAME;
