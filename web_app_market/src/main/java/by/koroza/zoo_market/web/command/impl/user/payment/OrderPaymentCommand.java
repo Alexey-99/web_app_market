@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.impl;
+package by.koroza.zoo_market.web.command.impl.user.payment;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.*;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
@@ -54,7 +54,7 @@ public class OrderPaymentCommand implements Command {
 						Map<String, String> mapInputExceptions = new HashMap<>();
 						String numberBankCard = request
 								.getParameter(PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_NUMBER_BANK_CARD);
-						if (!BankCardValidation.validNumberBankCard(numberBankCard)) {
+						if (!BankCardValidation.validNumberBankCard(numberBankCard)) { // TODO ENGLISH LOCALE
 							mapInputExceptions.put(TYPY_INPUT_EXCEPTION_NUMBER_BANK_CARD,
 									"Вы ввели номер банковской карты не корректно. Ваш ввод: " + numberBankCard);
 						}

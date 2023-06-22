@@ -1,8 +1,5 @@
 package by.koroza.zoo_market.web.command;
 
-import by.koroza.zoo_market.web.command.impl.OrderPaymentCommand;
-import by.koroza.zoo_market.web.command.impl.RegistrationUserCommand;
-import by.koroza.zoo_market.web.command.impl.SendOneMoreTimeConfirmationEmailCodeCommand;
 import by.koroza.zoo_market.web.command.impl.admin.add.AddOtherProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.add.AddPetProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.change.ChangeProductFeedsAndOtherCommand;
@@ -19,6 +16,9 @@ import by.koroza.zoo_market.web.command.impl.locale.SetRussinLocaleCommand;
 import by.koroza.zoo_market.web.command.impl.user.change.ChangeLoginAndPasswordCommand;
 import by.koroza.zoo_market.web.command.impl.user.change.ChangePersonInformationCommand;
 import by.koroza.zoo_market.web.command.impl.user.confirmation.ConfirmationEmailCommand;
+import by.koroza.zoo_market.web.command.impl.user.confirmation.SendOneMoreTimeConfirmationEmailCodeCommand;
+import by.koroza.zoo_market.web.command.impl.user.payment.OrderPaymentCommand;
+import by.koroza.zoo_market.web.command.impl.user.registration.RegistrationUserCommand;
 import by.koroza.zoo_market.web.command.impl.user.show.basket.ShowBacketPageCommand;
 import by.koroza.zoo_market.web.command.impl.user.show.confirmation.ShowConfirmationEmailFormCommand;
 import by.koroza.zoo_market.web.command.impl.user.show.home.ShowHomePageCommand;

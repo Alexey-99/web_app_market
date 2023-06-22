@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.impl;
+package by.koroza.zoo_market.web.command.impl.user.confirmation;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 

@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.impl;
+package by.koroza.zoo_market.web.command.impl.user.registration;
 
 import static by.koroza.zoo_market.web.command.name.InputName.REGISTRATION_INPUT_USER_EMAIL;
 import static by.koroza.zoo_market.web.command.name.InputName.REGISTRATION_INPUT_USER_LOGIN;
@@ -62,7 +62,8 @@ public class RegistrationUserCommand implements Command {
 			String userSurName = request.getParameter(REGISTRATION_INPUT_USER_SURNAME);
 			String userEmail = request.getParameter(REGISTRATION_INPUT_USER_EMAIL);
 			if (!UserValidation.validEmail(userEmail)) {
-				mapInputExceptions.put(EMAIL, "Вы ввели e-mail не корректно. Ваш ввод: " + userEmail);
+				mapInputExceptions.put(EMAIL, "Вы ввели e-mail не корректно. Ваш ввод: " + userEmail);// TODO ENGLISH
+																										// LOCALE
 			}
 			String userLogin = request.getParameter(REGISTRATION_INPUT_USER_LOGIN);
 			if (!UserValidation.validLogin(userLogin)) {
