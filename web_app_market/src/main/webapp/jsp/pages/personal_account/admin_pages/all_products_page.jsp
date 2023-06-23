@@ -12,8 +12,6 @@
 <%@page import="by.koroza.zoo_market.model.entity.status.ProductType"%>
 <%@page
 	import="by.koroza.zoo_market.model.entity.market.product.FeedAndOther"%>
-<%@page import="by.koroza.zoo_market.service.impl.ProductPetServiceImpl"%>
-<%@page import="by.koroza.zoo_market.service.impl.ProductPetServiceImpl"%>
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
 	scope="session" />
 <fmt:setBundle
@@ -61,7 +59,6 @@
 							</div>
 						</div>
 					</div>
-
 					<div class="row">
 						<div class="col-12">
 							<table class="table table-striped table-hover">
@@ -78,7 +75,15 @@
 												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 												method="get">
 												<input type="hidden"
-													name="${ParameterName.PARAMETER_COMMAND}" value="" />
+													name="${ParameterName.PARAMETER_COMMAND}"
+													value='<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) != null 
+													&& pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_DESCENDING}
+													</c:if>
+													<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) == null 
+													|| !pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_ASCENDING}
+													</c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message
@@ -92,7 +97,8 @@
 												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 												method="get">
 												<input type="hidden"
-													name="${ParameterName.PARAMETER_COMMAND}" value="" />
+													name="${ParameterName.PARAMETER_COMMAND}"
+													value='<c:if test=""></c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message key="admin_page.all_products.col.product_type" />
@@ -105,7 +111,8 @@
 												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 												method="get">
 												<input type="hidden"
-													name="${ParameterName.PARAMETER_COMMAND}" value="" />
+													name="${ParameterName.PARAMETER_COMMAND}"
+													value='<c:if test=""></c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message key="admin_page.all_products.col.brand" />
@@ -118,7 +125,8 @@
 												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 												method="get">
 												<input type="hidden"
-													name="${ParameterName.PARAMETER_COMMAND}" value="" />
+													name="${ParameterName.PARAMETER_COMMAND}"
+													value='<c:if test=""></c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message key="admin_page.all_products.col.description" />
@@ -131,7 +139,8 @@
 												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 												method="get">
 												<input type="hidden"
-													name="${ParameterName.PARAMETER_COMMAND}" value="" />
+													name="${ParameterName.PARAMETER_COMMAND}"
+													value='<c:if test=""></c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message
@@ -145,7 +154,8 @@
 												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 												method="get">
 												<input type="hidden"
-													name="${ParameterName.PARAMETER_COMMAND}" value="" />
+													name="${ParameterName.PARAMETER_COMMAND}"
+													value='<c:if test=""></c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message key="admin_page.all_products.col.specie_pet" />
@@ -158,7 +168,8 @@
 												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 												method="get">
 												<input type="hidden"
-													name="${ParameterName.PARAMETER_COMMAND}" value="" />
+													name="${ParameterName.PARAMETER_COMMAND}"
+													value='<c:if test=""></c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message key="admin_page.all_products.col.breed_pet" />
@@ -171,7 +182,8 @@
 												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 												method="get">
 												<input type="hidden"
-													name="${ParameterName.PARAMETER_COMMAND}" value="" />
+													name="${ParameterName.PARAMETER_COMMAND}"
+													value='<c:if test=""></c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message
@@ -185,7 +197,8 @@
 												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 												method="get">
 												<input type="hidden"
-													name="${ParameterName.PARAMETER_COMMAND}" value="" />
+													name="${ParameterName.PARAMETER_COMMAND}"
+													value='<c:if test=""></c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message key="admin_page.all_products.col.price" />
@@ -198,7 +211,8 @@
 												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 												method="get">
 												<input type="hidden"
-													name="${ParameterName.PARAMETER_COMMAND}" value="" />
+													name="${ParameterName.PARAMETER_COMMAND}"
+													value='<c:if test=""></c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message key="admin_page.all_products.col.discount" />
@@ -211,7 +225,8 @@
 												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 												method="get">
 												<input type="hidden"
-													name="${ParameterName.PARAMETER_COMMAND}" value="" />
+													name="${ParameterName.PARAMETER_COMMAND}"
+													value='<c:if test=""></c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message
@@ -225,10 +240,12 @@
 												action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 												method="get">
 												<input type="hidden"
-													name="${ParameterName.PARAMETER_COMMAND}" value="" />
+													name="${ParameterName.PARAMETER_COMMAND}"
+													value='<c:if test=""></c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
-													<fmt:message key="admin_page.all_products.col.number_of_units" />
+													<fmt:message
+														key="admin_page.all_products.col.number_of_units" />
 												</button>
 											</form>
 										</th>

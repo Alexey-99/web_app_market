@@ -1,15 +1,18 @@
-package by.koroza.zoo_market.web.command.impl.admin.show.products.sorting;
+package by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.id;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 import static by.koroza.zoo_market.web.command.name.AttributeName.SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS_NAME;
 import static by.koroza.zoo_market.web.command.name.AttributeName.SESSION_ATTRIBUTE_PET_CLASS_NAME;
+import static by.koroza.zoo_market.web.command.name.AttributeName.REQUEST_ATTRIBUTE_COMMAND;
 
 import static by.koroza.zoo_market.web.command.name.AttributeValue.SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS;
 import static by.koroza.zoo_market.web.command.name.AttributeValue.SESSION_ATTRIBUTE_PET_CLASS;
 
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH;
+
+import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_COMMAND;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +27,7 @@ import by.koroza.zoo_market.service.exception.SortingException;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
 import by.koroza.zoo_market.service.sorting.SortingMapProducts;
+import by.koroza.zoo_market.service.sorting.impl.SortProductsByIdAscendingImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
@@ -47,8 +51,8 @@ public class ShowAllProductsOffFilterSortingByIdAscending implements Command {
 				Map<AbstractProduct, Long> products = new HashMap<>();
 				products.putAll(productPets);
 				products.putAll(productFeedsAndOther);
-				session.setAttribute(ATTRIBUTE_MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT,
-						SortingMapProducts.getInstance().sortMapById(products));
+				session.setAttribute(ATTRIBUTE_MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT, SortingMapProducts
+						.getInstance().sortProductsMap(products, new SortProductsByIdAscendingImpl()));
 				session.setAttribute(SESSION_ATTRIBUTE_PET_CLASS_NAME, SESSION_ATTRIBUTE_PET_CLASS);
 				session.setAttribute(SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS_NAME,
 						SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS);
@@ -59,8 +63,8 @@ public class ShowAllProductsOffFilterSortingByIdAscending implements Command {
 		} catch (ServiceException | SortingException e) {
 			throw new CommandException(e);
 		}
+		request.setAttribute(REQUEST_ATTRIBUTE_COMMAND, request.getParameter(PARAMETER_COMMAND).trim());
 		isRegistratedUser(request);
 		return router;
 	}
-
 }

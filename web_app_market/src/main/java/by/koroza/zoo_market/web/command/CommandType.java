@@ -13,6 +13,8 @@ import by.koroza.zoo_market.web.command.impl.admin.show.form.change.ShowChangePe
 import by.koroza.zoo_market.web.command.impl.admin.show.form.create.ShowCreateFeedsAndOtherProductFormCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.form.create.ShowCreatePetProductFormCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.products.ShowAllProductsOffFilterCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.id.ShowAllProductsOffFilterSortingByIdAscending;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.id.ShowAllProductsOffFilterSortingByIdDescending;
 import by.koroza.zoo_market.web.command.impl.locale.SetEnglishLocaleCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetRussinLocaleCommand;
 import by.koroza.zoo_market.web.command.impl.user.change.ChangeLoginAndPasswordCommand;
@@ -89,9 +91,12 @@ public enum CommandType {
 	ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT(new ChangeProductFeedsAndOtherCommand()),
 	ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_FEED_AND_OTHER(new UpdateChangedFeedsAndOtherProductCommand()),
 	ADMIN_PAGE_SHOW_CHANGE_FEED_AND_OTHER_PRODUCT_FORM(new ShowChangeFeedsAndOtherProductFormCommand()),
-	/* sorting products */
-	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_ASCENDING(null),
-	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_DESCENDING(null);
+	/* SORTING PRODUCTS */
+	/* id */
+	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_ASCENDING(new ShowAllProductsOffFilterSortingByIdAscending()),
+	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_DESCENDING(
+			new ShowAllProductsOffFilterSortingByIdDescending()),
+	/**/;
 
 	private Command command;
 

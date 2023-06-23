@@ -53,8 +53,7 @@ public class Controller extends HttpServlet {
 	 * @throws CommandException
 	 */
 	private void processRequest(HttpServletRequest request, HttpServletResponse response) {
-
-		String commandName = request.getParameter(PARAMETER_COMMAND);
+		String commandName = request.getParameter(PARAMETER_COMMAND).trim();
 		Optional<Command> optionalCommand = CommandProvider.getInstance().definaCommand(commandName);
 		Command command = (optionalCommand.isPresent() ? optionalCommand.get() : null);
 		try {

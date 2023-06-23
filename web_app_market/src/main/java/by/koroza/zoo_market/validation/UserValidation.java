@@ -1,7 +1,7 @@
 package by.koroza.zoo_market.validation;
 
 import by.koroza.zoo_market.service.exception.ServiceException;
-import by.koroza.zoo_market.service.impl.UserServiceImpl;
+import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 
 public class UserValidation {
 	private static final String REG_EX_EMAIL = "([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})";
@@ -33,5 +33,4 @@ public class UserValidation {
 	private static boolean isCorrectEmailByPattern(String email) {
 		return email.matches(REG_EX_EMAIL);
 	}
-
 }
