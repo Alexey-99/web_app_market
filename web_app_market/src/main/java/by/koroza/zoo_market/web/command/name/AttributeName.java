@@ -31,20 +31,25 @@ public final class AttributeName {
 	public static final String ATTRIBUTE_PRODUCTS_PETS_FILTER = "products_pets_filter";
 	public static final String ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER = "products_feeds_and_other_filter";
 
-	/* LIST_PRODUCTS */
+	/* LIST_PRODUCTS - market page */
 	public static final String ATTRIBUTE_LIST_PRODUCTS_PETS = "list_products_pets";
 	public static final String ATTRIBUTE_LIST_PRODUCTS_FEEDS_AND_OTHER = "list_products_feeds_and_other";
 
-	/* MAP_PRODUCT_AND_NUMBER_OF_UNITS_PRODUCT */
-	public static final String ATTRIBUTE_MAP_PRODUCTS_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT = "map_product_feeds_and_other_and_number_of_units";
-	public static final String ATTRIBUTE_MAP_PRODUCTS_PET_AND_NUMBER_OF_UNITS_PRODUCT = "map_product_pet_and_number_of_units";
+	/* MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT - admin page - all products */
+	public static final String ATTRIBUTE_MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT = "map_products_and_number_of_units";
+
+	public static final String SESSION_ATTRIBUTE_PET_CLASS_NAME = "pet_class";
+	public static final String SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS_NAME = "feed_and_other_class";
+
+//	public static final String ATTRIBUTE_MAP_PRODUCTS_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT = "map_product_feeds_and_other_and_number_of_units";
+//	public static final String ATTRIBUTE_MAP_PRODUCTS_PET_AND_NUMBER_OF_UNITS_PRODUCT = "map_product_pet_and_number_of_units";
 
 	public static final String ATTRIBUTE_FOR_LIST_PETS = "productsPets";
 	public static final String ATTRIBUTE_FOR_LIST_FEEDS_AND_OTHER = "productsOther";
 
 	public static final String REQUEST_ATTRIBUTE_NUMBER_PAGE = "number_page";
 
-	/* BUFFER */
+	/* BUFFER - create or change product */
 	public static final String ATTRIBUTE_BUFFER_PRODUCT_PET = "product_pet";
 	public static final String ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT = "product_pet_number_of_units";
 	public static final String ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER = "product_feeds_and_other";

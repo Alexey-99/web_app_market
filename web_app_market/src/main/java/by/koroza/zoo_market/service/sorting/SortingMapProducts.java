@@ -7,16 +7,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.model.entity.market.product.abstraction.AbstractProduct;
 import by.koroza.zoo_market.service.exception.SortingException;
 
-public class SortingMapAbstractProduct {
-	private static final SortingMapAbstractProduct INSTANCE = new SortingMapAbstractProduct();
+public class SortingMapProducts {
+	private static final SortingMapProducts INSTANCE = new SortingMapProducts();
 
-	private SortingMapAbstractProduct() {
+	private SortingMapProducts() {
 	}
 
-	public static SortingMapAbstractProduct getInstance() {
+	public static SortingMapProducts getInstance() {
 		return INSTANCE;
 	}
 
@@ -28,9 +29,15 @@ public class SortingMapAbstractProduct {
 			map.entrySet().stream().forEach(entry -> listEntry.add(entry));
 			listEntry.sort(new Comparator<Entry<? extends AbstractProduct, Long>>() {
 				@Override
-				public int compare(Entry<? extends AbstractProduct, Long> o1,
-						Entry<? extends AbstractProduct, Long> o2) {
-					return (int) (o1.getKey().getId() - o2.getKey().getId());
+				public int compare(Entry<? extends AbstractProduct, Long> productFirst,
+						Entry<? extends AbstractProduct, Long> productSecond) {
+					String idProductFirst = productFirst.getKey().getClass().equals(Pet.class)
+							? "p-" + productFirst.getKey().getId()
+							: "o-" + productFirst.getKey().getId();
+					String idProductSecond = productSecond.getKey().getClass().equals(Pet.class)
+							? "p-" + productSecond.getKey().getId()
+							: "o-" + productSecond.getKey().getId();
+					return idProductFirst.compareTo(idProductSecond);
 				}
 			});
 			listEntry.stream().forEach(entry -> sortedMap.put((AbstractProduct) entry.getKey(), entry.getValue()));

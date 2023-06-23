@@ -24,7 +24,6 @@ import static by.koroza.zoo_market.web.command.CommandType.ORDER_PAYMENT;
 import static by.koroza.zoo_market.web.command.CommandType.SET_ENGLISH_LOCALE;
 import static by.koroza.zoo_market.web.command.CommandType.SET_RUSSIAN_LOCALE;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER;
-import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_ALL_PRODUCTS_INCLUDED_FILTER;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_CREATE_PET_PRODUCT;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_ADD_NEW_PRODUCT_PET;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_CREATE_PET_PRODUCT_FORM;
@@ -37,6 +36,8 @@ import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_CREAT
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_FEED_AND_OTHER;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_CHANGE_FEED_AND_OTHER_PRODUCT_FORM;
+import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_ASCENDING;
+import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_DESCENDING;
 
 public class CommandName {
 	public static final String COMMAND_SHOW_HOME_PAGE = SHOW_HOME_PAGE.toString().toLowerCase();
@@ -88,8 +89,6 @@ public class CommandName {
 	/* ADMIN part */
 	public static final String COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_OFF_FILTER = ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER
 			.toString().toLowerCase();
-	public static final String COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_INCLUDED_FILTER = ADMIN_PAGE_SHOW_ALL_PRODUCTS_INCLUDED_FILTER
-			.toString().toLowerCase();
 
 	/* create product pet */
 	public static final String COMMAND_ADMIN_PAGE_CREATE_PET_PRODUCT = ADMIN_PAGE_CREATE_PET_PRODUCT.toString()
@@ -119,6 +118,13 @@ public class CommandName {
 	public static final String COMMAND_ADMIN_PAGE_UPDATE_CHANGED_FEED_AND_OTHER_PRODUCT = ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_FEED_AND_OTHER
 			.toString().toLowerCase();
 	public static final String COMMAND_ADMIN_PAGE_SHOW_CHANGE_FEED_AND_OTHER_PRODUCT_FORM = ADMIN_PAGE_SHOW_CHANGE_FEED_AND_OTHER_PRODUCT_FORM
+			.toString().toLowerCase();
+
+	/* sorting products */
+	/* BY ID */
+	public static final String COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_ASCENDING = ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_ASCENDING
+			.toString().toLowerCase();
+	public static final String COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_DESCENDING = ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_DESCENDING
 			.toString().toLowerCase();
 
 	private CommandName() {

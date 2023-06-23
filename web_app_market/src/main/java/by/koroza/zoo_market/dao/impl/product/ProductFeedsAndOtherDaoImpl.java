@@ -305,8 +305,8 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 	}
 
 	private static final String QUERY_UPDETE_PRODUCT_BY_ID = """
-			UPDETE feeds_and_other
-			feeds_and_other.image_path = ?,
+			UPDATE feeds_and_other
+			SET feeds_and_other.image_path = ?,
 			feeds_and_other.type = ?,
 			feeds_and_other.brand = ?,
 			feeds_and_other.description = ?,

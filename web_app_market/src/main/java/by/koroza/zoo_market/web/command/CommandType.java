@@ -2,15 +2,17 @@ package by.koroza.zoo_market.web.command;
 
 import by.koroza.zoo_market.web.command.impl.admin.change.ChangeProductFeedsAndOtherCommand;
 import by.koroza.zoo_market.web.command.impl.admin.change.ChangeProductPetCommand;
+import by.koroza.zoo_market.web.command.impl.admin.change.update.UpdateChangedFeedsAndOtherProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.change.update.UpdateChangedPetProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.CraeteOtherProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.CraetePetProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.add.AddOtherProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.add.AddPetProductCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.ShowAllProductsOffFilterCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.ShowCreateFeedsAndOtherProductFormCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.form.ShowChangePetProductFormCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.form.ShowCreatePetProductFormCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.form.change.ShowChangeFeedsAndOtherProductFormCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.form.change.ShowChangePetProductFormCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.form.create.ShowCreateFeedsAndOtherProductFormCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.form.create.ShowCreatePetProductFormCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.ShowAllProductsOffFilterCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetEnglishLocaleCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetRussinLocaleCommand;
 import by.koroza.zoo_market.web.command.impl.user.change.ChangeLoginAndPasswordCommand;
@@ -71,7 +73,6 @@ public enum CommandType {
 	SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE(new ShowPersonalAccountAdminPage()),
 	/* admin page with all products */
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER(new ShowAllProductsOffFilterCommand()),
-	ADMIN_PAGE_SHOW_ALL_PRODUCTS_INCLUDED_FILTER(new ShowAllProductsOffFilterCommand()),
 	/* create pet */
 	ADMIN_PAGE_CREATE_PET_PRODUCT(new CraetePetProductCommand()),
 	ADMIN_PAGE_ADD_NEW_PRODUCT_PET(new AddPetProductCommand()),
@@ -86,7 +87,11 @@ public enum CommandType {
 	ADMIN_PAGE_SHOW_CHANGE_PET_PRODUCT_FORM(new ShowChangePetProductFormCommand()),
 	/* change feeds and other */
 	ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT(new ChangeProductFeedsAndOtherCommand()),
-	ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_FEED_AND_OTHER(null), ADMIN_PAGE_SHOW_CHANGE_FEED_AND_OTHER_PRODUCT_FORM(null),;
+	ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_FEED_AND_OTHER(new UpdateChangedFeedsAndOtherProductCommand()),
+	ADMIN_PAGE_SHOW_CHANGE_FEED_AND_OTHER_PRODUCT_FORM(new ShowChangeFeedsAndOtherProductFormCommand()),
+	/* sorting products */
+	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_ASCENDING(null),
+	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_DESCENDING(null);
 
 	private Command command;
 

@@ -13,7 +13,7 @@
 <%@page import="by.koroza.zoo_market.web.command.name.ParameterValue"%>
 <%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.show.market.pet.ShowProductPetsIncludedFilterCommand"%>
+	import="by.koroza.zoo_market.web.command.impl.user.show.market.pet.ShowProductPetsIncludedFilterCommand"%>
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
 	scope="session" />
 <fmt:setBundle

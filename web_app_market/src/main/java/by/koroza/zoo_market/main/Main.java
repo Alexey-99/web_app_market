@@ -6,6 +6,7 @@
 package by.koroza.zoo_market.main;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -15,15 +16,32 @@ import java.util.ArrayList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
-import by.koroza.zoo_market.web.command.name.CommandName;
+import by.koroza.zoo_market.model.entity.market.product.abstraction.AbstractProduct;
+import by.koroza.zoo_market.service.exception.ServiceException;
+import by.koroza.zoo_market.service.impl.ProductFeedsAndOtherServiceImpl;
+import by.koroza.zoo_market.service.impl.ProductPetServiceImpl;
 
 public class Main {
 	@SuppressWarnings("unused")
 	private static final Logger log = LogManager.getLogger();
 
-	public static void main(String[] args) {
-		System.out.println(CommandName.COMMAND_SHOW_HOME_PAGE);
+	public static void main(String[] args) throws ServiceException {
+		Map<Pet, Long> productPets = ProductPetServiceImpl.getInstance().getAllProductsPetsAndNumberOfUnits();
+		Map<FeedAndOther, Long> productFeedsAndOther = ProductFeedsAndOtherServiceImpl.getInstance()
+				.getAllProductsFeedAndOtherAndNumberOfUnits();
+		Map<AbstractProduct, Long> products = new HashMap<>(productPets);
+		products.putAll(productFeedsAndOther);
+		for (Map.Entry<AbstractProduct, Long> entry : products.entrySet()) {
+			AbstractProduct key = entry.getKey();
+			if (key.getClass().equals(Pet.class)) {
+				System.out.println(key.getClass());
+			} else {
+
+			}
+
+		}
 	}
 
 	public static Map<Pet, Long> sortingMap(Map<Pet, Long> map) {
