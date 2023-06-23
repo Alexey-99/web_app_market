@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.service.impl;
+package by.koroza.zoo_market.service.impl.image;
 
 import static by.koroza.zoo_market.web.command.name.ImagePath.STORAGE_IMAGES_FOLDER_PATH;
 

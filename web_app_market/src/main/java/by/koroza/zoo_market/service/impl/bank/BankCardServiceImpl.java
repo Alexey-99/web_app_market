@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.service.impl;
+package by.koroza.zoo_market.service.impl.bank;
 
 import by.koroza.zoo_market.dao.exception.DaoException;
 import by.koroza.zoo_market.dao.impl.bank.BankCardDaoImpl;

@@ -1,19 +1,21 @@
 package by.koroza.zoo_market.web.command.impl.user.verification;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
-import static by.koroza.zoo_market.web.command.name.PagePathName.VERIFICATION_PERSONAL_ACCOUNT_PAGE_PATH;
+
 import static by.koroza.zoo_market.web.command.name.PagePathName.REGISTRATION_FORM_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.PagePathName.VERIFICATION_PERSONAL_ACCOUNT_PAGE_PATH;
 
 import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.generator.GenerationVeriicationCode;
-import by.koroza.zoo_market.service.impl.UserServiceImpl;
 import by.koroza.zoo_market.service.impl.VerificateServiceImpl;
+import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 import by.koroza.zoo_market.service.sender.EmailSender;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -26,7 +28,7 @@ public class VerificationRegistrationInformationCommand implements Command {
 		try {
 			if (user != null) {
 				user.setRole(UserRole.USER);
-				insertUserToBDW(user);
+				insertUserToBD(user);
 				if (user.getId() == 0) {
 					user.setId(UserServiceImpl.getInstance().getUserIdByLogin(user.getLogin()));
 				}
@@ -44,7 +46,7 @@ public class VerificationRegistrationInformationCommand implements Command {
 				: new Router(REGISTRATION_FORM_PAGE_PATH);
 	}
 
-	private boolean insertUserToBDW(AbstractRegistratedUser user) throws CommandException {
+	private boolean insertUserToBD(AbstractRegistratedUser user) throws CommandException {
 		try {
 			return UserServiceImpl.getInstance().addRegistratedUserToBD(user);
 		} catch (ServiceException e) {

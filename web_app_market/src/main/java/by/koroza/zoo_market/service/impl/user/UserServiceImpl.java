@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.service.impl;
+package by.koroza.zoo_market.service.impl.user;
 
 import java.util.Optional;
 

@@ -1,21 +1,22 @@
 package by.koroza.zoo_market.web.command.impl.user.sign;
 
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
+
 import static by.koroza.zoo_market.web.command.name.InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_LOGIN;
 import static by.koroza.zoo_market.web.command.name.InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_PASSWORD;
 
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
-
-import static by.koroza.zoo_market.web.command.name.PagePathName.SIGN_IN_VALIDATED_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.PagePathName.SIGN_IN_VALIDATED_PAGE_PATH;
 
 import java.util.Optional;
 
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.service.exception.ServiceException;
-import by.koroza.zoo_market.service.impl.UserServiceImpl;
+import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 

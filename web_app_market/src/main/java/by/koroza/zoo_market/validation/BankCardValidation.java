@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import by.koroza.zoo_market.model.entity.bank.BankCard;
 import by.koroza.zoo_market.service.exception.ServiceException;
-import by.koroza.zoo_market.service.impl.BankCardServiceImpl;
+import by.koroza.zoo_market.service.impl.bank.BankCardServiceImpl;
 
 public class BankCardValidation {
 	private static final String REG_EX_NUMBER_BANK_CARD = "\\d{4}\\s\\d{4}\\s\\d{4}\\s\\d{4}";

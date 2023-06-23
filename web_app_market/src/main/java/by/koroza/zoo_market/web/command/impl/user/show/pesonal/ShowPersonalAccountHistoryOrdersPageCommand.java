@@ -1,17 +1,17 @@
 package by.koroza.zoo_market.web.command.impl.user.show.pesonal;
 
-import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ORDERS_HISTORY_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
-
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER_HISTORY_ORDERS;
 
+import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ORDERS_HISTORY_PAGE_PATH;
+
+import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
+import by.koroza.zoo_market.service.exception.ServiceException;
+import by.koroza.zoo_market.service.impl.order.OrderServiceImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
-import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
-import by.koroza.zoo_market.service.exception.ServiceException;
-import by.koroza.zoo_market.service.impl.OrderServiceImpl;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

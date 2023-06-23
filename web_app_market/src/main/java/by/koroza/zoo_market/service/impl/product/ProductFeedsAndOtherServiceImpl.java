@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.service.impl;
+package by.koroza.zoo_market.service.impl.product;
 
 import java.util.ArrayList;
 import java.util.List;

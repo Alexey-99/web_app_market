@@ -1,25 +1,25 @@
 package by.koroza.zoo_market.web.command.impl.user.show.basket;
 
-import static by.koroza.zoo_market.web.command.name.PagePathName.BACKET_WITH_PRODUCTS_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
-
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ORDER;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ORDER;
+
+import static by.koroza.zoo_market.web.command.name.PagePathName.BACKET_WITH_PRODUCTS_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import by.koroza.zoo_market.model.entity.market.order.Order;
+import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.model.entity.status.OrderStatus;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
-import by.koroza.zoo_market.model.entity.market.order.Order;
-import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.service.exception.ServiceException;
-import by.koroza.zoo_market.service.impl.OrderServiceImpl;
-import by.koroza.zoo_market.service.impl.ProductFeedsAndOtherServiceImpl;
-import by.koroza.zoo_market.service.impl.ProductPetServiceImpl;
+import by.koroza.zoo_market.service.impl.order.OrderServiceImpl;
+import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
+import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;

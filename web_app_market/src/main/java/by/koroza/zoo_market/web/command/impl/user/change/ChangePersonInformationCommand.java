@@ -3,13 +3,13 @@ package by.koroza.zoo_market.web.command.impl.user.change;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_CHANGING_PERSON_INFOMATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 
-import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.PagePathName.CHANGE_PERSON_INFOMATION_FORM_VALIDATED_PAGE_PATH;
-
+import static by.koroza.zoo_market.web.command.name.InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_EMAIL;
 import static by.koroza.zoo_market.web.command.name.InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_NAME;
 import static by.koroza.zoo_market.web.command.name.InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_SURNAME;
-import static by.koroza.zoo_market.web.command.name.InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_EMAIL;
+
+import static by.koroza.zoo_market.web.command.name.PagePathName.CHANGE_PERSON_INFOMATION_FORM_VALIDATED_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,13 +22,14 @@ import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.generator.GenerationVeriicationCode;
-import by.koroza.zoo_market.service.impl.UserServiceImpl;
 import by.koroza.zoo_market.service.impl.VerificateServiceImpl;
+import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 import by.koroza.zoo_market.service.sender.EmailSender;
 import by.koroza.zoo_market.validation.UserValidation;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 

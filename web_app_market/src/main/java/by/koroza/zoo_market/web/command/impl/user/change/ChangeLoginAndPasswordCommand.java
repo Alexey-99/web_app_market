@@ -3,12 +3,12 @@ package by.koroza.zoo_market.web.command.impl.user.change;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_CHANGING_LOGIN_AND_PASSWORD_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 
-import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.PagePathName.CHANGE_LOGIN_AND_PASSWORD_FORM_VALIDATED_PAGE_PATH;
-
 import static by.koroza.zoo_market.web.command.name.InputName.CHANGING_LOGIN_AND_PASSWORD_INPUT_USER_LOGIN;
 import static by.koroza.zoo_market.web.command.name.InputName.CHANGING_LOGIN_AND_PASSWORD_INPUT_USER_PASSWORD;
+
+import static by.koroza.zoo_market.web.command.name.PagePathName.CHANGE_LOGIN_AND_PASSWORD_FORM_VALIDATED_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,11 +19,12 @@ import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.service.exception.ServiceException;
-import by.koroza.zoo_market.service.impl.UserServiceImpl;
+import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 import by.koroza.zoo_market.validation.UserValidation;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 

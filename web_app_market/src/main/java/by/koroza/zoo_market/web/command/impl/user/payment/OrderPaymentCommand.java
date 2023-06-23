@@ -1,25 +1,33 @@
 package by.koroza.zoo_market.web.command.impl.user.payment;
 
-import static by.koroza.zoo_market.web.command.name.AttributeName.*;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ORDER;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ORDER_PAYMENT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
+
+import static by.koroza.zoo_market.web.command.name.InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_CVC;
+import static by.koroza.zoo_market.web.command.name.InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_MONTH;
+import static by.koroza.zoo_market.web.command.name.InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_YEAR;
+import static by.koroza.zoo_market.web.command.name.InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_NUMBER_BANK_CARD;
+
+import static by.koroza.zoo_market.web.command.name.PagePathName.BACKET_WITH_PRODUCTS_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.PagePathName.ORDER_PAYMENT_FORM_VALIDATED_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.PagePathName.SUCCESS_ORDER_PAYMENT_PAGE_PATH;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static by.koroza.zoo_market.web.command.name.PagePathName.*;
-import static by.koroza.zoo_market.web.command.name.InputName.*;
-
 import by.koroza.zoo_market.model.entity.bank.BankCard;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
-import by.koroza.zoo_market.service.impl.OrderServiceImpl;
-import by.koroza.zoo_market.service.impl.ProductFeedsAndOtherServiceImpl;
-import by.koroza.zoo_market.service.impl.ProductPetServiceImpl;
+import by.koroza.zoo_market.service.impl.order.OrderServiceImpl;
+import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
+import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
 import by.koroza.zoo_market.validation.BankCardValidation;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 

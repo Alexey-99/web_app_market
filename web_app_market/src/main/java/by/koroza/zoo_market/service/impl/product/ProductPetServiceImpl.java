@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.service.impl;
+package by.koroza.zoo_market.service.impl.product;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,7 +11,6 @@ import by.koroza.zoo_market.dao.impl.product.ProductPetDaoImpl;
 import by.koroza.zoo_market.model.entity.filter.FilterPet;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
-import by.koroza.zoo_market.model.entity.market.product.abstraction.AbstractProduct;
 import by.koroza.zoo_market.service.ProductPetService;
 import by.koroza.zoo_market.service.exception.ServiceException;
 
@@ -115,10 +114,6 @@ public class ProductPetServiceImpl implements ProductPetService {
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
-	}
-
-	public Pet promotionUpAbstractProduct(AbstractProduct product) {
-		return (Pet) product;
 	}
 
 	private List<Pet> selectProductsPetsByBirthDate(FilterPet filter, List<Pet> listPetsWithFilter) {
