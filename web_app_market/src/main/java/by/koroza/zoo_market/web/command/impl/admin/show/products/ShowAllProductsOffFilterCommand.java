@@ -9,10 +9,10 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.SESSION_ATTRIB
 import static by.koroza.zoo_market.web.command.name.AttributeValue.SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS;
 import static by.koroza.zoo_market.web.command.name.AttributeValue.SESSION_ATTRIBUTE_PET_CLASS;
 
+import static by.koroza.zoo_market.web.command.name.CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_ID_ASCENDING;
+
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH;
-
-import static by.koroza.zoo_market.web.command.name.CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_ID_ASCENDING;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +27,7 @@ import by.koroza.zoo_market.service.exception.SortingException;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
 import by.koroza.zoo_market.service.sorting.SortingMapProducts;
-import by.koroza.zoo_market.service.sorting.comparator.product.id.SortProductsByIdAscendingComparatorImpl;
+import by.koroza.zoo_market.service.sorting.comparator.impl.product.id.SortProductsByIdAscendingComparatorImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;

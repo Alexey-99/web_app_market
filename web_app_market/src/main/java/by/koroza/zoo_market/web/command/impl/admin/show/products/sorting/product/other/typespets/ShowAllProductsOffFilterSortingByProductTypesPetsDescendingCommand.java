@@ -27,7 +27,7 @@ import by.koroza.zoo_market.service.exception.SortingException;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
 import by.koroza.zoo_market.service.sorting.SortingMapProducts;
-import by.koroza.zoo_market.service.sorting.comparator.product.other.typespets.SortProductsByProductTypesPetsDescendingComparatorImpl;
+import by.koroza.zoo_market.service.sorting.comparator.impl.product.other.typespets.SortProductsByProductTypesPetsDescendingComparatorImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
