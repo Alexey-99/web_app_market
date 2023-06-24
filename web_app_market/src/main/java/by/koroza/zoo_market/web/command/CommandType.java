@@ -15,6 +15,8 @@ import by.koroza.zoo_market.web.command.impl.admin.show.form.create.ShowCreatePe
 import by.koroza.zoo_market.web.command.impl.admin.show.products.ShowAllProductsOffFilterCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.id.ShowAllProductsOffFilterSortingByIdAscendingCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.id.ShowAllProductsOffFilterSortingByIdDescendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.producttype.ShowAllProductsOffFilterSortingByProductTypeAscendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.producttype.ShowAllProductsOffFilterSortingByProductTypeDescendingCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetEnglishLocaleCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetRussinLocaleCommand;
 import by.koroza.zoo_market.web.command.impl.user.change.ChangeLoginAndPasswordCommand;
@@ -97,7 +99,11 @@ public enum CommandType {
 			new ShowAllProductsOffFilterSortingByIdAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_DESCENDING(
 			new ShowAllProductsOffFilterSortingByIdDescendingCommand()),
-	/**/;
+	/* product type */
+	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TYPE_ASCENDING(
+			new ShowAllProductsOffFilterSortingByProductTypeAscendingCommand()),
+	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TYPE_DESCENDING(
+			new ShowAllProductsOffFilterSortingByProductTypeDescendingCommand()),;
 
 	private Command command;
 
