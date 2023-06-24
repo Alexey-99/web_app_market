@@ -9,10 +9,9 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.SESSION_ATTRIB
 import static by.koroza.zoo_market.web.command.name.AttributeValue.SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS;
 import static by.koroza.zoo_market.web.command.name.AttributeValue.SESSION_ATTRIBUTE_PET_CLASS;
 
-import static by.koroza.zoo_market.web.command.name.CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_ASCENDING;
-
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH;
+import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_COMMAND;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,8 +62,7 @@ public class ShowAllProductsOffFilterCommand implements Command {
 		} catch (ServiceException | SortingException e) {
 			throw new CommandException(e);
 		}
-		request.setAttribute(REQUEST_ATTRIBUTE_COMMAND,
-				request.getParameter(COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_ASCENDING));
+		request.setAttribute(REQUEST_ATTRIBUTE_COMMAND, request.getParameter(PARAMETER_COMMAND).trim());
 		isRegistratedUser(request);
 		return router;
 	}

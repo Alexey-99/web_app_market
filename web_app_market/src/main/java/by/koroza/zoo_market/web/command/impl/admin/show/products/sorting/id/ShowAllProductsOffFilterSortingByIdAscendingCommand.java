@@ -35,7 +35,7 @@ import by.koroza.zoo_market.web.controller.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-public class ShowAllProductsOffFilterSortingByIdAscending implements Command {
+public class ShowAllProductsOffFilterSortingByIdAscendingCommand implements Command {
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {

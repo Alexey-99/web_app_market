@@ -61,6 +61,7 @@
 					</div>
 					<div class="row">
 						<div class="col-12">
+							${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND)}
 							<table class="table table-striped table-hover">
 								<thead class="">
 									<tr class="align-middle">
