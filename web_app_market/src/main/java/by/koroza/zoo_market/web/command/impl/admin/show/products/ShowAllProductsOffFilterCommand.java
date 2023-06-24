@@ -27,7 +27,7 @@ import by.koroza.zoo_market.service.exception.SortingException;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
 import by.koroza.zoo_market.service.sorting.SortingMapProducts;
-import by.koroza.zoo_market.service.sorting.impl.id.SortProductsByIdAscendingImpl;
+import by.koroza.zoo_market.service.sorting.comparator.id.SortProductsByIdAscendingComparator;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
@@ -52,7 +52,7 @@ public class ShowAllProductsOffFilterCommand implements Command {
 				products.putAll(productPets);
 				products.putAll(productFeedsAndOther);
 				session.setAttribute(ATTRIBUTE_MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT, SortingMapProducts
-						.getInstance().sortProductsMap(products, new SortProductsByIdAscendingImpl()));
+						.getInstance().sortProductsMap(products, new SortProductsByIdAscendingComparator()));
 				session.setAttribute(SESSION_ATTRIBUTE_PET_CLASS_NAME, SESSION_ATTRIBUTE_PET_CLASS);
 				session.setAttribute(SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS_NAME,
 						SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS);
