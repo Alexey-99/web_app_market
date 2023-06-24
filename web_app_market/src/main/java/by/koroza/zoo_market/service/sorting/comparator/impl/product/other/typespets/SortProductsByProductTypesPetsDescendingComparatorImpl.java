@@ -17,6 +17,6 @@ public class SortProductsByProductTypesPetsDescendingComparatorImpl implements S
 		String productTypesPetsSecond = o2.getKey().getClass().equals(Pet.class) ? EMPTY_LINE_NAME
 				: ((FeedAndOther) o2.getKey()).getPetTypes().toString().substring(1,
 						((FeedAndOther) o2.getKey()).getPetTypes().toString().length());
-		return productTypesPetsFirst.compareTo(productTypesPetsSecond);
+		return productTypesPetsSecond.compareTo(productTypesPetsFirst);
 	}
 }

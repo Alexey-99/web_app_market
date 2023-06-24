@@ -9,6 +9,6 @@ public class SortProductsByNumberOfUnitsProductDescendingComparatorImpl implemen
 
 	@Override
 	public int compare(Entry<? extends AbstractProduct, Long> o1, Entry<? extends AbstractProduct, Long> o2) {
-		return (int) (o1.getValue() - o2.getValue());
+		return (int) (o2.getValue() - o1.getValue());
 	}
 }
