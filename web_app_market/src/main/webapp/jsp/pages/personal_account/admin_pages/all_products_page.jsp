@@ -120,7 +120,14 @@
 												method="get">
 												<input type="hidden"
 													name="${ParameterName.PARAMETER_COMMAND}"
-													value='<c:if test=""></c:if>' />
+													value='<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) != null 
+													&& pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_BRAND_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_BRAND_DESCENDING}
+													</c:if>
+													<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) == null 
+													|| !pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_BRAND_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_BRAND_ASCENDING}
+													</c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message key="admin_page.all_products.col.brand" />
@@ -134,7 +141,14 @@
 												method="get">
 												<input type="hidden"
 													name="${ParameterName.PARAMETER_COMMAND}"
-													value='<c:if test=""></c:if>' />
+													value='<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) != null 
+													&& pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_BRAND_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_BRAND_DESCENDING}
+													</c:if>
+													<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) == null 
+													|| !pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_BRAND_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_BRAND_ASCENDING}
+													</c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message key="admin_page.all_products.col.description" />

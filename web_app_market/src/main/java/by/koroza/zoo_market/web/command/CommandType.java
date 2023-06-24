@@ -13,6 +13,10 @@ import by.koroza.zoo_market.web.command.impl.admin.show.form.change.ShowChangePe
 import by.koroza.zoo_market.web.command.impl.admin.show.form.create.ShowCreateFeedsAndOtherProductFormCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.form.create.ShowCreatePetProductFormCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.products.ShowAllProductsOffFilterCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.brand.ShowAllProductsOffFilterSortingByProductBrandAscendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.brand.ShowAllProductsOffFilterSortingByProductBrandDescendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.description.ShowAllProductsOffFilterSortingByProductDescriptionAscendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.description.ShowAllProductsOffFilterSortingByProductDescriptionDescendingCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.id.ShowAllProductsOffFilterSortingByIdAscendingCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.id.ShowAllProductsOffFilterSortingByIdDescendingCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.producttype.ShowAllProductsOffFilterSortingByProductTypeAscendingCommand;
@@ -103,7 +107,22 @@ public enum CommandType {
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TYPE_ASCENDING(
 			new ShowAllProductsOffFilterSortingByProductTypeAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TYPE_DESCENDING(
-			new ShowAllProductsOffFilterSortingByProductTypeDescendingCommand()),;
+			new ShowAllProductsOffFilterSortingByProductTypeDescendingCommand()),
+	/* product brand */
+	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_BRAND_ASCENDING(
+			new ShowAllProductsOffFilterSortingByProductBrandAscendingCommand()),
+	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_BRAND_DESCENDING(
+			new ShowAllProductsOffFilterSortingByProductBrandDescendingCommand()),
+	/* product description */
+	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_DESCRIPTION_ASCENDING(
+			new ShowAllProductsOffFilterSortingByProductDescriptionAscendingCommand()),
+	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_DESCRIPTION_DESCENDING(
+			new ShowAllProductsOffFilterSortingByProductDescriptionDescendingCommand()),
+	/* product types pets */
+	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TYPES_TYPES_ASCENDING(
+			new ShowAllProductsOffFilterSortingByProductDescriptionAscendingCommand()),
+	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TYPES_TYPES_DESCENDING(
+			new ShowAllProductsOffFilterSortingByProductDescriptionDescendingCommand()),;
 
 	private Command command;
 

@@ -1,10 +1,10 @@
-package by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.producttype;
+package by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.brand;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
+import static by.koroza.zoo_market.web.command.name.AttributeName.REQUEST_ATTRIBUTE_COMMAND;
 import static by.koroza.zoo_market.web.command.name.AttributeName.SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS_NAME;
 import static by.koroza.zoo_market.web.command.name.AttributeName.SESSION_ATTRIBUTE_PET_CLASS_NAME;
-import static by.koroza.zoo_market.web.command.name.AttributeName.REQUEST_ATTRIBUTE_COMMAND;
 
 import static by.koroza.zoo_market.web.command.name.AttributeValue.SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS;
 import static by.koroza.zoo_market.web.command.name.AttributeValue.SESSION_ATTRIBUTE_PET_CLASS;
@@ -27,7 +27,7 @@ import by.koroza.zoo_market.service.exception.SortingException;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
 import by.koroza.zoo_market.service.sorting.SortingMapProducts;
-import by.koroza.zoo_market.service.sorting.comparator.producttype.SortProductsByProductTypeAscendingComparatorImpl;
+import by.koroza.zoo_market.service.sorting.comparator.brand.SortProductsByProductBrandDescendingComparatorImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
@@ -35,7 +35,7 @@ import by.koroza.zoo_market.web.controller.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-public class ShowAllProductsOffFilterSortingByProductTypeAscendingCommand implements Command {
+public class ShowAllProductsOffFilterSortingByProductBrandDescendingCommand implements Command {
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
@@ -52,7 +52,7 @@ public class ShowAllProductsOffFilterSortingByProductTypeAscendingCommand implem
 				products.putAll(productPets);
 				products.putAll(productFeedsAndOther);
 				session.setAttribute(ATTRIBUTE_MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT, SortingMapProducts
-						.getInstance().sortProductsMap(products, new SortProductsByProductTypeAscendingComparatorImpl()));
+						.getInstance().sortProductsMap(products, new SortProductsByProductBrandDescendingComparatorImpl()));
 				session.setAttribute(SESSION_ATTRIBUTE_PET_CLASS_NAME, SESSION_ATTRIBUTE_PET_CLASS);
 				session.setAttribute(SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS_NAME,
 						SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS);

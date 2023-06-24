@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.producttype;
+package by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.description;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
@@ -27,7 +27,7 @@ import by.koroza.zoo_market.service.exception.SortingException;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
 import by.koroza.zoo_market.service.sorting.SortingMapProducts;
-import by.koroza.zoo_market.service.sorting.comparator.producttype.SortProductsByProductTypeAscendingComparatorImpl;
+import by.koroza.zoo_market.service.sorting.comparator.description.SortProductsByProductDescriptionAscendingComparatorImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
@@ -35,7 +35,7 @@ import by.koroza.zoo_market.web.controller.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-public class ShowAllProductsOffFilterSortingByProductTypeAscendingCommand implements Command {
+public class ShowAllProductsOffFilterSortingByProductDescriptionAscendingCommand implements Command {
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
@@ -51,8 +51,9 @@ public class ShowAllProductsOffFilterSortingByProductTypeAscendingCommand implem
 				Map<AbstractProduct, Long> products = new HashMap<>();
 				products.putAll(productPets);
 				products.putAll(productFeedsAndOther);
-				session.setAttribute(ATTRIBUTE_MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT, SortingMapProducts
-						.getInstance().sortProductsMap(products, new SortProductsByProductTypeAscendingComparatorImpl()));
+				session.setAttribute(ATTRIBUTE_MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT,
+						SortingMapProducts.getInstance().sortProductsMap(products,
+								new SortProductsByProductDescriptionAscendingComparatorImpl()));
 				session.setAttribute(SESSION_ATTRIBUTE_PET_CLASS_NAME, SESSION_ATTRIBUTE_PET_CLASS);
 				session.setAttribute(SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS_NAME,
 						SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS);
