@@ -78,12 +78,12 @@
 												<input type="hidden"
 													name="${ParameterName.PARAMETER_COMMAND}"
 													value='<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) != null 
-													&& pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_ASCENDING)}">
-													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_DESCENDING}
+													&& pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_PRODUCT_BY_ID_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_ID_DESCENDING}
 													</c:if>
 													<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) == null 
-													|| !pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_ASCENDING)}">
-													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_ASCENDING}
+													|| !pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_PRODUCT_BY_ID_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_PRODUCT_BY_ID_ASCENDING}
 													</c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
@@ -142,12 +142,12 @@
 												<input type="hidden"
 													name="${ParameterName.PARAMETER_COMMAND}"
 													value='<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) != null 
-													&& pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_BRAND_ASCENDING)}">
-													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_BRAND_DESCENDING}
+													&& pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_DESCRIPTION_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_DESCRIPTION_DESCENDING}
 													</c:if>
 													<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) == null 
-													|| !pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_BRAND_ASCENDING)}">
-													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_BRAND_ASCENDING}
+													|| !pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_DESCRIPTION_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_DESCRIPTION_ASCENDING}
 													</c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
@@ -162,7 +162,14 @@
 												method="get">
 												<input type="hidden"
 													name="${ParameterName.PARAMETER_COMMAND}"
-													value='<c:if test=""></c:if>' />
+													value='<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) != null 
+													&& pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TYPES_PETS_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TYPES_PETS_DESCENDING}
+													</c:if>
+													<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) == null 
+													|| !pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TYPES_PETS_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TYPES_PETS_ASCENDING}
+													</c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message
@@ -177,7 +184,14 @@
 												method="get">
 												<input type="hidden"
 													name="${ParameterName.PARAMETER_COMMAND}"
-													value='<c:if test=""></c:if>' />
+													value='<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) != null 
+													&& pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_TYPE_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_TYPE_DESCENDING}
+													</c:if>
+													<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) == null 
+													|| !pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_TYPE_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_TYPE_ASCENDING}
+													</c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message key="admin_page.all_products.col.specie_pet" />
@@ -191,7 +205,14 @@
 												method="get">
 												<input type="hidden"
 													name="${ParameterName.PARAMETER_COMMAND}"
-													value='<c:if test=""></c:if>' />
+													value='<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) != null 
+													&& pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_BREED_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_BREED_DESCENDING}
+													</c:if>
+													<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) == null 
+													|| !pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_BREED_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_BREED_ASCENDING}
+													</c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message key="admin_page.all_products.col.breed_pet" />
@@ -205,7 +226,14 @@
 												method="get">
 												<input type="hidden"
 													name="${ParameterName.PARAMETER_COMMAND}"
-													value='<c:if test=""></c:if>' />
+													value='<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) != null 
+													&& pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_BIRTH_DATE_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_BIRTH_DATE_DESCENDING}
+													</c:if>
+													<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) == null 
+													|| !pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_BIRTH_DATE_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_BIRTH_DATE_ASCENDING}
+													</c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message
@@ -220,7 +248,14 @@
 												method="get">
 												<input type="hidden"
 													name="${ParameterName.PARAMETER_COMMAND}"
-													value='<c:if test=""></c:if>' />
+													value='<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) != null 
+													&& pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PRICE_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PRICE_DESCENDING}
+													</c:if>
+													<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) == null 
+													|| !pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PRICE_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PRICE_ASCENDING}
+													</c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message key="admin_page.all_products.col.price" />
@@ -234,7 +269,14 @@
 												method="get">
 												<input type="hidden"
 													name="${ParameterName.PARAMETER_COMMAND}"
-													value='<c:if test=""></c:if>' />
+													value='<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) != null 
+													&& pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_DISCOUNT_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_DISCOUNT_DESCENDING}
+													</c:if>
+													<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) == null 
+													|| !pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_DISCOUNT_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_DISCOUNT_ASCENDING}
+													</c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message key="admin_page.all_products.col.discount" />
@@ -248,7 +290,14 @@
 												method="get">
 												<input type="hidden"
 													name="${ParameterName.PARAMETER_COMMAND}"
-													value='<c:if test=""></c:if>' />
+													value='<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) != null 
+													&& pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TOTAL_PRICE_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TOTAL_PRICE_DESCENDING}
+													</c:if>
+													<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) == null 
+													|| !pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TOTAL_PRICE_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TOTAL_PRICE_ASCENDING}
+													</c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message
@@ -263,7 +312,14 @@
 												method="get">
 												<input type="hidden"
 													name="${ParameterName.PARAMETER_COMMAND}"
-													value='<c:if test=""></c:if>' />
+													value='<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) != null 
+													&& pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_NUMBER_OF_UNITS_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_NUMBER_OF_UNITS_DESCENDING}
+													</c:if>
+													<c:if test="${pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND) == null 
+													|| !pageContext.getRequest().getAttribute(AttributeName.REQUEST_ATTRIBUTE_COMMAND).equals(CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_NUMBER_OF_UNITS_ASCENDING)}">
+													${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_NUMBER_OF_UNITS_ASCENDING}
+													</c:if>' />
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message
