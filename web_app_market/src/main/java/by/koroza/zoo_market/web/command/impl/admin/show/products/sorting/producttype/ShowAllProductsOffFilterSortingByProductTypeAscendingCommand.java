@@ -1,10 +1,10 @@
-package by.koroza.zoo_market.web.command.impl.admin.show.products;
+package by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.producttype;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
-import static by.koroza.zoo_market.web.command.name.AttributeName.REQUEST_ATTRIBUTE_COMMAND;
 import static by.koroza.zoo_market.web.command.name.AttributeName.SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS_NAME;
 import static by.koroza.zoo_market.web.command.name.AttributeName.SESSION_ATTRIBUTE_PET_CLASS_NAME;
+import static by.koroza.zoo_market.web.command.name.AttributeName.REQUEST_ATTRIBUTE_COMMAND;
 
 import static by.koroza.zoo_market.web.command.name.AttributeValue.SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS;
 import static by.koroza.zoo_market.web.command.name.AttributeValue.SESSION_ATTRIBUTE_PET_CLASS;
@@ -12,7 +12,7 @@ import static by.koroza.zoo_market.web.command.name.AttributeValue.SESSION_ATTRI
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH;
 
-import static by.koroza.zoo_market.web.command.name.CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_ASCENDING;
+import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_COMMAND;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +35,7 @@ import by.koroza.zoo_market.web.controller.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-public class ShowAllProductsOffFilterCommand implements Command {
+public class ShowAllProductsOffFilterSortingByProductTypeAscendingCommand implements Command {
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
@@ -63,8 +63,7 @@ public class ShowAllProductsOffFilterCommand implements Command {
 		} catch (ServiceException | SortingException e) {
 			throw new CommandException(e);
 		}
-		request.setAttribute(REQUEST_ATTRIBUTE_COMMAND,
-				COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_ASCENDING);
+		request.setAttribute(REQUEST_ATTRIBUTE_COMMAND, request.getParameter(PARAMETER_COMMAND).trim());
 		isRegistratedUser(request);
 		return router;
 	}

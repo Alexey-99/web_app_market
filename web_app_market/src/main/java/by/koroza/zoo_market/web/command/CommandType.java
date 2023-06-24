@@ -93,7 +93,8 @@ public enum CommandType {
 	ADMIN_PAGE_SHOW_CHANGE_FEED_AND_OTHER_PRODUCT_FORM(new ShowChangeFeedsAndOtherProductFormCommand()),
 	/* SORTING PRODUCTS */
 	/* id */
-	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_ASCENDING(new ShowAllProductsOffFilterSortingByIdAscendingCommand()),
+	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_ASCENDING(
+			new ShowAllProductsOffFilterSortingByIdAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_ID_DESCENDING(
 			new ShowAllProductsOffFilterSortingByIdDescendingCommand()),
 	/**/;
