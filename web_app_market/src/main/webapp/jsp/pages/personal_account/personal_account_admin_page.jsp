@@ -122,7 +122,7 @@
 					<div class="row">
 						<div class="col-12">
 							<div
-								class="position-fixed  d-flex justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 change_user_status_form">
+								class="position-fixed d-none d-flex justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 change_user_status_form">
 								<div
 									class="position-relative w-100 d-flex flex-column change_user_status_form_inner">
 									<div class="change_user_status_form_top">
@@ -138,35 +138,36 @@
 											<h2 class="form_title text-center mb-3 text-lowercase">
 												изменeние статуса пользователя</h2>
 										</div>
-
 									</div>
 									<div class="add_product_pet_form">
 										<form class="add_product_pet_form_body" method="post"
 											action="${pageContext.request.contextPath}/${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
-											<div
-												class="form-floating mb-3 add_product_pet_form_body_form_floating">
-												<input type="file"
-													class="form-control text-uppercase add_product_pet_form_body_input_img"
-													id="admin_page.all_products.add_product_form.add_pet.lable.choose_image_product"
-													name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
-													placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_pet.lable.choose_image_product"/>' />
-												<label
-													class="text-lowercase add_product_pet_form_body_label_img"
-													for="admin_page.all_products.add_product_form.add_pet.lable.choose_image_product"><fmt:message
-														key="admin_page.all_products.add_product_form.add_pet.lable.choose_image_product" />
-													<span> *</span></label>
-											</div>
 											<div class="form-floating mb-3">
-												<div class="input-group mb-3 mt-3">
-													<label> <span class="span_input span_input_1">
-															<input type="checkbox"
-															name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
-															value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
-															<fmt:message
-																key="add_product_form_validated.add_pet.input.without_image" />
-													</span>
-													</label>
-												</div>
+												<input type="text" class="form-control" id="login" required
+													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
+													placeholder='<fmt:message key="login"/>' /> <label
+													class="text-lowercase" for="login"> login </label>
+											</div>
+											<div class="mb-3">
+												<select class="form-select" required
+													aria-label="select example">
+													<option value="">Откройте это меню выбора</option>
+													<option value="1">Пользователь</option>
+													<option value="2">Администратор</option>
+												</select>
+												<div class="invalid-feedback">Пример обратной связи
+													неверного выбора</div>
+											</div>
+											<div
+												class="add_product_pet_form_fotter d-flex justify-content-end">
+												<input type="hidden"
+													name="${ParameterName.PARAMETER_COMMAND}"
+													value="${CommandName.COMMAND_ADMIN_PAGE_CREATE_PET_PRODUCT}" />
+												<button class="btn add_product_pet_form_btn_submit"
+													role="button">
+													<fmt:message
+														key="admin_page.all_products.add_product_form.add_pet.ok" />
+												</button>
 											</div>
 										</form>
 									</div>

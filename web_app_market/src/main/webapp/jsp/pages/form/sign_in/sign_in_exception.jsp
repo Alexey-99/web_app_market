@@ -73,19 +73,20 @@
 								<form class="sign_in_form_body"
 									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 									<div class="form-floating mb-3">
-										<input type="text" class="form-control is-invalid "
-											id="floatingInputLogin"
+										<input type="text" class="form-control is-invalid" required
+											id="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login"
 											name="${InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_LOGIN}"
-											placeholder="Robert99" /> <label
-											class="text-lowercase sign_in_form_body_label"
-											for="floatingInputLogin"><fmt:message
+											placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login"/>' />
+										<label class="text-lowercase sign_in_form_body_label"
+											for="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login">
+											<fmt:message
 												key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login" />
 										</label>
 									</div>
 									<div
 										class="password_form d-flex juctify-content-between align-items-center">
 										<div class="form-floating mb-3 w-100">
-											<input type="password"
+											<input type="password" required
 												class="form-control sign_in_form_input_password is-invalid"
 												id="floatingInputPassword"
 												name="${InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_PASSWORD}"
