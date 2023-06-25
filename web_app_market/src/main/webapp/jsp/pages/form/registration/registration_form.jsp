@@ -9,7 +9,7 @@
 <%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.RegistrationUserCommand"%>
+	import="by.koroza.zoo_market.web.command.impl.user.registration.RegistrationUserCommand"%>
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
 	scope="session" />
 <fmt:setBundle
@@ -73,20 +73,26 @@
 								<form class="sign_in_form_body"
 									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 									<div class="form-floating mb-3">
-										<input type="text" class="form-control"
-											id="floatingInputLogin" name="floatingInputLogin"
-											placeholder="Robert99" /> <label class="text-lowercase"
-											for="floatingInputLogin"><fmt:message
+										<input type="text" class="form-control" required
+											id="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login"
+											name="${InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_LOGIN}"
+											placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login"/>' />
+										<label class="text-lowercase"
+											for="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login">
+											<fmt:message
 												key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login" />
 										</label>
 									</div>
 									<div
 										class="form-floating mb-3 d-flex justify-content-center align-items-center">
 										<input type="password"
-											class="form-control sign_in_form_input_password"
-											id="floatingInputPassword" name="floatingInputPassword"
-											placeholder="123456" /> <label class="text-lowercase"
-											for="floatingInputPassword"><fmt:message
+											class="form-control sign_in_form_input_password" required
+											id="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.password"
+											name="${InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_PASSWORD}"
+											placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.password"/>' />
+										<label class="text-lowercase"
+											for="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.password">
+											<fmt:message
 												key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.password" />
 										</label>
 										<div class="btn sign_in_form_password_btn"
@@ -130,46 +136,51 @@
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
-												id="floatingInputName"
+												id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name"
 												name="${InputName.REGISTRATION_INPUT_USER_NAME}"
-												placeholder="Robert"
+												placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name"/>'
 												value='<c:if test="${user.getName() != null && !user.getName().isBlank()}">${user.getName()}</c:if>' />
 											<label class="text-lowercase registration_form_body_label"
-												for="floatingInputName"><fmt:message
+												for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name">
+												<fmt:message
 													key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name" />
-												<span>*</span> </label>
+												<span>*</span>
+											</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control "
-												id="floatingInputSurname"
+												id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname"
 												name="${InputName.REGISTRATION_INPUT_USER_SURNAME}"
 												value='<c:if test="${user.getSurname() != null && !user.getSurname().isBlank()}">${user.getSurname()}</c:if>'
-												placeholder="Robert" /> <label
-												class="text-lowercase registration_form_body_label"
-												for="floatingInputSurname"><fmt:message
+												placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname"/>' />
+											<label class="text-lowercase registration_form_body_label"
+												for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname">
+												<fmt:message
 													key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname" />
-												<span>*</span> </label>
+												<span>*</span>
+											</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="email" class="form-control"
-												id="floatingInputEmail"
-												name="${InputName.REGISTRATION_INPUT_USER_EMAIL}"
+												id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.email_address"
+												required name="${InputName.REGISTRATION_INPUT_USER_EMAIL}"
 												value='<c:if test="${user.getEmail() != null && !user.getEmail().isBlank()}">${user.getEmail()}</c:if>'
-												placeholder="name@example.com"
+												placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.email_address"/>'
 												pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})" />
 											<label class="text-lowercase registration_form_body_label"
-												for="floatingInputEmail"><fmt:message
+												for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.email_address"><fmt:message
 													key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.email_address" />
 											</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
-												id="floatingInputLogin"
-												name="${InputName.REGISTRATION_INPUT_USER_LOGIN}"
+												id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login"
+												required name="${InputName.REGISTRATION_INPUT_USER_LOGIN}"
 												value='<c:if test="${user.getLogin() != null && !user.getLogin().isBlank()}">${user.getLogin()}</c:if>'
-												placeholder="Robert" /> <label
-												class="text-lowercase registration_form_body_label"
-												for="floatingInputLogin"><fmt:message
+												placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login"/>' />
+											<label class="text-lowercase registration_form_body_label"
+												for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login">
+												<fmt:message
 													key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login" />
 											</label>
 										</div>
@@ -177,12 +188,14 @@
 											class="form-floating mb-3 w-100 d-flex justify-content-center align-items-center">
 											<input type="password"
 												class="form-control registration_form_input_password"
-												id="floatingInputPassword"
+												id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password"
+												required
 												name="${InputName.REGISTRATION_INPUT_USER_PASSWORD}"
 												value='<c:if test="${user.getPassword() != null && !user.getPassword().isBlank()}">${user.getPassword()}</c:if>'
-												placeholder="123456" /> <label
-												class="text-lowercase registration_form_body_label"
-												for="floatingInputPassword"><fmt:message
+												placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password"/>' />
+											<label class="text-lowercase registration_form_body_label"
+												for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password">
+												<fmt:message
 													key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password" />
 											</label>
 											<div class="btn registration_form_password_btn mt-0 "
@@ -230,78 +243,82 @@
 											test="${registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.NAME)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-invalid"
-													id="floatingInputName"
+													id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name"
 													name="${InputName.REGISTRATION_INPUT_USER_NAME}"
-													placeholder="Robert"
+													placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name"/>'
 													value='<c:if test="${user.getName() != null && !user.getName().isBlank()}">${user.getName()}</c:if>' />
-												<div class="invalid-feedback">${registration_input_exception_type_and_message.get(RegistrationUserCommand.NAME)}</div>
 												<label class="text-lowercase registration_form_body_label"
-													for="floatingInputName"><fmt:message
+													for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name">
+													<fmt:message
 														key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name" />
 													<span>* </span> <c:if
 														test="${user.getName() == null || user.getName().isblank()}">(<fmt:message
 															key="sign_in_and_registartion_form.description.not_entered" />)</c:if>
 												</label>
+												<div class="invalid-feedback">${registration_input_exception_type_and_message.get(RegistrationUserCommand.NAME)}</div>
 											</div>
 										</c:if>
 										<c:if
 											test="${!registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.NAME)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-valid"
-													id="floatingInputName"
+													id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name"
 													name="${InputName.REGISTRATION_INPUT_USER_NAME}"
 													value='<c:if test="${user.getName() != null && !user.getName().isBlank()}">${user.getName()}</c:if>'
-													placeholder="Robert" />
-												<div class="valid-feedback">
-													<fmt:message
-														key="sign_in_and_registartion_form.valid_feed_back" />
-												</div>
+													placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name"/>' />
 												<label class="text-lowercase registration_form_body_label"
-													for="floatingInputName"><fmt:message
+													for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name">
+													<fmt:message
 														key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name" />
 													<span>*</span> <c:if
 														test="${user.getName() == null || user.getName().isBlank()}">(<fmt:message
 															key="sign_in_and_registartion_form.description.not_entered" />)</c:if>
 												</label>
+												<div class="valid-feedback">
+													<fmt:message
+														key="sign_in_and_registartion_form.valid_feed_back" />
+												</div>
 											</div>
 										</c:if>
 										<c:if
 											test="${registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.SURNAME)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-invalid"
-													id="floatingInputSurname"
+													id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname"
 													name="${InputName.REGISTRATION_INPUT_USER_SURNAME}"
 													value='<c:if test="${user.getSurname() != null && !user.getSurname().isBlank()}">${user.getSurname()}</c:if>'
-													placeholder="Robert" />
-												<div class="invalid-feedback">${registration_input_exception_type_and_message.get(RegistrationUserCommand.SURNAME)}</div>
+													placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname"/>' />
 												<label class="text-lowercase registration_form_body_label"
-													for="floatingInputSurname"><fmt:message
+													for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname">
+													<fmt:message
 														key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname" />
 													<span>*</span> <c:if
 														test="${user.getSurname() == null || user.getSurname().isBlank()}">(<fmt:message
 															key="sign_in_and_registartion_form.description.not_entered" />)</c:if>
 												</label>
+												<div class="invalid-feedback">${registration_input_exception_type_and_message.get(RegistrationUserCommand.SURNAME)}</div>
 											</div>
 										</c:if>
 										<c:if
 											test="${!registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.SURNAME)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-valid"
-													id="floatingInputSurname"
+													id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname"
 													name="${InputName.REGISTRATION_INPUT_USER_SURNAME}"
 													value='<c:if test="${user.getSurname() != null && !user.getSurname().isBlank()}">${user.getSurname()}</c:if>'
-													placeholder="Robert" />
-												<div class="valid-feedback">
-													<fmt:message
-														key="sign_in_and_registartion_form.valid_feed_back" />
-												</div>
+													placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname"/>' />
 												<label class="text-lowercase registration_form_body_label"
-													for="floatingInputSurname"><fmt:message
+													for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname">
+													<fmt:message
 														key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname" />
 													<span>*</span> <c:if
 														test="${user.getSurname() == null || user.getSurname().isBlank()}">(<fmt:message
 															key="sign_in_and_registartion_form.description.not_entered" />)</c:if>
 												</label>
+												<div class="valid-feedback">
+													<fmt:message
+														key="sign_in_and_registartion_form.valid_feed_back" />
+												</div>
 											</div>
 										</c:if>
 
@@ -309,76 +326,83 @@
 											test="${registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.EMAIL)}">
 											<div class="form-floating mb-3">
 												<input type="email" class="form-control is-invalid"
-													id="floatingInputEmail"
-													name="${InputName.REGISTRATION_INPUT_USER_EMAIL}"
+													id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.email_address"
+													name="${InputName.REGISTRATION_INPUT_USER_EMAIL}" required
 													value='<c:if test="${user.getEmail() != null && !user.getEmail().isBlank()}">${user.getEmail()}</c:if>'
-													placeholder="name@example.com"
+													placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.email_address"/>'
 													pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})" />
-												<div class="invalid-feedback">${registration_input_exception_type_and_message.get(RegistrationUserCommand.EMAIL)}</div>
 												<label class="text-lowercase registration_form_body_label"
-													for="floatingInputEmail"><fmt:message
+													for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.email_address">
+													<fmt:message
 														key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.email_address" />
 													<c:if
 														test="${user.getEmail() == null || user.getEmail().isBlank()}">(<fmt:message
-															key="sign_in_and_registartion_form.description.not_entered" />)</c:if></label>
+															key="sign_in_and_registartion_form.description.not_entered" />)</c:if>
+												</label>
+												<div class="invalid-feedback">${registration_input_exception_type_and_message.get(RegistrationUserCommand.EMAIL)}</div>
 											</div>
 										</c:if>
 										<c:if
 											test="${!registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.EMAIL)}">
 											<div class="form-floating mb-3">
 												<input type="email" class="form-control is-valid"
-													id="floatingInputEmail"
-													name="${InputName.REGISTRATION_INPUT_USER_EMAIL}"
+													id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.email_address"
+													name="${InputName.REGISTRATION_INPUT_USER_EMAIL}" required
 													value='<c:if test="${user.getEmail() != null && !user.getEmail().isBlank()}">${user.getEmail()}</c:if>'
-													placeholder="name@example.com"
+													placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.email_address"/>'
 													pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})" />
+												<label class="text-lowercase registration_form_body_label"
+													for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.email_address">
+													<fmt:message
+														key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.email_address" />
+													<c:if
+														test="${user.getEmail() == null || user.getEmail().isBlank()}">(<fmt:message
+															key="sign_in_and_registartion_form.description.not_entered" />)</c:if>
+												</label>
 												<div class="valid-feedback">
 													<fmt:message
 														key="sign_in_and_registartion_form.valid_feed_back" />
 												</div>
-												<label class="text-lowercase registration_form_body_label"
-													for="floatingInputEmail"><fmt:message
-														key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.email_address" />
-													<c:if
-														test="${user.getEmail() == null || user.getEmail().isBlank()}">(<fmt:message
-															key="sign_in_and_registartion_form.description.not_entered" />)</c:if></label>
 											</div>
 										</c:if>
 										<c:if
 											test="${registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.LOGIN)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-invalid"
-													id="floatingInputLogin"
-													name="${InputName.REGISTRATION_INPUT_USER_LOGIN}"
+													id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login"
+													name="${InputName.REGISTRATION_INPUT_USER_LOGIN}" required
 													value='<c:if test="${user.getLogin() != null && !user.getLogin().isBlank()}">${user.getLogin()}</c:if>'
-													placeholder="Robert" />
-												<div class="invalid-feedback">${registration_input_exception_type_and_message.get(RegistrationUserCommand.LOGIN)}</div>
+													placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login"/>' />
 												<label class="text-lowercase registration_form_body_label"
-													for="floatingInputLogin"><fmt:message
+													for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login"><fmt:message
 														key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login" />
 													<c:if
 														test="${user.getLogin() == null || user.getLogin().isBlank()}">(<fmt:message
-															key="sign_in_and_registartion_form.description.not_entered" />)</c:if></label>
+															key="sign_in_and_registartion_form.description.not_entered" />)</c:if>
+												</label>
+												<div class="invalid-feedback">${registration_input_exception_type_and_message.get(RegistrationUserCommand.LOGIN)}</div>
 											</div>
 										</c:if>
 										<c:if
 											test="${!registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.LOGIN)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-valid"
-													id="floatingInputLogin"
-													name="${InputName.REGISTRATION_INPUT_USER_LOGIN}"
+													id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login"
+													name="${InputName.REGISTRATION_INPUT_USER_LOGIN}" required
 													value='<c:if test="${user.getLogin() != null && !user.getLogin().isBlank()}">${user.getLogin()}</c:if>'
-													placeholder="Robert" />
+													placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login"/>' />
+
+												<label class="text-lowercase registration_form_body_label"
+													for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login"><fmt:message
+														key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login" />
+													<c:if
+														test="${user.getLogin() == null || user.getLogin().isBlank()}">(<fmt:message
+															key="sign_in_and_registartion_form.description.not_entered" />)</c:if>
+												</label>
 												<div class="valid-feedback">
 													<fmt:message
 														key="sign_in_and_registartion_form.valid_feed_back" />
 												</div>
-												<label class="text-lowercase registration_form_body_label"
-													for="floatingInputLogin"><fmt:message
-														key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login" />
-													<c:if
-														test="${user.getLogin() == null || user.getLogin().isBlank()}">(<fmt:message
-															key="sign_in_and_registartion_form.description.not_entered" />)</c:if></label>
 											</div>
 										</c:if>
 										<c:if
@@ -388,16 +412,19 @@
 												<div class="form-floating mb-3 w-100">
 													<input type="password"
 														class="form-control registration_form_input_password is-invalid"
-														id="floatingInputPassword"
+														required
+														id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password"
 														name="${InputName.REGISTRATION_INPUT_USER_PASSWORD}"
 														value='<c:if test="${user.getPassword() != null && !user.getPassword().isBlank()}">${user.getPassword()}</c:if>'
-														placeholder="123456" /> <label
-														class="text-lowercase registration_form_body_label"
-														for="floatingInputPassword"><fmt:message
+														placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password"/>' />
+													<label class="text-lowercase registration_form_body_label"
+														for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password">
+														<fmt:message
 															key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password" />
 														<c:if
 															test="${user.getPassword() == null || user.getPassword().isBlank()}">(<fmt:message
-																key="sign_in_and_registartion_form.description.not_entered" />)</c:if></label>
+																key="sign_in_and_registartion_form.description.not_entered" />)</c:if>
+													</label>
 													<div class="invalid-feedback">${registration_input_exception_type_and_message.get(RegistrationUserCommand.PASSWORD)}</div>
 												</div>
 												<div class="btn registration_form_password_btn mb-5 "
@@ -424,16 +451,19 @@
 												<div class="form-floating mb-3 w-100">
 													<input type="password"
 														class="form-control registration_form_input_password is-valid"
-														id="floatingInputPassword"
+														required
+														id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password"
 														name="${InputName.REGISTRATION_INPUT_USER_PASSWORD}"
 														value='<c:if test="${user.getPassword() != null && !user.getPassword().isBlank()}">${user.getPassword()}</c:if>'
-														placeholder="123456" /> <label
-														class="text-lowercase registration_form_body_label"
-														for="floatingInputPassword"><fmt:message
+														placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password"/>' />
+													<label class="text-lowercase registration_form_body_label"
+														for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password">
+														<fmt:message
 															key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password" />
 														<c:if
 															test="${user.getPassword() == null || user.getPassword().isBlank()}">(<fmt:message
-																key="sign_in_and_registartion_form.description.not_entered" />)</c:if></label>
+																key="sign_in_and_registartion_form.description.not_entered" />)</c:if>
+													</label>
 													<div class="valid-feedback">
 														<fmt:message
 															key="sign_in_and_registartion_form.valid_feed_back" />

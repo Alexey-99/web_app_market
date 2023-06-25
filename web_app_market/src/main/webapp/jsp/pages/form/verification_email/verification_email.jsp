@@ -60,13 +60,16 @@
 										class="form-floating mb-3 w-100 verification_personal_account_body">
 										<input type="text"
 											class="form-control text-center verification_personal_account_form_body_input"
-											id="floatingInputCode"
+											id="verification_email.lable.massege.enter_password"
 											name="${InputName.VERIFICATION_PERSON_ACCOUNT_INPUT_CODE}"
-											placeholder="name@example.com" /> <label
+											placeholder='<fmt:message key="verification_email.lable.massege.enter_password"/>' />
+										<label
 											class="text-lowercase verification_personal_account_form_body_label w-100 text-center"
-											for="floatingInputCode"><fmt:message
+											for="verification_email.lable.massege.enter_password">
+											<fmt:message
 												key="verification_email.lable.massege.enter_password" />
-											...</label>
+											...
+										</label>
 									</div>
 									<div
 										class="verification_personal_account_form_fotter d-flex justify-content-end">
