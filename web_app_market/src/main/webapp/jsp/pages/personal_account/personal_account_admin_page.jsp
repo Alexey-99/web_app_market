@@ -112,15 +112,71 @@
 										key="personal_account_admin_page.operation.show_all_products" />
 								</button>
 							</form>
-							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
-								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-									value="show_personal_account_main_page" />
-								<button
-									class="btn btn-primary person_account_menu_link w-100 btn_last"
-									role="button">показать заказы</button>
-							</form>
+							<button
+								class="btn btn-primary person_account_menu_link w-100 btn_last"
+								role="button" onclick="showChangeUserStatusForm()">изменить
+								статус пользователя</button>
 						</div>
 					</div>
+
+					<div class="row">
+						<div class="col-12">
+							<div
+								class="position-fixed  d-flex justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 change_user_status_form">
+								<div
+									class="position-relative w-100 d-flex flex-column change_user_status_form_inner">
+									<div class="change_user_status_form_top">
+										<div
+											class="d-flex justify-content-center align-items-center mb-4 change_user_status_form_top">
+											<div class="close_btn" onclick="closedChangeUserStatusForm()">
+												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+													width="25px" height="25px">
+                        <path
+														d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z" />
+                      </svg>
+											</div>
+											<h2 class="form_title text-center mb-3 text-lowercase">
+												изменeние статуса пользователя</h2>
+										</div>
+
+									</div>
+									<div class="add_product_pet_form">
+										<form class="add_product_pet_form_body" method="post"
+											action="${pageContext.request.contextPath}/${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+											<div
+												class="form-floating mb-3 add_product_pet_form_body_form_floating">
+												<input type="file"
+													class="form-control text-uppercase add_product_pet_form_body_input_img"
+													id="admin_page.all_products.add_product_form.add_pet.lable.choose_image_product"
+													name="${ParameterName.PARAMETER_PRODUCT_IMAGE}"
+													placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_pet.lable.choose_image_product"/>' />
+												<label
+													class="text-lowercase add_product_pet_form_body_label_img"
+													for="admin_page.all_products.add_product_form.add_pet.lable.choose_image_product"><fmt:message
+														key="admin_page.all_products.add_product_form.add_pet.lable.choose_image_product" />
+													<span> *</span></label>
+											</div>
+											<div class="form-floating mb-3">
+												<div class="input-group mb-3 mt-3">
+													<label> <span class="span_input span_input_1">
+															<input type="checkbox"
+															name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+															value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
+															<fmt:message
+																key="add_product_form_validated.add_pet.input.without_image" />
+													</span>
+													</label>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
 
 					<div class="row">
 						<div class="col-12">

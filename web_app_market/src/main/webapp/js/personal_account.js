@@ -153,3 +153,13 @@ function closedChangeProductForm(productId) {
 	const element = selectElement(`.change_product_form_${productId}`);
 	addClass(element, "d-none");
 }
+
+function showChangeUserStatusForm() {
+	const element = selectElement('.change_user_status_form');
+	removeClass(element, 'd-none');
+}
+
+function closedChangeUserStatusForm() {
+	const element = selectElement('.change_user_status_form');
+	addClass(element, 'd-none');
+}
