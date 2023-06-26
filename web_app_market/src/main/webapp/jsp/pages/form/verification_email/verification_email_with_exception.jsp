@@ -60,25 +60,27 @@
 										class="form-floating mb-3 w-100 verification_personal_account_body">
 										<input type="text"
 											class="form-control text-center is-invalid verification_personal_account_form_body_input"
-											id="floatingInputCode"
+											id="verification_email.lable.massege.enter_password" required
 											name="${InputName.VERIFICATION_PERSON_ACCOUNT_INPUT_CODE}"
-											placeholder="name@example.com" />
+											placeholder='<fmt:message key="verification_email.lable.massege.enter_password"/>' />
+										<label
+											class="text-lowercase verification_personal_account_form_body_label w-100 text-center"
+											for="verification_email.lable.massege.enter_password">
+											<fmt:message
+												key="verification_email.lable.massege.enter_password" />
+											...
+										</label>
 										<div class="invalid-feedback">
 											<fmt:message
 												key="verification_email.lable.invalid_feed_back.entered_incorrect_code" />
 										</div>
-										<label
-											class="text-lowercase verification_personal_account_form_body_label w-100 text-center"
-											for="floatingInputCode"><fmt:message
-												key="verification_email.lable.massege.enter_password" />
-											...</label>
 									</div>
 									<div
 										class="verification_personal_account_form_fotter d-flex justify-content-end">
 										<div class="verification_personal_account_form_fotter_btn">
 											<input type="hidden"
 												name="${ParameterName.PARAMETER_COMMAND}"
-												value="${CommandName.COMMAND_VERIFICATION_PERSONAL_ACCOUNT}" />
+												value="${CommandName.COMMAND_CONFIRMATION_EMAIL}" />
 											<button
 												class="btn verification_personal_account_btn_submit text-uppercase"
 												role="button">
@@ -89,7 +91,7 @@
 								</form>
 								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-										value="${CommandName.COMMAND_SEND_ONE_MORE_TIME_VERIFICATION_CODE}" />
+										value="${CommandName.COMMAND_SEND_ONE_MORE_TIME_CONFIMATION_EMAIL_CODE}" />
 									<button
 										class="btn verification_personal_account_btn_submit text-uppercase"
 										role="button">

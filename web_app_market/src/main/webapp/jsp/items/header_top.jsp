@@ -13,7 +13,6 @@
 	import="by.koroza.zoo_market.web.command.impl.user.registration.RegistrationUserCommand"%>
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
 	scope="session" />
-<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 <fmt:setBundle
 	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
 <!DOCTYPE html>
@@ -26,6 +25,7 @@
 <title>header_top.jsp</title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 <!-- is_hiving_registrated_user = AttributeName.ATTRIBUTE_IS_HAVING_RESERVED_USER -->
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body>
 
@@ -96,7 +96,7 @@
 									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 										<input type="hidden"
 											name="${ParameterName.PARAMETER_COMMAND }"
-											value="${CommandName.COMMAND_SHOW_VERIFICATION_PERSONAL_ACCOUNT_FORN}">
+											value="${CommandName.COMMAND_SHOW_CONFIRMATION_EMAIL_FORN}">
 										<button class="nav-link text-uppercase menu_link"
 											role="button">
 											<h5>
@@ -249,7 +249,7 @@
 								<li class="nav-item">
 									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-											value="${CommandName.COMMAND_SHOW_VERIFICATION_PERSONAL_ACCOUNT_FORN}">
+											value="${CommandName.COMMAND_SHOW_CONFIRMATION_EMAIL_FORN}">
 										<button class="nav-link text-uppercase menu_link"
 											role="button">
 											<h5>
@@ -440,13 +440,13 @@
 				</div>
 
 				<div class="registration_form d-none">
-					<div class="sign_in_form_top">
+					<div class="registration_form_top">
 						<h2 class="form_title text-center mb-3 text-lowercase">
 							<fmt:message
 								key="header_top.sign_in_and_registartion_form.registartion_form.title.registration" />
 						</h2>
 					</div>
-					<form class="registration_form_body"
+					<form class="registration_form_body" method="post"
 						action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 						<div class="form-floating mb-3">
 							<input type="text" class="form-control"

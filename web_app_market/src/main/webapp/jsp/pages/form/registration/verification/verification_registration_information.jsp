@@ -7,6 +7,7 @@
 <%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
 	scope="session" />
 <fmt:setBundle
@@ -83,7 +84,9 @@
 										test="${user.getEmail() == null && user.getEmail().isBlank()}">(<fmt:message
 											key="verification_registration_information.form.not_entered" />)</c:if>
 								</h5>
-								<span>логин</span>
+								<span> <fmt:message
+										key="verification_registration_information.form.user_login" />
+								</span>
 								<h5>
 									<c:if
 										test="${user.getLogin() != null && !user.getLogin().isBlank()}">${user.getLogin()}</c:if>
@@ -91,7 +94,8 @@
 										test="${user.getLogin() == null && user.getLogin().isBlank()}">(<fmt:message
 											key="verification_registration_information.form.not_entered" />)</c:if>
 								</h5>
-								<span>пароль</span>
+								<span><fmt:message
+										key="verification_registration_information.form.user_password" /></span>
 								<div class="d-flex flex-row align-items-center">
 									<h5 class="text_password hide_password mb-1">
 										<c:if

@@ -60,7 +60,7 @@
 										class="form-floating mb-3 w-100 verification_personal_account_body">
 										<input type="text"
 											class="form-control text-center verification_personal_account_form_body_input"
-											id="verification_email.lable.massege.enter_password"
+											id="verification_email.lable.massege.enter_password" required
 											name="${InputName.VERIFICATION_PERSON_ACCOUNT_INPUT_CODE}"
 											placeholder='<fmt:message key="verification_email.lable.massege.enter_password"/>' />
 										<label
@@ -76,7 +76,7 @@
 										<div class="verification_personal_account_form_fotter_btn">
 											<input type="hidden"
 												name="${ParameterName.PARAMETER_COMMAND}"
-												value="${CommandName.COMMAND_VERIFICATION_PERSONAL_ACCOUNT}" />
+												value="${CommandName.COMMAND_CONFIRMATION_EMAIL}" />
 											<button
 												class="btn verification_personal_account_btn_submit text-uppercase"
 												role="button">
@@ -87,12 +87,12 @@
 								</form>
 								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-										value="${CommandName.COMMAND_SEND_ONE_MORE_TIME_VERIFICATION_CODE}" />
+										value="${CommandName.COMMAND_SEND_ONE_MORE_TIME_CONFIMATION_EMAIL_CODE}" />
 									<button
 										class="btn verification_personal_account_btn_submit text-uppercase"
 										role="button">
 										<fmt:message
-											key="verification_email.send_verification_code_one_more_tim" />
+											key="verification_email.send_verification_code_one_more_time" />
 									</button>
 								</form>
 							</div>

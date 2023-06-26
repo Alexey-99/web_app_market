@@ -109,11 +109,13 @@
 	color: #3e3e3e;
 }
 
-.general_infomation_form_fotter, .login_password_form_fotter {
+.general_infomation_form_fotter, .login_password_form_fotter,
+	.change_user_status_form_fotter {
 	margin-top: 30px;
 }
 
-.general_infomation_form_btn_submit, .login_password_form_btn_submit {
+.general_infomation_form_btn_submit, .login_password_form_btn_submit,
+	.change_user_status_form_btn_submit {
 	width: 200px;
 	background: linear-gradient(198.09deg, var(--color2) -4.56%,
 		var(--color1) 101.81%);
@@ -131,7 +133,8 @@
 }
 
 .general_infomation_form_btn_submit:hover,
-	.login_password_form_btn_submit:hover {
+	.login_password_form_btn_submit:hover,
+	.change_user_status_form_btn_submit:hover {
 	border: 2px solid var(--color1);
 	transition: all 1s;
 }

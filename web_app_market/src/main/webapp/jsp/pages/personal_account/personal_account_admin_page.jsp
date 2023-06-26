@@ -114,8 +114,10 @@
 							</form>
 							<button
 								class="btn btn-primary person_account_menu_link w-100 btn_last"
-								role="button" onclick="showChangeUserStatusForm()">изменить
-								статус пользователя</button>
+								role="button" onclick="showChangeUserStatusForm()">
+								<fmt:message
+									key="personal_account_admin_page.operation.change_user_status" />
+							</button>
 						</div>
 					</div>
 
@@ -136,41 +138,51 @@
                       </svg>
 											</div>
 											<h2 class="form_title text-center mb-3 text-lowercase">
-												изменeние статуса пользователя</h2>
+												<fmt:message key="change_user_status.form.title" />
+											</h2>
 										</div>
 									</div>
-									<div class="add_product_pet_form">
-										<form class="add_product_pet_form_body" method="post"
-											action="${pageContext.request.contextPath}/${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
-											<div class="form-floating mb-3">
-												<input type="text" class="form-control" id="login" required
-													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
-													placeholder='<fmt:message key="login"/>' /> <label
-													class="text-lowercase" for="login"> login </label>
-											</div>
-											<div class="mb-3">
-												<select class="form-select" required
-													aria-label="select example">
-													<option value="">Откройте это меню выбора</option>
-													<option value="1">Пользователь</option>
-													<option value="2">Администратор</option>
-												</select>
-												<div class="invalid-feedback">Пример обратной связи
-													неверного выбора</div>
-											</div>
-											<div
-												class="add_product_pet_form_fotter d-flex justify-content-end">
-												<input type="hidden"
-													name="${ParameterName.PARAMETER_COMMAND}"
-													value="${CommandName.COMMAND_ADMIN_PAGE_CREATE_PET_PRODUCT}" />
-												<button class="btn add_product_pet_form_btn_submit"
-													role="button">
+									<form class="change_user_status_form_body" method="post"
+										action="${pageContext.request.contextPath}/${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+										<div class="form-floating mb-3">
+											<input type="text" class="form-control"
+												id="change_user_status.form.input_lable.login" required
+												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
+												placeholder='<fmt:message key="change_user_status.form.input_lable.login"/>' />
+											<label class="text-lowercase"
+												for="change_user_status.form.input_lable.login"> <fmt:message
+													key="change_user_status.form.input_lable.login" />
+											</label>
+										</div>
+										<div class="mb-3">
+											<select name="g" class="form-select" required
+												aria-label="select example">
+												<option value="">
 													<fmt:message
-														key="admin_page.all_products.add_product_form.add_pet.ok" />
-												</button>
-											</div>
-										</form>
-									</div>
+														key="change_user_status.form.select.optional.select_role" />
+												</option>
+												<option value="${UserRole.USER}">
+													<fmt:message
+														key="change_user_status.form.select.optional.user" />
+												</option>
+												<option value="${UserRole.ADMIN}">
+													<fmt:message
+														key="change_user_status.form.select.optional.admin" />
+												</option>
+											</select>
+										</div>
+										<div
+											class="change_user_status_form_fotter d-flex justify-content-end">
+											<input type="hidden"
+												name="${ParameterName.PARAMETER_COMMAND}"
+												value="${CommandName.COMMAND_ADMIN_PAGE_CREATE_PET_PRODUCT}" />
+											<button class="btn change_user_status_form_btn_submit"
+												role="button">
+												<fmt:message
+													key="admin_page.all_products.add_product_form.add_pet.ok" />
+											</button>
+										</div>
+									</form>
 								</div>
 							</div>
 						</div>

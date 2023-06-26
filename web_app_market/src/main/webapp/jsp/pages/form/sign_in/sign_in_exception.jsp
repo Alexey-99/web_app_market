@@ -5,6 +5,8 @@
 <%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
 <%@page
 	import="by.koroza.zoo_market.web.command.impl.user.registration.RegistrationUserCommand"%>
@@ -21,10 +23,8 @@
 <link rel="stylesheet" href="css/items/header_top.css" />
 <link rel="stylesheet"
 	href="css/items/sign_in_and_registration_form.css" />
-<title><fmt:message key="sign_in_and_registartion_form.title" />
-</title>
+<title><fmt:message key="sign_in_and_registartion_form.title" /></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
-<!-- isHivingReservedUser = AttributeName.ATTRIBUTE_IS_HAVING_RESERVED_USER -->
 </head>
 <body>
 	<header class="header">

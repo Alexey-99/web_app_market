@@ -38,7 +38,8 @@
 							class="position-relative w-100 d-flex flex-column sign_in_and_registration_form_inner">
 							<div
 								class="d-flex justify-content-center align-items-center mb-4 sign_in_and_registration_form_top_btns">
-								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 									<button class="close_btn" role="button">
@@ -124,7 +125,7 @@
 
 
 							<div class="registration_form">
-								<div class="sign_in_form_top">
+								<div class="registration_form_top">
 									<h2 class="form_title text-center mb-3 text-lowercase">
 										<fmt:message
 											key="header_top.sign_in_and_registartion_form.registartion_form.title.registration" />
@@ -132,7 +133,7 @@
 								</div>
 								<c:if
 									test="${registration_input_exception_type_and_message.isEmpty()}">
-									<form class="registration_form_body"
+									<form class="registration_form_body" method="post"
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
