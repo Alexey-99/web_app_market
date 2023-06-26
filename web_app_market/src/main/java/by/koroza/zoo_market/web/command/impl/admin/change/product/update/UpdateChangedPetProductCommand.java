@@ -1,8 +1,8 @@
-package by.koroza.zoo_market.web.command.impl.admin.change.update;
+package by.koroza.zoo_market.web.command.impl.admin.change.product.update;
 
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ADMIN_PAGE_CREATE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 import static by.koroza.zoo_market.web.command.name.AttributeName.SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS_NAME;
@@ -35,26 +35,24 @@ import by.koroza.zoo_market.web.controller.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-public class UpdateChangedFeedsAndOtherProductCommand implements Command {
+public class UpdateChangedPetProductCommand implements Command {
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
 		Router router = null;
 		HttpSession session = request.getSession();
-		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
+		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CREATE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		AbstractRegistratedUser user = (AbstractRegistratedUser) session.getAttribute(ATTRIBUTE_USER);
 		try {
 			if (user == null || user.isVerificatedEmail() == false
 					|| user.getRole().getIdRole() != UserRole.ADMIN.getIdRole()) {
 				router = new Router(HOME_PAGE_PATH);
 			} else {
-				FeedAndOther productFeedAndOther = (FeedAndOther) session
-						.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER);
-				if (productFeedAndOther != null) {
+				Pet pet = (Pet) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET);
+				if (pet != null) {
 					long numberOfUnitsProduct = (long) session
-							.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT);
-					ProductFeedsAndOtherServiceImpl.getInstance().updateProductById(productFeedAndOther,
-							numberOfUnitsProduct);
+							.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT);
+					ProductPetServiceImpl.getInstance().upadateProductPet(pet, numberOfUnitsProduct);
 					Map<Pet, Long> productPets = ProductPetServiceImpl.getInstance()
 							.getAllProductsPetsAndNumberOfUnits();
 					Map<FeedAndOther, Long> productFeedsAndOther = ProductFeedsAndOtherServiceImpl.getInstance()
@@ -67,8 +65,9 @@ public class UpdateChangedFeedsAndOtherProductCommand implements Command {
 					session.setAttribute(SESSION_ATTRIBUTE_PET_CLASS_NAME, SESSION_ATTRIBUTE_PET_CLASS);
 					session.setAttribute(SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS_NAME,
 							SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS);
-					router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH);
 					removeBufferAtributes(session);
+					router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH);
+
 				} else {
 					router = new Router(HOME_PAGE_PATH);
 				}
@@ -81,7 +80,7 @@ public class UpdateChangedFeedsAndOtherProductCommand implements Command {
 	}
 
 	private void removeBufferAtributes(HttpSession session) {
-		session.removeAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER);
-		session.removeAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT);
+		session.removeAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET);
+		session.removeAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT);
 	}
 }

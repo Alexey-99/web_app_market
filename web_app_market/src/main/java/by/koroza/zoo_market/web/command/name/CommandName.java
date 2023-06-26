@@ -58,6 +58,7 @@ import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_ALL_P
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TOTAL_PRICE_DESCENDING;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_NUMBER_OF_UNITS_ASCENDING;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_NUMBER_OF_UNITS_DESCENDING;
+import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_CHANGE_USER_STATUS;
 
 public class CommandName {
 	public static final String COMMAND_SHOW_HOME_PAGE = SHOW_HOME_PAGE.toString().toLowerCase();
@@ -201,6 +202,9 @@ public class CommandName {
 			.toString().toLowerCase();
 	public static final String COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_NUMBER_OF_UNITS_DESCENDING = ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_NUMBER_OF_UNITS_DESCENDING
 			.toString().toLowerCase();
+	/* CHANGE_USER_STATUS */
+	public static final String COMMAND_ADMIN_PAGE_CHANGE_USER_STATUS = ADMIN_PAGE_CHANGE_USER_STATUS.toString()
+			.toLowerCase();
 
 	private CommandName() {
 	}

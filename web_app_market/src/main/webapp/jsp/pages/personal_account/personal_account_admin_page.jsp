@@ -155,7 +155,7 @@
 											</label>
 										</div>
 										<div class="mb-3">
-											<select name="g" class="form-select" required
+											<select name="${InputName.}" class="form-select" required
 												aria-label="select example">
 												<option value="">
 													<fmt:message
@@ -175,11 +175,10 @@
 											class="change_user_status_form_fotter d-flex justify-content-end">
 											<input type="hidden"
 												name="${ParameterName.PARAMETER_COMMAND}"
-												value="${CommandName.COMMAND_ADMIN_PAGE_CREATE_PET_PRODUCT}" />
+												value="${CommandName.COMMAND_ADMIN_PAGE_CHANGE_USER_STATUS}" />
 											<button class="btn change_user_status_form_btn_submit"
 												role="button">
-												<fmt:message
-													key="admin_page.all_products.add_product_form.add_pet.ok" />
+												<fmt:message key="change_user_status.form.ok" />
 											</button>
 										</div>
 									</form>

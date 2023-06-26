@@ -6,8 +6,12 @@ import static by.koroza.zoo_market.web.command.name.InputName.REGISTRATION_INPUT
 import static by.koroza.zoo_market.web.command.name.InputName.REGISTRATION_INPUT_USER_NAME;
 import static by.koroza.zoo_market.web.command.name.InputName.REGISTRATION_INPUT_USER_SURNAME;
 
+import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
+import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
+
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 
 import static by.koroza.zoo_market.web.command.name.PagePathName.REGISTRATION_FORM_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.VERIFICATION_REGISTRATION_INFORMATION_PAGE_PATH;
@@ -62,20 +66,37 @@ public class RegistrationUserCommand implements Command {
 			String userSurName = request.getParameter(REGISTRATION_INPUT_USER_SURNAME);
 			String userEmail = request.getParameter(REGISTRATION_INPUT_USER_EMAIL);
 			if (!UserValidation.validEmail(userEmail)) {
-				mapInputExceptions.put(EMAIL, "Вы ввели e-mail не корректно. Ваш ввод: " + userEmail);// TODO ENGLISH
-																										// LOCALE
+				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+					mapInputExceptions.put(EMAIL, "Вы ввели e-mail не корректно. Ваш ввод: " + userEmail);
+				} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+					mapInputExceptions.put(EMAIL, "You entered email incorrect. Your input: " + userEmail);
+				}
 			}
 			String userLogin = request.getParameter(REGISTRATION_INPUT_USER_LOGIN);
 			if (!UserValidation.validLogin(userLogin)) {
-				mapInputExceptions.put(LOGIN, "Вы ввели login не корректно. Ваш ввод: " + userLogin);
+				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+					mapInputExceptions.put(LOGIN, "Вы ввели login не корректно. Ваш ввод: " + userLogin);
+				} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+					mapInputExceptions.put(LOGIN, "You entered login incorrect. Your input: " + userLogin);
+				}
 			} else {
 				if (UserValidation.isRepeatUserLogin(userLogin)) {
-					mapInputExceptions.put(LOGIN, "Логин уже существует. Введите другой логин. Ваш ввод: " + userLogin);
+					if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+						mapInputExceptions.put(LOGIN,
+								"Логин уже существует. Введите другой логин. Ваш ввод: " + userLogin);
+					} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+						mapInputExceptions.put(LOGIN,
+								"This login already exists. Enter another login. Your input: " + userLogin);
+					}
 				}
 			}
 			String userPassword = request.getParameter(REGISTRATION_INPUT_USER_PASSWORD);
 			if (!UserValidation.validPassword(userPassword)) {
-				mapInputExceptions.put(PASSWORD, "Вы ввели пароль не корректно. Ваш ввод: " + userPassword);
+				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+					mapInputExceptions.put(PASSWORD, "Вы ввели пароль не корректно. Ваш ввод: " + userPassword);
+				} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+					mapInputExceptions.put(PASSWORD, "You entered password incorrect. Your input: " + userPassword);
+				}
 			}
 			if (mapInputExceptions.isEmpty()) {
 				user = new User.UserBuilder().setName(userName).setSurname(userSurName).setEmail(userEmail)

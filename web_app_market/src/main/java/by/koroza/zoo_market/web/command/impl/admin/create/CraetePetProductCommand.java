@@ -24,7 +24,7 @@ import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUN
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_IS_CORRECT_FILE;
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_PART;
 
-import static by.koroza.zoo_market.web.command.name.ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE;
+import static by.koroza.zoo_market.web.command.name.ParameterValue.ADMIN_PAGE_PRODUCT_FORM_WITHOUT_IMAGE;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -98,7 +98,7 @@ public class CraetePetProductCommand implements Command {
 		Pet pet = session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET) != null
 				? (Pet) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET)
 				: new Pet();
-		if (request.getParameter(ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE) == null) {
+		if (request.getParameter(ADMIN_PAGE_PRODUCT_FORM_WITHOUT_IMAGE) == null) {
 			if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
 				Part part = (Part) request.getAttribute(PARAMETER_PART);
 				if (part != null && !part.getSubmittedFileName().isBlank()) {

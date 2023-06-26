@@ -1,9 +1,10 @@
 package by.koroza.zoo_market.web.command;
 
-import by.koroza.zoo_market.web.command.impl.admin.change.ChangeProductFeedsAndOtherCommand;
-import by.koroza.zoo_market.web.command.impl.admin.change.ChangeProductPetCommand;
-import by.koroza.zoo_market.web.command.impl.admin.change.update.UpdateChangedFeedsAndOtherProductCommand;
-import by.koroza.zoo_market.web.command.impl.admin.change.update.UpdateChangedPetProductCommand;
+import by.koroza.zoo_market.web.command.impl.admin.change.product.ChangeProductFeedsAndOtherCommand;
+import by.koroza.zoo_market.web.command.impl.admin.change.product.ChangeProductPetCommand;
+import by.koroza.zoo_market.web.command.impl.admin.change.product.update.UpdateChangedFeedsAndOtherProductCommand;
+import by.koroza.zoo_market.web.command.impl.admin.change.product.update.UpdateChangedPetProductCommand;
+import by.koroza.zoo_market.web.command.impl.admin.change.user.status.ChangeUserStatusCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.CraeteOtherProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.CraetePetProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.add.AddOtherProductCommand;
@@ -173,7 +174,9 @@ public enum CommandType {
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_NUMBER_OF_UNITS_ASCENDING(
 			new ShowAllProductsOffFilterSortingByNumberOfUnitsProductAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_NUMBER_OF_UNITS_DESCENDING(
-			new ShowAllProductsOffFilterSortingByNumberOfUnitsProductDescendingCommand()),;
+			new ShowAllProductsOffFilterSortingByNumberOfUnitsProductDescendingCommand()),
+	/* CHANGE_USER_STATUS */
+	ADMIN_PAGE_CHANGE_USER_STATUS(new ChangeUserStatusCommand());
 
 	private Command command;
 

@@ -120,7 +120,7 @@
 												<div class="input-group mb-3 mt-3">
 													<label> <span class="span_input span_input_1">
 															<input type="checkbox"
-															name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+															name="${InputName.ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
 															value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
 															<fmt:message
 																key="add_product_form_validated.add_pet.input.without_image" />
@@ -240,9 +240,9 @@
 												</div>
 												<div class="form-floating mb-3">
 													<div class="input-group mb-3 mt-3">
-														<label> <span class="span_input span_input_1">
-																<input type="checkbox"
-																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+														<label> <span class="span_input"> <input
+																type="checkbox"
+																name="${InputName.ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
 																value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
 																<fmt:message
 																	key="add_product_form_validated.add_pet.input.without_image" />
@@ -285,7 +285,7 @@
 													<div class="input-group mb-3 mt-3">
 														<label> <span class="span_input span_input_1">
 																<input type="checkbox"
-																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+																name="${InputName.ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
 																value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
 																<fmt:message
 																	key="add_product_form_validated.add_pet.input.without_image" />
@@ -563,7 +563,7 @@
 												<div class="input-group mb-3 mt-3">
 													<label> <span class="span_input span_input_1">
 															<input type="checkbox"
-															name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+															name="${InputName.ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
 															value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
 															<fmt:message
 																key="add_product_form_validated.add_feeds_and_other.input.without_image" />
@@ -702,9 +702,9 @@
 												</div>
 												<div class="form-floating mb-3">
 													<div class="input-group mb-3 mt-3">
-														<label> <span class="span_input span_input_1">
-																<input type="checkbox"
-																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+														<label> <span class="span_input"> <input
+																type="checkbox"
+																name="${InputName.ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
 																value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
 																<fmt:message
 																	key="add_product_form_validated.add_feeds_and_other.input.without_image" />
@@ -749,7 +749,7 @@
 													<div class="input-group mb-3 mt-3">
 														<label> <span class="span_input span_input_1">
 																<input type="checkbox"
-																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+																name="${InputName.ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
 																value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
 																<fmt:message
 																	key="add_product_form_validated.add_feeds_and_other.input.without_image" />
