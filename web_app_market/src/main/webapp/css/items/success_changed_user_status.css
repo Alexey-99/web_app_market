@@ -1,0 +1,39 @@
+.success_changed_user_status_form {
+	z-index: 7;
+	background-color: rgba(0, 0, 0, 0.2);
+	backdrop-filter: blur(5px);
+}
+
+.success_changed_user_status_form_inner {
+	max-width: 580px;
+	padding: 50px 30px 30px;
+	margin: 0 25px;
+	background: #fff;
+	border-radius: 20px;
+	box-shadow: 0 3px 12px rgb(0 0 0/ 10%);
+}
+
+.success_changed_user_status_form_title {
+	font-weight: 800;
+	font-size: 1.5em;
+	line-height: 1.25em;
+	color: #3e3e3e;
+}
+
+.success_changed_user_status_form_btn_submit {
+	width: 200px;
+	background: linear-gradient(198.09deg, var(--color2) -4.56%,
+		var(--color1) 101.81%);
+	font-size: 1em;
+	line-height: 1.25em;
+	height: 60px;
+	font-weight: 700;
+	border-radius: 35px;
+	border: 2px solid transparent;
+	outline: none;
+}
+
+.success_changed_user_status_form_btn_submit:hover {
+	border: 2px solid var(--color1);
+	transition: all 1s;
+}

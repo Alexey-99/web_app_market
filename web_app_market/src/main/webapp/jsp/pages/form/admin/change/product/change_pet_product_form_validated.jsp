@@ -233,7 +233,8 @@
 														<span>*</span>
 													</label>
 													<div class="invalid-feedback">
-														${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_IMAGE)}</div>
+														${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_IMAGE)}
+													</div>
 												</div>
 												<div class="form-floating mb-3">
 													<div class="input-group mb-3 mt-3">
@@ -303,7 +304,9 @@
 														<fmt:message
 															key="change_product_form_validated.change_pet.lable.type_pet" />
 													</label>
-													<div class="invalid-feedback">${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_SPECIE)}</div>
+													<div class="invalid-feedback">
+														${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_SPECIE)}
+													</div>
 												</div>
 											</c:if>
 											<c:if
@@ -337,7 +340,9 @@
 														<fmt:message
 															key="change_product_form_validated.change_pet.lable.breed_pet" />
 													</label>
-													<div class="invalid-feedback">${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BREED)}</div>
+													<div class="invalid-feedback">
+														${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BREED)}
+													</div>
 												</div>
 											</c:if>
 											<c:if
@@ -371,7 +376,9 @@
 														<fmt:message
 															key="change_product_form_validated.change_pet.lable.birth_date_pet" />
 													</label>
-													<div class="invalid-feedback">${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BIRTH_DATE)}</div>
+													<div class="invalid-feedback">
+														${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BIRTH_DATE)}
+													</div>
 												</div>
 											</c:if>
 											<c:if
@@ -406,7 +413,9 @@
 														<fmt:message
 															key="change_product_form_validated.change_pet.lable.price_pet" />
 													</label>
-													<div class="invalid-feedback">${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}</div>
+													<div class="invalid-feedback">
+														${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}
+													</div>
 												</div>
 											</c:if>
 											<c:if
@@ -442,7 +451,9 @@
 														<fmt:message
 															key="change_product_form_validated.change_pet.lable.discount_pet" />
 													</label>
-													<div class="invalid-feedback">${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT)}</div>
+													<div class="invalid-feedback">
+														${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT)}
+													</div>
 												</div>
 											</c:if>
 											<c:if
@@ -477,7 +488,9 @@
 														<fmt:message
 															key="change_product_form_validated.change_pet.lable.number_unit_pet" />
 													</label>
-													<div class="invalid-feedback">${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT)}</div>
+													<div class="invalid-feedback">
+														${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT)}
+													</div>
 												</div>
 											</c:if>
 											<c:if

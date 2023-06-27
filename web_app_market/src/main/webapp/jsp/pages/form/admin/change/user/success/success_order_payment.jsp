@@ -15,14 +15,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title><fmt:message key="success_payment.title" /></title>
 <link rel="stylesheet" href="css/bootstrap/bootstrap.css" />
 <link rel="stylesheet" href="css/items/root.css" />
-<link rel="stylesheet" href="css/items/success_payment.css" />
+<link rel="stylesheet" href="css/items/success_changed_user_status.css" />
+<title><fmt:message key="success_change_user_status_page.title" /></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 </head>
 <body>
-	<section class="success_payment"
+	<section class="success_changed_user_status"
 		style="min-height: 100vh; background: var(--color2)">
 		<div class="container">
 			<div class="row">
@@ -30,24 +30,28 @@
 					class="col-12 d-flex justify-content-center align-items-center flex-column"
 					style="min-height: 100vh">
 					<div
-						class="position-fixed d-flex justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 success_payment_form">
+						class="position-fixed d-flex justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 success_changed_user_status_form">
 						<div
-							class="position-relative w-100 d-flex justify-content-center align-items-center flex-column success_payment_form_inner">
+							class="position-relative w-100 d-flex justify-content-center align-items-center flex-column success_changed_user_status_form_inner">
 							<img
 								src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.LOGO_PNG_IMAGE_PATH}"
 								alt="logo" />
-							<h1 class="text-uppercase success_payment_form_title">
-								<fmt:message key="success_payment.massege.order_paid" />
+							<h1 class="text-uppercase success_changed_user_status_form_title">
+								<fmt:message
+									key="success_change_user_status_page.user_with_login" />
+								<span> ??? </span>
+								<fmt:message key="success_change_user_status_page.given_rights" />
+								<span> ??? </span>
 							</h1>
 							<div
-								class="success_payment_form_fotter d-flex justify-content-end">
+								class="success_changed_user_status_form_fotter d-flex justify-content-end">
 								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_HOME_PAGE}" />
 									<button
-										class="btn text-uppercase d-flex justify-content-center align-items-center success_payment_form_btn_submit"
+										class="btn text-uppercase d-flex justify-content-center align-items-center success_changed_user_status_form_btn_submit"
 										role="button">
-										<fmt:message key="success_payment.massege.continue" />
+										<fmt:message key="success_change_user_status_page.ok" />
 									</button>
 								</form>
 							</div>
@@ -59,10 +63,5 @@
 	</section>
 
 	<script src="js/bootstrap.bundle.js"></script>
-	<script src="js/basket.js"></script>
-
-	<script>
-		deleteAllProductsFromLocalStorage();
-	</script>
 </body>
 </html>

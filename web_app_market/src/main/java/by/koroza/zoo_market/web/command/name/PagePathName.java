@@ -26,6 +26,9 @@ public final class PagePathName {
 	/* ADMIN_OPERATIONS */
 	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH = "jsp/pages/personal_account/admin_pages/all_products_page.jsp";
 
+	/* ADMIN_change_user_status_form_validated */
+	public static final String PERSONAL_ACCOUNT_ADMIN_CHANGE_USER_STATUS_FORM_VALIDATED_PATH = "jsp/pages/form/admin/change/user/change_user_status_form_validated.jsp";
+
 	/* ADMIN_CREATE_PRODUCT_FORM */
 	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_PET_PRODUCT_FORM = "jsp/pages/form/admin/create/create_pet_product_form_validated.jsp";
 	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM = "jsp/pages/form/admin/create/create_feed_and_other_product_form_validated.jsp";

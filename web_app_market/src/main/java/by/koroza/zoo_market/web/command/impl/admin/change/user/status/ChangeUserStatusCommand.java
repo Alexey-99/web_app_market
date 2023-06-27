@@ -6,6 +6,7 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ADMI
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_CHANGE_USER_STATUS_FORM_VALIDATED_PATH;
 import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_USER_STATUS_FORM_INPUT_LOGIN;
 import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_USER_STATUS_FORM_SELECT_USER_ROLE;
 import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
@@ -49,7 +50,7 @@ public class ChangeUserStatusCommand implements Command {
 				} else {
 					session.setAttribute(ATTRIBUTE_ADMIN_PAGE_CHANGE_USER_STATUS_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
 							mapInputExceptions);
-					// change_user_status_form_validated
+					router = new Router(PERSONAL_ACCOUNT_ADMIN_CHANGE_USER_STATUS_FORM_VALIDATED_PATH);
 				}
 			} else {
 				router = new Router(HOME_PAGE_PATH);
