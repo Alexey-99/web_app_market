@@ -28,6 +28,8 @@ public final class PagePathName {
 
 	/* ADMIN_change_user_status_form_validated */
 	public static final String PERSONAL_ACCOUNT_ADMIN_CHANGE_USER_STATUS_FORM_VALIDATED_PATH = "jsp/pages/form/admin/change/user/change_user_status_form_validated.jsp";
+	/* success_changed_user_status */
+	public static final String PERSONAL_ACCOUNT_ADMIN_SUCCESS_CHANGED_USER_STATUS_PAGE_PATH = "jsp/pages/form/admin/change/user/success/success_changed_user_status.jsp";
 
 	/* ADMIN_CREATE_PRODUCT_FORM */
 	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_PET_PRODUCT_FORM = "jsp/pages/form/admin/create/create_pet_product_form_validated.jsp";
@@ -57,8 +59,7 @@ public final class PagePathName {
 	public static final String CHANGE_LOGIN_AND_PASSWORD_FORM_VALIDATED_PAGE_PATH = "jsp/pages/personal_account/forms/change_login_password_form_validated.jsp";
 
 	public static final String ORDER_PAYMENT_FORM_VALIDATED_PAGE_PATH = "jsp/pages/form/payment/order_payment_form_validated.jsp";
-
-	public static final String SUCCESS_ORDER_PAYMENT_PAGE_PATH = "jsp/pages/form/payment/success_order_payment.jsp";
+	public static final String SUCCESS_ORDER_PAYMENT_PAGE_PATH = "jsp/pages/form/payment/success/success_order_payment.jsp";
 
 	private PagePathName() {
 	}

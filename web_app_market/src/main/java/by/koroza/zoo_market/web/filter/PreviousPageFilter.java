@@ -5,6 +5,8 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFF
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_CHANGE_USER_STATUS_LOGIN;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_CHANGE_USER_STATUS_ROLE_ID;
 
 import static by.koroza.zoo_market.web.command.name.CommandName.COMMAND_SHOW_HOME_PAGE;
 import static by.koroza.zoo_market.web.command.name.CommandName.COMMAND_SHOW_BACKET_PAGE;
@@ -128,5 +130,7 @@ public class PreviousPageFilter extends HttpFilter implements Filter {
 		session.removeAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT);
 		session.removeAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET);
 		session.removeAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT);
+		session.removeAttribute(ATTRIBUTE_BUFFER_CHANGE_USER_STATUS_LOGIN);
+		session.removeAttribute(ATTRIBUTE_BUFFER_CHANGE_USER_STATUS_ROLE_ID);
 	}
 }

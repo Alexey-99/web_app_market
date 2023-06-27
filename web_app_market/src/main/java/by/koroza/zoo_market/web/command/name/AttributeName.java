@@ -60,11 +60,15 @@ public final class AttributeName {
 
 	public static final String REQUEST_ATTRIBUTE_COMMAND = "sorting_command";
 
-	/* BUFFER - create or change product */
+	/* BUFFER */
+	/* create or change product */
 	public static final String ATTRIBUTE_BUFFER_PRODUCT_PET = "product_pet";
 	public static final String ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT = "product_pet_number_of_units";
 	public static final String ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER = "product_feeds_and_other";
 	public static final String ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT = "product_feeds_and_other_number_of_units";
+	/* change user status */
+	public static final String ATTRIBUTE_BUFFER_CHANGE_USER_STATUS_LOGIN = "changing_user_login";
+	public static final String ATTRIBUTE_BUFFER_CHANGE_USER_STATUS_ROLE_ID = "changing_user_role_id";
 
 	public static final String ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE = "saved_products_id";
 

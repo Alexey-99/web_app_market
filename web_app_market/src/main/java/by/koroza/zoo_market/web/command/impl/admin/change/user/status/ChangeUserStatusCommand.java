@@ -2,13 +2,20 @@ package by.koroza.zoo_market.web.command.impl.admin.change.user.status;
 
 import static by.koroza.zoo_market.model.entity.status.UserRole.ADMIN;
 import static by.koroza.zoo_market.model.entity.status.UserRole.USER;
+
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ADMIN_PAGE_CHANGE_USER_STATUS_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_CHANGE_USER_STATUS_LOGIN;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_CHANGE_USER_STATUS_ROLE_ID;
+
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_CHANGE_USER_STATUS_FORM_VALIDATED_PATH;
+import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_SUCCESS_CHANGED_USER_STATUS_PAGE_PATH;
+
 import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_USER_STATUS_FORM_INPUT_LOGIN;
 import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_USER_STATUS_FORM_SELECT_USER_ROLE;
+
 import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
 import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
 
@@ -46,7 +53,9 @@ public class ChangeUserStatusCommand implements Command {
 				String roleId = getInputParameterRoleId(request, mapInputExceptions);
 				if (mapInputExceptions.isEmpty()) {
 					UserServiceImpl.getInstance().changeRoleStatus(login, Integer.parseInt(roleId));
-					// success changed status
+					session.setAttribute(ATTRIBUTE_BUFFER_CHANGE_USER_STATUS_LOGIN, login);
+					session.setAttribute(ATTRIBUTE_BUFFER_CHANGE_USER_STATUS_ROLE_ID, roleId);
+					router = new Router(PERSONAL_ACCOUNT_ADMIN_SUCCESS_CHANGED_USER_STATUS_PAGE_PATH);
 				} else {
 					session.setAttribute(ATTRIBUTE_ADMIN_PAGE_CHANGE_USER_STATUS_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
 							mapInputExceptions);

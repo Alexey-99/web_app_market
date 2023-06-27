@@ -7,6 +7,8 @@
 <%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.ImagePath"%>
+<%@page import="by.koroza.zoo_market.model.entity.status.UserRole"%>
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
 	scope="session" />
 <fmt:setBundle
@@ -20,6 +22,8 @@
 <link rel="stylesheet" href="css/items/success_changed_user_status.css" />
 <title><fmt:message key="success_change_user_status_page.title" /></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
+<!-- changing_user_login = AttributeName.ATTRIBUTE_BUFFER_CHANGE_USER_STATUS_LOGIN -->
+<!-- changing_user_role_id = AttributeName.ATTRIBUTE_BUFFER_CHANGE_USER_STATUS_ROLE_ID -->
 </head>
 <body>
 	<section class="success_changed_user_status"
@@ -39,15 +43,23 @@
 							<h1 class="text-uppercase success_changed_user_status_form_title">
 								<fmt:message
 									key="success_change_user_status_page.user_with_login" />
-								<span> ??? </span>
+								<span> ${changing_user_login} </span>
 								<fmt:message key="success_change_user_status_page.given_rights" />
-								<span> ??? </span>
+								<span> <c:if
+										test="${changing_user_role_id == UserRole.USER.getIdRole()}">
+										<fmt:message key="success_change_user_status_page.user" />
+									</c:if> <c:if
+										test="${changing_user_role_id == UserRole.ADMIN.getIdRole()}">
+										<fmt:message
+											key="success_change_user_status_page.administator" />
+									</c:if>
+								</span>
 							</h1>
 							<div
 								class="success_changed_user_status_form_fotter d-flex justify-content-end">
 								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-										value="${CommandName.COMMAND_SHOW_HOME_PAGE}" />
+										value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE}" />
 									<button
 										class="btn text-uppercase d-flex justify-content-center align-items-center success_changed_user_status_form_btn_submit"
 										role="button">
