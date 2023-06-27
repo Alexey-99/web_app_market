@@ -51,6 +51,7 @@ public class InputName {
 
 	/* ADMIN_PAGE */
 	public static final String ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE = "without_image";
+
 	/* CREATE_PET_PRODUCT */
 	public static final String ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRODUCT_IMAGE = "product_image";
 	public static final String ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE = "product_pet_specie";
@@ -88,6 +89,10 @@ public class InputName {
 	public static final String ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE = "other_product_price";
 	public static final String ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT = "other_product_discount";
 	public static final String ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT = "other_product_number_of_units_product";
+
+	/* CHANGE_USER_STATUS */
+	public static final String ADMIN_PAGE_CHANGE_USER_STATUS_FORM_INPUT_LOGIN = "user_login";
+	public static final String ADMIN_PAGE_CHANGE_USER_STATUS_FORM_SELECT_USER_ROLE = "user_role";
 
 	private InputName() {
 	}

@@ -1,6 +1,8 @@
 package by.koroza.zoo_market.web.command.impl.admin.change.product;
 
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ADMIN_PAGE_CREATE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
+import static by.koroza.zoo_market.model.entity.status.UserRole.ADMIN;
+
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ADMIN_PAGE_CHANGE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
@@ -8,12 +10,13 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_UPLO
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 
 import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_ID;
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE;
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED;
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT;
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT;
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE;
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE;
+import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE;
+import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_BREED;
+import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_DISCOUNT;
+import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT;
+import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_PRICE;
+import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_SPECIE;
+import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE;
 
 import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
 import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
@@ -25,14 +28,11 @@ import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUN
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_IS_CORRECT_FILE;
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_PART;
 
-import static by.koroza.zoo_market.web.command.name.ParameterValue.ADMIN_PAGE_PRODUCT_FORM_WITHOUT_IMAGE;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import by.koroza.zoo_market.model.entity.market.product.Pet;
-import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.image.ImageFileServiceImpl;
@@ -54,10 +54,9 @@ public class ChangeProductPetCommand implements Command {
 		Router router = null;
 		HttpSession session = request.getSession();
 		AbstractRegistratedUser user = (AbstractRegistratedUser) session.getAttribute(ATTRIBUTE_USER);
-		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CREATE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
+		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CHANGE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		try {
-			if (user != null && user.isVerificatedEmail() == true
-					&& user.getRole().getIdRole() == UserRole.ADMIN.getIdRole()) {
+			if (user != null && user.isVerificatedEmail() == true && user.getRole().getIdRole() == ADMIN.getIdRole()) {
 				Map<String, String> mapInputExceptions = new HashMap<>();
 				Map<Pet, Long> petAndNumber = this.getInputParameters(request, mapInputExceptions);
 				if (mapInputExceptions.isEmpty()) {
@@ -66,7 +65,7 @@ public class ChangeProductPetCommand implements Command {
 							petAndNumber.get((Pet) petAndNumber.keySet().toArray()[0]));
 					router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CHANGE_PET_PRODUCT);
 				} else {
-					session.setAttribute(ATTRIBUTE_ADMIN_PAGE_CREATE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
+					session.setAttribute(ATTRIBUTE_ADMIN_PAGE_CHANGE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
 							mapInputExceptions);
 					session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET, (Pet) petAndNumber.keySet().toArray()[0]);
 					session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT,
@@ -92,7 +91,7 @@ public class ChangeProductPetCommand implements Command {
 				? (Pet) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET)
 				: ProductPetServiceImpl.getInstance().getProductPetById(id);
 		if (pet != null) {
-			if (request.getParameter(ADMIN_PAGE_PRODUCT_FORM_WITHOUT_IMAGE) == null) {
+			if (request.getParameter(ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE) == null) {
 				if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
 					Part part = (Part) request.getAttribute(PARAMETER_PART);
 					if (part != null && !part.getSubmittedFileName().isBlank()) {
@@ -111,7 +110,7 @@ public class ChangeProductPetCommand implements Command {
 			} else {
 				pet.setImagePath(null);
 			}
-			String specie = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE);
+			String specie = request.getParameter(ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_SPECIE);
 			if (!PetValidation.validPetSpecie(specie)) {
 				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.SPECIE.toString(),
@@ -123,7 +122,7 @@ public class ChangeProductPetCommand implements Command {
 			} else {
 				pet.setSpecie(specie);
 			}
-			String breed = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED);
+			String breed = request.getParameter(ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_BREED);
 			if (!PetValidation.validPetBreed(breed)) {
 				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.BREED.toString(),
@@ -135,7 +134,7 @@ public class ChangeProductPetCommand implements Command {
 			} else {
 				pet.setBreed(breed);
 			}
-			String birthDate = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE);
+			String birthDate = request.getParameter(ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE);
 			if (!PetValidation.validPetBirthDate(birthDate)) {
 				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.BIRTH_DATE.toString(),
@@ -147,7 +146,7 @@ public class ChangeProductPetCommand implements Command {
 			} else {
 				pet.setBirthDate(birthDate);
 			}
-			String price = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE);
+			String price = request.getParameter(ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_PRICE);
 			if (!PetValidation.validPetPrice(price)) {
 				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.PRICE.toString(),
@@ -159,7 +158,7 @@ public class ChangeProductPetCommand implements Command {
 			} else {
 				pet.setPrice(Double.parseDouble(price));
 			}
-			String discount = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT);
+			String discount = request.getParameter(ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_DISCOUNT);
 			if (!PetValidation.validPetDiscount(discount)) {
 				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.DISCOUNT.toString(),
@@ -172,7 +171,7 @@ public class ChangeProductPetCommand implements Command {
 				pet.setDiscount(Double.parseDouble(discount));
 			}
 			String numberOfUnitsProduct = request
-					.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT);
+					.getParameter(ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT);
 			if (!PetValidation.validPetNumberOfUnitsProduct(numberOfUnitsProduct)) {
 				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.NUMBER_OF_UNITS_PRODUCT.toString(),

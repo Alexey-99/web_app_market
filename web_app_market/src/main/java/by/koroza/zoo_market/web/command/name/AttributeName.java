@@ -12,14 +12,26 @@ public final class AttributeName {
 	public static final String ATTRIBUTE_IS_HAVING_REGISTRATED_USER = "is_hiving_registrated_user";
 
 	/* INPUT_EXCEPTIONS */
+	/* registration */
 	public static final String ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "registration_input_exception_type_and_message";
+	/* payment_form */
 	public static final String ATTRIBUTE_ORDER_PAYMENT_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "order_payment_input_exception_type_and_message";
+	/* market_pages.filters */
 	public static final String ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "products_pets_filter_input_exception_type_and_message";
 	public static final String ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "products_feeds_and_other_filter_input_exception_type_and_message";
+	/* pesron_account */
+	/* pesron_account.change_person_information_form */
 	public static final String ATTRIBUTE_CHANGING_PERSON_INFOMATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "changing_person_information_input_exception_type_and_message";
+	/* pesron_account.change_login_and_password_form */
 	public static final String ATTRIBUTE_CHANGING_LOGIN_AND_PASSWORD_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "changing_login_and_password_input_exception_type_and_message";
+	/* create_products_form */
 	public static final String ATTRIBUTE_ADMIN_PAGE_CREATE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "admin_page_create_pet_product_input_exception_type_and_message";
 	public static final String ATTRIBUTE_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "admin_page_create_feeds_and_other_product_input_exception_type_and_message";
+	/* change_products_form */
+	public static final String ATTRIBUTE_ADMIN_PAGE_CHANGE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "admin_page_change_pet_product_input_exception_type_and_message";
+	public static final String ATTRIBUTE_ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "admin_page_change_feeds_and_other_product_input_exception_type_and_message";
+	/* change_user_status_form */
+	public static final String ATTRIBUTE_ADMIN_PAGE_CHANGE_USER_STATUS_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "admin_page_change_user_status_input_exception_type_and_message";
 
 	public static final String ATTRIBUTE_USER_HISTORY_ORDERS = "user_history_orders";
 
@@ -40,9 +52,6 @@ public final class AttributeName {
 
 	public static final String SESSION_ATTRIBUTE_PET_CLASS_NAME = "pet_class";
 	public static final String SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS_NAME = "feed_and_other_class";
-
-//	public static final String ATTRIBUTE_MAP_PRODUCTS_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT = "map_product_feeds_and_other_and_number_of_units";
-//	public static final String ATTRIBUTE_MAP_PRODUCTS_PET_AND_NUMBER_OF_UNITS_PRODUCT = "map_product_pet_and_number_of_units";
 
 	public static final String ATTRIBUTE_FOR_LIST_PETS = "productsPets";
 	public static final String ATTRIBUTE_FOR_LIST_FEEDS_AND_OTHER = "productsOther";

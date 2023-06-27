@@ -24,4 +24,6 @@ public interface UserDao {
 
 	public boolean changeLoginAndPassword(AbstractRegistratedUser user, String login, String password)
 			throws DaoException;
+
+	public boolean isExistsUserWithLogin(String login) throws DaoException;
 }

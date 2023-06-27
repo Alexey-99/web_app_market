@@ -1,6 +1,6 @@
 package by.koroza.zoo_market.web.command.impl.admin.change.product;
 
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
@@ -8,13 +8,14 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_UPLO
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 
 import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_ID;
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND;
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION;
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT;
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT;
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES;
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE;
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE;
+import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND;
+import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION;
+import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT;
+import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT;
+import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES;
+import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE;
+import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE;
+import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE;
 
 import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
 import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
@@ -25,8 +26,6 @@ import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUN
 
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_IS_CORRECT_FILE;
 import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_PART;
-
-import static by.koroza.zoo_market.web.command.name.ParameterValue.ADMIN_PAGE_PRODUCT_FORM_WITHOUT_IMAGE;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -59,7 +58,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 	public Router execute(HttpServletRequest request) throws CommandException {
 		Router router = null;
 		HttpSession session = request.getSession();
-		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
+		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		AbstractRegistratedUser user = (AbstractRegistratedUser) session.getAttribute(ATTRIBUTE_USER);
 		try {
 			if (user == null || user.isVerificatedEmail() == false
@@ -77,7 +76,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 							PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CHANGE_FEED_AND_OTHER_PRODUCT);
 				} else {
 					session.setAttribute(
-							ATTRIBUTE_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
+							ATTRIBUTE_ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
 							mapInputExceptions);
 					session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER,
 							(FeedAndOther) productAndNumber.keySet().toArray()[0]);
@@ -103,7 +102,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 				? (FeedAndOther) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER)
 				: ProductFeedsAndOtherServiceImpl.getInstance().getProductFeedAndOtherById(id);
 		if (productFeedAndOther != null) {
-			if (request.getParameter(ADMIN_PAGE_PRODUCT_FORM_WITHOUT_IMAGE) == null) {
+			if (request.getParameter(ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE) == null) {
 				if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
 					Part part = (Part) request.getAttribute(PARAMETER_PART);
 					if (part != null && !part.getSubmittedFileName().isBlank()) {
@@ -122,7 +121,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 			} else {
 				productFeedAndOther.setImagePath(null);
 			}
-			String type = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE);
+			String type = request.getParameter(ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE);
 			if (!FeedsAndOtherValidation.validPetType(type)) {
 				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.PRODUCT_TYPE.toString(),
@@ -135,7 +134,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 			} else {
 				productFeedAndOther.setProductType(type);
 			}
-			String brand = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND);
+			String brand = request.getParameter(ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND);
 			if (!FeedsAndOtherValidation.validBrand(brand)) {
 				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.BRAND.toString(),
@@ -147,7 +146,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 			} else {
 				productFeedAndOther.setBrand(brand);
 			}
-			String description = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION);
+			String description = request.getParameter(ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION);
 			if (!FeedsAndOtherValidation.validDescrription(description)) {
 				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.DESCRIPTION.toString(),
@@ -159,7 +158,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 			} else {
 				productFeedAndOther.setDescriptions(description);
 			}
-			String petTypes = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES);
+			String petTypes = request.getParameter(ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES);
 			if (!FeedsAndOtherValidation.validPetType(petTypes)) {
 				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.PET_TYPES.toString(),
@@ -172,7 +171,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 			} else {
 				productFeedAndOther.setPetTypes(petTypes);
 			}
-			String price = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE);
+			String price = request.getParameter(ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE);
 			if (!FeedsAndOtherValidation.validPetPrice(price)) {
 				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.PRICE.toString(),
@@ -184,7 +183,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 			} else {
 				productFeedAndOther.setPrice(Double.parseDouble(price));
 			}
-			String discount = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT);
+			String discount = request.getParameter(ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT);
 			if (!FeedsAndOtherValidation.validPetDiscount(discount)) {
 				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.DISCOUNT.toString(),
@@ -197,7 +196,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 				productFeedAndOther.setDiscount(Double.parseDouble(discount));
 			}
 			String numberOfUnitsProduct = request
-					.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT);
+					.getParameter(ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT);
 			if (!FeedsAndOtherValidation.validPetNumberOfUnitsProduct(numberOfUnitsProduct)) {
 				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.NUMBER_OF_UNITS_PRODUCT.toString(),

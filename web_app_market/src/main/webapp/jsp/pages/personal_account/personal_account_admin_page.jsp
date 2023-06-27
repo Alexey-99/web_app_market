@@ -147,7 +147,7 @@
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
 												id="change_user_status.form.input_lable.login" required
-												name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
+												name="${InputName.ADMIN_PAGE_CHANGE_USER_STATUS_FORM_INPUT_LOGIN}"
 												placeholder='<fmt:message key="change_user_status.form.input_lable.login"/>' />
 											<label class="text-lowercase"
 												for="change_user_status.form.input_lable.login"> <fmt:message
@@ -155,8 +155,9 @@
 											</label>
 										</div>
 										<div class="mb-3">
-											<select name="${InputName.}" class="form-select" required
-												aria-label="select example">
+											<select
+												name="${InputName.ADMIN_PAGE_CHANGE_USER_STATUS_FORM_SELECT_USER_ROLE}"
+												class="form-select" required aria-label="select example">
 												<option value="">
 													<fmt:message
 														key="change_user_status.form.select.optional.select_role" />

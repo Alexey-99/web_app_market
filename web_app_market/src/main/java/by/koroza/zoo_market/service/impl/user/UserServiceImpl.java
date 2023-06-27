@@ -91,4 +91,18 @@ public class UserServiceImpl implements UserService {
 			throw new ServiceException(e);
 		}
 	}
+
+	@Override
+	public boolean isExistsUserWithLogin(String login) throws ServiceException {
+		try {
+			return UserDaoImpl.getInstance().isExistsUserWithLogin(login);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public boolean changeRoleStatus(String userLogin, int roleStatusId) throws ServiceException {
+		return false;
+	}
 }

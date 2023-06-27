@@ -242,4 +242,28 @@ public class UserDaoImpl implements UserDao {
 		}
 		return result;
 	}
+
+	private static final String QUERY_COUNT_ROW_WITH_LOGIN = """
+			SELECT COUNT(users.login)
+			FROM users
+			WHERE users.login = ?;
+			""";
+
+	@Override
+	public boolean isExistsUserWithLogin(String login) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(QUERY_COUNT_ROW_WITH_LOGIN)) {
+			statement.setString(1, login);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					int count = resultSet.getInt(IDENTIFIER_COUNT_ROWS_OF_USER_LOGINS);
+					result = count > 0;
+				}
+			}
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		return result;
+	}
 }

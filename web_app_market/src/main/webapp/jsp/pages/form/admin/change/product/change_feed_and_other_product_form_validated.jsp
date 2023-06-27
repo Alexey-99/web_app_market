@@ -34,6 +34,7 @@
 <!-- map_product_feeds_and_other_and_number_of_units = AttributeName.ATTRIBUTE_MAP_PRODUCT_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT -->
 <!-- product_pet = AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET -->
 <!-- product_pet_number_of_units = AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT -->
+<!-- admin_page_change_feeds_and_other_product_input_exception_type_and_message = AttributeName.ATTRIBUTE_ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE -->
 </head>
 <body
 	style="height: 1087px; display: flex; flex-direction: column; justify-content: space-between;">
@@ -79,7 +80,7 @@
 
 								<div class="add_other_product_form">
 									<c:if
-										test="${admin_page_create_feeds_and_other_product_input_exception_type_and_message == null || admin_page_create_feeds_and_other_product_input_exception_type_and_message.isEmpty()}">
+										test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message == null || admin_page_change_feeds_and_other_product_input_exception_type_and_message.isEmpty()}">
 										<form class="add_other_product_form_body" method="post"
 											action="${pageContext.request.contextPath}/${ServletName.SERVLET_UPLOAD_IMAGE_NAME}"
 											enctype="multipart/form-data">
@@ -118,10 +119,10 @@
 											</div>
 											<div class="form-floating mb-3">
 												<div class="input-group mb-3 mt-3">
-													<label> <span class="span_input span_input_1">
-															<input type="checkbox"
-															name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
-															value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
+													<label> <span class="span_input"> <input
+															type="checkbox"
+															name="${InputName.ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+															value="${ParameterValue.ADMIN_PAGE_PRODUCT_FORM_WITHOUT_IMAGE}" />
 															<fmt:message
 																key="change_product_form_validated.change_feeds_and_other.input.without_image" />
 													</span>
@@ -131,7 +132,7 @@
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control"
 													id="change_product_form_validated.change_feeds_and_other.lable.type_product"
-													name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE}"
+													name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE}"
 													value="${product_feeds_and_other.getProductType()}"
 													placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.type_product"/>' />
 												<label class="text-lowercase"
@@ -143,7 +144,7 @@
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control"
 													id="change_product_form_validated.change_feeds_and_other.lable.brand_product"
-													name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND}"
+													name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND}"
 													value="${product_feeds_and_other.getBrand()}"
 													placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.brand_product"/>' />
 												<label class="text-lowercase"
@@ -155,7 +156,7 @@
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control"
 													id="change_product_form_validated.change_feeds_and_other.lable.description_product"
-													name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION}"
+													name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION}"
 													value="${product_feeds_and_other.getDescriptions()}"
 													placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.description_product"/>' />
 												<label class="text-lowercase"
@@ -167,7 +168,7 @@
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control"
 													id="change_product_form_validated.change_feeds_and_other.lable.types_pet_for_product"
-													name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES}"
+													name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES}"
 													value='<c:if test="${product_feeds_and_other.getPetTypes() != null}">${product_feeds_and_other.getPetTypes().toString().substring(1, product_feeds_and_other.getPetTypes().toString().length() - 1)}</c:if>'
 													placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.types_pet_for_product"/>' />
 												<label class="text-lowercase"
@@ -179,7 +180,7 @@
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control"
 													id="change_product_form_validated.change_feeds_and_other.lable.price_product"
-													name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE}"
+													name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE}"
 													value="${product_feeds_and_other.getPrice()}"
 													placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.price_product"/>'
 													pattern="^(\d+)(\.\d{1,2})?$" /> <label
@@ -192,7 +193,7 @@
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control"
 													id="change_product_form_validated.change_feeds_and_other.lable.discount_product"
-													name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT}"
+													name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT}"
 													value="${product_feeds_and_other.getDiscount()}"
 													placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.discount_product"/>'
 													pattern="^(\d+)(\.\d{1,2})?$" /> <label
@@ -205,7 +206,7 @@
 											<div class="form-floating mb-3">
 												<input type="number" class="form-control"
 													id="change_product_form_validated.change_feeds_and_other.lable.number_unit_product"
-													name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
+													name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
 													value="${product_feeds_and_other_number_of_units}"
 													placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.number_unit_product"/>'
 													pattern="^(\d+)$" /> <label class="text-lowercase"
@@ -235,7 +236,7 @@
 										</form>
 									</c:if>
 									<c:if
-										test="${admin_page_create_feeds_and_other_product_input_exception_type_and_message != null && !admin_page_create_feeds_and_other_product_input_exception_type_and_message.isEmpty()}">
+										test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message != null && !admin_page_change_feeds_and_other_product_input_exception_type_and_message.isEmpty()}">
 										<form class="add_other_product_form_body" method="post"
 											action="${pageContext.request.contextPath}/${ServletName.SERVLET_UPLOAD_IMAGE_NAME}"
 											enctype="multipart/form-data">
@@ -243,7 +244,7 @@
 												name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_ID}"
 												value="${product_feeds_and_other.getId()}" />
 											<c:if
-												test="${admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_IMAGE)}">
+												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_IMAGE)}">
 												<div
 													class="form-floating mb-3 add_other_product_form_body_form_floating">
 													<input type="file"
@@ -258,14 +259,14 @@
 															key="change_product_form_validated.change_feeds_and_other.lable.choose_image_product" />
 														<span>*</span>
 													</label>
-													<div class="invalid-feedback">${admin_page_create_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_IMAGE)}</div>
+													<div class="invalid-feedback">${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_IMAGE)}</div>
 												</div>
 												<div class="form-floating mb-3">
 													<div class="input-group mb-3 mt-3">
 														<label> <span class="span_input span_input_1">
 																<input type="checkbox"
-																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
-																value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
+																name="${InputName.ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+																value="${ParameterValue.ADMIN_PAGE_PRODUCT_FORM_WITHOUT_IMAGE}" />
 																<fmt:message
 																	key="change_product_form_validated.change_feeds_and_other.input.without_image" />
 														</span>
@@ -274,7 +275,7 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_IMAGE)}">
+												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_IMAGE)}">
 												<div
 													class="form-floating mb-3 add_other_product_form_body_form_floating">
 													<input type="file"
@@ -309,8 +310,8 @@
 													<div class="input-group mb-3 mt-3">
 														<label> <span class="span_input span_input_1">
 																<input type="checkbox"
-																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
-																value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
+																name="${InputName.ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+																value="${ParameterValue.ADMIN_PAGE_PRODUCT_FORM_WITHOUT_IMAGE}" />
 																<fmt:message
 																	key="change_product_form_validated.change_feeds_and_other.input.without_image" />
 														</span>
@@ -319,26 +320,26 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRODUCT_TYPE)}">
+												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRODUCT_TYPE)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_feeds_and_other.lable.type_product"
-														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE}"
+														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE}"
 														placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.type_product"/>' />
 													<label class="text-lowercase"
 														for="change_product_form_validated.change_feeds_and_other.lable.type_product">
 														<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.type_product" />
 													</label>
-													<div class="invalid-feedback">${admin_page_create_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRODUCT_TYPE)}</div>
+													<div class="invalid-feedback">${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRODUCT_TYPE)}</div>
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRODUCT_TYPE)}">
+												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRODUCT_TYPE)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
 														id="change_product_form_validated.change_feeds_and_other.lable.type_product"
-														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE}"
+														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE}"
 														value="${product_feeds_and_other.getProductType()}"
 														placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.type_product"/>' />
 													<label class="text-lowercase"
@@ -353,26 +354,26 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_BRAND)}">
+												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_BRAND)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_feeds_and_other.lable.brand_product"
-														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND}"
+														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND}"
 														placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.brand_product"/>' />
 													<label class="text-lowercase"
 														for="change_product_form_validated.change_feeds_and_other.lable.brand_product">
 														<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.brand_product" />
 													</label>
-													<div class="invalid-feedback">${admin_page_create_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_BRAND)}</div>
+													<div class="invalid-feedback">${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_BRAND)}</div>
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_BRAND)}">
+												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_BRAND)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
 														id="change_product_form_validated.change_feeds_and_other.lable.brand_product"
-														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND}"
+														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND}"
 														value="${product_feeds_and_other.getBrand()}"
 														placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.brand_product"/>' />
 													<label class="text-lowercase"
@@ -387,26 +388,26 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DESCRIPTION)}">
+												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DESCRIPTION)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_feeds_and_other.lable.description_product"
-														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION}"
+														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION}"
 														placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.description_product"/>' />
 													<label class="text-lowercase"
 														for="change_product_form_validated.change_feeds_and_other.lable.description_product">
 														<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.description_product" />
 													</label>
-													<div class="invalid-feedback">${admin_page_create_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DESCRIPTION)}</div>
+													<div class="invalid-feedback">${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DESCRIPTION)}</div>
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DESCRIPTION)}">
+												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DESCRIPTION)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
 														id="change_product_form_validated.change_feeds_and_other.lable.description_product"
-														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION}"
+														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION}"
 														value="${product_feeds_and_other.getDescriptions()}"
 														placeholder='<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.description_product" />' />
@@ -422,11 +423,11 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PET_TYPES)}">
+												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PET_TYPES)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_feeds_and_other.lable.types_pet_for_product"
-														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES}"
+														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES}"
 														placeholder='<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.types_pet_for_product" />' />
 													<label class="text-lowercase"
@@ -434,15 +435,15 @@
 														<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.types_pet_for_product" />
 													</label>
-													<div class="invalid-feedback">${admin_page_create_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PET_TYPES)}</div>
+													<div class="invalid-feedback">${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PET_TYPES)}</div>
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PET_TYPES)}">
+												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PET_TYPES)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
 														id="change_product_form_validated.change_feeds_and_other.lable.types_pet_for_product"
-														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES}"
+														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES}"
 														value='<c:if test="${product_feeds_and_other.getPetTypes() != null}">${product_feeds_and_other.getPetTypes().toString().substring(1, product_feeds_and_other.getPetTypes().toString().length() - 1)}</c:if>'
 														placeholder='<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.types_pet_for_product" />' />
@@ -456,11 +457,11 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
+												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_feeds_and_other.lable.price_product"
-														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE}"
+														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE}"
 														placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.price_product" />'
 														pattern="^(\d+)(\.\d{1,2})?$" /> <label
 														class="text-lowercase"
@@ -468,15 +469,15 @@
 														<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.price_product" />
 													</label>
-													<div class="invalid-feedback">${admin_page_create_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}</div>
+													<div class="invalid-feedback">${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}</div>
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
+												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
 														id="change_product_form_validated.change_feeds_and_other.lable.price_product"
-														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE}"
+														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE}"
 														value="${product_feeds_and_other.getPrice()}"
 														placeholder='<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.price_product" />'
@@ -493,11 +494,11 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT)}">
+												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_feeds_and_other.lable.discount_product"
-														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT}"
+														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT}"
 														placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.discount_product" />'
 														pattern="^(\d+)(\.\d{1,2})?$" /> <label
 														class="text-lowercase"
@@ -505,15 +506,15 @@
 														<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.discount_product" />
 													</label>
-													<div class="invalid-feedback">${admin_page_create_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT)}</div>
+													<div class="invalid-feedback">${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT)}</div>
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT)}">
+												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
 														id="change_product_form_validated.change_feeds_and_other.lable.discount_product"
-														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT}"
+														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT}"
 														value="${product_feeds_and_other.getDiscount()}"
 														placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.discount_product" />'
 														pattern="^(\d+)(\.\d{1,2})?$" /> <label
@@ -529,26 +530,26 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT)}">
+												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT)}">
 												<div class="form-floating mb-3">
 													<input type="number" class="form-control is-invalid"
 														id="change_product_form_validated.change_feeds_and_other.lable.number_unit_product"
-														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
+														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
 														placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.number_unit_product" />'
 														pattern="^(\d+)$" /> <label class="text-lowercase"
 														for="change_product_form_validated.change_feeds_and_other.lable.number_unit_product">
 														<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.number_unit_product" />
 													</label>
-													<div class="invalid-feedback">${admin_page_create_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT)}</div>
+													<div class="invalid-feedback">${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT)}</div>
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_create_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT)}">
+												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT)}">
 												<div class="form-floating mb-3">
 													<input type="number" class="form-control is-valid"
 														id="change_product_form_validated.change_feeds_and_other.lable.number_unit_product"
-														name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
+														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT}"
 														value="${product_feeds_and_other_number_of_units}"
 														placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.number_unit_product" />'
 														pattern="^(\d+)$" /> <label class="text-lowercase"

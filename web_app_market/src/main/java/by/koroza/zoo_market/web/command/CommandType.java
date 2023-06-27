@@ -9,8 +9,8 @@ import by.koroza.zoo_market.web.command.impl.admin.create.CraeteOtherProductComm
 import by.koroza.zoo_market.web.command.impl.admin.create.CraetePetProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.add.AddOtherProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.add.AddPetProductCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.form.change.ShowChangeFeedsAndOtherProductFormCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.form.change.ShowChangePetProductFormCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.form.change.product.ShowChangeFeedsAndOtherProductFormCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.form.change.product.ShowChangePetProductFormCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.form.create.ShowCreateFeedsAndOtherProductFormCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.form.create.ShowCreatePetProductFormCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.products.ShowAllProductsOffFilterCommand;

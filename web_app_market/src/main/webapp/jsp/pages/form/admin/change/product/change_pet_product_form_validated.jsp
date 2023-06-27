@@ -31,6 +31,7 @@
 <!-- map_product_feeds_and_other_and_number_of_units = AttributeName.ATTRIBUTE_MAP_PRODUCT_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT -->
 <!-- product_pet = AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET -->
 <!-- product_pet_number_of_units = AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT -->
+<!-- admin_page_change_pet_product_input_exception_type_and_message = AttributeName.ATTRIBUTE_ADMIN_PAGE_CHANGE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE -->
 </head>
 <body>
 	<%@ include file="/jsp/items/header_block_header_top.jsp"%>
@@ -74,7 +75,7 @@
 
 								<div class="add_product_pet_form">
 									<c:if
-										test="${admin_page_create_pet_product_input_exception_type_and_message == null || admin_page_create_pet_product_input_exception_type_and_message.isEmpty()}">
+										test="${admin_page_change_pet_product_input_exception_type_and_message == null || admin_page_change_pet_product_input_exception_type_and_message.isEmpty()}">
 										<form class="add_product_pet_form_body" method="post"
 											action="${pageContext.request.contextPath}/${ServletName.SERVLET_UPLOAD_IMAGE_NAME}"
 											enctype="multipart/form-data">
@@ -113,8 +114,8 @@
 												<div class="input-group mb-3 mt-3">
 													<label> <span class="span_input"> <input
 															type="checkbox"
-															name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
-															value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
+															name="${InputName.ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+															value="${ParameterValue.ADMIN_PAGE_PRODUCT_FORM_WITHOUT_IMAGE}" />
 															<fmt:message
 																key="change_product_form_validated.change_pet.input.without_image" />
 													</span>
@@ -208,7 +209,7 @@
 										</form>
 									</c:if>
 									<c:if
-										test="${admin_page_create_pet_product_input_exception_type_and_message != null && !admin_page_create_pet_product_input_exception_type_and_message.isEmpty()}">
+										test="${admin_page_change_pet_product_input_exception_type_and_message != null && !admin_page_change_pet_product_input_exception_type_and_message.isEmpty()}">
 										<form class="add_product_pet_form_body" method="post"
 											action="${pageContext.request.contextPath}/${ServletName.SERVLET_UPLOAD_IMAGE_NAME}"
 											enctype="multipart/form-data">
@@ -216,7 +217,7 @@
 												name="${InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_ID}"
 												value="${product_pet.getId()}" />
 											<c:if
-												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_IMAGE) }">
+												test="${admin_page_change_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_IMAGE) }">
 												<div
 													class="form-floating mb-3 add_product_pet_form_body_form_floating ">
 													<input type="file"
@@ -232,14 +233,14 @@
 														<span>*</span>
 													</label>
 													<div class="invalid-feedback">
-														${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_IMAGE)}</div>
+														${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_IMAGE)}</div>
 												</div>
 												<div class="form-floating mb-3">
 													<div class="input-group mb-3 mt-3">
 														<label> <span class="span_input span_input_1">
 																<input type="checkbox"
-																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
-																value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
+																name="${InputName.ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+																value="${ParameterValue.ADMIN_PAGE_PRODUCT_FORM_WITHOUT_IMAGE}" />
 																<fmt:message
 																	key="change_product_form_validated.change_pet.input.without_image" />
 														</span>
@@ -248,7 +249,7 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_IMAGE) }">
+												test="${!admin_page_change_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_IMAGE) }">
 												<div
 													class="form-floating mb-3 add_product_pet_form_body_form_floating ">
 													<input type="file"
@@ -281,8 +282,8 @@
 													<div class="input-group mb-3 mt-3">
 														<label> <span class="span_input"> <input
 																type="checkbox"
-																name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
-																value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
+																name="${InputName.ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
+																value="${ParameterValue.ADMIN_PAGE_PRODUCT_FORM_WITHOUT_IMAGE}" />
 																<fmt:message
 																	key="change_product_form_validated.change_pet.input.without_image" />
 														</span>
@@ -291,7 +292,7 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_SPECIE) }">
+												test="${admin_page_change_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_SPECIE) }">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_pet.lable.type_pet"
@@ -302,11 +303,11 @@
 														<fmt:message
 															key="change_product_form_validated.change_pet.lable.type_pet" />
 													</label>
-													<div class="invalid-feedback">${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_SPECIE)}</div>
+													<div class="invalid-feedback">${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_SPECIE)}</div>
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_SPECIE) }">
+												test="${!admin_page_change_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_SPECIE) }">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
 														id="change_product_form_validated.change_pet.lable.type_pet"
@@ -325,7 +326,7 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BREED) }">
+												test="${admin_page_change_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BREED) }">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_pet.lable.breed_pet"
@@ -336,7 +337,7 @@
 														<fmt:message
 															key="change_product_form_validated.change_pet.lable.breed_pet" />
 													</label>
-													<div class="invalid-feedback">${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BREED)}</div>
+													<div class="invalid-feedback">${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BREED)}</div>
 												</div>
 											</c:if>
 											<c:if
@@ -359,7 +360,7 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BIRTH_DATE) }">
+												test="${admin_page_change_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BIRTH_DATE) }">
 												<div class="form-floating mb-3">
 													<input type="date" class="form-control is-invalid"
 														id="change_product_form_validated.change_pet.lable.birth_date_pet"
@@ -370,11 +371,11 @@
 														<fmt:message
 															key="change_product_form_validated.change_pet.lable.birth_date_pet" />
 													</label>
-													<div class="invalid-feedback">${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BIRTH_DATE)}</div>
+													<div class="invalid-feedback">${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BIRTH_DATE)}</div>
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BIRTH_DATE) }">
+												test="${!admin_page_change_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_BIRTH_DATE) }">
 												<div class="form-floating mb-3">
 													<input type="date" class="form-control is-valid"
 														id="change_product_form_validated.change_pet.lable.birth_date_pet"
@@ -393,7 +394,7 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE) }">
+												test="${admin_page_change_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE) }">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_pet.lable.price_pet"
@@ -405,11 +406,11 @@
 														<fmt:message
 															key="change_product_form_validated.change_pet.lable.price_pet" />
 													</label>
-													<div class="invalid-feedback">${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}</div>
+													<div class="invalid-feedback">${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}</div>
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
+												test="${!admin_page_change_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
 														id="change_product_form_validated.change_pet.lable.price_pet"
@@ -429,7 +430,7 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT) }">
+												test="${admin_page_change_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT) }">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_pet.lable.discount_pet"
@@ -441,11 +442,11 @@
 														<fmt:message
 															key="change_product_form_validated.change_pet.lable.discount_pet" />
 													</label>
-													<div class="invalid-feedback">${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT)}</div>
+													<div class="invalid-feedback">${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT)}</div>
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT) }">
+												test="${!admin_page_change_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT) }">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
 														id="change_product_form_validated.change_pet.lable.discount_pet"
@@ -465,7 +466,7 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT) }">
+												test="${admin_page_change_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT) }">
 												<div class="form-floating mb-3">
 													<input type="number" class="form-control is-invalid"
 														id="change_product_form_validated.change_pet.lable.number_unit_pet"
@@ -476,11 +477,11 @@
 														<fmt:message
 															key="change_product_form_validated.change_pet.lable.number_unit_pet" />
 													</label>
-													<div class="invalid-feedback">${admin_page_create_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT)}</div>
+													<div class="invalid-feedback">${admin_page_change_pet_product_input_exception_type_and_message.get(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT)}</div>
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_create_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT) }">
+												test="${!admin_page_change_pet_product_input_exception_type_and_message.containsKey(CraetePetProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT) }">
 												<div class="form-floating mb-3">
 													<input type="number" class="form-control is-valid"
 														id="change_product_form_validated.change_pet.lable.number_unit_pet"
