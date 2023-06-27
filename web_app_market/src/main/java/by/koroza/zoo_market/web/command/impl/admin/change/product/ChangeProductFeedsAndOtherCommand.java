@@ -101,6 +101,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 				? (FeedAndOther) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER)
 				: ProductFeedsAndOtherServiceImpl.getInstance().getProductFeedAndOtherById(id);
 		if (productFeedAndOther != null) {
+			String oldImagePath = productFeedAndOther.getImagePath();
 			if (request.getParameter(ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE) == null) {
 				if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
 					Part part = (Part) request.getAttribute(PARAMETER_PART);
@@ -118,6 +119,12 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 				}
 			} else {
 				productFeedAndOther.setImagePath(null);
+			}
+			if (productFeedAndOther.getImagePath() != oldImagePath
+					|| !productFeedAndOther.getImagePath().equals(oldImagePath)) {
+				if (oldImagePath != null) {
+					ImageFileServiceImpl.getInstance().removeProductImage(oldImagePath);
+				}
 			}
 			String type = request.getParameter(ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE);
 			if (!FeedsAndOtherValidation.validPetType(type)) {

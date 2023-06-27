@@ -90,6 +90,7 @@ public class ChangeProductPetCommand implements Command {
 				? (Pet) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET)
 				: ProductPetServiceImpl.getInstance().getProductPetById(id);
 		if (pet != null) {
+			String oldImagePath = pet.getImagePath();
 			if (request.getParameter(ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE) == null) {
 				if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
 					Part part = (Part) request.getAttribute(PARAMETER_PART);
@@ -107,6 +108,11 @@ public class ChangeProductPetCommand implements Command {
 				}
 			} else {
 				pet.setImagePath(null);
+			}
+			if (pet.getImagePath() != oldImagePath || !pet.getImagePath().equals(oldImagePath)) {
+				if (oldImagePath != null) {
+					ImageFileServiceImpl.getInstance().removeProductImage(oldImagePath);
+				}
 			}
 			String specie = request.getParameter(ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_SPECIE);
 			if (!PetValidation.validPetSpecie(specie)) {

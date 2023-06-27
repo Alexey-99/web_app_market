@@ -70,13 +70,6 @@ public class CraetePetProductCommand implements Command {
 				Map<String, String> mapInputExceptions = new HashMap<>();
 				Map<Pet, Long> petAndNumber = getInputParameters(request, mapInputExceptions);
 				if (mapInputExceptions.isEmpty()) {
-					if (request.getParameter(ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE) == null) {
-						Part part = (Part) request.getAttribute(PARAMETER_PART);
-						if (part != null && !part.getSubmittedFileName().isBlank()) {
-							((Pet) petAndNumber.keySet().toArray()[0])
-									.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part));
-						}
-					}
 					session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET, (Pet) petAndNumber.keySet().toArray()[0]);
 					session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT,
 							petAndNumber.get((Pet) petAndNumber.keySet().toArray()[0]));
@@ -103,9 +96,14 @@ public class CraetePetProductCommand implements Command {
 		Pet pet = session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET) != null
 				? (Pet) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET)
 				: new Pet();
-
+		String oldImagePath = pet.getImagePath();
 		if (request.getParameter(ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE) == null) {
-			if (!(boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
+			if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
+				Part part = (Part) request.getAttribute(PARAMETER_PART);
+				if (part != null && !part.getSubmittedFileName().isBlank()) {
+					pet.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part));
+				}
+			} else {
 				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.IMAGE.toString(),
 							"Вы выбрали не корретный файл для картинки для товара");
@@ -116,6 +114,11 @@ public class CraetePetProductCommand implements Command {
 			}
 		} else {
 			pet.setImagePath(null);
+		}
+		if (pet.getImagePath() != oldImagePath || !pet.getImagePath().equals(oldImagePath)) {
+			if (oldImagePath != null) {
+				ImageFileServiceImpl.getInstance().removeProductImage(oldImagePath);
+			}
 		}
 		String specie = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE);
 		if (!PetValidation.validPetSpecie(specie)) {
