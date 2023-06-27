@@ -26,4 +26,6 @@ public interface ProductFeedsAndOtherService {
 	public FeedAndOther getProductFeedAndOtherById(long id) throws ServiceException;
 
 	public boolean updateProductById(FeedAndOther product, long numberOfUnitsProduct) throws ServiceException;
+
+	public String getProductImagePathById(long id) throws ServiceException;
 }

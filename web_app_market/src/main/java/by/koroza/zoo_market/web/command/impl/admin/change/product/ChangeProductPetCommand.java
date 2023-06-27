@@ -6,7 +6,6 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ADMI
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_UPLOAD_FILE_DIRECTORY;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 
 import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_ID;
@@ -58,7 +57,7 @@ public class ChangeProductPetCommand implements Command {
 		try {
 			if (user != null && user.isVerificatedEmail() == true && user.getRole().getIdRole() == ADMIN.getIdRole()) {
 				Map<String, String> mapInputExceptions = new HashMap<>();
-				Map<Pet, Long> petAndNumber = this.getInputParameters(request, mapInputExceptions);
+				Map<Pet, Long> petAndNumber = getInputParameters(request, mapInputExceptions);
 				if (mapInputExceptions.isEmpty()) {
 					session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET, (Pet) petAndNumber.keySet().toArray()[0]);
 					session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT,
@@ -95,8 +94,7 @@ public class ChangeProductPetCommand implements Command {
 				if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
 					Part part = (Part) request.getAttribute(PARAMETER_PART);
 					if (part != null && !part.getSubmittedFileName().isBlank()) {
-						pet.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part,
-								(String) request.getAttribute(ATTRIBUTE_UPLOAD_FILE_DIRECTORY)));
+						pet.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part));
 					}
 				} else {
 					if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {

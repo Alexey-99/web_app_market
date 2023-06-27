@@ -116,6 +116,15 @@ public class ProductPetServiceImpl implements ProductPetService {
 		}
 	}
 
+	@Override
+	public String getProductImagePathById(long id) throws ServiceException {
+		try {
+			return this.productPetDao.getProductImagePathById(id);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+
 	private List<Pet> selectProductsPetsByBirthDate(FilterPet filter, List<Pet> listPetsWithFilter) {
 		if ((filter.getMinNumberMonth() != 0 || filter.getMinNumberYear() != 0)
 				|| (filter.getMaxNumberMonth() != 0 || filter.getMaxNumberYear() != 0)) {

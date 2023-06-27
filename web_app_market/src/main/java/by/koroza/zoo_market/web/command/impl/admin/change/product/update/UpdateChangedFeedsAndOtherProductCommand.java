@@ -24,6 +24,7 @@ import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.exception.SortingException;
+import by.koroza.zoo_market.service.impl.image.ImageFileServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
 import by.koroza.zoo_market.service.sorting.SortingMapProducts;
@@ -53,8 +54,13 @@ public class UpdateChangedFeedsAndOtherProductCommand implements Command {
 				if (productFeedAndOther != null) {
 					long numberOfUnitsProduct = (long) session
 							.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT);
+					String oldImagePath = ProductFeedsAndOtherServiceImpl.getInstance()
+							.getProductImagePathById(productFeedAndOther.getId());
 					ProductFeedsAndOtherServiceImpl.getInstance().updateProductById(productFeedAndOther,
 							numberOfUnitsProduct);
+					if (oldImagePath != null) {
+						ImageFileServiceImpl.getInstance().removeProductImage(oldImagePath);
+					}
 					Map<Pet, Long> productPets = ProductPetServiceImpl.getInstance()
 							.getAllProductsPetsAndNumberOfUnits();
 					Map<FeedAndOther, Long> productFeedsAndOther = ProductFeedsAndOtherServiceImpl.getInstance()

@@ -10,6 +10,7 @@ import static by.koroza.zoo_market.dao.name.ColumnName.PETS_PRICE;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_SPECIE;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_IMAGE_PATH;
+import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_PETS_IMAGE_PATH;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -297,22 +298,68 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	@Override
 	public boolean upadateProductPet(Pet pet, long numberOfUnitsProduct) throws DaoException {
 		boolean result = false;
-		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
-			try (PreparedStatement statement = connection.prepareStatement(QUERY_UPDETE_PRODUCT_PET_BY_ID)) {
-				statement.setString(1, pet.getImagePath());
-				statement.setString(2, pet.getSpecie());
-				statement.setString(3, pet.getBreed());
-				statement.setString(4, pet.getBirthDate().toString());
-				statement.setDouble(5, pet.getPrice());
-				statement.setDouble(6, pet.getDiscount());
-				statement.setLong(7, numberOfUnitsProduct);
-				statement.setLong(8, pet.getId());
-				result = statement.executeUpdate() > 0;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(QUERY_UPDETE_PRODUCT_PET_BY_ID)) {
+			statement.setString(1, pet.getImagePath());
+			statement.setString(2, pet.getSpecie());
+			statement.setString(3, pet.getBreed());
+			statement.setString(4, pet.getBirthDate().toString());
+			statement.setDouble(5, pet.getPrice());
+			statement.setDouble(6, pet.getDiscount());
+			statement.setLong(7, numberOfUnitsProduct);
+			statement.setLong(8, pet.getId());
+			result = statement.executeUpdate() > 0;
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		return result;
+	}
+
+	private static final String QUERY_SELECT_COUNT_PRODUCTS_WITH_IMAGE_PATH = """
+			SELECT COUNT(pets.image_path)
+			FROM pets
+			WHERE pets.image_path = ?;
+			""";
+
+	@Override
+	public boolean existsProductWithImagePath(String imagePath) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement(QUERY_SELECT_COUNT_PRODUCTS_WITH_IMAGE_PATH)) {
+			statement.setString(1, imagePath);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					result = resultSet.getInt(IDENTIFIER_COUNT_ROWS_OF_PETS_IMAGE_PATH) > 0;
+				}
 			}
 		} catch (SQLException e) {
 			throw new DaoException(e);
 		}
 		return result;
+	}
+
+	private static final String QUERY_SELECT_PRODUCT_IMAGE_PATH_BY_ID = """
+			SELECT pets.image_path
+			FROM pets
+			WHERE pets.id = ?;
+			""";
+
+	@Override
+	public String getProductImagePathById(long id) throws DaoException {
+		String imagePath = null;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_PRODUCT_IMAGE_PATH_BY_ID)) {
+			statement.setLong(1, id);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					imagePath = resultSet.getString(PETS_IMAGE_PATH);
+				}
+			}
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		return imagePath;
 	}
 
 	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS_NOT_CLOSED = """

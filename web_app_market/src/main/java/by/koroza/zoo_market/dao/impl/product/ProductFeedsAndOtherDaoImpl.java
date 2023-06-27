@@ -11,6 +11,7 @@ import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_TYPE;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_LAST_INSERT_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_IMAGE_PATH;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT;
+import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_FEEDS_AND_OTHER_IMAGE_PATH;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -341,6 +342,53 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 		return result;
 	}
 
+	private static final String QUERY_SELECT_COUNT_PRODUCTS_WITH_IMAGE_PATH = """
+			SELECT COUNT(feeds_and_other.image_path)
+			FROM feeds_and_other
+			WHERE feeds_and_other.image_path = ?;
+			""";
+
+	@Override
+	public boolean existsProductWithImagePath(String imagePath) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement(QUERY_SELECT_COUNT_PRODUCTS_WITH_IMAGE_PATH)) {
+			statement.setString(1, imagePath);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					result = resultSet.getInt(IDENTIFIER_COUNT_ROWS_OF_FEEDS_AND_OTHER_IMAGE_PATH) > 0;
+				}
+			}
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		return result;
+	}
+
+	private static final String QUERY_SELECT_PRODUCT_IMAGE_PATH_BY_ID = """
+			SELECT feeds_and_other.image_path
+			FROM feeds_and_other
+			WHERE feeds_and_other.id = ?;
+			""";
+
+	@Override
+	public String getProductImagePathById(long id) throws DaoException {
+		String imagePath = null;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_PRODUCT_IMAGE_PATH_BY_ID)) {
+			statement.setLong(1, id);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					imagePath = resultSet.getString(FEEDS_AND_OTHER_IMAGE_PATH);
+				}
+			}
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		return imagePath;
+	}
+
 	private static final char CODE_OF_TYPE_PRODUCT_FEEDS_AND_OTHER = 'o';
 
 	private static final String QUERY_SELECT_PRODUCTS_FEED_AND_OTHER_HAVING_BY_FILTER = """
@@ -429,5 +477,4 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 			query.append(" and (").append(nameParameter).append(" < ").append(max);
 		}
 	}
-
 }

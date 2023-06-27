@@ -24,5 +24,9 @@ public interface ProductPetDao {
 
 	public Pet getProductPetById(long id) throws DaoException;
 
-	boolean upadateProductPet(Pet pet, long numberOfUnitsProduct) throws DaoException;
+	public boolean upadateProductPet(Pet pet, long numberOfUnitsProduct) throws DaoException;
+
+	public boolean existsProductWithImagePath(String imagePath) throws DaoException;
+
+	public String getProductImagePathById(long id) throws DaoException;
 }

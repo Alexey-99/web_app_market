@@ -25,4 +25,8 @@ public interface ProductFeedsAndOtherDao {
 	public FeedAndOther getProductFeedAndOtherById(long id) throws DaoException;
 
 	public boolean updateProductById(FeedAndOther product, long numberOfUnitsProduct) throws DaoException;
+
+	public boolean existsProductWithImagePath(String imagePath) throws DaoException;
+
+	public String getProductImagePathById(long id) throws DaoException;
 }

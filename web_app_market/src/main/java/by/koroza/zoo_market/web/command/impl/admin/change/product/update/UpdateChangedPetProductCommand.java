@@ -24,6 +24,7 @@ import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.exception.SortingException;
+import by.koroza.zoo_market.service.impl.image.ImageFileServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
 import by.koroza.zoo_market.service.sorting.SortingMapProducts;
@@ -52,7 +53,11 @@ public class UpdateChangedPetProductCommand implements Command {
 				if (pet != null) {
 					long numberOfUnitsProduct = (long) session
 							.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT);
+					String oldImagePath = ProductPetServiceImpl.getInstance().getProductImagePathById(pet.getId());
 					ProductPetServiceImpl.getInstance().upadateProductPet(pet, numberOfUnitsProduct);
+					if (oldImagePath != null) {
+						ImageFileServiceImpl.getInstance().removeProductImage(oldImagePath);
+					}
 					Map<Pet, Long> productPets = ProductPetServiceImpl.getInstance()
 							.getAllProductsPetsAndNumberOfUnits();
 					Map<FeedAndOther, Long> productFeedsAndOther = ProductFeedsAndOtherServiceImpl.getInstance()
@@ -67,7 +72,6 @@ public class UpdateChangedPetProductCommand implements Command {
 							SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS);
 					removeBufferAtributes(session);
 					router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH);
-
 				} else {
 					router = new Router(HOME_PAGE_PATH);
 				}

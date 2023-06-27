@@ -6,5 +6,7 @@ import jakarta.servlet.http.Part;
 
 public interface ImageFileService {
 
-	public String saveImageOnDisk(Part imagePart, String imageUploadDir) throws ServiceException;
+	public String saveImageOnDisk(Part imagePart) throws ServiceException;
+
+	public boolean removeProductImage(String imagePath) throws ServiceException;
 }

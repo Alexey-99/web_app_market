@@ -77,6 +77,10 @@ public final class ColumnName {
 			+ VERIFICATE_CODES_CODE + ")";
 	public static final String IDENTIFIER_COUNT_ROWS_OF_BANK_CARDS_ID = IDENTIFIER_COUNT_ROWS + "(" + BANK_CARDS_ID
 			+ ")";
+	public static final String IDENTIFIER_COUNT_ROWS_OF_PETS_IMAGE_PATH = IDENTIFIER_COUNT_ROWS + "(" + PETS_IMAGE_PATH
+			+ ")";
+	public static final String IDENTIFIER_COUNT_ROWS_OF_FEEDS_AND_OTHER_IMAGE_PATH = IDENTIFIER_COUNT_ROWS + "("
+			+ FEEDS_AND_OTHER_IMAGE_PATH + ")";
 
 	private ColumnName() {
 	}

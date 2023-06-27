@@ -13,6 +13,9 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import by.koroza.zoo_market.dao.exception.DaoException;
+import by.koroza.zoo_market.dao.impl.product.ProductFeedsAndOtherDaoImpl;
+import by.koroza.zoo_market.dao.impl.product.ProductPetDaoImpl;
 import by.koroza.zoo_market.service.ImageFileService;
 import by.koroza.zoo_market.service.exception.ServiceException;
 
@@ -30,7 +33,7 @@ public class ImageFileServiceImpl implements ImageFileService {
 	}
 
 	@Override
-	public String saveImageOnDisk(Part imagePart, String imageUploadDir) throws ServiceException {
+	public String saveImageOnDisk(Part imagePart) throws ServiceException {
 		String imagePath = null;
 		try (InputStream inputStream = imagePart.getInputStream()) {
 			String submittedName = imagePart.getSubmittedFileName();
@@ -45,5 +48,22 @@ public class ImageFileServiceImpl implements ImageFileService {
 			throw new ServiceException("Exception when save image", e);
 		}
 		return imagePath;
+	}
+
+	@Override
+	public boolean removeProductImage(String imagePath) throws ServiceException {
+		boolean result = false;
+		File fileImagePath = new File(imagePath);
+		if (fileImagePath.exists()) {
+			try {
+				if (!ProductPetDaoImpl.getInstance().existsProductWithImagePath(imagePath)
+						&& !ProductFeedsAndOtherDaoImpl.getInstance().existsProductWithImagePath(imagePath)) {
+					result = fileImagePath.delete();
+				}
+			} catch (DaoException e) {
+				throw new ServiceException(e);
+			}
+		}
+		return result;
 	}
 }

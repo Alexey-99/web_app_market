@@ -32,11 +32,11 @@ public final class PagePathName {
 	public static final String PERSONAL_ACCOUNT_ADMIN_SUCCESS_CHANGED_USER_STATUS_PAGE_PATH = "jsp/pages/form/admin/change/user/success/success_changed_user_status.jsp";
 
 	/* ADMIN_CREATE_PRODUCT_FORM */
-	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_PET_PRODUCT_FORM = "jsp/pages/form/admin/create/create_pet_product_form_validated.jsp";
-	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM = "jsp/pages/form/admin/create/create_feed_and_other_product_form_validated.jsp";
+	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_PET_PRODUCT_FORM = "jsp/pages/form/admin/create/product/create_pet_product_form_validated.jsp";
+	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM = "jsp/pages/form/admin/create/product/create_feed_and_other_product_form_validated.jsp";
 	/* ADMIN_VERIDICATION_INFORMATION */
-	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CREATE_PET_PRODUCT = "jsp/pages/form/admin/create/verification/verification_information_for_create_product_pet.jsp";
-	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CREATE_FEEDS_AND_OTHER_PRODUCT = "jsp/pages/form/admin/create/verification/verification_information_for_create_product_feed_and_other.jsp";
+	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CREATE_PET_PRODUCT = "jsp/pages/form/admin/create/product/verification/verification_information_for_create_product_pet.jsp";
+	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CREATE_FEEDS_AND_OTHER_PRODUCT = "jsp/pages/form/admin/create/product/verification/verification_information_for_create_product_feed_and_other.jsp";
 
 	/* ADMIN_CHANGE_PRODUCT_FORM */
 	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM = "jsp/pages/form/admin/change/product/change_pet_product_form_validated.jsp";

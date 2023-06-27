@@ -4,7 +4,6 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ADMI
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_UPLOAD_FILE_DIRECTORY;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 
 import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE;
@@ -71,6 +70,13 @@ public class CraetePetProductCommand implements Command {
 				Map<String, String> mapInputExceptions = new HashMap<>();
 				Map<Pet, Long> petAndNumber = getInputParameters(request, mapInputExceptions);
 				if (mapInputExceptions.isEmpty()) {
+					if (request.getParameter(ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE) == null) {
+						Part part = (Part) request.getAttribute(PARAMETER_PART);
+						if (part != null && !part.getSubmittedFileName().isBlank()) {
+							((Pet) petAndNumber.keySet().toArray()[0])
+									.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part));
+						}
+					}
 					session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET, (Pet) petAndNumber.keySet().toArray()[0]);
 					session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT,
 							petAndNumber.get((Pet) petAndNumber.keySet().toArray()[0]));
@@ -97,14 +103,9 @@ public class CraetePetProductCommand implements Command {
 		Pet pet = session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET) != null
 				? (Pet) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET)
 				: new Pet();
+
 		if (request.getParameter(ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE) == null) {
-			if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
-				Part part = (Part) request.getAttribute(PARAMETER_PART);
-				if (part != null && !part.getSubmittedFileName().isBlank()) {
-					pet.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part,
-							(String) request.getAttribute(ATTRIBUTE_UPLOAD_FILE_DIRECTORY)));
-				}
-			} else {
+			if (!(boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
 				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.IMAGE.toString(),
 							"Вы выбрали не корретный файл для картинки для товара");

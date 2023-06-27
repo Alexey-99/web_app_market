@@ -25,4 +25,6 @@ public interface ProductPetService {
 	public Pet getProductPetById(long id) throws ServiceException;
 
 	public boolean upadateProductPet(Pet pet, long numberOfUnitsProduct) throws ServiceException;
+
+	public String getProductImagePathById(long id) throws ServiceException;
 }

@@ -4,7 +4,6 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ADMI
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_UPLOAD_FILE_DIRECTORY;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 
 import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND;
@@ -74,6 +73,13 @@ public class CraeteOtherProductCommand implements Command {
 				Map<String, String> mapInputExceptions = new HashMap<>();
 				Map<FeedAndOther, Long> productAndNumber = getInputParameters(request, mapInputExceptions);
 				if (mapInputExceptions.isEmpty()) {
+					if (request.getParameter(ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE) == null) {
+						Part part = (Part) request.getAttribute(PARAMETER_PART);
+						if (part != null) {
+							((FeedAndOther) productAndNumber.keySet().toArray()[0])
+									.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part));
+						}
+					}
 					session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER,
 							(FeedAndOther) productAndNumber.keySet().toArray()[0]);
 					session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT,
@@ -106,13 +112,7 @@ public class CraeteOtherProductCommand implements Command {
 				? (FeedAndOther) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER)
 				: new FeedAndOther();
 		if (request.getParameter(ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE) == null) {
-			if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
-				Part part = (Part) request.getAttribute(PARAMETER_PART);
-				if (part != null) {
-					productFeedAndOther.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part,
-							(String) request.getAttribute(ATTRIBUTE_UPLOAD_FILE_DIRECTORY)));
-				}
-			} else {
+			if (!(boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
 				if (((String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
 					mapInputExceptions.put(TypeInputException.IMAGE.toString(),
 							"Вы выбрали не корретный файл для картинки для товара");

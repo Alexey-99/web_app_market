@@ -4,7 +4,6 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ADMI
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_UPLOAD_FILE_DIRECTORY;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 
 import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_ID;
@@ -106,8 +105,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 				if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
 					Part part = (Part) request.getAttribute(PARAMETER_PART);
 					if (part != null && !part.getSubmittedFileName().isBlank()) {
-						productFeedAndOther.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part,
-								(String) request.getAttribute(ATTRIBUTE_UPLOAD_FILE_DIRECTORY)));
+						productFeedAndOther.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part));
 					}
 				} else {
 					if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
