@@ -55,6 +55,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public boolean changeRoleStatus(String userLogin, int roleStatusId) throws ServiceException {
+		try {
+			return UserDaoImpl.getInstance().changeRoleStatus(userLogin, roleStatusId);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
 	public boolean changeVerificationEmailStatus(long userId, boolean verificateStatus) throws ServiceException {
 		try {
 			return UserDaoImpl.getInstance().changeVerificationEmailStatus(userId, verificateStatus);
@@ -99,10 +108,5 @@ public class UserServiceImpl implements UserService {
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
-	}
-
-	@Override
-	public boolean changeRoleStatus(String userLogin, int roleStatusId) throws ServiceException {
-		return false;
 	}
 }

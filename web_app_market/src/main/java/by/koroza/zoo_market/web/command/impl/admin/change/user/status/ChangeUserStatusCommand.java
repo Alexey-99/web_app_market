@@ -41,14 +41,16 @@ public class ChangeUserStatusCommand implements Command {
 		try {
 			if (user != null && user.isVerificatedEmail() == true && user.getRole().getIdRole() == ADMIN.getIdRole()) {
 				Map<String, String> mapInputExceptions = new HashMap<>();
-				String[] loginAndRole = getInputParameters(request, mapInputExceptions);
+				String login = getInputParameterLogin(request, mapInputExceptions);
+				String roleId = getInputParameterRoleId(request, mapInputExceptions);
 				if (mapInputExceptions.isEmpty()) {
-					UserServiceImpl.getInstance().changeRoleStatus(loginAndRole[0], loginAndRole[1]);
+					UserServiceImpl.getInstance().changeRoleStatus(login, Integer.parseInt(roleId));
+					// success changed status
 				} else {
 					session.setAttribute(ATTRIBUTE_ADMIN_PAGE_CHANGE_USER_STATUS_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
 							mapInputExceptions);
+					// change_user_status_form_validated
 				}
-
 			} else {
 				router = new Router(HOME_PAGE_PATH);
 			}
@@ -59,7 +61,7 @@ public class ChangeUserStatusCommand implements Command {
 		return router;
 	}
 
-	private String[] getInputParameters(HttpServletRequest request, Map<String, String> mapInputExceptions)
+	private String getInputParameterLogin(HttpServletRequest request, Map<String, String> mapInputExceptions)
 			throws ServiceException {
 		HttpSession session = request.getSession();
 		String login = request.getParameter(ADMIN_PAGE_CHANGE_USER_STATUS_FORM_INPUT_LOGIN);
@@ -70,14 +72,20 @@ public class ChangeUserStatusCommand implements Command {
 				mapInputExceptions.put(INPUT_EXCEPTION_TYPE_LOGIN, "User didn't find with login " + login);
 			}
 		}
-		String role = request.getParameter(ADMIN_PAGE_CHANGE_USER_STATUS_FORM_SELECT_USER_ROLE);
-		if (!(role.equalsIgnoreCase(USER.toString()) || role.equalsIgnoreCase(ADMIN.toString()))) {
+		return login;
+	}
+
+	private String getInputParameterRoleId(HttpServletRequest request, Map<String, String> mapInputExceptions) {
+		HttpSession session = request.getSession();
+		String roleId = request.getParameter(ADMIN_PAGE_CHANGE_USER_STATUS_FORM_SELECT_USER_ROLE);
+		if (!(roleId != null && (roleId.equalsIgnoreCase(Integer.toString(USER.getIdRole()))
+				|| roleId.equalsIgnoreCase(Integer.toString(ADMIN.getIdRole()))))) {
 			if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
-				mapInputExceptions.put(INPUT_EXCEPTION_TYPE_LOGIN, "Выбран не корректный статус: " + role);
+				mapInputExceptions.put(INPUT_EXCEPTION_TYPE_LOGIN, "Выбран не корректный статус");
 			} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
-				mapInputExceptions.put(INPUT_EXCEPTION_TYPE_ROLE, "You selected incorrect status: " + role);
+				mapInputExceptions.put(INPUT_EXCEPTION_TYPE_ROLE, "You selected incorrect status");
 			}
 		}
-		return new String[] { login, role };
+		return roleId;
 	}
 }

@@ -162,11 +162,11 @@
 													<fmt:message
 														key="change_user_status.form.select.optional.select_role" />
 												</option>
-												<option value="${UserRole.USER}">
+												<option value="${UserRole.USER.getIdRole()}">
 													<fmt:message
 														key="change_user_status.form.select.optional.user" />
 												</option>
-												<option value="${UserRole.ADMIN}">
+												<option value="${UserRole.ADMIN.getIdRole()}">
 													<fmt:message
 														key="change_user_status.form.select.optional.admin" />
 												</option>

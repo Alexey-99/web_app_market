@@ -141,6 +141,26 @@ public class UserDaoImpl implements UserDao {
 		return result;
 	}
 
+	private static final String QUERY_CHANGE_ROLE_STATUS_BY_LOGIN = """
+			UPDATE users
+			SET users.roles_id = ?
+			WHERE users.login = ?;
+			""";
+
+	@Override
+	public boolean changeRoleStatus(String login, int roleStatusId) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(QUERY_CHANGE_ROLE_STATUS_BY_LOGIN)) {
+			statement.setInt(1, roleStatusId);
+			statement.setString(2, login);
+			result = statement.executeUpdate() > 0;
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		return result;
+	}
+
 	private static final String QUERY_CHANGE_VERIFICATE_EMAIL_STATUS = """
 			UPDATE users
 			SET users.verificated_email = ?
