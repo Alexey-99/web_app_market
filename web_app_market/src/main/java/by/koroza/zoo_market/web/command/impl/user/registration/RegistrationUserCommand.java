@@ -12,6 +12,7 @@ import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_REGISTRATING_USER;
 
 import static by.koroza.zoo_market.web.command.name.PagePathName.REGISTRATION_FORM_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.VERIFICATION_REGISTRATION_INFORMATION_PAGE_PATH;
@@ -23,6 +24,7 @@ import by.koroza.zoo_market.validation.UserValidation;
 import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.reserved.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
+import by.koroza.zoo_market.service.hash.HashGenerator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,12 +60,16 @@ public class RegistrationUserCommand implements Command {
 	}
 
 	private User createUser(HttpServletRequest request, HttpSession session) throws CommandException {
-		User user = null;
+		User user = session.getAttribute(ATTRIBUTE_BUFFER_REGISTRATING_USER) != null
+				? (User) session.getAttribute(ATTRIBUTE_BUFFER_REGISTRATING_USER)
+				: new User();
 		session.removeAttribute(ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		try {
 			Map<String, String> mapInputExceptions = new HashMap<>();
 			String userName = request.getParameter(REGISTRATION_INPUT_USER_NAME);
+			user.setName(userName);
 			String userSurName = request.getParameter(REGISTRATION_INPUT_USER_SURNAME);
+			user.setSurname(userSurName);
 			String userEmail = request.getParameter(REGISTRATION_INPUT_USER_EMAIL);
 			if (!UserValidation.validEmail(userEmail)) {
 				if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
@@ -71,6 +77,8 @@ public class RegistrationUserCommand implements Command {
 				} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
 					mapInputExceptions.put(EMAIL, "You entered email incorrect. Your input: " + userEmail);
 				}
+			} else {
+				user.setEmail(userEmail);
 			}
 			String userLogin = request.getParameter(REGISTRATION_INPUT_USER_LOGIN);
 			if (!UserValidation.validLogin(userLogin)) {
@@ -88,6 +96,8 @@ public class RegistrationUserCommand implements Command {
 						mapInputExceptions.put(LOGIN,
 								"This login already exists. Enter another login. Your input: " + userLogin);
 					}
+				} else {
+					user.setLogin(userLogin);
 				}
 			}
 			String userPassword = request.getParameter(REGISTRATION_INPUT_USER_PASSWORD);
@@ -97,17 +107,13 @@ public class RegistrationUserCommand implements Command {
 				} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
 					mapInputExceptions.put(PASSWORD, "You entered password incorrect. Your input: " + userPassword);
 				}
+			} else {
+				user.setPassword(HashGenerator.getInstance().getHash(userPassword));
 			}
 			if (mapInputExceptions.isEmpty()) {
-				user = new User.UserBuilder().setName(userName).setSurname(userSurName).setEmail(userEmail)
-						.setRole(UserRole.REGISTRATING_USER).setLogin(userLogin).build();
-				user.setPassword(userPassword);
+				
 			} else {
-				user = new User.UserBuilder().setName(userName).setSurname(userSurName).setEmail(userEmail)
-						.setRole(UserRole.REGISTRATING_USER).setLogin(userLogin).build();
-				user.setPassword(userPassword);
 				session.setAttribute(ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE, mapInputExceptions);
-				mapInputExceptions.containsKey(NAME);
 			}
 		} catch (ServiceException e) {
 			throw new CommandException(e);

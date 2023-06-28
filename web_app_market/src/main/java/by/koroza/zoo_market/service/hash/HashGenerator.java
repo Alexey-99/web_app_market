@@ -18,14 +18,16 @@ public class HashGenerator {
 	}
 
 	public String getHash(String line) {
-		String hashResult = "";
-		try {
-			MessageDigest messageDigest = MessageDigest.getInstance(ALGORITHM__SHA_1);
-			messageDigest.update(line.getBytes());
-			byte[] digestedBytes = messageDigest.digest();
-			hashResult = conventBytesToString(digestedBytes);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+		String hashResult = null;
+		if (line != null) {
+			try {
+				MessageDigest messageDigest = MessageDigest.getInstance(ALGORITHM__SHA_1);
+				messageDigest.update(line.getBytes());
+				byte[] digestedBytes = messageDigest.digest();
+				hashResult = conventBytesToString(digestedBytes);
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
 		}
 		return hashResult;
 	}

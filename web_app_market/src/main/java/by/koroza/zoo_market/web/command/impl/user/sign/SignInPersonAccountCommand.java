@@ -17,6 +17,7 @@ import java.util.Optional;
 
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.service.exception.ServiceException;
+import by.koroza.zoo_market.service.hash.HashGenerator;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
@@ -34,7 +35,8 @@ public class SignInPersonAccountCommand implements Command {
 		try {
 			String login = request.getParameter(SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_LOGIN);
 			String password = request.getParameter(SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_PASSWORD);
-			Optional<AbstractRegistratedUser> user = UserServiceImpl.getInstance().getUserByLogin(login, password);
+			Optional<AbstractRegistratedUser> user = UserServiceImpl.getInstance().getUserByLogin(login,
+					HashGenerator.getInstance().getHash(password));
 			if (user.isPresent()) {
 				session.setAttribute(ATTRIBUTE_USER, user.get());
 				String previousCommand = session.getAttribute(ATTRIBUTE_PREVIOUS_COMMAND) != null
