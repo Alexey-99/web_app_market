@@ -50,8 +50,8 @@ public final class PagePathName {
 	/* VERIDICATION_REGISTRATION_INFORMATION */
 	public static final String VERIFICATION_REGISTRATION_INFORMATION_PAGE_PATH = "jsp/pages/form/registration/verification/verification_registration_information.jsp";
 
-	public static final String VERIFICATION_PERSONAL_ACCOUNT_PAGE_PATH = "jsp/pages/form/verification_email/verification_email.jsp";
-	public static final String VERIFICATION_PERSONAL_ACCOUNT_VALIDATED_PAGE_PATH = "jsp/pages/form/verification_email/verification_email_with_exception.jsp";
+	public static final String CONFIMARTION_EMAIL_PAGE_PATH = "jsp/pages/form/confirmation_email/confirmation_email.jsp";
+	public static final String CONFIMARTION_EMAIL_VALIDATED_PAGE_PATH = "jsp/pages/form/confirmation_email/confirmation_email_with_exception.jsp";
 
 	public static final String SIGN_IN_VALIDATED_PAGE_PATH = "jsp/pages/form/sign_in/sign_in_exception.jsp";
 

@@ -2,7 +2,7 @@ package by.koroza.zoo_market.web.command.impl.user.confirmation;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 
-import static by.koroza.zoo_market.web.command.name.PagePathName.VERIFICATION_PERSONAL_ACCOUNT_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.PagePathName.CONFIMARTION_EMAIL_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
 
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
@@ -13,6 +13,7 @@ import by.koroza.zoo_market.service.sender.EmailSender;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -29,7 +30,7 @@ public class SendOneMoreTimeConfirmationEmailCodeCommand implements Command {
 				VerificateServiceImpl.getInstance().addVerificateCodeWithUserId(user.getId(), code);
 				EmailSender.getInstance().emailSend("VERIFICATION PERSONAL ACCOUNT",
 						"Your code for verification account: " + code, user.getEmail());
-				router = new Router(VERIFICATION_PERSONAL_ACCOUNT_PAGE_PATH);
+				router = new Router(CONFIMARTION_EMAIL_PAGE_PATH);
 			} else {
 				router = new Router(HOME_PAGE_PATH);
 			}
@@ -39,5 +40,4 @@ public class SendOneMoreTimeConfirmationEmailCodeCommand implements Command {
 		isRegistratedUser(request);
 		return router;
 	}
-
 }

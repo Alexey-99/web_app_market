@@ -3,7 +3,7 @@ package by.koroza.zoo_market.web.command.impl.user.verification;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 
 import static by.koroza.zoo_market.web.command.name.PagePathName.REGISTRATION_FORM_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.PagePathName.VERIFICATION_PERSONAL_ACCOUNT_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.PagePathName.CONFIMARTION_EMAIL_PAGE_PATH;
 
 import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
@@ -42,8 +42,7 @@ public class VerificationRegistrationInformationCommand implements Command {
 		} catch (ServiceException e) {
 			throw new CommandException(e);
 		}
-		return user != null ? new Router(VERIFICATION_PERSONAL_ACCOUNT_PAGE_PATH)
-				: new Router(REGISTRATION_FORM_PAGE_PATH);
+		return user != null ? new Router(CONFIMARTION_EMAIL_PAGE_PATH) : new Router(REGISTRATION_FORM_PAGE_PATH);
 	}
 
 	private boolean insertUserToBD(AbstractRegistratedUser user) throws CommandException {

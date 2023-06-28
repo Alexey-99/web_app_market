@@ -6,7 +6,7 @@ import static by.koroza.zoo_market.web.command.name.InputName.VERIFICATION_PERSO
 
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.REGISTRATION_FORM_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.PagePathName.VERIFICATION_PERSONAL_ACCOUNT_VALIDATED_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.PagePathName.CONFIMARTION_EMAIL_VALIDATED_PAGE_PATH;
 
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.service.exception.ServiceException;
@@ -44,7 +44,7 @@ public class ConfirmationEmailCommand implements Command {
 							VERIFICATE_CODE_STATUS_CLOSED);
 					router = new Router(HOME_PAGE_PATH);
 				} else {
-					router = new Router(VERIFICATION_PERSONAL_ACCOUNT_VALIDATED_PAGE_PATH);
+					router = new Router(CONFIMARTION_EMAIL_VALIDATED_PAGE_PATH);
 				}
 			} else {
 				router = new Router(REGISTRATION_FORM_PAGE_PATH);
