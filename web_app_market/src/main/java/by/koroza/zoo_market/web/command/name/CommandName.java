@@ -36,6 +36,7 @@ import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_CREAT
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_CREATE_PET_PRODUCT_FORM;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_FEED_AND_OTHER;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_PET;
+import static by.koroza.zoo_market.web.command.CommandType.CHANGE_EMAIL;
 import static by.koroza.zoo_market.web.command.CommandType.CHANGE_LOGIN_AND_PASSWORD;
 import static by.koroza.zoo_market.web.command.CommandType.CHANGE_PERSON_INFORMATION;
 import static by.koroza.zoo_market.web.command.CommandType.CONFIMATION_EMAIL;
@@ -45,6 +46,7 @@ import static by.koroza.zoo_market.web.command.CommandType.SEND_ONE_MORE_TIME_CO
 import static by.koroza.zoo_market.web.command.CommandType.SET_ENGLISH_LOCALE;
 import static by.koroza.zoo_market.web.command.CommandType.SET_RUSSIAN_LOCALE;
 import static by.koroza.zoo_market.web.command.CommandType.SHOW_BACKET_PAGE;
+import static by.koroza.zoo_market.web.command.CommandType.SHOW_CHANGE_EMAIL_FORM;
 import static by.koroza.zoo_market.web.command.CommandType.SHOW_CONFIMATION_EMAIL_FORM;
 import static by.koroza.zoo_market.web.command.CommandType.SHOW_HOME_PAGE;
 import static by.koroza.zoo_market.web.command.CommandType.SHOW_MARKET_PAGE_PRODUCT_FEEDS_AND_OTHER_BY_NUMBER_PAGE;
@@ -104,6 +106,8 @@ public final class CommandName {
 
 	public static final String COMMAND_CHANGING_PERSON_INFORMATION = CHANGE_PERSON_INFORMATION.toString().toLowerCase();
 	public static final String COMMAND_CHANGING_LOGIN_AND_PASSWORD = CHANGE_LOGIN_AND_PASSWORD.toString().toLowerCase();
+	public static final String COMMAND_CHANGE_EMAIL = CHANGE_EMAIL.toString().toLowerCase();
+	public static final String COMMAND_SHOW_CHANGE_EMAIL_FORM = SHOW_CHANGE_EMAIL_FORM.toString().toLowerCase();
 
 	public static final String COMMAND_ORDER_PAYMENT = ORDER_PAYMENT.toString().toLowerCase();
 

@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import by.koroza.zoo_market.dao.exception.DaoException;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
+import by.koroza.zoo_market.model.entity.user.reserved.User;
 
 public interface UserDao {
 
@@ -28,4 +29,6 @@ public interface UserDao {
 			throws DaoException;
 
 	public boolean isExistsUserWithLogin(String login) throws DaoException;
+
+	public boolean changeEmail(User user) throws DaoException;
 }

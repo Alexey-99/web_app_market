@@ -3,6 +3,7 @@ package by.koroza.zoo_market.service;
 import java.util.Optional;
 
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
+import by.koroza.zoo_market.model.entity.user.reserved.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 
 public interface UserService {
@@ -28,4 +29,6 @@ public interface UserService {
 			throws ServiceException;
 
 	public boolean isExistsUserWithLogin(String login) throws ServiceException;
+
+	public boolean changeEmail(User user) throws ServiceException;
 }

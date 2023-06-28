@@ -57,6 +57,7 @@ public final class PagePathName {
 
 	public static final String CHANGE_PERSON_INFOMATION_FORM_VALIDATED_PAGE_PATH = "jsp/pages/personal_account/forms/change_person_information_form_validated.jsp";
 	public static final String CHANGE_LOGIN_AND_PASSWORD_FORM_VALIDATED_PAGE_PATH = "jsp/pages/personal_account/forms/change_login_password_form_validated.jsp";
+	public static final String CHANGE_EMAIL_FORM_VALIDATED_PAGE_PATH = "jsp/pages/form/change/user/change_email_form_validated.jsp";
 
 	public static final String ORDER_PAYMENT_FORM_VALIDATED_PAGE_PATH = "jsp/pages/form/payment/order_payment_form_validated.jsp";
 	public static final String SUCCESS_ORDER_PAYMENT_PAGE_PATH = "jsp/pages/form/payment/success/success_order_payment.jsp";

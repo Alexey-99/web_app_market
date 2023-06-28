@@ -286,4 +286,25 @@ public class UserDaoImpl implements UserDao {
 		}
 		return result;
 	}
+
+	private static final String QUERY_CHANGE_EMAIL = """
+			UPDATE users
+			SET users.email = ?,
+			users.verificated_email = false
+			WHERE users.id = ?;
+			""";
+
+	@Override
+	public boolean changeEmail(User user) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(QUERY_CHANGE_EMAIL)) {
+			statement.setString(1, user.getEmail());
+			statement.setLong(2, user.getId());
+			result = statement.executeUpdate() > 0;
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		return result;
+	}
 }

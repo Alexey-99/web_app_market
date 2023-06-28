@@ -40,6 +40,7 @@ import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product
 import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.type.ShowAllProductsOffFilterSortingByProductTypeDescendingCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetEnglishLocaleCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetRussinLocaleCommand;
+import by.koroza.zoo_market.web.command.impl.user.change.ChangeEmailCommand;
 import by.koroza.zoo_market.web.command.impl.user.change.ChangeLoginAndPasswordCommand;
 import by.koroza.zoo_market.web.command.impl.user.change.ChangePersonInformationCommand;
 import by.koroza.zoo_market.web.command.impl.user.confirmation.ConfirmationEmailCommand;
@@ -48,6 +49,7 @@ import by.koroza.zoo_market.web.command.impl.user.payment.OrderPaymentCommand;
 import by.koroza.zoo_market.web.command.impl.user.registration.RegistrationUserCommand;
 import by.koroza.zoo_market.web.command.impl.user.show.basket.ShowBacketPageCommand;
 import by.koroza.zoo_market.web.command.impl.user.show.confirmation.ShowConfirmationEmailFormCommand;
+import by.koroza.zoo_market.web.command.impl.user.show.form.change.ShowChangeUserEmailFormComamnd;
 import by.koroza.zoo_market.web.command.impl.user.show.form.registration.ShowRegistrationUserFormCommand;
 import by.koroza.zoo_market.web.command.impl.user.show.home.ShowHomePageCommand;
 import by.koroza.zoo_market.web.command.impl.user.show.market.other.ShowProductFeedsAndOtherIncludedFilterCommand;
@@ -89,7 +91,8 @@ public enum CommandType {
 	SIGN_OUT_PERSONAL_ACCOUNT(new SignOutPersonalAccountCommand()),
 	/* change personal information */
 	CHANGE_PERSON_INFORMATION(new ChangePersonInformationCommand()),
-	CHANGE_LOGIN_AND_PASSWORD(new ChangeLoginAndPasswordCommand()),
+	CHANGE_LOGIN_AND_PASSWORD(new ChangeLoginAndPasswordCommand()), CHANGE_EMAIL(new ChangeEmailCommand()),
+	SHOW_CHANGE_EMAIL_FORM(new ShowChangeUserEmailFormComamnd()),
 	/* order payment */
 	ORDER_PAYMENT(new OrderPaymentCommand()),
 	/* change locale */

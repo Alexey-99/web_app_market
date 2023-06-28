@@ -43,8 +43,8 @@ public class RegistrationUserCommand implements Command {
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
 		HttpSession session = request.getSession();
-		removeInputExceptionFromSession(session);
-		User user = createUser(request, session);
+		session.removeAttribute(ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
+		User user = createUser(request);
 		session.setAttribute(ATTRIBUTE_USER, user);
 		isRegistratedUser(request);
 		return session.getAttribute(ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE) == null
@@ -52,11 +52,8 @@ public class RegistrationUserCommand implements Command {
 				: new Router(REGISTRATION_FORM_PAGE_PATH);
 	}
 
-	private void removeInputExceptionFromSession(HttpSession session) {
-		session.removeAttribute(ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
-	}
-
-	private User createUser(HttpServletRequest request, HttpSession session) throws CommandException {
+	private User createUser(HttpServletRequest request) throws CommandException {
+		HttpSession session = request.getSession();
 		User user = session.getAttribute(ATTRIBUTE_USER) != null ? (User) session.getAttribute(ATTRIBUTE_USER)
 				: new User();
 		session.removeAttribute(ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE);

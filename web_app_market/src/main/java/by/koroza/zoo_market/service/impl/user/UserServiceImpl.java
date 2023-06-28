@@ -5,6 +5,7 @@ import java.util.Optional;
 import by.koroza.zoo_market.dao.exception.DaoException;
 import by.koroza.zoo_market.dao.impl.user.UserDaoImpl;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
+import by.koroza.zoo_market.model.entity.user.reserved.User;
 import by.koroza.zoo_market.service.UserService;
 import by.koroza.zoo_market.service.exception.ServiceException;
 
@@ -105,6 +106,15 @@ public class UserServiceImpl implements UserService {
 	public boolean isExistsUserWithLogin(String login) throws ServiceException {
 		try {
 			return UserDaoImpl.getInstance().isExistsUserWithLogin(login);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public boolean changeEmail(User user) throws ServiceException {
+		try {
+			return UserDaoImpl.getInstance().changeEmail(user);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}

@@ -85,25 +85,36 @@
 										</div>
 									</div>
 								</form>
-								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
-									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-										value="${CommandName.COMMAND_SEND_ONE_MORE_TIME_CONFIMATION_EMAIL_CODE}" />
-									<button
-										class="btn verification_personal_account_btn_submit text-uppercase"
-										role="button">
-										<fmt:message
-											key="verification_email.send_verification_code_one_more_time" />
-									</button>
-								</form>
-								<form class="mt-3"
-									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
-									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-										value="${CommandName.COMMAND_SIGN_OUT_PERSONAL_ACCOUNT}" />
-									<button class="btn verification_personal_account_btn_submit "
-										role="button">
-										<fmt:message key="personal_account.exit" />
-									</button>
-								</form>
+								<div class="mt-3">
+									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
+											value="${CommandName.COMMAND_SEND_ONE_MORE_TIME_CONFIMATION_EMAIL_CODE}" />
+										<button
+											class="btn verification_personal_account_btn_submit text-uppercase"
+											role="button">
+											<fmt:message
+												key="verification_email.send_verification_code_one_more_time" />
+										</button>
+									</form>
+									<form class="mt-3"
+										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
+											value="${CommandName.COMMAND_SHOW_CHANGE_EMAIL_FORM}" />
+										<button class="btn verification_personal_account_btn_submit "
+											role="button">
+											<fmt:message key="verification_email.change_email" />
+										</button>
+									</form>
+									<form class="mt-3"
+										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
+											value="${CommandName.COMMAND_SIGN_OUT_PERSONAL_ACCOUNT}" />
+										<button class="btn verification_personal_account_btn_submit "
+											role="button">
+											<fmt:message key="verification_email.exit" />
+										</button>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
