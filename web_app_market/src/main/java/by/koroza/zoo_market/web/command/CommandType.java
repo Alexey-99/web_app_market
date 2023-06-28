@@ -48,6 +48,7 @@ import by.koroza.zoo_market.web.command.impl.user.payment.OrderPaymentCommand;
 import by.koroza.zoo_market.web.command.impl.user.registration.RegistrationUserCommand;
 import by.koroza.zoo_market.web.command.impl.user.show.basket.ShowBacketPageCommand;
 import by.koroza.zoo_market.web.command.impl.user.show.confirmation.ShowConfirmationEmailFormCommand;
+import by.koroza.zoo_market.web.command.impl.user.show.form.registration.ShowRegistrationUserFormCommand;
 import by.koroza.zoo_market.web.command.impl.user.show.home.ShowHomePageCommand;
 import by.koroza.zoo_market.web.command.impl.user.show.market.other.ShowProductFeedsAndOtherIncludedFilterCommand;
 import by.koroza.zoo_market.web.command.impl.user.show.market.other.ShowProductFeedsAndOtherOffFilterCommand;
@@ -78,6 +79,7 @@ public enum CommandType {
 	/* registration */
 	REGISTRATION_USER(new RegistrationUserCommand()),
 	VERIFICATION_REGISTRATION_INFORMATION(new VerificationRegistrationInformationCommand()),
+	SHOW_REGISTRATION_FORN_VALDATED(new ShowRegistrationUserFormCommand()),
 	/* confirmation email */
 	CONFIMATION_EMAIL(new ConfirmationEmailCommand()),
 	SHOW_CONFIMATION_EMAIL_FORM(new ShowConfirmationEmailFormCommand()),

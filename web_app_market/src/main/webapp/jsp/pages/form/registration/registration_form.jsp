@@ -71,7 +71,7 @@
 											key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_top.form_title.login_and_password" />
 									</h2>
 								</div>
-								<form class="sign_in_form_body"
+								<form class="sign_in_form_body" method="post"
 									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control" required
@@ -132,7 +132,7 @@
 									</h2>
 								</div>
 								<c:if
-									test="${registration_input_exception_type_and_message.isEmpty()}">
+									test="${registration_input_exception_type_and_message == null || registration_input_exception_type_and_message.isEmpty()}">
 									<form class="registration_form_body" method="post"
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 										<div class="form-floating mb-3">
@@ -237,8 +237,8 @@
 									</form>
 								</c:if>
 								<c:if
-									test="${!registration_input_exception_type_and_message.isEmpty()}">
-									<form class="registration_form_body"
+									test="${registration_input_exception_type_and_message != null && !registration_input_exception_type_and_message.isEmpty()}">
+									<form class="registration_form_body" method="post"
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 										<c:if
 											test="${registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.NAME)}">

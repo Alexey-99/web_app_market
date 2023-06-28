@@ -9,6 +9,7 @@ import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.generator.GenerationVeriicationCode;
+import by.koroza.zoo_market.service.hash.HashGenerator;
 import by.koroza.zoo_market.service.impl.VerificateServiceImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 import by.koroza.zoo_market.service.sender.EmailSender;
@@ -47,6 +48,7 @@ public class VerificationRegistrationInformationCommand implements Command {
 
 	private boolean insertUserToBD(AbstractRegistratedUser user) throws CommandException {
 		try {
+			user.setPassword(HashGenerator.getInstance().getHash(user.getPassword()));
 			return UserServiceImpl.getInstance().addRegistratedUserToBD(user);
 		} catch (ServiceException e) {
 			throw new CommandException(e);

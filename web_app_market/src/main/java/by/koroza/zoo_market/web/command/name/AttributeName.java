@@ -61,8 +61,6 @@ public final class AttributeName {
 	public static final String REQUEST_ATTRIBUTE_COMMAND = "sorting_command";
 
 	/* BUFFER */
-	/* registration */
-	public static final String ATTRIBUTE_BUFFER_REGISTRATING_USER = "registrating_user";
 	/* create or change product */
 	public static final String ATTRIBUTE_BUFFER_PRODUCT_PET = "product_pet";
 	public static final String ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT = "product_pet_number_of_units";

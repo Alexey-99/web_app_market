@@ -12,7 +12,6 @@ import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_REGISTRATING_USER;
 
 import static by.koroza.zoo_market.web.command.name.PagePathName.REGISTRATION_FORM_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.VERIFICATION_REGISTRATION_INFORMATION_PAGE_PATH;
@@ -21,10 +20,8 @@ import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
 import by.koroza.zoo_market.validation.UserValidation;
-import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.reserved.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
-import by.koroza.zoo_market.service.hash.HashGenerator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,8 +57,7 @@ public class RegistrationUserCommand implements Command {
 	}
 
 	private User createUser(HttpServletRequest request, HttpSession session) throws CommandException {
-		User user = session.getAttribute(ATTRIBUTE_BUFFER_REGISTRATING_USER) != null
-				? (User) session.getAttribute(ATTRIBUTE_BUFFER_REGISTRATING_USER)
+		User user = session.getAttribute(ATTRIBUTE_USER) != null ? (User) session.getAttribute(ATTRIBUTE_USER)
 				: new User();
 		session.removeAttribute(ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		try {
@@ -108,11 +104,9 @@ public class RegistrationUserCommand implements Command {
 					mapInputExceptions.put(PASSWORD, "You entered password incorrect. Your input: " + userPassword);
 				}
 			} else {
-				user.setPassword(HashGenerator.getInstance().getHash(userPassword));
+				user.setPassword(userPassword);
 			}
-			if (mapInputExceptions.isEmpty()) {
-				
-			} else {
+			if (!mapInputExceptions.isEmpty()) {
 				session.setAttribute(ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE, mapInputExceptions);
 			}
 		} catch (ServiceException e) {

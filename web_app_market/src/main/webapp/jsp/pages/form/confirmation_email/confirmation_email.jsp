@@ -95,6 +95,15 @@
 											key="verification_email.send_verification_code_one_more_time" />
 									</button>
 								</form>
+								<form class="mt-3"
+									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
+										value="${CommandName.COMMAND_SIGN_OUT_PERSONAL_ACCOUNT}" />
+									<button class="btn verification_personal_account_btn_submit "
+										role="button">
+										<fmt:message key="personal_account.exit" />
+									</button>
+								</form>
 							</div>
 						</div>
 					</div>

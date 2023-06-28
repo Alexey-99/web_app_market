@@ -123,7 +123,7 @@
 								class="verification_registration_information_fotter d-flex justify-content-end">
 								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-										value="${CommandName.COMMAND_REGISTRATION_USER}" />
+										value="${CommandName.COMMAND_SHOW_REGISTRATION_FORN_VALDATED}" />
 									<button
 										class="btn verification_registration_information_btn_incorrect"
 										role="button">
