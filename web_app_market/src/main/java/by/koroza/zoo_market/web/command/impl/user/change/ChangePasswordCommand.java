@@ -28,7 +28,7 @@ import by.koroza.zoo_market.web.controller.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-public class ChangeLoginAndPasswordCommand implements Command {
+public class ChangePasswordCommand implements Command {
 	private static final Logger log = LogManager.getLogger();
 
 	public static final String TYPY_INPUT_EXCEPTION_LOGIN = TypeInputException.LOGIN.toString();
