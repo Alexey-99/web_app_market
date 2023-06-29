@@ -25,8 +25,9 @@ public interface UserDao {
 	public boolean changePersonInformation(AbstractRegistratedUser user, String name, String surname, String email)
 			throws DaoException;
 
-	public boolean changeLoginAndPassword(AbstractRegistratedUser user, String login, String password)
-			throws DaoException;
+	public boolean changeLogin(AbstractRegistratedUser user, String login) throws DaoException;
+
+	public boolean changePassword(AbstractRegistratedUser user, String password) throws DaoException;
 
 	public boolean isExistsUserWithLogin(String login) throws DaoException;
 

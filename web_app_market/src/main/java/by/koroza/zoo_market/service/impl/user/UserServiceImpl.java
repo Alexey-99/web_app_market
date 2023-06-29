@@ -93,10 +93,18 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean changeLoginAndPassword(AbstractRegistratedUser user, String login, String password)
-			throws ServiceException {
+	public boolean changeLogin(AbstractRegistratedUser user, String login) throws ServiceException {
 		try {
-			return UserDaoImpl.getInstance().changeLoginAndPassword(user, login, password);
+			return UserDaoImpl.getInstance().changeLogin(user, login);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public boolean changePassword(AbstractRegistratedUser user, String password) throws ServiceException {
+		try {
+			return UserDaoImpl.getInstance().changePassword(user, password);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}

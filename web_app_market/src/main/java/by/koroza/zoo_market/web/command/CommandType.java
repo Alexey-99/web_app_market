@@ -42,6 +42,7 @@ import by.koroza.zoo_market.web.command.impl.locale.SetEnglishLocaleCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetRussinLocaleCommand;
 import by.koroza.zoo_market.web.command.impl.user.change.ChangeEmailCommand;
 import by.koroza.zoo_market.web.command.impl.user.change.ChangeLoginCommand;
+import by.koroza.zoo_market.web.command.impl.user.change.ChangePasswordCommand;
 import by.koroza.zoo_market.web.command.impl.user.change.ChangePersonInformationCommand;
 import by.koroza.zoo_market.web.command.impl.user.confirmation.ConfirmationEmailCommand;
 import by.koroza.zoo_market.web.command.impl.user.confirmation.SendOneMoreTimeConfirmationEmailCodeCommand;
@@ -90,8 +91,8 @@ public enum CommandType {
 	SIGN_IN_PERSON_ACCOUNT(new SignInPersonAccountCommand()),
 	SIGN_OUT_PERSONAL_ACCOUNT(new SignOutPersonalAccountCommand()),
 	/* change personal information */
-	CHANGE_PERSON_INFORMATION(new ChangePersonInformationCommand()),
-	CHANGE_LOGIN_AND_PASSWORD(new ChangeLoginCommand()), CHANGE_EMAIL(new ChangeEmailCommand()),
+	CHANGE_PERSON_INFORMATION(new ChangePersonInformationCommand()), CHANGE_LOGIN(new ChangeLoginCommand()),
+	CHANGE_PASSWORD(new ChangePasswordCommand()), CHANGE_EMAIL(new ChangeEmailCommand()),
 	SHOW_CHANGE_EMAIL_FORM(new ShowChangeUserEmailFormComamnd()),
 	/* order payment */
 	ORDER_PAYMENT(new OrderPaymentCommand()),

@@ -23,7 +23,8 @@ public final class AttributeName {
 	/* pesron_account.change_person_information_form */
 	public static final String ATTRIBUTE_CHANGING_PERSON_INFOMATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "changing_person_information_input_exception_type_and_message";
 	/* pesron_account.change_login_and_password_form */
-	public static final String ATTRIBUTE_CHANGING_LOGIN_AND_PASSWORD_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "changing_login_and_password_input_exception_type_and_message";
+	public static final String ATTRIBUTE_CHANGING_LOGIN_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "changing_login_input_exception_type_and_message";
+	public static final String ATTRIBUTE_CHANGING_PASSWORD_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "changing_password_input_exception_type_and_message";
 	/* create_products_form */
 	public static final String ATTRIBUTE_ADMIN_PAGE_CREATE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "admin_page_create_pet_product_input_exception_type_and_message";
 	public static final String ATTRIBUTE_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE = "admin_page_create_feeds_and_other_product_input_exception_type_and_message";

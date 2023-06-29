@@ -37,7 +37,8 @@ import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_CREAT
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_FEED_AND_OTHER;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_PET;
 import static by.koroza.zoo_market.web.command.CommandType.CHANGE_EMAIL;
-import static by.koroza.zoo_market.web.command.CommandType.CHANGE_LOGIN_AND_PASSWORD;
+import static by.koroza.zoo_market.web.command.CommandType.CHANGE_LOGIN;
+import static by.koroza.zoo_market.web.command.CommandType.CHANGE_PASSWORD;
 import static by.koroza.zoo_market.web.command.CommandType.CHANGE_PERSON_INFORMATION;
 import static by.koroza.zoo_market.web.command.CommandType.CONFIMATION_EMAIL;
 import static by.koroza.zoo_market.web.command.CommandType.ORDER_PAYMENT;
@@ -105,7 +106,8 @@ public final class CommandName {
 	public static final String COMMAND_SIGN_OUT_PERSONAL_ACCOUNT = SIGN_OUT_PERSONAL_ACCOUNT.toString().toLowerCase();
 
 	public static final String COMMAND_CHANGING_PERSON_INFORMATION = CHANGE_PERSON_INFORMATION.toString().toLowerCase();
-	public static final String COMMAND_CHANGING_LOGIN_AND_PASSWORD = CHANGE_LOGIN_AND_PASSWORD.toString().toLowerCase();
+	public static final String COMMAND_CHANGE_LOGIN = CHANGE_LOGIN.toString().toLowerCase();
+	public static final String COMMAND_CHANGE_PASSWORD = CHANGE_PASSWORD.toString().toLowerCase();
 	public static final String COMMAND_CHANGE_EMAIL = CHANGE_EMAIL.toString().toLowerCase();
 	public static final String COMMAND_SHOW_CHANGE_EMAIL_FORM = SHOW_CHANGE_EMAIL_FORM.toString().toLowerCase();
 

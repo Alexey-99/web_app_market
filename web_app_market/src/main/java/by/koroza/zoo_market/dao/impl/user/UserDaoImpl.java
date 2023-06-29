@@ -241,21 +241,39 @@ public class UserDaoImpl implements UserDao {
 		return result;
 	}
 
-	private static final String QUERY_CHANGE_LOGIN_AND_PASSWORD = """
+	private static final String QUERY_CHANGE_LOGIN = """
 			UPDATE users
-			SET users.login = ?, users.password = ?
+			SET users.login = ?
 			WHERE users.id = ?;
 			""";
 
 	@Override
-	public boolean changeLoginAndPassword(AbstractRegistratedUser user, String login, String password)
-			throws DaoException {
+	public boolean changeLogin(AbstractRegistratedUser user, String login) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
-				PreparedStatement statement = connection.prepareStatement(QUERY_CHANGE_LOGIN_AND_PASSWORD)) {
+				PreparedStatement statement = connection.prepareStatement(QUERY_CHANGE_LOGIN)) {
 			statement.setString(1, login);
-			statement.setString(2, password);
-			statement.setLong(3, user.getId());
+			statement.setLong(2, user.getId());
+			result = statement.executeUpdate() > 0;
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		return result;
+	}
+
+	private static final String QUERY_CHANGE_PASSWORD = """
+			UPDATE users
+			SET users.password = ?
+			WHERE users.id = ?;
+			""";
+
+	@Override
+	public boolean changePassword(AbstractRegistratedUser user, String password) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(QUERY_CHANGE_PASSWORD)) {
+			statement.setString(1, password);
+			statement.setLong(2, user.getId());
 			result = statement.executeUpdate() > 0;
 		} catch (SQLException e) {
 			throw new DaoException(e);
