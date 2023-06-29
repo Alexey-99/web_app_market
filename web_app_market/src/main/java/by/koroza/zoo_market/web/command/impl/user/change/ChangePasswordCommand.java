@@ -29,6 +29,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public class ChangePasswordCommand implements Command {
+	@SuppressWarnings("unused")
 	private static final Logger log = LogManager.getLogger();
 
 	public static final String TYPY_INPUT_EXCEPTION_PASSWORD = TypeInputException.PASSWORD.toString();
@@ -87,7 +88,7 @@ public class ChangePasswordCommand implements Command {
 		String password = (String) request.getParameter(CHANGING_PASSWORD_INPUT_USER_PASSWORD);
 		if (user.getPassword() != null ? !user.getPassword().equals(HashGenerator.getInstance().getHash(password))
 				: user.getPassword() == null && password != null) {
-			if (!UserValidation.validPassword(password)) {
+			if (!UserValidation.validPassword(password)) { // TODO LOCALE
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_PASSWORD,
 						"Вы ввели пароль не корректно. Ваш ввод: " + password);
 			}
