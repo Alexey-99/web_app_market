@@ -16,7 +16,7 @@ import java.util.Map;
 import by.koroza.zoo_market.model.entity.user.reserved.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.generator.GenerationVeriicationCode;
-import by.koroza.zoo_market.service.impl.VerificateServiceImpl;
+import by.koroza.zoo_market.service.impl.confirmation.ConfirmationServiceImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 import by.koroza.zoo_market.service.sender.EmailSender;
 import by.koroza.zoo_market.validation.UserValidation;
@@ -80,7 +80,7 @@ public class ChangeEmailCommand implements Command {
 
 	private void sendConfirmationEmailCode(User user) throws ServiceException {
 		String code = GenerationVeriicationCode.getInstance().getGeneratedCode();
-		VerificateServiceImpl.getInstance().addVerificateCodeWithUserId(user.getId(), code);
+		ConfirmationServiceImpl.getInstance().addVerificateCodeWithUserId(user.getId(), code);
 		EmailSender.getInstance().emailSend(EMAIL_SUBJECT, EMAIL_TEXT + code, user.getEmail());
 	}
 }

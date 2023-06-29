@@ -2,7 +2,7 @@ package by.koroza.zoo_market.dao;
 
 import by.koroza.zoo_market.dao.exception.DaoException;
 
-public interface VerificateDao {
+public interface ConfirmationDao {
 
 	public boolean addVerificateCodeWithUserId(long userId, String code) throws DaoException;
 

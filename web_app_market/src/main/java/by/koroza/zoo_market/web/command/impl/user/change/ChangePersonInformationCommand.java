@@ -22,7 +22,7 @@ import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.generator.GenerationVeriicationCode;
-import by.koroza.zoo_market.service.impl.VerificateServiceImpl;
+import by.koroza.zoo_market.service.impl.confirmation.ConfirmationServiceImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 import by.koroza.zoo_market.service.sender.EmailSender;
 import by.koroza.zoo_market.validation.UserValidation;
@@ -82,7 +82,7 @@ public class ChangePersonInformationCommand implements Command {
 								user.setEmail(email);
 								user.setRole(UserRole.WAITING_CODE_REGISTRATION);
 								String code = GenerationVeriicationCode.getInstance().getGeneratedCode();
-								VerificateServiceImpl.getInstance().addVerificateCodeWithUserId(user.getId(), code);
+								ConfirmationServiceImpl.getInstance().addVerificateCodeWithUserId(user.getId(), code);
 								EmailSender.getInstance().emailSend("Изменение данных в личном кабинете",
 										"Введите данный код когда будете подтверждать учётную запись. /n Ваш код: "
 												+ code,

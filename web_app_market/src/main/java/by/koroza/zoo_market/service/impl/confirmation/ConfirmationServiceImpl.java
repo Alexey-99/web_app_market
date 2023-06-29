@@ -1,24 +1,24 @@
-package by.koroza.zoo_market.service.impl;
+package by.koroza.zoo_market.service.impl.confirmation;
 
 import by.koroza.zoo_market.dao.exception.DaoException;
-import by.koroza.zoo_market.dao.impl.VerificateDaoImpl;
-import by.koroza.zoo_market.service.VerificateService;
+import by.koroza.zoo_market.dao.impl.confirmation.ConfirmationDaoImpl;
+import by.koroza.zoo_market.service.ConfirmationService;
 import by.koroza.zoo_market.service.exception.ServiceException;
 
-public class VerificateServiceImpl implements VerificateService {
-	private static final VerificateService INSTANCE = new VerificateServiceImpl();
+public class ConfirmationServiceImpl implements ConfirmationService {
+	private static final ConfirmationService INSTANCE = new ConfirmationServiceImpl();
 
-	private VerificateServiceImpl() {
+	private ConfirmationServiceImpl() {
 	}
 
-	public static VerificateService getInstance() {
+	public static ConfirmationService getInstance() {
 		return INSTANCE;
 	}
 
 	@Override
 	public boolean addVerificateCodeWithUserId(long userId, String code) throws ServiceException {
 		try {
-			return VerificateDaoImpl.getInstance().addVerificateCodeWithUserId(userId, code);
+			return ConfirmationDaoImpl.getInstance().addVerificateCodeWithUserId(userId, code);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
@@ -27,7 +27,7 @@ public class VerificateServiceImpl implements VerificateService {
 	@Override
 	public String getVerificateCodeByUserId(long userId) throws ServiceException {
 		try {
-			return VerificateDaoImpl.getInstance().getVerificateCodeByUserId(userId);
+			return ConfirmationDaoImpl.getInstance().getVerificateCodeByUserId(userId);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
@@ -37,7 +37,7 @@ public class VerificateServiceImpl implements VerificateService {
 	public boolean changeVerificateCodeStatusByUserId(long userId, String code, boolean status)
 			throws ServiceException {
 		try {
-			return VerificateDaoImpl.getInstance().changeVerificateCodeStatusByUserId(userId, code, status);
+			return ConfirmationDaoImpl.getInstance().changeVerificateCodeStatusByUserId(userId, code, status);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}

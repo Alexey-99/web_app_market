@@ -10,7 +10,7 @@ import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUse
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.generator.GenerationVeriicationCode;
 import by.koroza.zoo_market.service.hash.HashGenerator;
-import by.koroza.zoo_market.service.impl.VerificateServiceImpl;
+import by.koroza.zoo_market.service.impl.confirmation.ConfirmationServiceImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 import by.koroza.zoo_market.service.sender.EmailSender;
 import by.koroza.zoo_market.web.command.Command;
@@ -35,7 +35,7 @@ public class VerificationRegistrationInformationCommand implements Command {
 				}
 				session.setAttribute(ATTRIBUTE_USER, user);
 				String code = GenerationVeriicationCode.getInstance().getGeneratedCode();
-				VerificateServiceImpl.getInstance().addVerificateCodeWithUserId(user.getId(), code);
+				ConfirmationServiceImpl.getInstance().addVerificateCodeWithUserId(user.getId(), code);
 				EmailSender.getInstance().emailSend("VERIFICATION PERSONAL ACCOUNT",
 						"Your code for verification account: " + code, "koroza.alexey99@gmail.com");
 			}

@@ -2,7 +2,7 @@ package by.koroza.zoo_market.service;
 
 import by.koroza.zoo_market.service.exception.ServiceException;
 
-public interface VerificateService {
+public interface ConfirmationService {
 
 	public boolean addVerificateCodeWithUserId(long userId, String code) throws ServiceException;
 

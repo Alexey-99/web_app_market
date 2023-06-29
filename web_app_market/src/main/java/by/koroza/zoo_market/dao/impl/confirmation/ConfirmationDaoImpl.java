@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.dao.impl;
+package by.koroza.zoo_market.dao.impl.confirmation;
 
 import static by.koroza.zoo_market.dao.name.ColumnName.VERIFICATE_CODES_CODE;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_VERIFICATE_CODES_CODE;
@@ -9,11 +9,11 @@ import java.sql.SQLException;
 
 import by.koroza.zoo_market.dao.pool.ConnectionPool;
 import by.koroza.zoo_market.dao.pool.ProxyConnection;
-import by.koroza.zoo_market.dao.VerificateDao;
+import by.koroza.zoo_market.dao.ConfirmationDao;
 import by.koroza.zoo_market.dao.exception.DaoException;
 
-public class VerificateDaoImpl implements VerificateDao {
-	private static final VerificateDao INSTANCE = new VerificateDaoImpl();
+public class ConfirmationDaoImpl implements ConfirmationDao {
+	private static final ConfirmationDao INSTANCE = new ConfirmationDaoImpl();
 
 	private static final String QUERY_SELECT_COUNT_VERIFICATE_CODES_WITH_USER_ID_AND_STATUS_OPEN = """
 			SELECT COUNT(verificate_сodes.code)
@@ -21,11 +21,11 @@ public class VerificateDaoImpl implements VerificateDao {
 			WHERE verificate_сodes.users_id = ? AND verificate_сodes.is_open = ?
 			""";
 
-	private VerificateDaoImpl() {
+	private ConfirmationDaoImpl() {
 
 	}
 
-	public static VerificateDao getInstance() {
+	public static ConfirmationDao getInstance() {
 		return INSTANCE;
 	}
 

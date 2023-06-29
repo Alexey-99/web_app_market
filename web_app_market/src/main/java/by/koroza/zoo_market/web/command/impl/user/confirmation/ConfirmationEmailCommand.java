@@ -10,7 +10,7 @@ import static by.koroza.zoo_market.web.command.name.PagePathName.CONFIMARTION_EM
 
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.service.exception.ServiceException;
-import by.koroza.zoo_market.service.impl.VerificateServiceImpl;
+import by.koroza.zoo_market.service.impl.confirmation.ConfirmationServiceImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
@@ -35,12 +35,12 @@ public class ConfirmationEmailCommand implements Command {
 				if (user.getId() == 0) {
 					user.setId(UserServiceImpl.getInstance().getUserIdByLogin(user.getLogin()));
 				}
-				String code = VerificateServiceImpl.getInstance().getVerificateCodeByUserId(user.getId());
+				String code = ConfirmationServiceImpl.getInstance().getVerificateCodeByUserId(user.getId());
 				if (codeInput.equals(code)) {
 					user.setVerificatedEmail(true);
 					session.setAttribute(ATTRIBUTE_USER, user);
 					UserServiceImpl.getInstance().changeVerificationEmailStatus(user.getId(), true);
-					VerificateServiceImpl.getInstance().changeVerificateCodeStatusByUserId(user.getId(), code,
+					ConfirmationServiceImpl.getInstance().changeVerificateCodeStatusByUserId(user.getId(), code,
 							VERIFICATE_CODE_STATUS_CLOSED);
 					router = new Router(HOME_PAGE_PATH);
 				} else {
