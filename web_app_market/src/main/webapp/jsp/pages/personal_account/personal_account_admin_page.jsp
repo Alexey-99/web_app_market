@@ -25,7 +25,8 @@
 <title><fmt:message key="personal_account_admin_page.title" /></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 </head>
-<body>
+<body class="d-flex flex-column justify-content-between"
+	style="min-height: 100vh">
 	<%@ include file="/jsp/items/header_block_header_top.jsp"%>
 
 	<main class="mb-5">

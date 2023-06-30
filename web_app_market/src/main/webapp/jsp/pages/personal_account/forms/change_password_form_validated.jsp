@@ -22,11 +22,14 @@
 <link rel="stylesheet" href="css/items/root.css" />
 <link rel="stylesheet" href="css/items/main_header.css" />
 <link rel="stylesheet" href="css/pages/personal_account.css" />
-<title>personal_account_person_infomation.jsp</title>
+<title><fmt:message
+		key="personal_account_person_infomation.changing_password_form.title" />
+</title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 <!-- changing_password_input_exception_type_and_message = AttributeName.ATTRIBUTE_CHANGING_PASSWORD_INPUT_EXCEPTION_TYPE_AND_MASSAGE -->
 </head>
-<body>
+<body class="d-flex flex-column justify-content-between"
+	style="min-height: 100vh;">
 	<%@ include file="/jsp/items/header_block_header_top.jsp"%>
 
 	<main class="mb-5">
@@ -35,9 +38,9 @@
 				<c:if test="${user != null}">
 					<div class="col-12">
 						<div
-							class="position-fixed justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 password_form">
+							class="position-fixed d-flex justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 change_password_form">
 							<div
-								class="position-relative w-100 d-flex flex-column password_form_inner">
+								class="position-relative w-100 d-flex flex-column change_password_form_inner">
 								<div class="login_password_form_top">
 									<form class=""
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
@@ -51,21 +54,29 @@
 													d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z" /></svg>
 										</button>
 									</form>
-									<h2 class="form_title text-center mb-3">Изменение пароля</h2>
+									<h2 class="form_title text-center mb-3">
+										<fmt:message
+											key="personal_account_person_infomation.changing_password_form.title" />
+									</h2>
 								</div>
 								<c:if
 									test="${changing_password_input_exception_type_and_message == null || changing_password_input_exception_type_and_message.isEmpty()}">
 									<form class=""
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-										method="get">
+										method="post">
 										<div
 											class="form-floating mb-3 d-flex justify-content-center align-items-center">
 											<input type="password"
 												class="form-control login_password_form_input_password"
-												id="floatingInputPassword" required
+												id="personal_account_person_infomation.changing_password_form.password"
+												required
 												name="${InputName.CHANGING_PASSWORD_INPUT_USER_PASSWORD}"
-												value="${user.getPassword()}" placeholder="123456" /> <label
-												class="text-lowercase" for="floatingInputPassword">Пароль</label>
+												placeholder='<fmt:message key="personal_account_person_infomation.changing_password_form.password"/>' />
+											<label class="text-lowercase"
+												for="personal_account_person_infomation.changing_password_form.password">
+												<fmt:message
+													key="personal_account_person_infomation.changing_password_form.password" />
+											</label>
 											<div class="btn login_password_form_password_btn"
 												onclick="showPasswordInLoginPasswordFormInput()">
 												<svg class="login_password_form_open_eye"
@@ -88,7 +99,10 @@
 												name="${ParameterName.PARAMETER_COMMAND}"
 												value="${CommandName.COMMAND_CHANGE_PASSWORD}" />
 											<button class="btn login_password_form_btn_submit"
-												role="button">готово</button>
+												role="button">
+												<fmt:message
+													key="personal_account_person_infomation.changing_password_form.ok" />
+											</button>
 										</div>
 									</form>
 								</c:if>
@@ -96,19 +110,27 @@
 									test="${changing_password_input_exception_type_and_message != null && !changing_password_input_exception_type_and_message.isEmpty()}">
 									<form class=""
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-										method="get">
+										method="post">
 										<c:if
 											test="${changing_password_input_exception_type_and_message.containsKey(ChangePasswordCommand.TYPY_INPUT_EXCEPTION_PASSWORD)}">
-											<div
-												class="form-floating mb-3 d-flex justify-content-center align-items-center">
-												<input type="password"
-													class="form-control login_password_form_input_password is-invalid"
-													id="floatingInputPassword" required
-													name="${InputName.CHANGING_PASSWORD_INPUT_USER_PASSWORD}"
-													placeholder="123456" /> <label class="text-lowercase"
-													for="floatingInputPassword">Пароль</label>
-												<div class="invalid-feedback">${changing_password_input_exception_type_and_message.get(ChangePasswordCommand.TYPY_INPUT_EXCEPTION_PASSWORD)}</div>
-												<div class="btn login_password_form_password_btn"
+											<div class="d-flex justify-content-between flex-row">
+												<div class="form-floating w-100">
+													<input type="password"
+														class="form-control login_password_form_input_password is-invalid"
+														id="personal_account_person_infomation.changing_password_form.password"
+														required
+														name="${InputName.CHANGING_PASSWORD_INPUT_USER_PASSWORD}"
+														placeholder='<fmt:message key="personal_account_person_infomation.changing_password_form.password"/>' />
+													<label class="text-lowercase"
+														for="personal_account_person_infomation.changing_password_form.password">
+														<fmt:message
+															key="personal_account_person_infomation.changing_password_form.password" />
+													</label>
+													<div class="invalid-feedback">
+														${changing_password_input_exception_type_and_message.get(ChangePasswordCommand.TYPY_INPUT_EXCEPTION_PASSWORD)}
+													</div>
+												</div>
+												<div class="btn login_password_form_password_btn mt-1"
 													onclick="showPasswordInLoginPasswordFormInput()">
 													<svg class="login_password_form_open_eye"
 														xmlns="http://www.w3.org/2000/svg" height="25"
@@ -127,16 +149,25 @@
 										</c:if>
 										<c:if
 											test="${!changing_password_input_exception_type_and_message.containsKey(ChangePasswordCommand.TYPY_INPUT_EXCEPTION_PASSWORD)}">
-											<div
-												class="form-floating mb-3 d-flex justify-content-center align-items-center">
-												<input type="password"
-													class="form-control login_password_form_input_password"
-													id="floatingInputPassword" required
-													name="${InputName.CHANGING_PASSWORD_INPUT_USER_PASSWORD}"
-													placeholder="123456" /> <label class="text-lowercase"
-													for="floatingInputPassword">Пароль</label>
-												<div class="valid-feedback">Все хорошо!</div>
-												<div class="btn login_password_form_password_btn"
+											<div class="d-flex justify-content-between flex-row">
+												<div class="form-floating w-100">
+													<input type="password"
+														class="form-control is-valid login_password_form_input_password"
+														id="personal_account_person_infomation.changing_password_form.password"
+														required
+														name="${InputName.CHANGING_PASSWORD_INPUT_USER_PASSWORD}"
+														placeholder='<fmt:message key="personal_account_person_infomation.changing_password_form.password"/>' />
+													<label class="text-lowercase"
+														for="personal_account_person_infomation.changing_password_form.password">
+														<fmt:message
+															key="personal_account_person_infomation.changing_password_form.password" />
+													</label>
+													<div class="valid-feedback">
+														<fmt:message
+															key="personal_account_person_infomation.changing_password_form.valid_feed_back" />
+													</div>
+												</div>
+												<div class="btn login_password_form_password_btn mt-1"
 													onclick="showPasswordInLoginPasswordFormInput()">
 													<svg class="login_password_form_open_eye"
 														xmlns="http://www.w3.org/2000/svg" height="25"
@@ -159,7 +190,10 @@
 												name="${ParameterName.PARAMETER_COMMAND}"
 												value="${CommandName.COMMAND_CHANGE_PASSWORD}" />
 											<button class="btn login_password_form_btn_submit"
-												role="button">готово</button>
+												role="button">
+												<fmt:message
+													key="personal_account_person_infomation.changing_password_form.ok" />
+											</button>
 										</div>
 									</form>
 								</c:if>

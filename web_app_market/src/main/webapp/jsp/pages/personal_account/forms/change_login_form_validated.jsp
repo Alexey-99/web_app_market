@@ -22,7 +22,9 @@
 <link rel="stylesheet" href="css/items/root.css" />
 <link rel="stylesheet" href="css/items/main_header.css" />
 <link rel="stylesheet" href="css/pages/personal_account.css" />
-<title>personal_account_person_infomation.jsp</title>
+<title><fmt:message
+		key="personal_account_person_infomation.changing_login_form.title" />
+</title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 <!-- changing_login_input_exception_type_and_message = AttributeName.ATTRIBUTE_CHANGING_LOGIN_INPUT_EXCEPTION_TYPE_AND_MASSAGE -->
 </head>
@@ -35,9 +37,9 @@
 				<c:if test="${user != null}">
 					<div class="col-12">
 						<div
-							class="position-fixed justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 login_password_form">
+							class="position-fixed justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 change_login_form">
 							<div
-								class="position-relative w-100 d-flex flex-column login_password_form_inner">
+								class="position-relative w-100 d-flex flex-column change_login_form_inner">
 								<div class="login_password_form_top">
 									<form class=""
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
@@ -51,7 +53,10 @@
 													d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z" /></svg>
 										</button>
 									</form>
-									<h2 class="form_title text-center mb-3">Изменение логина</h2>
+									<h2 class="form_title text-center mb-3">
+										<fmt:message
+											key="personal_account_person_infomation.changing_login_form.title" />
+									</h2>
 								</div>
 								<c:if
 									test="${changing_login_input_exception_type_and_message == null || changing_login_input_exception_type_and_message.isEmpty()}">
@@ -60,11 +65,15 @@
 										method="get">
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
-												id="floatingInputLogin" required
-												name="${InputName.CHANGING_LOGIN_INPUT_USER_LOGIN}"
+												id="personal_account_person_infomation.changing_login_form.login"
+												required name="${InputName.CHANGING_LOGIN_INPUT_USER_LOGIN}"
 												value="${user.getLogin()}"
-												placeholder='<fmt:message key=""/>' /> <label
-												class="text-lowercase" for="floatingInputLogin">Логин</label>
+												placeholder='<fmt:message key="personal_account_person_infomation.changing_login_form.login"/>' />
+											<label class="text-lowercase"
+												for="personal_account_person_infomation.changing_login_form.login">
+												<fmt:message
+													key="personal_account_person_infomation.changing_login_form.login" />
+											</label>
 										</div>
 										<div
 											class="login_password_form_fotter d-flex justify-content-end">
@@ -72,7 +81,10 @@
 												name="${ParameterName.PARAMETER_COMMAND}"
 												value="${CommandName.COMMAND_CHANGE_LOGIN}" />
 											<button class="btn login_password_form_btn_submit"
-												role="button">готово</button>
+												role="button">
+												<fmt:message
+													key="personal_account_person_infomation.changing_login_form.ok" />
+											</button>
 										</div>
 									</form>
 								</c:if>
@@ -85,23 +97,36 @@
 											test="${changing_login_input_exception_type_and_message.containsKey(ChangeLoginCommand.TYPY_INPUT_EXCEPTION_LOGIN)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-invalid"
-													id="floatingInputLogin" required
+													id="personal_account_person_infomation.changing_login_form.login"
+													required
 													name="${InputName.CHANGING_LOGIN_INPUT_USER_LOGIN}"
-													value="${user.getLogin()}"
-													placeholder='<fmt:message key=""/>' />
+													placeholder='<fmt:message key="personal_account_person_infomation.changing_login_form.login"/>' />
 												<div class="invalid-feedback">${changing_login_input_exception_type_and_message.get(ChangeLoginCommand.TYPY_INPUT_EXCEPTION_LOGIN)}</div>
-												<label class="text-lowercase" for="floatingInputLogin">Логин</label>
+												<label class="text-lowercase"
+													for="personal_account_person_infomation.changing_login_form.login">
+													<fmt:message
+														key="personal_account_person_infomation.changing_login_form.login" />
+												</label>
 											</div>
 										</c:if>
 										<c:if
 											test="${!changing_login_input_exception_type_and_message.containsKey(ChangeLoginCommand.TYPY_INPUT_EXCEPTION_LOGIN)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-valid"
-													id="floatingInputLogin" required
+													id="personal_account_person_infomation.changing_login_form.login"
+													required
 													name="${InputName.CHANGING_LOGIN_INPUT_USER_LOGIN}"
-													value="${user.getLogin()}" placeholder="Robert_99" />
-												<div class="valid-feedback">Все хорошо!</div>
-												<label class="text-lowercase" for="floatingInputLogin">Логин</label>
+													value="${user.getLogin()}"
+													placeholder='<fmt:message key="personal_account_person_infomation.changing_login_form.login"/>' />
+												<div class="valid-feedback">
+													<fmt:message
+														key="personal_account_person_infomation.changing_login_form.valid_feed_back" />
+												</div>
+												<label class="text-lowercase"
+													for="personal_account_person_infomation.changing_login_form.login">
+													<fmt:message
+														key="personal_account_person_infomation.changing_login_form.login" />
+												</label>
 											</div>
 										</c:if>
 										<div
@@ -110,7 +135,10 @@
 												name="${ParameterName.PARAMETER_COMMAND}"
 												value="${CommandName.COMMAND_CHANGE_LOGIN}" />
 											<button class="btn login_password_form_btn_submit"
-												role="button">готово</button>
+												role="button">
+												<fmt:message
+													key="personal_account_person_infomation.changing_login_form.ok" />
+											</button>
 										</div>
 									</form>
 								</c:if>
@@ -122,8 +150,10 @@
 					<div class="col-12">
 						<h3
 							class="text-center d-flex flex-column justify-content-center align-items-center"
-							style="min-height: 45.3vh">Ваше время сессии завершено.
-							Перезайдите в учётную запись.</h3>
+							style="min-height: 45.3vh">
+							<fmt:message
+								key="personal_account_person_infomation.end_session.message" />
+						</h3>
 					</div>
 				</c:if>
 			</div>

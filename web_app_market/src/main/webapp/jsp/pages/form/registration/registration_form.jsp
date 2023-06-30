@@ -322,7 +322,6 @@
 												</div>
 											</div>
 										</c:if>
-
 										<c:if
 											test="${registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.EMAIL)}">
 											<div class="form-floating mb-3">

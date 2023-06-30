@@ -123,8 +123,8 @@ public class CraeteOtherProductCommand implements Command {
 		} else {
 			productFeedAndOther.setImagePath(null);
 		}
-		if (productFeedAndOther.getImagePath() != oldImagePath
-				|| !productFeedAndOther.getImagePath().equals(oldImagePath)) {
+		if (productFeedAndOther.getImagePath() != null ? !productFeedAndOther.getImagePath().equals(oldImagePath)
+				: productFeedAndOther.getImagePath() == null && oldImagePath != null) {
 			if (oldImagePath != null) {
 				ImageFileServiceImpl.getInstance().removeProductImage(oldImagePath);
 			}

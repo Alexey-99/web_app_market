@@ -25,7 +25,8 @@
 		key="personal_account_person_infomation.title" /></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 </head>
-<body>
+<body class="d-flex flex-column justify-content-between"
+	style="min-height: 100vh">
 	<%@ include file="/jsp/items/header_block_header_top.jsp"%>
 
 	<main class="mb-5">
@@ -365,8 +366,9 @@
 									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 									<div
 										class="form-floating mb-3 d-flex justify-content-center align-items-center">
-										<input type="password" required
+										<input type="password"
 											class="form-control login_password_form_input_password"
+											required
 											id="personal_account_person_infomation.changing_password_form.password"
 											name="${InputName.CHANGING_PASSWORD_INPUT_USER_PASSWORD}"
 											placeholder='<fmt:message key="personal_account_person_infomation.changing_password_form.password"/>' />

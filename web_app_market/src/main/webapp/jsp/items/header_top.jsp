@@ -29,8 +29,6 @@
 </head>
 <body>
 
-	<span>${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}</span>
-
 	<div class="col-xl-2 col-lg-12 logo">
 		<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 			<input type="hidden" name="${ParameterName.PARAMETER_COMMAND }"

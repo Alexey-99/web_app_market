@@ -26,7 +26,8 @@
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 <!-- user_history_orders = AttributeName.ATTRIBUTE_USER_HISTORY_ORDERS -->
 </head>
-<body>
+<body class="d-flex flex-column justify-content-between"
+	style="min-height: 100vh">
 	<%@ include file="/jsp/items/header_block_header_top.jsp"%>
 
 	<main class="mb-5">

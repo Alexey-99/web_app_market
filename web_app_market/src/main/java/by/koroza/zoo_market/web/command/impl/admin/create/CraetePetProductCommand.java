@@ -115,7 +115,8 @@ public class CraetePetProductCommand implements Command {
 		} else {
 			pet.setImagePath(null);
 		}
-		if (pet.getImagePath() != oldImagePath || !pet.getImagePath().equals(oldImagePath)) {
+		if (pet.getImagePath() != null ? !pet.getImagePath().equals(oldImagePath)
+				: pet.getImagePath() == null && oldImagePath != null) {
 			if (oldImagePath != null) {
 				ImageFileServiceImpl.getInstance().removeProductImage(oldImagePath);
 			}
