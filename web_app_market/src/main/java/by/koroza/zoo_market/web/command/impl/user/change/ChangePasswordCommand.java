@@ -1,10 +1,12 @@
 package by.koroza.zoo_market.web.command.impl.user.change;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_CHANGING_PASSWORD_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 
 import static by.koroza.zoo_market.web.command.name.InputName.CHANGING_PASSWORD_INPUT_USER_PASSWORD;
-
+import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
+import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
 import static by.koroza.zoo_market.web.command.name.PagePathName.CHANGE_PASSWORD_FORM_VALIDATED_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH;
@@ -52,9 +54,7 @@ public class ChangePasswordCommand implements Command {
 					router = new Router(HOME_PAGE_PATH);
 				} else {
 					Map<String, String> mapInputExceptions = new HashMap<>();
-
 					String password = getInputParameterPassword(request, mapInputExceptions, user);
-
 					if ((user.getPassword() != null ? !user.getPassword().equals(password)
 							: user.getPassword() == null && password != null)
 							&& (session
@@ -86,11 +86,17 @@ public class ChangePasswordCommand implements Command {
 	private String getInputParameterPassword(HttpServletRequest request, Map<String, String> mapInputExceptions,
 			AbstractRegistratedUser user) {
 		String password = (String) request.getParameter(CHANGING_PASSWORD_INPUT_USER_PASSWORD);
+		String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
 		if (user.getPassword() != null ? !user.getPassword().equals(HashGenerator.getInstance().getHash(password))
 				: user.getPassword() == null && password != null) {
-			if (!UserValidation.validPassword(password)) { // TODO LOCALE
-				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_PASSWORD,
-						"Вы ввели пароль не корректно. Ваш ввод: " + password);
+			if (!UserValidation.validPassword(password)) {
+				if (sessionLocale.equals(RUSSIAN)) {
+					mapInputExceptions.put(TYPY_INPUT_EXCEPTION_PASSWORD,
+							"Вы ввели пароль не корректно. Ваш ввод: " + password);
+				} else if (sessionLocale.equals(ENGLISH)) {
+					mapInputExceptions.put(TYPY_INPUT_EXCEPTION_PASSWORD,
+							"You entered password incorrect. Your entered: " + password);
+				}
 			}
 		}
 		return password;
