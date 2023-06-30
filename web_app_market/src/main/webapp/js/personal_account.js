@@ -23,26 +23,32 @@ function closePassword() {
 }
 
 function showGeneralInfomationForm() {
-	const element = selectElement('.general_infomation_form');
+	const element = selectElement('.change_general_infomation_form');
 	removeClass(element, 'd-none');
-	addClass(element, 'd-flex');
 }
 
 function closeGeneralInfomationForm() {
-	const element = selectElement('.general_infomation_form');
-	removeClass(element, 'd-flex');
+	const element = selectElement('.change_general_infomation_form');
 	addClass(element, 'd-none');
 }
 
-function showLoginPasswordForm() {
-	const element = selectElement('.login_password_form');
+function showLoginForm() {
+	const element = selectElement('.change_login_form');
 	removeClass(element, 'd-none');
-	addClass(element, 'd-flex');
 }
 
-function closeLoginPasswordForm() {
-	const element = selectElement('.login_password_form');
-	removeClass(element, 'd-flex');
+function closeLoginForm() {
+	const element = selectElement('.change_login_form');
+	addClass(element, 'd-none');
+}
+
+function showPasswordForm() {
+	const element = selectElement('.change_password_form');
+	removeClass(element, 'd-none');
+}
+
+function closePasswordForm() {
+	const element = selectElement('.change_password_form');
 	addClass(element, 'd-none');
 }
 

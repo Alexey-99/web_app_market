@@ -5,8 +5,10 @@ import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESS
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 
 import static by.koroza.zoo_market.web.command.name.InputName.CHANGING_PASSWORD_INPUT_USER_PASSWORD;
+
 import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
 import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
+
 import static by.koroza.zoo_market.web.command.name.PagePathName.CHANGE_PASSWORD_FORM_VALIDATED_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH;

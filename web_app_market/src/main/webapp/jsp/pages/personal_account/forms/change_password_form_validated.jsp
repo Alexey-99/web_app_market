@@ -9,7 +9,7 @@
 <%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.user.change.ChangeLoginCommand"%>
+	import="by.koroza.zoo_market.web.command.impl.user.change.ChangePasswordCommand"%>
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
 	scope="session" />
 <fmt:setBundle
@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="css/pages/personal_account.css" />
 <title>personal_account_person_infomation.jsp</title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
-<!-- changing_login_input_exception_type_and_message = AttributeName.ATTRIBUTE_CHANGING_LOGIN_INPUT_EXCEPTION_TYPE_AND_MASSAGE -->
+<!-- changing_password_input_exception_type_and_message = AttributeName.ATTRIBUTE_CHANGING_PASSWORD_INPUT_EXCEPTION_TYPE_AND_MASSAGE -->
 </head>
 <body>
 	<%@ include file="/jsp/items/header_block_header_top.jsp"%>
@@ -35,9 +35,9 @@
 				<c:if test="${user != null}">
 					<div class="col-12">
 						<div
-							class="position-fixed justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 login_password_form">
+							class="position-fixed justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 password_form">
 							<div
-								class="position-relative w-100 d-flex flex-column login_password_form_inner">
+								class="position-relative w-100 d-flex flex-column password_form_inner">
 								<div class="login_password_form_top">
 									<form class=""
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
@@ -54,7 +54,7 @@
 									<h2 class="form_title text-center mb-3">Изменение пароля</h2>
 								</div>
 								<c:if
-									test="${changing_login_input_exception_type_and_message.isEmpty()}">
+									test="${changing_password_input_exception_type_and_message == null || changing_password_input_exception_type_and_message.isEmpty()}">
 									<form class=""
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 										method="get">
@@ -62,8 +62,8 @@
 											class="form-floating mb-3 d-flex justify-content-center align-items-center">
 											<input type="password"
 												class="form-control login_password_form_input_password"
-												id="floatingInputPassword"
-												name="${InputName.CHANGING_LOGIN_AND_PASSWORD_INPUT_USER_PASSWORD}"
+												id="floatingInputPassword" required
+												name="${InputName.CHANGING_PASSWORD_INPUT_USER_PASSWORD}"
 												value="${user.getPassword()}" placeholder="123456" /> <label
 												class="text-lowercase" for="floatingInputPassword">Пароль</label>
 											<div class="btn login_password_form_password_btn"
@@ -93,21 +93,21 @@
 									</form>
 								</c:if>
 								<c:if
-									test="${!changing_login_input_exception_type_and_message.isEmpty()}">
+									test="${changing_password_input_exception_type_and_message != null && !changing_password_input_exception_type_and_message.isEmpty()}">
 									<form class=""
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 										method="get">
 										<c:if
-											test="${changing_login_and_password_input_exception_type_and_message.containsKey(ChangeLoginAndPasswordCommand.TYPY_INPUT_EXCEPTION_PASSWORD)}">
+											test="${changing_password_input_exception_type_and_message.containsKey(ChangePasswordCommand.TYPY_INPUT_EXCEPTION_PASSWORD)}">
 											<div
 												class="form-floating mb-3 d-flex justify-content-center align-items-center">
 												<input type="password"
 													class="form-control login_password_form_input_password is-invalid"
-													id="floatingInputPassword"
-													name="${InputName.CHANGING_LOGIN_AND_PASSWORD_INPUT_USER_PASSWORD}"
-													value="${user.getPassword()}" placeholder="123456" />
-												<div class="invalid-feedback">${changing_login_and_password_input_exception_type_and_message.get(ChangeLoginAndPasswordCommand.TYPY_INPUT_EXCEPTION_PASSWORD)}</div>
-												<label class="text-lowercase" for="floatingInputPassword">Пароль</label>
+													id="floatingInputPassword" required
+													name="${InputName.CHANGING_PASSWORD_INPUT_USER_PASSWORD}"
+													placeholder="123456" /> <label class="text-lowercase"
+													for="floatingInputPassword">Пароль</label>
+												<div class="invalid-feedback">${changing_password_input_exception_type_and_message.get(ChangePasswordCommand.TYPY_INPUT_EXCEPTION_PASSWORD)}</div>
 												<div class="btn login_password_form_password_btn"
 													onclick="showPasswordInLoginPasswordFormInput()">
 													<svg class="login_password_form_open_eye"
@@ -126,16 +126,16 @@
 											</div>
 										</c:if>
 										<c:if
-											test="${!changing_login_and_password_input_exception_type_and_message.containsKey(ChangeLoginAndPasswordCommand.TYPY_INPUT_EXCEPTION_PASSWORD)}">
+											test="${!changing_password_input_exception_type_and_message.containsKey(ChangePasswordCommand.TYPY_INPUT_EXCEPTION_PASSWORD)}">
 											<div
 												class="form-floating mb-3 d-flex justify-content-center align-items-center">
 												<input type="password"
 													class="form-control login_password_form_input_password"
-													id="floatingInputPassword"
-													name="${InputName.CHANGING_LOGIN_AND_PASSWORD_INPUT_USER_PASSWORD}"
-													value="${user.getPassword()}" placeholder="123456" />
+													id="floatingInputPassword" required
+													name="${InputName.CHANGING_PASSWORD_INPUT_USER_PASSWORD}"
+													placeholder="123456" /> <label class="text-lowercase"
+													for="floatingInputPassword">Пароль</label>
 												<div class="valid-feedback">Все хорошо!</div>
-												<label class="text-lowercase" for="floatingInputPassword">Пароль</label>
 												<div class="btn login_password_form_password_btn"
 													onclick="showPasswordInLoginPasswordFormInput()">
 													<svg class="login_password_form_open_eye"

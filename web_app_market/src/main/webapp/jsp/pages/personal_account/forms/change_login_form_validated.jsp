@@ -60,8 +60,8 @@
 										method="get">
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
-												id="floatingInputLogin"
-												name="${InputName.CHANGING_LOGIN_AND_PASSWORD_INPUT_USER_LOGIN}"
+												id="floatingInputLogin" required
+												name="${InputName.CHANGING_LOGIN_INPUT_USER_LOGIN}"
 												value="${user.getLogin()}"
 												placeholder='<fmt:message key=""/>' /> <label
 												class="text-lowercase" for="floatingInputLogin">Логин</label>
@@ -85,20 +85,20 @@
 											test="${changing_login_input_exception_type_and_message.containsKey(ChangeLoginCommand.TYPY_INPUT_EXCEPTION_LOGIN)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-invalid"
-													id="floatingInputLogin"
-													name="${InputName.CHANGING_LOGIN_AND_PASSWORD_INPUT_USER_LOGIN}"
+													id="floatingInputLogin" required
+													name="${InputName.CHANGING_LOGIN_INPUT_USER_LOGIN}"
 													value="${user.getLogin()}"
 													placeholder='<fmt:message key=""/>' />
-												<div class="invalid-feedback">${changing_login_input_exception_type_and_message.get(ChangeLoginAndPasswordCommand.TYPY_INPUT_EXCEPTION_LOGIN)}</div>
+												<div class="invalid-feedback">${changing_login_input_exception_type_and_message.get(ChangeLoginCommand.TYPY_INPUT_EXCEPTION_LOGIN)}</div>
 												<label class="text-lowercase" for="floatingInputLogin">Логин</label>
 											</div>
 										</c:if>
 										<c:if
-											test="${!changing_login_input_exception_type_and_message.containsKey(ChangeLoginAndPasswordCommand.TYPY_INPUT_EXCEPTION_LOGIN)}">
+											test="${!changing_login_input_exception_type_and_message.containsKey(ChangeLoginCommand.TYPY_INPUT_EXCEPTION_LOGIN)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-valid"
-													id="floatingInputLogin"
-													name="${InputName.CHANGING_LOGIN_AND_PASSWORD_INPUT_USER_LOGIN}"
+													id="floatingInputLogin" required
+													name="${InputName.CHANGING_LOGIN_INPUT_USER_LOGIN}"
 													value="${user.getLogin()}" placeholder="Robert_99" />
 												<div class="valid-feedback">Все хорошо!</div>
 												<label class="text-lowercase" for="floatingInputLogin">Логин</label>
