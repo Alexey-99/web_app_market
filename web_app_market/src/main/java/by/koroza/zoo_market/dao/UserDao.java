@@ -21,7 +21,7 @@ public interface UserDao {
 
 	public Optional<User> getUserByLogin(String login, String password) throws DaoException;
 
-	public boolean changePersonInformation(User user, String name, String surname, String email) throws DaoException;
+	public boolean changePersonInformation(User user) throws DaoException;
 
 	public boolean changeLogin(User user, String login) throws DaoException;
 

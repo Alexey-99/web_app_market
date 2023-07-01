@@ -215,22 +215,22 @@ public class UserDaoImpl implements UserDao {
 
 	private static final String QUERY_CHANGE_PERSON_INFOMATION = """
 			UPDATE users
-			SET users.name = ?, users.surname = ?, users.email = ?, users.roles_id = ?
+			SET users.name = ?,
+			users.surname = ?,
+			users.email = ?,
+			users.verificated_email = ?
 			WHERE users.id = ?;
 			""";
 
 	@Override
-	public boolean changePersonInformation(User user, String name, String surname, String email) throws DaoException {
+	public boolean changePersonInformation(User user) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(QUERY_CHANGE_PERSON_INFOMATION)) {
-			statement.setString(1, name);
-			statement.setString(2, surname);
-			statement.setString(3, email);
-			statement.setLong(4,
-					(user.getEmail() != null ? user.getEmail().equals(email)
-							: (user.getEmail() == null && email == null)) ? user.getRole().getIdRole()
-									: UserRole.WAITING_CODE_REGISTRATION.getIdRole());
+			statement.setString(1, user.getName());
+			statement.setString(2, user.getSurname());
+			statement.setString(3, user.getEmail());
+			statement.setBoolean(4, user.isVerificatedEmail());
 			statement.setLong(5, user.getId());
 			result = statement.executeUpdate() > 0;
 		} catch (SQLException e) {

@@ -3,6 +3,9 @@ package by.koroza.zoo_market.web.command.impl.user.change;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_CHANGING_PASSWORD_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
+import static by.koroza.zoo_market.web.command.name.exception.MessageInputException.EN_MESSAGE_TYPY_INPUT_EXCEPTION_PASSWORD;
+import static by.koroza.zoo_market.web.command.name.exception.MessageInputException.RU_MESSAGE_TYPY_INPUT_EXCEPTION_PASSWORD;
+import static by.koroza.zoo_market.web.command.name.exception.TypeInputExeception.TYPY_INPUT_EXCEPTION_PASSWORD;
 import static by.koroza.zoo_market.web.command.name.input.InputName.CHANGING_PASSWORD_INPUT_USER_PASSWORD;
 import static by.koroza.zoo_market.web.command.name.language.LanguageName.ENGLISH;
 import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIAN;
@@ -32,12 +35,6 @@ import jakarta.servlet.http.HttpSession;
 public class ChangePasswordCommand implements Command {
 	@SuppressWarnings("unused")
 	private static final Logger log = LogManager.getLogger();
-
-	public static final String TYPY_INPUT_EXCEPTION_PASSWORD = TypeInputException.PASSWORD.toString();
-
-	private enum TypeInputException {
-		PASSWORD;
-	}
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
@@ -91,10 +88,10 @@ public class ChangePasswordCommand implements Command {
 			if (!UserValidation.validPassword(password)) {
 				if (sessionLocale.equals(RUSSIAN)) {
 					mapInputExceptions.put(TYPY_INPUT_EXCEPTION_PASSWORD,
-							"Вы ввели пароль не корректно. Ваш ввод: " + password);
+							RU_MESSAGE_TYPY_INPUT_EXCEPTION_PASSWORD + password);
 				} else if (sessionLocale.equals(ENGLISH)) {
 					mapInputExceptions.put(TYPY_INPUT_EXCEPTION_PASSWORD,
-							"You entered password incorrect. Your entered: " + password);
+							EN_MESSAGE_TYPY_INPUT_EXCEPTION_PASSWORD + password);
 				}
 			}
 		}

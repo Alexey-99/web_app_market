@@ -2,14 +2,18 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
-<%@page import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.input.InputName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.user.change.ChangeLoginCommand"%>
+	import="by.koroza.zoo_market.web.command.name.exception.TypeInputExeception"%>
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
 	scope="session" />
 <fmt:setBundle
@@ -94,14 +98,14 @@
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 										method="get">
 										<c:if
-											test="${changing_login_input_exception_type_and_message.containsKey(ChangeLoginCommand.TYPY_INPUT_EXCEPTION_LOGIN)}">
+											test="${changing_login_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_LOGIN)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-invalid"
 													id="personal_account_person_infomation.changing_login_form.login"
 													required
 													name="${InputName.CHANGING_LOGIN_INPUT_USER_LOGIN}"
 													placeholder='<fmt:message key="personal_account_person_infomation.changing_login_form.login"/>' />
-												<div class="invalid-feedback">${changing_login_input_exception_type_and_message.get(ChangeLoginCommand.TYPY_INPUT_EXCEPTION_LOGIN)}</div>
+												<div class="invalid-feedback">${changing_login_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_LOGIN)}</div>
 												<label class="text-lowercase"
 													for="personal_account_person_infomation.changing_login_form.login">
 													<fmt:message
@@ -110,7 +114,7 @@
 											</div>
 										</c:if>
 										<c:if
-											test="${!changing_login_input_exception_type_and_message.containsKey(ChangeLoginCommand.TYPY_INPUT_EXCEPTION_LOGIN)}">
+											test="${!changing_login_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_LOGIN)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-valid"
 													id="personal_account_person_infomation.changing_login_form.login"

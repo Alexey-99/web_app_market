@@ -2,14 +2,18 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
-<%@page import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.input.InputName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.user.registration.RegistrationUserCommand"%>
+	import="by.koroza.zoo_market.web.command.name.exception.TypeInputExeception"%>
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
 	scope="session" />
 <fmt:setBundle
@@ -90,7 +94,7 @@
 									<form class="registration_form_body" method="post"
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 										<c:if
-											test="${registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.EMAIL)}">
+											test="${registration_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL)}">
 											<div class="form-floating mb-3">
 												<input type="email" class="form-control is-invalid"
 													id="change_email_form.body.input_lable.email_address"
@@ -107,11 +111,11 @@
 														test="${user.getEmail() == null || user.getEmail().isBlank()}">(<fmt:message
 															key="change_email_form.description.not_entered" />)</c:if>
 												</label>
-												<div class="invalid-feedback">${registration_input_exception_type_and_message.get(RegistrationUserCommand.EMAIL)}</div>
+												<div class="invalid-feedback">${registration_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL)}</div>
 											</div>
 										</c:if>
 										<c:if
-											test="${!registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.EMAIL)}">
+											test="${!registration_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL)}">
 											<div class="form-floating mb-3">
 												<input type="email" class="form-control is-valid"
 													id="change_email_form.body.input_lable.email_address"

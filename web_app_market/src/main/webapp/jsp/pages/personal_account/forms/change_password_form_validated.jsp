@@ -2,14 +2,18 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
-<%@page import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.input.InputName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.user.change.ChangePasswordCommand"%>
+	import="by.koroza.zoo_market.web.command.name.exception.TypeInputExeception"%>
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
 	scope="session" />
 <fmt:setBundle
@@ -112,7 +116,7 @@
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 										method="post">
 										<c:if
-											test="${changing_password_input_exception_type_and_message.containsKey(ChangePasswordCommand.TYPY_INPUT_EXCEPTION_PASSWORD)}">
+											test="${changing_password_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_PASSWORD)}">
 											<div class="d-flex justify-content-between flex-row">
 												<div class="form-floating w-100">
 													<input type="password"
@@ -127,7 +131,7 @@
 															key="personal_account_person_infomation.changing_password_form.password" />
 													</label>
 													<div class="invalid-feedback">
-														${changing_password_input_exception_type_and_message.get(ChangePasswordCommand.TYPY_INPUT_EXCEPTION_PASSWORD)}
+														${changing_password_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_PASSWORD)}
 													</div>
 												</div>
 												<div class="btn login_password_form_password_btn mt-1"
@@ -148,7 +152,7 @@
 											</div>
 										</c:if>
 										<c:if
-											test="${!changing_password_input_exception_type_and_message.containsKey(ChangePasswordCommand.TYPY_INPUT_EXCEPTION_PASSWORD)}">
+											test="${!changing_password_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_PASSWORD)}">
 											<div class="d-flex justify-content-between flex-row">
 												<div class="form-floating w-100">
 													<input type="password"
@@ -205,8 +209,10 @@
 					<div class="col-12">
 						<h3
 							class="text-center d-flex flex-column justify-content-center align-items-center"
-							style="min-height: 45.3vh">Ваше время сессии завершено.
-							Перезайдите в учётную запись.</h3>
+							style="min-height: 45.3vh">
+							<fmt:message
+								key="personal_account_person_infomation.end_session.message" />
+						</h3>
 					</div>
 				</c:if>
 			</div>

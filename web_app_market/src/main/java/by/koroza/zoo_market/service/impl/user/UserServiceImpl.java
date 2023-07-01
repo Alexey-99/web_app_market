@@ -85,10 +85,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean changePersonInformation(User user, String name, String surname, String email)
-			throws ServiceException {
+	public boolean changePersonInformation(User user) throws ServiceException {
 		try {
-			return UserDaoImpl.getInstance().changePersonInformation(user, name, surname, email);
+			return UserDaoImpl.getInstance().changePersonInformation(user);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}

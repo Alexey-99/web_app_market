@@ -21,8 +21,7 @@ public interface UserService {
 
 	public Optional<User> getUserByLogin(String login, String password) throws ServiceException;
 
-	public boolean changePersonInformation(User user, String name, String surname, String email)
-			throws ServiceException;
+	public boolean changePersonInformation(User user) throws ServiceException;
 
 	public boolean changeLogin(User user, String login) throws ServiceException;
 
