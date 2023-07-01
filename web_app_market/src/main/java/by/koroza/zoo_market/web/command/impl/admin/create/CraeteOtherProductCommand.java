@@ -27,7 +27,7 @@ import java.util.Map;
 
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.status.UserRole;
-import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
+import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.image.ImageFileServiceImpl;
 import by.koroza.zoo_market.validation.FeedsAndOtherValidation;
@@ -60,7 +60,7 @@ public class CraeteOtherProductCommand implements Command {
 		Router router = null;
 		HttpSession session = request.getSession();
 		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
-		AbstractRegistratedUser user = (AbstractRegistratedUser) session.getAttribute(ATTRIBUTE_USER);
+		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
 			if (user == null || user.isVerificatedEmail() == false
 					|| user.getRole().getIdRole() != UserRole.ADMIN.getIdRole()) {

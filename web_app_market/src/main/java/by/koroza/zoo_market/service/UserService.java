@@ -2,13 +2,12 @@ package by.koroza.zoo_market.service;
 
 import java.util.Optional;
 
-import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
-import by.koroza.zoo_market.model.entity.user.reserved.User;
+import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 
 public interface UserService {
 
-	public boolean addRegistratedUserToBD(AbstractRegistratedUser user) throws ServiceException;
+	public boolean addRegistratedUserToBD(User user) throws ServiceException;
 
 	public boolean checkRepeatLogin(String login) throws ServiceException;
 
@@ -20,14 +19,14 @@ public interface UserService {
 
 	public boolean changeVerificationEmailStatus(long userId, boolean verificateStatus) throws ServiceException;
 
-	public Optional<AbstractRegistratedUser> getUserByLogin(String login, String password) throws ServiceException;
+	public Optional<User> getUserByLogin(String login, String password) throws ServiceException;
 
-	public boolean changePersonInformation(AbstractRegistratedUser user, String name, String surname, String email)
+	public boolean changePersonInformation(User user, String name, String surname, String email)
 			throws ServiceException;
 
-	public boolean changeLogin(AbstractRegistratedUser user, String login) throws ServiceException;
+	public boolean changeLogin(User user, String login) throws ServiceException;
 
-	public boolean changePassword(AbstractRegistratedUser user, String password) throws ServiceException;
+	public boolean changePassword(User user, String password) throws ServiceException;
 
 	public boolean isExistsUserWithLogin(String login) throws ServiceException;
 

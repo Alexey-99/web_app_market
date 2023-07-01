@@ -17,7 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.model.entity.status.UserRole;
-import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
+import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 import by.koroza.zoo_market.validation.UserValidation;
@@ -43,7 +43,7 @@ public class ChangeLoginCommand implements Command {
 		Router router = null;
 		HttpSession session = request.getSession();
 		session.removeAttribute(ATTRIBUTE_CHANGING_LOGIN_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
-		AbstractRegistratedUser user = (AbstractRegistratedUser) session.getAttribute(ATTRIBUTE_USER);
+		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
 			if (user == null || user.getRole().getIdRole() == 0) {
 				router = new Router(HOME_PAGE_PATH);
@@ -80,7 +80,7 @@ public class ChangeLoginCommand implements Command {
 	}
 
 	private String getInputParameterLogin(HttpServletRequest request, Map<String, String> mapInputExceptions,
-			AbstractRegistratedUser user) throws ServiceException {
+			User user) throws ServiceException {
 		String login = (String) request.getParameter(CHANGING_LOGIN_INPUT_USER_LOGIN);
 		String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
 		if (user.getLogin() != null ? !user.getLogin().equals(login) : user.getLogin() == null && login != null) {

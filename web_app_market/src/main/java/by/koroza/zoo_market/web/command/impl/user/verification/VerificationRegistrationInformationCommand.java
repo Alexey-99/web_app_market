@@ -5,7 +5,7 @@ import static by.koroza.zoo_market.web.command.name.path.PagePathName.CONFIMARTI
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.REGISTRATION_FORM_PAGE_PATH;
 
 import by.koroza.zoo_market.model.entity.status.UserRole;
-import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
+import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.generator.GenerationVeriicationCode;
 import by.koroza.zoo_market.service.hash.HashGenerator;
@@ -24,7 +24,7 @@ public class VerificationRegistrationInformationCommand implements Command {
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
 		HttpSession session = request.getSession();
-		AbstractRegistratedUser user = (AbstractRegistratedUser) session.getAttribute(ATTRIBUTE_USER);
+		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
 			if (user != null) {
 				user.setRole(UserRole.USER);
@@ -45,7 +45,7 @@ public class VerificationRegistrationInformationCommand implements Command {
 		return user != null ? new Router(CONFIMARTION_EMAIL_PAGE_PATH) : new Router(REGISTRATION_FORM_PAGE_PATH);
 	}
 
-	private boolean insertUserToBD(AbstractRegistratedUser user) throws CommandException {
+	private boolean insertUserToBD(User user) throws CommandException {
 		try {
 			user.setPassword(HashGenerator.getInstance().getHash(user.getPassword()));
 			return UserServiceImpl.getInstance().addRegistratedUserToBD(user);

@@ -1,15 +1,15 @@
 package by.koroza.zoo_market.dao.impl.user;
 
-import static by.koroza.zoo_market.dao.name.ColumnName.USERS_ID;
-import static by.koroza.zoo_market.dao.name.ColumnName.USERS_NAME;
-import static by.koroza.zoo_market.dao.name.ColumnName.USERS_SURNAME;
-import static by.koroza.zoo_market.dao.name.ColumnName.USERS_EMAIL;
-import static by.koroza.zoo_market.dao.name.ColumnName.USERS_LOGIN;
-import static by.koroza.zoo_market.dao.name.ColumnName.ROLES_NAME;
-import static by.koroza.zoo_market.dao.name.ColumnName.USERS_DISCOUNT;
-import static by.koroza.zoo_market.dao.name.ColumnName.USERS_PASSWORD;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_USER_LOGINS;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_LAST_INSERT_ID;
+import static by.koroza.zoo_market.dao.name.ColumnName.ROLES_NAME;
+import static by.koroza.zoo_market.dao.name.ColumnName.USERS_DISCOUNT;
+import static by.koroza.zoo_market.dao.name.ColumnName.USERS_EMAIL;
+import static by.koroza.zoo_market.dao.name.ColumnName.USERS_ID;
+import static by.koroza.zoo_market.dao.name.ColumnName.USERS_LOGIN;
+import static by.koroza.zoo_market.dao.name.ColumnName.USERS_NAME;
+import static by.koroza.zoo_market.dao.name.ColumnName.USERS_PASSWORD;
+import static by.koroza.zoo_market.dao.name.ColumnName.USERS_SURNAME;
 import static by.koroza.zoo_market.dao.name.ColumnName.USERS_VERIFICATED_EMAIL;
 
 import java.sql.PreparedStatement;
@@ -21,13 +21,12 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import by.koroza.zoo_market.dao.UserDao;
+import by.koroza.zoo_market.dao.exception.DaoException;
 import by.koroza.zoo_market.dao.pool.ConnectionPool;
 import by.koroza.zoo_market.dao.pool.ProxyConnection;
 import by.koroza.zoo_market.model.entity.status.UserRole;
-import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
-import by.koroza.zoo_market.model.entity.user.reserved.User;
-import by.koroza.zoo_market.dao.UserDao;
-import by.koroza.zoo_market.dao.exception.DaoException;
+import by.koroza.zoo_market.model.entity.user.User;
 
 public class UserDaoImpl implements UserDao {
 	private static final UserDao INSTANCE = new UserDaoImpl();
@@ -74,7 +73,7 @@ public class UserDaoImpl implements UserDao {
 			""";
 
 	@Override
-	public boolean addUser(AbstractRegistratedUser user) throws DaoException {
+	public boolean addUser(User user) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
 			try (PreparedStatement statement = connection.prepareStatement(QUERY_INSERT_USER)) {
@@ -189,15 +188,15 @@ public class UserDaoImpl implements UserDao {
 			""";
 
 	@Override
-	public Optional<AbstractRegistratedUser> getUserByLogin(String login, String password) throws DaoException {
-		Optional<AbstractRegistratedUser> user = Optional.empty();
+	public Optional<User> getUserByLogin(String login, String password) throws DaoException {
+		Optional<User> user = Optional.empty();
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(QUERY_GET_USER_BY_LOGIN_AND_PASSWORD)) {
 			statement.setString(1, login);
 			statement.setString(2, password);
 			try (ResultSet resultSet = statement.executeQuery()) {
 				while (resultSet.next()) {
-					AbstractRegistratedUser userBuild = new User.UserBuilder().setId(resultSet.getLong(USERS_ID))
+					User userBuild = new User.UserBuilder().setId(resultSet.getLong(USERS_ID))
 							.setName(resultSet.getString(USERS_NAME)).setSurname(resultSet.getString(USERS_SURNAME))
 							.setEmail(resultSet.getString(USERS_EMAIL))
 							.setVerificatedEmail(resultSet.getBoolean(USERS_VERIFICATED_EMAIL))
@@ -221,8 +220,7 @@ public class UserDaoImpl implements UserDao {
 			""";
 
 	@Override
-	public boolean changePersonInformation(AbstractRegistratedUser user, String name, String surname, String email)
-			throws DaoException {
+	public boolean changePersonInformation(User user, String name, String surname, String email) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(QUERY_CHANGE_PERSON_INFOMATION)) {
@@ -248,7 +246,7 @@ public class UserDaoImpl implements UserDao {
 			""";
 
 	@Override
-	public boolean changeLogin(AbstractRegistratedUser user, String login) throws DaoException {
+	public boolean changeLogin(User user, String login) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(QUERY_CHANGE_LOGIN)) {
@@ -268,7 +266,7 @@ public class UserDaoImpl implements UserDao {
 			""";
 
 	@Override
-	public boolean changePassword(AbstractRegistratedUser user, String password) throws DaoException {
+	public boolean changePassword(User user, String password) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(QUERY_CHANGE_PASSWORD)) {

@@ -6,7 +6,7 @@ import static by.koroza.zoo_market.web.command.name.path.PagePathName.CONFIMARTI
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.REGISTRATION_FORM_PAGE_PATH;
 
-import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
+import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.confirmation.ConfirmationServiceImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
@@ -27,7 +27,7 @@ public class ConfirmationEmailCommand implements Command {
 		HttpSession session = request.getSession();
 		Router router = null;
 		String codeInput = request.getParameter(VERIFICATION_PERSON_ACCOUNT_INPUT_CODE);
-		AbstractRegistratedUser user = (AbstractRegistratedUser) session.getAttribute(ATTRIBUTE_USER);
+		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
 			if (user != null) {
 				if (user.getId() == 0) {

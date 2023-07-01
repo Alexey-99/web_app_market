@@ -17,7 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.model.entity.status.UserRole;
-import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
+import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.hash.HashGenerator;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
@@ -44,7 +44,7 @@ public class ChangePasswordCommand implements Command {
 		Router router = null;
 		HttpSession session = request.getSession();
 		session.removeAttribute(ATTRIBUTE_CHANGING_PASSWORD_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
-		AbstractRegistratedUser user = (AbstractRegistratedUser) session.getAttribute(ATTRIBUTE_USER);
+		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
 			if (user == null || user.getRole().getIdRole() == 0) {
 				router = new Router(HOME_PAGE_PATH);
@@ -83,7 +83,7 @@ public class ChangePasswordCommand implements Command {
 	}
 
 	private String getInputParameterPassword(HttpServletRequest request, Map<String, String> mapInputExceptions,
-			AbstractRegistratedUser user) {
+			User user) {
 		String password = (String) request.getParameter(CHANGING_PASSWORD_INPUT_USER_PASSWORD);
 		String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
 		if (user.getPassword() != null ? !user.getPassword().equals(HashGenerator.getInstance().getHash(password))

@@ -37,7 +37,7 @@ import java.util.Map;
 
 import by.koroza.zoo_market.model.entity.bank.BankCard;
 import by.koroza.zoo_market.model.entity.market.order.Order;
-import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
+import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.order.OrderServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
@@ -56,7 +56,7 @@ public class OrderPaymentCommand implements Command {
 	public Router execute(HttpServletRequest request) throws CommandException {
 		Router router = null;
 		HttpSession session = request.getSession();
-		AbstractRegistratedUser user = (AbstractRegistratedUser) session.getAttribute(ATTRIBUTE_USER);
+		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		session.removeAttribute(ATTRIBUTE_ORDER_PAYMENT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		try {
 			if (user == null || user.getRole().getIdRole() == 0) {

@@ -14,7 +14,7 @@ import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.model.entity.status.OrderStatus;
-import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
+import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.order.OrderServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
@@ -37,7 +37,7 @@ public class ShowBacketPageCommand implements Command {
 		Map<String, String> productsIdMap = parseSavedIdProducts(
 				productsIdArr[0] != null ? productsIdArr[0] : productsIdArr[1]);
 		HttpSession session = request.getSession();
-		AbstractRegistratedUser user = (AbstractRegistratedUser) session.getAttribute(ATTRIBUTE_USER);
+		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		if (user != null && user.getRole().getIdRole() >= 2) {
 			Order order = null;
 			List<Pet> productsPets = null;

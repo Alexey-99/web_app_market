@@ -19,8 +19,7 @@ import java.util.List;
 
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.status.UserRole;
-import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
-
+import by.koroza.zoo_market.model.entity.user.User;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.tagext.TagSupport;
@@ -56,7 +55,7 @@ public class ProductFeedsAndOtherPaginationTag extends TagSupport {
 			@SuppressWarnings("unchecked")
 			List<FeedAndOther> listProductFeedsAndOther = (List<FeedAndOther>) session
 					.getAttribute(ATTRIBUTE_LIST_PRODUCTS_FEEDS_AND_OTHER);
-			AbstractRegistratedUser user = (AbstractRegistratedUser) session.getAttribute(ATTRIBUTE_USER);
+			User user = (User) session.getAttribute(ATTRIBUTE_USER);
 			printProducts(listProductFeedsAndOther, locale, user);
 			printPagination(listProductFeedsAndOther, locale);
 		} catch (IOException e) {
@@ -65,7 +64,7 @@ public class ProductFeedsAndOtherPaginationTag extends TagSupport {
 		return SKIP_BODY;
 	}
 
-	private void printProducts(List<FeedAndOther> listProductFeedsAndOther, String locale, AbstractRegistratedUser user)
+	private void printProducts(List<FeedAndOther> listProductFeedsAndOther, String locale, User user)
 			throws IOException {
 		StringBuilder builder = new StringBuilder();
 		int indexFirstElement = maxCountProductsOnPage * (numberPage - 1);

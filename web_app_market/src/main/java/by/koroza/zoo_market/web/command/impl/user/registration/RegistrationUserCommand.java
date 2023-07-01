@@ -13,15 +13,15 @@ import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIA
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.REGISTRATION_FORM_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.VERIFICATION_REGISTRATION_INFORMATION_PAGE_PATH;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import by.koroza.zoo_market.model.entity.user.User;
+import by.koroza.zoo_market.service.exception.ServiceException;
+import by.koroza.zoo_market.validation.UserValidation;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
-import by.koroza.zoo_market.validation.UserValidation;
-import by.koroza.zoo_market.model.entity.user.reserved.User;
-import by.koroza.zoo_market.service.exception.ServiceException;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

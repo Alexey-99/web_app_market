@@ -18,7 +18,7 @@ import static by.koroza.zoo_market.web.command.name.path.PagePathName.PERSONAL_A
 import java.util.HashMap;
 import java.util.Map;
 
-import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
+import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 import by.koroza.zoo_market.web.command.Command;
@@ -40,7 +40,7 @@ public class ChangeUserStatusCommand implements Command {
 	public Router execute(HttpServletRequest request) throws CommandException {
 		Router router = null;
 		HttpSession session = request.getSession();
-		AbstractRegistratedUser user = (AbstractRegistratedUser) session.getAttribute(ATTRIBUTE_USER);
+		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CHANGE_USER_STATUS_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		try {
 			if (user != null && user.isVerificatedEmail() == true && user.getRole().getIdRole() == ADMIN.getIdRole()) {

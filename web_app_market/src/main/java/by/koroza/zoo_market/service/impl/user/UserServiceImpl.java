@@ -4,8 +4,7 @@ import java.util.Optional;
 
 import by.koroza.zoo_market.dao.exception.DaoException;
 import by.koroza.zoo_market.dao.impl.user.UserDaoImpl;
-import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
-import by.koroza.zoo_market.model.entity.user.reserved.User;
+import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.UserService;
 import by.koroza.zoo_market.service.exception.ServiceException;
 
@@ -20,7 +19,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean addRegistratedUserToBD(AbstractRegistratedUser user) throws ServiceException {
+	public boolean addRegistratedUserToBD(User user) throws ServiceException {
 		try {
 			return UserDaoImpl.getInstance().addUser(user);
 		} catch (DaoException e) {
@@ -74,7 +73,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Optional<AbstractRegistratedUser> getUserByLogin(String login, String password) throws ServiceException {
+	public Optional<User> getUserByLogin(String login, String password) throws ServiceException {
 		try {
 			return UserDaoImpl.getInstance().getUserByLogin(login, password);
 		} catch (DaoException e) {
@@ -83,7 +82,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean changePersonInformation(AbstractRegistratedUser user, String name, String surname, String email)
+	public boolean changePersonInformation(User user, String name, String surname, String email)
 			throws ServiceException {
 		try {
 			return UserDaoImpl.getInstance().changePersonInformation(user, name, surname, email);
@@ -93,7 +92,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean changeLogin(AbstractRegistratedUser user, String login) throws ServiceException {
+	public boolean changeLogin(User user, String login) throws ServiceException {
 		try {
 			return UserDaoImpl.getInstance().changeLogin(user, login);
 		} catch (DaoException e) {
@@ -102,7 +101,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean changePassword(AbstractRegistratedUser user, String password) throws ServiceException {
+	public boolean changePassword(User user, String password) throws ServiceException {
 		try {
 			return UserDaoImpl.getInstance().changePassword(user, password);
 		} catch (DaoException e) {
@@ -126,5 +125,10 @@ public class UserServiceImpl implements UserService {
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
+	}
+
+	public boolean changeProcentDiscount(User user) {
+
+		return false;
 	}
 }

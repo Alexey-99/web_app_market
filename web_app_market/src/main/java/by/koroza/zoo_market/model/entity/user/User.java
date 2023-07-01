@@ -1,12 +1,12 @@
-package by.koroza.zoo_market.model.entity.user.abstraction;
+package by.koroza.zoo_market.model.entity.user;
 
 import by.koroza.zoo_market.model.entity.status.UserRole;
 
-public abstract class AbstractRegistratedUser {
+public class User {
+	private static final int MAX_PROCENT_DISCOUNT = 50;
 	private long id;
 	private String name;
 	private String surname;
-	private String patronymic;
 	private String login;
 	private String password;
 	private String email;
@@ -14,10 +14,9 @@ public abstract class AbstractRegistratedUser {
 	private UserRole role;
 	private double discount;
 
-	public AbstractRegistratedUser() {
+	public User() {
 		this.name = null;
 		this.surname = null;
-		this.patronymic = null;
 		this.login = null;
 		this.password = null;
 		this.email = null;
@@ -48,14 +47,6 @@ public abstract class AbstractRegistratedUser {
 
 	public void setSurname(String surname) {
 		this.surname = surname;
-	}
-
-	public String getPatronymic() {
-		return patronymic;
-	}
-
-	public void setPatronymic(String patronymic) {
-		this.patronymic = patronymic;
 	}
 
 	public String getLogin() {
@@ -106,6 +97,10 @@ public abstract class AbstractRegistratedUser {
 		this.discount = discount;
 	}
 
+	public static int getMaxProcentDiscount() {
+		return MAX_PROCENT_DISCOUNT;
+	}
+
 	@Override
 	public int hashCode() {
 		final int PRIME = 31;
@@ -113,7 +108,6 @@ public abstract class AbstractRegistratedUser {
 		result = result * PRIME + Long.hashCode(this.id);
 		result = result * PRIME + (this.name != null ? this.name.hashCode() : 1);
 		result = result * PRIME + (this.surname != null ? this.surname.hashCode() : 1);
-		result = result * PRIME + (this.patronymic != null ? this.patronymic.hashCode() : 1);
 		result = result * PRIME + (this.login != null ? this.login.hashCode() : 1);
 		result = result * PRIME + (this.password != null ? this.password.hashCode() : 1);
 		result = result * PRIME + (this.email != null ? this.email.hashCode() : 1);
@@ -133,7 +127,7 @@ public abstract class AbstractRegistratedUser {
 		if (!this.getClass().equals(object.getClass())) {
 			return false;
 		}
-		AbstractRegistratedUser otherReservedUser = (AbstractRegistratedUser) object;
+		User otherReservedUser = (User) object;
 		if (this.id != otherReservedUser.id) {
 			return false;
 		}
@@ -149,13 +143,6 @@ public abstract class AbstractRegistratedUser {
 				return false;
 			}
 		} else if (!this.surname.equals(otherReservedUser.surname)) {
-			return false;
-		}
-		if (this.patronymic == null) {
-			if (otherReservedUser.patronymic != null) {
-				return false;
-			}
-		} else if (!this.patronymic.equals(otherReservedUser.patronymic)) {
 			return false;
 		}
 		if (this.login == null) {
@@ -195,7 +182,59 @@ public abstract class AbstractRegistratedUser {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(this.surname).append(" ").append(this.name).append(" ").append(this.patronymic);
+		builder.append(this.surname).append(" ").append(this.name);
 		return builder.toString();
+	}
+
+	public static class UserBuilder {
+		private User user;
+
+		public UserBuilder() {
+			this.user = new User();
+		}
+
+		public UserBuilder setId(long id) {
+			this.user.setId(id);
+			return this;
+		}
+
+		public UserBuilder setRole(UserRole role) {
+			this.user.setRole(role);
+			return this;
+		}
+
+		public UserBuilder setName(String name) {
+			this.user.setName(name);
+			return this;
+		}
+
+		public UserBuilder setSurname(String surname) {
+			this.user.setSurname(surname);
+			return this;
+		}
+
+		public UserBuilder setLogin(String login) {
+			this.user.setLogin(login);
+			return this;
+		}
+
+		public UserBuilder setDiscount(double discount) {
+			this.user.setDiscount(discount);
+			return this;
+		}
+
+		public UserBuilder setEmail(String email) {
+			this.user.setEmail(email);
+			return this;
+		}
+
+		public UserBuilder setVerificatedEmail(boolean isVerificatedEmail) {
+			this.user.setVerificatedEmail(isVerificatedEmail);
+			return this;
+		}
+
+		public User build() {
+			return this.user;
+		}
 	}
 }

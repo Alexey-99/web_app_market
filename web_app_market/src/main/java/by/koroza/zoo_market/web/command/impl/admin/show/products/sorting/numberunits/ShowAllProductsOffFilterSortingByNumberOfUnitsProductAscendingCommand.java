@@ -18,7 +18,7 @@ import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.model.entity.market.product.abstraction.AbstractProduct;
 import by.koroza.zoo_market.model.entity.status.UserRole;
-import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
+import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.exception.SortingException;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
@@ -38,7 +38,7 @@ public class ShowAllProductsOffFilterSortingByNumberOfUnitsProductAscendingComma
 	public Router execute(HttpServletRequest request) throws CommandException {
 		Router router = null;
 		HttpSession session = request.getSession();
-		AbstractRegistratedUser user = (AbstractRegistratedUser) session.getAttribute(ATTRIBUTE_USER);
+		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
 			if (user != null && user.getRole().getIdRole() == UserRole.ADMIN.getIdRole()
 					&& user.isVerificatedEmail() == true) {

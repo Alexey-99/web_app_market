@@ -17,7 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.model.entity.status.UserRole;
-import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
+import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.generator.GenerationVeriicationCode;
 import by.koroza.zoo_market.service.impl.confirmation.ConfirmationServiceImpl;
@@ -47,7 +47,7 @@ public class ChangePersonInformationCommand implements Command {
 		Router router = null;
 		HttpSession session = request.getSession();
 		session.removeAttribute(ATTRIBUTE_CHANGING_PERSON_INFOMATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
-		AbstractRegistratedUser user = (AbstractRegistratedUser) session.getAttribute(ATTRIBUTE_USER);
+		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
 			if (user == null || user.getRole().getIdRole() == 0) {
 				router = new Router(HOME_PAGE_PATH);
