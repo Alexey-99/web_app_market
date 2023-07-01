@@ -4,6 +4,8 @@ import by.koroza.zoo_market.model.entity.status.UserRole;
 
 public class User {
 	private static final int MAX_PROCENT_DISCOUNT = 50;
+	private static final int QUANTITY_FOR_INCREASE_PERSONAL_PERSONAL_DISCOUNT = 50;
+	private static final double PERCENT_FOR_EACH_QUANTITY_OF_PRODUCTS = 1;
 	private long id;
 	private String name;
 	private String surname;
@@ -99,6 +101,14 @@ public class User {
 
 	public static int getMaxProcentDiscount() {
 		return MAX_PROCENT_DISCOUNT;
+	}
+
+	public static int getQuantityForIncreasePersonalPersonalDiscount() {
+		return QUANTITY_FOR_INCREASE_PERSONAL_PERSONAL_DISCOUNT;
+	}
+
+	public static double getPercentForEachQuantityOfProducts() {
+		return PERCENT_FOR_EACH_QUANTITY_OF_PRODUCTS;
 	}
 
 	@Override

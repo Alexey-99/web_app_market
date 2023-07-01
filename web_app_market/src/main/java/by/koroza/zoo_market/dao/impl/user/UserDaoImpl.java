@@ -323,4 +323,24 @@ public class UserDaoImpl implements UserDao {
 		}
 		return result;
 	}
+
+	private static final String QUERY_CHANGE_DISCOUNT = """
+			UPDATE users
+			SET users.discount = ?,
+			WHERE users.id = ?;
+			""";
+
+	@Override
+	public boolean changeDiscount(User user) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(QUERY_CHANGE_DISCOUNT)) {
+			statement.setDouble(1, user.getDiscount());
+			statement.setLong(2, user.getId());
+			result = statement.executeUpdate() > 0;
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		return result;
+	}
 }

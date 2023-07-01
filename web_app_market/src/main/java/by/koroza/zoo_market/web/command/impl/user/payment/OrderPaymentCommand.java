@@ -42,6 +42,7 @@ import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.order.OrderServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
+import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 import by.koroza.zoo_market.validation.BankCardValidation;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
@@ -76,9 +77,9 @@ public class OrderPaymentCommand implements Command {
 						if (bankCard != null && mapInputExceptions.isEmpty()) {
 							if (validationBankCard(mapInputExceptions, sessionLocale, bankCard, order)) {
 								OrderServiceImpl.getInstance().addOrder(order, user.getId());
-
 								ProductPetServiceImpl.getInstance().changeNumberOfUnitsProducts(order);
 								ProductFeedsAndOtherServiceImpl.getInstance().changeNumberOfUnitsProducts(order);
+								UserServiceImpl.getInstance().changePersonProcentDiscount(user);
 								router = new Router(SUCCESS_ORDER_PAYMENT_PAGE_PATH);
 							} else {
 								session.setAttribute(ATTRIBUTE_ORDER_PAYMENT_INPUT_EXCEPTION_TYPE_AND_MASSAGE,

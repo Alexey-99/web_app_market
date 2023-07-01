@@ -78,16 +78,6 @@
 									</button>
 								</form>
 							</c:if>
-							<form class="mt-3"
-								action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
-								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-									value="${CommandName.COMMAND_SIGN_OUT_PERSONAL_ACCOUNT}" />
-								<button
-									class="btn btn-primary person_account_menu_link w-100 btn_first btn_last"
-									role="button">
-									<fmt:message key="personal_account.exit" />
-								</button>
-							</form>
 						</div>
 					</div>
 

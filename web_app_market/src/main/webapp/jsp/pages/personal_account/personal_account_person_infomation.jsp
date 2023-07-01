@@ -2,12 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
-<%@page import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.input.InputName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
 <%@page import="by.koroza.zoo_market.model.entity.status.UserRole"%>
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
 	scope="session" />
@@ -76,16 +80,6 @@
 									</button>
 								</form>
 							</c:if>
-							<form class="mt-3"
-								action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
-								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-									value="${CommandName.COMMAND_SIGN_OUT_PERSONAL_ACCOUNT}" />
-								<button
-									class="btn btn-primary person_account_menu_link w-100 btn_first btn_last"
-									role="button">
-									<fmt:message key="personal_account.exit" />
-								</button>
-							</form>
 						</div>
 					</div>
 

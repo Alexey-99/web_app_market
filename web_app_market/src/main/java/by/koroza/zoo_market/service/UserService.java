@@ -31,4 +31,6 @@ public interface UserService {
 	public boolean isExistsUserWithLogin(String login) throws ServiceException;
 
 	public boolean changeEmail(User user) throws ServiceException;
+
+	public boolean changePersonProcentDiscount(User user) throws ServiceException;
 }

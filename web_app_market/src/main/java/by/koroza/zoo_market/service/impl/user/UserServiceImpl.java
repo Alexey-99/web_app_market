@@ -1,9 +1,12 @@
 package by.koroza.zoo_market.service.impl.user;
 
+import java.util.List;
 import java.util.Optional;
 
 import by.koroza.zoo_market.dao.exception.DaoException;
+import by.koroza.zoo_market.dao.impl.order.OrderDaoImpl;
 import by.koroza.zoo_market.dao.impl.user.UserDaoImpl;
+import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.UserService;
 import by.koroza.zoo_market.service.exception.ServiceException;
@@ -127,8 +130,45 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	public boolean changeProcentDiscount(User user) {
-
+	@Override
+	public boolean changePersonProcentDiscount(User user) throws ServiceException {
+		try {
+			if (user.getDiscount() + User.getPercentForEachQuantityOfProducts() <= User.getMaxProcentDiscount()) {
+				List<Order> allOrders = OrderDaoImpl.getInstance().getOrderProductsByUserId(user.getId());
+				long numberProducts = numberProductsOfAllOrders(allOrders);
+				double discount = calcDiscount(numberProducts);
+				if (user.getDiscount() != discount) {
+					user.setDiscount(discount);
+					UserDaoImpl.getInstance().changeDiscount(user);
+				}
+			}
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
 		return false;
+	}
+
+	private long numberProductsOfAllOrders(List<Order> allOrders) {
+		long count = 0;
+		for (Order order : allOrders) {
+			count += order.getProductsPets().size();
+			count += order.getOtherProducts().size();
+		}
+		return count;
+	}
+
+	private double calcDiscount(long numberProducts) {
+		double discount = 0;
+		discount = numberProducts * User.getPercentForEachQuantityOfProducts()
+				/ User.getQuantityForIncreasePersonalPersonalDiscount();
+		if (discount % User.getPercentForEachQuantityOfProducts() != 0) {
+			discount = Math.floor(discount);
+			if (discount % User.getPercentForEachQuantityOfProducts() != 0) {
+				do {
+					discount--;
+				} while (discount % User.getPercentForEachQuantityOfProducts() != 0);
+			}
+		}
+		return discount;
 	}
 }

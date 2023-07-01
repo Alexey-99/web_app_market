@@ -30,4 +30,6 @@ public interface UserDao {
 	public boolean isExistsUserWithLogin(String login) throws DaoException;
 
 	public boolean changeEmail(User user) throws DaoException;
+
+	public boolean changeDiscount(User user) throws DaoException;
 }

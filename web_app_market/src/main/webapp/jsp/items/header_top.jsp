@@ -2,12 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <%@ taglib uri="jakarta.tags.fmt" prefix="fmt"%>
-<%@page import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.input.InputName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.path.ImagePath"%>
 <%@page
 	import="by.koroza.zoo_market.web.command.impl.user.registration.RegistrationUserCommand"%>
@@ -53,7 +57,8 @@
 					id="navbarNavDropdown">
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+							<form method="get"
+								action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND }"
 									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 								<button class="nav-link menu_link text-uppercase" role="button">
@@ -64,7 +69,8 @@
 							</form>
 						</li>
 						<li class="nav-item">
-							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+							<form method="get"
+								action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND }"
 									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 								<button class="nav-link text-uppercase menu_link" role="button">
@@ -75,7 +81,8 @@
 							</form>
 						</li>
 						<li class="nav-item menu_item">
-							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+							<form method="get"
+								action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND }"
 									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 								<button class="nav-link text-uppercase menu_link" role="button">
@@ -91,7 +98,8 @@
 							<c:if
 								test="${user.getRole().getIdRole() == 1 || user.isVerificatedEmail() == false}">
 								<li class="nav-item">
-									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<form method="get"
+										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 										<input type="hidden"
 											name="${ParameterName.PARAMETER_COMMAND }"
 											value="${CommandName.COMMAND_SHOW_CONFIRMATION_EMAIL_FORN}">
@@ -107,7 +115,8 @@
 							<c:if
 								test="${user.getRole().getIdRole() > 1 && user.isVerificatedEmail() == true}">
 								<li class="nav-item">
-									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+										method="get">
 										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_SHOW_BACKET_PAGE}" /> <input
 											class="productsIdXl" type="hidden"
@@ -121,13 +130,27 @@
 									</form>
 								</li>
 								<li class="nav-item">
-									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+										method="get">
 										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE}">
 										<button class="nav-link text-uppercase menu_link"
 											role="button">
 											<h5>
 												<fmt:message key="header_top.personal_account" />
+											</h5>
+										</button>
+									</form>
+								</li>
+								<li class="nav-item">
+									<form class="" method="get"
+										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
+											value="${CommandName.COMMAND_SIGN_OUT_PERSONAL_ACCOUNT}" />
+										<button class="nav-link text-uppercase menu_link"
+											role="button">
+											<h5>
+												<fmt:message key="header_top.exit" />
 											</h5>
 										</button>
 									</form>
@@ -281,6 +304,19 @@
 											role="button">
 											<h5>
 												<fmt:message key="header_top.personal_account" />
+											</h5>
+										</button>
+									</form>
+								</li>
+								<li class="nav-item">
+									<form class="" method="get"
+										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
+											value="${CommandName.COMMAND_SIGN_OUT_PERSONAL_ACCOUNT}" />
+										<button class="nav-link text-uppercase menu_link"
+											role="button">
+											<h5>
+												<fmt:message key="header_top.exit" />
 											</h5>
 										</button>
 									</form>
@@ -504,7 +540,6 @@
 									class="form-control registration_form_input_password" required
 									id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password"
 									name="${InputName.REGISTRATION_INPUT_USER_PASSWORD}"
-									value='<c:if test="${user.getPassword() != null && !user.getPassword().isBlank()}">${user.getPassword()}</c:if>'
 									placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password"/>' />
 								<label class="text-lowercase registration_form_body_label"
 									for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password">
