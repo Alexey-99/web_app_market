@@ -76,6 +76,7 @@ public class OrderPaymentCommand implements Command {
 						if (bankCard != null && mapInputExceptions.isEmpty()) {
 							if (validationBankCard(mapInputExceptions, sessionLocale, bankCard, order)) {
 								OrderServiceImpl.getInstance().addOrder(order, user.getId());
+
 								ProductPetServiceImpl.getInstance().changeNumberOfUnitsProducts(order);
 								ProductFeedsAndOtherServiceImpl.getInstance().changeNumberOfUnitsProducts(order);
 								router = new Router(SUCCESS_ORDER_PAYMENT_PAGE_PATH);

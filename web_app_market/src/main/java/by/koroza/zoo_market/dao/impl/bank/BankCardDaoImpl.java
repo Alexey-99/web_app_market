@@ -37,7 +37,7 @@ public class BankCardDaoImpl implements BankCardDao {
 			statement.setString(1, card.getNumberCard());
 			statement.setInt(2, card.getMonthEnd());
 			statement.setInt(3, card.getYearEnd());
-			statement.setInt(4, card.getCvs());
+			statement.setInt(4, card.getCVC());
 			try (ResultSet resultSet = statement.executeQuery()) {
 				while (resultSet.next()) {
 					result = resultSet.getInt(IDENTIFIER_COUNT_ROWS_OF_BANK_CARDS_ID) > 0;
@@ -63,7 +63,7 @@ public class BankCardDaoImpl implements BankCardDao {
 			statement.setString(1, card.getNumberCard());
 			statement.setInt(2, card.getMonthEnd());
 			statement.setInt(3, card.getYearEnd());
-			statement.setInt(4, card.getCvs());
+			statement.setInt(4, card.getCVC());
 			try (ResultSet resultSet = statement.executeQuery()) {
 				while (resultSet.next()) {
 					result = resultSet.getInt(BANK_CARDS_SUM) >= price;
