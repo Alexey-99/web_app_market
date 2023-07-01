@@ -1,12 +1,10 @@
 package by.koroza.zoo_market.web.command.impl.user.confirmation;
 
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
-
-import static by.koroza.zoo_market.web.command.name.InputName.VERIFICATION_PERSON_ACCOUNT_INPUT_CODE;
-
-import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.PagePathName.REGISTRATION_FORM_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.PagePathName.CONFIMARTION_EMAIL_VALIDATED_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
+import static by.koroza.zoo_market.web.command.name.input.InputName.VERIFICATION_PERSON_ACCOUNT_INPUT_CODE;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.CONFIMARTION_EMAIL_VALIDATED_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.REGISTRATION_FORM_PAGE_PATH;
 
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;
 import by.koroza.zoo_market.service.exception.ServiceException;

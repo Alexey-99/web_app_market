@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.name;
+package by.koroza.zoo_market.web.command.name.parameter;
 
 public final class ParameterName {
 	public static final String PARAMETER_COMMAND = "command";

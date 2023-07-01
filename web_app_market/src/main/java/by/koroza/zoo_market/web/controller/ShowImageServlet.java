@@ -1,6 +1,6 @@
 package by.koroza.zoo_market.web.controller;
 
-import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_IMAGE_FILE_PATH;
+import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_IMAGE_FILE_PATH;
 
 import java.io.File;
 import java.io.IOException;

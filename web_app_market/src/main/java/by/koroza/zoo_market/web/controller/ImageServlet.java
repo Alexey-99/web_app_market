@@ -1,17 +1,14 @@
 package by.koroza.zoo_market.web.controller;
 
-import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH;
-
-import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_PRODUCT_IMAGE;
-import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_COMMAND;
-import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_PART;
-import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_IS_CORRECT_FILE;
-
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_UPLOAD_FILE_EXCEPTION;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_UPLOAD_FILE_DIRECTORY;
-
-import static by.koroza.zoo_market.web.command.name.ServletName.MAIN_SERVLET_CONTROLLER_NAME;
-import static by.koroza.zoo_market.web.command.name.ServletName.SERVLET_UPLOAD_IMAGE_NAME;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_UPLOAD_FILE_DIRECTORY;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_UPLOAD_FILE_EXCEPTION;
+import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_COMMAND;
+import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_IS_CORRECT_FILE;
+import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_PART;
+import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_PRODUCT_IMAGE;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH;
+import static by.koroza.zoo_market.web.command.name.servlet.ServletName.MAIN_SERVLET_CONTROLLER_NAME;
+import static by.koroza.zoo_market.web.command.name.servlet.ServletName.SERVLET_UPLOAD_IMAGE_NAME;
 
 import java.io.IOException;
 

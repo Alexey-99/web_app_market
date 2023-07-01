@@ -1,8 +1,8 @@
 package by.koroza.zoo_market.web.command.impl.user.show.market.other.page;
 
-import static by.koroza.zoo_market.web.command.name.AttributeName.REQUEST_ATTRIBUTE_NUMBER_PAGE;
-import static by.koroza.zoo_market.web.command.name.PagePathName.PRODUCTS_FEED_AND_OTHER_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_NUMBER_PAGE;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.REQUEST_ATTRIBUTE_NUMBER_PAGE;
+import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_NUMBER_PAGE;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.PRODUCTS_FEED_AND_OTHER_PAGE_PATH;
 
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;

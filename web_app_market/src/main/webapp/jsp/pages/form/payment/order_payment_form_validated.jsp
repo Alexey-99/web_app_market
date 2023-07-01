@@ -2,14 +2,18 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
-<%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.OrderPaymentCommand"%>
+	import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.input.InputName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.exception.TypeInputExeception"%>
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
 	scope="session" />
 <fmt:setBundle
@@ -59,7 +63,7 @@
 										key="basket_page.paymant_form.input.enter_number_bank_card" />
 								</h6>
 								<c:if
-									test="${order_payment_input_exception_type_and_message.containsKey(OrderPaymentCommand.TYPY_INPUT_EXCEPTION_NUMBER_BANK_CARD)}">
+									test="${order_payment_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_NUMBER_BANK_CARD)}">
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control is-invalid"
 											id="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_NUMBER_BANK_CARD}"
@@ -69,11 +73,11 @@
 											for="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_NUMBER_BANK_CARD}"><fmt:message
 												key="basket_page.paymant_form.input.enter_number_bank_card" />
 										</label>
-										<div class="invalid-feedback">${order_payment_input_exception_type_and_message.get(OrderPaymentCommand.TYPY_INPUT_EXCEPTION_NUMBER_BANK_CARD)}</div>
+										<div class="invalid-feedback">${order_payment_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_NUMBER_BANK_CARD)}</div>
 									</div>
 								</c:if>
 								<c:if
-									test="${!order_payment_input_exception_type_and_message.containsKey(OrderPaymentCommand.TYPY_INPUT_EXCEPTION_NUMBER_BANK_CARD)}">
+									test="${!order_payment_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_NUMBER_BANK_CARD)}">
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control is-valid"
 											id="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_NUMBER_BANK_CARD}"
@@ -95,7 +99,7 @@
 										</h6>
 									</div>
 									<c:if
-										test="${order_payment_input_exception_type_and_message.containsKey(OrderPaymentCommand.TYPY_INPUT_EXCEPTION_MONTH_YEAR)}">
+										test="${order_payment_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_MONTH_YEAR)}">
 										<div class="input_group_forms d-flex flex-row w-100">
 											<div class="form-floating" style="width: inherit">
 												<input type="number" class="form-control is-invalid"
@@ -115,12 +119,12 @@
 													required /> <label class="text-lowercase"
 													for="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_YEAR}"><fmt:message
 														key="basket_page.paymant_form.lable.year" /></label>
-												<div class="invalid-feedback">${order_payment_input_exception_type_and_message.get(OrderPaymentCommand.TYPY_INPUT_EXCEPTION_MONTH_YEAR)}</div>
+												<div class="invalid-feedback">${order_payment_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_MONTH_YEAR)}</div>
 											</div>
 										</div>
 									</c:if>
 									<c:if
-										test="${!order_payment_input_exception_type_and_message.containsKey(OrderPaymentCommand.TYPY_INPUT_EXCEPTION_MONTH_YEAR)}">
+										test="${!order_payment_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_MONTH_YEAR)}">
 										<div class="input_group_forms d-flex flex-row w-100">
 											<div class="form-floating" style="width: inherit">
 												<input type="number" class="form-control is-valid"
@@ -149,7 +153,7 @@
 								</div>
 								<h6>Введите CVC (3 цифры)</h6>
 								<c:if
-									test="${order_payment_input_exception_type_and_message.containsKey(OrderPaymentCommand.TYPY_INPUT_EXCEPTION_CVC)}">
+									test="${order_payment_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_CVC)}">
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control is-invalid"
 											id="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_CVC}"
@@ -158,11 +162,11 @@
 											class="text-lowercase"
 											for="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_CVC}"><fmt:message
 												key="basket_page.paymant_form.input.enter_cvc" /></label>
-										<div class="invalid-feedback">${order_payment_input_exception_type_and_message.get(OrderPaymentCommand.TYPY_INPUT_EXCEPTION_CVC)}</div>
+										<div class="invalid-feedback">${order_payment_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_CVC)}</div>
 									</div>
 								</c:if>
 								<c:if
-									test="${!order_payment_input_exception_type_and_message.containsKey(OrderPaymentCommand.TYPY_INPUT_EXCEPTION_CVC)}">
+									test="${!order_payment_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_CVC)}">
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control is-valid"
 											id="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_CVC}"
@@ -177,18 +181,18 @@
 									</div>
 								</c:if>
 								<c:if
-									test="${order_payment_input_exception_type_and_message.containsKey(OrderPaymentCommand.TYPY_EXCEPTION_BANK_CARD)}">
+									test="${order_payment_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_EXCEPTION_BANK_CARD)}">
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control d-none is-invalid" />
-										<div class="invalid-feedback">${order_payment_input_exception_type_and_message.get(OrderPaymentCommand.TYPY_EXCEPTION_BANK_CARD)}</div>
+										<div class="invalid-feedback">${order_payment_input_exception_type_and_message.get(TypeInputExeception.TYPY_EXCEPTION_BANK_CARD)}</div>
 									</div>
 								</c:if>
 
 								<c:if
-									test="${order_payment_input_exception_type_and_message.containsKey(OrderPaymentCommand.TYPY_EXCEPTION_SUM)}">
+									test="${order_payment_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_EXCEPTION_SUM)}">
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control d-none is-invalid" />
-										<div class="invalid-feedback">${order_payment_input_exception_type_and_message.get(OrderPaymentCommand.TYPY_EXCEPTION_SUM)}</div>
+										<div class="invalid-feedback">${order_payment_input_exception_type_and_message.get(TypeInputExeception.TYPY_EXCEPTION_SUM)}</div>
 									</div>
 								</c:if>
 								<div

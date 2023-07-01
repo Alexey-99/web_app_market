@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.name;
+package by.koroza.zoo_market.web.command.name.path;
 
 public final class PagePathName {
 	public static final String INDEX_PAGE_PATH = "index.jsp";

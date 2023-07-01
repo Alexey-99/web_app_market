@@ -1,9 +1,8 @@
 package by.koroza.zoo_market.web.command.impl.admin.show.form.change.product;
 
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
-
-import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM;
 
 import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.abstraction.AbstractRegistratedUser;

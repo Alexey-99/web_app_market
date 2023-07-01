@@ -1,7 +1,7 @@
 package by.koroza.zoo_market.web.listener;
 
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
-import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
+import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIAN;
 
 import jakarta.servlet.annotation.WebListener;
 import jakarta.servlet.http.HttpSessionEvent;

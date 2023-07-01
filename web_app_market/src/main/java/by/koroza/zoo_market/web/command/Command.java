@@ -1,7 +1,7 @@
 package by.koroza.zoo_market.web.command;
 
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_IS_HAVING_REGISTRATED_USER;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_IS_HAVING_REGISTRATED_USER;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
 
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;

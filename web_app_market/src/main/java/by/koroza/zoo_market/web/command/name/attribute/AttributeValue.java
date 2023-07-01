@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.name;
+package by.koroza.zoo_market.web.command.name.attribute;
 
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;

@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.name;
+package by.koroza.zoo_market.web.command.name.attribute;
 
 public final class AttributeName {
 

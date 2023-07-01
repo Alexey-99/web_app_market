@@ -4,14 +4,14 @@ public class BankCard {
 	private String numberCard;
 	private int monthEnd;
 	private int yearEnd;
-	private int cvs;
+	private int cvc;
 	private double sum;
 
 	public BankCard() {
 		this.numberCard = null;
 		this.monthEnd = 0;
 		this.yearEnd = 0;
-		this.cvs = 0;
+		this.cvc = 0;
 		this.sum = 0;
 	}
 
@@ -39,12 +39,12 @@ public class BankCard {
 		this.yearEnd = yearEnd;
 	}
 
-	public int getCvs() {
-		return this.cvs;
+	public int getCVC() {
+		return this.cvc;
 	}
 
-	public void setCvs(int cvs) {
-		this.cvs = cvs;
+	public void setCVC(int cvc) {
+		this.cvc = cvc;
 	}
 
 	public double getSum() {
@@ -62,7 +62,7 @@ public class BankCard {
 		result = result * PRIME + (this.numberCard != null ? this.numberCard.hashCode() : 1);
 		result = result * PRIME + this.monthEnd;
 		result = result * PRIME + this.yearEnd;
-		result = result * PRIME + this.cvs;
+		result = result * PRIME + this.cvc;
 		result = result * PRIME + Double.hashCode(this.sum);
 		return result;
 	}
@@ -92,7 +92,7 @@ public class BankCard {
 		if (this.yearEnd != otherBankCard.yearEnd) {
 			return false;
 		}
-		if (this.cvs != otherBankCard.cvs) {
+		if (this.cvc != otherBankCard.cvc) {
 			return false;
 		}
 		if (this.sum != otherBankCard.sum) {
@@ -110,8 +110,8 @@ public class BankCard {
 		builder.append(monthEnd);
 		builder.append(", yearEnd=");
 		builder.append(yearEnd);
-		builder.append(", cvs=");
-		builder.append(cvs);
+		builder.append(", cvc=");
+		builder.append(cvc);
 		builder.append(", sum=");
 		builder.append(sum);
 		builder.append("]");
@@ -140,8 +140,8 @@ public class BankCard {
 			return this;
 		}
 
-		public BankCardBuilder setCvs(int cvs) {
-			this.bankCard.setCvs(cvs);
+		public BankCardBuilder setCVC(int cvc) {
+			this.bankCard.setCVC(cvc);
 			return this;
 		}
 

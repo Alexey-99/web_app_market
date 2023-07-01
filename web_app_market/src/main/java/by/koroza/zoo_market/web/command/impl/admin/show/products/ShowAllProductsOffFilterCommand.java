@@ -1,18 +1,15 @@
 package by.koroza.zoo_market.web.command.impl.admin.show.products;
 
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
-import static by.koroza.zoo_market.web.command.name.AttributeName.REQUEST_ATTRIBUTE_COMMAND;
-import static by.koroza.zoo_market.web.command.name.AttributeName.SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS_NAME;
-import static by.koroza.zoo_market.web.command.name.AttributeName.SESSION_ATTRIBUTE_PET_CLASS_NAME;
-
-import static by.koroza.zoo_market.web.command.name.AttributeValue.SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS;
-import static by.koroza.zoo_market.web.command.name.AttributeValue.SESSION_ATTRIBUTE_PET_CLASS;
-
-import static by.koroza.zoo_market.web.command.name.CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_ID_ASCENDING;
-
-import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.REQUEST_ATTRIBUTE_COMMAND;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS_NAME;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.SESSION_ATTRIBUTE_PET_CLASS_NAME;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeValue.SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeValue.SESSION_ATTRIBUTE_PET_CLASS;
+import static by.koroza.zoo_market.web.command.name.command.CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_ID_ASCENDING;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH;
 
 import java.util.HashMap;
 import java.util.Map;

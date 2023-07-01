@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
-<%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
 <%@page
 	import="by.koroza.zoo_market.web.command.impl.change.ChangePersonInformationCommand"%>
 <!DOCTYPE html>

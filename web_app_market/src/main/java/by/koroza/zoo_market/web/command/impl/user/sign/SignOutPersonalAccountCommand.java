@@ -1,7 +1,7 @@
 package by.koroza.zoo_market.web.command.impl.user.sign;
 
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
-import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_PATH;
 
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.controller.Router;

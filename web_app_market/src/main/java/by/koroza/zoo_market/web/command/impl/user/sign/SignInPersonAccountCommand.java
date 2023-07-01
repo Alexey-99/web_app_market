@@ -1,17 +1,13 @@
 package by.koroza.zoo_market.web.command.impl.user.sign;
 
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PREVIOUS_COMMAND;
-
-import static by.koroza.zoo_market.web.command.name.CommandName.COMMAND_SHOW_HOME_PAGE;
-
-import static by.koroza.zoo_market.web.command.name.ServletName.MAIN_SERVLET_CONTROLLER_NAME;
-import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_COMMAND;
-
-import static by.koroza.zoo_market.web.command.name.InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_LOGIN;
-import static by.koroza.zoo_market.web.command.name.InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_PASSWORD;
-
-import static by.koroza.zoo_market.web.command.name.PagePathName.SIGN_IN_VALIDATED_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_PREVIOUS_COMMAND;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
+import static by.koroza.zoo_market.web.command.name.command.CommandName.COMMAND_SHOW_HOME_PAGE;
+import static by.koroza.zoo_market.web.command.name.input.InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_LOGIN;
+import static by.koroza.zoo_market.web.command.name.input.InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_PASSWORD;
+import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_COMMAND;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.SIGN_IN_VALIDATED_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.servlet.ServletName.MAIN_SERVLET_CONTROLLER_NAME;
 
 import java.util.Optional;
 

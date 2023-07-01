@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.name;
+package by.koroza.zoo_market.web.command.name.filter;
 
 public final class FilterName {
 	public static final String CHOOSE_TYPE_PET_RUS = "Выерите тип питомца";

@@ -1,6 +1,6 @@
 package by.koroza.zoo_market.web.filter;
 
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ENCODING;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_ENCODING;
 
 import java.io.IOException;
 

@@ -1,11 +1,10 @@
 package by.koroza.zoo_market.web.command.impl.user.show.pesonal;
 
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH;
+
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
-
-import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH;
-
 import jakarta.servlet.http.HttpServletRequest;
 
 public class ShowPersonalAccountPersonInfomationPageCommand implements Command {

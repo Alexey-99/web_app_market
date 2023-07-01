@@ -1,31 +1,26 @@
 package by.koroza.zoo_market.web.command.impl.admin.change.product;
 
 import static by.koroza.zoo_market.model.entity.status.UserRole.ADMIN;
-
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ADMIN_PAGE_CHANGE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
-
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_ID;
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE;
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_BREED;
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_DISCOUNT;
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT;
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_PRICE;
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_SPECIE;
-import static by.koroza.zoo_market.web.command.name.InputName.ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE;
-
-import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
-import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
-
-import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM;
-import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CHANGE_PET_PRODUCT;
-
-import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_IS_CORRECT_FILE;
-import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_PART;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_ADMIN_PAGE_CHANGE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
+import static by.koroza.zoo_market.web.command.name.input.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE;
+import static by.koroza.zoo_market.web.command.name.input.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_BREED;
+import static by.koroza.zoo_market.web.command.name.input.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_DISCOUNT;
+import static by.koroza.zoo_market.web.command.name.input.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_ID;
+import static by.koroza.zoo_market.web.command.name.input.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT;
+import static by.koroza.zoo_market.web.command.name.input.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_PRICE;
+import static by.koroza.zoo_market.web.command.name.input.InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_SPECIE;
+import static by.koroza.zoo_market.web.command.name.input.InputName.ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE;
+import static by.koroza.zoo_market.web.command.name.language.LanguageName.ENGLISH;
+import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIAN;
+import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_IS_CORRECT_FILE;
+import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_PART;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CHANGE_PET_PRODUCT;
 
 import java.io.IOException;
 import java.util.HashMap;

@@ -1,10 +1,9 @@
 package by.koroza.zoo_market.web.filter;
 
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_IS_HAVING_REGISTRATED_USER;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
-
-import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
-import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_IS_HAVING_REGISTRATED_USER;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
+import static by.koroza.zoo_market.web.command.name.language.LanguageName.ENGLISH;
+import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIAN;
 
 import java.io.IOException;
 

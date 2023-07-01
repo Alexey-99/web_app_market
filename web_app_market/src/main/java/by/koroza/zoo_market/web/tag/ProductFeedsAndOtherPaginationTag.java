@@ -1,18 +1,18 @@
 package by.koroza.zoo_market.web.tag;
 
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_LIST_PRODUCTS_FEEDS_AND_OTHER;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
-import static by.koroza.zoo_market.web.command.name.CommandName.COMMAND_SHOW_MAKET_PAGE_PRODUCT_FEEDS_AND_OTHER_BY_NUMBER_PAGE;
-import static by.koroza.zoo_market.web.command.name.ImagePath.LOGO_PNG_IMAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
-import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
-import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_COMMAND;
-import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_IMAGE_FILE_PATH;
-import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_NUMBER_PAGE;
-import static by.koroza.zoo_market.web.command.name.ParameterValue.NUMBER_FIRST_PAGE_VALUE;
-import static by.koroza.zoo_market.web.command.name.ServletName.MAIN_SERVLET_CONTROLLER_NAME;
-import static by.koroza.zoo_market.web.command.name.ServletName.SERVLET_SHOW_IMAGE_NAME;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_LIST_PRODUCTS_FEEDS_AND_OTHER;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
+import static by.koroza.zoo_market.web.command.name.command.CommandName.COMMAND_SHOW_MAKET_PAGE_PRODUCT_FEEDS_AND_OTHER_BY_NUMBER_PAGE;
+import static by.koroza.zoo_market.web.command.name.language.LanguageName.ENGLISH;
+import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIAN;
+import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_COMMAND;
+import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_IMAGE_FILE_PATH;
+import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_NUMBER_PAGE;
+import static by.koroza.zoo_market.web.command.name.parameter.ParameterValue.NUMBER_FIRST_PAGE_VALUE;
+import static by.koroza.zoo_market.web.command.name.path.ImagePath.LOGO_PNG_IMAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.servlet.ServletName.MAIN_SERVLET_CONTROLLER_NAME;
+import static by.koroza.zoo_market.web.command.name.servlet.ServletName.SERVLET_SHOW_IMAGE_NAME;
 
 import java.io.IOException;
 import java.util.List;

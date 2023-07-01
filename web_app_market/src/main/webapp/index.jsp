@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
 <!DOCTYPE html>
 <html>
 <head>

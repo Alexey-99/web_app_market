@@ -2,12 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
-<%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.input.InputName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
 <%@page
 	import="by.koroza.zoo_market.web.command.impl.user.change.ChangeLoginCommand"%>
 <fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"

@@ -1,34 +1,30 @@
 package by.koroza.zoo_market.web.command.impl.user.show.market.other;
 
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_LIST_PRODUCTS_FEEDS_AND_OTHER;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
-
-import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_BREND_PRODUCT_EN;
-import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_BREND_PRODUCT_RUS;
-import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PET_EN;
-import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PET_RUS;
-import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PRODUCT_EN;
-import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_TYPE_PRODUCT_RUS;
-import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_VALUE_DISCOUNT_EN;
-import static by.koroza.zoo_market.web.command.name.FilterName.CHOOSE_VALUE_DISCOUNT_RUS;
-
-import static by.koroza.zoo_market.web.command.name.InputName.INPUT_MAX_PRICE_PET;
-import static by.koroza.zoo_market.web.command.name.InputName.INPUT_MAX_PROCENT_PROMOTIONS;
-import static by.koroza.zoo_market.web.command.name.InputName.INPUT_MIN_PRICE_PET;
-import static by.koroza.zoo_market.web.command.name.InputName.INPUT_MIN_PROCENT_PROMOTIONS;
-import static by.koroza.zoo_market.web.command.name.InputName.INPUT_PET_TYPE;
-import static by.koroza.zoo_market.web.command.name.InputName.INPUT_PRODUCT_BREND;
-import static by.koroza.zoo_market.web.command.name.InputName.INPUT_PRODUCT_TYPE;
-import static by.koroza.zoo_market.web.command.name.InputName.INPUT_PROMOTIONS;
-
-import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
-import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
-
-import static by.koroza.zoo_market.web.command.name.PagePathName.PRODUCTS_FEED_AND_OTHER_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_LIST_PRODUCTS_FEEDS_AND_OTHER;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
+import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_BREND_PRODUCT_EN;
+import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_BREND_PRODUCT_RUS;
+import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_TYPE_PET_EN;
+import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_TYPE_PET_RUS;
+import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_TYPE_PRODUCT_EN;
+import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_TYPE_PRODUCT_RUS;
+import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_VALUE_DISCOUNT_EN;
+import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_VALUE_DISCOUNT_RUS;
+import static by.koroza.zoo_market.web.command.name.input.InputName.INPUT_MAX_PRICE_PET;
+import static by.koroza.zoo_market.web.command.name.input.InputName.INPUT_MAX_PROCENT_PROMOTIONS;
+import static by.koroza.zoo_market.web.command.name.input.InputName.INPUT_MIN_PRICE_PET;
+import static by.koroza.zoo_market.web.command.name.input.InputName.INPUT_MIN_PROCENT_PROMOTIONS;
+import static by.koroza.zoo_market.web.command.name.input.InputName.INPUT_PET_TYPE;
+import static by.koroza.zoo_market.web.command.name.input.InputName.INPUT_PRODUCT_BREND;
+import static by.koroza.zoo_market.web.command.name.input.InputName.INPUT_PRODUCT_TYPE;
+import static by.koroza.zoo_market.web.command.name.input.InputName.INPUT_PROMOTIONS;
+import static by.koroza.zoo_market.web.command.name.language.LanguageName.ENGLISH;
+import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIAN;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.PRODUCTS_FEED_AND_OTHER_PAGE_PATH;
 
 import java.util.HashMap;
 import java.util.HashSet;

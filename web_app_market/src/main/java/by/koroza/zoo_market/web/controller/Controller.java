@@ -1,7 +1,7 @@
 package by.koroza.zoo_market.web.controller;
 
-import static by.koroza.zoo_market.web.command.name.ParameterName.PARAMETER_COMMAND;
-import static by.koroza.zoo_market.web.command.name.ServletName.MAIN_SERVLET_CONTROLLER_NAME;
+import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_COMMAND;
+import static by.koroza.zoo_market.web.command.name.servlet.ServletName.MAIN_SERVLET_CONTROLLER_NAME;
 
 import java.io.IOException;
 import java.util.Optional;

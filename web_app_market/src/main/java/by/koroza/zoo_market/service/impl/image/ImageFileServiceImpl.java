@@ -1,6 +1,6 @@
 package by.koroza.zoo_market.service.impl.image;
 
-import static by.koroza.zoo_market.web.command.name.ImagePath.STORAGE_IMAGES_FOLDER_PATH;
+import static by.koroza.zoo_market.web.command.name.path.ImagePath.STORAGE_IMAGES_FOLDER_PATH;
 
 import java.io.File;
 import java.io.IOException;

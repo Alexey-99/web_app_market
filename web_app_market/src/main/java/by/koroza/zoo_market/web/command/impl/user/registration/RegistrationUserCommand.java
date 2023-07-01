@@ -1,20 +1,17 @@
 package by.koroza.zoo_market.web.command.impl.user.registration;
 
-import static by.koroza.zoo_market.web.command.name.InputName.REGISTRATION_INPUT_USER_EMAIL;
-import static by.koroza.zoo_market.web.command.name.InputName.REGISTRATION_INPUT_USER_LOGIN;
-import static by.koroza.zoo_market.web.command.name.InputName.REGISTRATION_INPUT_USER_PASSWORD;
-import static by.koroza.zoo_market.web.command.name.InputName.REGISTRATION_INPUT_USER_NAME;
-import static by.koroza.zoo_market.web.command.name.InputName.REGISTRATION_INPUT_USER_SURNAME;
-
-import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
-import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
-
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
-
-import static by.koroza.zoo_market.web.command.name.PagePathName.REGISTRATION_FORM_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.PagePathName.VERIFICATION_REGISTRATION_INFORMATION_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
+import static by.koroza.zoo_market.web.command.name.input.InputName.REGISTRATION_INPUT_USER_EMAIL;
+import static by.koroza.zoo_market.web.command.name.input.InputName.REGISTRATION_INPUT_USER_LOGIN;
+import static by.koroza.zoo_market.web.command.name.input.InputName.REGISTRATION_INPUT_USER_NAME;
+import static by.koroza.zoo_market.web.command.name.input.InputName.REGISTRATION_INPUT_USER_PASSWORD;
+import static by.koroza.zoo_market.web.command.name.input.InputName.REGISTRATION_INPUT_USER_SURNAME;
+import static by.koroza.zoo_market.web.command.name.language.LanguageName.ENGLISH;
+import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIAN;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.REGISTRATION_FORM_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.VERIFICATION_REGISTRATION_INFORMATION_PAGE_PATH;
 
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;

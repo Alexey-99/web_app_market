@@ -1,17 +1,14 @@
 package by.koroza.zoo_market.web.command.impl.user.change;
 
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_CHANGING_LOGIN_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
-import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
-
-import static by.koroza.zoo_market.web.command.name.InputName.CHANGING_LOGIN_INPUT_USER_LOGIN;
-
-import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
-import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
-
-import static by.koroza.zoo_market.web.command.name.PagePathName.CHANGE_LOGIN_FORM_VALIDATED_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.PagePathName.PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_CHANGING_LOGIN_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
+import static by.koroza.zoo_market.web.command.name.input.InputName.CHANGING_LOGIN_INPUT_USER_LOGIN;
+import static by.koroza.zoo_market.web.command.name.language.LanguageName.ENGLISH;
+import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIAN;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.CHANGE_LOGIN_FORM_VALIDATED_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH;
 
 import java.util.HashMap;
 import java.util.Map;
