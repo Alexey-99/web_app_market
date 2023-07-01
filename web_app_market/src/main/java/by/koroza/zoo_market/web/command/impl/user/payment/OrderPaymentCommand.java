@@ -2,13 +2,15 @@ package by.koroza.zoo_market.web.command.impl.user.payment;
 
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ORDER;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_ORDER_PAYMENT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
+import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 import static by.koroza.zoo_market.web.command.name.AttributeName.ATTRIBUTE_USER;
 
 import static by.koroza.zoo_market.web.command.name.InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_CVC;
 import static by.koroza.zoo_market.web.command.name.InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_MONTH;
 import static by.koroza.zoo_market.web.command.name.InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_YEAR;
 import static by.koroza.zoo_market.web.command.name.InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_NUMBER_BANK_CARD;
-
+import static by.koroza.zoo_market.web.command.name.LanguageName.ENGLISH;
+import static by.koroza.zoo_market.web.command.name.LanguageName.RUSSIAN;
 import static by.koroza.zoo_market.web.command.name.PagePathName.BACKET_WITH_PRODUCTS_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.HOME_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.PagePathName.ORDER_PAYMENT_FORM_VALIDATED_PAGE_PATH;
@@ -60,24 +62,24 @@ public class OrderPaymentCommand implements Command {
 						router = new Router(BACKET_WITH_PRODUCTS_PAGE_PATH);
 					} else {
 						Map<String, String> mapInputExceptions = new HashMap<>();
-						String numberBankCard = request
-								.getParameter(PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_NUMBER_BANK_CARD);
-						if (!BankCardValidation.validNumberBankCard(numberBankCard)) { // TODO ENGLISH LOCALE
-							mapInputExceptions.put(TYPY_INPUT_EXCEPTION_NUMBER_BANK_CARD,
-									"Вы ввели номер банковской карты не корректно. Ваш ввод: " + numberBankCard);
-						}
-						String month = request.getParameter(PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_MONTH);
-						String yaer = request.getParameter(PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_YEAR);
-						if (!BankCardValidation.validMonthAndYear(month, yaer)) {
-							mapInputExceptions.put(TYPY_INPUT_EXCEPTION_MONTH_YEAR,
-									"Вы ввели номер мсяц или год не корректно. Ваш ввод: месяц = " + month + ", год = "
-											+ yaer);
-						}
-						String cvc = request.getParameter(PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_CVC);
-						if (!BankCardValidation.validCVC(cvc)) {
-							mapInputExceptions.put(TYPY_INPUT_EXCEPTION_CVC,
-									"Вы ввели cvc не корректно. Ваш ввод: " + cvc);
-						}
+//						String numberBankCard = request
+//								.getParameter(PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_NUMBER_BANK_CARD);
+//						if (!BankCardValidation.validNumberBankCard(numberBankCard)) { // TODO ENGLISH LOCALE
+//							mapInputExceptions.put(TYPY_INPUT_EXCEPTION_NUMBER_BANK_CARD,
+//									"Вы ввели номер банковской карты не корректно. Ваш ввод: " + numberBankCard);
+//						}
+//						String month = request.getParameter(PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_MONTH);
+//						String yaer = request.getParameter(PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_YEAR);
+//						if (!BankCardValidation.validMonthAndYear(month, yaer)) {
+//							mapInputExceptions.put(TYPY_INPUT_EXCEPTION_MONTH_YEAR,
+//									"Вы ввели номер мсяц или год не корректно. Ваш ввод: месяц = " + month + ", год = "
+//											+ yaer);
+//						}
+//						String cvc = request.getParameter(PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_CVC);
+//						if (!BankCardValidation.validCVC(cvc)) {
+//							mapInputExceptions.put(TYPY_INPUT_EXCEPTION_CVC,
+//									"Вы ввели cvc не корректно. Ваш ввод: " + cvc);
+//						}
 						BankCard bankCard = null;
 						if (mapInputExceptions.isEmpty()) {
 							bankCard = new BankCard.BankCardBuilder().setNumberCard(numberBankCard)
@@ -110,5 +112,62 @@ public class OrderPaymentCommand implements Command {
 		}
 		isRegistratedUser(request);
 		return router;
+	}
+
+	private void getInputParameters(HttpServletRequest request, Map<String, String> mapInputExceptions) {
+		BankCard bankCard = new BankCard();
+		String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
+
+		String numberBankCard = getInputParameterNumberBankCard(request, sessionLocale, mapInputExceptions);
+
+		String[] monthYear = getInputParametersMonthYear(request, sessionLocale, mapInputExceptions);
+		String month = monthYear[0];
+		String yaer = monthYear[1];
+
+		String cvc = getInputParameterCVC(request, sessionLocale, mapInputExceptions);
+	}
+
+	private String getInputParameterNumberBankCard(HttpServletRequest request, String sessionLocale,
+			Map<String, String> mapInputExceptions) {
+		String numberBankCard = request.getParameter(PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_NUMBER_BANK_CARD);
+		if (!BankCardValidation.validNumberBankCard(numberBankCard)) {
+			if (sessionLocale.equals(RUSSIAN)) {
+				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_NUMBER_BANK_CARD,
+						"Вы ввели номер банковской карты не корректно. Ваш ввод: " + numberBankCard);
+			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_NUMBER_BANK_CARD,
+						"You entered bank card number incorrect. You entered: " + numberBankCard);
+			}
+		}
+		return numberBankCard;
+	}
+
+	private String[] getInputParametersMonthYear(HttpServletRequest request, String sessionLocale,
+			Map<String, String> mapInputExceptions) {
+		String month = request.getParameter(PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_MONTH);
+		String yaer = request.getParameter(PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_YEAR);
+		if (!BankCardValidation.validMonthAndYear(month, yaer)) {
+			if (sessionLocale.equals(RUSSIAN)) {
+				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_MONTH_YEAR,
+						"Вы ввели номер мсяц или год не корректно. Ваш ввод: месяц = " + month + ", год = " + yaer);
+			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_MONTH_YEAR,
+						"You entered month or year incorrect. You entered: month = " + month + ", year = " + yaer);
+			}
+		}
+		return new String[] { month, yaer };
+	}
+
+	private String getInputParameterCVC(HttpServletRequest request, String sessionLocale,
+			Map<String, String> mapInputExceptions) {
+		String cvc = request.getParameter(PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_CVC);
+		if (!BankCardValidation.validCVC(cvc)) {
+			if (sessionLocale.equals(RUSSIAN)) {
+				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_CVC, "Вы ввели cvc не корректно. Ваш ввод: " + cvc);
+			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_CVC, " Вы ввели cvc не корректно. Ваш ввод: " + cvc);
+			}
+		}
+		return cvc;
 	}
 }
