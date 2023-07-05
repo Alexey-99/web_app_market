@@ -19,8 +19,8 @@ import jakarta.servlet.http.HttpSession;
 
 public class ConfirmationEmailCommand implements Command {
 	@SuppressWarnings("unused")
-	private static final boolean VERIFICATE_CODE_STATUS_OPEN = true;
-	private static final boolean VERIFICATE_CODE_STATUS_CLOSED = false;
+	private static final boolean CONFIRMATION_CODE_STATUS_OPEN = true;
+	private static final boolean CONFIRMATION_CODE_STATUS_CLOSED = false;
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
@@ -39,7 +39,7 @@ public class ConfirmationEmailCommand implements Command {
 					session.setAttribute(ATTRIBUTE_USER, user);
 					UserServiceImpl.getInstance().changeVerificationEmailStatus(user.getId(), true);
 					ConfirmationServiceImpl.getInstance().changeVerificateCodeStatusByUserId(user.getId(), code,
-							VERIFICATE_CODE_STATUS_CLOSED);
+							CONFIRMATION_CODE_STATUS_CLOSED);
 					router = new Router(HOME_PAGE_PATH);
 				} else {
 					router = new Router(CONFIMARTION_EMAIL_VALIDATED_PAGE_PATH);
@@ -53,5 +53,4 @@ public class ConfirmationEmailCommand implements Command {
 		isRegistratedUser(request);
 		return router;
 	}
-
 }

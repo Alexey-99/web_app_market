@@ -1,5 +1,6 @@
 package by.koroza.zoo_market.web.command.impl.user.payment;
 
+import static by.koroza.zoo_market.model.entity.status.UserRole.USER;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_ORDER;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_ORDER_PAYMENT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
@@ -60,39 +61,29 @@ public class OrderPaymentCommand implements Command {
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		session.removeAttribute(ATTRIBUTE_ORDER_PAYMENT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		try {
-			if (user == null || user.getRole().getIdRole() == 0) {
-				router = new Router(HOME_PAGE_PATH);
-			} else {
-				if (user.getRole().getIdRole() == 1) {
-					router = new Router(HOME_PAGE_PATH);
-				} else {
-					Order order = (Order) session.getAttribute(ATTRIBUTE_ORDER);
-					if (order == null || order.getProductsPets().size() + order.getOtherProducts().size() == 0) {
-						router = new Router(BACKET_WITH_PRODUCTS_PAGE_PATH);
+			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() >= USER.getIdRole()) {
+				Order order = (Order) session.getAttribute(ATTRIBUTE_ORDER);
+				if (order != null && (order.getProductsPets().size() + order.getOtherProducts().size()) > 0) {
+					Map<String, String> mapInputExceptions = new HashMap<>();
+					String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
+					BankCard bankCard = createBankCardFromInputParameters(request, mapInputExceptions, sessionLocale);
+					if ((bankCard != null && mapInputExceptions.isEmpty())
+							&& (validationBankCard(mapInputExceptions, sessionLocale, bankCard, order))) {
+						OrderServiceImpl.getInstance().addOrder(order, user.getId());
+						ProductPetServiceImpl.getInstance().changeNumberOfUnitsProducts(order);
+						ProductFeedsAndOtherServiceImpl.getInstance().changeNumberOfUnitsProducts(order);
+						UserServiceImpl.getInstance().changePersonProcentDiscount(user);
+						router = new Router(SUCCESS_ORDER_PAYMENT_PAGE_PATH);
 					} else {
-						Map<String, String> mapInputExceptions = new HashMap<>();
-						String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
-						BankCard bankCard = createBankCardFromInputParameters(request, mapInputExceptions,
-								sessionLocale);
-						if (bankCard != null && mapInputExceptions.isEmpty()) {
-							if (validationBankCard(mapInputExceptions, sessionLocale, bankCard, order)) {
-								OrderServiceImpl.getInstance().addOrder(order, user.getId());
-								ProductPetServiceImpl.getInstance().changeNumberOfUnitsProducts(order);
-								ProductFeedsAndOtherServiceImpl.getInstance().changeNumberOfUnitsProducts(order);
-								UserServiceImpl.getInstance().changePersonProcentDiscount(user);
-								router = new Router(SUCCESS_ORDER_PAYMENT_PAGE_PATH);
-							} else {
-								session.setAttribute(ATTRIBUTE_ORDER_PAYMENT_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
-										mapInputExceptions);
-								router = new Router(ORDER_PAYMENT_FORM_VALIDATED_PAGE_PATH);
-							}
-						} else {
-							session.setAttribute(ATTRIBUTE_ORDER_PAYMENT_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
-									mapInputExceptions);
-							router = new Router(ORDER_PAYMENT_FORM_VALIDATED_PAGE_PATH);
-						}
+						session.setAttribute(ATTRIBUTE_ORDER_PAYMENT_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
+								mapInputExceptions);
+						router = new Router(ORDER_PAYMENT_FORM_VALIDATED_PAGE_PATH);
 					}
+				} else {
+					router = new Router(BACKET_WITH_PRODUCTS_PAGE_PATH);
 				}
+			} else {
+				router = new Router(HOME_PAGE_PATH);
 			}
 		} catch (ServiceException e) {
 			throw new CommandException(e);

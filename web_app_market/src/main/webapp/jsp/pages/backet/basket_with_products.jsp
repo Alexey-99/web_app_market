@@ -2,18 +2,21 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
-<%@page import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.input.InputName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.parameter.ParameterValue"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterValue"%>
 <%@page import="by.koroza.zoo_market.web.command.name.path.ImagePath"%>
 <%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
-<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
-	scope="session" />
-<fmt:setBundle
-	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
+<fmt:setLocale value="${locale}" scope="session" />
+<fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +29,7 @@
 <title><fmt:message key="basket_page.title" /></title>
 <!-- order = AttributeName.ATTRIBUTE_ORDER -->
 <!-- user = AttributeName.ATTRIBUTE_USER -->
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body>
 
@@ -42,7 +46,8 @@
 									class="col-12 d-flex justify-content-around align-items-center">
 									<div class="products_order_top_form h-100">
 										<form class="h-100" style="width: 50vh"
-											action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+											action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+											method="get">
 											<input type="hidden"
 												name="${ParameterName.PARAMETER_NUMBER_PAGE}"
 												value="${ParameterValue.NUMBER_FIRST_PAGE_VALUE}" /> <input
@@ -60,7 +65,8 @@
 									</div>
 									<div class="products_order_top_form h-100">
 										<form class="h-100" style="width: 50vh"
-											action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+											action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+											method="get">
 											<input type="hidden"
 												name="${ParameterName.PARAMETER_NUMBER_PAGE}"
 												value="${ParameterValue.NUMBER_FIRST_PAGE_VALUE}" /> <input
@@ -126,7 +132,8 @@
 											</div>
 											<div class="row body_btns w-100">
 												<div class="col-12 body_btn">
-													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+														method="get">
 														<input type="hidden"
 															name="${ParameterName.PARAMETER_COMMAND}"
 															value="${CommandName.COMMAND_SHOW_BACKET_PAGE}" /><input
@@ -212,7 +219,8 @@
 											</div>
 											<div class="row body_btns w-100 ">
 												<div class="col body_btn">
-													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+														method="get">
 														<input type="hidden"
 															name="${ParameterName.PARAMETER_COMMAND}"
 															value="${CommandName.COMMAND_SHOW_BACKET_PAGE}" /> <input
@@ -343,7 +351,8 @@
 									</h2>
 								</div>
 								<form class=""
-									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<h6>
 										<fmt:message
 											key="basket_page.paymant_form.input.enter_number_bank_card" />

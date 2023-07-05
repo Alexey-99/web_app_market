@@ -5,29 +5,33 @@
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
 <%@page import="by.koroza.zoo_market.web.command.name.filter.FilterName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.input.InputName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.language.LanguageName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.parameter.ParameterValue"%>
-<%@page import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.user.show.market.pet.ShowProductPetsIncludedFilterCommand"%>
-<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
-	scope="session" />
-<fmt:setBundle
-	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
+	import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.language.LanguageName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterValue"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.exception.TypeInputExeception"%>
+<fmt:setLocale value="${locale}" scope="session" />
+<fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title><fmt:message key="market_product_pets_page.title" /></title>
 <link rel="stylesheet" href="css/bootstrap/bootstrap.css" />
 <link rel="stylesheet" href="css/items/root.css" />
 <link rel="stylesheet" href="css/pages/products_page.css" />
 <link rel="stylesheet" href="css/items/product_card.css" />
 <link rel="stylesheet" href="css/items/toast.css" />
+<title><fmt:message key="market_product_pets_page.title" /></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 <!-- products_pets_filter_input_exception_type_and_message = AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE -->
 <!-- products_pets_filter_map = AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP -->
@@ -65,7 +69,8 @@
 									<div class="offcanvas-body">
 										<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 											<li class="nav-item dropdown">
-												<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+												<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+													method="get">
 													<input type="hidden"
 														name="${ParameterName.PARAMETER_NUMBER_PAGE}"
 														value="${ParameterValue.NUMBER_FIRST_PAGE_VALUE}" /> <input
@@ -76,12 +81,13 @@
 															key="market_product_pets_page.filter.top_buttons.reset_filter_btn.reset_filter" />
 													</button>
 												</form> <c:if
-													test="${products_pets_filter_input_exception_type_and_message.isEmpty() || products_pets_filter_input_exception_type_and_message == null}">
-													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+													test="${ products_pets_filter_input_exception_type_and_message == null || products_pets_filter_input_exception_type_and_message.isEmpty()}">
+													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+														method="get">
 														<div class="accordion accordion_form"
 															id="accordionExample">
 															<c:if
-																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET_EN) && products_pets_filter_map.get(FilterName.CHOOSE_TYPE_PET_EN).size() > 0 == true}">
+																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET_EN) && products_pets_filter_map.get(FilterName.CHOOSE_TYPE_PET_EN).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -112,7 +118,7 @@
 															</c:if>
 
 															<c:if
-																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_BREED_PET_EN) && products_pets_filter_map.get(FilterName.CHOOSE_BREED_PET_EN).size() > 0 == true}">
+																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_BREED_PET_EN) && products_pets_filter_map.get(FilterName.CHOOSE_BREED_PET_EN).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -143,7 +149,7 @@
 															</c:if>
 
 															<c:if
-																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT_EN) && products_pets_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_EN).size() > 0 == true}">
+																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT_EN) && products_pets_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_EN).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -176,8 +182,8 @@
 																				</span> <input type="text" class="form-control"
 																					pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
 																					aria-label="Процент скидки"
-																					name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}" />
-																				<span
+																					name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}"
+																					value="0" /> <span
 																					class="span_procent d-flex justify-content-center align-items-center">
 																					<svg xmlns="http://www.w3.org/2000/svg" height="20"
 																						viewBox="0 96 960 960" width="20">
@@ -188,8 +194,8 @@
 																						key="market_product_pets_page.filter.promotions_part.span_input.to" />
 																				</span> <input type="text" class="form-control"
 																					pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
-																					name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
-																				<span
+																					name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS}"
+																					value="100" /> <span
 																					class="span_procent d-flex justify-content-center align-items-center">
 																					<svg xmlns="http://www.w3.org/2000/svg" height="20"
 																						viewBox="0 96 960 960" width="20">
@@ -222,9 +228,9 @@
 																			</span> <input type="text" class="form-control"
 																				pattern="[0-9]+(\.[0-9]{2})?"
 																				placeHolder="00,00 руб"
-																				name="${InputName.INPUT_MIN_PRICE_PET}"
+																				name="${InputName.INPUT_MIN_PRICE_PET}" value="0"
 																				aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
-																			<span class="input-group-text"><fmt:message
+																			<span class="input-group-text"> <fmt:message
 																					key="market_product_pets_page.filter.price_part.span_input.to" />
 																			</span> <input type="text" pattern="[0-9]+(\.[0-9]{2})?"
 																				class="form-control" placeHolder="00,00 руб"
@@ -267,7 +273,6 @@
 																					key="market_product_pets_page.filter.age_part.month_or_months" />
 																				<br /> </span>
 																		</div>
-
 																		<div class="input-group mb-3">
 																			<span
 																				class="input-group-text accordion_item_four_span justify-content-center"
@@ -298,12 +303,13 @@
 															value='<fmt:message key="market_product_pets_page.filter.filter_footer.btn.search" />' />
 													</form>
 												</c:if> <c:if
-													test="${!products_pets_filter_input_exception_type_and_message.isEmpty && products_pets_filter_input_exception_type_and_message != null}">
-													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+													test="${products_pets_filter_input_exception_type_and_message != null && !products_pets_filter_input_exception_type_and_message.isEmpty}">
+													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+														method="get">
 														<div class="accordion accordion_form"
 															id="accordionExample">
 															<c:if
-																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET_EN) && products_pets_filter_map.get(FilterName.CHOOSE_TYPE_PET_EN).size() > 0 == true}">
+																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET_EN) && products_pets_filter_map.get(FilterName.CHOOSE_TYPE_PET_EN).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -334,7 +340,7 @@
 															</c:if>
 
 															<c:if
-																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_BREED_PET_EN) && products_pets_filter_map.get(FilterName.CHOOSE_BREED_PET_EN).size() > 0 == true}">
+																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_BREED_PET_EN) && products_pets_filter_map.get(FilterName.CHOOSE_BREED_PET_EN).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -365,7 +371,7 @@
 															</c:if>
 
 															<c:if
-																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT_EN) && products_pets_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_EN).size() > 0 == true}">
+																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT_EN) && products_pets_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_EN).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -391,7 +397,7 @@
 																				<br />
 																			</c:forEach>
 																			<c:if
-																				test="${products_pets_filter_input_exception_type_and_message.containsKey(ShowProductPetsIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}">
+																				test="${products_pets_filter_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_DISCOUNT)}">
 																				<div class="input-group mb-3 mt-3">
 																					<span
 																						class="input-group-text accordion_item_six_span"><fmt:message
@@ -420,11 +426,13 @@
 																							<path
 																								d="M289.899 516Q236 516 198 477.899t-38-92Q160 332 198.101 294t92-38Q344 256 382 294.101t38 92Q420 440 381.899 478t-92 38Zm-.017-60Q319 456 339.5 435.618q20.5-20.383 20.5-49.5Q360 357 339.618 336.5q-20.383-20.5-49.5-20.5Q261 316 240.5 336.382q-20.5 20.383-20.5 49.5Q220 415 240.382 435.5q20.383 20.5 49.5 20.5Zm380.017 440Q616 896 578 857.899t-38-92Q540 712 578.101 674t92-38Q724 636 762 674.101t38 92Q800 820 761.899 858t-92 38Zm-.017-60Q699 836 719.5 815.618q20.5-20.383 20.5-49.5Q740 737 719.618 716.5q-20.383-20.5-49.5-20.5Q641 696 620.5 716.382q-20.5 20.383-20.5 49.5Q600 795 620.382 815.5q20.383 20.5 49.5 20.5ZM202 896l-42-42 598-598 42 42-598 598Z" /></svg>
 																					</span>
-																					<div class="invalid-feedback">${products_pets_filter_input_exception_type_and_message.get(ShowProductPetsIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}</div>
+																					<div class="invalid-feedback">
+																						${products_pets_filter_input_exception_type_and_message.get(TypeInputExeception.TYPE_INPUT_EXCEPTION_DISCOUNT)}
+																					</div>
 																				</div>
 																			</c:if>
 																			<c:if
-																				test="${!products_pets_filter_input_exception_type_and_message.containsKey(ShowProductPetsIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}">
+																				test="${!products_pets_filter_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_DISCOUNT)}">
 																				<div class="input-group mb-3 mt-3">
 																					<span
 																						class="input-group-text accordion_item_six_span"><fmt:message
@@ -474,7 +482,7 @@
 																<div id="collapseThree"
 																	class="accordion-collapse collapse">
 																	<c:if
-																		test="${products_pets_filter_input_exception_type_and_message.containsKey(ShowProductPetsIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
+																		test="${products_pets_filter_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_PRICE)}">
 																		<div class="accordion-body">
 																			<div class="input-group mb-3">
 																				<span class="input-group-text"><fmt:message
@@ -491,12 +499,14 @@
 																					placeHolder="00,00 руб"
 																					name="${InputName.INPUT_MAX_PRICE_PET}"
 																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
-																				<div class="invalid-feedback">${products_pets_filter_input_exception_type_and_message.get(ShowProductPetsIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}</div>
+																				<div class="invalid-feedback">
+																					${products_pets_filter_input_exception_type_and_message.get(TypeInputExeception.TYPE_INPUT_EXCEPTION_PRICE)}
+																				</div>
 																			</div>
 																		</div>
 																	</c:if>
 																	<c:if
-																		test="${!products_pets_filter_input_exception_type_and_message.containsKey(ShowProductPetsIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
+																		test="${!products_pets_filter_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_PRICE)}">
 																		<div class="accordion-body">
 																			<div class="input-group mb-3">
 																				<span class="input-group-text"><fmt:message
@@ -532,7 +542,7 @@
 																<div id="collapseFour"
 																	class="accordion-collapse collapse">
 																	<c:if
-																		test="${products_pets_filter_input_exception_type_and_message.containsKey(ShowProductPetsIncludedFilterCommand.INPUT_EXCEPTION_TYPE_YEAR_MONTH)}">
+																		test="${products_pets_filter_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_YEAR_MONTH)}">
 																		<div class="accordion-body">
 																			<div class="input-group">
 																				<span
@@ -571,19 +581,20 @@
 																				<span
 																					class="input-group-text accordion_item_four_span"><fmt:message
 																						key="market_product_pets_page.filter.age_part.month_or_months" /></span>
-																				<div class="invalid-feedback">${products_pets_filter_input_exception_type_and_message.get(ShowProductPetsIncludedFilterCommand.INPUT_EXCEPTION_TYPE_YEAR_MONTH)}</div>
+																				<div class="invalid-feedback">
+																					${products_pets_filter_input_exception_type_and_message.get(TypeInputExeception.TYPE_INPUT_EXCEPTION_YEAR_MONTH)}
+																				</div>
 																			</div>
-
 																		</div>
 																	</c:if>
 																	<c:if
-																		test="${!products_pets_filter_input_exception_type_and_message.containsKey(ShowProductPetsIncludedFilterCommand.INPUT_EXCEPTION_TYPE_YEAR_MONTH)}">
+																		test="${!products_pets_filter_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_YEAR_MONTH)}">
 																		<div class="accordion-body">
 																			<div class="input-group">
 																				<span
 																					class="input-group-text accordion_item_four_span"><fmt:message
 																						key="market_product_pets_page.filter.age_part.span_input.from" />
-																					от</span> <input type="text" class="form-control"
+																				</span> <input type="text" class="form-control"
 																					pattern="[0-9]+" aria-label="Количество лет"
 																					name="${InputName.INPUT_MIN_NUMBER_YEARS_PET}" />
 																				<span
@@ -640,7 +651,8 @@
 									<div class="offcanvas-body">
 										<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 											<li class="nav-item dropdown">
-												<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+												<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+													method="get">
 													<input type="hidden"
 														name="${ParameterName.PARAMETER_NUMBER_PAGE}"
 														value="${ParameterValue.NUMBER_FIRST_PAGE_VALUE}" /> <input
@@ -651,12 +663,13 @@
 															key="market_product_pets_page.filter.top_buttons.reset_filter_btn.reset_filter" />
 													</button>
 												</form> <c:if
-													test="${products_pets_filter_input_exception_type_and_message.isEmpty() || products_pets_filter_input_exception_type_and_message == null}">
-													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+													test="${products_pets_filter_input_exception_type_and_message == null || products_pets_filter_input_exception_type_and_message.isEmpty()}">
+													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+														method="get">
 														<div class="accordion accordion_form"
 															id="accordionExample">
 															<c:if
-																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET_RUS) && products_pets_filter_map.get(FilterName.CHOOSE_TYPE_PET_RUS).size() > 0 == true}">
+																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET_RUS) && products_pets_filter_map.get(FilterName.CHOOSE_TYPE_PET_RUS).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -687,7 +700,7 @@
 															</c:if>
 
 															<c:if
-																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_BREED_PET_RUS) && products_pets_filter_map.get(FilterName.CHOOSE_BREED_PET_RUS).size() > 0 == true}">
+																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_BREED_PET_RUS) && products_pets_filter_map.get(FilterName.CHOOSE_BREED_PET_RUS).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -695,7 +708,7 @@
 																			type="button" data-bs-toggle="collapse"
 																			data-bs-target="#collapse_CHOOSE_BREED_PET_RUS"
 																			aria-expanded="false"
-																			aria-controls="collapse_CHOOSE_BREED_PET_RUS">${FilterName.CHOOSE_BREED_PET_RUS }</button>
+																			aria-controls="collapse_CHOOSE_BREED_PET_RUS">${FilterName.CHOOSE_BREED_PET_RUS}</button>
 																	</h2>
 																	<div id="collapse_CHOOSE_BREED_PET_RUS"
 																		class="accordion-collapse collapse ">
@@ -718,7 +731,7 @@
 															</c:if>
 
 															<c:if
-																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT_RUS) && products_pets_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_RUS).size() > 0 == true}">
+																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT_RUS) && products_pets_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_RUS).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -872,11 +885,12 @@
 													</form>
 												</c:if> <c:if
 													test="${!products_pets_filter_input_exception_type_and_message.isEmpty && products_pets_filter_input_exception_type_and_message != null}">
-													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+														method="get">
 														<div class="accordion accordion_form"
 															id="accordionExample">
 															<c:if
-																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET_RUS) && products_pets_filter_map.get(FilterName.CHOOSE_TYPE_PET_RUS).size() > 0 == true}">
+																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET_RUS) && products_pets_filter_map.get(FilterName.CHOOSE_TYPE_PET_RUS).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -907,7 +921,7 @@
 															</c:if>
 
 															<c:if
-																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_BREED_PET_RUS) && products_pets_filter_map.get(FilterName.CHOOSE_BREED_PET_RUS).size() > 0 == true}">
+																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_BREED_PET_RUS) && products_pets_filter_map.get(FilterName.CHOOSE_BREED_PET_RUS).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -938,7 +952,7 @@
 															</c:if>
 
 															<c:if
-																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT_RUS) && products_pets_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_RUS).size() > 0 == true}">
+																test="${products_pets_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT_RUS) && products_pets_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_RUS).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -964,7 +978,7 @@
 																				<br />
 																			</c:forEach>
 																			<c:if
-																				test="${products_pets_filter_input_exception_type_and_message.containsKey(ShowProductPetsIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}">
+																				test="${products_pets_filter_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_DISCOUNT)}">
 																				<div class="input-group mb-3 mt-3">
 																					<span
 																						class="input-group-text accordion_item_six_span"><fmt:message
@@ -994,10 +1008,12 @@
 																								d="M289.899 516Q236 516 198 477.899t-38-92Q160 332 198.101 294t92-38Q344 256 382 294.101t38 92Q420 440 381.899 478t-92 38Zm-.017-60Q319 456 339.5 435.618q20.5-20.383 20.5-49.5Q360 357 339.618 336.5q-20.383-20.5-49.5-20.5Q261 316 240.5 336.382q-20.5 20.383-20.5 49.5Q220 415 240.382 435.5q20.383 20.5 49.5 20.5Zm380.017 440Q616 896 578 857.899t-38-92Q540 712 578.101 674t92-38Q724 636 762 674.101t38 92Q800 820 761.899 858t-92 38Zm-.017-60Q699 836 719.5 815.618q20.5-20.383 20.5-49.5Q740 737 719.618 716.5q-20.383-20.5-49.5-20.5Q641 696 620.5 716.382q-20.5 20.383-20.5 49.5Q600 795 620.382 815.5q20.383 20.5 49.5 20.5ZM202 896l-42-42 598-598 42 42-598 598Z" /></svg>
 																					</span>
 																				</div>
-																				<div class="invalid-feedback">${products_pets_filter_input_exception_type_and_message.get(ShowProductPetsIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}</div>
+																				<div class="invalid-feedback">
+																					${products_pets_filter_input_exception_type_and_message.get(TypeInputExeception.TYPE_INPUT_EXCEPTION_DISCOUNT)}
+																				</div>
 																			</c:if>
 																			<c:if
-																				test="${!products_pets_filter_input_exception_type_and_message.containsKey(ShowProductPetsIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}">
+																				test="${!products_pets_filter_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_DISCOUNT)}">
 																				<div class="input-group mb-3 mt-3">
 																					<span
 																						class="input-group-text accordion_item_six_span"><fmt:message
@@ -1047,7 +1063,7 @@
 																<div id="collapseThree"
 																	class="accordion-collapse collapse">
 																	<c:if
-																		test="${products_pets_filter_input_exception_type_and_message.containsKey(ShowProductPetsIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
+																		test="${products_pets_filter_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_PRICE)}">
 																		<div class="accordion-body">
 																			<div class="input-group mb-3">
 																				<span class="input-group-text"><fmt:message
@@ -1064,12 +1080,14 @@
 																					placeHolder="00,00 руб"
 																					name="${InputName.INPUT_MAX_PRICE_PET}"
 																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
-																				<div class="invalid-feedback">${products_pets_filter_input_exception_type_and_message.get(ShowProductPetsIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}</div>
+																				<div class="invalid-feedback">
+																					${products_pets_filter_input_exception_type_and_message.get(TypeInputExeception.TYPE_INPUT_EXCEPTION_PRICE)}
+																				</div>
 																			</div>
 																		</div>
 																	</c:if>
 																	<c:if
-																		test="${!products_pets_filter_input_exception_type_and_message.containsKey(ShowProductPetsIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
+																		test="${!products_pets_filter_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_PRICE)}">
 																		<div class="accordion-body">
 																			<div class="input-group mb-3">
 																				<span class="input-group-text"><fmt:message
@@ -1105,7 +1123,7 @@
 																<div id="collapseFour"
 																	class="accordion-collapse collapse">
 																	<c:if
-																		test="${products_pets_filter_input_exception_type_and_message.containsKey(ShowProductPetsIncludedFilterCommand.INPUT_EXCEPTION_TYPE_YEAR_MONTH)}">
+																		test="${products_pets_filter_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_YEAR_MONTH)}">
 																		<div class="accordion-body">
 																			<div class="input-group">
 																				<span
@@ -1144,13 +1162,15 @@
 																				<span
 																					class="input-group-text accordion_item_four_span"><fmt:message
 																						key="market_product_pets_page.filter.age_part.month_or_months" /></span>
-																				<div class="invalid-feedback">${products_pets_filter_input_exception_type_and_message.get(ShowProductPetsIncludedFilterCommand.INPUT_EXCEPTION_TYPE_YEAR_MONTH)}</div>
+																				<div class="invalid-feedback">
+																					${products_pets_filter_input_exception_type_and_message.get(TypeInputExeception.TYPE_INPUT_EXCEPTION_YEAR_MONTH)}
+																				</div>
 																			</div>
 
 																		</div>
 																	</c:if>
 																	<c:if
-																		test="${!products_pets_filter_input_exception_type_and_message.containsKey(ShowProductPetsIncludedFilterCommand.INPUT_EXCEPTION_TYPE_YEAR_MONTH)}">
+																		test="${!products_pets_filter_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_YEAR_MONTH)}">
 																		<div class="accordion-body">
 																			<div class="input-group">
 																				<span
@@ -1256,7 +1276,8 @@
 								<fmt:message
 									key="market_product_pets_page.if_not_found_product.navigate" />
 							</h5>
-							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+								method="get">
 								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 								<button
@@ -1269,7 +1290,8 @@
 								</button>
 							</form>
 
-							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+								method="get">
 								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 									value="${CommandName.COMMAND_SHOW_PRODUCT_FEED_AND_OTHER_OFF_FILTER_PAGE}">
 								<button

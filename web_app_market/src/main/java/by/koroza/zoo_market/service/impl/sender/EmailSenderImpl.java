@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.service.sender;
+package by.koroza.zoo_market.service.impl.sender;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import by.koroza.zoo_market.service.EmailSender;
 import by.koroza.zoo_market.service.exception.ServiceException;
 
 import jakarta.mail.Authenticator;
@@ -19,8 +20,8 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
-public class EmailSender {
-	private static final EmailSender INSTANCE = new EmailSender();
+public class EmailSenderImpl implements EmailSender {
+	private static final EmailSender INSTANCE = new EmailSenderImpl();
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	private static final String FILE_PATH_EMAIL_PROPERTIES = "email_properties/mail_property.txt";
@@ -31,13 +32,14 @@ public class EmailSender {
 	private static final String PROPERTY_KEY_PASSWORD_SMTP = "password_smtp";
 	private static final String PROPERTY_KEY_INTERNET_ADDRESS_FROM = "internet_address_from";
 
-	private EmailSender() {
+	private EmailSenderImpl() {
 	}
 
 	public static EmailSender getInstance() {
 		return INSTANCE;
 	}
 
+	@Override
 	public boolean emailSend(String subject, String text, String... internetAddressesTo) {
 		boolean flag = true;
 		try {
@@ -65,7 +67,7 @@ public class EmailSender {
 	private Properties loadEmailPropertiesFile() throws ServiceException {
 		Properties properties = new Properties();
 		try {
-			InputStream inputStream = EmailSender.class.getClassLoader()
+			InputStream inputStream = EmailSenderImpl.class.getClassLoader()
 					.getResourceAsStream(FILE_PATH_EMAIL_PROPERTIES);
 			properties.load(inputStream);
 		} catch (IOException e) {
@@ -77,7 +79,7 @@ public class EmailSender {
 	private Properties loadOtherPropertiesFile() throws ServiceException {
 		Properties properties = new Properties();
 		try {
-			InputStream inputStream = EmailSender.class.getClassLoader()
+			InputStream inputStream = EmailSenderImpl.class.getClassLoader()
 					.getResourceAsStream(FILE_PATH_OTHER_PROPERTIES);
 			properties.load(inputStream);
 		} catch (IOException e) {

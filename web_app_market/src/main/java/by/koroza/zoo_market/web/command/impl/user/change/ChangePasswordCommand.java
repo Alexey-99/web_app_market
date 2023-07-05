@@ -1,5 +1,6 @@
 package by.koroza.zoo_market.web.command.impl.user.change;
 
+import static by.koroza.zoo_market.model.entity.status.UserRole.USER;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_CHANGING_PASSWORD_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
@@ -19,10 +20,9 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
-import by.koroza.zoo_market.service.hash.HashGenerator;
+import by.koroza.zoo_market.service.hash.HashGeneratorImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 import by.koroza.zoo_market.validation.UserValidation;
 import by.koroza.zoo_market.web.command.Command;
@@ -43,34 +43,26 @@ public class ChangePasswordCommand implements Command {
 		session.removeAttribute(ATTRIBUTE_CHANGING_PASSWORD_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
-			if (user == null || user.getRole().getIdRole() == 0) {
-				router = new Router(HOME_PAGE_PATH);
-			} else {
-				if (user.getRole().getIdRole() < UserRole.USER.getIdRole()) {
-					router = new Router(HOME_PAGE_PATH);
-				} else {
-					Map<String, String> mapInputExceptions = new HashMap<>();
-					String password = getInputParameterPassword(request, mapInputExceptions, user);
-					if ((user.getPassword() != null ? !user.getPassword().equals(password)
-							: user.getPassword() == null && password != null)
-							&& (session
-									.getAttribute(ATTRIBUTE_CHANGING_PASSWORD_INPUT_EXCEPTION_TYPE_AND_MASSAGE) == null
-									&& mapInputExceptions.isEmpty())) {
+			if (user != null && user.getRole().getIdRole() >= USER.getIdRole()) {
+				Map<String, String> mapInputExceptions = new HashMap<>();
+				String password = getInputParameterPassword(request, mapInputExceptions, user);
+				if (mapInputExceptions.isEmpty()) {
+					if (user.getPassword() != null ? !user.getPassword().equals(password)
+							: user.getPassword() == null && password != null) {
 						UserServiceImpl.getInstance().changePassword(user,
-								HashGenerator.getInstance().getHash(password));
-						user.setPassword(HashGenerator.getInstance().getHash(password));
+								HashGeneratorImpl.getInstance().getHash(password));
+						user.setPassword(HashGeneratorImpl.getInstance().getHash(password));
 						router = new Router(PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH);
-					} else if (user.getPassword() != null ? user.getPassword().equals(password)
-							: user.getPassword() == null && password == null) {
-						router = new Router(PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH);
-					} else if (!mapInputExceptions.isEmpty()) {
-						session.setAttribute(ATTRIBUTE_CHANGING_PASSWORD_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
-								mapInputExceptions);
-						router = new Router(CHANGE_PASSWORD_FORM_VALIDATED_PAGE_PATH);
 					} else {
-						router = new Router(HOME_PAGE_PATH);
+						router = new Router(PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH);
 					}
+				} else {
+					session.setAttribute(ATTRIBUTE_CHANGING_PASSWORD_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
+							mapInputExceptions);
+					router = new Router(CHANGE_PASSWORD_FORM_VALIDATED_PAGE_PATH);
 				}
+			} else {
+				router = new Router(HOME_PAGE_PATH);
 			}
 		} catch (ServiceException e) {
 			throw new CommandException(e);
@@ -83,7 +75,7 @@ public class ChangePasswordCommand implements Command {
 			User user) {
 		String password = (String) request.getParameter(CHANGING_PASSWORD_INPUT_USER_PASSWORD);
 		String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
-		if (user.getPassword() != null ? !user.getPassword().equals(HashGenerator.getInstance().getHash(password))
+		if (user.getPassword() != null ? !user.getPassword().equals(HashGeneratorImpl.getInstance().getHash(password))
 				: user.getPassword() == null && password != null) {
 			if (!UserValidation.validPassword(password)) {
 				if (sessionLocale.equals(RUSSIAN)) {

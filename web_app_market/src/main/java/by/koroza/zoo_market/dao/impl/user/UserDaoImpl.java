@@ -10,7 +10,7 @@ import static by.koroza.zoo_market.dao.name.ColumnName.USERS_LOGIN;
 import static by.koroza.zoo_market.dao.name.ColumnName.USERS_NAME;
 import static by.koroza.zoo_market.dao.name.ColumnName.USERS_PASSWORD;
 import static by.koroza.zoo_market.dao.name.ColumnName.USERS_SURNAME;
-import static by.koroza.zoo_market.dao.name.ColumnName.USERS_VERIFICATED_EMAIL;
+import static by.koroza.zoo_market.dao.name.ColumnName.USERS_EMAIL_CONFIRMED;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -68,8 +68,8 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	private static final String QUERY_INSERT_USER = """
-			INSERT INTO users(users.name, users.surname, users.login, users.password, users.email, users.roles_id)
-			VALUES (?, ?, ?, ?, ?, ?);
+			INSERT INTO users(users.name, users.surname, users.login, users.password, users.email, users.email_confirmed, users.roles_id)
+			VALUES (?, ?, ?, ?, ?, ?, ?);
 			""";
 
 	@Override
@@ -82,7 +82,8 @@ public class UserDaoImpl implements UserDao {
 				statement.setString(3, user.getLogin());
 				statement.setString(4, user.getPassword());
 				statement.setString(5, user.getEmail());
-				statement.setInt(6, user.getRole().getIdRole());
+				statement.setBoolean(6, user.isVerificatedEmail());
+				statement.setInt(7, user.getRole().getIdRole());
 				result = statement.executeUpdate() > 0;
 			}
 			try (PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_LAST_INSERT_ID);
@@ -162,16 +163,16 @@ public class UserDaoImpl implements UserDao {
 
 	private static final String QUERY_CHANGE_VERIFICATE_EMAIL_STATUS = """
 			UPDATE users
-			SET users.verificated_email = ?
+			SET users.email_confirmed = ?
 			WHERE users.id = ?;
 			""";
 
 	@Override
-	public boolean changeVerificationEmailStatus(long userId, boolean verificateStatus) throws DaoException {
+	public boolean changeVerificationEmailStatus(long userId, boolean status) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(QUERY_CHANGE_VERIFICATE_EMAIL_STATUS)) {
-			statement.setBoolean(1, verificateStatus);
+			statement.setBoolean(1, status);
 			statement.setLong(2, userId);
 			result = statement.executeUpdate() > 0;
 		} catch (SQLException e) {
@@ -181,7 +182,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	private static final String QUERY_GET_USER_BY_LOGIN_AND_PASSWORD = """
-			SELECT users.id, users.name, users.surname, roles.name, users.email, users.verificated_email, users.login, users.password, users.discount, users.date_create
+			SELECT users.id, users.name, users.surname, roles.name, users.email, users.email_confirmed, users.login, users.password, users.discount, users.date_create
 			FROM users INNER JOIN roles
 			ON users.roles_id = roles.id
 			WHERE users.login = ? AND users.password = ?;
@@ -199,7 +200,7 @@ public class UserDaoImpl implements UserDao {
 					User userBuild = new User.UserBuilder().setId(resultSet.getLong(USERS_ID))
 							.setName(resultSet.getString(USERS_NAME)).setSurname(resultSet.getString(USERS_SURNAME))
 							.setEmail(resultSet.getString(USERS_EMAIL))
-							.setVerificatedEmail(resultSet.getBoolean(USERS_VERIFICATED_EMAIL))
+							.setVerificatedEmail(resultSet.getBoolean(USERS_EMAIL_CONFIRMED))
 							.setLogin(resultSet.getString(USERS_LOGIN))
 							.setRole(UserRole.valueOf(resultSet.getString(ROLES_NAME)))
 							.setDiscount(resultSet.getDouble(USERS_DISCOUNT)).build();
@@ -218,7 +219,7 @@ public class UserDaoImpl implements UserDao {
 			SET users.name = ?,
 			users.surname = ?,
 			users.email = ?,
-			users.verificated_email = ?
+			users.email_confirmed = ?
 			WHERE users.id = ?;
 			""";
 
@@ -306,7 +307,7 @@ public class UserDaoImpl implements UserDao {
 	private static final String QUERY_CHANGE_EMAIL = """
 			UPDATE users
 			SET users.email = ?,
-			users.verificated_email = false
+			users.email_confirmed = false
 			WHERE users.id = ?;
 			""";
 

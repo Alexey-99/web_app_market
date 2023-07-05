@@ -13,5 +13,4 @@ public class ShowHomePageCommand implements Command {
 		isRegistratedUser(request);
 		return new Router(PagePathName.HOME_PAGE_PATH);
 	}
-
 }

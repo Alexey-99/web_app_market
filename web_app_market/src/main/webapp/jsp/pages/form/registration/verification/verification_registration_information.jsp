@@ -2,16 +2,18 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
-<%@page import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.input.InputName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
-<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
-	scope="session" />
-<fmt:setBundle
-	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
+<fmt:setLocale value="${locale}" scope="session" />
+<fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,6 +26,7 @@
 <title><fmt:message
 		key="verification_registration_information.title" /></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body>
 	<header class="header pb-5" style="height: 100vh;">
@@ -36,7 +39,8 @@
 							class="position-relative w-100 d-flex flex-column verification_registration_information_inner">
 							<div
 								class="d-flex justify-content-center align-items-center mb-4 verification_registration_information_top_btns">
-								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 									<button class="close_btn border-0 bg-transparent" role="button"
@@ -121,7 +125,8 @@
 							</div>
 							<div
 								class="verification_registration_information_fotter d-flex justify-content-end">
-								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_REGISTRATION_FORN_VALDATED}" />
 									<button
@@ -131,7 +136,8 @@
 									</button>
 								</form>
 
-								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_VERIFICATION_REGISTRATION_INFORMATION}" />
 									<button

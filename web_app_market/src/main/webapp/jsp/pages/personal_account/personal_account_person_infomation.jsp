@@ -13,10 +13,8 @@
 <%@page
 	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
 <%@page import="by.koroza.zoo_market.model.entity.status.UserRole"%>
-<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
-	scope="session" />
-<fmt:setBundle
-	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
+<fmt:setLocale value="${locale}" scope="session" />
+<fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +26,7 @@
 <title><fmt:message
 		key="personal_account_person_infomation.title" /></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body class="d-flex flex-column justify-content-between"
 	style="min-height: 100vh">
@@ -39,7 +38,8 @@
 				<c:if test="${user != null}">
 					<div class="col-md-2 col-sm-3 col-xs-4">
 						<div class="btn-group person_account_menu_links">
-							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+								method="get">
 								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 									value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE}" />
 								<button
@@ -50,7 +50,8 @@
 							</form>
 							<c:if
 								test="${user.getRole().getIdRole() != UserRole.ADMIN.getIdRole()}">
-								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_HISTORY_ORDERS_PAGE}" />
 									<button
@@ -62,7 +63,8 @@
 							</c:if>
 							<c:if
 								test="${user.getRole().getIdRole() == UserRole.ADMIN.getIdRole()}">
-								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_HISTORY_ORDERS_PAGE}" />
 									<button class="btn btn-primary person_account_menu_link w-100"
@@ -70,7 +72,8 @@
 										<fmt:message key="personal_account.history_orders" />
 									</button>
 								</form>
-								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE}" />
 									<button
@@ -230,7 +233,8 @@
 									</h2>
 								</div>
 								<form class=""
-									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control"
 											id="personal_account_person_infomation.changing_general_information_form.name"
@@ -258,6 +262,7 @@
 									<div class="form-floating mb-3">
 										<input type="email" class="form-control" required
 											id="personal_account_person_infomation.changing_general_information_form.email"
+											required
 											pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})"
 											name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_EMAIL}"
 											value="${user.getEmail()}"
@@ -306,7 +311,8 @@
 									</h2>
 								</div>
 								<form class=""
-									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control" required
 											id="personal_account_person_infomation.changing_login_form.login"
@@ -357,7 +363,8 @@
 									</h2>
 								</div>
 								<form class=""
-									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<div
 										class="form-floating mb-3 d-flex justify-content-center align-items-center">
 										<input type="password"

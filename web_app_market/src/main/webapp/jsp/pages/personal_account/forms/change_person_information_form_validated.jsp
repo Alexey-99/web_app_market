@@ -14,10 +14,8 @@
 <%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
 <%@page
 	import="by.koroza.zoo_market.web.command.name.exception.TypeInputExeception"%>
-<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
-	scope="session" />
-<fmt:setBundle
-	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
+<fmt:setLocale value="${locale}" scope="session" />
+<fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,9 +24,11 @@
 <link rel="stylesheet" href="css/items/root.css" />
 <link rel="stylesheet" href="css/items/main_header.css" />
 <link rel="stylesheet" href="css/pages/personal_account.css" />
-<title>personal_account_person_infomation.jsp</title>
+<title><fmt:message
+		key="personal_account_person_infomation.changing_general_information_form.title" /></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 <!-- changing_person_information_input_exception_type_and_message = AttributeName.ATTRIBUTE_CHANGING_PERSON_INFOMATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE -->
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body>
 	<%@ include file="/jsp/items/header_block_header_top.jsp"%>
@@ -37,14 +37,15 @@
 		<div class="container">
 			<div class="row">
 				<c:if test="${user != null}">
-
 					<div class="col-12">
 						<div
 							class="position-fixed justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 general_infomation_form">
 							<div
 								class="position-relative w-100 d-flex flex-column general_infomation_form_inner">
 								<div class="general_infomation_form_top">
-									<form class="" action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<form class=""
+										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+										method="get">
 										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE}" />
 										<button class="close_btn" role="button">
@@ -54,123 +55,197 @@
 													d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z" /></svg>
 										</button>
 									</form>
-									<h2 class="form_title text-center mb-3">Изменение общей
-										информации</h2>
+									<h2 class="form_title text-center mb-3">
+										<fmt:message
+											key="personal_account_person_infomation.changing_general_information_form.title" />
+									</h2>
 								</div>
 								<c:if
 									test="${changing_person_information_input_exception_type_and_message.isEmpty()}">
-									<form class=" " action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<form class=""
+										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+										method="get">
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
-												id="floatingInputName"
+												id="personal_account_person_infomation.changing_general_information_form.name"
 												name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_NAME}"
-												value="${user.getName()}" placeholder="Robert" /> <label
-												class="text-lowercase" for="floatingInputName">Имя</label>
+												value="${user.getName()}"
+												placeholder='<fmt:message key="personal_account_person_infomation.changing_general_information_form.name"/>' />
+											<label class="text-lowercase"
+												for="personal_account_person_infomation.changing_general_information_form.name">
+												<fmt:message
+													key="personal_account_person_infomation.changing_general_information_form.name" />
+											</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
-												id="floatingInputSurname"
+												id="personal_account_person_infomation.changing_general_information_form.surname"
 												name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_SURNAME}"
-												value="${user.getSurname()}" placeholder="Downey" /> <label
-												class="text-lowercase" for="floatingInputSurname">Фамилия</label>
+												value="${user.getSurname()}"
+												placeholder='<fmt:message key="personal_account_person_infomation.changing_general_information_form.surname"/>' />
+											<label class="text-lowercase"
+												for="personal_account_person_infomation.changing_general_information_form.surname">
+												<fmt:message
+													key="personal_account_person_infomation.changing_general_information_form.surname" />
+											</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="email" class="form-control"
-												id="floatingInputEmail" placeholder="name@example.com"
+												id="personal_account_person_infomation.changing_general_information_form.email"
 												pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})"
 												name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_EMAIL}"
-												value="${user.getEmail()}" /> <label class="text-lowercase"
-												for="floatingInputEmail">Адрес электронной почты</label>
+												value="${user.getEmail()}"
+												placeholder='<fmt:message key="personal_account_person_infomation.changing_general_information_form.email"/>' />
+											<label class="text-lowercase"
+												for="personal_account_person_infomation.changing_general_information_form.email">
+												<fmt:message
+													key="personal_account_person_infomation.changing_general_information_form.email" />
+											</label>
 										</div>
 										<div
 											class="general_infomation_form_fotter d-flex justify-content-end">
-											<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
+											<input type="hidden"
+												name="${ParameterName.PARAMETER_COMMAND}"
 												value="${CommandName.COMMAND_CHANGING_PERSON_INFORMATION}" />
 											<button class="btn general_infomation_form_btn_submit"
-												role="button">готово</button>
+												role="button">
+												<fmt:message
+													key="personal_account_person_infomation.changing_general_information_form.ok" />
+											</button>
 										</div>
 									</form>
 								</c:if>
 								<c:if
 									test="${!changing_person_information_input_exception_type_and_message.isEmpty()}">
-									<form class=" " action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<form class=" "
+										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+										method="get">
 										<c:if
-											test="${changing_person_information_input_exception_type_and_message.containsKey(ChangePersonInformationCommand.TYPY_INPUT_EXCEPTION_NAME)}">
+											test="${changing_person_information_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_NAME)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-invalid"
-													id="floatingInputName"
+													id="personal_account_person_infomation.changing_general_information_form.name"
 													name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_NAME}"
-													value="${user.getName()}" placeholder="Robert" />
-												<div class="invalid-feedback">${changing_person_information_input_exception_type_and_message.get(ChangePersonInformationCommand.TYPY_INPUT_EXCEPTION_NAME)}</div>
-												<label class="text-lowercase" for="floatingInputName">Имя</label>
+													value="${user.getName()}"
+													placeholder='<fmt:message key="personal_account_person_infomation.changing_general_information_form.name"/>' />
+												<label class="text-lowercase"
+													for="personal_account_person_infomation.changing_general_information_form.name">
+													<fmt:message
+														key="personal_account_person_infomation.changing_general_information_form.name" />
+												</label>
+												<div class="invalid-feedback">
+													${changing_person_information_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_NAME)}
+												</div>
 											</div>
 										</c:if>
 										<c:if
-											test="${!changing_person_information_input_exception_type_and_message.containsKey(ChangePersonInformationCommand.TYPY_INPUT_EXCEPTION_NAME)}">
+											test="${!changing_person_information_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_NAME)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-valid"
-													id="floatingInputName"
+													id="personal_account_person_infomation.changing_general_information_form.name"
 													name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_NAME}"
-													value="${user.getName()}" placeholder="Robert" />
-												<div class="valid-feedback">Все хорошо!</div>
-												<label class="text-lowercase" for="floatingInputName">Имя</label>
+													value="${user.getName()}"
+													placeholder='<fmt:message key="personal_account_person_infomation.changing_general_information_form.name"/>' />
+												<label class="text-lowercase"
+													for="personal_account_person_infomation.changing_general_information_form.name">
+													<fmt:message
+														key="personal_account_person_infomation.changing_general_information_form.name" />
+												</label>
+												<div class="valid-feedback">
+													<fmt:message
+														key="personal_account_person_infomation.changing_general_information_form.valid_feed_back" />
+												</div>
 											</div>
 										</c:if>
 
 										<c:if
-											test="${changing_person_information_input_exception_type_and_message.containsKey(ChangePersonInformationCommand.TYPY_INPUT_EXCEPTION_SURNAME)}">
+											test="${changing_person_information_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_SURNAME)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-invalid"
-													id="floatingInputSurname"
+													id="personal_account_person_infomation.changing_general_information_form.surname"
 													name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_SURNAME}"
-													value="${user.getSurname()}" placeholder="Downey" />
-												<div class="invalid-feedback">${changing_person_information_input_exception_type_and_message.get(ChangePersonInformationCommand.TYPY_INPUT_EXCEPTION_SURNAME)}</div>
-												<label class="text-lowercase" for="floatingInputSurname">Фамилия</label>
+													value="${user.getSurname()}"
+													placeholder='<fmt:message key="personal_account_person_infomation.changing_general_information_form.surname"/>' />
+												<label class="text-lowercase"
+													for="personal_account_person_infomation.changing_general_information_form.surname">
+													<fmt:message
+														key="personal_account_person_infomation.changing_general_information_form.surname" />
+												</label>
+												<div class="invalid-feedback">
+													${changing_person_information_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_SURNAME)}
+												</div>
 											</div>
 										</c:if>
 										<c:if
-											test="${!changing_person_information_input_exception_type_and_message.containsKey(ChangePersonInformationCommand.TYPY_INPUT_EXCEPTION_SURNAME)}">
+											test="${!changing_person_information_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_SURNAME)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-valid"
-													id="floatingInputSurname"
+													id="personal_account_person_infomation.changing_general_information_form.surname"
 													name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_SURNAME}"
-													value="${user.getSurname()}" placeholder="Downey" />
-												<div class="valid-feedback">Все хорошо!</div>
-												<label class="text-lowercase" for="floatingInputSurname">Фамилия</label>
+													value="${user.getSurname()}"
+													placeholder='<fmt:message key="personal_account_person_infomation.changing_general_information_form.surname"/>' />
+												<label class="text-lowercase"
+													for="personal_account_person_infomation.changing_general_information_form.surname">
+													<fmt:message
+														key="personal_account_person_infomation.changing_general_information_form.surname" />
+												</label>
+												<div class="valid-feedback">
+													<fmt:message
+														key="personal_account_person_infomation.changing_general_information_form.valid_feed_back" />
+												</div>
 											</div>
 										</c:if>
 										<c:if
-											test="${changing_person_information_input_exception_type_and_message.containsKey(ChangePersonInformationCommand.TYPY_INPUT_EXCEPTION_EMAIL)}">
+											test="${changing_person_information_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL)}">
 											<div class="form-floating mb-3">
 												<input type="email" class="form-control is-invalid"
-													id="floatingInputEmail" placeholder="name@example.com"
+													id="personal_account_person_infomation.changing_general_information_form.email"
+													required
 													pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})"
 													name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_EMAIL}"
-													value="${user.getEmail()}" />
-												<div class="invalid-feedback">${changing_person_information_input_exception_type_and_message.get(ChangePersonInformationCommand.TYPY_INPUT_EXCEPTION_EMAIL)}</div>
-												<label class="text-lowercase" for="floatingInputEmail">Адрес
-													электронной почты</label>
+													value="${user.getEmail()}"
+													placeholder='<fmt:message key="personal_account_person_infomation.changing_general_information_form.email"/>' />
+												<label class="text-lowercase"
+													for="personal_account_person_infomation.changing_general_information_form.email">
+													<fmt:message
+														key="personal_account_person_infomation.changing_general_information_form.email" />
+												</label>
+												<div class="invalid-feedback">
+													${changing_person_information_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL)}
+												</div>
 											</div>
 										</c:if>
 										<c:if
-											test="${!changing_person_information_input_exception_type_and_message.containsKey(ChangePersonInformationCommand.TYPY_INPUT_EXCEPTION_EMAIL)}">
+											test="${!changing_person_information_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL)}">
 											<div class="form-floating mb-3">
 												<input type="email" class="form-control is-valid"
-													id="floatingInputEmail" placeholder="name@example.com"
+													id="personal_account_person_infomation.changing_general_information_form.email"
+													required
 													pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})"
 													name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_EMAIL}"
-													value="${user.getEmail()}" />
-												<div class="valid-feedback">Все хорошо!</div>
-												<label class="text-lowercase" for="floatingInputEmail">Адрес
-													электронной почты</label>
+													value="${user.getEmail()}"
+													placeholder='<fmt:message key="personal_account_person_infomation.changing_general_information_form.email"/>' />
+												<label class="text-lowercase"
+													for="personal_account_person_infomation.changing_general_information_form.email">
+													<fmt:message
+														key="personal_account_person_infomation.changing_general_information_form.email" />
+												</label>
+												<div class="valid-feedback">
+													<fmt:message
+														key="personal_account_person_infomation.changing_general_information_form.valid_feed_back" />
+												</div>
 											</div>
 										</c:if>
 										<div
 											class="general_infomation_form_fotter d-flex justify-content-end">
-											<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
+											<input type="hidden"
+												name="${ParameterName.PARAMETER_COMMAND}"
 												value="${CommandName.COMMAND_CHANGING_PERSON_INFORMATION}" />
 											<button class="btn general_infomation_form_btn_submit"
-												role="button">готово</button>
+												role="button">
+												<fmt:message
+													key="personal_account_person_infomation.changing_general_information_form.ok" />
+											</button>
 										</div>
 									</form>
 								</c:if>
@@ -182,8 +257,10 @@
 					<div class="col-12">
 						<h3
 							class="text-center d-flex flex-column justify-content-center align-items-center"
-							style="min-height: 45.3vh">Ваше время сессии завершено.
-							Перезайдите в учётную запись.</h3>
+							style="min-height: 45.3vh">
+							<fmt:message
+								key="personal_account_person_infomation.end_session.message" />
+						</h3>
 					</div>
 				</c:if>
 			</div>

@@ -13,12 +13,9 @@
 <%@page
 	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.path.ImagePath"%>
-<%@page
-	import="by.koroza.zoo_market.web.command.impl.user.registration.RegistrationUserCommand"%>
-<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
-	scope="session" />
-<fmt:setBundle
-	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
+<%@page import="by.koroza.zoo_market.model.entity.status.UserRole"%>
+<fmt:setLocale value="${locale}" scope="session" />
+<fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,10 +29,11 @@
 <!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body>
-
 	<div class="col-xl-2 col-lg-12 logo">
-		<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
-			<input type="hidden" name="${ParameterName.PARAMETER_COMMAND }"
+		${locale}
+		<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+			method="get">
+			<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 				value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 			<button class="logo_link" role="button">
 				<img class="img img-fluid"
@@ -57,9 +55,9 @@
 					id="navbarNavDropdown">
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<form method="get"
-								action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
-								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND }"
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+								method="get">
+								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 								<button class="nav-link menu_link text-uppercase" role="button">
 									<h5>
@@ -69,9 +67,9 @@
 							</form>
 						</li>
 						<li class="nav-item">
-							<form method="get"
-								action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
-								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND }"
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+								method="get">
+								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 								<button class="nav-link text-uppercase menu_link" role="button">
 									<h5>
@@ -81,9 +79,9 @@
 							</form>
 						</li>
 						<li class="nav-item menu_item">
-							<form method="get"
-								action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
-								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND }"
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+								method="get">
+								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 								<button class="nav-link text-uppercase menu_link" role="button">
 									<h5>
@@ -94,12 +92,12 @@
 						</li>
 
 						<c:if
-							test="${is_hiving_registrated_user == true && user.getRole().getIdRole() >= 1}">
+							test="${is_hiving_registrated_user && user.getRole().getIdRole() >= UserRole.WAITING_CODE_REGISTRATION.getIdRole()}">
 							<c:if
-								test="${user.getRole().getIdRole() == 1 || user.isVerificatedEmail() == false}">
+								test="${user.getRole().getIdRole() == UserRole.WAITING_CODE_REGISTRATION.getIdRole() || !user.isVerificatedEmail()}">
 								<li class="nav-item">
-									<form method="get"
-										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+										method="get">
 										<input type="hidden"
 											name="${ParameterName.PARAMETER_COMMAND }"
 											value="${CommandName.COMMAND_SHOW_CONFIRMATION_EMAIL_FORN}">
@@ -113,14 +111,14 @@
 								</li>
 							</c:if>
 							<c:if
-								test="${user.getRole().getIdRole() > 1 && user.isVerificatedEmail() == true}">
+								test="${user.getRole().getIdRole() >= UserRole.USER.getIdRole() && user.isVerificatedEmail()}">
 								<li class="nav-item">
 									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 										method="get">
 										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_SHOW_BACKET_PAGE}" /> <input
 											class="productsIdXl" type="hidden"
-											name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE }" />
+											name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
 										<button class="nav-link text-uppercase menu_link"
 											role="button" onclick="getProducts('.productsIdXl')">
 											<h5>
@@ -143,8 +141,9 @@
 									</form>
 								</li>
 								<li class="nav-item">
-									<form class="" method="get"
-										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<form class=""
+										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+										method="get">
 										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_SIGN_OUT_PERSONAL_ACCOUNT}" />
 										<button class="nav-link text-uppercase menu_link"
@@ -157,9 +156,8 @@
 								</li>
 							</c:if>
 						</c:if>
-
 						<c:if
-							test="${is_hiving_registrated_user == false || user.getRole().getIdRole() < 1}">
+							test="${!is_hiving_registrated_user || user == null || user.getRole().getIdRole() < UserRole.WAITING_CODE_REGISTRATION.getIdRole()}">
 							<li class="nav-item">
 								<button class="nav-link text-uppercase menu_link" role="button"
 									onclick="showSignInAndRegistrationForm()">
@@ -177,7 +175,7 @@
 	<div
 		class="col-xl-2 col-lg-6 justify-content-center flex-row flags_icons_btns_xl">
 		<form class="me-3"
-			action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+			action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}" method="get">
 			<input class="productsIdXlFlagEn" type="hidden"
 				name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE }" />
 			<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
@@ -199,7 +197,8 @@
                 </svg>
 			</button>
 		</form>
-		<form class="" action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+		<form class="" action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+			method="get">
 			<input class="productsIdXlFlagRus" type="hidden"
 				name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE }" />
 			<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
@@ -231,7 +230,8 @@
 					id="navbarNavDropdown">
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+								method="get">
 								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 								<button class="nav-link menu_link" role="button">
@@ -242,7 +242,8 @@
 							</form>
 						</li>
 						<li class="nav-item">
-							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+								method="get">
 								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 								<button class="nav-link menu_link" role="button">
@@ -253,7 +254,8 @@
 							</form>
 						</li>
 						<li class="nav-item menu_item">
-							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+								method="get">
 								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 								<button class="nav-link menu_link" role="button">
@@ -268,7 +270,8 @@
 							<c:if
 								test="${user.getRole().getIdRole() == 1 || user.isVerificatedEmail() == false}">
 								<li class="nav-item">
-									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+										method="get">
 										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_SHOW_CONFIRMATION_EMAIL_FORN}">
 										<button class="nav-link text-uppercase menu_link"
@@ -283,7 +286,8 @@
 							<c:if
 								test="${user.getRole().getIdRole() > 1 && user.isVerificatedEmail() == true}">
 								<li class="nav-item">
-									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+										method="get">
 										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_SHOW_BACKET_PAGE}" /> <input
 											class="productsIdLg" type="hidden"
@@ -297,7 +301,8 @@
 									</form>
 								</li>
 								<li class="nav-item">
-									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+										method="get">
 										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE}">
 										<button class="nav-link text-uppercase menu_link"
@@ -309,8 +314,9 @@
 									</form>
 								</li>
 								<li class="nav-item">
-									<form class="" method="get"
-										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									<form class=""
+										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+										method="get">
 										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_SIGN_OUT_PERSONAL_ACCOUNT}" />
 										<button class="nav-link text-uppercase menu_link"
@@ -340,7 +346,7 @@
 		</nav>
 		<div class="col-lg-2 flags_icons_btns_lg">
 			<form class="me-3"
-				action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+				action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}" method="get">
 				<input class="productsIdLgFlagEn" type="hidden"
 					name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE }" />
 				<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
@@ -362,7 +368,8 @@
                   </svg>
 				</button>
 			</form>
-			<form class="" action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+			<form class="" action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+				method="get">
 				<input class="productsIdLgFlagRus" type="hidden"
 					name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE }" />
 				<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
@@ -417,7 +424,7 @@
 						</h2>
 					</div>
 					<form class="sign_in_form_body"
-						action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+						action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}" method="get">
 						<div class="form-floating mb-3">
 							<input type="text" required class="form-control"
 								id="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login"
@@ -480,8 +487,8 @@
 								key="header_top.sign_in_and_registartion_form.registartion_form.title.registration" />
 						</h2>
 					</div>
-					<form class="registration_form_body" method="post"
-						action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+					<form class="registration_form_body"
+						action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}" method="post">
 						<div class="form-floating mb-3">
 							<input type="text" class="form-control"
 								id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name"

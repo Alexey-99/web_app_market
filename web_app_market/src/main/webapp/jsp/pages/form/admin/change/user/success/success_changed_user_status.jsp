@@ -2,17 +2,19 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
-<%@page import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.path.ImagePath"%>
 <%@page import="by.koroza.zoo_market.model.entity.status.UserRole"%>
-<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
-	scope="session" />
-<fmt:setBundle
-	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
+<fmt:setLocale value="${locale}" scope="session" />
+<fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,6 +26,7 @@
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 <!-- changing_user_login = AttributeName.ATTRIBUTE_BUFFER_CHANGE_USER_STATUS_LOGIN -->
 <!-- changing_user_role_id = AttributeName.ATTRIBUTE_BUFFER_CHANGE_USER_STATUS_ROLE_ID -->
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body>
 	<section class="success_changed_user_status"
@@ -57,7 +60,8 @@
 							</h1>
 							<div
 								class="success_changed_user_status_form_fotter d-flex justify-content-end">
-								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE}" />
 									<button

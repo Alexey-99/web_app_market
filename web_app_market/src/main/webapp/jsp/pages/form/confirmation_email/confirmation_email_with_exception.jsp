@@ -2,16 +2,20 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
-<%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
-<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
-	scope="session" />
-<fmt:setBundle
-	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
+<%@page import="by.koroza.zoo_market.web.command.name.input.InputName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterValue"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
+<fmt:setLocale value="${locale}" scope="session" />
+<fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,9 +27,10 @@
 	href="css/items/verification_personal_account.css" />
 <title><fmt:message key="verification_email.title" /></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body>
-	<header class="header pb-5" style="height: 100vh;">
+	<section class="header pb-5" style="height: 100vh;">
 		<div class="container">
 			<div class="row header_top">
 				<div class="col-12">
@@ -35,7 +40,8 @@
 							class="position-relative w-100 d-flex flex-column verification_personal_account_inner">
 							<div
 								class="d-flex justify-content-center align-items-center mb-4 verification_personal_account_top">
-								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_HOME_PAGE}" />
 									<button class="close_btn border-0 bg-transparent" role="button">
@@ -55,7 +61,8 @@
 							<div
 								class="d-flex justify-content-center align-items-center flex-column verification_personal_account_body">
 								<form class="w-100 verification_personal_account_form"
-									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<div
 										class="form-floating mb-3 w-100 verification_personal_account_body">
 										<input type="text"
@@ -89,7 +96,8 @@
 										</div>
 									</div>
 								</form>
-								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SEND_ONE_MORE_TIME_CONFIMATION_EMAIL_CODE}" />
 									<button
@@ -105,7 +113,7 @@
 				</div>
 			</div>
 		</div>
-	</header>
+	</section>
 
 	<%@ include file="/jsp/items/footer.jsp"%>
 

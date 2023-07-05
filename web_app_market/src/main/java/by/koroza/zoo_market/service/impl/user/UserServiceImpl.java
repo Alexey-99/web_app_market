@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean addRegistratedUserToBD(User user) throws ServiceException {
+	public boolean addUser(User user) throws ServiceException {
 		try {
 			return UserDaoImpl.getInstance().addUser(user);
 		} catch (DaoException e) {
@@ -67,9 +67,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean changeVerificationEmailStatus(long userId, boolean verificateStatus) throws ServiceException {
+	public boolean changeVerificationEmailStatus(long userId, boolean status) throws ServiceException {
 		try {
-			return UserDaoImpl.getInstance().changeVerificationEmailStatus(userId, verificateStatus);
+			return UserDaoImpl.getInstance().changeVerificationEmailStatus(userId, status);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}

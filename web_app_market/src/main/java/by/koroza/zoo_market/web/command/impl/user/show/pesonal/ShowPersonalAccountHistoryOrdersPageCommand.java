@@ -1,5 +1,6 @@
 package by.koroza.zoo_market.web.command.impl.user.show.pesonal;
 
+import static by.koroza.zoo_market.model.entity.status.UserRole.USER;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER_HISTORY_ORDERS;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_PATH;
@@ -23,7 +24,7 @@ public class ShowPersonalAccountHistoryOrdersPageCommand implements Command {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
-			if (user != null) {
+			if (user != null && user.getRole().getIdRole() >= USER.getIdRole()) {
 				session.setAttribute(ATTRIBUTE_USER_HISTORY_ORDERS,
 						OrderServiceImpl.getInstance().getOrderProductsByUserId(user.getId()));
 				router = new Router(PERSONAL_ACCOUNT_ORDERS_HISTORY_PAGE_PATH);

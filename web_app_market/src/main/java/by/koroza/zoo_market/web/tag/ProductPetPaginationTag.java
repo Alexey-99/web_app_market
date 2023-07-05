@@ -15,6 +15,8 @@ import static by.koroza.zoo_market.web.command.name.servlet.ServletName.MAIN_SER
 import static by.koroza.zoo_market.web.command.name.servlet.ServletName.SERVLET_SHOW_IMAGE_NAME;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 import by.koroza.zoo_market.model.entity.market.product.Pet;
@@ -26,6 +28,8 @@ import jakarta.servlet.jsp.tagext.TagSupport;
 
 public class ProductPetPaginationTag extends TagSupport {
 	private static final long serialVersionUID = -8639846713001679127L;
+	private static final String FORMAT_NUMBER_PRODUCT_PRICE = "#0.00";
+	private static NumberFormat numberForrmatterPrice = new DecimalFormat(FORMAT_NUMBER_PRODUCT_PRICE);
 
 	private static int numberLastPage;
 	private int maxCountProductsOnPage;
@@ -59,8 +63,7 @@ public class ProductPetPaginationTag extends TagSupport {
 		return SKIP_BODY;
 	}
 
-	private void printProducts(List<Pet> listProductPets, String locale, User user)
-			throws IOException {
+	private void printProducts(List<Pet> listProductPets, String locale, User user) throws IOException {
 		StringBuilder builder = new StringBuilder();
 		int indexFirstElement = maxCountProductsOnPage * (numberPage - 1);
 		builder.append("""
@@ -116,8 +119,8 @@ public class ProductPetPaginationTag extends TagSupport {
 					<ul class="discription_botton">
 					""");
 			if (locale.equalsIgnoreCase(RUSSIAN)) {
-				builder.append("<li> цена: ").append(pet.getPrice()).append("</li>");
-				builder.append("<li> скидка: ").append(pet.getDiscount())
+				builder.append("<li> цена: ").append(numberForrmatterPrice.format(pet.getPrice())).append("</li>");
+				builder.append("<li> скидка: ").append(numberForrmatterPrice.format(pet.getDiscount()))
 						.append("""
 								<svg class="discription_botton_discont_procent_img" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48">
 									<path d="M289.899 516Q236 516 198 477.899t-38-92Q160 332 198.101 294t92-38Q344 256 382 294.101t38 92Q420 440 381.899 478t-92 38Zm-.017-60Q319 456 339.5 435.618q20.5-20.383 20.5-49.5Q360 357 339.618 336.5q-20.383-20.5-49.5-20.5Q261 316 240.5 336.382q-20.5 20.383-20.5 49.5Q220 415 240.382 435.5q20.383 20.5 49.5 20.5Zm380.017 440Q616 896 578 857.899t-38-92Q540 712 578.101 674t92-38Q724 636 762 674.101t38 92Q800 820 761.899 858t-92 38Zm-.017-60Q699 836 719.5 815.618q20.5-20.383 20.5-49.5Q740 737 719.618 716.5q-20.383-20.5-49.5-20.5Q641 696 620.5 716.382q-20.5 20.383-20.5 49.5Q600 795 620.382 815.5q20.383 20.5 49.5 20.5ZM202 896l-42-42 598-598 42 42-598 598Z"/>
@@ -125,10 +128,10 @@ public class ProductPetPaginationTag extends TagSupport {
 								</li>
 								<li> стоимость со скодкой:
 										""")
-						.append(" ").append(pet.getTotalPrice()).append("</li>");
+						.append(" ").append(numberForrmatterPrice.format(pet.getTotalPrice())).append("</li>");
 			} else if (locale.equalsIgnoreCase(ENGLISH)) {
-				builder.append("<li> price: ").append(pet.getPrice()).append("</li>");
-				builder.append("<li> discount: ").append(pet.getDiscount())
+				builder.append("<li> price: ").append(numberForrmatterPrice.format(pet.getPrice())).append("</li>");
+				builder.append("<li> discount: ").append(numberForrmatterPrice.format(pet.getDiscount()))
 						.append("""
 								<svg class="discription_botton_discont_procent_img" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48">
 									<path d="M289.899 516Q236 516 198 477.899t-38-92Q160 332 198.101 294t92-38Q344 256 382 294.101t38 92Q420 440 381.899 478t-92 38Zm-.017-60Q319 456 339.5 435.618q20.5-20.383 20.5-49.5Q360 357 339.618 336.5q-20.383-20.5-49.5-20.5Q261 316 240.5 336.382q-20.5 20.383-20.5 49.5Q220 415 240.382 435.5q20.383 20.5 49.5 20.5Zm380.017 440Q616 896 578 857.899t-38-92Q540 712 578.101 674t92-38Q724 636 762 674.101t38 92Q800 820 761.899 858t-92 38Zm-.017-60Q699 836 719.5 815.618q20.5-20.383 20.5-49.5Q740 737 719.618 716.5q-20.383-20.5-49.5-20.5Q641 696 620.5 716.382q-20.5 20.383-20.5 49.5Q600 795 620.382 815.5q20.383 20.5 49.5 20.5ZM202 896l-42-42 598-598 42 42-598 598Z"/>
@@ -136,10 +139,10 @@ public class ProductPetPaginationTag extends TagSupport {
 								</li>
 								<li> total price:
 										""")
-						.append(" ").append(pet.getTotalPrice()).append("</li>");
+						.append(" ").append(numberForrmatterPrice.format(pet.getTotalPrice())).append("</li>");
 			} else {
-				builder.append("<li> price: ").append(pet.getPrice()).append("</li>");
-				builder.append("<li> discount: ").append(pet.getDiscount())
+				builder.append("<li> price: ").append(numberForrmatterPrice.format(pet.getPrice())).append("</li>");
+				builder.append("<li> discount: ").append(numberForrmatterPrice.format(pet.getDiscount()))
 						.append("""
 								<svg class="discription_botton_discont_procent_img" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48">
 									<path d="M289.899 516Q236 516 198 477.899t-38-92Q160 332 198.101 294t92-38Q344 256 382 294.101t38 92Q420 440 381.899 478t-92 38Zm-.017-60Q319 456 339.5 435.618q20.5-20.383 20.5-49.5Q360 357 339.618 336.5q-20.383-20.5-49.5-20.5Q261 316 240.5 336.382q-20.5 20.383-20.5 49.5Q220 415 240.382 435.5q20.383 20.5 49.5 20.5Zm380.017 440Q616 896 578 857.899t-38-92Q540 712 578.101 674t92-38Q724 636 762 674.101t38 92Q800 820 761.899 858t-92 38Zm-.017-60Q699 836 719.5 815.618q20.5-20.383 20.5-49.5Q740 737 719.618 716.5q-20.383-20.5-49.5-20.5Q641 696 620.5 716.382q-20.5 20.383-20.5 49.5Q600 795 620.382 815.5q20.383 20.5 49.5 20.5ZM202 896l-42-42 598-598 42 42-598 598Z"/>
@@ -147,7 +150,7 @@ public class ProductPetPaginationTag extends TagSupport {
 								</li>
 								<li> total price:
 										""")
-						.append(" ").append(pet.getTotalPrice()).append("</li>");
+						.append(" ").append(numberForrmatterPrice.format(pet.getTotalPrice())).append("</li>");
 			}
 			builder.append("</ul> </div>");
 			if (user != null && user.getRole().getIdRole() >= UserRole.USER.getIdRole()

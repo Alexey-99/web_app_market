@@ -11,19 +11,18 @@
 	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
 <%@page
 	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
-<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
-	scope="session" />
-<fmt:setBundle
-	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
+<fmt:setLocale value="${locale}" scope="session" />
+<fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title><fmt:message key="success_payment.title" /></title>
 <link rel="stylesheet" href="css/bootstrap/bootstrap.css" />
 <link rel="stylesheet" href="css/items/root.css" />
 <link rel="stylesheet" href="css/items/success_payment.css" />
+<title><fmt:message key="success_payment.title" /></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body>
 	<section class="success_payment"
@@ -45,7 +44,8 @@
 							</h1>
 							<div
 								class="success_payment_form_fotter d-flex justify-content-end">
-								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_HOME_PAGE}" />
 									<button

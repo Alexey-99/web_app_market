@@ -2,16 +2,17 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
-<%@page import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
 <%@page import="by.koroza.zoo_market.model.entity.status.UserRole"%>
 <%@page import="by.koroza.zoo_market.model.entity.status.OrderStatus"%>
-<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
-	scope="session" />
-<fmt:setBundle
-	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
+<fmt:setLocale value="${locale}" scope="session" />
+<fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +26,7 @@
 </title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 <!-- user_history_orders = AttributeName.ATTRIBUTE_USER_HISTORY_ORDERS -->
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body class="d-flex flex-column justify-content-between"
 	style="min-height: 100vh">
@@ -36,7 +38,8 @@
 				<c:if test="${user != null}">
 					<div class="col-md-2 col-sm-3 col-xs-4">
 						<div class="btn-group person_account_menu_links">
-							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+								method="get">
 								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 									value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE}" />
 								<button
@@ -47,7 +50,8 @@
 							</form>
 							<c:if
 								test="${user.getRole().getIdRole() != UserRole.ADMIN.getIdRole()}">
-								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_HISTORY_ORDERS_PAGE}" />
 									<button
@@ -59,7 +63,8 @@
 							</c:if>
 							<c:if
 								test="${user.getRole().getIdRole() == UserRole.ADMIN.getIdRole()}">
-								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_HISTORY_ORDERS_PAGE}" />
 									<button
@@ -68,7 +73,8 @@
 										<fmt:message key="personal_account.history_orders" />
 									</button>
 								</form>
-								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE}" />
 									<button
@@ -261,7 +267,6 @@
 																</div>
 															</c:forEach>
 														</div>
-
 													</div>
 												</div>
 											</div>
@@ -276,8 +281,10 @@
 					<div class="col-12">
 						<h3
 							class="text-center d-flex flex-column justify-content-center align-items-center"
-							style="min-height: 47vh">Ваше время сессии завершено.
-							Перезайдите в учётную запись.</h3>
+							style="min-height: 47vh">
+							<fmt:message
+								key="personal_account_history_orders.end_session.message" />
+						</h3>
 					</div>
 				</c:if>
 			</div>

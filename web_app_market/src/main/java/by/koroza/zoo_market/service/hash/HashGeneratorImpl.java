@@ -3,20 +3,23 @@ package by.koroza.zoo_market.service.hash;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class HashGenerator {
-	private static final HashGenerator INSTANCE = new HashGenerator();
+import by.koroza.zoo_market.service.HashGenerator;
+
+public class HashGeneratorImpl implements HashGenerator {
+	private static final HashGenerator INSTANCE = new HashGeneratorImpl();
 
 	private static final String ALGORITHM__SHA_1 = "sha-1";
 
 	private static final String HEXADECIMAL_FORMAT = "%02x";
 
-	private HashGenerator() {
+	private HashGeneratorImpl() {
 	}
 
 	public static HashGenerator getInstance() {
 		return INSTANCE;
 	}
 
+	@Override
 	public String getHash(String line) {
 		String hashResult = null;
 		if (line != null) {

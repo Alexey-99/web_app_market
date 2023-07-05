@@ -2,19 +2,21 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
-<%@page import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.input.InputName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
 <%@page import="by.koroza.zoo_market.model.entity.status.UserRole"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.admin.change.user.status.ChangeUserStatusCommand"%>
-<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
-	scope="session" />
-<fmt:setBundle
-	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
+	import="by.koroza.zoo_market.web.command.name.exception.TypeInputExeception"%>
+<fmt:setLocale value="${locale}" scope="session" />
+<fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +29,7 @@
 		key="change_user_status.form_validated.title" /></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 <!-- admin_page_change_user_status_input_exception_type_and_message = AttributeName.ATTRIBUTE_ADMIN_PAGE_CHANGE_USER_STATUS_INPUT_EXCEPTION_TYPE_AND_MASSAGE -->
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body>
 	<%@ include file="/jsp/items/header_block_header_top.jsp"%>
@@ -42,8 +45,8 @@
 								<div class="change_user_status_form_top">
 									<div
 										class="d-flex justify-content-center align-items-center mb-4 change_user_status_form_top">
-
-										<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+										<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+											method="get">
 											<input type="hidden"
 												name="${ParameterName.PARAMETER_COMMAND}"
 												value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE }">
@@ -111,7 +114,7 @@
 									<form class="change_user_status_form_body" method="post"
 										action="${pageContext.request.contextPath}/${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 										<c:if
-											test="${admin_page_change_user_status_input_exception_type_and_message.containsKey(ChangeUserStatusCommand.INPUT_EXCEPTION_TYPE_LOGIN) }">
+											test="${admin_page_change_user_status_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_LOGIN)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-invalid"
 													id="change_user_status.form_validated.input_lable.login"
@@ -124,12 +127,12 @@
 														key="change_user_status.form_validated.input_lable.login" />
 												</label>
 												<div class="invalid-feedback">
-													${admin_page_change_user_status_input_exception_type_and_message.get(ChangeUserStatusCommand.INPUT_EXCEPTION_TYPE_LOGIN)}
+													${admin_page_change_user_status_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_LOGIN)}
 												</div>
 											</div>
 										</c:if>
 										<c:if
-											test="${!admin_page_change_user_status_input_exception_type_and_message.containsKey(ChangeUserStatusCommand.INPUT_EXCEPTION_TYPE_LOGIN) }">
+											test="${!admin_page_change_user_status_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_LOGIN)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-valid"
 													id="change_user_status.form_validated.input_lable.login"
@@ -148,7 +151,7 @@
 											</div>
 										</c:if>
 										<c:if
-											test="${admin_page_change_user_status_input_exception_type_and_message.containsKey(ChangeUserStatusCommand.INPUT_EXCEPTION_TYPE_ROLE) }">
+											test="${admin_page_change_user_status_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_USER_ROLE)}">
 											<div class="mb-3">
 												<select
 													name="${InputName.ADMIN_PAGE_CHANGE_USER_STATUS_FORM_SELECT_USER_ROLE}"
@@ -168,12 +171,12 @@
 													</option>
 												</select>
 												<div class="invalid-feedback">
-													${admin_page_change_user_status_input_exception_type_and_message.get(ChangeUserStatusCommand.INPUT_EXCEPTION_TYPE_ROLE)}
+													${admin_page_change_user_status_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_USER_ROLE)}
 												</div>
 											</div>
 										</c:if>
 										<c:if
-											test="${!admin_page_change_user_status_input_exception_type_and_message.containsKey(ChangeUserStatusCommand.INPUT_EXCEPTION_TYPE_ROLE) }">
+											test="${!admin_page_change_user_status_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_USER_ROLE)}">
 											<div class="mb-3">
 												<select
 													name="${InputName.ADMIN_PAGE_CHANGE_USER_STATUS_FORM_SELECT_USER_ROLE}"

@@ -5,25 +5,25 @@ import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTR
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
 import static by.koroza.zoo_market.web.command.name.email.EmailComponent.EMAIL_SUBJECT;
 import static by.koroza.zoo_market.web.command.name.email.EmailComponent.EMAIL_TEXT;
+import static by.koroza.zoo_market.web.command.name.exception.MessageInputException.EN_MESSAGE_TYPY_INPUT_EXCEPTION_EMAIL;
+import static by.koroza.zoo_market.web.command.name.exception.MessageInputException.RU_MESSAGE_TYPY_INPUT_EXCEPTION_EMAIL;
+import static by.koroza.zoo_market.web.command.name.exception.TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL;
 import static by.koroza.zoo_market.web.command.name.input.InputName.REGISTRATION_INPUT_USER_EMAIL;
 import static by.koroza.zoo_market.web.command.name.language.LanguageName.ENGLISH;
 import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIAN;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.CHANGE_EMAIL_FORM_VALIDATED_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.CONFIMARTION_EMAIL_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.exception.MessageInputException.EN_MESSAGE_TYPY_INPUT_EXCEPTION_EMAIL;
-import static by.koroza.zoo_market.web.command.name.exception.MessageInputException.RU_MESSAGE_TYPY_INPUT_EXCEPTION_EMAIL;
-import static by.koroza.zoo_market.web.command.name.exception.TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
-import by.koroza.zoo_market.service.generator.GenerationVeriicationCode;
 import by.koroza.zoo_market.service.impl.confirmation.ConfirmationServiceImpl;
+import by.koroza.zoo_market.service.impl.generator.GenerationConfirmationEmailCodeImpl;
+import by.koroza.zoo_market.service.impl.sender.EmailSenderImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
-import by.koroza.zoo_market.service.sender.EmailSender;
 import by.koroza.zoo_market.validation.UserValidation;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
@@ -43,7 +43,8 @@ public class ChangeEmailCommand implements Command {
 		try {
 			if (user != null) {
 				Map<String, String> mapInputExceptions = new HashMap<>();
-				String email = getEmailParameter(request, mapInputExceptions);
+				String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
+				String email = getEmailParameter(request, sessionLocale, mapInputExceptions);
 				if (mapInputExceptions.isEmpty()) {
 					user.setEmail(email);
 					user.setVerificatedEmail(false);
@@ -65,13 +66,13 @@ public class ChangeEmailCommand implements Command {
 		return router;
 	}
 
-	private String getEmailParameter(HttpServletRequest request, Map<String, String> mapInputExceptions) {
-		HttpSession session = request.getSession();
+	private String getEmailParameter(HttpServletRequest request, String sessionLocale,
+			Map<String, String> mapInputExceptions) {
 		String userEmail = request.getParameter(REGISTRATION_INPUT_USER_EMAIL);
 		if (!UserValidation.validEmail(userEmail)) {
-			if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(RUSSIAN)) {
+			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_EMAIL, RU_MESSAGE_TYPY_INPUT_EXCEPTION_EMAIL + userEmail);
-			} else if (((String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE)).equals(ENGLISH)) {
+			} else if (sessionLocale.equals(ENGLISH)) {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_EMAIL, EN_MESSAGE_TYPY_INPUT_EXCEPTION_EMAIL + userEmail);
 			}
 		}
@@ -79,8 +80,8 @@ public class ChangeEmailCommand implements Command {
 	}
 
 	private void sendConfirmationEmailCode(User user) throws ServiceException {
-		String code = GenerationVeriicationCode.getInstance().getGeneratedCode();
+		String code = GenerationConfirmationEmailCodeImpl.getInstance().getGeneratedCode();
 		ConfirmationServiceImpl.getInstance().addVerificateCodeWithUserId(user.getId(), code);
-		EmailSender.getInstance().emailSend(EMAIL_SUBJECT, EMAIL_TEXT + code, user.getEmail());
+		EmailSenderImpl.getInstance().emailSend(EMAIL_SUBJECT, EMAIL_TEXT + code, user.getEmail());
 	}
 }

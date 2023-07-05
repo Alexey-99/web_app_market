@@ -5,7 +5,7 @@ import by.koroza.zoo_market.web.command.impl.admin.change.product.ChangeProductP
 import by.koroza.zoo_market.web.command.impl.admin.change.product.update.UpdateChangedFeedsAndOtherProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.change.product.update.UpdateChangedPetProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.change.user.status.ChangeUserStatusCommand;
-import by.koroza.zoo_market.web.command.impl.admin.create.CraeteOtherProductCommand;
+import by.koroza.zoo_market.web.command.impl.admin.create.CraeteProductFeedsAndOtherCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.CraetePetProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.add.AddOtherProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.add.AddPetProductCommand;
@@ -48,6 +48,7 @@ import by.koroza.zoo_market.web.command.impl.user.confirmation.ConfirmationEmail
 import by.koroza.zoo_market.web.command.impl.user.confirmation.SendOneMoreTimeConfirmationEmailCodeCommand;
 import by.koroza.zoo_market.web.command.impl.user.payment.OrderPaymentCommand;
 import by.koroza.zoo_market.web.command.impl.user.registration.RegistrationUserCommand;
+import by.koroza.zoo_market.web.command.impl.user.registration.verification.VerificationRegistrationInformationCommand;
 import by.koroza.zoo_market.web.command.impl.user.show.basket.ShowBacketPageCommand;
 import by.koroza.zoo_market.web.command.impl.user.show.confirmation.ShowConfirmationEmailFormCommand;
 import by.koroza.zoo_market.web.command.impl.user.show.form.change.ShowChangeUserEmailFormComamnd;
@@ -64,7 +65,6 @@ import by.koroza.zoo_market.web.command.impl.user.show.pesonal.ShowPersonalAccou
 import by.koroza.zoo_market.web.command.impl.user.show.pesonal.ShowPersonalAccountPersonInfomationPageCommand;
 import by.koroza.zoo_market.web.command.impl.user.sign.SignInPersonAccountCommand;
 import by.koroza.zoo_market.web.command.impl.user.sign.SignOutPersonalAccountCommand;
-import by.koroza.zoo_market.web.command.impl.user.verification.VerificationRegistrationInformationCommand;
 
 public enum CommandType {
 	/* market page.product pet */
@@ -109,7 +109,7 @@ public enum CommandType {
 	ADMIN_PAGE_ADD_NEW_PRODUCT_PET(new AddPetProductCommand()),
 	ADMIN_PAGE_SHOW_CREATE_PET_PRODUCT_FORM(new ShowCreatePetProductFormCommand()),
 	/* create feeds and other */
-	ADMIN_PAGE_CREATE_FEED_AND_OTHER_PRODUCT(new CraeteOtherProductCommand()),
+	ADMIN_PAGE_CREATE_FEED_AND_OTHER_PRODUCT(new CraeteProductFeedsAndOtherCommand()),
 	ADMIN_PAGE_ADD_NEW_PRODUCT_FEED_AND_OTHER(new AddOtherProductCommand()),
 	ADMIN_PAGE_SHOW_CREATE_FEED_AND_OTHER_PRODUCT_FORM(new ShowCreateFeedsAndOtherProductFormCommand()),
 	/* change pet */

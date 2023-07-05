@@ -1,5 +1,6 @@
 package by.koroza.zoo_market.web.command.impl.admin.change.product.update;
 
+import static by.koroza.zoo_market.model.entity.status.UserRole.ADMIN;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_ADMIN_PAGE_CREATE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT;
@@ -18,7 +19,6 @@ import java.util.Map;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.model.entity.market.product.abstraction.AbstractProduct;
-import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.exception.SortingException;
@@ -43,14 +43,13 @@ public class UpdateChangedPetProductCommand implements Command {
 		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CREATE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
-			if (user == null || user.isVerificatedEmail() == false
-					|| user.getRole().getIdRole() != UserRole.ADMIN.getIdRole()) {
-				router = new Router(HOME_PAGE_PATH);
-			} else {
+			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() >= ADMIN.getIdRole()) {
 				Pet pet = (Pet) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET);
 				if (pet != null) {
-					long numberOfUnitsProduct = (long) session
-							.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT);
+					long numberOfUnitsProduct = session
+							.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT) != null
+									? (long) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT)
+									: 0;
 					String oldImagePath = ProductPetServiceImpl.getInstance().getProductImagePathById(pet.getId());
 					ProductPetServiceImpl.getInstance().upadateProductPet(pet, numberOfUnitsProduct);
 					if (oldImagePath != null) {
@@ -73,6 +72,8 @@ public class UpdateChangedPetProductCommand implements Command {
 				} else {
 					router = new Router(HOME_PAGE_PATH);
 				}
+			} else {
+				router = new Router(HOME_PAGE_PATH);
 			}
 		} catch (ServiceException | SortingException e) {
 			throw new CommandException(e);

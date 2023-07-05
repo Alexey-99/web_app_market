@@ -1,12 +1,13 @@
 package by.koroza.zoo_market.web.command.impl.user.show.market.pet;
 
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_LIST_PRODUCTS_PETS;
-import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.REQUEST_ATTRIBUTE_NUMBER_PAGE;
+import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHECK_BOX_CHOOSE_ONLY_PRODUCTS_WITH_DISCOUNT_EN;
+import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHECK_BOX_CHOOSE_ONLY_PRODUCTS_WITH_DISCOUNT_RU;
 import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_BREED_PET_EN;
 import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_BREED_PET_RUS;
 import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_TYPE_PET_EN;
@@ -18,9 +19,8 @@ import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIA
 import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_NUMBER_PAGE;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.PRODUCTS_PETS_PAGE_PATH;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -40,14 +40,14 @@ public class ShowProductPetsOffFilterCommand implements Command {
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
 		HttpSession session = request.getSession();
-		session.removeAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
+		session.removeAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP);
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER);
-		List<Pet> pets = new ArrayList<>();
 		try {
-			pets = ProductPetServiceImpl.getInstance().getAllHavingProductsPets();
+			List<Pet> pets = ProductPetServiceImpl.getInstance().getAllHavingProductsPets();
 			session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, pets);
-			Map<String, Set<String>> filterMap = createFilter(pets, session);
+			Map<String, Set<String>> filterMap = createFilter(pets,
+					(String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE));
 			session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP, filterMap);
 		} catch (ServiceException e) {
 			throw new CommandException(e);
@@ -57,19 +57,19 @@ public class ShowProductPetsOffFilterCommand implements Command {
 		return new Router(PRODUCTS_PETS_PAGE_PATH);
 	}
 
-	private Map<String, Set<String>> createFilter(List<Pet> petsList, HttpSession session) {
-		Map<String, Set<String>> filterMap = new HashMap<>();
-		if (session.getAttribute(ATTRIBUTE_SESSION_LOCALE).equals(RUSSIAN)) {
+	private Map<String, Set<String>> createFilter(List<Pet> petsList, String sessionLocale) {
+		Map<String, Set<String>> filterMap = new LinkedHashMap<>();
+		if (sessionLocale.equals(RUSSIAN)) {
 			filterMap.put(CHOOSE_TYPE_PET_RUS, createFilterBySpeciePets(petsList));
 			filterMap.put(CHOOSE_BREED_PET_RUS, createFilterByBreedPets(petsList));
-			if (isHavingPromotionsProductsPets(petsList)) {
-				filterMap.put(CHOOSE_VALUE_DISCOUNT_RUS, createFilterByPromotionsProductsPets(petsList, session));
+			if (isHavingDiscountProducts(petsList)) {
+				filterMap.put(CHOOSE_VALUE_DISCOUNT_RUS, createFilterByPromotionsProductsPets(petsList, sessionLocale));
 			}
-		} else if (session.getAttribute(ATTRIBUTE_SESSION_LOCALE).equals(ENGLISH)) {
+		} else if (sessionLocale.equals(ENGLISH)) {
 			filterMap.put(CHOOSE_TYPE_PET_EN, createFilterBySpeciePets(petsList));
 			filterMap.put(CHOOSE_BREED_PET_EN, createFilterByBreedPets(petsList));
-			if (isHavingPromotionsProductsPets(petsList)) {
-				filterMap.put(CHOOSE_VALUE_DISCOUNT_EN, createFilterByPromotionsProductsPets(petsList, session));
+			if (isHavingDiscountProducts(petsList)) {
+				filterMap.put(CHOOSE_VALUE_DISCOUNT_EN, createFilterByPromotionsProductsPets(petsList, sessionLocale));
 			}
 		}
 		return filterMap;
@@ -87,26 +87,26 @@ public class ShowProductPetsOffFilterCommand implements Command {
 		return breedsPetsSet;
 	}
 
-	private Set<String> createFilterByPromotionsProductsPets(List<Pet> petsList, HttpSession session) {
+	private Set<String> createFilterByPromotionsProductsPets(List<Pet> petsList, String sessionLocale) {
 		Set<String> promotionsPetsSet = null;
-		if (isHavingPromotionsProductsPets(petsList)) {
+		if (isHavingDiscountProducts(petsList)) {
 			promotionsPetsSet = new HashSet<>();
-			if (session.getAttribute(ATTRIBUTE_SESSION_LOCALE).equals(RUSSIAN)) {
-				promotionsPetsSet.add("только акционные товары");
-			} else if (session.getAttribute(ATTRIBUTE_SESSION_LOCALE).equals(ENGLISH)) {
-				promotionsPetsSet.add("only products with discount");
+			if (sessionLocale.equals(RUSSIAN)) {
+				promotionsPetsSet.add(CHECK_BOX_CHOOSE_ONLY_PRODUCTS_WITH_DISCOUNT_EN);
+			} else if (sessionLocale.equals(ENGLISH)) {
+				promotionsPetsSet.add(CHECK_BOX_CHOOSE_ONLY_PRODUCTS_WITH_DISCOUNT_RU);
 			}
 		}
 		return promotionsPetsSet;
 	}
 
-	private boolean isHavingPromotionsProductsPets(List<Pet> petsList) {
-		boolean havingPromotions = false;
+	private boolean isHavingDiscountProducts(List<Pet> petsList) {
+		boolean isHavingDiscount = false;
 		for (Pet pet : petsList) {
 			if (pet.getDiscount() > 0) {
-				havingPromotions = true;
+				isHavingDiscount = true;
 			}
 		}
-		return havingPromotions;
+		return isHavingDiscount;
 	}
 }

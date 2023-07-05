@@ -14,10 +14,8 @@
 <%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
 <%@page
 	import="by.koroza.zoo_market.web.command.name.exception.TypeInputExeception"%>
-<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
-	scope="session" />
-<fmt:setBundle
-	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
+<fmt:setLocale value="${locale}" scope="session" />
+<fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,6 +27,7 @@
 	href="css/items/sign_in_and_registration_form.css" />
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 <!-- registration_input_exception_type_and_message = AttributeName.ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE -->
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 <title><fmt:message key="change_email_form.title" /></title>
 </head>
 <body>
@@ -67,8 +66,7 @@
 											<input type="email" class="form-control"
 												id="change_email_form.body.input_lable.email_address"
 												required name="${InputName.REGISTRATION_INPUT_USER_EMAIL}"
-												value='<c:if test="${user.getEmail() != null && !user.getEmail().isBlank()}">
-												${user.getEmail()}</c:if>'
+												value='<c:if test="${user.getEmail() != null && !user.getEmail().isBlank()}">${user.getEmail()}</c:if>'
 												placeholder='<fmt:message key="change_email_form.body.input_lable.email_address"/>'
 												pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})" />
 											<label class="text-lowercase registration_form_body_label"
@@ -99,8 +97,7 @@
 												<input type="email" class="form-control is-invalid"
 													id="change_email_form.body.input_lable.email_address"
 													name="${InputName.REGISTRATION_INPUT_USER_EMAIL}" required
-													value='<c:if test="${user.getEmail() != null && !user.getEmail().isBlank()}">
-													${user.getEmail()}</c:if>'
+													value='<c:if test="${user.getEmail() != null && !user.getEmail().isBlank()}">${user.getEmail()}</c:if>'
 													placeholder='<fmt:message key="change_email_form.body.input_lable.email_address"/>'
 													pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})" />
 												<label class="text-lowercase registration_form_body_label"
@@ -111,7 +108,9 @@
 														test="${user.getEmail() == null || user.getEmail().isBlank()}">(<fmt:message
 															key="change_email_form.description.not_entered" />)</c:if>
 												</label>
-												<div class="invalid-feedback">${registration_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL)}</div>
+												<div class="invalid-feedback">
+													${registration_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL)}
+												</div>
 											</div>
 										</c:if>
 										<c:if
@@ -120,8 +119,7 @@
 												<input type="email" class="form-control is-valid"
 													id="change_email_form.body.input_lable.email_address"
 													name="${InputName.REGISTRATION_INPUT_USER_EMAIL}" required
-													value='<c:if test="${user.getEmail() != null && !user.getEmail().isBlank()}">
-													${user.getEmail()}</c:if>'
+													value='<c:if test="${user.getEmail() != null && !user.getEmail().isBlank()}">${user.getEmail()}</c:if>'
 													placeholder='<fmt:message key="change_email_form.body.input_lable.email_address"/>'
 													pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})" />
 												<label class="text-lowercase registration_form_body_label"

@@ -1,5 +1,6 @@
 package by.koroza.zoo_market.web.command.impl.user.change;
 
+import static by.koroza.zoo_market.model.entity.status.UserRole.USER;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_CHANGING_PERSON_INFOMATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
@@ -23,13 +24,12 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
-import by.koroza.zoo_market.service.generator.GenerationVeriicationCode;
 import by.koroza.zoo_market.service.impl.confirmation.ConfirmationServiceImpl;
+import by.koroza.zoo_market.service.impl.generator.GenerationConfirmationEmailCodeImpl;
+import by.koroza.zoo_market.service.impl.sender.EmailSenderImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
-import by.koroza.zoo_market.service.sender.EmailSender;
 import by.koroza.zoo_market.validation.UserValidation;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
@@ -49,48 +49,42 @@ public class ChangePersonInformationCommand implements Command {
 		session.removeAttribute(ATTRIBUTE_CHANGING_PERSON_INFOMATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
-			if (user == null || user.getRole().getIdRole() == 0) {
-				router = new Router(HOME_PAGE_PATH);
-			} else {
-				if (user.getRole().getIdRole() < UserRole.USER.getIdRole()) {
-					router = new Router(HOME_PAGE_PATH);
-				} else {
-					Map<String, String> mapInputExceptions = new HashMap<>();
-					String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
-					String name = getInputParameterName(request);
-					String surname = getInputParameterSurName(request);
-					String email = getInputParameterEmail(request, sessionLocale, mapInputExceptions);
+			if (user != null && user.getRole().getIdRole() >= USER.getIdRole()) {
+				Map<String, String> mapInputExceptions = new HashMap<>();
+				String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
+				String name = getInputParameterName(request);
+				String surname = getInputParameterSurName(request);
+				String email = getInputParameterEmail(request, sessionLocale, mapInputExceptions);
 
-					if (mapInputExceptions.isEmpty()) {
-						if ((user.getEmail() != null ? !user.getEmail().equals(email)
-								: user.getEmail() == null && email != null)
-								|| (user.getName() != null ? !user.getName().equals(name)
-										: user.getName() == null && name != null)
-								|| (user.getSurname() != null ? !user.getSurname().equals(surname)
-										: user.getSurname() == null && surname != null)) {
-							user.setName(name);
-							user.setSurname(surname);
-							if (user.getEmail() != null ? !user.getEmail().equals(email)
-									: user.getEmail() == null && email != null) {
-								user.setEmail(email);
-								user.setVerificatedEmail(false);
-								UserServiceImpl.getInstance().changePersonInformation(user);
-								String code = GenerationVeriicationCode.getInstance().getGeneratedCode();
-								ConfirmationServiceImpl.getInstance().addVerificateCodeWithUserId(user.getId(), code);
-								EmailSender.getInstance().emailSend(EMAIL_SUBJECT, EMAIL_TEXT + code, user.getEmail());
-							} else {
-								UserServiceImpl.getInstance().changePersonInformation(user);
-							}
-							router = new Router(PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH);
+				if (mapInputExceptions.isEmpty()) {
+					if ((user.getEmail() != null ? !user.getEmail().equals(email)
+							: user.getEmail() == null && email != null)
+							|| (user.getName() != null ? !user.getName().equals(name)
+									: user.getName() == null && name != null)
+							|| (user.getSurname() != null ? !user.getSurname().equals(surname)
+									: user.getSurname() == null && surname != null)) {
+						user.setName(name);
+						user.setSurname(surname);
+						if (user.getEmail() != null ? !user.getEmail().equals(email)
+								: user.getEmail() == null && email != null) {
+							user.setEmail(email);
+							user.setVerificatedEmail(false);
+							UserServiceImpl.getInstance().changePersonInformation(user);
+							sendConfirmationEmailCode(user);
 						} else {
-							router = new Router(PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH);
+							UserServiceImpl.getInstance().changePersonInformation(user);
 						}
+						router = new Router(PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH);
 					} else {
-						session.setAttribute(ATTRIBUTE_CHANGING_PERSON_INFOMATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
-								mapInputExceptions);
-						router = new Router(CHANGE_PERSON_INFOMATION_FORM_VALIDATED_PAGE_PATH);
+						router = new Router(PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH);
 					}
+				} else {
+					session.setAttribute(ATTRIBUTE_CHANGING_PERSON_INFOMATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
+							mapInputExceptions);
+					router = new Router(CHANGE_PERSON_INFOMATION_FORM_VALIDATED_PAGE_PATH);
 				}
+			} else {
+				router = new Router(HOME_PAGE_PATH);
 			}
 		} catch (ServiceException e) {
 			throw new CommandException(e);
@@ -120,5 +114,11 @@ public class ChangePersonInformationCommand implements Command {
 			}
 		}
 		return email;
+	}
+
+	private void sendConfirmationEmailCode(User user) throws ServiceException {
+		String code = GenerationConfirmationEmailCodeImpl.getInstance().getGeneratedCode();
+		ConfirmationServiceImpl.getInstance().addVerificateCodeWithUserId(user.getId(), code);
+		EmailSenderImpl.getInstance().emailSend(EMAIL_SUBJECT, EMAIL_TEXT + code, user.getEmail());
 	}
 }

@@ -5,19 +5,23 @@
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
 <%@page import="by.koroza.zoo_market.web.command.name.filter.FilterName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.input.InputName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.language.LanguageName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.parameter.ParameterValue"%>
-<%@page import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.user.show.market.other.ShowProductFeedsAndOtherIncludedFilterCommand"%>
-<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
-	scope="session" />
-<fmt:setBundle
-	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
+	import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.language.LanguageName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterValue"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.exception.TypeInputExeception"%>
+<fmt:setLocale value="${locale}" scope="session" />
+<fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,7 +70,8 @@
 									<div class="offcanvas-body">
 										<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 											<li class="nav-item dropdown">
-												<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+												<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+													method="get">
 													<input type="hidden"
 														name="${ParameterName.PARAMETER_NUMBER_PAGE}"
 														value="${ParameterValue.NUMBER_FIRST_PAGE_VALUE}" /> <input
@@ -77,12 +82,13 @@
 															key="market_products_feed_ond_other_page.filter.top_buttons.reset_filter_btn.reset_filter" />
 													</button>
 												</form> <c:if
-													test="${products_feeds_and_other_filter_input_exception_type_and_message == null || products_feeds_and_other_filter_input_exception_type_and_message.isEmpty() }">
-													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+													test="${products_feeds_and_other_filter_input_exception_type_and_message == null || products_feeds_and_other_filter_input_exception_type_and_message.isEmpty()}">
+													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+														method="get">
 														<div class="accordion accordion_form"
 															id="accordionExample">
 															<c:if
-																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PRODUCT_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PRODUCT_EN).size() > 0 == true}">
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PRODUCT_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PRODUCT_EN).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -113,7 +119,7 @@
 															</c:if>
 
 															<c:if
-																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_BREND_PRODUCT_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BREND_PRODUCT_EN).size() > 0}">
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_BRAND_PRODUCT_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BRAND_PRODUCT_EN).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -121,13 +127,13 @@
 																			type="button" data-bs-toggle="collapse"
 																			data-bs-target="#collapse_CHOOSE_BREND_PRODUCT_EN"
 																			aria-expanded="false"
-																			aria-controls="collapse_CHOOSE_BREND_PRODUCT_EN">${FilterName.CHOOSE_BREND_PRODUCT_EN}</button>
+																			aria-controls="collapse_CHOOSE_BREND_PRODUCT_EN">${FilterName.CHOOSE_BRAND_PRODUCT_EN}</button>
 																	</h2>
 																	<div id="collapse_CHOOSE_BREND_PRODUCT_EN"
 																		class="accordion-collapse collapse">
 																		<div class="accordion-body">
 																			<c:forEach
-																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BREND_PRODUCT_EN)}"
+																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BRAND_PRODUCT_EN)}"
 																				var="value" varStatus="innerStutus">
 																				<label> <span
 																					class="span_input span_input_CHOOSE_BREND_PRODUCT_EN">
@@ -144,7 +150,7 @@
 															</c:if>
 
 															<c:if
-																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PET_EN).size() > 0 == true}">
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PET_EN).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -175,7 +181,7 @@
 															</c:if>
 
 															<c:if
-																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_EN).size() > 0 == true}">
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_EN).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -267,11 +273,12 @@
 													</form>
 												</c:if> <c:if
 													test="${!products_feeds_and_other_filter_input_exception_type_and_message.isEmpty && products_feeds_and_other_filter_input_exception_type_and_message != null}">
-													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+														method="get">
 														<div class="accordion accordion_form"
 															id="accordionExample">
 															<c:if
-																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PRODUCT_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PRODUCT_EN).size() > 0 == true}">
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PRODUCT_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PRODUCT_EN).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -302,7 +309,7 @@
 															</c:if>
 
 															<c:if
-																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_BREND_PRODUCT_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BREND_PRODUCT_EN).size() > 0 == true}">
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_BRAND_PRODUCT_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BRAND_PRODUCT_EN).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -310,13 +317,13 @@
 																			type="button" data-bs-toggle="collapse"
 																			data-bs-target="#collapse_CHOOSE_BREND_PRODUCT_EN"
 																			aria-expanded="false"
-																			aria-controls="collapse_CHOOSE_BREND_PRODUCT_EN">${FilterName.CHOOSE_BREND_PRODUCT_EN}</button>
+																			aria-controls="collapse_CHOOSE_BREND_PRODUCT_EN">${FilterName.CHOOSE_BRAND_PRODUCT_EN}</button>
 																	</h2>
 																	<div id="collapse_CHOOSE_BREND_PRODUCT_EN"
 																		class="accordion-collapse collapse">
 																		<div class="accordion-body">
 																			<c:forEach
-																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BREND_PRODUCT_EN)}"
+																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BRAND_PRODUCT_EN)}"
 																				var="value" varStatus="innerStutus">
 																				<label> <span
 																					class="span_input span_input_CHOOSE_BREND_PRODUCT_EN">
@@ -333,7 +340,7 @@
 															</c:if>
 
 															<c:if
-																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PET_EN).size() > 0 == true}">
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PET_EN).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -364,7 +371,7 @@
 															</c:if>
 
 															<c:if
-																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_EN).size() > 0 == true}">
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT_EN) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_EN).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -372,7 +379,8 @@
 																			type="button" data-bs-toggle="collapse"
 																			data-bs-target="#collapse_CHOOSE_VALUE_DISCOUNT_EN"
 																			aria-expanded="false"
-																			aria-controls="collapse_CHOOSE_VALUE_DISCOUNT_EN">${FilterName.CHOOSE_VALUE_DISCOUNT_EN }</button>
+																			aria-controls="collapse_CHOOSE_VALUE_DISCOUNT_EN">
+																			${FilterName.CHOOSE_VALUE_DISCOUNT_EN }</button>
 																	</h2>
 																	<div id="collapse_CHOOSE_VALUE_DISCOUNT_EN"
 																		class="accordion-collapse collapse ">
@@ -390,7 +398,7 @@
 																				<br />
 																			</c:forEach>
 																			<c:if
-																				test="${products_feeds_and_other_filter_input_exception_type_and_message.containsKey(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}">
+																				test="${products_feeds_and_other_filter_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_DISCOUNT)}">
 																				<div class="input-group mb-3 mt-3">
 																					<span
 																						class="input-group-text accordion_item_six_span"><fmt:message
@@ -416,11 +424,13 @@
 																						src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
 																						alt="percent" />
 																					</span>
-																					<div class="invalid-feedback">${products_feeds_and_other_filter_input_exception_type_and_message.get(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}</div>
+																					<div class="invalid-feedback">
+																						${products_feeds_and_other_filter_input_exception_type_and_message.get(TypeInputExeception.TYPE_INPUT_EXCEPTION_DISCOUNT)}
+																					</div>
 																				</div>
 																			</c:if>
 																			<c:if
-																				test="${!products_feeds_and_other_filter_input_exception_type_and_message.containsKey(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}">
+																				test="${!products_feeds_and_other_filter_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_DISCOUNT)}">
 																				<div class="input-group mb-3 mt-3">
 																					<span
 																						class="input-group-text accordion_item_six_span"><fmt:message
@@ -463,7 +473,7 @@
 																<div id="collapseThree"
 																	class="accordion-collapse collapse">
 																	<c:if
-																		test="${products_feeds_and_other_filter_input_exception_type_and_message.containsKey(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
+																		test="${products_feeds_and_other_filter_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_PRICE)}">
 																		<div class="accordion-body">
 																			<div class="input-group mb-3">
 																				<span class="input-group-text"><fmt:message
@@ -480,12 +490,14 @@
 																					placeHolder="00,00 руб"
 																					name="${InputName.INPUT_MAX_PRICE_PET}"
 																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
-																				<div class="invalid-feedback">${products_feeds_and_other_filter_input_exception_type_and_message.get(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}</div>
+																				<div class="invalid-feedback">
+																					${products_feeds_and_other_filter_input_exception_type_and_message.get(TypeInputExeception.TYPE_INPUT_EXCEPTION_PRICE)}
+																				</div>
 																			</div>
 																		</div>
 																	</c:if>
 																	<c:if
-																		test="${!products_feeds_and_other_filter_input_exception_type_and_message.containsKey(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
+																		test="${!products_feeds_and_other_filter_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_PRICE)}">
 																		<div class="accordion-body">
 																			<div class="input-group mb-3">
 																				<span class="input-group-text"><fmt:message
@@ -522,7 +534,8 @@
 									<div class="offcanvas-body">
 										<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 											<li class="nav-item dropdown">
-												<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+												<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+													method="get">
 													<input type="hidden"
 														name="${ParameterName.PARAMETER_COMMAND}"
 														value="${CommandName.COMMAND_SHOW_PRODUCT_FEED_AND_OTHER_OFF_FILTER_PAGE}" />
@@ -532,11 +545,12 @@
 													</button>
 												</form> <c:if
 													test="${products_feeds_and_other_filter_input_exception_type_and_message.isEmpty() || products_feeds_and_other_filter_input_exception_type_and_message == null}">
-													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+														method="get">
 														<div class="accordion accordion_form"
 															id="accordionExample">
 															<c:if
-																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PRODUCT_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PRODUCT_RUS).size() > 0 == true}">
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PRODUCT_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PRODUCT_RUS).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -567,7 +581,7 @@
 															</c:if>
 
 															<c:if
-																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_BREND_PRODUCT_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BREND_PRODUCT_RUS).size() > 0}">
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_BRAND_PRODUCT_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BRAND_PRODUCT_RUS).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -575,13 +589,13 @@
 																			type="button" data-bs-toggle="collapse"
 																			data-bs-target="#collapse_CHOOSE_BREND_PRODUCT_RUS"
 																			aria-expanded="false"
-																			aria-controls="collapse_CHOOSE_BREND_PRODUCT_RUS">${FilterName.CHOOSE_BREND_PRODUCT_RUS}</button>
+																			aria-controls="collapse_CHOOSE_BREND_PRODUCT_RUS">${FilterName.CHOOSE_BRAND_PRODUCT_RUS}</button>
 																	</h2>
 																	<div id="collapse_CHOOSE_BREND_PRODUCT_RUS"
 																		class="accordion-collapse collapse">
 																		<div class="accordion-body">
 																			<c:forEach
-																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BREND_PRODUCT_RUS)}"
+																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BRAND_PRODUCT_RUS)}"
 																				var="value" varStatus="innerStutus">
 																				<label> <span
 																					class="span_input span_input_CHOOSE_BREND_PRODUCT_RUS">
@@ -598,7 +612,7 @@
 															</c:if>
 
 															<c:if
-																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PET_RUS).size() > 0 == true}">
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PET_RUS).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -629,7 +643,7 @@
 															</c:if>
 
 															<c:if
-																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_RUS).size() > 0 == true}">
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_RUS).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -721,11 +735,12 @@
 													</form>
 												</c:if> <c:if
 													test="${!products_feeds_and_other_filter_input_exception_type_and_message.isEmpty && products_feeds_and_other_filter_input_exception_type_and_message != null}">
-													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+														method="get">
 														<div class="accordion accordion_form"
 															id="accordionExample">
 															<c:if
-																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PRODUCT_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PRODUCT_RUS).size() > 0 == true}">
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PRODUCT_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PRODUCT_RUS).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -756,7 +771,7 @@
 															</c:if>
 
 															<c:if
-																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_BREND_PRODUCT_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BREND_PRODUCT_RUS).size() > 0 == true}">
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_BRAND_PRODUCT_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BRAND_PRODUCT_RUS).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -764,13 +779,13 @@
 																			type="button" data-bs-toggle="collapse"
 																			data-bs-target="#collapse_CHOOSE_BREND_PRODUCT_RUS"
 																			aria-expanded="false"
-																			aria-controls="collapse_CHOOSE_BREND_PRODUCT_RUS">${FilterName.CHOOSE_BREND_PRODUCT_RUS}</button>
+																			aria-controls="collapse_CHOOSE_BREND_PRODUCT_RUS">${FilterName.CHOOSE_BRAND_PRODUCT_RUS}</button>
 																	</h2>
 																	<div id="collapse_CHOOSE_BREND_PRODUCT_RUS"
 																		class="accordion-collapse collapse">
 																		<div class="accordion-body">
 																			<c:forEach
-																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BREND_PRODUCT_RUS)}"
+																				items="${products_feeds_and_other_filter_map.get(FilterName.CHOOSE_BRAND_PRODUCT_RUS)}"
 																				var="value" varStatus="innerStutus">
 																				<label> <span
 																					class="span_input span_input_CHOOSE_BREND_PRODUCT_RUS">
@@ -787,7 +802,7 @@
 															</c:if>
 
 															<c:if
-																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PET_RUS).size() > 0 == true}">
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_TYPE_PET_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_TYPE_PET_RUS).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -818,7 +833,7 @@
 															</c:if>
 
 															<c:if
-																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_RUS).size() > 0 == true}">
+																test="${products_feeds_and_other_filter_map.containsKey(FilterName.CHOOSE_VALUE_DISCOUNT_RUS) && products_feeds_and_other_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_RUS).size() > 0}">
 																<div class="accordion-item">
 																	<h2 class="accordion-header">
 																		<button
@@ -844,7 +859,7 @@
 																				<br />
 																			</c:forEach>
 																			<c:if
-																				test="${products_feeds_and_other_filter_input_exception_type_and_message.containsKey(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}">
+																				test="${products_feeds_and_other_filter_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_DISCOUNT)}">
 																				<div class="input-group mb-3 mt-3">
 																					<span
 																						class="input-group-text accordion_item_six_span"><fmt:message
@@ -869,11 +884,11 @@
 																						src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
 																						alt="percent" />
 																					</span>
-																					<div class="invalid-feedback">${products_feeds_and_other_filter_input_exception_type_and_message.get(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}</div>
+																					<div class="invalid-feedback">${products_feeds_and_other_filter_input_exception_type_and_message.get(TypeInputExeception.TYPE_INPUT_EXCEPTION_DISCOUNT)}</div>
 																				</div>
 																			</c:if>
 																			<c:if
-																				test="${!products_feeds_and_other_filter_input_exception_type_and_message.containsKey(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_DESCOUNT)}">
+																				test="${!products_feeds_and_other_filter_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_DISCOUNT)}">
 																				<div class="input-group mb-3 mt-3">
 																					<span
 																						class="input-group-text accordion_item_six_span"><fmt:message
@@ -915,7 +930,7 @@
 																<div id="collapseThree"
 																	class="accordion-collapse collapse">
 																	<c:if
-																		test="${products_feeds_and_other_filter_input_exception_type_and_message.containsKey(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
+																		test="${products_feeds_and_other_filter_input_exception_type_and_message.containsKey(TypeInputExeception.INPUT_EXCEPTION_TYPE_PRICE)}">
 																		<div class="accordion-body">
 																			<div class="input-group mb-3">
 																				<span class="input-group-text"><fmt:message
@@ -932,12 +947,12 @@
 																					placeHolder="00,00 руб"
 																					name="${InputName.INPUT_MAX_PRICE_PET}"
 																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
-																				<div class="invalid-feedback">${products_feeds_and_other_filter_input_exception_type_and_message.get(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}</div>
+																				<div class="invalid-feedback">${products_feeds_and_other_filter_input_exception_type_and_message.get(TypeInputExeception.INPUT_EXCEPTION_TYPE_PRICE)}</div>
 																			</div>
 																		</div>
 																	</c:if>
 																	<c:if
-																		test="${!products_feeds_and_other_filter_input_exception_type_and_message.containsKey(ShowProductFeedsAndOtherIncludedFilterCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
+																		test="${!products_feeds_and_other_filter_input_exception_type_and_message.containsKey(TypeInputExeception.INPUT_EXCEPTION_TYPE_PRICE)}">
 																		<div class="accordion-body">
 																			<div class="input-group mb-3">
 																				<span class="input-group-text"><fmt:message
@@ -1020,7 +1035,8 @@
 										key="market_products_feed_ond_other_page.if_not_found_product.navigate" />
 								</p>
 							</h5>
-							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+								method="get">
 								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 								<button
@@ -1032,7 +1048,8 @@
 									</h5>
 								</button>
 							</form>
-							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+								method="get">
 								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 									value="${CommandName.COMMAND_SHOW_PRODUCT_PETS_OFF_FILTER_PAGE }" />
 								<button

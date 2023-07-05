@@ -7,7 +7,7 @@ import by.koroza.zoo_market.service.exception.ServiceException;
 
 public interface UserService {
 
-	public boolean addRegistratedUserToBD(User user) throws ServiceException;
+	public boolean addUser(User user) throws ServiceException;
 
 	public boolean checkRepeatLogin(String login) throws ServiceException;
 
@@ -17,7 +17,7 @@ public interface UserService {
 
 	public boolean changeRoleStatus(String userLogin, int roleStatusId) throws ServiceException;
 
-	public boolean changeVerificationEmailStatus(long userId, boolean verificateStatus) throws ServiceException;
+	public boolean changeVerificationEmailStatus(long userId, boolean status) throws ServiceException;
 
 	public Optional<User> getUserByLogin(String login, String password) throws ServiceException;
 

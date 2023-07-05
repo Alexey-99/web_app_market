@@ -14,10 +14,8 @@
 <%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
 <%@page
 	import="by.koroza.zoo_market.web.command.name.exception.TypeInputExeception"%>
-<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
-	scope="session" />
-<fmt:setBundle
-	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
+<fmt:setLocale value="${locale}" scope="session" />
+<fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,6 +29,7 @@
 </title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 <!-- changing_password_input_exception_type_and_message = AttributeName.ATTRIBUTE_CHANGING_PASSWORD_INPUT_EXCEPTION_TYPE_AND_MASSAGE -->
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body class="d-flex flex-column justify-content-between"
 	style="min-height: 100vh;">

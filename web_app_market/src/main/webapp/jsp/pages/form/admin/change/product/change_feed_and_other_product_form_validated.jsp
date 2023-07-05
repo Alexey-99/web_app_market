@@ -2,21 +2,22 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
-<%@page import="by.koroza.zoo_market.web.command.name.CommandName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.InputName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.AttributeName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.ParameterName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.ParameterValue"%>
-<%@page import="by.koroza.zoo_market.web.command.name.PagePathName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.ServletName"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.admin.create.CraetePetProductCommand"%>
+	import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.input.InputName"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.admin.create.CraeteOtherProductCommand"%>
-<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
-	scope="session" />
-<fmt:setBundle
-	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
+	import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterValue"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.exception.TypeInputExeception"%>
+<fmt:setLocale value="${locale}" scope="session" />
+<fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +36,7 @@
 <!-- product_pet = AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET -->
 <!-- product_pet_number_of_units = AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT -->
 <!-- admin_page_change_feeds_and_other_product_input_exception_type_and_message = AttributeName.ATTRIBUTE_ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE -->
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body
 	style="height: 1087px; display: flex; flex-direction: column; justify-content: space-between;">
@@ -58,7 +60,8 @@
 									</div>
 									<div
 										class="d-flex justify-content-center align-items-center mb-4 add_product_form_top_btns">
-										<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+										<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+											method="get">
 											<input type="hidden"
 												name="${ParameterName.PARAMETER_COMMAND}"
 												value="${CommandName.COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_OFF_FILTER }">
@@ -244,7 +247,7 @@
 												name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_ID}"
 												value="${product_feeds_and_other.getId()}" />
 											<c:if
-												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_IMAGE)}">
+												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_IMAGE)}">
 												<div
 													class="form-floating mb-3 add_other_product_form_body_form_floating">
 													<input type="file"
@@ -259,7 +262,9 @@
 															key="change_product_form_validated.change_feeds_and_other.lable.choose_image_product" />
 														<span>*</span>
 													</label>
-													<div class="invalid-feedback">${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_IMAGE)}</div>
+													<div class="invalid-feedback">
+														${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(TypeInputExeception.TYPE_INPUT_EXCEPTION_IMAGE)}
+													</div>
 												</div>
 												<div class="form-floating mb-3">
 													<div class="input-group mb-3 mt-3">
@@ -275,7 +280,7 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_IMAGE)}">
+												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_IMAGE)}">
 												<div
 													class="form-floating mb-3 add_other_product_form_body_form_floating">
 													<input type="file"
@@ -320,7 +325,7 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRODUCT_TYPE)}">
+												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_PRODUCT_TYPE)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_feeds_and_other.lable.type_product"
@@ -331,11 +336,13 @@
 														<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.type_product" />
 													</label>
-													<div class="invalid-feedback">${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRODUCT_TYPE)}</div>
+													<div class="invalid-feedback">
+														${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(TypeInputExeception.TYPE_INPUT_EXCEPTION_PRODUCT_TYPE)}
+													</div>
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRODUCT_TYPE)}">
+												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_PRODUCT_TYPE)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
 														id="change_product_form_validated.change_feeds_and_other.lable.type_product"
@@ -354,7 +361,7 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_BRAND)}">
+												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_BRAND)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_feeds_and_other.lable.brand_product"
@@ -365,11 +372,13 @@
 														<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.brand_product" />
 													</label>
-													<div class="invalid-feedback">${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_BRAND)}</div>
+													<div class="invalid-feedback">
+														${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(TypeInputExeception.TYPE_INPUT_EXCEPTION_BRAND)}
+													</div>
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_BRAND)}">
+												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_BRAND)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
 														id="change_product_form_validated.change_feeds_and_other.lable.brand_product"
@@ -388,7 +397,7 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DESCRIPTION)}">
+												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_DESCRIPTION)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_feeds_and_other.lable.description_product"
@@ -399,11 +408,13 @@
 														<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.description_product" />
 													</label>
-													<div class="invalid-feedback">${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DESCRIPTION)}</div>
+													<div class="invalid-feedback">
+														${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(TypeInputExeception.TYPE_INPUT_EXCEPTION_DESCRIPTION)}
+													</div>
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DESCRIPTION)}">
+												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_DESCRIPTION)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
 														id="change_product_form_validated.change_feeds_and_other.lable.description_product"
@@ -423,7 +434,7 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PET_TYPES)}">
+												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_PET_TYPES)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_feeds_and_other.lable.types_pet_for_product"
@@ -435,11 +446,13 @@
 														<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.types_pet_for_product" />
 													</label>
-													<div class="invalid-feedback">${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PET_TYPES)}</div>
+													<div class="invalid-feedback">
+														${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(TypeInputExeception.TYPE_INPUT_EXCEPTION_PET_TYPES)}
+													</div>
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PET_TYPES)}">
+												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_PET_TYPES)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
 														id="change_product_form_validated.change_feeds_and_other.lable.types_pet_for_product"
@@ -457,7 +470,7 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
+												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_PRICE)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_feeds_and_other.lable.price_product"
@@ -469,11 +482,13 @@
 														<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.price_product" />
 													</label>
-													<div class="invalid-feedback">${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}</div>
+													<div class="invalid-feedback">
+														${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(TypeInputExeception.TYPE_INPUT_EXCEPTION_PRICE)}
+													</div>
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_PRICE)}">
+												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_PRICE)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
 														id="change_product_form_validated.change_feeds_and_other.lable.price_product"
@@ -494,7 +509,7 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT)}">
+												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_DISCOUNT)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_feeds_and_other.lable.discount_product"
@@ -506,11 +521,13 @@
 														<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.discount_product" />
 													</label>
-													<div class="invalid-feedback">${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT)}</div>
+													<div class="invalid-feedback">
+														${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(TypeInputExeception.TYPE_INPUT_EXCEPTION_DISCOUNT)}
+													</div>
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_DISCOUNT)}">
+												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_DISCOUNT)}">
 												<div class="form-floating mb-3">
 													<input type="text" class="form-control is-valid"
 														id="change_product_form_validated.change_feeds_and_other.lable.discount_product"
@@ -530,7 +547,7 @@
 												</div>
 											</c:if>
 											<c:if
-												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT)}">
+												test="${admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_NUMBER_OF_UNITS_PRODUCT)}">
 												<div class="form-floating mb-3">
 													<input type="number" class="form-control is-invalid"
 														id="change_product_form_validated.change_feeds_and_other.lable.number_unit_product"
@@ -541,11 +558,13 @@
 														<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.number_unit_product" />
 													</label>
-													<div class="invalid-feedback">${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT)}</div>
+													<div class="invalid-feedback">
+														${admin_page_change_feeds_and_other_product_input_exception_type_and_message.get(TypeInputExeception.TYPE_INPUT_EXCEPTION_NUMBER_OF_UNITS_PRODUCT)}
+													</div>
 												</div>
 											</c:if>
 											<c:if
-												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(CraeteOtherProductCommand.INPUT_EXCEPTION_TYPE_NUMBER_OF_UNITS_PRODUCT)}">
+												test="${!admin_page_change_feeds_and_other_product_input_exception_type_and_message.containsKey(TypeInputExeception.TYPE_INPUT_EXCEPTION_NUMBER_OF_UNITS_PRODUCT)}">
 												<div class="form-floating mb-3">
 													<input type="number" class="form-control is-valid"
 														id="change_product_form_validated.change_feeds_and_other.lable.number_unit_product"

@@ -2,18 +2,18 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
-<%@page import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.input.InputName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.user.registration.RegistrationUserCommand"%>
-<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
-	scope="session" />
-<fmt:setBundle
-	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
+	import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.input.InputName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
+<fmt:setLocale value="${locale}" scope="session" />
+<fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +25,7 @@
 	href="css/items/sign_in_and_registration_form.css" />
 <title><fmt:message key="sign_in_and_registartion_form.title" /></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body>
 	<header class="header">
@@ -37,7 +38,8 @@
 							class="position-relative w-100 d-flex flex-column sign_in_and_registration_form_inner">
 							<div
 								class="d-flex justify-content-center align-items-center mb-4 sign_in_and_registration_form_top_btns">
-								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_HOME_PAGE}" />
 									<button class="close_btn" role="button"
@@ -71,7 +73,8 @@
 									</h2>
 								</div>
 								<form class="sign_in_form_body"
-									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control is-invalid" required
 											id="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login"
@@ -136,7 +139,8 @@
 									</h2>
 								</div>
 								<form class="registration_form_body"
-									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control"
 											id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name"

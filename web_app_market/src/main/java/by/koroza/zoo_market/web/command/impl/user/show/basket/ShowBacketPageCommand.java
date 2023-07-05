@@ -1,5 +1,6 @@
 package by.koroza.zoo_market.web.command.impl.user.show.basket;
 
+import static by.koroza.zoo_market.model.entity.status.UserRole.USER;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_ORDER;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
@@ -38,15 +39,12 @@ public class ShowBacketPageCommand implements Command {
 				productsIdArr[0] != null ? productsIdArr[0] : productsIdArr[1]);
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
-		if (user != null && user.getRole().getIdRole() >= 2) {
-			Order order = null;
-			List<Pet> productsPets = null;
-			List<FeedAndOther> productsOther = null;
+		if (user != null && user.getRole().getIdRole() >= USER.getIdRole() && user.isVerificatedEmail()) {
 			try {
-				productsPets = ProductPetServiceImpl.getInstance().getProductsPetsById(productsIdMap);
-				productsOther = ProductFeedsAndOtherServiceImpl.getInstance()
+				List<Pet> productsPets = ProductPetServiceImpl.getInstance().getProductsPetsById(productsIdMap);
+				List<FeedAndOther> productsOther = ProductFeedsAndOtherServiceImpl.getInstance()
 						.getHavingProductsFeedAndOtherById(productsIdMap);
-				order = new Order.OrderBuilder().setUserId(user.getId()).setProductsPets(productsPets)
+				Order order = new Order.OrderBuilder().setUserId(user.getId()).setProductsPets(productsPets)
 						.setOtherProducts(productsOther)
 						.setTotalPaymentAmount(
 								OrderServiceImpl.getInstance().calcTotalPaymentAmount(productsPets, productsOther))

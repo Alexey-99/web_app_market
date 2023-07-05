@@ -2,18 +2,20 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
-<%@page import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.attribute.AttributeName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.input.InputName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
-<%@page import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.command.CommandName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
 <%@page import="by.koroza.zoo_market.web.command.name.path.PagePathName"%>
 <%@page
-	import="by.koroza.zoo_market.web.command.impl.user.registration.RegistrationUserCommand"%>
-<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
-	scope="session" />
-<fmt:setBundle
-	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
+	import="by.koroza.zoo_market.web.command.name.exception.TypeInputExeception"%>
+<fmt:setLocale value="${locale}" scope="session" />
+<fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,12 +25,13 @@
 <link rel="stylesheet" href="css/items/header_top.css" />
 <link rel="stylesheet"
 	href="css/items/sign_in_and_registration_form.css" />
+<title><fmt:message key="sign_in_and_registartion_form.title" /></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 <!-- registration_input_exception_type_and_message = AttributeName.ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE -->
-<title><fmt:message key="sign_in_and_registartion_form.title" /></title>
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body>
-	<header class="header pb-5" style="height: 100vh;">
+	<section class="header pb-5" style="height: 100vh;">
 		<div class="container">
 			<div class="row header_top">
 				<div class="col-12">
@@ -241,7 +244,7 @@
 									<form class="registration_form_body" method="post"
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 										<c:if
-											test="${registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.NAME)}">
+											test="${registration_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_NAME)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-invalid"
 													id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name"
@@ -256,11 +259,13 @@
 														test="${user.getName() == null || user.getName().isblank()}">(<fmt:message
 															key="sign_in_and_registartion_form.description.not_entered" />)</c:if>
 												</label>
-												<div class="invalid-feedback">${registration_input_exception_type_and_message.get(RegistrationUserCommand.NAME)}</div>
+												<div class="invalid-feedback">
+													${registration_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_NAME)}
+												</div>
 											</div>
 										</c:if>
 										<c:if
-											test="${!registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.NAME)}">
+											test="${!registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.TYPY_INPUT_EXCEPTION_NAME)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-valid"
 													id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name"
@@ -282,7 +287,7 @@
 											</div>
 										</c:if>
 										<c:if
-											test="${registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.SURNAME)}">
+											test="${registration_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_SURNAME)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-invalid"
 													id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname"
@@ -297,11 +302,13 @@
 														test="${user.getSurname() == null || user.getSurname().isBlank()}">(<fmt:message
 															key="sign_in_and_registartion_form.description.not_entered" />)</c:if>
 												</label>
-												<div class="invalid-feedback">${registration_input_exception_type_and_message.get(RegistrationUserCommand.SURNAME)}</div>
+												<div class="invalid-feedback">
+													${registration_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_SURNAME)}
+												</div>
 											</div>
 										</c:if>
 										<c:if
-											test="${!registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.SURNAME)}">
+											test="${!registration_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_SURNAME)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-valid"
 													id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname"
@@ -323,7 +330,7 @@
 											</div>
 										</c:if>
 										<c:if
-											test="${registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.EMAIL)}">
+											test="${registration_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL)}">
 											<div class="form-floating mb-3">
 												<input type="email" class="form-control is-invalid"
 													id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.email_address"
@@ -339,11 +346,13 @@
 														test="${user.getEmail() == null || user.getEmail().isBlank()}">(<fmt:message
 															key="sign_in_and_registartion_form.description.not_entered" />)</c:if>
 												</label>
-												<div class="invalid-feedback">${registration_input_exception_type_and_message.get(RegistrationUserCommand.EMAIL)}</div>
+												<div class="invalid-feedback">
+													${registration_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL)}
+												</div>
 											</div>
 										</c:if>
 										<c:if
-											test="${!registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.EMAIL)}">
+											test="${!registration_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL)}">
 											<div class="form-floating mb-3">
 												<input type="email" class="form-control is-valid"
 													id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.email_address"
@@ -366,7 +375,7 @@
 											</div>
 										</c:if>
 										<c:if
-											test="${registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.LOGIN)}">
+											test="${registration_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_LOGIN)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-invalid"
 													id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login"
@@ -380,11 +389,13 @@
 														test="${user.getLogin() == null || user.getLogin().isBlank()}">(<fmt:message
 															key="sign_in_and_registartion_form.description.not_entered" />)</c:if>
 												</label>
-												<div class="invalid-feedback">${registration_input_exception_type_and_message.get(RegistrationUserCommand.LOGIN)}</div>
+												<div class="invalid-feedback">
+													${registration_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_LOGIN)}
+												</div>
 											</div>
 										</c:if>
 										<c:if
-											test="${!registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.LOGIN)}">
+											test="${!registration_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_LOGIN)}">
 											<div class="form-floating mb-3">
 												<input type="text" class="form-control is-valid"
 													id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login"
@@ -406,7 +417,7 @@
 											</div>
 										</c:if>
 										<c:if
-											test="${registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.PASSWORD)}">
+											test="${registration_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_PASSWORD)}">
 											<div
 												class="password_form d-flex juctify-content-between align-items-center">
 												<div class="form-floating mb-3 w-100">
@@ -425,7 +436,9 @@
 															test="${user.getPassword() == null || user.getPassword().isBlank()}">(<fmt:message
 																key="sign_in_and_registartion_form.description.not_entered" />)</c:if>
 													</label>
-													<div class="invalid-feedback">${registration_input_exception_type_and_message.get(RegistrationUserCommand.PASSWORD)}</div>
+													<div class="invalid-feedback">
+														${registration_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_PASSWORD)}
+													</div>
 												</div>
 												<div class="btn registration_form_password_btn mb-5 "
 													onclick="showPasswordRegistrationFormInput()">
@@ -445,7 +458,7 @@
 											</div>
 										</c:if>
 										<c:if
-											test="${!registration_input_exception_type_and_message.containsKey(RegistrationUserCommand.PASSWORD)}">
+											test="${!registration_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_PASSWORD)}">
 											<div
 												class="password_form d-flex juctify-content-between align-items-center">
 												<div class="form-floating mb-3 w-100">
@@ -513,7 +526,7 @@
 				</div>
 			</div>
 		</div>
-	</header>
+	</section>
 
 	<%@ include file="/jsp/items/footer.jsp"%>
 

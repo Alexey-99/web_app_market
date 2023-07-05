@@ -13,7 +13,7 @@ import java.util.Optional;
 
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
-import by.koroza.zoo_market.service.hash.HashGenerator;
+import by.koroza.zoo_market.service.hash.HashGeneratorImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
@@ -32,7 +32,7 @@ public class SignInPersonAccountCommand implements Command {
 			String login = request.getParameter(SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_LOGIN);
 			String password = request.getParameter(SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_PASSWORD);
 			Optional<User> user = UserServiceImpl.getInstance().getUserByLogin(login,
-					HashGenerator.getInstance().getHash(password));
+					HashGeneratorImpl.getInstance().getHash(password));
 			if (user.isPresent()) {
 				session.setAttribute(ATTRIBUTE_USER, user.get());
 				String previousCommand = session.getAttribute(ATTRIBUTE_PREVIOUS_COMMAND) != null

@@ -13,10 +13,8 @@
 <%@page
 	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
 <%@page import="by.koroza.zoo_market.model.entity.status.UserRole"%>
-<fmt:setLocale value="${AttributeName.ATTRIBUTE_SESSION_LOCALE}"
-	scope="session" />
-<fmt:setBundle
-	basename="${PagePathName.PAGE_CONTENT_PROPERTIES}${locale}" />
+<fmt:setLocale value="${locale}" scope="session" />
+<fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +26,7 @@
 <link rel="stylesheet" href="css/items/admin/all_products_page.css" />
 <title><fmt:message key="personal_account_admin_page.title" /></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
+<!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body class="d-flex flex-column justify-content-between"
 	style="min-height: 100vh">
@@ -39,7 +38,8 @@
 				<c:if test="${user != null}">
 					<div class="col-md-2 col-sm-3 col-xs-4">
 						<div class="btn-group person_account_menu_links">
-							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+								method="get">
 								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 									value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE}" />
 								<button
@@ -50,7 +50,8 @@
 							</form>
 							<c:if
 								test="${user.getRole().getIdRole() != UserRole.ADMIN.getIdRole()}">
-								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_HISTORY_ORDERS_PAGE}" />
 									<button
@@ -62,7 +63,8 @@
 							</c:if>
 							<c:if
 								test="${user.getRole().getIdRole() == UserRole.ADMIN.getIdRole()}">
-								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_HISTORY_ORDERS_PAGE}" />
 									<button class="btn btn-primary person_account_menu_link w-100"
@@ -70,7 +72,8 @@
 										<fmt:message key="personal_account.history_orders" />
 									</button>
 								</form>
-								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE}" />
 									<button
@@ -98,7 +101,8 @@
 								<fmt:message
 									key="personal_account_admin_page.operation.add_product" />
 							</button>
-							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+								method="get">
 								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 									value="${CommandName.COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_OFF_FILTER}" />
 								<button class="btn btn-primary person_account_menu_link w-100"
