@@ -14,7 +14,6 @@ DROP TABLE IF EXISTS verificate_сodes;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS roles; 
 
-
 CREATE TABLE IF NOT EXISTS roles (
     id TINYINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name ENUM('WAITING_CODE_REGISTRATION', 'USER', 'ADMIN') DEFAULT NULL
@@ -95,11 +94,11 @@ CREATE TABLE IF NOT EXISTS orders (
     INDEX users_ind (users_id),
     FOREIGN KEY (users_id)
         REFERENCES users (id),
-    total_payment_amount DECIMAL UNSIGNED NOT NULL DEFAULT 0,
-    total_products_discount_amount DECIMAL UNSIGNED NOT NULL DEFAULT 0,
-    total_person_discount_amount DECIMAL UNSIGNED NOT NULL DEFAULT 0,
-    total_discount_amount DECIMAL UNSIGNED NOT NULL DEFAULT 0,
-    total_payment_with_discount_amount DECIMAL UNSIGNED NOT NULL DEFAULT 0,
+    total_payment_amount DECIMAL(65,2) UNSIGNED NOT NULL DEFAULT 0,
+    total_products_discount_amount DECIMAL(65,2) UNSIGNED NOT NULL DEFAULT 0,
+    total_person_discount_amount DECIMAL(65,2) UNSIGNED NOT NULL DEFAULT 0,
+    total_discount_amount DECIMAL(65,2) UNSIGNED NOT NULL DEFAULT 0,
+    total_payment_with_discount_amount DECIMAL(65,2) UNSIGNED NOT NULL DEFAULT 0,
     date DATETIME DEFAULT NOW(),
     order_statuses_id TINYINT UNSIGNED NOT NULL DEFAULT 1,
     INDEX order_statuses_id (order_statuses_id),
