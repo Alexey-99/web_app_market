@@ -1,7 +1,5 @@
 package by.koroza.zoo_market.web.command.name.exception;
 
-import by.koroza.zoo_market.model.entity.status.UserRole;
-
 public final class TypeInputExeception {
 
 //	- payment form = OrderPaymentCommand.class
