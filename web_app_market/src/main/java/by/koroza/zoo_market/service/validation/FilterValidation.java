@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.validation;
+package by.koroza.zoo_market.service.validation;
 
 public class FilterValidation {
 	private static final String REG_EX_INPUT_VALUE_DOUBLE = "(\\d+(\\.\\d+)?)";

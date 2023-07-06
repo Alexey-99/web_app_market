@@ -55,7 +55,7 @@ import by.koroza.zoo_market.model.entity.filter.FilterFeedsAndOther;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
-import by.koroza.zoo_market.validation.FilterValidation;
+import by.koroza.zoo_market.service.validation.FilterValidation;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;

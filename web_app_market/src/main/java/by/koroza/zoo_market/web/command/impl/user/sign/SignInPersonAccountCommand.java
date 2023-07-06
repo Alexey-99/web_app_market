@@ -13,7 +13,7 @@ import java.util.Optional;
 
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
-import by.koroza.zoo_market.service.hash.HashGeneratorImpl;
+import by.koroza.zoo_market.service.impl.hash.HashGeneratorImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;

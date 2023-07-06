@@ -9,9 +9,9 @@ import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_
 
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
-import by.koroza.zoo_market.service.hash.HashGeneratorImpl;
 import by.koroza.zoo_market.service.impl.confirmation.ConfirmationServiceImpl;
 import by.koroza.zoo_market.service.impl.generator.GenerationConfirmationEmailCodeImpl;
+import by.koroza.zoo_market.service.impl.hash.HashGeneratorImpl;
 import by.koroza.zoo_market.service.impl.sender.EmailSenderImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 import by.koroza.zoo_market.web.command.Command;

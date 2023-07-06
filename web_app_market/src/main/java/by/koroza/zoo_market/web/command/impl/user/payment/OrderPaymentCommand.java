@@ -5,10 +5,6 @@ import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTR
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_ORDER_PAYMENT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
-import static by.koroza.zoo_market.web.command.name.path.PagePathName.BACKET_WITH_PRODUCTS_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.path.PagePathName.ORDER_PAYMENT_FORM_VALIDATED_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.path.PagePathName.SUCCESS_ORDER_PAYMENT_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.exception.MessageInputException.EN_MESSAGE_TYPY_EXCEPTION_BANK_CARD;
 import static by.koroza.zoo_market.web.command.name.exception.MessageInputException.EN_MESSAGE_TYPY_EXCEPTION_SUM;
 import static by.koroza.zoo_market.web.command.name.exception.MessageInputException.EN_MESSAGE_TYPY_INPUT_EXCEPTION_CVC;
@@ -32,6 +28,10 @@ import static by.koroza.zoo_market.web.command.name.input.InputName.PAYMENT_INFO
 import static by.koroza.zoo_market.web.command.name.input.InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_NUMBER_BANK_CARD;
 import static by.koroza.zoo_market.web.command.name.language.LanguageName.ENGLISH;
 import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIAN;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.BACKET_WITH_PRODUCTS_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.ORDER_PAYMENT_FORM_VALIDATED_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.SUCCESS_ORDER_PAYMENT_PAGE_PATH;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +44,7 @@ import by.koroza.zoo_market.service.impl.order.OrderServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
-import by.koroza.zoo_market.validation.BankCardValidation;
+import by.koroza.zoo_market.service.validation.BankCardValidation;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;

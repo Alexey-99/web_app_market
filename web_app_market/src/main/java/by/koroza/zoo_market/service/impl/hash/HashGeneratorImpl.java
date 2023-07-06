@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.service.hash;
+package by.koroza.zoo_market.service.impl.hash;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

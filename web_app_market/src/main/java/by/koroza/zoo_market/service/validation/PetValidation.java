@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.validation;
+package by.koroza.zoo_market.service.validation;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
