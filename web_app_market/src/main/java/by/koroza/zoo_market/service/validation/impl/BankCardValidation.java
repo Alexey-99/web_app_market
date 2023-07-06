@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.service.validation;
+package by.koroza.zoo_market.service.validation.impl;
 
 import java.time.LocalDate;
 
@@ -77,5 +77,4 @@ public class BankCardValidation {
 		LocalDate result = dateNow.minusYears(year).minusMonths(month);
 		return result.getYear() < 0;
 	}
-
 }

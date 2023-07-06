@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.service.validation;
+package by.koroza.zoo_market.service.validation.impl;
 
 public class FeedsAndOtherValidation {
 	private static final String PATTERN_FOR_PRICE_AND_DISCOUNT = "^(\\d+)(\\.\\d{1,2})?$";

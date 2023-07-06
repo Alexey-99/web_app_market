@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.service.validation;
+package by.koroza.zoo_market.service.validation.impl;
 
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
