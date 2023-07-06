@@ -54,8 +54,7 @@ import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.image.ImageFileServiceImpl;
-import by.koroza.zoo_market.service.validation.impl.FeedsAndOtherValidation;
-import by.koroza.zoo_market.service.validation.impl.PetValidation;
+import by.koroza.zoo_market.service.validation.impl.product.ProductFeedsAndOtherValidationImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
@@ -73,7 +72,7 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
-			if (user != null && user.getRole().getIdRole() >= ADMIN.getIdRole() && user.isVerificatedEmail()) {
+			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() == ADMIN.getIdRole()) {
 				Map<String, String> mapInputExceptions = new HashMap<>();
 				Map<FeedAndOther, Long> productAndNumber = getInputParameters(request, mapInputExceptions);
 				if (mapInputExceptions.isEmpty()) {
@@ -160,6 +159,8 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 					mapInputExceptions.put(TYPE_INPUT_EXCEPTION_IMAGE, RU_MESSAGE_TYPE_INPUT_EXCEPTION_IMAGE);
 				} else if (sessionLocale.equals(ENGLISH)) {
 					mapInputExceptions.put(TYPE_INPUT_EXCEPTION_IMAGE, EN_MESSAGE_TYPE_INPUT_EXCEPTION_IMAGE);
+				} else {
+					mapInputExceptions.put(TYPE_INPUT_EXCEPTION_IMAGE, EN_MESSAGE_TYPE_INPUT_EXCEPTION_IMAGE);
 				}
 			}
 		} else {
@@ -167,20 +168,21 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 		}
 		if ((productFeedAndOther.getImagePath() != null ? !productFeedAndOther.getImagePath().equals(oldImagePath)
 				: productFeedAndOther.getImagePath() == null && oldImagePath != null) && (oldImagePath != null)) {
-			if (oldImagePath != null) {
-				ImageFileServiceImpl.getInstance().removeProductImage(oldImagePath);
-			}
+			ImageFileServiceImpl.getInstance().removeProductImage(oldImagePath);
 		}
 	}
 
 	private String getInputParameterProductType(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) throws ServiceException {
 		String type = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE);
-		if (!FeedsAndOtherValidation.validPetType(type)) {
+		if (!ProductFeedsAndOtherValidationImpl.getInstance().validProductType(type)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PRODUCT_TYPE,
 						RU_MESSAGE_TYPE_INPUT_EXCEPTION_PRODUCT_TYPE + type);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PRODUCT_TYPE,
+						EN_MESSAGE_TYPE_INPUT_EXCEPTION_PRODUCT_TYPE + type);
+			} else {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PRODUCT_TYPE,
 						EN_MESSAGE_TYPE_INPUT_EXCEPTION_PRODUCT_TYPE + type);
 			}
@@ -191,10 +193,12 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 	private String getInputParameterProductBrand(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) throws ServiceException {
 		String brand = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND);
-		if (!FeedsAndOtherValidation.validBrand(brand)) {
+		if (!ProductFeedsAndOtherValidationImpl.getInstance().validBrand(brand)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_BRAND, RU_MESSAGE_TYPE_INPUT_EXCEPTION_BRAND + brand);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_BRAND, EN_MESSAGE_TYPE_INPUT_EXCEPTION_BRAND + brand);
+			} else {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_BRAND, EN_MESSAGE_TYPE_INPUT_EXCEPTION_BRAND + brand);
 			}
 		}
@@ -204,11 +208,14 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 	private String getInputParameterProductDescription(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) throws ServiceException {
 		String description = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION);
-		if (!FeedsAndOtherValidation.validDescrription(description)) {
+		if (!ProductFeedsAndOtherValidationImpl.getInstance().validDescrription(description)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_DESCRIPTION,
 						RU_MESSAGE_TYPE_INPUT_EXCEPTION_DESCRIPTION + description);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_DESCRIPTION,
+						EN_MESSAGE_TYPE_INPUT_EXCEPTION_DESCRIPTION + description);
+			} else {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_DESCRIPTION,
 						EN_MESSAGE_TYPE_INPUT_EXCEPTION_DESCRIPTION + description);
 			}
@@ -219,11 +226,14 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 	private String getInputParameterProductPetTypes(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) throws ServiceException {
 		String petTypes = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES);
-		if (!FeedsAndOtherValidation.validPetType(petTypes)) {
+		if (!ProductFeedsAndOtherValidationImpl.getInstance().validPetTypes(petTypes)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PET_TYPES,
 						RU_MESSAGE_TYPE_INPUT_EXCEPTION_PET_TYPES + petTypes);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PET_TYPES,
+						EN_MESSAGE_TYPE_INPUT_EXCEPTION_PET_TYPES + petTypes);
+			} else {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PET_TYPES,
 						EN_MESSAGE_TYPE_INPUT_EXCEPTION_PET_TYPES + petTypes);
 			}
@@ -234,10 +244,12 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 	private String getInputParameterProductPrice(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) throws ServiceException {
 		String price = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE);
-		if (!PetValidation.validPetPrice(price)) {
+		if (!ProductFeedsAndOtherValidationImpl.getInstance().validProductPrice(price)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PRICE, RU_MESSAGE_TYPE_INPUT_EXCEPTION_PRICE_FORM + price);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PRICE, EN_MESSAGE_TYPE_INPUT_EXCEPTION_PRICE_FORM + price);
+			} else {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PRICE, EN_MESSAGE_TYPE_INPUT_EXCEPTION_PRICE_FORM + price);
 			}
 		}
@@ -247,11 +259,14 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 	private String getInputParameterProductDiscount(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) throws ServiceException {
 		String discount = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT);
-		if (!PetValidation.validPetDiscount(discount)) {
+		if (!ProductFeedsAndOtherValidationImpl.getInstance().validProductDiscount(discount)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_DISCOUNT,
 						RU_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FORM + discount);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_DISCOUNT,
+						EN_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FORM + discount);
+			} else {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_DISCOUNT,
 						EN_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FORM + discount);
 			}
@@ -263,11 +278,14 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 			Map<String, String> mapInputExceptions) throws ServiceException {
 		String numberOfUnitsProduct = request
 				.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT);
-		if (!PetValidation.validPetNumberOfUnitsProduct(numberOfUnitsProduct)) {
+		if (!ProductFeedsAndOtherValidationImpl.getInstance().validNumberOfUnitsProduct(numberOfUnitsProduct)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_NUMBER_OF_UNITS_PRODUCT,
 						RU_MESSAGE_TYPE_INPUT_EXCEPTION_NUMBER_OF_UNITS_PRODUCT + numberOfUnitsProduct);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_NUMBER_OF_UNITS_PRODUCT,
+						EN_MESSAGE_TYPE_INPUT_EXCEPTION_NUMBER_OF_UNITS_PRODUCT + numberOfUnitsProduct);
+			} else {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_NUMBER_OF_UNITS_PRODUCT,
 						EN_MESSAGE_TYPE_INPUT_EXCEPTION_NUMBER_OF_UNITS_PRODUCT + numberOfUnitsProduct);
 			}

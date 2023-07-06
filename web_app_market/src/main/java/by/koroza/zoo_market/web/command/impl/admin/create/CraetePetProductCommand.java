@@ -50,7 +50,7 @@ import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.image.ImageFileServiceImpl;
-import by.koroza.zoo_market.service.validation.impl.PetValidation;
+import by.koroza.zoo_market.service.validation.impl.product.ProductPetValidationImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
@@ -145,6 +145,8 @@ public class CraetePetProductCommand implements Command {
 					mapInputExceptions.put(TYPE_INPUT_EXCEPTION_IMAGE, RU_MESSAGE_TYPE_INPUT_EXCEPTION_IMAGE);
 				} else if (sessionLocale.equals(ENGLISH)) {
 					mapInputExceptions.put(TYPE_INPUT_EXCEPTION_IMAGE, EN_MESSAGE_TYPE_INPUT_EXCEPTION_IMAGE);
+				} else {
+					mapInputExceptions.put(TYPE_INPUT_EXCEPTION_IMAGE, EN_MESSAGE_TYPE_INPUT_EXCEPTION_IMAGE);
 				}
 			}
 		} else {
@@ -159,10 +161,12 @@ public class CraetePetProductCommand implements Command {
 	private String getInputParameterSpecie(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String specie = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE);
-		if (!PetValidation.validPetSpecie(specie)) {
+		if (!ProductPetValidationImpl.getInstance().validPetSpecie(specie)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_SPECIE, RU_MESSAGE_TYPE_INPUT_EXCEPTION_SPECIE + specie);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_SPECIE, EN_MESSAGE_TYPE_INPUT_EXCEPTION_SPECIE + specie);
+			} else {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_SPECIE, EN_MESSAGE_TYPE_INPUT_EXCEPTION_SPECIE + specie);
 			}
 		}
@@ -172,10 +176,12 @@ public class CraetePetProductCommand implements Command {
 	private String getInputParameterBreed(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String breed = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED);
-		if (!PetValidation.validPetBreed(breed)) {
+		if (!ProductPetValidationImpl.getInstance().validPetBreed(breed)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_BREED, RU_MESSAGE_TYPE_INPUT_EXCEPTION_BREED + breed);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_BREED, EN_MESSAGE_TYPE_INPUT_EXCEPTION_BREED + breed);
+			} else {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_BREED, EN_MESSAGE_TYPE_INPUT_EXCEPTION_BREED + breed);
 			}
 		}
@@ -185,11 +191,14 @@ public class CraetePetProductCommand implements Command {
 	private String getInputParameterBirthDate(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String birthDate = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE);
-		if (!PetValidation.validPetBirthDate(birthDate)) {
+		if (!ProductPetValidationImpl.getInstance().validPetBirthDate(birthDate)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_BIRTH_DATE,
 						RU_MESSAGE_TYPE_INPUT_EXCEPTION_BIRTH_DATE + birthDate);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_BIRTH_DATE,
+						EN_MESSAGE_TYPE_INPUT_EXCEPTION_BIRTH_DATE + birthDate);
+			} else {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_BIRTH_DATE,
 						EN_MESSAGE_TYPE_INPUT_EXCEPTION_BIRTH_DATE + birthDate);
 			}
@@ -200,10 +209,12 @@ public class CraetePetProductCommand implements Command {
 	private String getInputParameterPrice(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String price = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE);
-		if (!PetValidation.validPetPrice(price)) {
+		if (!ProductPetValidationImpl.getInstance().validProductPrice(price)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PRICE, RU_MESSAGE_TYPE_INPUT_EXCEPTION_PRICE_FORM + price);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PRICE, EN_MESSAGE_TYPE_INPUT_EXCEPTION_PRICE_FORM + price);
+			} else {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PRICE, EN_MESSAGE_TYPE_INPUT_EXCEPTION_PRICE_FORM + price);
 			}
 		}
@@ -213,11 +224,14 @@ public class CraetePetProductCommand implements Command {
 	private String getInputParameterDiscount(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String discount = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT);
-		if (!PetValidation.validPetDiscount(discount)) {
+		if (!ProductPetValidationImpl.getInstance().validProductDiscount(discount)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_DISCOUNT,
 						RU_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FORM + discount);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_DISCOUNT,
+						EN_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FORM + discount);
+			} else {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_DISCOUNT,
 						EN_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FORM + discount);
 			}
@@ -229,11 +243,14 @@ public class CraetePetProductCommand implements Command {
 			Map<String, String> mapInputExceptions) {
 		String numberOfUnitsProduct = request
 				.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT);
-		if (!PetValidation.validPetNumberOfUnitsProduct(numberOfUnitsProduct)) {
+		if (!ProductPetValidationImpl.getInstance().validNumberOfUnitsProduct(numberOfUnitsProduct)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_NUMBER_OF_UNITS_PRODUCT,
 						RU_MESSAGE_TYPE_INPUT_EXCEPTION_NUMBER_OF_UNITS_PRODUCT + numberOfUnitsProduct);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_NUMBER_OF_UNITS_PRODUCT,
+						EN_MESSAGE_TYPE_INPUT_EXCEPTION_NUMBER_OF_UNITS_PRODUCT + numberOfUnitsProduct);
+			} else {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_NUMBER_OF_UNITS_PRODUCT,
 						EN_MESSAGE_TYPE_INPUT_EXCEPTION_NUMBER_OF_UNITS_PRODUCT + numberOfUnitsProduct);
 			}

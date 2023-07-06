@@ -6,27 +6,16 @@ import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTR
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.REQUEST_ATTRIBUTE_NUMBER_PAGE;
-import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHECK_BOX_CHOOSE_ONLY_PRODUCTS_WITH_DISCOUNT_EN;
-import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHECK_BOX_CHOOSE_ONLY_PRODUCTS_WITH_DISCOUNT_RU;
-import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_BREED_PET_EN;
-import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_BREED_PET_RUS;
-import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_TYPE_PET_EN;
-import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_TYPE_PET_RUS;
-import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_VALUE_DISCOUNT_EN;
-import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_VALUE_DISCOUNT_RUS;
-import static by.koroza.zoo_market.web.command.name.language.LanguageName.ENGLISH;
-import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIAN;
 import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_NUMBER_PAGE;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.PRODUCTS_PETS_PAGE_PATH;
 
-import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.service.exception.ServiceException;
+import by.koroza.zoo_market.service.factory.impl.MarketFilterProductFactoryImpl;
 import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
@@ -46,7 +35,7 @@ public class ShowProductPetsOffFilterCommand implements Command {
 		try {
 			List<Pet> pets = ProductPetServiceImpl.getInstance().getAllHavingProductsPets();
 			session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, pets);
-			Map<String, Set<String>> filterMap = createFilter(pets,
+			Map<String, Set<String>> filterMap = MarketFilterProductFactoryImpl.getInstance().createFilterPets(pets,
 					(String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE));
 			session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP, filterMap);
 		} catch (ServiceException e) {
@@ -55,58 +44,5 @@ public class ShowProductPetsOffFilterCommand implements Command {
 		request.setAttribute(REQUEST_ATTRIBUTE_NUMBER_PAGE, request.getParameter(PARAMETER_NUMBER_PAGE));
 		isRegistratedUser(request);
 		return new Router(PRODUCTS_PETS_PAGE_PATH);
-	}
-
-	private Map<String, Set<String>> createFilter(List<Pet> petsList, String sessionLocale) {
-		Map<String, Set<String>> filterMap = new LinkedHashMap<>();
-		if (sessionLocale.equals(RUSSIAN)) {
-			filterMap.put(CHOOSE_TYPE_PET_RUS, createFilterBySpeciePets(petsList));
-			filterMap.put(CHOOSE_BREED_PET_RUS, createFilterByBreedPets(petsList));
-			if (isHavingDiscountProducts(petsList)) {
-				filterMap.put(CHOOSE_VALUE_DISCOUNT_RUS, createFilterByPromotionsProductsPets(petsList, sessionLocale));
-			}
-		} else if (sessionLocale.equals(ENGLISH)) {
-			filterMap.put(CHOOSE_TYPE_PET_EN, createFilterBySpeciePets(petsList));
-			filterMap.put(CHOOSE_BREED_PET_EN, createFilterByBreedPets(petsList));
-			if (isHavingDiscountProducts(petsList)) {
-				filterMap.put(CHOOSE_VALUE_DISCOUNT_EN, createFilterByPromotionsProductsPets(petsList, sessionLocale));
-			}
-		}
-		return filterMap;
-	}
-
-	private Set<String> createFilterBySpeciePets(List<Pet> petsList) {
-		Set<String> speciesPetsSet = new HashSet<>();
-		petsList.forEach(pet -> speciesPetsSet.add(pet.getSpecie()));
-		return speciesPetsSet;
-	}
-
-	private Set<String> createFilterByBreedPets(List<Pet> petsList) {
-		Set<String> breedsPetsSet = new HashSet<>();
-		petsList.forEach(pet -> breedsPetsSet.add(pet.getBreed()));
-		return breedsPetsSet;
-	}
-
-	private Set<String> createFilterByPromotionsProductsPets(List<Pet> petsList, String sessionLocale) {
-		Set<String> promotionsPetsSet = null;
-		if (isHavingDiscountProducts(petsList)) {
-			promotionsPetsSet = new HashSet<>();
-			if (sessionLocale.equals(RUSSIAN)) {
-				promotionsPetsSet.add(CHECK_BOX_CHOOSE_ONLY_PRODUCTS_WITH_DISCOUNT_EN);
-			} else if (sessionLocale.equals(ENGLISH)) {
-				promotionsPetsSet.add(CHECK_BOX_CHOOSE_ONLY_PRODUCTS_WITH_DISCOUNT_RU);
-			}
-		}
-		return promotionsPetsSet;
-	}
-
-	private boolean isHavingDiscountProducts(List<Pet> petsList) {
-		boolean isHavingDiscount = false;
-		for (Pet pet : petsList) {
-			if (pet.getDiscount() > 0) {
-				isHavingDiscount = true;
-			}
-		}
-		return isHavingDiscount;
 	}
 }

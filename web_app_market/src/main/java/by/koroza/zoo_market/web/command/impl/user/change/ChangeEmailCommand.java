@@ -18,13 +18,17 @@ import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.confirmation.ConfirmationServiceImpl;
 import by.koroza.zoo_market.service.impl.generator.GenerationConfirmationEmailCodeImpl;
 import by.koroza.zoo_market.service.impl.sender.EmailSenderImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
-import by.koroza.zoo_market.service.validation.impl.UserValidation;
+import by.koroza.zoo_market.service.validation.impl.user.UserValidationImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
@@ -33,6 +37,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public class ChangeEmailCommand implements Command {
+	private static Logger log = LogManager.getLogger();
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
@@ -60,6 +65,7 @@ public class ChangeEmailCommand implements Command {
 				router = new Router(HOME_PAGE_PATH);
 			}
 		} catch (ServiceException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
 		isRegistratedUser(request);
@@ -69,10 +75,12 @@ public class ChangeEmailCommand implements Command {
 	private String getEmailParameter(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String userEmail = request.getParameter(REGISTRATION_INPUT_USER_EMAIL);
-		if (!UserValidation.validEmail(userEmail)) {
+		if (!UserValidationImpl.getInstance().validEmail(userEmail)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_EMAIL, RU_MESSAGE_TYPY_INPUT_EXCEPTION_EMAIL + userEmail);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_EMAIL, EN_MESSAGE_TYPY_INPUT_EXCEPTION_EMAIL + userEmail);
+			} else {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_EMAIL, EN_MESSAGE_TYPY_INPUT_EXCEPTION_EMAIL + userEmail);
 			}
 		}

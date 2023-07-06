@@ -19,13 +19,16 @@ import static by.koroza.zoo_market.web.command.name.path.PagePathName.PERSONAL_A
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
+import by.koroza.zoo_market.service.exception.ValidationException;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
-import by.koroza.zoo_market.service.validation.impl.UserValidation;
+import by.koroza.zoo_market.service.validation.UserValidation;
+import by.koroza.zoo_market.service.validation.impl.user.UserValidationImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
@@ -34,8 +37,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public class ChangeLoginCommand implements Command {
-	@SuppressWarnings("unused")
-	private static final Logger log = LogManager.getLogger();
+	private static Logger log = LogManager.getLogger();
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
@@ -63,7 +65,8 @@ public class ChangeLoginCommand implements Command {
 			} else {
 				router = new Router(HOME_PAGE_PATH);
 			}
-		} catch (ServiceException e) {
+		} catch (ValidationException | ServiceException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
 		isRegistratedUser(request);
@@ -71,24 +74,31 @@ public class ChangeLoginCommand implements Command {
 	}
 
 	private String getInputParameterLogin(HttpServletRequest request, Map<String, String> mapInputExceptions, User user)
-			throws ServiceException {
+			throws ValidationException {
 		String login = (String) request.getParameter(CHANGING_LOGIN_INPUT_USER_LOGIN);
 		String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
+		UserValidation validator = UserValidationImpl.getInstance();
 		if (user.getLogin() != null ? !user.getLogin().equals(login) : user.getLogin() == null && login != null) {
-			if (!UserValidation.validLogin(login)) {
+			if (!validator.validLogin(login)) {
 				if (sessionLocale.equals(RUSSIAN)) {
 					mapInputExceptions.put(TYPY_INPUT_EXCEPTION_LOGIN,
 							RU_MESSAGE_TYPY_INPUT_EXCEPTION_LOGIN_INCORRECT + login);
 				} else if (sessionLocale.equals(ENGLISH)) {
 					mapInputExceptions.put(TYPY_INPUT_EXCEPTION_LOGIN,
 							EN_MESSAGE_TYPY_INPUT_EXCEPTION_LOGIN_INCORRECT + login);
+				} else {
+					mapInputExceptions.put(TYPY_INPUT_EXCEPTION_LOGIN,
+							EN_MESSAGE_TYPY_INPUT_EXCEPTION_LOGIN_INCORRECT + login);
 				}
 			} else {
-				if (UserValidation.isRepeatUserLogin(login)) {
+				if (validator.isRepeatUserLogin(login)) {
 					if (sessionLocale.equals(RUSSIAN)) {
 						mapInputExceptions.put(TYPY_INPUT_EXCEPTION_LOGIN,
 								RU_MESSAGE_TYPY_INPUT_EXCEPTION_LOGIN_EXISTS + login);
 					} else if (sessionLocale.equals(ENGLISH)) {
+						mapInputExceptions.put(TYPY_INPUT_EXCEPTION_LOGIN,
+								EN_MESSAGE_TYPY_INPUT_EXCEPTION_LOGIN_EXISTS + login);
+					} else {
 						mapInputExceptions.put(TYPY_INPUT_EXCEPTION_LOGIN,
 								EN_MESSAGE_TYPY_INPUT_EXCEPTION_LOGIN_EXISTS + login);
 					}

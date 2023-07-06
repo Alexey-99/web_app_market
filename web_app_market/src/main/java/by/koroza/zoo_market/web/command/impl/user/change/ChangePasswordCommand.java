@@ -17,6 +17,7 @@ import static by.koroza.zoo_market.web.command.name.path.PagePathName.PERSONAL_A
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,7 +25,7 @@ import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.hash.HashGeneratorImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
-import by.koroza.zoo_market.service.validation.impl.UserValidation;
+import by.koroza.zoo_market.service.validation.impl.user.UserValidationImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
@@ -33,7 +34,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public class ChangePasswordCommand implements Command {
-	@SuppressWarnings("unused")
 	private static final Logger log = LogManager.getLogger();
 
 	@Override
@@ -65,6 +65,7 @@ public class ChangePasswordCommand implements Command {
 				router = new Router(HOME_PAGE_PATH);
 			}
 		} catch (ServiceException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
 		isRegistratedUser(request);
@@ -77,11 +78,14 @@ public class ChangePasswordCommand implements Command {
 		String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
 		if (user.getPassword() != null ? !user.getPassword().equals(HashGeneratorImpl.getInstance().getHash(password))
 				: user.getPassword() == null && password != null) {
-			if (!UserValidation.validPassword(password)) {
+			if (!UserValidationImpl.getInstance().validPassword(password)) {
 				if (sessionLocale.equals(RUSSIAN)) {
 					mapInputExceptions.put(TYPY_INPUT_EXCEPTION_PASSWORD,
 							RU_MESSAGE_TYPY_INPUT_EXCEPTION_PASSWORD + password);
 				} else if (sessionLocale.equals(ENGLISH)) {
+					mapInputExceptions.put(TYPY_INPUT_EXCEPTION_PASSWORD,
+							EN_MESSAGE_TYPY_INPUT_EXCEPTION_PASSWORD + password);
+				} else {
 					mapInputExceptions.put(TYPY_INPUT_EXCEPTION_PASSWORD,
 							EN_MESSAGE_TYPY_INPUT_EXCEPTION_PASSWORD + password);
 				}

@@ -30,8 +30,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import by.koroza.zoo_market.model.entity.user.User;
-import by.koroza.zoo_market.service.exception.ServiceException;
-import by.koroza.zoo_market.service.validation.impl.UserValidation;
+import by.koroza.zoo_market.service.exception.ValidationException;
+import by.koroza.zoo_market.service.validation.impl.user.UserValidationImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
@@ -50,7 +50,7 @@ public class RegistrationUserCommand implements Command {
 			User user = getUserFromInputParameters(request, mapInputExceptions);
 			session.setAttribute(ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE, mapInputExceptions);
 			session.setAttribute(ATTRIBUTE_USER, user);
-		} catch (ServiceException e) {
+		} catch (ValidationException e) {
 			throw new CommandException(e);
 		}
 		isRegistratedUser(request);
@@ -60,7 +60,7 @@ public class RegistrationUserCommand implements Command {
 	}
 
 	private User getUserFromInputParameters(HttpServletRequest request, Map<String, String> mapInputExceptions)
-			throws ServiceException {
+			throws ValidationException {
 		HttpSession session = request.getSession();
 		User user = session.getAttribute(ATTRIBUTE_USER) != null ? (User) session.getAttribute(ATTRIBUTE_USER)
 				: new User();
@@ -70,7 +70,7 @@ public class RegistrationUserCommand implements Command {
 	}
 
 	private User createUser(HttpServletRequest request, Map<String, String> mapInputExceptions, String sessionLocale,
-			User user) throws ServiceException {
+			User user) throws ValidationException {
 		String userName = getInputParameterName(request);
 		if (!mapInputExceptions.containsKey(TYPY_INPUT_EXCEPTION_NAME)) {
 			user.setName(userName);
@@ -111,10 +111,12 @@ public class RegistrationUserCommand implements Command {
 	private String getInputParameterEmail(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String userEmail = request.getParameter(REGISTRATION_INPUT_USER_EMAIL);
-		if (!UserValidation.validEmail(userEmail)) {
+		if (!UserValidationImpl.getInstance().validEmail(userEmail)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_EMAIL, RU_MESSAGE_TYPY_INPUT_EXCEPTION_EMAIL + userEmail);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_EMAIL, EN_MESSAGE_TYPY_INPUT_EXCEPTION_EMAIL + userEmail);
+			} else {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_EMAIL, EN_MESSAGE_TYPY_INPUT_EXCEPTION_EMAIL + userEmail);
 			}
 		}
@@ -122,22 +124,28 @@ public class RegistrationUserCommand implements Command {
 	}
 
 	private String getInputParameterLogin(HttpServletRequest request, String sessionLocale,
-			Map<String, String> mapInputExceptions) throws ServiceException {
+			Map<String, String> mapInputExceptions) throws ValidationException {
 		String userLogin = request.getParameter(REGISTRATION_INPUT_USER_LOGIN);
-		if (!UserValidation.validLogin(userLogin)) {
+		if (!UserValidationImpl.getInstance().validLogin(userLogin)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_LOGIN,
 						RU_MESSAGE_TYPY_INPUT_EXCEPTION_LOGIN_INCORRECT + userLogin);
 			} else if (sessionLocale.equals(ENGLISH)) {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_LOGIN,
 						EN_MESSAGE_TYPY_INPUT_EXCEPTION_LOGIN_INCORRECT + userLogin);
+			} else {
+				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_LOGIN,
+						EN_MESSAGE_TYPY_INPUT_EXCEPTION_LOGIN_INCORRECT + userLogin);
 			}
 		} else {
-			if (UserValidation.isRepeatUserLogin(userLogin)) {
+			if (UserValidationImpl.getInstance().isRepeatUserLogin(userLogin)) {
 				if (sessionLocale.equals(RUSSIAN)) {
 					mapInputExceptions.put(TYPY_INPUT_EXCEPTION_LOGIN,
 							RU_MESSAGE_TYPY_INPUT_EXCEPTION_LOGIN_EXISTS + userLogin);
 				} else if (sessionLocale.equals(ENGLISH)) {
+					mapInputExceptions.put(TYPY_INPUT_EXCEPTION_LOGIN,
+							EN_MESSAGE_TYPY_INPUT_EXCEPTION_LOGIN_EXISTS + userLogin);
+				} else {
 					mapInputExceptions.put(TYPY_INPUT_EXCEPTION_LOGIN,
 							EN_MESSAGE_TYPY_INPUT_EXCEPTION_LOGIN_EXISTS + userLogin);
 				}
@@ -149,11 +157,14 @@ public class RegistrationUserCommand implements Command {
 	private String getInputParameterPassword(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String userPassword = request.getParameter(REGISTRATION_INPUT_USER_PASSWORD);
-		if (!UserValidation.validPassword(userPassword)) {
+		if (!UserValidationImpl.getInstance().validPassword(userPassword)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_PASSWORD,
 						RU_MESSAGE_TYPY_INPUT_EXCEPTION_PASSWORD + userPassword);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_PASSWORD,
+						EN_MESSAGE_TYPY_INPUT_EXCEPTION_PASSWORD + userPassword);
+			} else {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_PASSWORD,
 						EN_MESSAGE_TYPY_INPUT_EXCEPTION_PASSWORD + userPassword);
 			}

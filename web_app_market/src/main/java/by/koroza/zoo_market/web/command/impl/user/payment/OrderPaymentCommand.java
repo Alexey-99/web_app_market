@@ -40,11 +40,12 @@ import by.koroza.zoo_market.model.entity.bank.BankCard;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
+import by.koroza.zoo_market.service.exception.ValidationException;
 import by.koroza.zoo_market.service.impl.order.OrderServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
-import by.koroza.zoo_market.service.validation.impl.BankCardValidation;
+import by.koroza.zoo_market.service.validation.impl.bank.BankCardValidationImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
@@ -85,7 +86,7 @@ public class OrderPaymentCommand implements Command {
 			} else {
 				router = new Router(HOME_PAGE_PATH);
 			}
-		} catch (ServiceException e) {
+		} catch (ServiceException | ValidationException e) {
 			throw new CommandException(e);
 		}
 		isRegistratedUser(request);
@@ -108,11 +109,14 @@ public class OrderPaymentCommand implements Command {
 	private String getInputParameterNumberBankCard(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String numberBankCard = request.getParameter(PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_NUMBER_BANK_CARD);
-		if (!BankCardValidation.validNumberBankCard(numberBankCard)) {
+		if (!BankCardValidationImpl.getInstance().validNumberBankCard(numberBankCard)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_NUMBER_BANK_CARD,
 						RU_MESSAGE_TYPY_INPUT_EXCEPTION_NUMBER_BANK_CARD + numberBankCard);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_NUMBER_BANK_CARD,
+						EN_MESSAGE_TYPY_INPUT_EXCEPTION_NUMBER_BANK_CARD + numberBankCard);
+			} else {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_NUMBER_BANK_CARD,
 						EN_MESSAGE_TYPY_INPUT_EXCEPTION_NUMBER_BANK_CARD + numberBankCard);
 			}
@@ -124,12 +128,16 @@ public class OrderPaymentCommand implements Command {
 			Map<String, String> mapInputExceptions) {
 		String month = request.getParameter(PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_MONTH);
 		String yaer = request.getParameter(PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_YEAR);
-		if (!BankCardValidation.validMonthAndYear(month, yaer)) {
+		if (!BankCardValidationImpl.getInstance().validMonthAndYear(month, yaer)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_MONTH_YEAR,
 						RU_MESSAGE_TYPY_INPUT_EXCEPTION_MONTH_YEAR_PART_ONE + month
 								+ RU_MESSAGE_TYPY_INPUT_EXCEPTION_MONTH_YEAR_PART_TWO + yaer);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_MONTH_YEAR,
+						EN_MESSAGE_TYPY_INPUT_EXCEPTION_MONTH_YEAR_PART_ONE + month
+								+ EN_MESSAGE_TYPY_INPUT_EXCEPTION_MONTH_YEAR_PART_TWO + yaer);
+			} else {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_MONTH_YEAR,
 						EN_MESSAGE_TYPY_INPUT_EXCEPTION_MONTH_YEAR_PART_ONE + month
 								+ EN_MESSAGE_TYPY_INPUT_EXCEPTION_MONTH_YEAR_PART_TWO + yaer);
@@ -141,10 +149,12 @@ public class OrderPaymentCommand implements Command {
 	private String getInputParameterCVC(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String cvc = request.getParameter(PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_CVC);
-		if (!BankCardValidation.validCVC(cvc)) {
+		if (!BankCardValidationImpl.getInstance().validCVC(cvc)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_CVC, RU_MESSAGE_TYPY_INPUT_EXCEPTION_CVC + cvc);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_CVC, EN_MESSAGE_TYPY_INPUT_EXCEPTION_CVC + cvc);
+			} else {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_CVC, EN_MESSAGE_TYPY_INPUT_EXCEPTION_CVC + cvc);
 			}
 		}
@@ -152,7 +162,7 @@ public class OrderPaymentCommand implements Command {
 	}
 
 	private boolean validationBankCard(Map<String, String> mapInputExceptions, String sessionLocale, BankCard bankCard,
-			Order order) throws ServiceException {
+			Order order) throws ValidationException {
 		return bankCard != null
 				? isExistsBankCard(mapInputExceptions, sessionLocale, bankCard) && validSumBankCard(mapInputExceptions,
 						sessionLocale, bankCard, order.getTotalPaymentWithDiscountAmount())
@@ -160,13 +170,15 @@ public class OrderPaymentCommand implements Command {
 	}
 
 	private boolean isExistsBankCard(Map<String, String> mapInputExceptions, String sessionLocale, BankCard bankCard)
-			throws ServiceException {
+			throws ValidationException {
 		boolean result = false;
 		if (mapInputExceptions.isEmpty() && bankCard != null) {
-			if (!BankCardValidation.isExistsBankCard(bankCard)) {
+			if (!BankCardValidationImpl.getInstance().isExistsBankCard(bankCard)) {
 				if (sessionLocale.equals(RUSSIAN)) {
 					mapInputExceptions.put(TYPY_EXCEPTION_BANK_CARD, RU_MESSAGE_TYPY_EXCEPTION_BANK_CARD);
 				} else if (sessionLocale.equals(ENGLISH)) {
+					mapInputExceptions.put(TYPY_EXCEPTION_BANK_CARD, EN_MESSAGE_TYPY_EXCEPTION_BANK_CARD);
+				} else {
 					mapInputExceptions.put(TYPY_EXCEPTION_BANK_CARD, EN_MESSAGE_TYPY_EXCEPTION_BANK_CARD);
 				}
 			} else {
@@ -177,12 +189,14 @@ public class OrderPaymentCommand implements Command {
 	}
 
 	private boolean validSumBankCard(Map<String, String> mapInputExceptions, String sessionLocale, BankCard bankCard,
-			double totalPaymentWithDiscountAmount) throws ServiceException {
+			double totalPaymentWithDiscountAmount) throws ValidationException {
 		boolean result = false;
-		if (!BankCardValidation.validSum(bankCard, totalPaymentWithDiscountAmount)) {
+		if (!BankCardValidationImpl.getInstance().validSum(bankCard, totalPaymentWithDiscountAmount)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPY_EXCEPTION_SUM, RU_MESSAGE_TYPY_EXCEPTION_SUM);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPY_EXCEPTION_SUM, EN_MESSAGE_TYPY_EXCEPTION_SUM);
+			} else {
 				mapInputExceptions.put(TYPY_EXCEPTION_SUM, EN_MESSAGE_TYPY_EXCEPTION_SUM);
 			}
 		} else {

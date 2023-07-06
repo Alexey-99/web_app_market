@@ -78,6 +78,9 @@ public class ChangeUserStatusCommand implements Command {
 			} else if (sessionLocale.equals(ENGLISH)) {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_LOGIN,
 						EN_MESSAGE_TYPY_INPUT_EXCEPTION_USER_WITH_LOGIN_NOT_EXISTS + login);
+			} else {
+				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_LOGIN,
+						EN_MESSAGE_TYPY_INPUT_EXCEPTION_USER_WITH_LOGIN_NOT_EXISTS + login);
 			}
 		}
 		return login;
@@ -91,6 +94,8 @@ public class ChangeUserStatusCommand implements Command {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_USER_ROLE, RU_MESSAGE_TYPY_INPUT_EXCEPTION_USER_ROLE);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_USER_ROLE, EN_MESSAGE_TYPY_INPUT_EXCEPTION_USER_ROLE);
+			} else {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_USER_ROLE, EN_MESSAGE_TYPY_INPUT_EXCEPTION_USER_ROLE);
 			}
 		}

@@ -21,6 +21,7 @@ import static by.koroza.zoo_market.web.command.name.path.PagePathName.PERSONAL_A
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,7 +31,7 @@ import by.koroza.zoo_market.service.impl.confirmation.ConfirmationServiceImpl;
 import by.koroza.zoo_market.service.impl.generator.GenerationConfirmationEmailCodeImpl;
 import by.koroza.zoo_market.service.impl.sender.EmailSenderImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
-import by.koroza.zoo_market.service.validation.impl.UserValidation;
+import by.koroza.zoo_market.service.validation.impl.user.UserValidationImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
@@ -39,7 +40,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public class ChangePersonInformationCommand implements Command {
-	@SuppressWarnings("unused")
 	private static final Logger log = LogManager.getLogger();
 
 	@Override
@@ -55,7 +55,6 @@ public class ChangePersonInformationCommand implements Command {
 				String name = getInputParameterName(request);
 				String surname = getInputParameterSurName(request);
 				String email = getInputParameterEmail(request, sessionLocale, mapInputExceptions);
-
 				if (mapInputExceptions.isEmpty()) {
 					if ((user.getEmail() != null ? !user.getEmail().equals(email)
 							: user.getEmail() == null && email != null)
@@ -87,6 +86,7 @@ public class ChangePersonInformationCommand implements Command {
 				router = new Router(HOME_PAGE_PATH);
 			}
 		} catch (ServiceException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
 		isRegistratedUser(request);
@@ -106,10 +106,12 @@ public class ChangePersonInformationCommand implements Command {
 	private String getInputParameterEmail(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String email = (String) request.getParameter(CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_EMAIL);
-		if (!UserValidation.validEmail(email)) {
+		if (!UserValidationImpl.getInstance().validEmail(email)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_EMAIL, RU_MESSAGE_TYPY_INPUT_EXCEPTION_EMAIL + email);
 			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_EMAIL, EN_MESSAGE_TYPY_INPUT_EXCEPTION_EMAIL + email);
+			} else {
 				mapInputExceptions.put(TYPY_INPUT_EXCEPTION_EMAIL, EN_MESSAGE_TYPY_INPUT_EXCEPTION_EMAIL + email);
 			}
 		}

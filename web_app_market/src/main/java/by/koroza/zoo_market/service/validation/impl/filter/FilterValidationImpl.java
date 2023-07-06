@@ -1,6 +1,9 @@
-package by.koroza.zoo_market.service.validation.impl;
+package by.koroza.zoo_market.service.validation.impl.filter;
 
-public class FilterValidation {
+import by.koroza.zoo_market.service.validation.FilterValidation;
+
+public final class FilterValidationImpl implements FilterValidation {
+	private static final FilterValidation INSTANCE = new FilterValidationImpl();
 	private static final String REG_EX_INPUT_VALUE_DOUBLE = "(\\d+(\\.\\d+)?)";
 	private static final String REG_EX_INPUT_VALUE_INT = "\\d+";
 
@@ -9,7 +12,15 @@ public class FilterValidation {
 	private static final int MAX_NUMBER_MONTH = 12;
 	private static final int MIN_NUMBER_MONTH = 0;
 
-	public static boolean validInputValuesNumbersDiscount(String min, String max) {
+	private FilterValidationImpl() {
+	}
+
+	public static FilterValidation getInstance() {
+		return INSTANCE;
+	}
+
+	@Override
+	public boolean validInputValuesNumbersDiscount(String min, String max) {
 		return validMaxMinNotNull(min, max)
 				? ((isDigitsNumberDouble(min) && isDigitsNumberDouble(max)) ? (validMaxMoreMinValue(min, max)
 						? (validCorrectMaxValueDiscount(max) && validCorrectMaxValueDiscount(min) ? true : false)
@@ -17,23 +28,26 @@ public class FilterValidation {
 				: false;
 	}
 
-	public static boolean validInputValuesNumberDiscount(String discount) {
+	@Override
+	public boolean validInputValueNumberDiscount(String discount) {
 		return discount != null ? (isDigitsNumberDouble(discount) ? validCorrectMaxValueDiscount(discount) : false)
 				: false;
 	}
 
-	public static boolean validInputValuesNumbersPrice(String min, String max) {
+	@Override
+	public boolean validInputValuesNumbersPrice(String min, String max) {
 		return validMaxMinNotNull(min, max) ? ((isDigitsNumberDouble(min) && isDigitsNumberDouble(max))
 				? (validMaxMoreMinValue(min, max) ? true : false)
 				: false) : false;
 	}
 
-	public static boolean validInputValuesNumberPrice(String price) {
+	@Override
+	public boolean validInputValueNumberPrice(String price) {
 		return price != null ? isDigitsNumberDouble(price) : false;
 	}
 
-	public static boolean validInputValuesNumbersYearMonth(String minYear, String maxYear, String minMonth,
-			String maxMonth) {
+	@Override
+	public boolean validInputValuesNumbersYearMonth(String minYear, String maxYear, String minMonth, String maxMonth) {
 		String minYearCor = minYear != null && !minYear.isBlank() ? minYear : MIN_VALUE_ZERO;
 		String minMonthCor = minMonth != null && !minMonth.isBlank()
 				? (minMonth.length() < 2 ? MIN_VALUE_ZERO + minMonth : minMonth)

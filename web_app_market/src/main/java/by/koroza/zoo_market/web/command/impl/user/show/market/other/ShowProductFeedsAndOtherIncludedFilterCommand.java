@@ -23,16 +23,6 @@ import static by.koroza.zoo_market.web.command.name.exception.MessageInputExcept
 import static by.koroza.zoo_market.web.command.name.exception.MessageInputException.RU_MESSAGE_TYPE_INPUT_EXCEPTION_PRICE_FILTER_MIN_OR_MAX_PART_TWO;
 import static by.koroza.zoo_market.web.command.name.exception.TypeInputExeception.TYPE_INPUT_EXCEPTION_DISCOUNT;
 import static by.koroza.zoo_market.web.command.name.exception.TypeInputExeception.TYPE_INPUT_EXCEPTION_PRICE;
-import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHECK_BOX_CHOOSE_ONLY_PRODUCTS_WITH_DISCOUNT_EN;
-import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHECK_BOX_CHOOSE_ONLY_PRODUCTS_WITH_DISCOUNT_RU;
-import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_BRAND_PRODUCT_EN;
-import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_BRAND_PRODUCT_RUS;
-import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_TYPE_PET_EN;
-import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_TYPE_PET_RUS;
-import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_TYPE_PRODUCT_EN;
-import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_TYPE_PRODUCT_RUS;
-import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_VALUE_DISCOUNT_EN;
-import static by.koroza.zoo_market.web.command.name.filter.FilterName.CHOOSE_VALUE_DISCOUNT_RUS;
 import static by.koroza.zoo_market.web.command.name.input.InputName.INPUT_MAX_PRICE_PET;
 import static by.koroza.zoo_market.web.command.name.input.InputName.INPUT_MAX_PROCENT_PROMOTIONS;
 import static by.koroza.zoo_market.web.command.name.input.InputName.INPUT_MIN_PRICE_PET;
@@ -46,7 +36,6 @@ import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIA
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.PRODUCTS_FEED_AND_OTHER_PAGE_PATH;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -54,8 +43,11 @@ import java.util.Set;
 import by.koroza.zoo_market.model.entity.filter.FilterFeedsAndOther;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.service.exception.ServiceException;
+import by.koroza.zoo_market.service.factory.MarketFilterProductFactory;
+import by.koroza.zoo_market.service.factory.impl.MarketFilterProductFactoryImpl;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
-import by.koroza.zoo_market.service.validation.impl.FilterValidation;
+import by.koroza.zoo_market.service.validation.FilterValidation;
+import by.koroza.zoo_market.service.validation.impl.filter.FilterValidationImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
@@ -75,6 +67,7 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 			Map<String, String> mapInputExceptions = new HashMap<>();
 			String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
 			FilterFeedsAndOther filterFeedsAndOther = getInputParameters(request, sessionLocale, mapInputExceptions);
+			MarketFilterProductFactory filterFactory = MarketFilterProductFactoryImpl.getInstance();
 			if (mapInputExceptions.isEmpty()) {
 				productsByFilter = ProductFeedsAndOtherServiceImpl.getInstance()
 						.getProductsFeedAndOtherByFilter(filterFeedsAndOther);
@@ -82,7 +75,8 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 				if (session.getAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP) == null) {
 					List<FeedAndOther> allProductsFeedAndOther = ProductFeedsAndOtherServiceImpl.getInstance()
 							.getAllProductsFeedsAndOther();
-					Map<String, Set<String>> filterMap = createFilter(allProductsFeedAndOther, sessionLocale);
+					Map<String, Set<String>> filterMap = filterFactory.createFilterFeedAndOther(allProductsFeedAndOther,
+							sessionLocale);
 					session.setAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP, filterMap);
 				}
 				session.setAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER, filterFeedsAndOther);
@@ -93,7 +87,8 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 						.getAllProductsFeedsAndOther();
 				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_FEEDS_AND_OTHER, allProductsFeedAndOther);
 				if (session.getAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP) == null) {
-					Map<String, Set<String>> filterMap = createFilter(allProductsFeedAndOther, sessionLocale);
+					Map<String, Set<String>> filterMap = filterFactory.createFilterFeedAndOther(allProductsFeedAndOther,
+							sessionLocale);
 					session.setAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP, filterMap);
 				}
 			}
@@ -150,10 +145,11 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 
 	private String[] getInputParametersMinMaxDiscount(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
+		FilterValidation validator = FilterValidationImpl.getInstance();
 		String minDiscount = request.getParameter(INPUT_MIN_PROCENT_PROMOTIONS);
 		String maxDiscount = request.getParameter(INPUT_MAX_PROCENT_PROMOTIONS);
 		if (minDiscount != null && maxDiscount != null) {
-			if (!FilterValidation.validInputValuesNumbersDiscount(minDiscount, maxDiscount)) {
+			if (!validator.validInputValuesNumbersDiscount(minDiscount, maxDiscount)) {
 				if (sessionLocale.equals(RUSSIAN)) {
 					mapInputExceptions.put(TYPE_INPUT_EXCEPTION_DISCOUNT,
 							RU_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FILTER_MIN_OR_MAX_PART_ONE + minDiscount
@@ -164,25 +160,36 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 							EN_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FILTER_MIN_OR_MAX_PART_ONE + minDiscount
 									+ EN_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FILTER_MIN_OR_MAX_PART_TWO
 									+ maxDiscount);
+				} else {
+					mapInputExceptions.put(TYPE_INPUT_EXCEPTION_DISCOUNT,
+							EN_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FILTER_MIN_OR_MAX_PART_ONE + minDiscount
+									+ EN_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FILTER_MIN_OR_MAX_PART_TWO
+									+ maxDiscount);
 				}
 			}
 		} else {
 			if (minDiscount != null) {
-				if (!FilterValidation.validInputValuesNumberDiscount(minDiscount)) {
+				if (!validator.validInputValueNumberDiscount(minDiscount)) {
 					if (sessionLocale.equals(RUSSIAN)) {
 						mapInputExceptions.put(TYPE_INPUT_EXCEPTION_DISCOUNT,
 								RU_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FILTER_MIN + minDiscount);
 					} else if (sessionLocale.equals(ENGLISH)) {
 						mapInputExceptions.put(TYPE_INPUT_EXCEPTION_DISCOUNT,
 								EN_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FILTER_MIN + minDiscount);
+					} else {
+						mapInputExceptions.put(TYPE_INPUT_EXCEPTION_DISCOUNT,
+								EN_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FILTER_MIN + minDiscount);
 					}
 				}
 			} else if (maxDiscount != null) {
-				if (!FilterValidation.validInputValuesNumberDiscount(maxDiscount)) {
+				if (!validator.validInputValueNumberDiscount(maxDiscount)) {
 					if (sessionLocale.equals(RUSSIAN)) {
 						mapInputExceptions.put(TYPE_INPUT_EXCEPTION_DISCOUNT,
 								RU_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FILTER_MAX + maxDiscount);
 					} else if (sessionLocale.equals(ENGLISH)) {
+						mapInputExceptions.put(TYPE_INPUT_EXCEPTION_DISCOUNT,
+								EN_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FILTER_MAX + maxDiscount);
+					} else {
 						mapInputExceptions.put(TYPE_INPUT_EXCEPTION_DISCOUNT,
 								EN_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FILTER_MAX + maxDiscount);
 					}
@@ -194,10 +201,11 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 
 	private String[] getInputParametersMinMaxPrice(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
+		FilterValidation validator = FilterValidationImpl.getInstance();
 		String minPrice = request.getParameter(INPUT_MIN_PRICE_PET);
 		String maxPrice = request.getParameter(INPUT_MAX_PRICE_PET);
 		if (minPrice != null && maxPrice != null) {
-			if (!FilterValidation.validInputValuesNumbersPrice(minPrice, maxPrice)) {
+			if (!validator.validInputValuesNumbersPrice(minPrice, maxPrice)) {
 				if (sessionLocale.equals(RUSSIAN)) {
 					mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PRICE,
 							RU_MESSAGE_TYPE_INPUT_EXCEPTION_PRICE_FILTER_MIN_OR_MAX_PART_ONE + minPrice
@@ -206,25 +214,35 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 					mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PRICE,
 							EN_MESSAGE_TYPE_INPUT_EXCEPTION_PRICE_FILTER_MIN_OR_MAX_PART_ONE + minPrice
 									+ EN_MESSAGE_TYPE_INPUT_EXCEPTION_PRICE_FILTER_MIN_OR_MAX_PART_TWO + maxPrice);
+				} else {
+					mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PRICE,
+							EN_MESSAGE_TYPE_INPUT_EXCEPTION_PRICE_FILTER_MIN_OR_MAX_PART_ONE + minPrice
+									+ EN_MESSAGE_TYPE_INPUT_EXCEPTION_PRICE_FILTER_MIN_OR_MAX_PART_TWO + maxPrice);
 				}
 			}
 		} else {
 			if (minPrice != null) {
-				if (!FilterValidation.validInputValuesNumberPrice(minPrice)) {
+				if (!validator.validInputValueNumberPrice(minPrice)) {
 					if (sessionLocale.equals(RUSSIAN)) {
 						mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PRICE,
 								RU_MESSAGE_TYPE_INPUT_EXCEPTION_PRICE_FILTER_MIN + minPrice);
 					} else if (sessionLocale.equals(ENGLISH)) {
 						mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PRICE,
 								EN_MESSAGE_TYPE_INPUT_EXCEPTION_PRICE_FILTER_MIN + minPrice);
+					} else {
+						mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PRICE,
+								EN_MESSAGE_TYPE_INPUT_EXCEPTION_PRICE_FILTER_MIN + minPrice);
 					}
 				}
 			} else if (maxPrice != null) {
-				if (!FilterValidation.validInputValuesNumberPrice(maxPrice)) {
+				if (!validator.validInputValueNumberPrice(maxPrice)) {
 					if (sessionLocale.equals(RUSSIAN)) {
 						mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PRICE,
 								RU_MESSAGE_TYPE_INPUT_EXCEPTION_PRICE_FILTER_MAX + maxPrice);
 					} else if (sessionLocale.equals(ENGLISH)) {
+						mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PRICE,
+								EN_MESSAGE_TYPE_INPUT_EXCEPTION_PRICE_FILTER_MAX + maxPrice);
+					} else {
 						mapInputExceptions.put(TYPE_INPUT_EXCEPTION_PRICE,
 								EN_MESSAGE_TYPE_INPUT_EXCEPTION_PRICE_FILTER_MAX + maxPrice);
 					}
@@ -232,84 +250,5 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 			}
 		}
 		return new String[] { minPrice, maxPrice };
-	}
-
-	private Map<String, Set<String>> createFilter(List<FeedAndOther> products, String sessionLocale) {
-		Map<String, Set<String>> filterMap = new HashMap<>();
-		if (sessionLocale.equals(RUSSIAN)) {
-			Set<String> typesProductsSet = createFilterByTypeProduct(products);
-			if (typesProductsSet.size() > 0) {
-				filterMap.put(CHOOSE_TYPE_PRODUCT_RUS, typesProductsSet);
-			}
-			Set<String> brandsProductsSet = createFilterByBrandProducts(products);
-			if (brandsProductsSet.size() > 0) {
-				filterMap.put(CHOOSE_BRAND_PRODUCT_RUS, brandsProductsSet);
-			}
-			if (isHavingDiscountProducts(products)) {
-				filterMap.put(CHOOSE_VALUE_DISCOUNT_RUS, createFilterByDiscountProducts(products, sessionLocale));
-			}
-			Set<String> typesPetsSet = createFilterByTypePet(products);
-			if (typesPetsSet.size() > 0) {
-				filterMap.put(CHOOSE_TYPE_PET_RUS, typesPetsSet);
-			}
-		} else if (sessionLocale.equals(ENGLISH)) {
-			Set<String> typesProductsSet = createFilterByTypeProduct(products);
-			if (typesProductsSet.size() > 0) {
-				filterMap.put(CHOOSE_TYPE_PRODUCT_EN, typesProductsSet);
-			}
-			Set<String> brandsProductsSet = createFilterByBrandProducts(products);
-			if (brandsProductsSet.size() > 0) {
-				filterMap.put(CHOOSE_BRAND_PRODUCT_EN, brandsProductsSet);
-			}
-			if (isHavingDiscountProducts(products)) {
-				filterMap.put(CHOOSE_VALUE_DISCOUNT_EN, createFilterByDiscountProducts(products, sessionLocale));
-			}
-			Set<String> typesPetsSet = createFilterByTypePet(products);
-			if (typesPetsSet.size() > 0) {
-				filterMap.put(CHOOSE_TYPE_PET_EN, typesPetsSet);
-			}
-		}
-		return filterMap;
-	}
-
-	private Set<String> createFilterByTypeProduct(List<FeedAndOther> products) {
-		Set<String> typesProductsSet = new HashSet<>();
-		products.forEach(product -> typesProductsSet.add(product.getProductType()));
-		return typesProductsSet;
-	}
-
-	private Set<String> createFilterByBrandProducts(List<FeedAndOther> products) {
-		Set<String> brandsProductsSet = new HashSet<>();
-		products.forEach(product -> brandsProductsSet.add(product.getBrand()));
-		return brandsProductsSet;
-	}
-
-	private Set<String> createFilterByDiscountProducts(List<FeedAndOther> products, String sessionLocale) {
-		Set<String> promotionsPetsSet = null;
-		if (isHavingDiscountProducts(products)) {
-			promotionsPetsSet = new HashSet<>();
-			if (sessionLocale.equals(RUSSIAN)) {
-				promotionsPetsSet.add(CHECK_BOX_CHOOSE_ONLY_PRODUCTS_WITH_DISCOUNT_RU);
-			} else if (sessionLocale.equals(ENGLISH)) {
-				promotionsPetsSet.add(CHECK_BOX_CHOOSE_ONLY_PRODUCTS_WITH_DISCOUNT_EN);
-			}
-		}
-		return promotionsPetsSet;
-	}
-
-	private boolean isHavingDiscountProducts(List<FeedAndOther> products) {
-		boolean isHavingDiscount = false;
-		for (FeedAndOther items : products) {
-			if (items.getDiscount() > 0) {
-				isHavingDiscount = true;
-			}
-		}
-		return isHavingDiscount;
-	}
-
-	private Set<String> createFilterByTypePet(List<FeedAndOther> products) {
-		Set<String> typesPetsSet = new HashSet<>();
-		products.forEach(product -> product.getPetTypes().stream().forEach(type -> typesPetsSet.add(type)));
-		return typesPetsSet;
 	}
 }
