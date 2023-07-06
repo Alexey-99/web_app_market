@@ -168,7 +168,7 @@ public class UserDaoImpl implements UserDao {
 			""";
 
 	@Override
-	public boolean changeVerificationEmailStatus(long userId, boolean status) throws DaoException {
+	public boolean changeConfirmationEmailStatus(long userId, boolean status) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(QUERY_CHANGE_VERIFICATE_EMAIL_STATUS)) {

@@ -22,7 +22,7 @@ import jakarta.mail.internet.MimeMessage;
 
 public class EmailSenderImpl implements EmailSender {
 	private static final EmailSender INSTANCE = new EmailSenderImpl();
-	private static final Logger LOGGER = LogManager.getLogger();
+	private static Logger log = LogManager.getLogger();
 
 	private static final String FILE_PATH_EMAIL_PROPERTIES = "email_properties/mail_property.txt";
 	private static final String FILE_PATH_OTHER_PROPERTIES = "email_properties/other_property.txt";
@@ -58,7 +58,7 @@ public class EmailSenderImpl implements EmailSender {
 			sendMessage(mailSession, message,
 					otherProperties.getProperty(PROPERTY_KEY_INTERNET_ADDRESS_GMAIL_PASSWORD_FROM));
 		} catch (ServiceException e) {
-			LOGGER.log(Level.ERROR, e.getMessage());
+			log.log(Level.ERROR, e.getMessage());
 			flag = false;
 		}
 		return flag;

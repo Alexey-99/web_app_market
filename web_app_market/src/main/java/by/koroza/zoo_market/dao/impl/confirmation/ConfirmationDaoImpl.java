@@ -41,7 +41,7 @@ public class ConfirmationDaoImpl implements ConfirmationDao {
 			""";
 
 	@Override
-	public boolean addVerificateCodeWithUserId(long userId, String code) throws DaoException {
+	public boolean addConfirmationEmailCodeWithUserId(long userId, String code) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
 			boolean resultInsertVerificateCode = false;

@@ -6,9 +6,13 @@ import static by.koroza.zoo_market.web.command.name.path.PagePathName.CONFIMARTI
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.REGISTRATION_FORM_PAGE_PATH;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
-import by.koroza.zoo_market.service.impl.confirmation.ConfirmationServiceImpl;
+import by.koroza.zoo_market.service.impl.confirmation.ConfirmationEmailCodeServiceImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
@@ -18,6 +22,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public class ConfirmationEmailCommand implements Command {
+	private static Logger log = LogManager.getLogger();
 	@SuppressWarnings("unused")
 	private static final boolean CONFIRMATION_CODE_STATUS_OPEN = true;
 	private static final boolean CONFIRMATION_CODE_STATUS_CLOSED = false;
@@ -30,16 +35,15 @@ public class ConfirmationEmailCommand implements Command {
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
 			if (user != null) {
-				if (user.getId() == 0) {
-					user.setId(UserServiceImpl.getInstance().getUserIdByLogin(user.getLogin()));
-				}
-				String code = ConfirmationServiceImpl.getInstance().getVerificateCodeByUserId(user.getId());
+				String code = ConfirmationEmailCodeServiceImpl.getInstance()
+						.getConfirmationEmailCodeByUserId(user.getId());
 				if (codeInput.equals(code)) {
 					user.setVerificatedEmail(true);
 					session.setAttribute(ATTRIBUTE_USER, user);
-					UserServiceImpl.getInstance().changeVerificationEmailStatus(user.getId(), true);
-					ConfirmationServiceImpl.getInstance().changeVerificateCodeStatusByUserId(user.getId(), code,
-							CONFIRMATION_CODE_STATUS_CLOSED);
+					UserServiceImpl.getInstance().changeConfirmationEmailStatus(user.getId(),
+							user.isVerificatedEmail());
+					ConfirmationEmailCodeServiceImpl.getInstance().changeConfirmationCodeStatusByUserId(user.getId(),
+							code, CONFIRMATION_CODE_STATUS_CLOSED);
 					router = new Router(HOME_PAGE_PATH);
 				} else {
 					router = new Router(CONFIMARTION_EMAIL_VALIDATED_PAGE_PATH);
@@ -48,6 +52,7 @@ public class ConfirmationEmailCommand implements Command {
 				router = new Router(REGISTRATION_FORM_PAGE_PATH);
 			}
 		} catch (ServiceException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
 		isRegistratedUser(request);

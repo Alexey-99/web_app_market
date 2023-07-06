@@ -67,9 +67,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean changeVerificationEmailStatus(long userId, boolean status) throws ServiceException {
+	public boolean changeConfirmationEmailStatus(long userId, boolean status) throws ServiceException {
 		try {
-			return UserDaoImpl.getInstance().changeVerificationEmailStatus(userId, status);
+			return UserDaoImpl.getInstance().changeConfirmationEmailStatus(userId, status);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
@@ -130,7 +130,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean changePersonProcentDiscount(User user) throws ServiceException {
+	public boolean changePersonPercentDiscount(User user) throws ServiceException {
 		try {
 			if (user.getDiscount() + User.getPercentForEachQuantityOfProducts() <= User.getMaxProcentDiscount()) {
 				List<Order> allOrders = OrderDaoImpl.getInstance().getOrderProductsByUserId(user.getId());

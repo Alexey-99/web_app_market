@@ -29,6 +29,10 @@ import static by.koroza.zoo_market.web.command.name.path.PagePathName.VERIFICATI
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ValidationException;
 import by.koroza.zoo_market.service.validation.impl.user.UserValidationImpl;
@@ -40,6 +44,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public class RegistrationUserCommand implements Command {
+	private static Logger log = LogManager.getLogger();
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
@@ -51,6 +56,7 @@ public class RegistrationUserCommand implements Command {
 			session.setAttribute(ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE, mapInputExceptions);
 			session.setAttribute(ATTRIBUTE_USER, user);
 		} catch (ValidationException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
 		isRegistratedUser(request);

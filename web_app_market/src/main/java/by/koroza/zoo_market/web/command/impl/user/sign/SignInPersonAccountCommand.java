@@ -11,6 +11,10 @@ import static by.koroza.zoo_market.web.command.name.servlet.ServletName.MAIN_SER
 
 import java.util.Optional;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.hash.HashGeneratorImpl;
@@ -23,6 +27,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public class SignInPersonAccountCommand implements Command {
+	private static Logger log = LogManager.getLogger();
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
@@ -44,6 +49,7 @@ public class SignInPersonAccountCommand implements Command {
 				router = new Router(SIGN_IN_VALIDATED_PAGE_PATH);
 			}
 		} catch (ServiceException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
 		isRegistratedUser(request);

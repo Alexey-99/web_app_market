@@ -46,6 +46,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
@@ -60,6 +64,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
 public class CraetePetProductCommand implements Command {
+	private static Logger log = LogManager.getLogger();
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
@@ -68,7 +73,7 @@ public class CraetePetProductCommand implements Command {
 		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CREATE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
-			if (user != null && user.getRole().getIdRole() >= ADMIN.getIdRole() && user.isVerificatedEmail()) {
+			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() == ADMIN.getIdRole()) {
 				Map<String, String> mapInputExceptions = new HashMap<>();
 				Map<Pet, Long> petAndNumber = getInputParameters(request, mapInputExceptions);
 				if (mapInputExceptions.isEmpty()) {
@@ -88,6 +93,7 @@ public class CraetePetProductCommand implements Command {
 				router = new Router(HOME_PAGE_PATH);
 			}
 		} catch (IOException | ServiceException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
 		return router;
@@ -132,13 +138,14 @@ public class CraetePetProductCommand implements Command {
 	}
 
 	private void getInputParameterImage(HttpServletRequest request, Pet pet, String sessionLocale,
-			Map<String, String> mapInputExceptions) throws ServiceException {
+			Map<String, String> mapInputExceptions) throws ServiceException, IOException {
 		String oldImagePath = pet.getImagePath();
 		if (request.getParameter(ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE) == null) {
 			if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
 				Part part = (Part) request.getAttribute(PARAMETER_PART);
 				if (part != null && !part.getSubmittedFileName().isBlank()) {
-					pet.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part));
+					pet.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part.getInputStream(),
+							part.getSubmittedFileName()));
 				}
 			} else {
 				if (sessionLocale.equals(RUSSIAN)) {

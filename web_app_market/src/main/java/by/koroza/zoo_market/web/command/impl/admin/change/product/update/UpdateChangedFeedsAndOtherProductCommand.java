@@ -16,6 +16,10 @@ import static by.koroza.zoo_market.web.command.name.path.PagePathName.PERSONAL_A
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.model.entity.market.product.abstraction.AbstractProduct;
@@ -35,6 +39,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public class UpdateChangedFeedsAndOtherProductCommand implements Command {
+	private static Logger log = LogManager.getLogger();
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
@@ -43,7 +48,7 @@ public class UpdateChangedFeedsAndOtherProductCommand implements Command {
 		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
-			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() >= ADMIN.getIdRole()) {
+			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() == ADMIN.getIdRole()) {
 				FeedAndOther productFeedAndOther = session
 						.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER) != null
 								? (FeedAndOther) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER)
@@ -52,7 +57,7 @@ public class UpdateChangedFeedsAndOtherProductCommand implements Command {
 					long numberOfUnitsProduct = (long) session
 							.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT);
 					String oldImagePath = ProductFeedsAndOtherServiceImpl.getInstance()
-							.getProductImagePathById(productFeedAndOther.getId());
+							.getProductImagePathByProductId(productFeedAndOther.getId());
 					ProductFeedsAndOtherServiceImpl.getInstance().updateProductById(productFeedAndOther,
 							numberOfUnitsProduct);
 					if (oldImagePath != null) {
@@ -79,6 +84,7 @@ public class UpdateChangedFeedsAndOtherProductCommand implements Command {
 				router = new Router(HOME_PAGE_PATH);
 			}
 		} catch (ServiceException | SortingException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
 		isRegistratedUser(request);

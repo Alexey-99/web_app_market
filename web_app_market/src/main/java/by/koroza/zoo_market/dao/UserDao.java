@@ -17,7 +17,7 @@ public interface UserDao {
 
 	public boolean changeRoleStatus(String login, int roleStatusId) throws DaoException;
 
-	public boolean changeVerificationEmailStatus(long userId, boolean status) throws DaoException;
+	public boolean changeConfirmationEmailStatus(long userId, boolean status) throws DaoException;
 
 	public Optional<User> getUserByLogin(String login, String password) throws DaoException;
 

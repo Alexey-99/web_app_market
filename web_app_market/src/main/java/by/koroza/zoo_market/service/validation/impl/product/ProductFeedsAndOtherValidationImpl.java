@@ -25,7 +25,7 @@ public final class ProductFeedsAndOtherValidationImpl extends AbstractProductVal
 	}
 
 	@Override
-	public boolean validDescrription(String description) {
+	public boolean validDescription(String description) {
 		return description != null && !description.isBlank();
 	}
 

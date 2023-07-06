@@ -108,7 +108,7 @@ public class ProductPetServiceImpl implements ProductPetService {
 	}
 
 	@Override
-	public boolean upadateProductPet(Pet pet, long numberOfUnitsProduct) throws ServiceException {
+	public boolean updateProductPet(Pet pet, long numberOfUnitsProduct) throws ServiceException {
 		try {
 			return this.productPetDao.upadateProductPet(pet, numberOfUnitsProduct);
 		} catch (DaoException e) {
@@ -117,7 +117,7 @@ public class ProductPetServiceImpl implements ProductPetService {
 	}
 
 	@Override
-	public String getProductImagePathById(long id) throws ServiceException {
+	public String getProductImagePathByProductId(long id) throws ServiceException {
 		try {
 			return this.productPetDao.getProductImagePathById(id);
 		} catch (DaoException e) {

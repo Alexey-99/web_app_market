@@ -7,15 +7,15 @@ import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_
 
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.web.command.Command;
-import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public class ShowPersonalAccountAdminPage implements Command {
 
 	@Override
-	public Router execute(HttpServletRequest request) throws CommandException {
+	public Router execute(HttpServletRequest request) {
 		Router router = null;
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);

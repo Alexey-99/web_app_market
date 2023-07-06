@@ -75,7 +75,7 @@ public class ChangeProductPetCommand implements Command {
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CHANGE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		try {
-			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() >= ADMIN.getIdRole()) {
+			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() == ADMIN.getIdRole()) {
 				Map<String, String> mapInputExceptions = new HashMap<>();
 				Map<Pet, Long> petAndNumber = getInputParameters(request, mapInputExceptions);
 				if (mapInputExceptions.isEmpty()) {
@@ -147,13 +147,14 @@ public class ChangeProductPetCommand implements Command {
 	}
 
 	private void getInputParameterImage(HttpServletRequest request, Pet pet, String sessionLocale,
-			Map<String, String> mapInputExceptions) throws ServiceException {
+			Map<String, String> mapInputExceptions) throws ServiceException, IOException {
 		String oldImagePath = pet.getImagePath();
 		if (request.getParameter(ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE) == null) {
 			if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
 				Part part = (Part) request.getAttribute(PARAMETER_PART);
 				if (part != null && !part.getSubmittedFileName().isBlank()) {
-					pet.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part));
+					pet.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part.getInputStream(),
+							part.getSubmittedFileName()));
 				}
 			} else {
 				if (sessionLocale.equals(RUSSIAN)) {

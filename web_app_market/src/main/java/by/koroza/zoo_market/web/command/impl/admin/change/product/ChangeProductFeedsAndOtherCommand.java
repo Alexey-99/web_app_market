@@ -157,13 +157,14 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 	}
 
 	private void getInputParameterImage(HttpServletRequest request, FeedAndOther productFeedAndOther,
-			String sessionLocale, Map<String, String> mapInputExceptions) throws ServiceException {
+			String sessionLocale, Map<String, String> mapInputExceptions) throws ServiceException, IOException {
 		String oldImagePath = productFeedAndOther.getImagePath();
 		if (request.getParameter(ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE) == null) {
 			if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
 				Part part = (Part) request.getAttribute(PARAMETER_PART);
 				if (part != null && !part.getSubmittedFileName().isBlank()) {
-					productFeedAndOther.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part));
+					productFeedAndOther.setImagePath(ImageFileServiceImpl.getInstance()
+							.saveImageOnDisk(part.getInputStream(), part.getSubmittedFileName()));
 				}
 			} else {
 				if (sessionLocale.equals(RUSSIAN)) {
@@ -221,7 +222,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 	private String getInputParameterProductDescription(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) throws ServiceException {
 		String description = request.getParameter(ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION);
-		if (!ProductFeedsAndOtherValidationImpl.getInstance().validDescrription(description)) {
+		if (!ProductFeedsAndOtherValidationImpl.getInstance().validDescription(description)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_DESCRIPTION,
 						RU_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FORM + description);

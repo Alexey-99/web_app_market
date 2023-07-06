@@ -16,6 +16,10 @@ import static by.koroza.zoo_market.web.command.name.path.PagePathName.PERSONAL_A
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.model.entity.market.product.abstraction.AbstractProduct;
@@ -35,6 +39,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public class UpdateChangedPetProductCommand implements Command {
+	private static Logger log = LogManager.getLogger();
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
@@ -43,15 +48,16 @@ public class UpdateChangedPetProductCommand implements Command {
 		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CREATE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
-			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() >= ADMIN.getIdRole()) {
+			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() == ADMIN.getIdRole()) {
 				Pet pet = (Pet) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET);
 				if (pet != null) {
 					long numberOfUnitsProduct = session
 							.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT) != null
 									? (long) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT)
 									: 0;
-					String oldImagePath = ProductPetServiceImpl.getInstance().getProductImagePathById(pet.getId());
-					ProductPetServiceImpl.getInstance().upadateProductPet(pet, numberOfUnitsProduct);
+					String oldImagePath = ProductPetServiceImpl.getInstance()
+							.getProductImagePathByProductId(pet.getId());
+					ProductPetServiceImpl.getInstance().updateProductPet(pet, numberOfUnitsProduct);
 					if (oldImagePath != null) {
 						ImageFileServiceImpl.getInstance().removeProductImage(oldImagePath);
 					}
@@ -76,6 +82,7 @@ public class UpdateChangedPetProductCommand implements Command {
 				router = new Router(HOME_PAGE_PATH);
 			}
 		} catch (ServiceException | SortingException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
 		isRegistratedUser(request);

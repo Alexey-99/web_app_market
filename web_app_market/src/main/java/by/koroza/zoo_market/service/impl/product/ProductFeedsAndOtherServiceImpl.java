@@ -121,7 +121,7 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	}
 
 	@Override
-	public String getProductImagePathById(long id) throws ServiceException {
+	public String getProductImagePathByProductId(long id) throws ServiceException {
 		try {
 			return ProductFeedsAndOtherDaoImpl.getInstance().getProductImagePathById(id);
 		} catch (DaoException e) {

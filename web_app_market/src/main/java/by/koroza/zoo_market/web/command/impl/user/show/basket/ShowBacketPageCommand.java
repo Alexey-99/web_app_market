@@ -11,6 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
@@ -28,6 +32,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public class ShowBacketPageCommand implements Command {
+	private static Logger log = LogManager.getLogger();
 	private static final String REG_EX_SPLIT_BY_PART = "(\\s\\;\\s)";
 	private static final String REG_EX_SPLIT_BY_TYPE_PRODUCT_AND_ID = "\\,";
 
@@ -61,6 +66,7 @@ public class ShowBacketPageCommand implements Command {
 				session.setAttribute(ATTRIBUTE_ORDER, order);
 				router = new Router(BACKET_WITH_PRODUCTS_PAGE_PATH);
 			} catch (ServiceException e) {
+				log.log(Level.ERROR, e.getMessage());
 				throw new CommandException(e);
 			}
 		} else {

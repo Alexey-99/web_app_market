@@ -10,7 +10,6 @@ import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARA
 import static by.koroza.zoo_market.web.command.name.servlet.ServletName.MAIN_SERVLET_CONTROLLER_NAME;
 
 import by.koroza.zoo_market.web.command.Command;
-import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.Router;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +18,7 @@ import jakarta.servlet.http.HttpSession;
 public class SetRussinLocaleCommand implements Command {
 
 	@Override
-	public Router execute(HttpServletRequest request) throws CommandException {
+	public Router execute(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.setAttribute(ATTRIBUTE_SESSION_LOCALE, RUSSIAN);
 		String previousCommand = session.getAttribute(ATTRIBUTE_PREVIOUS_COMMAND) != null

@@ -5,31 +5,131 @@ import java.util.Optional;
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 
+/**
+ * The Interface UserService.
+ */
 public interface UserService {
 
+	/**
+	 * Add the user.
+	 *
+	 * @param user the user
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
 	public boolean addUser(User user) throws ServiceException;
 
+	/**
+	 * Check repeat login.
+	 *
+	 * @param login the login
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
 	public boolean checkRepeatLogin(String login) throws ServiceException;
 
+	/**
+	 * Get the user id by login.
+	 *
+	 * @param login the login
+	 * @return the user id by login
+	 * @throws ServiceException the service exception
+	 */
 	public long getUserIdByLogin(String login) throws ServiceException;
 
+	/**
+	 * Change role status.
+	 *
+	 * @param userId       the user id
+	 * @param roleStatusId the role status id
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
 	public boolean changeRoleStatus(long userId, int roleStatusId) throws ServiceException;
 
+	/**
+	 * Change role status.
+	 *
+	 * @param userLogin    the user login
+	 * @param roleStatusId the role status id
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
 	public boolean changeRoleStatus(String userLogin, int roleStatusId) throws ServiceException;
 
-	public boolean changeVerificationEmailStatus(long userId, boolean status) throws ServiceException;
+	/**
+	 * Change confirmation email status.
+	 *
+	 * @param userId the user id
+	 * @param status the status
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
+	public boolean changeConfirmationEmailStatus(long userId, boolean status) throws ServiceException;
 
+	/**
+	 * Get the user by login.
+	 *
+	 * @param login    the login
+	 * @param password the password
+	 * @return the user by login
+	 * @throws ServiceException the service exception
+	 */
 	public Optional<User> getUserByLogin(String login, String password) throws ServiceException;
 
+	/**
+	 * Change person information (name, surname, email).
+	 *
+	 * @param user the user
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
 	public boolean changePersonInformation(User user) throws ServiceException;
 
+	/**
+	 * Change login.
+	 *
+	 * @param user  the user
+	 * @param login the login
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
 	public boolean changeLogin(User user, String login) throws ServiceException;
 
+	/**
+	 * Change password.
+	 *
+	 * @param user     the user
+	 * @param password the password
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
 	public boolean changePassword(User user, String password) throws ServiceException;
 
+	/**
+	 * Checks if is exists user with login.
+	 *
+	 * @param login the login
+	 * @return true, if is exists user with login
+	 * @throws ServiceException the service exception
+	 */
 	public boolean isExistsUserWithLogin(String login) throws ServiceException;
 
+	/**
+	 * Change email.
+	 *
+	 * @param user the user
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
 	public boolean changeEmail(User user) throws ServiceException;
 
-	public boolean changePersonProcentDiscount(User user) throws ServiceException;
+	/**
+	 * Change person percent discount.
+	 *
+	 * @param user the user
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
+	public boolean changePersonPercentDiscount(User user) throws ServiceException;
 }

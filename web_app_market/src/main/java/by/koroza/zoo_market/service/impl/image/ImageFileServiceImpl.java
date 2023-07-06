@@ -19,10 +19,8 @@ import by.koroza.zoo_market.dao.impl.product.ProductPetDaoImpl;
 import by.koroza.zoo_market.service.ImageFileService;
 import by.koroza.zoo_market.service.exception.ServiceException;
 
-import jakarta.servlet.http.Part;
-
 public class ImageFileServiceImpl implements ImageFileService {
-	private static final Logger log = LogManager.getLogger();
+	private static Logger log = LogManager.getLogger();
 	private static final ImageFileService INSTANCE = new ImageFileServiceImpl();
 
 	private ImageFileServiceImpl() {
@@ -33,16 +31,17 @@ public class ImageFileServiceImpl implements ImageFileService {
 	}
 
 	@Override
-	public String saveImageOnDisk(Part imagePart) throws ServiceException {
+	public String saveImageOnDisk(InputStream inputStream, String submittedName) throws ServiceException {
 		String imagePath = null;
-		try (InputStream inputStream = imagePart.getInputStream()) {
-			String submittedName = imagePart.getSubmittedFileName();
-			File path = new File(STORAGE_IMAGES_FOLDER_PATH);
-			if (!path.exists()) {
-				path.mkdirs();
+		try {
+			try (inputStream) {
+				File path = new File(STORAGE_IMAGES_FOLDER_PATH);
+				if (!path.exists()) {
+					path.mkdirs();
+				}
+				imagePath = STORAGE_IMAGES_FOLDER_PATH.concat("/").concat(submittedName);
+				Files.copy(inputStream, Path.of(imagePath), StandardCopyOption.REPLACE_EXISTING);
 			}
-			imagePath = STORAGE_IMAGES_FOLDER_PATH.concat("/").concat(submittedName);
-			Files.copy(inputStream, Path.of(imagePath), StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			log.log(Level.ERROR, "exception in method saveImageToDisk()", e);
 			throw new ServiceException("Exception when save image", e);

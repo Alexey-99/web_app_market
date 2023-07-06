@@ -50,6 +50,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
@@ -64,6 +68,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
 public class CraeteProductFeedsAndOtherCommand implements Command {
+	private static Logger log = LogManager.getLogger();
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
@@ -96,6 +101,7 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 				router = new Router(HOME_PAGE_PATH);
 			}
 		} catch (IOException | ServiceException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
 		isRegistratedUser(request);
@@ -146,13 +152,14 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 	}
 
 	private void getInputParameterImage(HttpServletRequest request, FeedAndOther productFeedAndOther,
-			String sessionLocale, Map<String, String> mapInputExceptions) throws ServiceException {
+			String sessionLocale, Map<String, String> mapInputExceptions) throws ServiceException, IOException {
 		String oldImagePath = productFeedAndOther.getImagePath();
 		if (request.getParameter(ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE) == null) {
 			if ((boolean) request.getAttribute(PARAMETER_IS_CORRECT_FILE)) {
 				Part part = (Part) request.getAttribute(PARAMETER_PART);
 				if (part != null) {
-					productFeedAndOther.setImagePath(ImageFileServiceImpl.getInstance().saveImageOnDisk(part));
+					productFeedAndOther.setImagePath(ImageFileServiceImpl.getInstance()
+							.saveImageOnDisk(part.getInputStream(), part.getSubmittedFileName()));
 				}
 			} else {
 				if (sessionLocale.equals(RUSSIAN)) {
@@ -208,7 +215,7 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 	private String getInputParameterProductDescription(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) throws ServiceException {
 		String description = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION);
-		if (!ProductFeedsAndOtherValidationImpl.getInstance().validDescrription(description)) {
+		if (!ProductFeedsAndOtherValidationImpl.getInstance().validDescription(description)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPE_INPUT_EXCEPTION_DESCRIPTION,
 						RU_MESSAGE_TYPE_INPUT_EXCEPTION_DESCRIPTION + description);

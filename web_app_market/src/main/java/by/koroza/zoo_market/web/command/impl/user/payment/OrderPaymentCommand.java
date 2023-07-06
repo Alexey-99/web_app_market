@@ -36,6 +36,10 @@ import static by.koroza.zoo_market.web.command.name.path.PagePathName.SUCCESS_OR
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.koroza.zoo_market.model.entity.bank.BankCard;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.user.User;
@@ -54,6 +58,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public class OrderPaymentCommand implements Command {
+	private static Logger log = LogManager.getLogger();
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
@@ -73,7 +78,7 @@ public class OrderPaymentCommand implements Command {
 						OrderServiceImpl.getInstance().addOrder(order, user.getId());
 						ProductPetServiceImpl.getInstance().changeNumberOfUnitsProducts(order);
 						ProductFeedsAndOtherServiceImpl.getInstance().changeNumberOfUnitsProducts(order);
-						UserServiceImpl.getInstance().changePersonProcentDiscount(user);
+						UserServiceImpl.getInstance().changePersonPercentDiscount(user);
 						router = new Router(SUCCESS_ORDER_PAYMENT_PAGE_PATH);
 					} else {
 						session.setAttribute(ATTRIBUTE_ORDER_PAYMENT_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
@@ -87,6 +92,7 @@ public class OrderPaymentCommand implements Command {
 				router = new Router(HOME_PAGE_PATH);
 			}
 		} catch (ServiceException | ValidationException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
 		isRegistratedUser(request);

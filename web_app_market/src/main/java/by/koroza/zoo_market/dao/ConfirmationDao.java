@@ -4,7 +4,7 @@ import by.koroza.zoo_market.dao.exception.DaoException;
 
 public interface ConfirmationDao {
 
-	public boolean addVerificateCodeWithUserId(long userId, String code) throws DaoException;
+	public boolean addConfirmationEmailCodeWithUserId(long userId, String code) throws DaoException;
 
 	public String getVerificateCodeByUserId(long userId) throws DaoException;
 
