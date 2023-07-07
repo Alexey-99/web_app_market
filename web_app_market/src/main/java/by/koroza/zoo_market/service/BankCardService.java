@@ -9,7 +9,7 @@ import by.koroza.zoo_market.service.exception.ServiceException;
 public interface BankCardService {
 
 	/**
-	 * Checks if is have bank card.
+	 * Check if is have bank card.
 	 *
 	 * @param card the card
 	 * @return true, if is have bank card
@@ -18,7 +18,7 @@ public interface BankCardService {
 	public boolean isHaveBankCard(BankCard card) throws ServiceException;
 
 	/**
-	 * Checks if is have sum on bank card.
+	 * Check if is have sum on bank card.
 	 *
 	 * @param card  the card
 	 * @param price the price

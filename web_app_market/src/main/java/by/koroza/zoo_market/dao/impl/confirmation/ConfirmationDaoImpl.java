@@ -84,7 +84,7 @@ public class ConfirmationDaoImpl implements ConfirmationDao {
 			""";
 
 	@Override
-	public String getVerificateCodeByUserId(long userId) throws DaoException {
+	public String getConfirmationCodeByUserId(long userId) throws DaoException {
 		String code = null;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(QUERY_GET_VERIFICATE_CODE_BY_USER_ID)) {
@@ -111,7 +111,7 @@ public class ConfirmationDaoImpl implements ConfirmationDao {
 			""";
 
 	@Override
-	public boolean changeVerificateCodeStatusByUserId(long userId, String code, boolean status) throws DaoException {
+	public boolean changeConfirmationCodeStatusByUserId(long userId, String code, boolean status) throws DaoException {
 		boolean result = true;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
 			boolean resultChangeStatus = false;

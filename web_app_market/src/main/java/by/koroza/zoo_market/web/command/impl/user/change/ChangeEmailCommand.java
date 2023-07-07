@@ -49,7 +49,7 @@ public class ChangeEmailCommand implements Command {
 				if (mapInputExceptions.isEmpty()) {
 					user.setEmail(email);
 					user.setVerificatedEmail(false);
-					UserServiceImpl.getInstance().changeEmail(user);
+					UserServiceImpl.getInstance().changeEmail(user.getId(), user.getEmail());
 					ConfirmationEmailCodeServiceImpl.getInstance().sendConfirmationEmailCode(user.getId(),
 							user.getEmail());
 					session.setAttribute(ATTRIBUTE_USER, user);

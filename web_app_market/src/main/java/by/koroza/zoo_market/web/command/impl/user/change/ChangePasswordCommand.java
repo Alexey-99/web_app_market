@@ -49,7 +49,7 @@ public class ChangePasswordCommand implements Command {
 				if (mapInputExceptions.isEmpty()) {
 					if (user.getPassword() != null ? !user.getPassword().equals(password)
 							: user.getPassword() == null && password != null) {
-						UserServiceImpl.getInstance().changePassword(user,
+						UserServiceImpl.getInstance().changePassword(user.getId(),
 								HashGeneratorImpl.getInstance().getHash(password));
 						user.setPassword(HashGeneratorImpl.getInstance().getHash(password));
 						router = new Router(PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH);

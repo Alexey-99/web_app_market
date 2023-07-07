@@ -89,22 +89,22 @@ public interface UserService {
 	/**
 	 * Change login.
 	 *
-	 * @param user  the user
-	 * @param login the login
+	 * @param userId the user id
+	 * @param login  the login
 	 * @return true, if successful
 	 * @throws ServiceException the service exception
 	 */
-	public boolean changeLogin(User user, String login) throws ServiceException;
+	public boolean changeLogin(long userId, String login) throws ServiceException;
 
 	/**
 	 * Change password.
 	 *
-	 * @param user     the user
+	 * @param userId   the user id
 	 * @param password the password
 	 * @return true, if successful
 	 * @throws ServiceException the service exception
 	 */
-	public boolean changePassword(User user, String password) throws ServiceException;
+	public boolean changePassword(long userId, String password) throws ServiceException;
 
 	/**
 	 * Checks if is exists user with login.
@@ -118,11 +118,12 @@ public interface UserService {
 	/**
 	 * Change email.
 	 *
-	 * @param user the user
+	 * @param userId the user id
+	 * @param email  the email
 	 * @return true, if successful
 	 * @throws ServiceException the service exception
 	 */
-	public boolean changeEmail(User user) throws ServiceException;
+	public boolean changeEmail(long userId, String email) throws ServiceException;
 
 	/**
 	 * Change person percent discount.

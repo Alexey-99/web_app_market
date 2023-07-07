@@ -30,7 +30,7 @@ import by.koroza.zoo_market.model.entity.user.User;
 
 public class UserDaoImpl implements UserDao {
 	private static final UserDao INSTANCE = new UserDaoImpl();
-	private static final Logger log = LogManager.getLogger();
+	private static Logger log = LogManager.getLogger();
 
 	private static final String QUERY_SELECT_LAST_INSERT_ID = """
 			SELECT LAST_INSERT_ID();
@@ -247,12 +247,12 @@ public class UserDaoImpl implements UserDao {
 			""";
 
 	@Override
-	public boolean changeLogin(User user, String login) throws DaoException {
+	public boolean changeLogin(long userId, String login) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(QUERY_CHANGE_LOGIN)) {
 			statement.setString(1, login);
-			statement.setLong(2, user.getId());
+			statement.setLong(2, userId);
 			result = statement.executeUpdate() > 0;
 		} catch (SQLException e) {
 			throw new DaoException(e);
@@ -267,12 +267,12 @@ public class UserDaoImpl implements UserDao {
 			""";
 
 	@Override
-	public boolean changePassword(User user, String password) throws DaoException {
+	public boolean changePassword(long userId, String password) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(QUERY_CHANGE_PASSWORD)) {
 			statement.setString(1, password);
-			statement.setLong(2, user.getId());
+			statement.setLong(2, userId);
 			result = statement.executeUpdate() > 0;
 		} catch (SQLException e) {
 			throw new DaoException(e);
@@ -312,12 +312,12 @@ public class UserDaoImpl implements UserDao {
 			""";
 
 	@Override
-	public boolean changeEmail(User user) throws DaoException {
+	public boolean changeEmail(long userId, String email) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(QUERY_CHANGE_EMAIL)) {
-			statement.setString(1, user.getEmail());
-			statement.setLong(2, user.getId());
+			statement.setString(1, email);
+			statement.setLong(2, userId);
 			result = statement.executeUpdate() > 0;
 		} catch (SQLException e) {
 			throw new DaoException(e);
@@ -332,12 +332,12 @@ public class UserDaoImpl implements UserDao {
 			""";
 
 	@Override
-	public boolean changeDiscount(User user) throws DaoException {
+	public boolean changeDiscount(long userId, double discount) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(QUERY_CHANGE_DISCOUNT)) {
-			statement.setDouble(1, user.getDiscount());
-			statement.setLong(2, user.getId());
+			statement.setDouble(1, discount);
+			statement.setLong(2, userId);
 			result = statement.executeUpdate() > 0;
 		} catch (SQLException e) {
 			throw new DaoException(e);

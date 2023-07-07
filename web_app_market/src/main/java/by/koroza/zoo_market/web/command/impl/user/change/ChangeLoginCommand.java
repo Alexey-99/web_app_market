@@ -52,7 +52,7 @@ public class ChangeLoginCommand implements Command {
 				if (mapInputExceptions.isEmpty()) {
 					if (user.getLogin() != null ? !user.getLogin().equals(login)
 							: user.getLogin() == null && login != null) {
-						UserServiceImpl.getInstance().changeLogin(user, login);
+						UserServiceImpl.getInstance().changeLogin(user.getId(), login);
 						user.setLogin(login);
 						router = new Router(PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH);
 					} else {

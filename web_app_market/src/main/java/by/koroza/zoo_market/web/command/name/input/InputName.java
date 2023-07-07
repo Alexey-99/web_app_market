@@ -1,6 +1,6 @@
 package by.koroza.zoo_market.web.command.name.input;
 
-public class InputName {
+public final class InputName {
 	/* FILTER PET */
 	public static final String INPUT_PET_TYPE = "pet_type";
 	public static final String INPUT_PET_BREED = "pet_breed";

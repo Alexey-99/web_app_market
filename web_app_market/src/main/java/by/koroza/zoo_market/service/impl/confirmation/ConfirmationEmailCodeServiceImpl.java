@@ -23,7 +23,7 @@ public class ConfirmationEmailCodeServiceImpl implements ConfirmationEmailCodeSe
 	@Override
 	public String getConfirmationEmailCodeByUserId(long userId) throws ServiceException {
 		try {
-			return ConfirmationDaoImpl.getInstance().getVerificateCodeByUserId(userId);
+			return ConfirmationDaoImpl.getInstance().getConfirmationCodeByUserId(userId);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
@@ -33,7 +33,7 @@ public class ConfirmationEmailCodeServiceImpl implements ConfirmationEmailCodeSe
 	public boolean changeConfirmationCodeStatusByUserId(long userId, String code, boolean status)
 			throws ServiceException {
 		try {
-			return ConfirmationDaoImpl.getInstance().changeVerificateCodeStatusByUserId(userId, code, status);
+			return ConfirmationDaoImpl.getInstance().changeConfirmationCodeStatusByUserId(userId, code, status);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}

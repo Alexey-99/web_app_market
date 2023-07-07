@@ -296,7 +296,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			""";
 
 	@Override
-	public boolean upadateProductPet(Pet pet, long numberOfUnitsProduct) throws DaoException {
+	public boolean updateProductPet(Pet pet, long numberOfUnitsProduct) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(QUERY_UPDETE_PRODUCT_PET_BY_ID)) {
@@ -365,7 +365,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS_NOT_CLOSED = """
 			SELECT pets.id, pets.image_path, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
 			FROM pets
-			WHERE pets.number_of_units_products > 0
+			WHERE pets.number_of_units_products > 0;
 			""";
 
 	private String createQueryGetProductsPetsByFilter(FilterPet filter) {

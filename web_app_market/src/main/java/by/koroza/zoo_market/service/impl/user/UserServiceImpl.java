@@ -94,18 +94,18 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean changeLogin(User user, String login) throws ServiceException {
+	public boolean changeLogin(long userId, String login) throws ServiceException {
 		try {
-			return UserDaoImpl.getInstance().changeLogin(user, login);
+			return UserDaoImpl.getInstance().changeLogin(userId, login);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
 	}
 
 	@Override
-	public boolean changePassword(User user, String password) throws ServiceException {
+	public boolean changePassword(long userId, String password) throws ServiceException {
 		try {
-			return UserDaoImpl.getInstance().changePassword(user, password);
+			return UserDaoImpl.getInstance().changePassword(userId, password);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
@@ -121,9 +121,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean changeEmail(User user) throws ServiceException {
+	public boolean changeEmail(long userId, String email) throws ServiceException {
 		try {
-			return UserDaoImpl.getInstance().changeEmail(user);
+			return UserDaoImpl.getInstance().changeEmail(userId, email);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
@@ -138,7 +138,7 @@ public class UserServiceImpl implements UserService {
 				double discount = calcDiscount(numberProducts);
 				if (user.getDiscount() != discount) {
 					user.setDiscount(discount);
-					UserDaoImpl.getInstance().changeDiscount(user);
+					UserDaoImpl.getInstance().changeDiscount(user.getId(), user.getDiscount());
 				}
 			}
 		} catch (DaoException e) {
