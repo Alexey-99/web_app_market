@@ -1,11 +1,14 @@
 package by.koroza.zoo_market.dao.impl.confirmation;
 
-import static by.koroza.zoo_market.dao.name.ColumnName.VERIFICATE_CODES_CODE;
+import static by.koroza.zoo_market.dao.name.ColumnName.CONFIRMATION_EMAIL_CODES_CODE;
+import static by.koroza.zoo_market.dao.name.ColumnName.CONFIRMATION_EMAIL_CODES_STATUS;
+import static by.koroza.zoo_market.dao.name.ColumnName.CONFIRMATION_EMAIL_CODES_OPEN_DATE_TIME;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_VERIFICATE_CODES_CODE;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -13,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.dao.pool.ConnectionPool;
 import by.koroza.zoo_market.dao.pool.ProxyConnection;
+import by.koroza.zoo_market.model.entity.code.ConfirmationEmailCode;
 import by.koroza.zoo_market.dao.ConfirmationEmailCodeDao;
 import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 
@@ -30,9 +34,9 @@ public class ConfirmationEmailCodeDaoImpl implements ConfirmationEmailCodeDao {
 	 * QUERY_SELECT_COUNT_CONFIRMATION_CODES_WITH_USER_ID_AND_STATUS_OPEN.
 	 */
 	private static final String QUERY_SELECT_COUNT_CONFIRMATION_CODES_WITH_USER_ID_AND_STATUS_OPEN = """
-			SELECT COUNT(verificate_сodes.code)
-			FROM verificate_сodes
-			WHERE verificate_сodes.users_id = ? AND verificate_сodes.is_open = ?
+			SELECT COUNT(confirmation_email_сodes.code)
+			FROM confirmation_email_сodes
+			WHERE confirmation_email_сodes.users_id = ? AND confirmation_email_сodes.is_open = ?
 			""";
 
 	/**
@@ -53,15 +57,15 @@ public class ConfirmationEmailCodeDaoImpl implements ConfirmationEmailCodeDao {
 
 	/** The Constant QUERY_INSERT_CONFIRMATION_CODE_WITH_USER_ID. */
 	private static final String QUERY_INSERT_CONFIRMATION_CODE_WITH_USER_ID = """
-			INSERT INTO verificate_сodes(users_id, code, is_open)
-			VALUE (?, ?, ?)
+			INSERT INTO verificate_сodes(users_id, code, is_open, open_date_time)
+			VALUE (?, ?, ?, NOW());
 			""";
 
 	/** The Constant QUERY_CHANGE_STATUS_ALL_OLD_CONFIRMATION_CODE_WITH_USER_ID. */
 	private static final String QUERY_CHANGE_STATUS_ALL_OLD_CONFIRMATION_CODE_WITH_USER_ID = """
-			UPDATE verificate_сodes
+			UPDATE confirmation_email_сodes
 			SET is_open = ?
-			WHERE users_id = ? AND id != LAST_INSERT_ID()
+			WHERE users_id = ? AND id != LAST_INSERT_ID();
 			""";
 
 	/**
@@ -113,9 +117,9 @@ public class ConfirmationEmailCodeDaoImpl implements ConfirmationEmailCodeDao {
 
 	/** The Constant QUERY_GET_CONFIRMATION_CODE_BY_USER_ID. */
 	private static final String QUERY_GET_CONFIRMATION_CODE_BY_USER_ID = """
-			SELECT verificate_сodes.code
-			FROM verificate_сodes
-			WHERE verificate_сodes.users_id = ?;
+			SELECT confirmation_email_сodes.code, confirmation_email_сodes.is_open, confirmation_email_сodes.open_date_time
+			FROM confirmation_email_сodes
+			WHERE confirmation_email_сodes.users_id = ? AND confirmation_email_сodes.is_open == true;
 			""";
 
 	/**
@@ -126,14 +130,20 @@ public class ConfirmationEmailCodeDaoImpl implements ConfirmationEmailCodeDao {
 	 * @throws DaoException the dao exception
 	 */
 	@Override
-	public String getConfirmationCodeByUserId(long userId) throws DaoException {
-		String code = null;
+	public ConfirmationEmailCode getConfirmationCodeByUserId(long userId) throws DaoException {
+		ConfirmationEmailCode code = null;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(QUERY_GET_CONFIRMATION_CODE_BY_USER_ID)) {
 			statement.setLong(1, userId);
 			try (ResultSet resultSet = statement.executeQuery()) {
 				while (resultSet.next()) {
-					code = resultSet.getString(VERIFICATE_CODES_CODE);
+					code = new ConfirmationEmailCode.ConfirmationEmailCodeBuilder()
+							.setCode(resultSet.getString(CONFIRMATION_EMAIL_CODES_CODE))
+							.setOpen(resultSet.getBoolean(CONFIRMATION_EMAIL_CODES_STATUS))
+							.setOpenDateTime(LocalDateTime.of(
+									resultSet.getDate(CONFIRMATION_EMAIL_CODES_OPEN_DATE_TIME).toLocalDate(),
+									resultSet.getTime(CONFIRMATION_EMAIL_CODES_OPEN_DATE_TIME).toLocalTime()))
+							.build();
 				}
 			}
 		} catch (SQLException e) {

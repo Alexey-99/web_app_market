@@ -1,7 +1,9 @@
 package by.koroza.zoo_market.dao;
 
 import by.koroza.zoo_market.dao.exception.checkable.DaoException;
+import by.koroza.zoo_market.model.entity.code.ConfirmationEmailCode;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface ConfirmationDao.
  */
@@ -24,7 +26,7 @@ public interface ConfirmationEmailCodeDao {
 	 * @return the confirmation code by user id
 	 * @throws DaoException the dao exception
 	 */
-	public String getConfirmationCodeByUserId(long userId) throws DaoException;
+	public ConfirmationEmailCode getConfirmationCodeByUserId(long userId) throws DaoException;
 
 	/**
 	 * Change confirmation code status by user id.

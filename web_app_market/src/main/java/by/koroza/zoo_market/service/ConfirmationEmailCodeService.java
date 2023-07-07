@@ -1,5 +1,6 @@
 package by.koroza.zoo_market.service;
 
+import by.koroza.zoo_market.model.entity.code.ConfirmationEmailCode;
 import by.koroza.zoo_market.service.exception.ServiceException;
 
 /**
@@ -14,7 +15,7 @@ public interface ConfirmationEmailCodeService {
 	 * @return the confirmation email code by user id
 	 * @throws ServiceException the service exception
 	 */
-	public String getConfirmationEmailCodeByUserId(long userId) throws ServiceException;
+	public ConfirmationEmailCode getConfirmationEmailCodeByUserId(long userId) throws ServiceException;
 
 	/**
 	 * Change confirmation email code status by user id.

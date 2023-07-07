@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 import by.koroza.zoo_market.dao.impl.confirmation.ConfirmationEmailCodeDaoImpl;
+import by.koroza.zoo_market.model.entity.code.ConfirmationEmailCode;
 import by.koroza.zoo_market.service.ConfirmationEmailCodeService;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.generator.GenerationConfirmationEmailCodeImpl;
@@ -48,7 +49,7 @@ public class ConfirmationEmailCodeServiceImpl implements ConfirmationEmailCodeSe
 	 * @throws ServiceException the service exception
 	 */
 	@Override
-	public String getConfirmationEmailCodeByUserId(long userId) throws ServiceException {
+	public ConfirmationEmailCode getConfirmationEmailCodeByUserId(long userId) throws ServiceException {
 		try {
 			return ConfirmationEmailCodeDaoImpl.getInstance().getConfirmationCodeByUserId(userId);
 		} catch (DaoException e) {

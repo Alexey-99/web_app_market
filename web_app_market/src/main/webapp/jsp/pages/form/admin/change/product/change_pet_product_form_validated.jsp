@@ -170,8 +170,7 @@
 													value="${product_pet.getPrice()}"
 													pattern="^(\d+)(\.\d{1,2})?$"
 													placeholder='<fmt:message key="change_product_form_validated.change_pet.lable.price_pet"/>' />
-												<label
-													class="text-lowercase"
+												<label class="text-lowercase"
 													for="change_product_form_validated.change_pet.lable.price_pet">
 													<fmt:message
 														key="change_product_form_validated.change_pet.lable.price_pet" />
@@ -184,8 +183,7 @@
 													value="${product_pet.getDiscount()}"
 													pattern="^(\d+)(\.\d{1,2})?$"
 													placeholder='<fmt:message key="change_product_form_validated.change_pet.lable.discount_pet"/>' />
-												<label
-													class="text-lowercase"
+												<label class="text-lowercase"
 													for="change_product_form_validated.change_pet.lable.discount_pet">
 													<fmt:message
 														key="change_product_form_validated.change_pet.lable.discount_pet" />
@@ -416,8 +414,7 @@
 														name="${InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_PRICE}"
 														pattern="^(\d+)(\.\d{1,2})?$"
 														placeholder='<fmt:message key="change_product_form_validated.change_pet.lable.price_pet"/>' />
-													<label
-														class="text-lowercase"
+													<label class="text-lowercase"
 														for="change_product_form_validated.change_pet.lable.price_pet">
 														<fmt:message
 															key="change_product_form_validated.change_pet.lable.price_pet" />
@@ -436,8 +433,7 @@
 														value="${product_pet.getPrice()}"
 														pattern="^(\d+)(\.\d{1,2})?$"
 														placeholder='<fmt:message key="change_product_form_validated.change_pet.lable.price_pet"/>' />
-													<label
-														class="text-lowercase"
+													<label class="text-lowercase"
 														for="change_product_form_validated.change_pet.lable.price_pet">
 														<fmt:message
 															key="change_product_form_validated.change_pet.lable.price_pet" />
@@ -456,8 +452,7 @@
 														name="${InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_DISCOUNT}"
 														pattern="^(\d+)(\.\d{1,2})?$"
 														placeholder='<fmt:message key="change_product_form_validated.change_pet.lable.discount_pet"/>' />
-													<label
-														class="text-lowercase"
+													<label class="text-lowercase"
 														for="change_product_form_validated.change_pet.lable.discount_pet">
 														<fmt:message
 															key="change_product_form_validated.change_pet.lable.discount_pet" />
@@ -476,8 +471,7 @@
 														value="${product_pet.getDiscount()}"
 														pattern="^(\d+)(\.\d{1,2})?$"
 														placeholder='<fmt:message key="change_product_form_validated.change_pet.lable.discount_pet"/>' />
-													<label
-														class="text-lowercase"
+													<label class="text-lowercase"
 														for="change_product_form_validated.change_pet.lable.discount_pet">
 														<fmt:message
 															key="change_product_form_validated.change_pet.lable.discount_pet" />

@@ -10,7 +10,7 @@ public final class ColumnName {
 	public static final String USERS_SURNAME = "users.surname";
 	public static final String USERS_ROLE_ID = "users.roles_id";
 	public static final String USERS_EMAIL = "users.email";
-	public static final String USERS_EMAIL_CONFIRMED = "users.email_confirmed";
+	public static final String USERS_CONFIRMATION_EMAIL = "users.confirmation_email";
 	public static final String USERS_LOGIN = "users.login";
 	public static final String USERS_PASSWORD = "users.password";
 	public static final String USERS_DISCOUNT = "users.discount";
@@ -58,10 +58,11 @@ public final class ColumnName {
 	public static final String ORDER_PRODUCTS_PRODUCT_PETS_ID = "order_products.pets_id";
 	public static final String ORDER_PRODUCTS_PRODUCT_FEEDS_AND_OTHER_ID = "order_products.feeds_and_other_id";
 
-	public static final String VERIFICATE_CODES_ID = "verificate_codes.id";
-	public static final String VERIFICATE_CODES_USER_ID = "verificate_codes.users_id";
-	public static final String VERIFICATE_CODES_CODE = "verificate_сodes.code";
-	public static final String VERIFICATE_CODES_STATUS = "verificate_codes.is_open";
+	public static final String CONFIRMATION_EMAIL_CODES_ID = "confirmation_email_сodes.id";
+	public static final String CONFIRMATION_EMAIL_CODES_USER_ID = "confirmation_email_сodes.users_id";
+	public static final String CONFIRMATION_EMAIL_CODES_CODE = "confirmation_email_сodes.code";
+	public static final String CONFIRMATION_EMAIL_CODES_STATUS = "confirmation_email_сodes.is_open";
+	public static final String CONFIRMATION_EMAIL_CODES_OPEN_DATE_TIME = "confirmation_email_сodes.open_date_time";
 
 	public static final String BANK_CARDS_ID = "bank_cards.id";
 	public static final String BANK_CARDS_NUMBER = "bank_cards.number";
@@ -74,7 +75,7 @@ public final class ColumnName {
 	public static final String IDENTIFIER_COUNT_ROWS = "COUNT";
 	public static final String IDENTIFIER_COUNT_ROWS_OF_USER_LOGINS = IDENTIFIER_COUNT_ROWS + "(" + USERS_LOGIN + ")";
 	public static final String IDENTIFIER_COUNT_ROWS_OF_VERIFICATE_CODES_CODE = IDENTIFIER_COUNT_ROWS + "("
-			+ VERIFICATE_CODES_CODE + ")";
+			+ CONFIRMATION_EMAIL_CODES_CODE + ")";
 	public static final String IDENTIFIER_COUNT_ROWS_OF_BANK_CARDS_ID = IDENTIFIER_COUNT_ROWS + "(" + BANK_CARDS_ID
 			+ ")";
 	public static final String IDENTIFIER_COUNT_ROWS_OF_PETS_IMAGE_PATH = IDENTIFIER_COUNT_ROWS + "(" + PETS_IMAGE_PATH

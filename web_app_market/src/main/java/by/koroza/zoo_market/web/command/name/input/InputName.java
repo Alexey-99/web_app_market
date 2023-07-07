@@ -25,8 +25,8 @@ public final class InputName {
 	public static final String REGISTRATION_INPUT_USER_LOGIN = "user_login";
 	public static final String REGISTRATION_INPUT_USER_PASSWORD = "user_password";
 
-	/* VERIFICATION_PERSON_ACCOUNT code from email */
-	public static final String VERIFICATION_PERSON_ACCOUNT_INPUT_CODE = "verification_code";
+	/* CONFIRMATION_EMAIL code from email */
+	public static final String CONFIRMATION_EMAIL_INPUT_CODE = "confirmation_email_сode";
 
 	/* SIGN_IN_PERSON_ACCOUNT */
 	public static final String SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_LOGIN = "user_login";

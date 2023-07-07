@@ -10,7 +10,7 @@ import static by.koroza.zoo_market.dao.name.ColumnName.USERS_LOGIN;
 import static by.koroza.zoo_market.dao.name.ColumnName.USERS_NAME;
 import static by.koroza.zoo_market.dao.name.ColumnName.USERS_PASSWORD;
 import static by.koroza.zoo_market.dao.name.ColumnName.USERS_SURNAME;
-import static by.koroza.zoo_market.dao.name.ColumnName.USERS_EMAIL_CONFIRMED;
+import static by.koroza.zoo_market.dao.name.ColumnName.USERS_CONFIRMATION_EMAIL;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -94,7 +94,7 @@ public class UserDaoImpl implements UserDao {
 
 	/** The Constant QUERY_INSERT_USER. */
 	private static final String QUERY_INSERT_USER = """
-			INSERT INTO users(users.name, users.surname, users.login, users.password, users.email, users.email_confirmed, users.roles_id)
+			INSERT INTO users(users.name, users.surname, users.login, users.password, users.email, users.confirmation_email, users.roles_id)
 			VALUES (?, ?, ?, ?, ?, ?, ?);
 			""";
 
@@ -227,7 +227,7 @@ public class UserDaoImpl implements UserDao {
 	/** The Constant QUERY_CHANGE_VERIFICATE_EMAIL_STATUS. */
 	private static final String QUERY_CHANGE_VERIFICATE_EMAIL_STATUS = """
 			UPDATE users
-			SET users.email_confirmed = ?
+			SET users.confirmation_email = ?
 			WHERE users.id = ?;
 			""";
 
@@ -256,7 +256,7 @@ public class UserDaoImpl implements UserDao {
 
 	/** The Constant QUERY_GET_USER_BY_LOGIN_AND_PASSWORD. */
 	private static final String QUERY_GET_USER_BY_LOGIN_AND_PASSWORD = """
-			SELECT users.id, users.name, users.surname, roles.name, users.email, users.email_confirmed, users.login, users.password, users.discount, users.date_create
+			SELECT users.id, users.name, users.surname, roles.name, users.email, users.confirmation_email, users.login, users.password, users.discount, users.date_create
 			FROM users INNER JOIN roles
 			ON users.roles_id = roles.id
 			WHERE users.login = ? AND users.password = ?;
@@ -282,7 +282,7 @@ public class UserDaoImpl implements UserDao {
 					User userBuild = new User.UserBuilder().setId(resultSet.getLong(USERS_ID))
 							.setName(resultSet.getString(USERS_NAME)).setSurname(resultSet.getString(USERS_SURNAME))
 							.setEmail(resultSet.getString(USERS_EMAIL))
-							.setVerificatedEmail(resultSet.getBoolean(USERS_EMAIL_CONFIRMED))
+							.setVerificatedEmail(resultSet.getBoolean(USERS_CONFIRMATION_EMAIL))
 							.setLogin(resultSet.getString(USERS_LOGIN))
 							.setRole(UserRole.valueOf(resultSet.getString(ROLES_NAME)))
 							.setDiscount(resultSet.getDouble(USERS_DISCOUNT)).build();
@@ -303,7 +303,7 @@ public class UserDaoImpl implements UserDao {
 			SET users.name = ?,
 			users.surname = ?,
 			users.email = ?,
-			users.email_confirmed = ?
+			users.confirmation_email = ?
 			WHERE users.id = ?;
 			""";
 
@@ -429,7 +429,7 @@ public class UserDaoImpl implements UserDao {
 	private static final String QUERY_CHANGE_EMAIL = """
 			UPDATE users
 			SET users.email = ?,
-			users.email_confirmed = false
+			users.confirmation_email = false
 			WHERE users.id = ?;
 			""";
 

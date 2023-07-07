@@ -68,7 +68,7 @@
 										<input type="text"
 											class="form-control text-center is-invalid verification_personal_account_form_body_input"
 											id="verification_email.lable.massege.enter_password" required
-											name="${InputName.VERIFICATION_PERSON_ACCOUNT_INPUT_CODE}"
+											name="${InputName.CONFIRMATION_EMAIL_INPUT_CODE}"
 											placeholder='<fmt:message key="verification_email.lable.massege.enter_password"/>' />
 										<label
 											class="text-lowercase verification_personal_account_form_body_label w-100 text-center"
