@@ -16,7 +16,7 @@ public class ShowChangePetProductFormCommand implements Command {
 	@Override
 	public Router execute(HttpServletRequest request) {
 		User user = (User) request.getSession().getAttribute(ATTRIBUTE_USER);
-		isRegistratedUser(request);
+		isRegisteredUser(request);
 		return user != null && user.getRole().getIdRole() == ADMIN.getIdRole() && user.isVerificatedEmail()
 				? new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM)
 				: new Router(HOME_PAGE_PATH);

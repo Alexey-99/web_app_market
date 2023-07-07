@@ -66,7 +66,7 @@ public class ShowAllProductsOffFilterSortingByPriceDescendingCommand implements 
 			throw new CommandException(e);
 		}
 		request.setAttribute(REQUEST_ATTRIBUTE_COMMAND, request.getParameter(PARAMETER_COMMAND).trim());
-		isRegistratedUser(request);
+		isRegisteredUser(request);
 		return router;
 	}
 }

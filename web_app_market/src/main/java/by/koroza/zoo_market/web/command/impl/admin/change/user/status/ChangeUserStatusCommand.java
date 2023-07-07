@@ -64,7 +64,7 @@ public class ChangeUserStatusCommand implements Command {
 		} catch (ServiceException e) {
 			throw new CommandException(e);
 		}
-		isRegistratedUser(request);
+		isRegisteredUser(request);
 		return router;
 	}
 

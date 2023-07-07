@@ -72,7 +72,7 @@ public class ShowBacketPageCommand implements Command {
 		} else {
 			router = new Router(HOME_PAGE_PATH);
 		}
-		isRegistratedUser(request);
+		isRegisteredUser(request);
 		return router;
 	}
 

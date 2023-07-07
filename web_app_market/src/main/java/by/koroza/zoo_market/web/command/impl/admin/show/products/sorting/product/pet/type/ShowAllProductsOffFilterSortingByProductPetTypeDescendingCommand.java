@@ -67,7 +67,7 @@ public class ShowAllProductsOffFilterSortingByProductPetTypeDescendingCommand im
 			throw new CommandException(e);
 		}
 		request.setAttribute(REQUEST_ATTRIBUTE_COMMAND, request.getParameter(PARAMETER_COMMAND).trim());
-		isRegistratedUser(request);
+		isRegisteredUser(request);
 		return router;
 	}
 }

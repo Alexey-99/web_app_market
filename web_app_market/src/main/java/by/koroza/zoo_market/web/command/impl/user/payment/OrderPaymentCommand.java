@@ -95,7 +95,7 @@ public class OrderPaymentCommand implements Command {
 			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
-		isRegistratedUser(request);
+		isRegisteredUser(request);
 		return router;
 	}
 

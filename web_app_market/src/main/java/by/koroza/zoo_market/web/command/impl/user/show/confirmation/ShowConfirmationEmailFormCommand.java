@@ -11,7 +11,7 @@ public class ShowConfirmationEmailFormCommand implements Command {
 
 	@Override
 	public Router execute(HttpServletRequest request) {
-		isRegistratedUser(request);
+		isRegisteredUser(request);
 		return new Router(CONFIMARTION_EMAIL_PAGE_PATH);
 	}
 }
