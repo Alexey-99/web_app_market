@@ -12,17 +12,30 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import by.koroza.zoo_market.dao.exception.uncheckable.ConnectionPoolException;
+
+/**
+ * The Enum ConnectionPool.
+ */
 public enum ConnectionPool {
+
+	/** The instance. */
 	INSTANCE;
 
-	private final Logger LOGGER = LogManager.getLogger();
+	/** The logger. */
+	private Logger log = LogManager.getLogger();
 
-	private final int DEFAULT_POOL_SISE = 4;
+	/** The default pool size. */
+	private final int DEFAULT_POOL_SIZE = 4;
 
+	/** The data source. */
 	private DataSource dataSource;
 
+	/** The free connections. */
 	private BlockingQueue<ProxyConnection> freeConnections;
-	private BlockingQueue<ProxyConnection> bisyConnections;
+
+	/** The busy connections. */
+	private BlockingQueue<ProxyConnection> busyConnections;
 
 	{
 		dataSource = MySqlDataSourceFactory.createMySqlDataSource();
@@ -32,13 +45,13 @@ public enum ConnectionPool {
 	 * Instantiates a new connection pool.
 	 */
 	private ConnectionPool() {
-		this.freeConnections = new LinkedBlockingQueue<>(DEFAULT_POOL_SISE);
-		this.bisyConnections = new LinkedBlockingQueue<>();
+		this.freeConnections = new LinkedBlockingQueue<>(DEFAULT_POOL_SIZE);
+		this.busyConnections = new LinkedBlockingQueue<>();
 		initializeConnectionPool();
 	}
 
 	/**
-	 * Get the connection.
+	 * Gets the connection.
 	 *
 	 * @return the connection
 	 */
@@ -46,9 +59,9 @@ public enum ConnectionPool {
 		ProxyConnection connection = null;
 		try {
 			connection = this.freeConnections.take();
-			this.bisyConnections.offer(connection);
+			this.busyConnections.offer(connection);
 		} catch (InterruptedException e) {
-			LOGGER.log(Level.ERROR, "error in method getConnection(): " + e);
+			log.log(Level.ERROR, "error in method getConnection(): " + e);
 			e.printStackTrace();
 		}
 		return connection;
@@ -58,31 +71,30 @@ public enum ConnectionPool {
 	 * Release connection.
 	 *
 	 * @param connection the connection
-	 * @return true, if connection was released
+	 * @return true, if successful
 	 */
 	public boolean releaseConnection(ProxyConnection connection) {
 		boolean result = true;
 		if (connection instanceof ProxyConnection) {
-			this.bisyConnections.remove(connection);
+			this.busyConnections.remove(connection);
 			this.freeConnections.offer(connection);
 		} else {
 			result = false;
-			LOGGER.log(Level.ERROR, "error in method releaseConnection()");
+			log.log(Level.ERROR, "error in method releaseConnection()");
 		}
 		return result;
 	}
 
 	/**
 	 * Destroy pool.
-	 *
-	 * @return true, if connection pool was destroyed
 	 */
 	public void destroyPool() {
-		for (int i = 0; i < DEFAULT_POOL_SISE; i++) {
+		for (int i = 0; i < DEFAULT_POOL_SIZE; i++) {
 			try {
 				this.freeConnections.take().reallyClose();
 			} catch (SQLException | InterruptedException e) {
-				e.printStackTrace();
+				log.log(Level.ERROR, e.getMessage());
+				Thread.currentThread().interrupt();
 			}
 		}
 		deregisterDrivers();
@@ -105,14 +117,14 @@ public enum ConnectionPool {
 	 * Initialize connection pool.
 	 */
 	private void initializeConnectionPool() {
-		for (int i = 0; i < DEFAULT_POOL_SISE; i++) {
+		for (int i = 0; i < DEFAULT_POOL_SIZE; i++) {
 			try {
 				Connection connection = dataSource.getConnection();
 				ProxyConnection proxyConnection = new ProxyConnection(connection);
 				freeConnections.offer(proxyConnection);
 			} catch (SQLException e) {
-				LOGGER.log(Level.FATAL, "connection does not create.", e);
-				throw new RuntimeException("Fatal error. Connection does not create", e);
+				log.log(Level.FATAL, "connection does not create.", e);
+				throw new ConnectionPoolException("Fatal error. Connection does not create", e);
 			}
 		}
 	}

@@ -2,7 +2,7 @@ package by.koroza.zoo_market.dao;
 
 import java.util.Optional;
 
-import by.koroza.zoo_market.dao.exception.DaoException;
+import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 import by.koroza.zoo_market.model.entity.user.User;
 
 /**

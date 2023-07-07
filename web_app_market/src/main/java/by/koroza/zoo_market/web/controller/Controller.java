@@ -1,6 +1,7 @@
 package by.koroza.zoo_market.web.controller;
 
 import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_COMMAND;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.ERROR_PAGE_404_PATH;
 import static by.koroza.zoo_market.web.command.name.servlet.ServletName.MAIN_SERVLET_CONTROLLER_NAME;
 
 import java.io.IOException;
@@ -27,7 +28,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/" + MAIN_SERVLET_CONTROLLER_NAME)
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOGGER = LogManager.getLogger();
+	private static Logger log = LogManager.getLogger();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -58,6 +59,7 @@ public class Controller extends HttpServlet {
 		Command command = (optionalCommand.isPresent() ? optionalCommand.get() : null);
 		try {
 			if (command == null) {
+				log.log(Level.ERROR, "commnd is null");
 				throw new CommandException("commnd is null");
 			}
 			Router router = command.execute(request);
@@ -65,8 +67,8 @@ public class Controller extends HttpServlet {
 			case REDIRECT -> response.sendRedirect(router.getPagePath());
 			case FORWARD -> request.getRequestDispatcher(router.getPagePath()).forward(request, response);
 			default -> {
-				LOGGER.log(Level.ERROR, "unknown router type: {}", router.getType());
-				// TODO response.sendRedirect(ERROR_404_PAGE);
+				log.log(Level.ERROR, "unknown router type: {}", router.getType());
+				response.sendRedirect(ERROR_PAGE_404_PATH);
 			}
 			}
 		} catch (IOException | ServletException | CommandException e) {

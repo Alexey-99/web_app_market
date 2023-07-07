@@ -15,37 +15,62 @@ import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.koroza.zoo_market.dao.pool.ConnectionPool;
 import by.koroza.zoo_market.dao.pool.ProxyConnection;
 import by.koroza.zoo_market.model.calculation.Calculator;
-import by.koroza.zoo_market.model.entity.filter.FilterPet;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.dao.ProductPetDao;
-import by.koroza.zoo_market.dao.exception.DaoException;
+import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 
+/**
+ * The Class ProductPetDaoImpl.
+ */
 public class ProductPetDaoImpl implements ProductPetDao {
+
+	/** The log. */
+	private static Logger log = LogManager.getLogger();
+
+	/** The Constant INSTANCE. */
 	private static final ProductPetDao INSTANCE = new ProductPetDaoImpl();
 
+	/**
+	 * Instantiates a new product pet dao impl.
+	 */
 	private ProductPetDaoImpl() {
 	}
 
+	/**
+	 * Get the single instance of ProductPetDaoImpl.
+	 *
+	 * @return single instance of ProductPetDaoImpl
+	 */
 	public static ProductPetDao getInstance() {
 		return INSTANCE;
 	}
 
+	/** The Constant QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS. */
 	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS = """
 			SELECT pets.id, pets.image_path, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
 			FROM pets
 			WHERE pets.number_of_units_products > 0;
 			""";
 
+	/**
+	 * Get the all having products pets.
+	 *
+	 * @return the all having products pets
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public List<Pet> getAllHavingProductsPets() throws DaoException {
 		List<Pet> listPets = new ArrayList<>();
@@ -68,19 +93,29 @@ public class ProductPetDaoImpl implements ProductPetDao {
 				}
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return listPets;
 	}
 
+	/** The Constant CODE_OF_TYPE_PRODUCT_PET. */
 	private static final char CODE_OF_TYPE_PRODUCT_PET = 'p';
 
+	/** The Constant QUERY_SELECT_HAVING_PRODUCT_PET_BY_ID. */
 	private static final String QUERY_SELECT_HAVING_PRODUCT_PET_BY_ID = """
 			SELECT pets.id, pets.image_path, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
 			FROM pets
 			WHERE pets.number_of_units_products > 0 AND pets.id = ?;
 			""";
 
+	/**
+	 * Get the products pets by id.
+	 *
+	 * @param productsIdMap the products id map
+	 * @return the products pets by id
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public List<Pet> getProductsPetsById(Map<String, String> productsIdMap) throws DaoException {
 		List<Pet> listPets = new ArrayList<>();
@@ -113,41 +148,24 @@ public class ProductPetDaoImpl implements ProductPetDao {
 				}
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return listPets;
 	}
 
-	@Override
-	public List<Pet> getProductsPetsWithFilter(FilterPet filter) throws DaoException {
-		List<Pet> listPets = new ArrayList<>();
-		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
-				PreparedStatement statement = connection.prepareStatement(createQueryGetProductsPetsByFilter(filter));
-				ResultSet resultSet = statement.executeQuery()) {
-			while (resultSet.next()) {
-				Pet pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
-						.setImagePath(resultSet.getString(PETS_IMAGE_PATH)).setSpecie(resultSet.getString(PETS_SPECIE))
-						.setBreed(resultSet.getString(PETS_BREED))
-						.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toString())
-						.setPrice(resultSet.getDouble(PETS_PRICE)).setDiscount(resultSet.getDouble(PETS_DISCOUNT))
-						.setUpdateDateTime(resultSet.getDate(PETS_DATE_UPDATE).toLocalDate(),
-								resultSet.getTime(PETS_DATE_UPDATE).toLocalTime())
-						.build();
-				pet.setTotalPrice(pet.getPrice()
-						- Calculator.getInstance().calcProcentFromSum(pet.getPrice(), pet.getDiscount()));
-				listPets.add(pet);
-			}
-		} catch (SQLException e) {
-			throw new DaoException(e);
-		}
-		return listPets;
-	}
-
+	/** The Constant QUERY_SELECT_ALL_PRODUCTS_PETS. */
 	private static final String QUERY_SELECT_ALL_PRODUCTS_PETS = """
 			SELECT pets.id, pets.image_path, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
 			FROM pets
 			""";
 
+	/**
+	 * Get the all products pets and number of units.
+	 *
+	 * @return the all products pets and number of units
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public Map<Pet, Long> getAllProductsPetsAndNumberOfUnits() throws DaoException {
 		Map<Pet, Long> mapPetsAndNumber = new HashMap<>();
@@ -168,17 +186,26 @@ public class ProductPetDaoImpl implements ProductPetDao {
 				mapPetsAndNumber.put(pet, resultSet.getLong(PETS_NUMBER_OF_UNITS_PRODUCT));
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return mapPetsAndNumber;
 	}
 
+	/** The Constant QUERY_SELECT_PRODUCT_PET_BY_ID. */
 	private static final String QUERY_SELECT_PRODUCT_PET_BY_ID = """
 			SELECT pets.id, pets.image_path, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
 			FROM pets
 			WHERE pets.id = ?;
 			""";
 
+	/**
+	 * Get the product pet by id.
+	 *
+	 * @param id the id
+	 * @return the product pet by id
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public Pet getProductPetById(long id) throws DaoException {
 		Pet pet = null;
@@ -200,23 +227,33 @@ public class ProductPetDaoImpl implements ProductPetDao {
 				}
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return pet;
 	}
 
+	/** The Constant QUERY_SELECT_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID. */
 	private static final String QUERY_SELECT_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID = """
 			SELECT pets.number_of_units_products
 			FROM pets
 			WHERE pets.id = ?;
 			""";
 
+	/** The Constant QUERY_CHANGE_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID. */
 	private static final String QUERY_CHANGE_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID = """
 			UPDATE pets
 			SET pets.number_of_units_products = ?
 			WHERE pets.id = ?;
 			""";
 
+	/**
+	 * Change number of units products.
+	 *
+	 * @param order the order
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public boolean changeNumberOfUnitsProducts(Order order) throws DaoException {
 		boolean result = false;
@@ -242,20 +279,31 @@ public class ProductPetDaoImpl implements ProductPetDao {
 				}
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return result;
 	}
 
+	/** The Constant QUERY_INSERT_PRODUCT_PET. */
 	private static final String QUERY_INSERT_PRODUCT_PET = """
 			INSERT INTO pets(pets.image_path, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.number_of_units_products)
 			VALUE(?, ?, ?, ?, ?, ?, ?);
 			""";
 
+	/** The Constant QUERY_SELECT_LAST_INSERT_ID. */
 	private static final String QUERY_SELECT_LAST_INSERT_ID = """
 			SELECT LAST_INSERT_ID();
 			""";
 
+	/**
+	 * Add the product pet.
+	 *
+	 * @param pet                  the pet
+	 * @param numberOfUnitsProduct the number of units product
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public boolean addProductPet(Pet pet, long numberOfUnitsProduct) throws DaoException {
 		boolean result = false;
@@ -277,11 +325,13 @@ public class ProductPetDaoImpl implements ProductPetDao {
 				}
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return result;
 	}
 
+	/** The Constant QUERY_UPDETE_PRODUCT_PET_BY_ID. */
 	private static final String QUERY_UPDETE_PRODUCT_PET_BY_ID = """
 			UPDATE pets
 			SET pets.image_path = ?,
@@ -295,6 +345,14 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			WHERE pets.id = ?;
 			""";
 
+	/**
+	 * Update product pet.
+	 *
+	 * @param pet                  the pet
+	 * @param numberOfUnitsProduct the number of units product
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public boolean updateProductPet(Pet pet, long numberOfUnitsProduct) throws DaoException {
 		boolean result = false;
@@ -310,17 +368,26 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			statement.setLong(8, pet.getId());
 			result = statement.executeUpdate() > 0;
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return result;
 	}
 
+	/** The Constant QUERY_SELECT_COUNT_PRODUCTS_WITH_IMAGE_PATH. */
 	private static final String QUERY_SELECT_COUNT_PRODUCTS_WITH_IMAGE_PATH = """
 			SELECT COUNT(pets.image_path)
 			FROM pets
 			WHERE pets.image_path = ?;
 			""";
 
+	/**
+	 * Exists product with image path.
+	 *
+	 * @param imagePath the image path
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public boolean existsProductWithImagePath(String imagePath) throws DaoException {
 		boolean result = false;
@@ -334,17 +401,26 @@ public class ProductPetDaoImpl implements ProductPetDao {
 				}
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return result;
 	}
 
+	/** The Constant QUERY_SELECT_PRODUCT_IMAGE_PATH_BY_ID. */
 	private static final String QUERY_SELECT_PRODUCT_IMAGE_PATH_BY_ID = """
 			SELECT pets.image_path
 			FROM pets
 			WHERE pets.id = ?;
 			""";
 
+	/**
+	 * Get the product image path by id.
+	 *
+	 * @param id the id
+	 * @return the product image path by id
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public String getProductImagePathById(long id) throws DaoException {
 		String imagePath = null;
@@ -353,96 +429,14 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			statement.setLong(1, id);
 			try (ResultSet resultSet = statement.executeQuery()) {
 				while (resultSet.next()) {
+
 					imagePath = resultSet.getString(PETS_IMAGE_PATH);
 				}
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return imagePath;
-	}
-
-	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS_NOT_CLOSED = """
-			SELECT pets.id, pets.image_path, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
-			FROM pets
-			WHERE pets.number_of_units_products > 0;
-			""";
-
-	private String createQueryGetProductsPetsByFilter(FilterPet filter) {
-		StringBuilder query = new StringBuilder(QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS_NOT_CLOSED);
-		int countParameters = 0;
-		if (filter.isOnlyProductsWithDiscount()) {
-			countParameters++;
-			query.append(" and (").append(PETS_DISCOUNT).append(" > 0");
-		} else if (filter.getMaxDiscount() != 0 || filter.getMinDiscount() != 0) {
-			countParameters++;
-			insertFilterParametersInQueryMinMaxDouble(query, filter.getMinDiscount(), filter.getMaxDiscount(),
-					PETS_DISCOUNT);
-		}
-		if (filter.getMaxPrice() != 0 || filter.getMinPrice() != 0) {
-			countParameters++;
-			insertFilterParametersInQueryMinMaxDouble(query, filter.getMinPrice(), filter.getMaxPrice(), PETS_PRICE);
-		}
-		if ((filter.getMinNumberMonth() != 0 || filter.getMinNumberYear() != 0)
-				|| (filter.getMaxNumberMonth() != 0 || filter.getMaxNumberYear() != 0)) {
-			countParameters++;
-			insertFilterParametersInQueryMinMaxDate(query,
-					LocalDate.now().minusYears(filter.getMaxNumberYear()).minusMonths(filter.getMaxNumberMonth()),
-					LocalDate.now().minusYears(filter.getMinNumberYear()).minusMonths(filter.getMinNumberMonth()),
-					PETS_BIRTH_DATE);
-		}
-		String[] typePets = filter.getChoosedTypesPets();
-		if (typePets != null) {
-			countParameters++;
-			insertFilterParametersInQueryArrayString(query, typePets, PETS_SPECIE);
-		}
-		String[] breedPets = filter.getChoosedBreedPets();
-		if (breedPets != null) {
-			countParameters++;
-			insertFilterParametersInQueryArrayString(query, breedPets, PETS_BREED);
-		}
-		for (int i = 0; i < countParameters; i++) {
-			query.append(")");
-		}
-		return query.append(";").toString();
-	}
-
-	private void insertFilterParametersInQueryArrayString(StringBuilder query, String[] parameters,
-			String nameParameter) {
-		boolean haveFirstType = false;
-		query.append(" and (");
-		for (String type : parameters) {
-			if (haveFirstType == false) {
-				query.append("pet.").append(nameParameter).append(" = '").append(type).append("'");
-				haveFirstType = true;
-			} else {
-				query.append(" or ").append("pet.").append(nameParameter).append(" = '").append(type).append("'");
-			}
-		}
-	}
-
-	private void insertFilterParametersInQueryMinMaxDouble(StringBuilder query, double min, double max,
-			String nameParameter) {
-		if (min > 0) {
-			query.append(" and (").append("pet.").append(nameParameter).append(" > ").append(min);
-			if (max != 0) {
-				query.append(" and ").append("pet.").append(nameParameter).append(" < ").append(max);
-			}
-		} else {
-			query.append(" and (").append("pet.").append(nameParameter).append(" < ").append(max);
-		}
-	}
-
-	private void insertFilterParametersInQueryMinMaxDate(StringBuilder query, LocalDate min, LocalDate max,
-			String nameParameter) {
-		if (min != null) {
-			query.append(" and (").append("pet.").append(nameParameter).append(" > '").append(min.toString())
-					.append("'");
-			query.append(" and ").append("pet.").append(nameParameter).append(" < '").append(max.toString())
-					.append("'");
-		} else {
-			query.append(" and (").append("pet.").append(nameParameter).append(" < '").append(max.toString())
-					.append("'");
-		}
 	}
 }

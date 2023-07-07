@@ -25,6 +25,10 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.koroza.zoo_market.dao.pool.ConnectionPool;
 import by.koroza.zoo_market.dao.pool.ProxyConnection;
 import by.koroza.zoo_market.model.entity.market.order.Order;
@@ -33,22 +37,40 @@ import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.model.entity.status.OrderStatus;
 import by.koroza.zoo_market.model.entity.status.ProductType;
 import by.koroza.zoo_market.dao.OrderDao;
-import by.koroza.zoo_market.dao.exception.DaoException;
+import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 
+/**
+ * The Class OrderDaoImpl.
+ */
 public class OrderDaoImpl implements OrderDao {
+
+	/** The log. */
+	private static Logger log = LogManager.getLogger();
+
+	/** The Constant INSTANCE. */
 	private static final OrderDao INSTANCE = new OrderDaoImpl();
 
+	/** The Constant QUERY_SELECT_LAST_INSERT_ID. */
 	private static final String QUERY_SELECT_LAST_INSERT_ID = """
 			SELECT LAST_INSERT_ID();
 			""";
 
+	/**
+	 * Instantiates a new order dao impl.
+	 */
 	private OrderDaoImpl() {
 	}
 
+	/**
+	 * Get the single instance of OrderDaoImpl.
+	 *
+	 * @return single instance of OrderDaoImpl
+	 */
 	public static OrderDao getInstance() {
 		return INSTANCE;
 	}
 
+	/** The Constant QUERY_SELECT_ORDERS_BY_USER_ID. */
 	private static final String QUERY_SELECT_ORDERS_BY_USER_ID = """
 			SELECT orders.id, orders.users_id, orders.total_payment_amount, orders.total_products_discount_amount,
 			orders.total_person_discount_amount, orders.total_discount_amount, orders.total_payment_with_discount_amount, orders.date, orders.order_statuses_id
@@ -57,6 +79,7 @@ public class OrderDaoImpl implements OrderDao {
 			WHERE orders.users_id = ?;
 			""";
 
+	/** The Constant QUERY_SELECT_ORDER_PRODUCTS_PETS_BY_ORDERS_ID. */
 	private static final String QUERY_SELECT_ORDER_PRODUCTS_PETS_BY_ORDERS_ID = """
 			SELECT order_products.orders_id, pets.id, pets.specie, pets.breed, pets.birth_date
 			FROM order_products INNER JOIN pets
@@ -64,6 +87,7 @@ public class OrderDaoImpl implements OrderDao {
 			WHERE order_products.orders_id = ? AND order_products.product_types_id = ?;
 			""";
 
+	/** The Constant QUERY_SELECT_ORDER_PRODUCTS_OTHER_PRODUCTS_BY_ORDERS_ID. */
 	private static final String QUERY_SELECT_ORDER_PRODUCTS_OTHER_PRODUCTS_BY_ORDERS_ID = """
 			SELECT order_products.orders_id, feeds_and_other.id, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description, feeds_and_other.pet_type
 			FROM order_products INNER JOIN feeds_and_other
@@ -71,6 +95,13 @@ public class OrderDaoImpl implements OrderDao {
 			WHERE order_products.orders_id = ? AND order_products.product_types_id = ?;
 			""";
 
+	/**
+	 * Get the order with products by user id.
+	 *
+	 * @param userId the user id
+	 * @return the order products by user id
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public List<Order> getOrderProductsByUserId(long userId) throws DaoException {
 		List<Order> orders = new ArrayList<>();
@@ -126,22 +157,33 @@ public class OrderDaoImpl implements OrderDao {
 				}
 			}
 		} catch (SQLException | IllegalArgumentException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return orders;
 	}
 
+	/** The Constant QUERY_INSERT_ORDER. */
 	private static final String QUERY_INSERT_ORDER = """
 			INSERT INTO orders(orders.users_id, orders.total_payment_amount, orders.total_products_discount_amount,
 			orders.total_person_discount_amount, orders.total_discount_amount, orders.total_payment_with_discount_amount, orders.order_statuses_id)
 			VALUE(?, ?, ?, ?, ?, ?, ?);
 			""";
 
+	/** The Constant QUERY_INSERT_ORDER_PRODUCTS. */
 	private static final String QUERY_INSERT_ORDER_PRODUCTS = """
 			INSERT INTO order_products(order_products.orders_id, order_products.product_types_id, order_products.pets_id, order_products.feeds_and_other_id)
 			VALUE(?, ?, ?, ?);
 			""";
 
+	/**
+	 * Add the order with products.
+	 *
+	 * @param order  the order
+	 * @param userId the user id
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public boolean addOrder(Order order, long userId) throws DaoException {
 		boolean result = false;
@@ -189,6 +231,7 @@ public class OrderDaoImpl implements OrderDao {
 			}
 			result = resultInsetOrder == true && resultInsetOrderProducts == true;
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return result;

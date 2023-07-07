@@ -2,7 +2,7 @@ package by.koroza.zoo_market.service.impl.order;
 
 import java.util.List;
 
-import by.koroza.zoo_market.dao.exception.DaoException;
+import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 import by.koroza.zoo_market.dao.impl.order.OrderDaoImpl;
 import by.koroza.zoo_market.model.calculation.Calculator;
 import by.koroza.zoo_market.model.entity.market.order.Order;

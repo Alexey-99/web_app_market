@@ -22,33 +22,57 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.dao.UserDao;
-import by.koroza.zoo_market.dao.exception.DaoException;
+import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 import by.koroza.zoo_market.dao.pool.ConnectionPool;
 import by.koroza.zoo_market.dao.pool.ProxyConnection;
 import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.User;
 
+/**
+ * The Class UserDaoImpl.
+ */
 public class UserDaoImpl implements UserDao {
-	private static final UserDao INSTANCE = new UserDaoImpl();
+
+	/** The log. */
 	private static Logger log = LogManager.getLogger();
 
+	/** The Constant INSTANCE. */
+	private static final UserDao INSTANCE = new UserDaoImpl();
+
+	/** The Constant QUERY_SELECT_LAST_INSERT_ID. */
 	private static final String QUERY_SELECT_LAST_INSERT_ID = """
 			SELECT LAST_INSERT_ID();
 			""";
 
+	/**
+	 * Instantiates a new user dao impl.
+	 */
 	private UserDaoImpl() {
 	}
 
+	/**
+	 * Gets the single instance of UserDaoImpl.
+	 *
+	 * @return single instance of UserDaoImpl
+	 */
 	public static UserDao getInstance() {
 		return INSTANCE;
 	}
 
+	/** The Constant QUERY_SELECT_COUNT_REPEAT_LOGIN. */
 	private static final String QUERY_SELECT_COUNT_REPEAT_LOGIN = """
 			SELECT COUNT(users.login)
 			FROM users
 			WHERE users.login = ?;
 			""";
 
+	/**
+	 * Check repeat login.
+	 *
+	 * @param login the login
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public boolean checkRepeatLogin(String login) throws DaoException {
 		int countReapeatLogin = 0;
@@ -62,16 +86,25 @@ public class UserDaoImpl implements UserDao {
 				}
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return countReapeatLogin > 0;
 	}
 
+	/** The Constant QUERY_INSERT_USER. */
 	private static final String QUERY_INSERT_USER = """
 			INSERT INTO users(users.name, users.surname, users.login, users.password, users.email, users.email_confirmed, users.roles_id)
 			VALUES (?, ?, ?, ?, ?, ?, ?);
 			""";
 
+	/**
+	 * Add the user.
+	 *
+	 * @param user the user
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public boolean addUser(User user) throws DaoException {
 		boolean result = false;
@@ -93,17 +126,26 @@ public class UserDaoImpl implements UserDao {
 				}
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return result;
 	}
 
+	/** The Constant QUERY_GET_USER_ID_BY_LOGIN. */
 	private static final String QUERY_GET_USER_ID_BY_LOGIN = """
 			SELECT users.id
 			FROM users
 			WHERE users.login = ?;
 			""";
 
+	/**
+	 * Get the user id by login.
+	 *
+	 * @param login the login
+	 * @return the user id by login
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public long getUserIdByLogin(String login) throws DaoException {
 		long userId = 0;
@@ -116,17 +158,27 @@ public class UserDaoImpl implements UserDao {
 				}
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return userId;
 	}
 
+	/** The Constant QUERY_CHANGE_ROLE_STATUS. */
 	private static final String QUERY_CHANGE_ROLE_STATUS = """
 			UPDATE users
 			SET users.roles_id = ?
 			WHERE users.id = ?;
 			""";
 
+	/**
+	 * Change role status.
+	 *
+	 * @param userId       the user id
+	 * @param roleStatusId the role status id
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public boolean changeRoleStatus(long userId, int roleStatusId) throws DaoException {
 		boolean result = false;
@@ -136,17 +188,27 @@ public class UserDaoImpl implements UserDao {
 			statement.setLong(2, userId);
 			result = statement.executeUpdate() > 0;
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return result;
 	}
 
+	/** The Constant QUERY_CHANGE_ROLE_STATUS_BY_LOGIN. */
 	private static final String QUERY_CHANGE_ROLE_STATUS_BY_LOGIN = """
 			UPDATE users
 			SET users.roles_id = ?
 			WHERE users.login = ?;
 			""";
 
+	/**
+	 * Change role status.
+	 *
+	 * @param login        the login
+	 * @param roleStatusId the role status id
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public boolean changeRoleStatus(String login, int roleStatusId) throws DaoException {
 		boolean result = false;
@@ -156,17 +218,27 @@ public class UserDaoImpl implements UserDao {
 			statement.setString(2, login);
 			result = statement.executeUpdate() > 0;
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return result;
 	}
 
+	/** The Constant QUERY_CHANGE_VERIFICATE_EMAIL_STATUS. */
 	private static final String QUERY_CHANGE_VERIFICATE_EMAIL_STATUS = """
 			UPDATE users
 			SET users.email_confirmed = ?
 			WHERE users.id = ?;
 			""";
 
+	/**
+	 * Change confirmation email status.
+	 *
+	 * @param userId the user id
+	 * @param status the status
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public boolean changeConfirmationEmailStatus(long userId, boolean status) throws DaoException {
 		boolean result = false;
@@ -176,11 +248,13 @@ public class UserDaoImpl implements UserDao {
 			statement.setLong(2, userId);
 			result = statement.executeUpdate() > 0;
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return result;
 	}
 
+	/** The Constant QUERY_GET_USER_BY_LOGIN_AND_PASSWORD. */
 	private static final String QUERY_GET_USER_BY_LOGIN_AND_PASSWORD = """
 			SELECT users.id, users.name, users.surname, roles.name, users.email, users.email_confirmed, users.login, users.password, users.discount, users.date_create
 			FROM users INNER JOIN roles
@@ -188,6 +262,14 @@ public class UserDaoImpl implements UserDao {
 			WHERE users.login = ? AND users.password = ?;
 			""";
 
+	/**
+	 * Get the user by login.
+	 *
+	 * @param login    the login
+	 * @param password the password
+	 * @return the user by login
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public Optional<User> getUserByLogin(String login, String password) throws DaoException {
 		Optional<User> user = Optional.empty();
@@ -209,11 +291,13 @@ public class UserDaoImpl implements UserDao {
 				}
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return user;
 	}
 
+	/** The Constant QUERY_CHANGE_PERSON_INFOMATION. */
 	private static final String QUERY_CHANGE_PERSON_INFOMATION = """
 			UPDATE users
 			SET users.name = ?,
@@ -223,6 +307,13 @@ public class UserDaoImpl implements UserDao {
 			WHERE users.id = ?;
 			""";
 
+	/**
+	 * Change person information (name, surname, email).
+	 *
+	 * @param user the user
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public boolean changePersonInformation(User user) throws DaoException {
 		boolean result = false;
@@ -235,17 +326,27 @@ public class UserDaoImpl implements UserDao {
 			statement.setLong(5, user.getId());
 			result = statement.executeUpdate() > 0;
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return result;
 	}
 
+	/** The Constant QUERY_CHANGE_LOGIN. */
 	private static final String QUERY_CHANGE_LOGIN = """
 			UPDATE users
 			SET users.login = ?
 			WHERE users.id = ?;
 			""";
 
+	/**
+	 * Change login.
+	 *
+	 * @param userId the user id
+	 * @param login  the login
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public boolean changeLogin(long userId, String login) throws DaoException {
 		boolean result = false;
@@ -255,17 +356,27 @@ public class UserDaoImpl implements UserDao {
 			statement.setLong(2, userId);
 			result = statement.executeUpdate() > 0;
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return result;
 	}
 
+	/** The Constant QUERY_CHANGE_PASSWORD. */
 	private static final String QUERY_CHANGE_PASSWORD = """
 			UPDATE users
 			SET users.password = ?
 			WHERE users.id = ?;
 			""";
 
+	/**
+	 * Change password.
+	 *
+	 * @param userId   the user id
+	 * @param password the password
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public boolean changePassword(long userId, String password) throws DaoException {
 		boolean result = false;
@@ -275,17 +386,26 @@ public class UserDaoImpl implements UserDao {
 			statement.setLong(2, userId);
 			result = statement.executeUpdate() > 0;
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return result;
 	}
 
+	/** The Constant QUERY_COUNT_ROW_WITH_LOGIN. */
 	private static final String QUERY_COUNT_ROW_WITH_LOGIN = """
 			SELECT COUNT(users.login)
 			FROM users
 			WHERE users.login = ?;
 			""";
 
+	/**
+	 * Check if is exists user with login.
+	 *
+	 * @param login the login
+	 * @return true, if is exists user with login
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public boolean isExistsUserWithLogin(String login) throws DaoException {
 		boolean result = false;
@@ -299,11 +419,13 @@ public class UserDaoImpl implements UserDao {
 				}
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return result;
 	}
 
+	/** The Constant QUERY_CHANGE_EMAIL. */
 	private static final String QUERY_CHANGE_EMAIL = """
 			UPDATE users
 			SET users.email = ?,
@@ -311,6 +433,14 @@ public class UserDaoImpl implements UserDao {
 			WHERE users.id = ?;
 			""";
 
+	/**
+	 * Change email.
+	 *
+	 * @param userId the user id
+	 * @param email  the email
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public boolean changeEmail(long userId, String email) throws DaoException {
 		boolean result = false;
@@ -320,17 +450,27 @@ public class UserDaoImpl implements UserDao {
 			statement.setLong(2, userId);
 			result = statement.executeUpdate() > 0;
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return result;
 	}
 
+	/** The Constant QUERY_CHANGE_DISCOUNT. */
 	private static final String QUERY_CHANGE_DISCOUNT = """
 			UPDATE users
 			SET users.discount = ?,
 			WHERE users.id = ?;
 			""";
 
+	/**
+	 * Change discount.
+	 *
+	 * @param userId   the user id
+	 * @param discount the discount
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public boolean changeDiscount(long userId, double discount) throws DaoException {
 		boolean result = false;
@@ -340,6 +480,7 @@ public class UserDaoImpl implements UserDao {
 			statement.setLong(2, userId);
 			result = statement.executeUpdate() > 0;
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return result;

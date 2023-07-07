@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.dao.exception;
+package by.koroza.zoo_market.dao.exception.checkable;
 
 @SuppressWarnings("serial")
 public class DaoException extends Exception {

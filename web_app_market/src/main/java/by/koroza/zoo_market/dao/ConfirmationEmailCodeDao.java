@@ -1,11 +1,11 @@
 package by.koroza.zoo_market.dao;
 
-import by.koroza.zoo_market.dao.exception.DaoException;
+import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 
 /**
  * The Interface ConfirmationDao.
  */
-public interface ConfirmationDao {
+public interface ConfirmationEmailCodeDao {
 
 	/**
 	 * Add the confirmation email code with user id.

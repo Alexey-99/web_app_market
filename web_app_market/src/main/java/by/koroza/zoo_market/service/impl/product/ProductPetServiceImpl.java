@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import by.koroza.zoo_market.dao.ProductPetDao;
-import by.koroza.zoo_market.dao.exception.DaoException;
+import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 import by.koroza.zoo_market.dao.impl.product.ProductPetDaoImpl;
 import by.koroza.zoo_market.model.entity.filter.FilterPet;
 import by.koroza.zoo_market.model.entity.market.order.Order;

@@ -1,7 +1,7 @@
-package by.koroza.zoo_market.dao.exception;
+package by.koroza.zoo_market.dao.exception.uncheckable;
 
 @SuppressWarnings("serial")
-public class MySqlDataSourceeException extends Exception {
+public class MySqlDataSourceeException extends RuntimeException {
 
 	public MySqlDataSourceeException() {
 		super();

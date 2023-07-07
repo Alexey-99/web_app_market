@@ -3,8 +3,8 @@ package by.koroza.zoo_market.service.impl.confirmation;
 import static by.koroza.zoo_market.web.command.name.email.EmailComponent.EMAIL_SUBJECT;
 import static by.koroza.zoo_market.web.command.name.email.EmailComponent.EMAIL_TEXT;
 
-import by.koroza.zoo_market.dao.exception.DaoException;
-import by.koroza.zoo_market.dao.impl.confirmation.ConfirmationDaoImpl;
+import by.koroza.zoo_market.dao.exception.checkable.DaoException;
+import by.koroza.zoo_market.dao.impl.confirmation.ConfirmationEmailCodeDaoImpl;
 import by.koroza.zoo_market.service.ConfirmationEmailCodeService;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.generator.GenerationConfirmationEmailCodeImpl;
@@ -23,7 +23,7 @@ public class ConfirmationEmailCodeServiceImpl implements ConfirmationEmailCodeSe
 	@Override
 	public String getConfirmationEmailCodeByUserId(long userId) throws ServiceException {
 		try {
-			return ConfirmationDaoImpl.getInstance().getConfirmationCodeByUserId(userId);
+			return ConfirmationEmailCodeDaoImpl.getInstance().getConfirmationCodeByUserId(userId);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
@@ -33,7 +33,7 @@ public class ConfirmationEmailCodeServiceImpl implements ConfirmationEmailCodeSe
 	public boolean changeConfirmationCodeStatusByUserId(long userId, String code, boolean status)
 			throws ServiceException {
 		try {
-			return ConfirmationDaoImpl.getInstance().changeConfirmationCodeStatusByUserId(userId, code, status);
+			return ConfirmationEmailCodeDaoImpl.getInstance().changeConfirmationCodeStatusByUserId(userId, code, status);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
@@ -43,7 +43,7 @@ public class ConfirmationEmailCodeServiceImpl implements ConfirmationEmailCodeSe
 	public boolean sendConfirmationEmailCode(long userId, String userEmail) throws ServiceException {
 		try {
 			String code = GenerationConfirmationEmailCodeImpl.getInstance().getGeneratedCode();
-			ConfirmationDaoImpl.getInstance().addConfirmationEmailCodeWithUserId(userId, code);
+			ConfirmationEmailCodeDaoImpl.getInstance().addConfirmationEmailCodeWithUserId(userId, code);
 			return EmailSenderImpl.getInstance().emailSend(EMAIL_SUBJECT, EMAIL_TEXT + code, userEmail);
 		} catch (DaoException e) {
 			throw new ServiceException(e);

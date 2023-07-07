@@ -10,6 +10,8 @@ import org.apache.logging.log4j.Logger;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 
+import by.koroza.zoo_market.dao.exception.uncheckable.MySqlDataSourceeException;
+
 public class MySqlDataSourceFactory {
 	private static final Logger LOGGER = LogManager.getLogger();
 
@@ -29,7 +31,7 @@ public class MySqlDataSourceFactory {
 		} catch (IOException e) {
 			LOGGER.log(Level.FATAL, "This file isn't readable by path: " + DATABASE_PROPERTIES_PATH
 					+ " because pathProperties is null");
-			throw new RuntimeException("This file isn't readable by path: " + DATABASE_PROPERTIES_PATH
+			throw new MySqlDataSourceeException("This file isn't readable by path: " + DATABASE_PROPERTIES_PATH
 					+ " because pathProperties is null");
 		}
 	}

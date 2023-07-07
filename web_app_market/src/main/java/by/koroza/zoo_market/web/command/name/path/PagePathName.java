@@ -2,7 +2,8 @@ package by.koroza.zoo_market.web.command.name.path;
 
 public final class PagePathName {
 	public static final String INDEX_PAGE_PATH = "index.jsp";
-	public static final String ERROR_PAGE_500_PATH = "pages/error/error_page_500.jsp";
+	public static final String ERROR_PAGE_500_PATH = "jsp/pages/error/error_page_500.jsp";
+	public static final String ERROR_PAGE_404_PATH = "jsp/pages/error/error_page_404.jsp";
 
 	/* PROPERTIES */
 	public static final String PAGE_CONTENT_PROPERTIES = "locale.pageContent";

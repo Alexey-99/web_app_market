@@ -21,25 +21,45 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.koroza.zoo_market.dao.pool.ConnectionPool;
 import by.koroza.zoo_market.dao.pool.ProxyConnection;
 import by.koroza.zoo_market.model.calculation.Calculator;
-import by.koroza.zoo_market.model.entity.filter.FilterFeedsAndOther;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.dao.ProductFeedsAndOtherDao;
-import by.koroza.zoo_market.dao.exception.DaoException;
+import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 
+/**
+ * The Class ProductFeedsAndOtherDaoImpl.
+ */
 public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
+
+	/** The log. */
+	private static Logger log = LogManager.getLogger();
+
+	/** The Constant INSTANCE. */
 	private static final ProductFeedsAndOtherDao INSTANCE = new ProductFeedsAndOtherDaoImpl();
 
+	/**
+	 * Instantiates a new product feeds and other dao impl.
+	 */
 	private ProductFeedsAndOtherDaoImpl() {
 	}
 
+	/**
+	 * Get the single instance of ProductFeedsAndOtherDaoImpl.
+	 *
+	 * @return single instance of ProductFeedsAndOtherDaoImpl
+	 */
 	public static ProductFeedsAndOtherDao getInstance() {
 		return INSTANCE;
 	}
 
+	/** The Constant QUERY_SELECT_ALL_HAVING_PRODUCTS_FEED_AND_OTHER. */
 	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_FEED_AND_OTHER = """
 			SELECT feeds_and_other.id, feeds_and_other.image_path, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
 			feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, feeds_and_other.number_of_units_products
@@ -47,6 +67,12 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 			WHERE feeds_and_other.number_of_units_products > 0;
 			""";
 
+	/**
+	 * Get the all having products feed and other.
+	 *
+	 * @return the all having products feed and other
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public List<FeedAndOther> getAllHavingProductsFeedAndOther() throws DaoException {
 		List<FeedAndOther> listFeedAndOther = new ArrayList<>();
@@ -74,11 +100,16 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 				}
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return listFeedAndOther;
 	}
 
+	/** The Constant CODE_OF_TYPE_PRODUCT_FEEDS_AND_OTHER. */
+	private static final char CODE_OF_TYPE_PRODUCT_FEEDS_AND_OTHER = 'o';
+
+	/** The Constant QUERY_SELECT_PRODUCTS_FEED_AND_OTHER_HAVING_BY_ID. */
 	private static final String QUERY_SELECT_PRODUCTS_FEED_AND_OTHER_HAVING_BY_ID = """
 			SELECT feeds_and_other.id, feeds_and_other.image_path, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
 			feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, feeds_and_other.number_of_units_products
@@ -86,6 +117,13 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 			WHERE feeds_and_other.number_of_units_products > 0 AND feeds_and_other.id = ?;
 			""";
 
+	/**
+	 * Get the having products feed and other by product id.
+	 *
+	 * @param productsIdMap the products id map
+	 * @return the having products feed and other by id
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public List<FeedAndOther> getHavingProductsFeedAndOtherById(Map<String, String> productsIdMap) throws DaoException {
 		List<FeedAndOther> listFeedAndOther = new ArrayList<>();
@@ -120,46 +158,25 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 				}
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return listFeedAndOther;
 	}
 
-	@Override
-	public List<FeedAndOther> getProductsFeedAndOtherWithFilter(FilterFeedsAndOther filter) throws DaoException {
-		List<FeedAndOther> listFeedAndOther = new ArrayList<>();
-		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
-				PreparedStatement statement = connection.prepareStatement(createQueryGetProductsPetsByFilter(filter));
-				ResultSet resultSet = statement.executeQuery()) {
-			while (resultSet.next()) {
-				FeedAndOther feedAndOther = new FeedAndOther.FeedAndOtherBuilder()
-						.setId(resultSet.getLong(FEEDS_AND_OTHER_ID))
-						.setImagePath(resultSet.getString(FEEDS_AND_OTHER_IMAGE_PATH))
-						.setProductType(resultSet.getString(FEEDS_AND_OTHER_TYPE))
-						.setBrand(resultSet.getString(FEEDS_AND_OTHER_BRAND))
-						.setDescriptions(resultSet.getString(FEEDS_AND_OTHER_DESCRIPTION))
-						.setPetTypes(resultSet.getString(FEEDS_AND_OTHER_PET_TYPE))
-						.setPrice(resultSet.getDouble(FEEDS_AND_OTHER_PRICE))
-						.setDiscount(resultSet.getDouble(FEEDS_AND_OTHER_DISCOUNT))
-						.setUpdateDateTime(resultSet.getDate(FEEDS_AND_OTHER_DATE_UPDATE).toLocalDate(),
-								resultSet.getTime(FEEDS_AND_OTHER_DATE_UPDATE).toLocalTime())
-						.build();
-				feedAndOther.setTotalPrice(feedAndOther.getPrice() - Calculator.getInstance()
-						.calcProcentFromSum(feedAndOther.getPrice(), feedAndOther.getDiscount()));
-				listFeedAndOther.add(feedAndOther);
-			}
-		} catch (SQLException e) {
-			throw new DaoException(e);
-		}
-		return listFeedAndOther;
-	}
-
+	/** The Constant QUERY_SELECT_ALL_PRODUCTS_FEED_AND_OTHER. */
 	private static final String QUERY_SELECT_ALL_PRODUCTS_FEED_AND_OTHER = """
 			SELECT feeds_and_other.id, feeds_and_other.image_path, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
 			feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, feeds_and_other.number_of_units_products
 			FROM feeds_and_other;
 			""";
 
+	/**
+	 * Get the all products feed and other and number of units.
+	 *
+	 * @return the all products feed and other and number of units
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public Map<FeedAndOther, Long> getAllProductsFeedAndOtherAndNumberOfUnits() throws DaoException {
 		Map<FeedAndOther, Long> mapFeedAndOtherAndNumber = new HashMap<>();
@@ -184,23 +201,33 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 				mapFeedAndOtherAndNumber.put(feedAndOther, resultSet.getLong(FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT));
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return mapFeedAndOtherAndNumber;
 	}
 
+	/** The Constant QUERY_SELECT_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID. */
 	private static final String QUERY_SELECT_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID = """
 			SELECT feeds_and_other.number_of_units_products
 			FROM feeds_and_other
 			WHERE feeds_and_other.id = ?;
 			""";
 
+	/** The Constant QUERY_CHANGE_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID. */
 	private static final String QUERY_CHANGE_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID = """
 			UPDATE feeds_and_other
 			SET feeds_and_other.number_of_units_products = ?
 			WHERE feeds_and_other.id = ?;
 			""";
 
+	/**
+	 * Change number of units products.
+	 *
+	 * @param order the order
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public boolean changeNumberOfUnitsProducts(Order order) throws DaoException {
 		boolean result = false;
@@ -226,21 +253,32 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 				}
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return result;
 	}
 
+	/** The Constant QUERY_INSERT_PRODUCT_FEEDS_AND_OTHER. */
 	private static final String QUERY_INSERT_PRODUCT_FEEDS_AND_OTHER = """
 			INSERT INTO feeds_and_other(feeds_and_other.image_path, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
 			feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.number_of_units_products)
 			VALUE(?, ?, ?, ?, ?, ?, ?, ?);
 			""";
 
+	/** The Constant QUERY_SELECT_LAST_INSERT_ID. */
 	private static final String QUERY_SELECT_LAST_INSERT_ID = """
 			SELECT LAST_INSERT_ID();
 			""";
 
+	/**
+	 * Add the product.
+	 *
+	 * @param product              the product
+	 * @param numberOfUnitsProduct the number of units product
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public boolean addProduct(FeedAndOther product, long numberOfUnitsProduct) throws DaoException {
 		boolean result = false;
@@ -264,11 +302,13 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 				}
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return result;
 	}
 
+	/** The Constant QUERY_SELECT_PRODUCT_FEED_AND_OTHER_BY_ID. */
 	private static final String QUERY_SELECT_PRODUCT_FEED_AND_OTHER_BY_ID = """
 			SELECT feeds_and_other.id, feeds_and_other.image_path, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
 			feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, feeds_and_other.number_of_units_products
@@ -276,6 +316,13 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 			WHERE feeds_and_other.number_of_units_products > 0 AND feeds_and_other.id = ?;
 			""";
 
+	/**
+	 * Get the product feed and other by product id.
+	 *
+	 * @param id the id
+	 * @return the product feed and other by id
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public FeedAndOther getProductFeedAndOtherById(long id) throws DaoException {
 		FeedAndOther feedAndOther = null;
@@ -300,11 +347,13 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 				}
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return feedAndOther;
 	}
 
+	/** The Constant QUERY_UPDETE_PRODUCT_BY_ID. */
 	private static final String QUERY_UPDETE_PRODUCT_BY_ID = """
 			UPDATE feeds_and_other
 			SET feeds_and_other.image_path = ?,
@@ -319,6 +368,14 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 			WHERE feeds_and_other.id = ?;
 			""";
 
+	/**
+	 * Update product by id.
+	 *
+	 * @param product              the product
+	 * @param numberOfUnitsProduct the number of units product
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public boolean updateProductById(FeedAndOther product, long numberOfUnitsProduct) throws DaoException {
 		boolean result = false;
@@ -337,17 +394,26 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 				result = statement.executeUpdate() > 0;
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return result;
 	}
 
+	/** The Constant QUERY_SELECT_COUNT_PRODUCTS_WITH_IMAGE_PATH. */
 	private static final String QUERY_SELECT_COUNT_PRODUCTS_WITH_IMAGE_PATH = """
 			SELECT COUNT(feeds_and_other.image_path)
 			FROM feeds_and_other
 			WHERE feeds_and_other.image_path = ?;
 			""";
 
+	/**
+	 * Exists product with image path.
+	 *
+	 * @param imagePath the image path
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public boolean existsProductWithImagePath(String imagePath) throws DaoException {
 		boolean result = false;
@@ -361,17 +427,26 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 				}
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return result;
 	}
 
+	/** The Constant QUERY_SELECT_PRODUCT_IMAGE_PATH_BY_ID. */
 	private static final String QUERY_SELECT_PRODUCT_IMAGE_PATH_BY_ID = """
 			SELECT feeds_and_other.image_path
 			FROM feeds_and_other
 			WHERE feeds_and_other.id = ?;
 			""";
 
+	/**
+	 * Get the product image path by id.
+	 *
+	 * @param id the id
+	 * @return the product image path by id
+	 * @throws DaoException the dao exception
+	 */
 	@Override
 	public String getProductImagePathById(long id) throws DaoException {
 		String imagePath = null;
@@ -384,97 +459,9 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 				}
 			}
 		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
 		return imagePath;
-	}
-
-	private static final char CODE_OF_TYPE_PRODUCT_FEEDS_AND_OTHER = 'o';
-
-	private static final String QUERY_SELECT_PRODUCTS_FEED_AND_OTHER_HAVING_BY_FILTER = """
-			SELECT feeds_and_other.id, feeds_and_other.image_path, feeds_and_other.type, feeds_and_other.brand,
-			feeds_and_other.description, feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount,
-			feeds_and_other.date_update, feeds_and_other.number_of_units_products
-			FROM feeds_and_other
-			WHERE feeds_and_other.number_of_units_products > 0
-			""";
-
-	private String createQueryGetProductsPetsByFilter(FilterFeedsAndOther filter) {
-		StringBuilder query = new StringBuilder(QUERY_SELECT_PRODUCTS_FEED_AND_OTHER_HAVING_BY_FILTER);
-		int countParameters = 0;
-		if (filter.isOnlyProductsWithDiscount()) {
-			countParameters++;
-			query.append(" and (").append(FEEDS_AND_OTHER_DISCOUNT).append(" > 0");
-		} else if (filter.getMaxDiscount() != 0 || filter.getMinDiscount() != 0) {
-			countParameters++;
-			insertFilterParametersInQueryMinMaxDouble(query, filter.getMinDiscount(), filter.getMaxDiscount(),
-					FEEDS_AND_OTHER_DISCOUNT);
-		}
-		if (filter.getMaxPrice() != 0 || filter.getMinPrice() != 0) {
-			countParameters++;
-			insertFilterParametersInQueryMinMaxDouble(query, filter.getMinPrice(), filter.getMaxPrice(),
-					FEEDS_AND_OTHER_PRICE);
-		}
-		String[] typeProduct = filter.getChoosedTypesProduct();
-		if (typeProduct != null) {
-			countParameters++;
-			insertFilterParametersInQueryArrayString(query, typeProduct, FEEDS_AND_OTHER_TYPE);
-		}
-		String[] typePets = filter.getChoosedTypesPets();
-		if (typePets != null) {
-			countParameters++;
-			insertFilterParametersInQueryArrayStringWithMatch(query, typePets, FEEDS_AND_OTHER_PET_TYPE);
-		}
-		String[] brandProduct = filter.getChoosedProductBrand();
-		if (brandProduct != null) {
-			countParameters++;
-			insertFilterParametersInQueryArrayString(query, brandProduct, FEEDS_AND_OTHER_BRAND);
-		}
-		for (int i = 0; i < countParameters; i++) {
-			query.append(")");
-		}
-		System.out.println(query.toString());
-		return query.append(";").toString();
-	}
-
-	private void insertFilterParametersInQueryArrayString(StringBuilder query, String[] parameters,
-			String nameParameter) {
-		boolean haveFirstType = false;
-		query.append(" and (");
-		for (String type : parameters) {
-			if (haveFirstType == false) {
-				query.append(nameParameter).append(" = '").append(type).append("'");
-				haveFirstType = true;
-			} else {
-				query.append(" or ").append(nameParameter).append(" = '").append(type).append("'");
-			}
-		}
-	}
-
-	private void insertFilterParametersInQueryArrayStringWithMatch(StringBuilder query, String[] parameters,
-			String nameParameter) {
-		boolean haveFirstType = false;
-		query.append(" and (");
-		for (String type : parameters) {
-			if (haveFirstType == false) {
-				query.append("match(").append(nameParameter).append(") Against('").append(type).append("'").append(")");
-				haveFirstType = true;
-			} else {
-				query.append(" or ").append("match(").append(nameParameter).append(") Against('").append(type)
-						.append("'").append(")");
-			}
-		}
-	}
-
-	private void insertFilterParametersInQueryMinMaxDouble(StringBuilder query, double min, double max,
-			String nameParameter) {
-		if (min > 0) {
-			query.append(" and (").append(nameParameter).append(" > ").append(min);
-			if (max != 0) {
-				query.append(" and ").append(nameParameter).append(" < ").append(max);
-			}
-		} else {
-			query.append(" and (").append(nameParameter).append(" < ").append(max);
-		}
 	}
 }

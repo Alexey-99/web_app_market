@@ -10,7 +10,7 @@
 
 	<error-page>
 		<error-code>400</error-code>
-		<location>/jsp/pages/error/error_page_500.jsp</location>
+		<location>/jsp/pages/error/error_page_404.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>

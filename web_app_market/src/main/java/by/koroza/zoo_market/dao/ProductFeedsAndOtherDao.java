@@ -3,8 +3,7 @@ package by.koroza.zoo_market.dao;
 import java.util.List;
 import java.util.Map;
 
-import by.koroza.zoo_market.dao.exception.DaoException;
-import by.koroza.zoo_market.model.entity.filter.FilterFeedsAndOther;
+import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 
@@ -29,15 +28,6 @@ public interface ProductFeedsAndOtherDao {
 	 * @throws DaoException the dao exception
 	 */
 	public List<FeedAndOther> getHavingProductsFeedAndOtherById(Map<String, String> productsIdMap) throws DaoException;
-
-	/**
-	 * Get the products feed and other with filter.
-	 *
-	 * @param filter the filter
-	 * @return the products feed and other with filter
-	 * @throws DaoException the dao exception
-	 */
-	public List<FeedAndOther> getProductsFeedAndOtherWithFilter(FilterFeedsAndOther filter) throws DaoException;
 
 	/**
 	 * Get the all products feed and other and number of units.
