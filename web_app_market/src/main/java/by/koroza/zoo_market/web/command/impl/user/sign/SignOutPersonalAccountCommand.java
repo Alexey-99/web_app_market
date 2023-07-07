@@ -13,7 +13,7 @@ public class SignOutPersonalAccountCommand implements Command {
 	@Override
 	public Router execute(HttpServletRequest request) {
 		request.getSession().removeAttribute(ATTRIBUTE_USER);
-		isRegistratedUser(request);
+		isRegisteredUser(request);
 		return new Router(HOME_PAGE_PATH);
 	}
 }

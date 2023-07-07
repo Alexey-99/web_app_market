@@ -101,7 +101,7 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
-		isRegistratedUser(request);
+		isRegisteredUser(request);
 		return new Router(PRODUCTS_FEED_AND_OTHER_PAGE_PATH);
 	}
 

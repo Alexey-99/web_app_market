@@ -41,7 +41,7 @@ public class ShowProductFeedsAndOtherNumberPageCommand implements Command {
 			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
-		isRegistratedUser(request);
+		isRegisteredUser(request);
 		request.setAttribute(REQUEST_ATTRIBUTE_NUMBER_PAGE, request.getParameter(PARAMETER_NUMBER_PAGE));
 		return new Router(PRODUCTS_FEED_AND_OTHER_PAGE_PATH);
 	}

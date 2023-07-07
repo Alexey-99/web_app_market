@@ -10,7 +10,7 @@ public class ShowHomePageCommand implements Command {
 
 	@Override
 	public Router execute(HttpServletRequest request) {
-		isRegistratedUser(request);
+		isRegisteredUser(request);
 		return new Router(PagePathName.HOME_PAGE_PATH);
 	}
 }
