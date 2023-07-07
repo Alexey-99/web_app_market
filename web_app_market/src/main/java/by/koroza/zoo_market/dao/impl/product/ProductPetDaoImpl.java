@@ -26,7 +26,6 @@ import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.dao.pool.ConnectionPool;
 import by.koroza.zoo_market.dao.pool.ProxyConnection;
-import by.koroza.zoo_market.model.calculation.Calculator;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.dao.ProductPetDao;
@@ -87,8 +86,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 							.setUpdateDateTime(resultSet.getDate(PETS_DATE_UPDATE).toLocalDate(),
 									resultSet.getTime(PETS_DATE_UPDATE).toLocalTime())
 							.build();
-					pet.setTotalPrice(pet.getPrice()
-							- Calculator.getInstance().calcProcentFromSum(pet.getPrice(), pet.getDiscount()));
+					pet.setTotalPrice(pet.getPrice() - (pet.getPrice() * pet.getDiscount() / 100));
 					listPets.add(pet);
 				}
 			}
@@ -139,8 +137,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 										.setUpdateDateTime(resultSet.getDate(PETS_DATE_UPDATE).toLocalDate(),
 												resultSet.getTime(PETS_DATE_UPDATE).toLocalTime())
 										.build();
-								pet.setTotalPrice(pet.getPrice() - Calculator.getInstance()
-										.calcProcentFromSum(pet.getPrice(), pet.getDiscount()));
+								pet.setTotalPrice(pet.getPrice() - (pet.getPrice() * pet.getDiscount() / 100));
 								listPets.add(pet);
 							}
 						}
@@ -181,8 +178,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 						.setUpdateDateTime(resultSet.getDate(PETS_DATE_UPDATE).toLocalDate(),
 								resultSet.getTime(PETS_DATE_UPDATE).toLocalTime())
 						.build();
-				pet.setTotalPrice(pet.getPrice()
-						- Calculator.getInstance().calcProcentFromSum(pet.getPrice(), pet.getDiscount()));
+				pet.setTotalPrice(pet.getPrice() - (pet.getPrice() * pet.getDiscount() / 100));
 				mapPetsAndNumber.put(pet, resultSet.getLong(PETS_NUMBER_OF_UNITS_PRODUCT));
 			}
 		} catch (SQLException e) {
@@ -222,8 +218,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 							.setUpdateDateTime(resultSet.getDate(PETS_DATE_UPDATE).toLocalDate(),
 									resultSet.getTime(PETS_DATE_UPDATE).toLocalTime())
 							.build();
-					pet.setTotalPrice(pet.getPrice()
-							- Calculator.getInstance().calcProcentFromSum(pet.getPrice(), pet.getDiscount()));
+					pet.setTotalPrice(pet.getPrice() - (pet.getPrice() * pet.getDiscount() / 100));
 				}
 			}
 		} catch (SQLException e) {

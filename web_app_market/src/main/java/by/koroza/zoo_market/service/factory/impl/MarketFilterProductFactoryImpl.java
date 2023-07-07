@@ -27,16 +27,36 @@ import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.model.entity.market.product.abstraction.AbstractProduct;
 import by.koroza.zoo_market.service.factory.MarketFilterProductFactory;
 
+/**
+ * The Class MarketFilterProductFactoryImpl.
+ */
 public class MarketFilterProductFactoryImpl implements MarketFilterProductFactory {
+
+	/** The Constant INSTANCE. */
 	private static final MarketFilterProductFactory INSTANCE = new MarketFilterProductFactoryImpl();
 
+	/**
+	 * Get the single instance of MarketFilterProductFactoryImpl.
+	 *
+	 * @return single instance of MarketFilterProductFactoryImpl
+	 */
 	public static MarketFilterProductFactory getInstance() {
 		return INSTANCE;
 	}
 
+	/**
+	 * Instantiates a new market filter product factory impl.
+	 */
 	private MarketFilterProductFactoryImpl() {
 	}
 
+	/**
+	 * Create the filter feed and other.
+	 *
+	 * @param products      the products
+	 * @param sessionLocale the session locale
+	 * @return the map
+	 */
 	@Override
 	public Map<String, Set<String>> createFilterFeedAndOther(List<FeedAndOther> products, String sessionLocale) {
 		Map<String, Set<String>> filterMap = new HashMap<>();
@@ -92,6 +112,13 @@ public class MarketFilterProductFactoryImpl implements MarketFilterProductFactor
 		return filterMap;
 	}
 
+	/**
+	 * Create the filter pets.
+	 *
+	 * @param petsList      the pets list
+	 * @param sessionLocale the session locale
+	 * @return the map
+	 */
 	@Override
 	public Map<String, Set<String>> createFilterPets(List<Pet> petsList, String sessionLocale) {
 		Map<String, Set<String>> filterMap = new LinkedHashMap<>();
@@ -117,18 +144,37 @@ public class MarketFilterProductFactoryImpl implements MarketFilterProductFactor
 		return filterMap;
 	}
 
+	/**
+	 * Create the filter by type product.
+	 *
+	 * @param products the products
+	 * @return the sets the
+	 */
 	private Set<String> createFilterByTypeProduct(List<FeedAndOther> products) {
 		Set<String> typesProductsSet = new HashSet<>();
 		products.forEach(product -> typesProductsSet.add(product.getProductType()));
 		return typesProductsSet;
 	}
 
+	/**
+	 * Create the filter by brand products.
+	 *
+	 * @param products the products
+	 * @return the sets the
+	 */
 	private Set<String> createFilterByBrandProducts(List<FeedAndOther> products) {
 		Set<String> brandsProductsSet = new HashSet<>();
 		products.forEach(product -> brandsProductsSet.add(product.getBrand()));
 		return brandsProductsSet;
 	}
 
+	/**
+	 * Create the filter by discount products.
+	 *
+	 * @param products      the products
+	 * @param sessionLocale the session locale
+	 * @return the sets the
+	 */
 	private Set<String> createFilterByDiscountProducts(List<? extends AbstractProduct> products, String sessionLocale) {
 		Set<String> promotionsPetsSet = null;
 		if (isHavingDiscountProducts(products)) {
@@ -144,6 +190,12 @@ public class MarketFilterProductFactoryImpl implements MarketFilterProductFactor
 		return promotionsPetsSet;
 	}
 
+	/**
+	 * Check if is having discount products.
+	 *
+	 * @param products the products
+	 * @return true, if is having discount products
+	 */
 	private boolean isHavingDiscountProducts(List<? extends AbstractProduct> products) {
 		boolean isHavingDiscount = false;
 		for (AbstractProduct product : products) {
@@ -154,18 +206,36 @@ public class MarketFilterProductFactoryImpl implements MarketFilterProductFactor
 		return isHavingDiscount;
 	}
 
+	/**
+	 * Create the filter by type pet.
+	 *
+	 * @param products the products
+	 * @return the sets the
+	 */
 	private Set<String> createFilterByTypePet(List<FeedAndOther> products) {
 		Set<String> typesPetsSet = new HashSet<>();
 		products.forEach(product -> product.getPetTypes().stream().forEach(type -> typesPetsSet.add(type)));
 		return typesPetsSet;
 	}
 
+	/**
+	 * Create the filter by species pets.
+	 *
+	 * @param petsList the pets list
+	 * @return the sets the
+	 */
 	private Set<String> createFilterBySpeciePets(List<Pet> petsList) {
 		Set<String> speciesPetsSet = new HashSet<>();
 		petsList.forEach(pet -> speciesPetsSet.add(pet.getSpecie()));
 		return speciesPetsSet;
 	}
 
+	/**
+	 * Create the filter by breed pets.
+	 *
+	 * @param petsList the pets list
+	 * @return the sets the
+	 */
 	private Set<String> createFilterByBreedPets(List<Pet> petsList) {
 		Set<String> breedsPetsSet = new HashSet<>();
 		petsList.forEach(pet -> breedsPetsSet.add(pet.getBreed()));

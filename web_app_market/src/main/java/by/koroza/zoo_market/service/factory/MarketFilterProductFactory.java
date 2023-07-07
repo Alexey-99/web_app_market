@@ -7,10 +7,13 @@ import java.util.Set;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 
+/**
+ * A factory for creating MarketFilterProduct objects.
+ */
 public interface MarketFilterProductFactory {
 
 	/**
-	 * Creates a new MarketFilterProduct object.
+	 * Create a new MarketFilterProduct object.
 	 *
 	 * @param products      the products
 	 * @param sessionLocale the session locale
@@ -19,7 +22,7 @@ public interface MarketFilterProductFactory {
 	public Map<String, Set<String>> createFilterFeedAndOther(List<FeedAndOther> products, String sessionLocale);
 
 	/**
-	 * Creates a new MarketFilterProduct object.
+	 * Create a new MarketFilterProduct object.
 	 *
 	 * @param petsList      the pets list
 	 * @param sessionLocale the session locale

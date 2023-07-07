@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.model.entity.user.User;
+import by.koroza.zoo_market.service.exception.HashGeneratorException;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.confirmation.ConfirmationEmailCodeServiceImpl;
 import by.koroza.zoo_market.service.impl.hash.HashGeneratorImpl;
@@ -37,14 +38,14 @@ public class VerificationRegistrationInformationCommand implements Command {
 				ConfirmationEmailCodeServiceImpl.getInstance().sendConfirmationEmailCode(user.getId(), user.getEmail());
 			}
 			isRegisteredUser(request);
-		} catch (ServiceException e) {
+		} catch (ServiceException | HashGeneratorException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
 		return user != null ? new Router(CONFIMARTION_EMAIL_PAGE_PATH) : new Router(HOME_PAGE_PATH);
 	}
 
-	private boolean insertUserToBD(User user) throws ServiceException {
+	private boolean insertUserToBD(User user) throws ServiceException, HashGeneratorException {
 		user.setPassword(HashGeneratorImpl.getInstance().getHash(user.getPassword()));
 		return UserServiceImpl.getInstance().addUser(user);
 	}

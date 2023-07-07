@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
-import by.koroza.zoo_market.model.calculation.Calculator;
 import by.koroza.zoo_market.model.entity.market.product.constituent.UpdateDateTime;
 
 public abstract class AbstractProduct {
@@ -74,29 +74,25 @@ public abstract class AbstractProduct {
 	public void setUpdateDateTime(LocalDateTime dateUpdate) throws DateTimeParseException {
 		LocalDateTime productUpdateDateTime = LocalDateTime.parse(dateUpdate.toString(),
 				DateTimeFormatter.ofPattern(PATTERN_FORMATTER_DATE_TIME_UPDATE));
-		this.updateDateTime = new UpdateDateTime(
-				Calculator.getInstance().calcUpdateDateTimeInSeconds(productUpdateDateTime));
+		this.updateDateTime = new UpdateDateTime(calcUpdateDateTimeInSeconds(productUpdateDateTime));
 	}
 
 	public void setUpdateDateTime(String dateUpdate) throws DateTimeParseException {
 		LocalDateTime productUpdateDateTime = LocalDateTime.parse(dateUpdate,
 				DateTimeFormatter.ofPattern(PATTERN_FORMATTER_DATE_TIME_UPDATE));
-		this.updateDateTime = new UpdateDateTime(
-				Calculator.getInstance().calcUpdateDateTimeInSeconds(productUpdateDateTime));
+		this.updateDateTime = new UpdateDateTime(calcUpdateDateTimeInSeconds(productUpdateDateTime));
 	}
 
 	public void setUpdateDateTime(LocalDate dateUpdate, LocalTime timeUpdate) throws DateTimeParseException {
 		LocalDateTime productUpdateDateTime = LocalDateTime.of(dateUpdate, timeUpdate);
-		this.updateDateTime = new UpdateDateTime(
-				Calculator.getInstance().calcUpdateDateTimeInSeconds(productUpdateDateTime));
+		this.updateDateTime = new UpdateDateTime(calcUpdateDateTimeInSeconds(productUpdateDateTime));
 	}
 
 	public void setUpdateDateTime(String dateUpdate, String timeUpdate) throws DateTimeParseException {
 		LocalDateTime productUpdateDateTime = LocalDateTime.of(
 				LocalDate.parse(dateUpdate, DateTimeFormatter.ofPattern(PATTERN_FORMATTER_DATE_UPDATE)),
 				LocalTime.parse(timeUpdate, DateTimeFormatter.ofPattern(PATTERN_FORMATTER_TIME_UPDATE)));
-		this.updateDateTime = new UpdateDateTime(
-				Calculator.getInstance().calcUpdateDateTimeInSeconds(productUpdateDateTime));
+		this.updateDateTime = new UpdateDateTime(calcUpdateDateTimeInSeconds(productUpdateDateTime));
 	}
 
 	public String getImagePath() {
@@ -105,6 +101,11 @@ public abstract class AbstractProduct {
 
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+
+	private long calcUpdateDateTimeInSeconds(LocalDateTime productCreateInBD) {
+		long seconds = ChronoUnit.SECONDS.between(productCreateInBD, LocalDateTime.now());
+		return seconds;
 	}
 
 	@Override

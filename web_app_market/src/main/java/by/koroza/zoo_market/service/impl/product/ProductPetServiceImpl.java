@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import by.koroza.zoo_market.dao.ProductPetDao;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 import by.koroza.zoo_market.dao.impl.product.ProductPetDaoImpl;
 import by.koroza.zoo_market.model.entity.filter.FilterPet;
@@ -14,40 +17,77 @@ import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.service.ProductPetService;
 import by.koroza.zoo_market.service.exception.ServiceException;
 
+/**
+ * The Class ProductPetServiceImpl.
+ */
 public class ProductPetServiceImpl implements ProductPetService {
-	private static final ProductPetService INSTANCE = new ProductPetServiceImpl();
-	private ProductPetDao productPetDao = ProductPetDaoImpl.getInstance();
 
+	/** The log. */
+	private static Logger log = LogManager.getLogger();
+
+	/** The Constant INSTANCE. */
+	private static final ProductPetService INSTANCE = new ProductPetServiceImpl();
+
+	/**
+	 * Instantiates a new product pet service impl.
+	 */
 	private ProductPetServiceImpl() {
 	}
 
+	/**
+	 * Get the single instance of ProductPetServiceImpl.
+	 *
+	 * @return single instance of ProductPetServiceImpl
+	 */
 	public static ProductPetService getInstance() {
 		return INSTANCE;
 	}
 
+	/**
+	 * Get the all having products pets.
+	 *
+	 * @return the all having products pets
+	 * @throws ServiceException the service exception
+	 */
 	@Override
 	public List<Pet> getAllHavingProductsPets() throws ServiceException {
 		try {
-			return this.productPetDao.getAllHavingProductsPets();
+			return ProductPetDaoImpl.getInstance().getAllHavingProductsPets();
 		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
 		}
 	}
 
+	/**
+	 * Get the products pets by product id.
+	 *
+	 * @param productsIdMap the products id map
+	 * @return the products pets by id
+	 * @throws ServiceException the service exception
+	 */
 	@Override
 	public List<Pet> getProductsPetsById(Map<String, String> productsIdMap) throws ServiceException {
 		try {
-			return this.productPetDao.getProductsPetsById(productsIdMap);
+			return ProductPetDaoImpl.getInstance().getProductsPetsById(productsIdMap);
 		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
 		}
 	}
 
+	/**
+	 * Get the products pets by filter.
+	 *
+	 * @param filter the filter
+	 * @return the products pets by filter
+	 * @throws ServiceException the service exception
+	 */
 	@Override
 	public List<Pet> getProductsPetsByFilter(FilterPet filter) throws ServiceException {
 		List<Pet> listPetsWithFilter = new ArrayList<>();
 		try {
-			listPetsWithFilter = this.productPetDao.getAllHavingProductsPets();
+			listPetsWithFilter = ProductPetDaoImpl.getInstance().getAllHavingProductsPets();
 			if (filter.isOnlyProductsWithDiscount()) {
 				listPetsWithFilter = listPetsWithFilter.stream().filter(product -> product.getDiscount() > 0).toList();
 			} else if (filter.getMaxDiscount() != 0 || filter.getMinDiscount() != 0) {
@@ -66,65 +106,122 @@ public class ProductPetServiceImpl implements ProductPetService {
 			listPetsWithFilter = selectProductsPetsBySpecie(filter, listPetsWithFilter);
 			listPetsWithFilter = selectProductsPetsByBreed(filter, listPetsWithFilter);
 		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
 		}
 		return listPetsWithFilter;
 	}
 
+	/**
+	 * Get the all products pets and number of units.
+	 *
+	 * @return the all products pets and number of units
+	 * @throws ServiceException the service exception
+	 */
 	@Override
 	public Map<Pet, Long> getAllProductsPetsAndNumberOfUnits() throws ServiceException {
 		try {
-			return this.productPetDao.getAllProductsPetsAndNumberOfUnits();
+			return ProductPetDaoImpl.getInstance().getAllProductsPetsAndNumberOfUnits();
 		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
 		}
 	}
 
+	/**
+	 * Change number of units products.
+	 *
+	 * @param order the order
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
 	@Override
 	public boolean changeNumberOfUnitsProducts(Order order) throws ServiceException {
 		try {
-			return this.productPetDao.changeNumberOfUnitsProducts(order);
+			return ProductPetDaoImpl.getInstance().changeNumberOfUnitsProducts(order);
 		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
 		}
 	}
 
+	/**
+	 * Add the product pet.
+	 *
+	 * @param pet                  the pet
+	 * @param numberOfUnitsProduct the number of units product
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
 	@Override
 	public boolean addProductPet(Pet pet, long numberOfUnitsProduct) throws ServiceException {
 		try {
-			return this.productPetDao.addProductPet(pet, numberOfUnitsProduct);
+			return ProductPetDaoImpl.getInstance().addProductPet(pet, numberOfUnitsProduct);
 		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
 		}
 	}
 
+	/**
+	 * Get the product pet by id.
+	 *
+	 * @param id the id
+	 * @return the product pet by id
+	 * @throws ServiceException the service exception
+	 */
 	@Override
 	public Pet getProductPetById(long id) throws ServiceException {
 		try {
-			return this.productPetDao.getProductPetById(id);
+			return ProductPetDaoImpl.getInstance().getProductPetById(id);
 		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
 		}
 	}
 
+	/**
+	 * Update product pet.
+	 *
+	 * @param pet                  the pet
+	 * @param numberOfUnitsProduct the number of units product
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
 	@Override
 	public boolean updateProductPet(Pet pet, long numberOfUnitsProduct) throws ServiceException {
 		try {
-			return this.productPetDao.updateProductPet(pet, numberOfUnitsProduct);
+			return ProductPetDaoImpl.getInstance().updateProductPet(pet, numberOfUnitsProduct);
 		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
 		}
 	}
 
+	/**
+	 * Get the product image path by product id.
+	 *
+	 * @param id the id
+	 * @return the product image path by product id
+	 * @throws ServiceException the service exception
+	 */
 	@Override
 	public String getProductImagePathByProductId(long id) throws ServiceException {
 		try {
-			return this.productPetDao.getProductImagePathById(id);
+			return ProductPetDaoImpl.getInstance().getProductImagePathById(id);
 		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
 		}
 	}
 
+	/**
+	 * Select products pets by birth date.
+	 *
+	 * @param filter             the filter
+	 * @param listPetsWithFilter the list pets with filter
+	 * @return the list
+	 */
 	private List<Pet> selectProductsPetsByBirthDate(FilterPet filter, List<Pet> listPetsWithFilter) {
 		if ((filter.getMinNumberMonth() != 0 || filter.getMinNumberYear() != 0)
 				|| (filter.getMaxNumberMonth() != 0 || filter.getMaxNumberYear() != 0)) {
@@ -139,6 +236,13 @@ public class ProductPetServiceImpl implements ProductPetService {
 		return listPetsWithFilter;
 	}
 
+	/**
+	 * Select products pets by species.
+	 *
+	 * @param filter             the filter
+	 * @param listPetsWithFilter the list pets with filter
+	 * @return the list
+	 */
 	private List<Pet> selectProductsPetsBySpecie(FilterPet filter, List<Pet> listPetsWithFilter) {
 		String[] typePets = filter.getChoosedTypesPets();
 		if (typePets != null) {
@@ -155,6 +259,13 @@ public class ProductPetServiceImpl implements ProductPetService {
 		return listPetsWithFilter;
 	}
 
+	/**
+	 * Select products pets by breed.
+	 *
+	 * @param filter             the filter
+	 * @param listPetsWithFilter the list pets with filter
+	 * @return the list
+	 */
 	private List<Pet> selectProductsPetsByBreed(FilterPet filter, List<Pet> listPetsWithFilter) {
 		String[] breedPets = filter.getChoosedBreedPets();
 		if (breedPets != null) {

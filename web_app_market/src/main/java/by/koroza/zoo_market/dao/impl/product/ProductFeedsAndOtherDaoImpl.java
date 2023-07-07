@@ -27,7 +27,6 @@ import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.dao.pool.ConnectionPool;
 import by.koroza.zoo_market.dao.pool.ProxyConnection;
-import by.koroza.zoo_market.model.calculation.Calculator;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.dao.ProductFeedsAndOtherDao;
@@ -94,8 +93,8 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 							.setUpdateDateTime(resultSet.getDate(FEEDS_AND_OTHER_DATE_UPDATE).toLocalDate(),
 									resultSet.getTime(FEEDS_AND_OTHER_DATE_UPDATE).toLocalTime())
 							.build();
-					feedAndOther.setTotalPrice(feedAndOther.getPrice() - Calculator.getInstance()
-							.calcProcentFromSum(feedAndOther.getPrice(), feedAndOther.getDiscount()));
+					feedAndOther.setTotalPrice(
+							feedAndOther.getPrice() - (feedAndOther.getPrice() * feedAndOther.getDiscount() / 100));
 					listFeedAndOther.add(feedAndOther);
 				}
 			}
@@ -149,8 +148,8 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 										.setUpdateDateTime(resultSet.getDate(FEEDS_AND_OTHER_DATE_UPDATE).toLocalDate(),
 												resultSet.getTime(FEEDS_AND_OTHER_DATE_UPDATE).toLocalTime())
 										.build();
-								feedAndOther.setTotalPrice(feedAndOther.getPrice() - Calculator.getInstance()
-										.calcProcentFromSum(feedAndOther.getPrice(), feedAndOther.getDiscount()));
+								feedAndOther.setTotalPrice(feedAndOther.getPrice()
+										- (feedAndOther.getPrice() * feedAndOther.getDiscount() / 100));
 								listFeedAndOther.add(feedAndOther);
 							}
 						}
@@ -196,8 +195,8 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 						.setUpdateDateTime(resultSet.getDate(FEEDS_AND_OTHER_DATE_UPDATE).toLocalDate(),
 								resultSet.getTime(FEEDS_AND_OTHER_DATE_UPDATE).toLocalTime())
 						.build();
-				feedAndOther.setTotalPrice(feedAndOther.getPrice() - Calculator.getInstance()
-						.calcProcentFromSum(feedAndOther.getPrice(), feedAndOther.getDiscount()));
+				feedAndOther.setTotalPrice(
+						feedAndOther.getPrice() - (feedAndOther.getPrice() * feedAndOther.getDiscount() / 100));
 				mapFeedAndOtherAndNumber.put(feedAndOther, resultSet.getLong(FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT));
 			}
 		} catch (SQLException e) {
@@ -342,8 +341,8 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 							.setUpdateDateTime(resultSet.getDate(FEEDS_AND_OTHER_DATE_UPDATE).toLocalDate(),
 									resultSet.getTime(FEEDS_AND_OTHER_DATE_UPDATE).toLocalTime())
 							.build();
-					feedAndOther.setTotalPrice(feedAndOther.getPrice() - Calculator.getInstance()
-							.calcProcentFromSum(feedAndOther.getPrice(), feedAndOther.getDiscount()));
+					feedAndOther.setTotalPrice(
+							feedAndOther.getPrice() - (feedAndOther.getPrice() * feedAndOther.getDiscount() / 100));
 				}
 			}
 		} catch (SQLException e) {

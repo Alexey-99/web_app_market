@@ -19,17 +19,40 @@ import by.koroza.zoo_market.dao.impl.product.ProductPetDaoImpl;
 import by.koroza.zoo_market.service.ImageFileService;
 import by.koroza.zoo_market.service.exception.ServiceException;
 
+/**
+ * The Class ImageFileServiceImpl.
+ */
 public class ImageFileServiceImpl implements ImageFileService {
+
+	/** The log. */
 	private static Logger log = LogManager.getLogger();
+
+	/** The Constant INSTANCE. */
 	private static final ImageFileService INSTANCE = new ImageFileServiceImpl();
 
+	/**
+	 * Instantiates a new image file service impl.
+	 */
 	private ImageFileServiceImpl() {
 	}
 
+	/**
+	 * Get the single instance of ImageFileServiceImpl.
+	 *
+	 * @return single instance of ImageFileServiceImpl
+	 */
 	public static ImageFileService getInstance() {
 		return INSTANCE;
 	}
 
+	/**
+	 * Save image on disk.
+	 *
+	 * @param inputStream   the input stream
+	 * @param submittedName the submitted name
+	 * @return the string
+	 * @throws ServiceException the service exception
+	 */
 	@Override
 	public String saveImageOnDisk(InputStream inputStream, String submittedName) throws ServiceException {
 		String imagePath = null;
@@ -43,12 +66,19 @@ public class ImageFileServiceImpl implements ImageFileService {
 				Files.copy(inputStream, Path.of(imagePath), StandardCopyOption.REPLACE_EXISTING);
 			}
 		} catch (IOException e) {
-			log.log(Level.ERROR, "exception in method saveImageToDisk()", e);
-			throw new ServiceException("Exception when save image", e);
+			log.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
 		}
 		return imagePath;
 	}
 
+	/**
+	 * Remove the product image.
+	 *
+	 * @param imagePath the image path
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
 	@Override
 	public boolean removeProductImage(String imagePath) throws ServiceException {
 		boolean result = false;
@@ -60,6 +90,7 @@ public class ImageFileServiceImpl implements ImageFileService {
 					result = fileImagePath.delete();
 				}
 			} catch (DaoException e) {
+				log.log(Level.ERROR, e.getMessage());
 				throw new ServiceException(e);
 			}
 		}

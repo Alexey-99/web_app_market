@@ -22,6 +22,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.model.entity.user.User;
+import by.koroza.zoo_market.service.exception.HashGeneratorException;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.hash.HashGeneratorImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
@@ -64,7 +65,7 @@ public class ChangePasswordCommand implements Command {
 			} else {
 				router = new Router(HOME_PAGE_PATH);
 			}
-		} catch (ServiceException e) {
+		} catch (ServiceException | HashGeneratorException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
@@ -73,7 +74,7 @@ public class ChangePasswordCommand implements Command {
 	}
 
 	private String getInputParameterPassword(HttpServletRequest request, Map<String, String> mapInputExceptions,
-			User user) {
+			User user) throws HashGeneratorException {
 		String password = (String) request.getParameter(CHANGING_PASSWORD_INPUT_USER_PASSWORD);
 		String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
 		if (user.getPassword() != null ? !user.getPassword().equals(HashGeneratorImpl.getInstance().getHash(password))

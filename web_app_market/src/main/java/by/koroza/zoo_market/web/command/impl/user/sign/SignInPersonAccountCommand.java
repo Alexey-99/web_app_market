@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.model.entity.user.User;
+import by.koroza.zoo_market.service.exception.HashGeneratorException;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.hash.HashGeneratorImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
@@ -48,7 +49,7 @@ public class SignInPersonAccountCommand implements Command {
 			} else {
 				router = new Router(SIGN_IN_VALIDATED_PAGE_PATH);
 			}
-		} catch (ServiceException e) {
+		} catch (ServiceException | HashGeneratorException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
