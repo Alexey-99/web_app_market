@@ -59,8 +59,7 @@ public class RegistrationUserCommand implements Command {
 			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
-		isRegisteredUser(request);
-		return session.getAttribute(ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE) != null
+		return session.getAttribute(ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE) == null
 				? new Router(VERIFICATION_REGISTRATION_INFORMATION_PAGE_PATH)
 				: new Router(REGISTRATION_FORM_PAGE_PATH);
 	}

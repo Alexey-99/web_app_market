@@ -148,8 +148,7 @@
 										<input type="text" class="form-control"
 											id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name"
 											name="${InputName.REGISTRATION_INPUT_USER_NAME}"
-											placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name"/>'
-											value='<c:if test="${user.getName() != null && !user.getName().isBlank()}">${user.getName()}</c:if>' />
+											placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name"/>' />
 										<label class="text-lowercase registration_form_body_label"
 											for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name">
 											<fmt:message
@@ -161,7 +160,6 @@
 										<input type="text" class="form-control "
 											id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname"
 											name="${InputName.REGISTRATION_INPUT_USER_SURNAME}"
-											value='<c:if test="${user.getSurname() != null && !user.getSurname().isBlank()}">${user.getSurname()}</c:if>'
 											placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname"/>' />
 										<label class="text-lowercase registration_form_body_label"
 											for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname">
@@ -174,7 +172,6 @@
 										<input type="email" class="form-control"
 											id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.email_address"
 											required name="${InputName.REGISTRATION_INPUT_USER_EMAIL}"
-											value='<c:if test="${user.getEmail() != null && !user.getEmail().isBlank()}">${user.getEmail()}</c:if>'
 											placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.email_address"/>'
 											pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})" />
 										<label class="text-lowercase registration_form_body_label"
@@ -187,7 +184,6 @@
 										<input type="text" class="form-control"
 											id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login"
 											required name="${InputName.REGISTRATION_INPUT_USER_LOGIN}"
-											value='<c:if test="${user.getLogin() != null && !user.getLogin().isBlank()}">${user.getLogin()}</c:if>'
 											placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login"/>' />
 										<label class="text-lowercase registration_form_body_label"
 											for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login">
@@ -203,7 +199,6 @@
 													id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login"
 													required
 													name="${InputName.REGISTRATION_INPUT_USER_PASSWORD}"
-													value='<c:if test="${user.getPassword() != null && !user.getPassword().isBlank()}">${user.getPassword()}</c:if>'
 													placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login"/>' />
 												<label class="text-lowercase registration_form_body_label"
 													for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login">

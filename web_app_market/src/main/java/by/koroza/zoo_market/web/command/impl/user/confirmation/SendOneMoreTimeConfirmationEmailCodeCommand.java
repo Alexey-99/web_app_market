@@ -37,7 +37,6 @@ public class SendOneMoreTimeConfirmationEmailCodeCommand implements Command {
 			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
-		isRegisteredUser(request);
 		return router;
 	}
 }

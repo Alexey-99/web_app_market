@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="css/items/header_top.css" />
 <link rel="stylesheet"
 	href="css/items/sign_in_and_registration_form.css" />
-<title>header_top.jsp</title>
+<title></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
 <!-- is_hiving_registrated_user = AttributeName.ATTRIBUTE_IS_HAVING_RESERVED_USER -->
 <!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
@@ -92,7 +92,7 @@
 						</li>
 
 						<c:if
-							test="${is_hiving_registrated_user && user.getRole().getIdRole() >= UserRole.WAITING_CODE_REGISTRATION.getIdRole()}">
+							test="${user != null && user.getRole().getIdRole() >= UserRole.WAITING_CODE_REGISTRATION.getIdRole()}">
 							<c:if
 								test="${user.getRole().getIdRole() == UserRole.WAITING_CODE_REGISTRATION.getIdRole() || !user.isVerificatedEmail()}">
 								<li class="nav-item">
@@ -157,7 +157,7 @@
 							</c:if>
 						</c:if>
 						<c:if
-							test="${!is_hiving_registrated_user || user == null || user.getRole().getIdRole() < UserRole.WAITING_CODE_REGISTRATION.getIdRole()}">
+							test="${user == null || user != null && user.getRole().getIdRole() < UserRole.WAITING_CODE_REGISTRATION.getIdRole()}">
 							<li class="nav-item">
 								<button class="nav-link text-uppercase menu_link" role="button"
 									onclick="showSignInAndRegistrationForm()">
@@ -266,9 +266,9 @@
 							</form>
 						</li>
 						<c:if
-							test="${is_hiving_registrated_user == true && user.getRole().getIdRole() >= 1}">
+							test="${user != null && user.getRole().getIdRole() >= UserRole.WAITING_CODE_REGISTRATION.getIdRole()}">
 							<c:if
-								test="${user.getRole().getIdRole() == 1 || user.isVerificatedEmail() == false}">
+								test="${user.getRole().getIdRole() == UserRole.WAITING_CODE_REGISTRATION.getIdRole() || !user.isVerificatedEmail()}">
 								<li class="nav-item">
 									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 										method="get">
@@ -284,7 +284,7 @@
 								</li>
 							</c:if>
 							<c:if
-								test="${user.getRole().getIdRole() > 1 && user.isVerificatedEmail() == true}">
+								test="${user.getRole().getIdRole() >= UserRole.USER.getIdRole() && user.isVerificatedEmail()}">
 								<li class="nav-item">
 									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 										method="get">
@@ -330,7 +330,7 @@
 							</c:if>
 						</c:if>
 						<c:if
-							test="${is_hiving_registrated_user == false || user.getRole().getIdRole() < 1}">
+							test="${user == null || user != null && user.getRole().getIdRole() < UserRole.WAITING_CODE_REGISTRATION.getIdRole()}">
 							<li class="nav-item">
 								<button class="nav-link menu_link" role="button"
 									onclick="showSignInAndRegistrationForm()">
@@ -450,7 +450,7 @@
 										key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.password" />
 								</label>
 							</div>
-							<span class="input-group-text mb-3 input-group-text">
+							<span class="input-group-text mb-3">
 								<div class="btn sign_in_form_password_btn"
 									onclick="showPasswordSignInFormInput()">
 									<svg class="sign_in_form_open_eye"

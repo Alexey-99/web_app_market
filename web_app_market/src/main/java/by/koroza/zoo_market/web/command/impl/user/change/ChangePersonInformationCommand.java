@@ -45,7 +45,7 @@ public class ChangePersonInformationCommand implements Command {
 		session.removeAttribute(ATTRIBUTE_CHANGING_PERSON_INFOMATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
-			if (user != null && user.getRole().getIdRole() >= USER.getIdRole()) {
+			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() >= USER.getIdRole()) {
 				Map<String, String> mapInputExceptions = new HashMap<>();
 				String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
 				String name = getInputParameterName(request);
@@ -86,7 +86,6 @@ public class ChangePersonInformationCommand implements Command {
 			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
-		isRegisteredUser(request);
 		return router;
 	}
 

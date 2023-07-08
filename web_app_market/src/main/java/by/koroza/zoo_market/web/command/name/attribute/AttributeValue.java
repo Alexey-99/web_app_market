@@ -8,6 +8,5 @@ public final class AttributeValue {
 	public static final String SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS = FeedAndOther.class.toString();
 
 	private AttributeValue() {
-
 	}
 }

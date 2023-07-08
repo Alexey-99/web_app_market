@@ -37,7 +37,6 @@ public class VerificationRegistrationInformationCommand implements Command {
 				session.setAttribute(ATTRIBUTE_USER, user);
 				ConfirmationEmailCodeServiceImpl.getInstance().sendConfirmationEmailCode(user.getId(), user.getEmail());
 			}
-			isRegisteredUser(request);
 		} catch (ServiceException | HashGeneratorException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);

@@ -11,7 +11,6 @@ public class ShowRegistrationUserFormCommand implements Command {
 
 	@Override
 	public Router execute(HttpServletRequest request) {
-		isRegisteredUser(request);
 		return new Router(REGISTRATION_FORM_PAGE_PATH);
 	}
 }

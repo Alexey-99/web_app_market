@@ -40,10 +40,9 @@ public class ConfirmationEmailCodeDaoImpl implements ConfirmationEmailCodeDao {
 			""";
 
 	/**
-	 * Instantiates a new confirmation email code dao impl.
+	 * Instantiate a new confirmation email code dao impl.
 	 */
 	private ConfirmationEmailCodeDaoImpl() {
-
 	}
 
 	/**
@@ -57,7 +56,7 @@ public class ConfirmationEmailCodeDaoImpl implements ConfirmationEmailCodeDao {
 
 	/** The Constant QUERY_INSERT_CONFIRMATION_CODE_WITH_USER_ID. */
 	private static final String QUERY_INSERT_CONFIRMATION_CODE_WITH_USER_ID = """
-			INSERT INTO verificate_сodes(users_id, code, is_open, open_date_time)
+			INSERT INTO confirmation_email_сodes(users_id, code, is_open, open_date_time)
 			VALUE (?, ?, ?, NOW());
 			""";
 
@@ -98,7 +97,7 @@ public class ConfirmationEmailCodeDaoImpl implements ConfirmationEmailCodeDao {
 			try (PreparedStatement statement = connection
 					.prepareStatement(QUERY_SELECT_COUNT_CONFIRMATION_CODES_WITH_USER_ID_AND_STATUS_OPEN)) {
 				statement.setLong(1, userId);
-				statement.setBoolean(2, CONFIRMATION_CODE_STATUS_OPEN);
+				statement.setBoolean(2, ConfirmationEmailCode.getStatusOpen());
 				try (ResultSet resultSet = statement.executeQuery()) {
 					while (resultSet.next()) {
 						if (resultSet.getLong(IDENTIFIER_COUNT_ROWS_OF_VERIFICATE_CODES_CODE) == 1) {
@@ -153,13 +152,6 @@ public class ConfirmationEmailCodeDaoImpl implements ConfirmationEmailCodeDao {
 		return code;
 	}
 
-	/** The Constant CONFIRMATION_CODE_STATUS_OPEN. */
-	private static final boolean CONFIRMATION_CODE_STATUS_OPEN = true;
-
-	/** The Constant CONFIRMATION_CODE_STATUS_CLOSED. */
-	@SuppressWarnings("unused")
-	private static final boolean CONFIRMATION_CODE_STATUS_CLOSED = false;
-
 	/** The Constant QUERY_CHANGE_STATUS_CONFIRMATION_CODE_WITH_USER_ID. */
 	private static final String QUERY_CHANGE_STATUS_CONFIRMATION_CODE_WITH_USER_ID = """
 			UPDATE verificate_сodes
@@ -192,7 +184,7 @@ public class ConfirmationEmailCodeDaoImpl implements ConfirmationEmailCodeDao {
 			try (PreparedStatement statement = connection
 					.prepareStatement(QUERY_SELECT_COUNT_CONFIRMATION_CODES_WITH_USER_ID_AND_STATUS_OPEN)) {
 				statement.setLong(1, userId);
-				statement.setBoolean(2, CONFIRMATION_CODE_STATUS_OPEN);
+				statement.setBoolean(2, ConfirmationEmailCode.getStatusOpen());
 				try (ResultSet resultSet = statement.executeQuery()) {
 					while (resultSet.next()) {
 						if (resultSet.getLong(IDENTIFIER_COUNT_ROWS_OF_VERIFICATE_CODES_CODE) == 0) {

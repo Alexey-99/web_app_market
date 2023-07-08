@@ -1,6 +1,5 @@
 package by.koroza.zoo_market.web.filter;
 
-import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_IS_HAVING_REGISTRATED_USER;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 import static by.koroza.zoo_market.web.command.name.language.LanguageName.ENGLISH;
 import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIAN;
@@ -20,26 +19,36 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 /**
- * Servlet Filter implementation class InitializeDefaultValuesFilter
+ * Servlet Filter implementation class InitializeDefaultValuesFilter.
  */
 @SuppressWarnings("serial")
 @WebFilter(filterName = "/InitializeDefaultValuesFilter", urlPatterns = { "/*" }, initParams = {
-		@WebInitParam(name = ATTRIBUTE_SESSION_LOCALE, value = RUSSIAN, description = "Default language"),
-		@WebInitParam(name = ATTRIBUTE_IS_HAVING_REGISTRATED_USER, value = "false", description = "User is not authenticated") })
+		@WebInitParam(name = ATTRIBUTE_SESSION_LOCALE, value = RUSSIAN, description = "Default language") })
 public class InitializeDefaultValuesFilter extends HttpFilter implements Filter {
+
+	/** The locale. */
 	String locale;
-	boolean isRegistratedUser;
 
 	/**
+	 * Init the.
+	 *
+	 * @param fConfig the f config
+	 * @throws ServletException the servlet exception
 	 * @see Filter#init(FilterConfig)
 	 */
 	@Override
 	public void init(FilterConfig fConfig) throws ServletException {
 		this.locale = fConfig.getInitParameter(ATTRIBUTE_SESSION_LOCALE);
-		this.isRegistratedUser = Boolean.parseBoolean(fConfig.getInitParameter(ATTRIBUTE_IS_HAVING_REGISTRATED_USER));
 	}
 
 	/**
+	 * Do filter.
+	 *
+	 * @param request  the request
+	 * @param response the response
+	 * @param chain    the chain
+	 * @throws IOException      Signals that an I/O exception has occurred.
+	 * @throws ServletException the servlet exception
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	@Override
@@ -52,18 +61,16 @@ public class InitializeDefaultValuesFilter extends HttpFilter implements Filter 
 						&& !session.getAttribute(ATTRIBUTE_SESSION_LOCALE).equals(ENGLISH))) {
 			session.setAttribute(ATTRIBUTE_SESSION_LOCALE, RUSSIAN);
 		}
-		if (session.getAttribute(ATTRIBUTE_IS_HAVING_REGISTRATED_USER) == null) {
-			session.setAttribute(ATTRIBUTE_IS_HAVING_REGISTRATED_USER, false);
-		}
 		chain.doFilter(request, response);
 	}
 
 	/**
+	 * Destroy.
+	 *
 	 * @see Filter#destroy()
 	 */
 	@Override
 	public void destroy() {
 		this.locale = null;
-		this.isRegistratedUser = false;
 	}
 }

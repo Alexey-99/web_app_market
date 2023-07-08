@@ -67,7 +67,6 @@ public class ShowAllProductsOffFilterCommand implements Command {
 		}
 		request.setAttribute(REQUEST_ATTRIBUTE_COMMAND,
 				COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_ID_ASCENDING);
-		isRegisteredUser(request);
 		return router;
 	}
 }

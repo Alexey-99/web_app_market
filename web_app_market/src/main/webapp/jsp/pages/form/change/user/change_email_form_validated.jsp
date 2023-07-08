@@ -26,7 +26,7 @@
 <link rel="stylesheet"
 	href="css/items/sign_in_and_registration_form.css" />
 <!-- user = AttributeName.ATTRIBUTE_USER -->
-<!-- registration_input_exception_type_and_message = AttributeName.ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE -->
+<!-- changing_email_input_exception_type_and_message = AttributeName.ATTRIBUTE_CHANGING_EMAIL_INPUT_EXCEPTION_TYPE_AND_MASSAGE -->
 <!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 <title><fmt:message key="change_email_form.title" /></title>
 </head>
@@ -59,7 +59,7 @@
 							</div>
 							<div class="registration_form">
 								<c:if
-									test="${registration_input_exception_type_and_message == null || registration_input_exception_type_and_message.isEmpty()}">
+									test="${changing_email_input_exception_type_and_message == null || changing_email_input_exception_type_and_message.isEmpty()}">
 									<form class="registration_form_body" method="post"
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 										<div class="form-floating mb-3">
@@ -88,11 +88,11 @@
 									</form>
 								</c:if>
 								<c:if
-									test="${registration_input_exception_type_and_message != null && !registration_input_exception_type_and_message.isEmpty()}">
+									test="${changing_email_input_exception_type_and_message != null && !changing_email_input_exception_type_and_message.isEmpty()}">
 									<form class="registration_form_body" method="post"
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
 										<c:if
-											test="${registration_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL)}">
+											test="${changing_email_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL)}">
 											<div class="form-floating mb-3">
 												<input type="email" class="form-control is-invalid"
 													id="change_email_form.body.input_lable.email_address"
@@ -109,12 +109,12 @@
 															key="change_email_form.description.not_entered" />)</c:if>
 												</label>
 												<div class="invalid-feedback">
-													${registration_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL)}
+													${changing_email_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL)}
 												</div>
 											</div>
 										</c:if>
 										<c:if
-											test="${!registration_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL)}">
+											test="${!changing_email_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL)}">
 											<div class="form-floating mb-3">
 												<input type="email" class="form-control is-valid"
 													id="change_email_form.body.input_lable.email_address"

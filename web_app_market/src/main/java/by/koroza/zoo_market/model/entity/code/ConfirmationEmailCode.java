@@ -7,6 +7,9 @@ public class ConfirmationEmailCode {
 	private static final int DURATION_OF_CONFIRMATION_CODE_VALUE = 1;
 	private static final ChronoUnit DURATION_OF_CONFIRMATION_CODE_UNIT = ChronoUnit.MINUTES;
 
+	private static final boolean CONFIRMATION_CODE_STATUS_OPEN = true;
+	private static final boolean CONFIRMATION_CODE_STATUS_CLOSED = false;
+
 	private String code;
 	private boolean isOpen;
 	private LocalDateTime openDateTime;
@@ -47,6 +50,14 @@ public class ConfirmationEmailCode {
 
 	public static ChronoUnit getDurationUnit() {
 		return DURATION_OF_CONFIRMATION_CODE_UNIT;
+	}
+
+	public static boolean getStatusOpen() {
+		return CONFIRMATION_CODE_STATUS_OPEN;
+	}
+
+	public static boolean getStatusClosed() {
+		return CONFIRMATION_CODE_STATUS_CLOSED;
 	}
 
 	@Override

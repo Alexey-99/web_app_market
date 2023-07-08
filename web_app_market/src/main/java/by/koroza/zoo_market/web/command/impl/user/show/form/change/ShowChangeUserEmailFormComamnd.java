@@ -11,7 +11,6 @@ public class ShowChangeUserEmailFormComamnd implements Command {
 
 	@Override
 	public Router execute(HttpServletRequest request) {
-		isRegisteredUser(request);
 		return new Router(CHANGE_EMAIL_FORM_VALIDATED_PAGE_PATH);
 	}
 }

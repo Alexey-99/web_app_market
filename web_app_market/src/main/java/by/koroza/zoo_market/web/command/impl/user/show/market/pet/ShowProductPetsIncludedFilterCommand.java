@@ -113,7 +113,6 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 			throw new CommandException(e);
 		}
 		request.setAttribute(REQUEST_ATTRIBUTE_NUMBER_PAGE, request.getParameter(PARAMETER_NUMBER_PAGE));
-		isRegisteredUser(request);
 		return new Router(PRODUCTS_PETS_PAGE_PATH);
 	}
 

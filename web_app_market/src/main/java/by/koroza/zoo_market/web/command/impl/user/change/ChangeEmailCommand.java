@@ -1,6 +1,6 @@
 package by.koroza.zoo_market.web.command.impl.user.change;
 
-import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_CHANGING_EMAIL_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
 import static by.koroza.zoo_market.web.command.name.exception.MessageInputException.EN_MESSAGE_TYPY_INPUT_EXCEPTION_EMAIL;
@@ -39,7 +39,7 @@ public class ChangeEmailCommand implements Command {
 	public Router execute(HttpServletRequest request) throws CommandException {
 		Router router = null;
 		HttpSession session = request.getSession();
-		session.removeAttribute(ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
+		session.removeAttribute(ATTRIBUTE_CHANGING_EMAIL_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
 			if (user != null) {
@@ -55,7 +55,7 @@ public class ChangeEmailCommand implements Command {
 					session.setAttribute(ATTRIBUTE_USER, user);
 					router = new Router(CONFIMARTION_EMAIL_PAGE_PATH);
 				} else {
-					session.setAttribute(ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE, mapInputExceptions);
+					session.setAttribute(ATTRIBUTE_CHANGING_EMAIL_INPUT_EXCEPTION_TYPE_AND_MASSAGE, mapInputExceptions);
 					router = new Router(CHANGE_EMAIL_FORM_VALIDATED_PAGE_PATH);
 				}
 			} else {
@@ -65,7 +65,6 @@ public class ChangeEmailCommand implements Command {
 			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
-		isRegisteredUser(request);
 		return router;
 	}
 
