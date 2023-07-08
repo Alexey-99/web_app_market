@@ -84,7 +84,7 @@
 												</form> <c:if
 													test="${products_feeds_and_other_filter_input_exception_type_and_message == null || products_feeds_and_other_filter_input_exception_type_and_message.isEmpty()}">
 													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-														method="get">
+														method="post">
 														<div class="accordion accordion_form"
 															id="accordionExample">
 															<c:if
@@ -274,7 +274,7 @@
 												</c:if> <c:if
 													test="${!products_feeds_and_other_filter_input_exception_type_and_message.isEmpty && products_feeds_and_other_filter_input_exception_type_and_message != null}">
 													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-														method="get">
+														method="post">
 														<div class="accordion accordion_form"
 															id="accordionExample">
 															<c:if
@@ -546,7 +546,7 @@
 												</form> <c:if
 													test="${products_feeds_and_other_filter_input_exception_type_and_message.isEmpty() || products_feeds_and_other_filter_input_exception_type_and_message == null}">
 													<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-														method="get">
+														method="post">
 														<div class="accordion accordion_form"
 															id="accordionExample">
 															<c:if

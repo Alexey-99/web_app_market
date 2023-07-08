@@ -74,7 +74,7 @@
 								</div>
 								<form class="sign_in_form_body"
 									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-									method="get">
+									method="post">
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control is-invalid" required
 											id="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login"
@@ -143,7 +143,7 @@
 								</div>
 								<form class="registration_form_body"
 									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-									method="get">
+									method="post">
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control"
 											id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name"

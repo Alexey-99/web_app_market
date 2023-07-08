@@ -423,7 +423,7 @@
 						</h2>
 					</div>
 					<form class="sign_in_form_body"
-						action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}" method="get">
+						action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}" method="post">
 						<div class="form-floating mb-3">
 							<input type="text" required class="form-control"
 								id="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login"

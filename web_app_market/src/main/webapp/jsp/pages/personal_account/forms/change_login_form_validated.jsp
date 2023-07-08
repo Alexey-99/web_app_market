@@ -65,7 +65,7 @@
 									test="${changing_login_input_exception_type_and_message == null || changing_login_input_exception_type_and_message.isEmpty()}">
 									<form class=""
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-										method="get">
+										method="post">
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control"
 												id="personal_account_person_infomation.changing_login_form.login"
@@ -95,7 +95,7 @@
 									test="${changing_login_input_exception_type_and_message != null && !changing_login_input_exception_type_and_message.isEmpty()}">
 									<form class=""
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-										method="get">
+										method="post">
 										<c:if
 											test="${changing_login_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_LOGIN)}">
 											<div class="form-floating mb-3">

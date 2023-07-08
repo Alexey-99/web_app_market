@@ -234,7 +234,7 @@
 								</div>
 								<form class=""
 									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-									method="get">
+									method="post">
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control"
 											id="personal_account_person_infomation.changing_general_information_form.name"

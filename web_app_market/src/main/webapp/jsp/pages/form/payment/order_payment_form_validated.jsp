@@ -58,7 +58,7 @@
 							</div>
 							<form class=""
 								action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-								method="get">
+								method="post">
 								<h6>
 									<fmt:message
 										key="basket_page.paymant_form.input.enter_number_bank_card" />

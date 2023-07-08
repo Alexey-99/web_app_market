@@ -64,7 +64,7 @@
 								class="d-flex justify-content-center align-items-center flex-column verification_personal_account_body">
 								<form class="w-100 verification_personal_account_form"
 									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-									method="get">
+									method="post">
 									<div
 										class="form-floating mb-3 w-100 verification_personal_account_body">
 										<input type="text"
