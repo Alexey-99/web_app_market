@@ -9,7 +9,6 @@ public final class AttributeName {
 
 	public static final String ATTRIBUTE_USER = "user";
 	public static final String ATTRIBUTE_ORDER = "order";
-//	public static final String ATTRIBUTE_IS_HAVING_REGISTRATED_USER = "is_hiving_registrated_user";
 
 //	INPUT_EXCEPTIONS
 //	registration

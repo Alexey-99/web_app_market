@@ -25,7 +25,6 @@
 	href="css/items/sign_in_and_registration_form.css" />
 <title></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
-<!-- is_hiving_registrated_user = AttributeName.ATTRIBUTE_IS_HAVING_RESERVED_USER -->
 <!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body>

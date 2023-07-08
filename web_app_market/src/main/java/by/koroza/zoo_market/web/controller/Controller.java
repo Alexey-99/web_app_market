@@ -58,18 +58,16 @@ public class Controller extends HttpServlet {
 		Optional<Command> optionalCommand = CommandProvider.getInstance().definaCommand(commandName);
 		Command command = (optionalCommand.isPresent() ? optionalCommand.get() : null);
 		try {
-			if (command == null) {
-				log.log(Level.ERROR, "commnd is null");
-				throw new CommandException("commnd is null");
-			}
-			Router router = command.execute(request);
-			switch (router.getType()) {
-			case REDIRECT -> response.sendRedirect(router.getPagePath());
-			case FORWARD -> request.getRequestDispatcher(router.getPagePath()).forward(request, response);
-			default -> {
-				log.log(Level.ERROR, "unknown router type: {}", router.getType());
-				response.sendRedirect(ERROR_PAGE_404_PATH);
-			}
+			if (command != null) {
+				Router router = command.execute(request);
+				switch (router.getType()) {
+				case REDIRECT -> response.sendRedirect(router.getPagePath());
+				case FORWARD -> request.getRequestDispatcher(router.getPagePath()).forward(request, response);
+				default -> {
+					log.log(Level.ERROR, "unknown router type: {}", router.getType());
+					response.sendRedirect(ERROR_PAGE_404_PATH);
+				}
+				}
 			}
 		} catch (IOException | ServletException | CommandException e) {
 			throw new ControllerException(e);
