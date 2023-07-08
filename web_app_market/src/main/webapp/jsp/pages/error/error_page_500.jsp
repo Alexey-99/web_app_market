@@ -11,6 +11,7 @@
 	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
 <%@page
 	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.path.ImagePath"%>
 <fmt:setLocale value="${locale}" scope="session" />
 <fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
@@ -20,7 +21,7 @@
 <link rel="stylesheet" href="css/bootstrap/bootstrap.css" />
 <link rel="stylesheet" href="css/items/root.css" />
 <link rel="stylesheet" href="css/items/success_payment.css" />
-<title>500</title>
+<title><fmt:message key="error_page_500.title" /></title>
 <!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body>
@@ -39,7 +40,8 @@
 								src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.LOGO_PNG_IMAGE_PATH}"
 								alt="logo" />
 							<h1 class="text-uppercase success_payment_form_title">
-								Что-то пошло не так. Перейдите на главную страницу.</h1>
+								<fmt:message key="error_page_500.message" />
+							</h1>
 							<div
 								class="success_payment_form_fotter d-flex justify-content-end">
 								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
@@ -48,7 +50,7 @@
 										value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
 									<button class="nav-link menu_link text-uppercase" role="button">
 										<h5>
-											<fmt:message key="header_top.main_page" />
+											<fmt:message key="error_page_500.btn.main_page" />
 										</h5>
 									</button>
 								</form>
