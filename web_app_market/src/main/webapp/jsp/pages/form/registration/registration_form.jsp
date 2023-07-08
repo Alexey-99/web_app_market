@@ -31,7 +31,7 @@
 <!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body>
-	<section class="header pb-5" style="height: 100vh;">
+	<header class="header pb-5" style="height: 100vh;">
 		<div class="container">
 			<div class="row header_top">
 				<div class="col-12">
@@ -538,7 +538,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</header>
 
 	<%@ include file="/jsp/items/footer.jsp"%>
 

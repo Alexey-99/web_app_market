@@ -30,7 +30,7 @@
 <!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body>
-	<section class="payment_information"
+	<header class="payment_information"
 		style="min-height: 100vh; background: var(--color2)">
 		<div class="container">
 			<div class="row">
@@ -237,7 +237,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</header>
 
 	<script src="js/bootstrap.bundle.js"></script>
 	<script src="js/min_base.js"></script>

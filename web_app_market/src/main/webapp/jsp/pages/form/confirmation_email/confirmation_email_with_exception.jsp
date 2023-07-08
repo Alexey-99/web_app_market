@@ -30,7 +30,7 @@
 <!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
 <body>
-	<section class="header pb-5" style="height: 100vh;">
+	<header class="header pb-5" style="height: 100vh;">
 		<div class="container">
 			<div class="row header_top">
 				<div class="col-12">
@@ -96,24 +96,46 @@
 										</div>
 									</div>
 								</form>
-								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-									method="get">
-									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-										value="${CommandName.COMMAND_SEND_ONE_MORE_TIME_CONFIMATION_EMAIL_CODE}" />
-									<button
-										class="btn verification_personal_account_btn_submit text-uppercase"
-										role="button">
-										<fmt:message
-											key="verification_email.send_verification_code_one_more_time" />
-									</button>
-								</form>
+								<div class="mt-3">
+									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+										method="get">
+										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
+											value="${CommandName.COMMAND_SEND_ONE_MORE_TIME_CONFIMATION_EMAIL_CODE}" />
+										<button
+											class="btn verification_personal_account_btn_submit text-uppercase"
+											role="button">
+											<fmt:message
+												key="verification_email.send_verification_code_one_more_time" />
+										</button>
+									</form>
+									<form class="mt-3"
+										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+										method="get">
+										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
+											value="${CommandName.COMMAND_SHOW_CHANGE_EMAIL_FORM}" />
+										<button class="btn verification_personal_account_btn_submit "
+											role="button">
+											<fmt:message key="verification_email.change_email" />
+										</button>
+									</form>
+									<form class="mt-3"
+										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+										method="get">
+										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
+											value="${CommandName.COMMAND_SIGN_OUT_PERSONAL_ACCOUNT}" />
+										<button class="btn verification_personal_account_btn_submit "
+											role="button">
+											<fmt:message key="verification_email.exit" />
+										</button>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</section>
+	</header>
 
 	<%@ include file="/jsp/items/footer.jsp"%>
 

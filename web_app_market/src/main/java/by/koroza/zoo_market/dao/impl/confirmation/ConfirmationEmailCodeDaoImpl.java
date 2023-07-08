@@ -118,7 +118,7 @@ public class ConfirmationEmailCodeDaoImpl implements ConfirmationEmailCodeDao {
 	private static final String QUERY_GET_CONFIRMATION_CODE_BY_USER_ID = """
 			SELECT confirmation_email_сodes.code, confirmation_email_сodes.is_open, confirmation_email_сodes.open_date_time
 			FROM confirmation_email_сodes
-			WHERE confirmation_email_сodes.users_id = ? AND confirmation_email_сodes.is_open == true;
+			WHERE confirmation_email_сodes.users_id = ? AND confirmation_email_сodes.is_open = 1;
 			""";
 
 	/**

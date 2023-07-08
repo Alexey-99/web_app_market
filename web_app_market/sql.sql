@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS users (
     FOREIGN KEY (roles_id)
         REFERENCES roles (id),
     email VARCHAR(100) DEFAULT NULL,
-    email_confirmed BOOLEAN DEFAULT FALSE,
+    confirmation_email BOOLEAN DEFAULT FALSE,
     login VARCHAR(150) NOT NULL,
     password VARCHAR(150) NOT NULL,
     discount TINYINT DEFAULT 0,
@@ -65,10 +65,10 @@ CREATE TABLE IF NOT EXISTS pets (
 CREATE TABLE IF NOT EXISTS feeds_and_other (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     image_path varchar(255) default null,
-    type VARCHAR(150),
-    brand VARCHAR(150),
+    type VARCHAR(255),
+    brand VARCHAR(255),
     description VARCHAR(255),
-    pet_type VARCHAR(250) NOT NULL DEFAULT 'all',
+    pet_type VARCHAR(250),
     FULLTEXT ( pet_type ),
     statuses_id TINYINT UNSIGNED NOT NULL DEFAULT 1,
     INDEX status_ind (statuses_id),
@@ -134,14 +134,15 @@ CREATE TABLE IF NOT EXISTS order_products(
 		REFERENCES feeds_and_other (id)    
 );
 
-CREATE TABLE IF NOT EXISTS verificate_сodes (
+CREATE TABLE IF NOT EXISTS confirmation_email_сodes (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     users_id BIGINT UNSIGNED NOT NULL,
     INDEX users_id_ind (users_id),
     FOREIGN KEY (users_id)
         REFERENCES users (id),
     code VARCHAR(100) NOT NULL,
-    is_open BOOLEAN default true
+    is_open BOOLEAN DEFAULT TRUE,
+    date_time_open DATETIME DEFAULT NOW()
 )  ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS bank_cards (
