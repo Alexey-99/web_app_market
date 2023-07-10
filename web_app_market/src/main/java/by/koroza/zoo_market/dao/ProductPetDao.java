@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import by.koroza.zoo_market.dao.exception.checkable.DaoException;
-import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 
 /**
@@ -40,11 +39,11 @@ public interface ProductPetDao {
 	/**
 	 * Change number of units products.
 	 *
-	 * @param order the order
+	 * @param productsPets the products pets
 	 * @return true, if successful
 	 * @throws DaoException the dao exception
 	 */
-	public boolean changeNumberOfUnitsProducts(Order order) throws DaoException;
+	public boolean changeNumberOfUnitsProducts(List<Pet> productsPets) throws DaoException;
 
 	/**
 	 * Add the product pet.

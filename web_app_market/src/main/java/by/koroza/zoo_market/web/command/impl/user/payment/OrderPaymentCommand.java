@@ -34,6 +34,7 @@ import static by.koroza.zoo_market.web.command.name.path.PagePathName.ORDER_PAYM
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.SUCCESS_ORDER_PAYMENT_PAGE_PATH;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.Level;
@@ -42,13 +43,17 @@ import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.model.entity.bank.BankCard;
 import by.koroza.zoo_market.model.entity.market.order.Order;
+import by.koroza.zoo_market.model.entity.market.product.abstraction.AbstractProduct;
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
+import by.koroza.zoo_market.service.exception.SortingException;
 import by.koroza.zoo_market.service.exception.ValidationException;
 import by.koroza.zoo_market.service.impl.order.OrderServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
 import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
+import by.koroza.zoo_market.service.sorting.SortingProducts;
+import by.koroza.zoo_market.service.sorting.comparator.list.product.impl.id.SortProductsByIdAscendingComparatorImpl;
 import by.koroza.zoo_market.service.validation.impl.bank.BankCardValidationImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
@@ -75,8 +80,13 @@ public class OrderPaymentCommand implements Command {
 					BankCard bankCard = createBankCardFromInputParameters(request, mapInputExceptions, sessionLocale);
 					if ((bankCard != null && mapInputExceptions.isEmpty())
 							&& (validationBankCard(mapInputExceptions, sessionLocale, bankCard, order))) {
+						List<? extends AbstractProduct> sortedPets = SortingProducts.getInstance().sortProductsList(
+								order.getProductsPets(), new SortProductsByIdAscendingComparatorImpl());
+//						получить товары и их количество в бд
+//						от минусовать количество товара в бд
+//						и получить товары-количество колорые можно купить и которых нет в наличии (Map<Product, Boolean>) 
 						OrderServiceImpl.getInstance().addOrder(order, user.getId());
-						ProductPetServiceImpl.getInstance().changeNumberOfUnitsProducts(order);
+						ProductPetServiceImpl.getInstance().changeNumberOfUnitsProducts(order.getProductsPets());
 						ProductFeedsAndOtherServiceImpl.getInstance().changeNumberOfUnitsProducts(order);
 						UserServiceImpl.getInstance().changePersonPercentDiscount(user);
 						router = new Router(SUCCESS_ORDER_PAYMENT_PAGE_PATH);
@@ -91,7 +101,7 @@ public class OrderPaymentCommand implements Command {
 			} else {
 				router = new Router(HOME_PAGE_PATH);
 			}
-		} catch (ServiceException | ValidationException e) {
+		} catch (ServiceException | ValidationException | SortingException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}

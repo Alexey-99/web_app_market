@@ -12,7 +12,6 @@ import org.apache.logging.log4j.Logger;
 import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 import by.koroza.zoo_market.dao.impl.product.ProductPetDaoImpl;
 import by.koroza.zoo_market.model.entity.filter.FilterPet;
-import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.service.ProductPetService;
 import by.koroza.zoo_market.service.exception.ServiceException;
@@ -131,14 +130,14 @@ public class ProductPetServiceImpl implements ProductPetService {
 	/**
 	 * Change number of units products.
 	 *
-	 * @param order the order
+	 * @param productsPets the products pets
 	 * @return true, if successful
 	 * @throws ServiceException the service exception
 	 */
 	@Override
-	public boolean changeNumberOfUnitsProducts(Order order) throws ServiceException {
+	public boolean changeNumberOfUnitsProducts(List<Pet> productsPets) throws ServiceException {
 		try {
-			return ProductPetDaoImpl.getInstance().changeNumberOfUnitsProducts(order);
+			return ProductPetDaoImpl.getInstance().changeNumberOfUnitsProducts(productsPets);
 		} catch (DaoException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);

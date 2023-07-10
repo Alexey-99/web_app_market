@@ -26,7 +26,6 @@ import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.dao.pool.ConnectionPool;
 import by.koroza.zoo_market.dao.pool.ProxyConnection;
-import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.dao.ProductPetDao;
 import by.koroza.zoo_market.dao.exception.checkable.DaoException;
@@ -242,18 +241,11 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			WHERE pets.id = ?;
 			""";
 
-	/**
-	 * Change number of units products.
-	 *
-	 * @param order the order
-	 * @return true, if successful
-	 * @throws DaoException the dao exception
-	 */
 	@Override
-	public boolean changeNumberOfUnitsProducts(Order order) throws DaoException {
+	public boolean changeNumberOfUnitsProducts(List<Pet> productsPets) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
-			for (Pet productPet : order.getProductsPets()) {
+			for (Pet productPet : productsPets) {
 				long numberOfUnitsProduct = 0;
 				try (PreparedStatement statement = connection
 						.prepareStatement(QUERY_SELECT_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
