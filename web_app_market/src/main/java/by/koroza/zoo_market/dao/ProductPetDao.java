@@ -40,10 +40,10 @@ public interface ProductPetDao {
 	 * Change number of units products.
 	 *
 	 * @param productsPets the products pets
-	 * @return true, if successful
+	 * @return the map
 	 * @throws DaoException the dao exception
 	 */
-	public boolean changeNumberOfUnitsProducts(List<Pet> productsPets) throws DaoException;
+	public Map<Integer, Boolean> changeNumberOfUnitsProducts(List<Pet> productsPets) throws DaoException;
 
 	/**
 	 * Add the product pet.

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import by.koroza.zoo_market.model.entity.filter.FilterFeedsAndOther;
-import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.service.exception.ServiceException;
 
@@ -51,11 +50,12 @@ public interface ProductFeedsAndOtherService {
 	/**
 	 * Change number of units products.
 	 *
-	 * @param order the order
-	 * @return true, if successful
+	 * @param productsFeedAndOther the products feed and other
+	 * @return the map
 	 * @throws ServiceException the service exception
 	 */
-	public boolean changeNumberOfUnitsProducts(Order order) throws ServiceException;
+	public Map<Integer, Boolean> changeNumberOfUnitsProducts(List<FeedAndOther> productsFeedAndOther)
+			throws ServiceException;
 
 	/**
 	 * Add the product.

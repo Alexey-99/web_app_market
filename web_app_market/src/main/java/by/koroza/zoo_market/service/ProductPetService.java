@@ -49,11 +49,11 @@ public interface ProductPetService {
 	/**
 	 * Change number of units products.
 	 *
-	 * @param order the order
-	 * @return true, if successful
+	 * @param productsPets the products pets
+	 * @return the map
 	 * @throws ServiceException the service exception
 	 */
-	public boolean changeNumberOfUnitsProducts(List<Pet> productsPets) throws ServiceException;
+	public Map<Integer, Boolean> changeNumberOfUnitsProducts(List<Pet> productsPets) throws ServiceException;
 
 	/**
 	 * Add the product pet.

@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 import by.koroza.zoo_market.dao.impl.product.ProductFeedsAndOtherDaoImpl;
 import by.koroza.zoo_market.model.entity.filter.FilterFeedsAndOther;
-import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.service.ProductFeedsAndOtherService;
 import by.koroza.zoo_market.service.exception.ServiceException;
@@ -137,9 +136,10 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	 * @throws ServiceException the service exception
 	 */
 	@Override
-	public boolean changeNumberOfUnitsProducts(Order order) throws ServiceException {
+	public Map<Integer, Boolean> changeNumberOfUnitsProducts(List<FeedAndOther> productsFeedAndOther)
+			throws ServiceException {
 		try {
-			return ProductFeedsAndOtherDaoImpl.getInstance().changeNumberOfUnitsProducts(order);
+			return ProductFeedsAndOtherDaoImpl.getInstance().changeNumberOfUnitsProducts(productsFeedAndOther);
 		} catch (DaoException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);

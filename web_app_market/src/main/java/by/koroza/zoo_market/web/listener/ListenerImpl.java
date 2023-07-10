@@ -35,6 +35,7 @@ public class ListenerImpl implements HttpSessionListener {
 	 */
 	@Override
 	public void sessionDestroyed(HttpSessionEvent se) {
+		// remove order
 		System.out.println(
 				"--------------------------------- session destroyed -------------------------------------------------------------");
 	}

@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -241,15 +242,22 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			WHERE pets.id = ?;
 			""";
 
+	/**
+	 * Change number of units products.
+	 *
+	 * @param productsPets the products pets
+	 * @return the map
+	 * @throws DaoException the dao exception
+	 */
 	@Override
-	public boolean changeNumberOfUnitsProducts(List<Pet> productsPets) throws DaoException {
-		boolean result = false;
+	public Map<Integer, Boolean> changeNumberOfUnitsProducts(List<Pet> productsPets) throws DaoException {
+		Map<Integer, Boolean> haveProductByIndex = new LinkedHashMap<>();
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
-			for (Pet productPet : productsPets) {
+			for (int i = 0; i < productsPets.size(); i++) {
 				long numberOfUnitsProduct = 0;
 				try (PreparedStatement statement = connection
 						.prepareStatement(QUERY_SELECT_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
-					statement.setLong(1, productPet.getId());
+					statement.setLong(1, productsPets.get(i).getId());
 					try (ResultSet resultSet = statement.executeQuery()) {
 						while (resultSet.next()) {
 							numberOfUnitsProduct = resultSet.getLong(PETS_NUMBER_OF_UNITS_PRODUCT);
@@ -260,16 +268,18 @@ public class ProductPetDaoImpl implements ProductPetDao {
 					try (PreparedStatement statement = connection
 							.prepareStatement(QUERY_CHANGE_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
 						statement.setLong(1, numberOfUnitsProduct - 1);
-						statement.setLong(2, productPet.getId());
-						result = statement.executeUpdate() > 0;
+						statement.setLong(2, productsPets.get(i).getId());
+						haveProductByIndex.put(i, true);
 					}
+				} else {
+					haveProductByIndex.put(i, false);
 				}
 			}
 		} catch (SQLException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);
 		}
-		return result;
+		return haveProductByIndex;
 	}
 
 	/** The Constant QUERY_INSERT_PRODUCT_PET. */

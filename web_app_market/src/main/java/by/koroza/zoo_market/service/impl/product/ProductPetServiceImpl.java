@@ -131,11 +131,11 @@ public class ProductPetServiceImpl implements ProductPetService {
 	 * Change number of units products.
 	 *
 	 * @param productsPets the products pets
-	 * @return true, if successful
+	 * @return the map
 	 * @throws ServiceException the service exception
 	 */
 	@Override
-	public boolean changeNumberOfUnitsProducts(List<Pet> productsPets) throws ServiceException {
+	public Map<Integer, Boolean> changeNumberOfUnitsProducts(List<Pet> productsPets) throws ServiceException {
 		try {
 			return ProductPetDaoImpl.getInstance().changeNumberOfUnitsProducts(productsPets);
 		} catch (DaoException e) {

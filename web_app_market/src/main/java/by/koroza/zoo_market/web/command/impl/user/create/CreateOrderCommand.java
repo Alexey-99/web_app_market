@@ -1,6 +1,8 @@
-package by.koroza.zoo_market.web.command.impl.user.payment;
+package by.koroza.zoo_market.web.command.impl.user.create;
 
 import static by.koroza.zoo_market.model.entity.status.UserRole.USER;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_IS_HAVE_ORDER_PRODUCTS_FEED_AND_OTHER;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_IS_HAVE_ORDER_PRODUCTS_PETS;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_ORDER;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_ORDER_PAYMENT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
@@ -45,15 +47,12 @@ import by.koroza.zoo_market.model.entity.bank.BankCard;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
-import by.koroza.zoo_market.model.entity.market.product.abstraction.AbstractProduct;
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.exception.SortingException;
 import by.koroza.zoo_market.service.exception.ValidationException;
-import by.koroza.zoo_market.service.impl.order.OrderServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
-import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 import by.koroza.zoo_market.service.sorting.SortingProducts;
 import by.koroza.zoo_market.service.sorting.comparator.list.product.impl.id.SortProductsByIdAscendingComparatorImpl;
 import by.koroza.zoo_market.service.validation.impl.bank.BankCardValidationImpl;
@@ -64,7 +63,7 @@ import by.koroza.zoo_market.web.controller.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-public class OrderPaymentCommand implements Command {
+public class CreateOrderCommand implements Command {
 	private static Logger log = LogManager.getLogger();
 
 	@Override
@@ -82,9 +81,22 @@ public class OrderPaymentCommand implements Command {
 					BankCard bankCard = createBankCardFromInputParameters(request, mapInputExceptions, sessionLocale);
 					if ((bankCard != null && mapInputExceptions.isEmpty())
 							&& (validationBankCard(mapInputExceptions, sessionLocale, bankCard, order))) {
-
-						OrderServiceImpl.getInstance().addOrder(order, user.getId());
-						UserServiceImpl.getInstance().changePersonPercentDiscount(user);
+						@SuppressWarnings("unchecked")
+						List<Pet> sortedPets = (List<Pet>) SortingProducts.getInstance().sortProductsList(
+								order.getProductsPets(), new SortProductsByIdAscendingComparatorImpl());
+						order.setProductsPets(sortedPets);
+						Map<Integer, Boolean> haveProductPets = ProductPetServiceImpl.getInstance()
+								.changeNumberOfUnitsProducts(order.getProductsPets());
+						@SuppressWarnings("unchecked")
+						List<FeedAndOther> sortedProductFeedAndOther = (List<FeedAndOther>) SortingProducts
+								.getInstance().sortProductsList(order.getOtherProducts(),
+										new SortProductsByIdAscendingComparatorImpl());
+						order.setOtherProducts(sortedProductFeedAndOther);
+						Map<Integer, Boolean> haveProductFeedAndOther = ProductFeedsAndOtherServiceImpl.getInstance()
+								.changeNumberOfUnitsProducts(order.getOtherProducts());
+						session.setAttribute(ATTRIBUTE_ORDER, order);
+						session.setAttribute(ATTRIBUTE_IS_HAVE_ORDER_PRODUCTS_PETS, haveProductPets);
+						session.setAttribute(ATTRIBUTE_IS_HAVE_ORDER_PRODUCTS_FEED_AND_OTHER, haveProductFeedAndOther);
 						router = new Router(SUCCESS_ORDER_PAYMENT_PAGE_PATH);
 					} else {
 						session.setAttribute(ATTRIBUTE_ORDER_PAYMENT_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
@@ -97,7 +109,7 @@ public class OrderPaymentCommand implements Command {
 			} else {
 				router = new Router(HOME_PAGE_PATH);
 			}
-		} catch (ServiceException | ValidationException e) {
+		} catch (ServiceException | ValidationException | SortingException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
