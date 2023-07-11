@@ -29,7 +29,6 @@
 </head>
 <body>
 	<div class="col-xl-2 col-lg-12 logo">
-		${locale}
 		<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 			method="get">
 			<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
@@ -151,7 +150,7 @@
 		<form class="me-3"
 			action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}" method="get">
 			<input class="productsIdXlFlagEn" type="hidden"
-				name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE }" />
+				name="${ParameterName.PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
 			<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 				value="${CommandName.COMMAND_SET_ENGLISH_LOCALE}" />
 			<button class="border-0 bg-transparent"
@@ -174,7 +173,7 @@
 		<form class="" action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 			method="get">
 			<input class="productsIdXlFlagRus" type="hidden"
-				name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE }" />
+				name="${ParameterName.PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
 			<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 				value="${CommandName.COMMAND_SET_RUSSIAN_LOCALE}" />
 			<button class="border-0 bg-transparent"
@@ -298,7 +297,7 @@
 			<form class="me-3"
 				action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}" method="get">
 				<input class="productsIdLgFlagEn" type="hidden"
-					name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE }" />
+					name="${ParameterName.PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
 				<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 					value="${CommandName.COMMAND_SET_ENGLISH_LOCALE}" />
 				<button class="border-0 bg-transparent"
@@ -321,7 +320,7 @@
 			<form class="" action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 				method="get">
 				<input class="productsIdLgFlagRus" type="hidden"
-					name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE }" />
+					name="${ParameterName.PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
 				<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 					value="${CommandName.COMMAND_SET_RUSSIAN_LOCALE}" />
 				<button class="border-0 bg-transparent"

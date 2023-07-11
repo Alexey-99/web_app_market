@@ -139,7 +139,7 @@
 															value="${CommandName.COMMAND_SHOW_BACKET_PAGE}" /><input
 															class="productsId_cards_pet_${status.getIndex()}"
 															type="hidden"
-															name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
+															name="${ParameterName.PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
 														<button class="w-100 h-100 body_btn_input"
 															id="liveToastBtn${status.getIndex()}" role="button"
 															onclick="deleteProducAndGetProducts('.productsId_cards_pet_${status.getIndex()}' ,'p', ${pet.getId()})">
@@ -226,7 +226,7 @@
 															value="${CommandName.COMMAND_SHOW_BACKET_PAGE}" /> <input
 															class="productsId_cards_item_${status.getIndex()}"
 															type="hidden"
-															name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
+															name="${ParameterName.PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
 														<button class="w-100 h-100 body_btn_input" role="button"
 															id="liveToastBtn${order.getProductsPets().size() + status.getIndex()}"
 															onclick="deleteProducAndGetProducts('.productsId_cards_item_${status.getIndex()}' ,'o', ${item.getId()})">удалить</button>

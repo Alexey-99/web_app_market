@@ -269,7 +269,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 							.prepareStatement(QUERY_CHANGE_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
 						statement.setLong(1, numberOfUnitsProduct - 1);
 						statement.setLong(2, productsPets.get(i).getId());
-						haveProductByIndex.put(i, true);
+						haveProductByIndex.put(i, statement.executeUpdate() > 0);
 					}
 				} else {
 					haveProductByIndex.put(i, false);
@@ -311,7 +311,9 @@ public class ProductPetDaoImpl implements ProductPetDao {
 							.prepareStatement(QUERY_CHANGE_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
 						statement.setLong(1, numberOfUnitsProduct + 1);
 						statement.setLong(2, productsPets.get(i).getId());
-						countChanging++;
+						if (statement.executeUpdate() > 0) {
+							countChanging++;
+						}
 					}
 				}
 			}

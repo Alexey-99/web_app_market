@@ -28,8 +28,7 @@
 <!-- user_history_orders = AttributeName.ATTRIBUTE_USER_HISTORY_ORDERS -->
 <!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
-<body class="d-flex flex-column justify-content-between"
-	style="min-height: 100vh">
+<body style="min-height: 100vh">
 	<%@ include file="/jsp/items/header_block_header_top.jsp"%>
 
 	<main class="mb-5">
@@ -127,17 +126,17 @@
 															</div>
 															<div class="accordion_header_btn_status_order pe-4">
 																<c:if
-																	test="${order.getStatus().getStatusId() == OrderStatus.OPEN.getStatusId()}">
+																	test="${order.getStatus().getId() == OrderStatus.OPEN.getId()}">
 																	<fmt:message
 																		key="personal_account_history_orders.order_status.open" />
 																</c:if>
 																<c:if
-																	test="${order.getStatus().getStatusId() == OrderStatus.WAITING_PAY.getStatusId()}">
+																	test="${order.getStatus().getId() == OrderStatus.WAITING_PAY.getId()}">
 																	<fmt:message
 																		key="personal_account_history_orders.order_status.waiting_pay" />
 																</c:if>
 																<c:if
-																	test="${order.getStatus().getStatusId() == OrderStatus.CLOSED.getStatusId()}">
+																	test="${order.getStatus().getId() == OrderStatus.CLOSED.getId()}">
 																	<fmt:message
 																		key="personal_account_history_orders.order_status.closed" />
 																</c:if>

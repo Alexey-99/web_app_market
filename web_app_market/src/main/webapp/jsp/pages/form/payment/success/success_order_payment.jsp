@@ -11,6 +11,7 @@
 	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
 <%@page
 	import="by.koroza.zoo_market.web.command.name.parameter.ParameterName"%>
+<%@page import="by.koroza.zoo_market.web.command.name.path.ImagePath"%>
 <fmt:setLocale value="${locale}" scope="session" />
 <fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
