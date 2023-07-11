@@ -41,6 +41,7 @@ import static by.koroza.zoo_market.web.command.CommandType.CHANGE_LOGIN;
 import static by.koroza.zoo_market.web.command.CommandType.CHANGE_PASSWORD;
 import static by.koroza.zoo_market.web.command.CommandType.CHANGE_PERSON_INFORMATION;
 import static by.koroza.zoo_market.web.command.CommandType.CONFIMATION_EMAIL;
+import static by.koroza.zoo_market.web.command.CommandType.CREATE_ORDER;
 import static by.koroza.zoo_market.web.command.CommandType.ORDER_PAYMENT;
 import static by.koroza.zoo_market.web.command.CommandType.REGISTRATION_USER;
 import static by.koroza.zoo_market.web.command.CommandType.SEND_ONE_MORE_TIME_CONFIMATION_EMAIL_CODE;
@@ -111,6 +112,7 @@ public final class CommandName {
 	public static final String COMMAND_CHANGE_EMAIL = CHANGE_EMAIL.toString().toLowerCase();
 	public static final String COMMAND_SHOW_CHANGE_EMAIL_FORM = SHOW_CHANGE_EMAIL_FORM.toString().toLowerCase();
 
+	public static final String COMMAND_CREATE_ORDER = CREATE_ORDER.toString().toLowerCase();
 	public static final String COMMAND_ORDER_PAYMENT = ORDER_PAYMENT.toString().toLowerCase();
 
 	public static final String COMMAND_SET_ENGLISH_LOCALE = SET_ENGLISH_LOCALE.toString().toLowerCase();

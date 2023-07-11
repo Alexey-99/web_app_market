@@ -359,12 +359,12 @@
 									</h6>
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control"
-											id="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_NUMBER_BANK_CARD}"
+											id="basket_page.paymant_form.input.enter_number_bank_card"
 											name="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_NUMBER_BANK_CARD}"
-											placeholder="1234 5678 8765 4321"
-											pattern="\d{4}\s\d{4}\s\d{4}\s\d{4}" required /> <label
-											class="text-lowercase"
-											for="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_NUMBER_BANK_CARD}">
+											pattern="\d{4}\s\d{4}\s\d{4}\s\d{4}" required
+											placeholder='<fmt:message key="basket_page.paymant_form.input.enter_number_bank_card"/>' />
+										<label class="text-lowercase"
+											for="basket_page.paymant_form.input.enter_number_bank_card">
 											<fmt:message
 												key="basket_page.paymant_form.input.enter_number_bank_card" />
 										</label>
@@ -379,23 +379,26 @@
 										<div class="input_group_forms d-flex flex-row w-100">
 											<div class="form-floating" style="width: inherit">
 												<input type="number" class="form-control"
-													id="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_MONTH}"
-													placeholder="месяц"
+													id="basket_page.paymant_form.lable.month"
 													pattern="^(12|11|10|(0)?9|(0)?8|(0)?7|(0)?6|(0)?5|(0)?4|(0)?3|(0)?2|(0)?1)$"
 													name="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_MONTH}"
-													required /> <label class="text-lowercase"
-													for="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_MONTH}"><fmt:message
-														key="basket_page.paymant_form.lable.month" /></label>
+													required
+													placeholder='<fmt:message key="basket_page.paymant_form.lable.month"/>' />
+												<label class="text-lowercase"
+													for="basket_page.paymant_form.lable.month"> <fmt:message
+														key="basket_page.paymant_form.lable.month" />
+												</label>
 											</div>
 											<span class="input-group-text">/</span>
 											<div class="form-floating" style="width: inherit">
 												<input type="number" class="form-control"
-													id="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_YEAR}"
-													placeholder="год" pattern="\d{2}"
+													id="basket_page.paymant_form.lable.year" pattern="\d{2}"
 													name="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_YEAR}"
-													required /> <label class="text-lowercase"
-													for="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_YEAR}"><fmt:message
-														key="basket_page.paymant_form.lable.year" /></label>
+													required
+													placeholder='<fmt:message key="basket_page.paymant_form.lable.year"/>' />
+												<label class="text-lowercase"
+													for="basket_page.paymant_form.lable.year"><fmt:message
+														key="basket_page.paymant_form.lable.year" /> </label>
 											</div>
 										</div>
 									</div>
@@ -404,17 +407,18 @@
 									</h6>
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control"
-											id="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_CVC}"
+											id="basket_page.paymant_form.input.enter_cvc"
 											name="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_CVC}"
-											placeholder="123" pattern="\d{3}" required /> <label
-											class="text-lowercase"
-											for="${InputName.PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_CVC}"><fmt:message
-												key="basket_page.paymant_form.input.enter_cvc" /></label>
+											pattern="\d{3}" required
+											placeholder='<fmt:message key="basket_page.paymant_form.input.enter_cvc"/>' />
+										<label class="text-lowercase"
+											for="basket_page.paymant_form.input.enter_cvc"><fmt:message
+												key="basket_page.paymant_form.input.enter_cvc" /> </label>
 									</div>
 									<div
 										class="payment_information_form_fotter d-flex justify-content-end">
 										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-											value="${CommandName.COMMAND_ORDER_PAYMENT}" />
+											value="${CommandName.COMMAND_CREATE_ORDER}" />
 										<button class="btn payment_information_form_btn_submit"
 											role="button">
 											<fmt:message key="basket_page.paymant_form.ready" />
@@ -446,8 +450,8 @@
 	<script src="js/basket.js"></script>
 
 	<script>
-		let arrayProductsPetsId = ${productsPets.stream().map(pet -> pet.getId()).toList()};
-		let arrayProductsOtherId = ${productsOther.stream().map(product -> product.getId()).toList()};
+		let arrayProductsPetsId = ${order.getProductsPets().stream().map(pet -> pet.getId()).toList()};
+		let arrayProductsOtherId = ${order.getOtherProducts().stream().map(product -> product.getId()).toList()};
 		showToast(arrayProductsPetsId, arrayProductsOtherId);
 	</script>
 </body>

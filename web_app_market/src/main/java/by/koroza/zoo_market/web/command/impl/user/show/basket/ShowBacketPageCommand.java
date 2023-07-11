@@ -42,27 +42,33 @@ public class ShowBacketPageCommand implements Command {
 		String[] productsIdArr = request.getParameterValues(ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE);
 		Map<String, String> productsIdMap = parseSavedIdProducts(
 				productsIdArr[0] != null ? productsIdArr[0] : productsIdArr[1]);
+
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		if (user != null && user.getRole().getIdRole() >= USER.getIdRole() && user.isVerificatedEmail()) {
 			try {
-				List<Pet> productsPets = ProductPetServiceImpl.getInstance().getProductsPetsById(productsIdMap);
-				List<FeedAndOther> productsOther = ProductFeedsAndOtherServiceImpl.getInstance()
-						.getHavingProductsFeedAndOtherById(productsIdMap);
-				Order order = new Order.OrderBuilder().setUserId(user.getId()).setProductsPets(productsPets)
-						.setOtherProducts(productsOther)
-						.setTotalPaymentAmount(
-								OrderServiceImpl.getInstance().calcTotalPaymentAmount(productsPets, productsOther))
-						.setTotalProductsDiscountAmount(OrderServiceImpl.getInstance()
-								.calcTotalProductsDiscountAmount(productsPets, productsOther))
-						.setStatus(OrderStatus.OPEN).build();
-				order.setTotalPersonDiscountAmount(OrderServiceImpl.getInstance().calcTotalPersonDiscountAmount(
-						order.getTotalPaymentAmount(), order.getTotalProductsDiscountAmount(), user.getDiscount()));
-				order.setTotalDiscountAmount(OrderServiceImpl.getInstance().calcTotalDiscountAmount(
-						order.getTotalProductsDiscountAmount(), order.getTotalPersonDiscountAmount()));
-				order.setTotalPaymentWithDiscountAmount(
-						OrderServiceImpl.getInstance().calcTotalPaymentWithDiscountAmount(order.getTotalPaymentAmount(),
-								order.getTotalDiscountAmount()));
+				Order order = null;
+				if (productsIdMap != null) {
+					List<Pet> productsPets = ProductPetServiceImpl.getInstance().getProductsPetsById(productsIdMap);
+					List<FeedAndOther> productsOther = ProductFeedsAndOtherServiceImpl.getInstance()
+							.getHavingProductsFeedAndOtherById(productsIdMap);
+					order = new Order.OrderBuilder().setUserId(user.getId()).setProductsPets(productsPets)
+							.setOtherProducts(productsOther)
+							.setTotalPaymentAmount(
+									OrderServiceImpl.getInstance().calcTotalPaymentAmount(productsPets, productsOther))
+							.setTotalProductsDiscountAmount(OrderServiceImpl.getInstance()
+									.calcTotalProductsDiscountAmount(productsPets, productsOther))
+							.setStatus(OrderStatus.OPEN).build();
+					order.setTotalPersonDiscountAmount(OrderServiceImpl.getInstance().calcTotalPersonDiscountAmount(
+							order.getTotalPaymentAmount(), order.getTotalProductsDiscountAmount(), user.getDiscount()));
+					order.setTotalDiscountAmount(OrderServiceImpl.getInstance().calcTotalDiscountAmount(
+							order.getTotalProductsDiscountAmount(), order.getTotalPersonDiscountAmount()));
+					order.setTotalPaymentWithDiscountAmount(
+							OrderServiceImpl.getInstance().calcTotalPaymentWithDiscountAmount(
+									order.getTotalPaymentAmount(), order.getTotalDiscountAmount()));
+				} else {
+					order = new Order.OrderBuilder().setUserId(user.getId()).build();
+				}
 				session.setAttribute(ATTRIBUTE_ORDER, order);
 				router = new Router(BACKET_WITH_PRODUCTS_PAGE_PATH);
 			} catch (ServiceException e) {

@@ -37,14 +37,25 @@ public interface ProductFeedsAndOtherDao {
 	public Map<FeedAndOther, Long> getAllProductsFeedAndOtherAndNumberOfUnits() throws DaoException;
 
 	/**
-	 * Change number of units products.
+	 * Change number of units products minus.
 	 *
 	 * @param productsFeedAndOther the products feed and other
 	 * @return the map
 	 * @throws DaoException the dao exception
 	 */
-	public Map<Integer, Boolean> changeNumberOfUnitsProducts(List<FeedAndOther> productsFeedAndOther)
+	public Map<Integer, Boolean> changeNumberOfUnitsProductsMinus(List<FeedAndOther> productsFeedAndOther)
 			throws DaoException;
+
+	/**
+	 * Change number of units products plus.
+	 *
+	 * @param productsFeedAndOther the products feed and other
+	 * @param haveProductByIndex   the have product by index
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
+	public boolean changeNumberOfUnitsProductsPlus(List<FeedAndOther> productsFeedAndOther,
+			Map<Integer, Boolean> haveProductByIndex) throws DaoException;
 
 	/**
 	 * Add the product.

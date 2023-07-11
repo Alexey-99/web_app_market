@@ -43,7 +43,18 @@ public interface ProductPetDao {
 	 * @return the map
 	 * @throws DaoException the dao exception
 	 */
-	public Map<Integer, Boolean> changeNumberOfUnitsProducts(List<Pet> productsPets) throws DaoException;
+	public Map<Integer, Boolean> changeNumberOfUnitsProductsMinus(List<Pet> productsPets) throws DaoException;
+
+	/**
+	 * Change number of units products plus.
+	 *
+	 * @param productsPets       the products pets
+	 * @param haveProductByIndex the have product by index
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
+	public boolean changeNumberOfUnitsProductsPlus(List<Pet> productsPets, Map<Integer, Boolean> haveProductByIndex)
+			throws DaoException;
 
 	/**
 	 * Add the product pet.

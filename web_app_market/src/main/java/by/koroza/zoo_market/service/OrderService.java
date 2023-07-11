@@ -1,6 +1,7 @@
 package by.koroza.zoo_market.service;
 
 import java.util.List;
+import java.util.Map;
 
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
@@ -77,4 +78,16 @@ public interface OrderService {
 	 * @return the double
 	 */
 	public double calcTotalPaymentWithDiscountAmount(double totalPaymentAmount, double totalDiscountAmount);
+
+	/**
+	 * Calculation total payment with discount amount.
+	 *
+	 * @param order                   the order
+	 * @param haveProductPets         the have product pets
+	 * @param haveProductFeedAndOther the have product feed and other
+	 * @param personalDiscountpercent the personal discount percent
+	 * @return the double
+	 */
+	double calcTotalPaymentWithDiscountAmount(Order order, Map<Integer, Boolean> haveProductPets,
+			Map<Integer, Boolean> haveProductFeedAndOther, double personalDiscountPercent);
 }

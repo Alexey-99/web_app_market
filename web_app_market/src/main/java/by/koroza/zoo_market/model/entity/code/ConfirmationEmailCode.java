@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class ConfirmationEmailCode {
-	private static final int DURATION_OF_CONFIRMATION_CODE_VALUE = 1;
-	private static final ChronoUnit DURATION_OF_CONFIRMATION_CODE_UNIT = ChronoUnit.MINUTES;
+	private static final int DURATION_OF_CONFIRMATION_CODE_VALUE = 12;
+	private static final ChronoUnit DURATION_OF_CONFIRMATION_CODE_UNIT = ChronoUnit.HOURS;
 
 	private static final boolean CONFIRMATION_CODE_STATUS_OPEN = true;
 	private static final boolean CONFIRMATION_CODE_STATUS_CLOSED = false;

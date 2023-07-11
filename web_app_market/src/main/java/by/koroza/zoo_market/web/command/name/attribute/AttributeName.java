@@ -7,6 +7,8 @@ public final class AttributeName {
 	public static final String ATTRIBUTE_INDEX_PAGE = "index_page";
 	public static final String ATTRIBUTE_PREVIOUS_COMMAND = "previous_command";
 
+	public static final String ATTRIBUTE_SERVLET_COMMAND_EXCEPTION = "servlet_command_exception";
+
 	public static final String ATTRIBUTE_USER = "user";
 //	CREATE ORDER
 	public static final String ATTRIBUTE_ORDER = "order";
@@ -59,8 +61,8 @@ public final class AttributeName {
 	public static final String SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS_NAME = "feed_and_other_class";
 
 //	BASKET PAGE
-	public static final String ATTRIBUTE_FOR_LIST_PETS = "productsPets";
-	public static final String ATTRIBUTE_FOR_LIST_FEEDS_AND_OTHER = "productsOther";
+//	public static final String ATTRIBUTE_FOR_LIST_PETS = "productsPets";
+//	public static final String ATTRIBUTE_FOR_LIST_FEEDS_AND_OTHER = "productsOther";
 
 	public static final String REQUEST_ATTRIBUTE_NUMBER_PAGE = "number_page";
 

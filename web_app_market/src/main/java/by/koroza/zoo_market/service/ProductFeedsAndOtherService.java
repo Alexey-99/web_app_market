@@ -48,14 +48,25 @@ public interface ProductFeedsAndOtherService {
 	public Map<FeedAndOther, Long> getAllProductsFeedAndOtherAndNumberOfUnits() throws ServiceException;
 
 	/**
-	 * Change number of units products.
+	 * Change number of units products minus.
 	 *
 	 * @param productsFeedAndOther the products feed and other
 	 * @return the map
 	 * @throws ServiceException the service exception
 	 */
-	public Map<Integer, Boolean> changeNumberOfUnitsProducts(List<FeedAndOther> productsFeedAndOther)
+	public Map<Integer, Boolean> changeNumberOfUnitsProductsMinus(List<FeedAndOther> productsFeedAndOther)
 			throws ServiceException;
+
+	/**
+	 * Change number of units products plus.
+	 *
+	 * @param productsFeedAndOther the products feed and other
+	 * @param haveProductByIndex   the have product by index
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
+	public boolean changeNumberOfUnitsProductsPlus(List<FeedAndOther> productsFeedAndOther,
+			Map<Integer, Boolean> haveProductByIndex) throws ServiceException;
 
 	/**
 	 * Add the product.
@@ -94,4 +105,5 @@ public interface ProductFeedsAndOtherService {
 	 * @throws ServiceException the service exception
 	 */
 	public String getProductImagePathByProductId(long id) throws ServiceException;
+
 }

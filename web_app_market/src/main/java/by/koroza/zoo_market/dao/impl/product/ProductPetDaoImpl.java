@@ -250,7 +250,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	 * @throws DaoException the dao exception
 	 */
 	@Override
-	public Map<Integer, Boolean> changeNumberOfUnitsProducts(List<Pet> productsPets) throws DaoException {
+	public Map<Integer, Boolean> changeNumberOfUnitsProductsMinus(List<Pet> productsPets) throws DaoException {
 		Map<Integer, Boolean> haveProductByIndex = new LinkedHashMap<>();
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
 			for (int i = 0; i < productsPets.size(); i++) {
@@ -280,6 +280,62 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			throw new DaoException(e);
 		}
 		return haveProductByIndex;
+	}
+
+	/**
+	 * Change number of units products plus.
+	 *
+	 * @param productsPets       the products pets
+	 * @param haveProductByIndex the have product by index
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
+	@Override
+	public boolean changeNumberOfUnitsProductsPlus(List<Pet> productsPets, Map<Integer, Boolean> haveProductByIndex)
+			throws DaoException {
+		int countChanging = 0;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
+			for (int i = 0; i < productsPets.size(); i++) {
+				if (haveProductByIndex.get(i)) {
+					long numberOfUnitsProduct = 0;
+					try (PreparedStatement statement = connection
+							.prepareStatement(QUERY_SELECT_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
+						statement.setLong(1, productsPets.get(i).getId());
+						try (ResultSet resultSet = statement.executeQuery()) {
+							while (resultSet.next()) {
+								numberOfUnitsProduct = resultSet.getLong(PETS_NUMBER_OF_UNITS_PRODUCT);
+							}
+						}
+					}
+					try (PreparedStatement statement = connection
+							.prepareStatement(QUERY_CHANGE_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
+						statement.setLong(1, numberOfUnitsProduct + 1);
+						statement.setLong(2, productsPets.get(i).getId());
+						countChanging++;
+					}
+				}
+			}
+		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new DaoException(e);
+		}
+		return countChanging == numberNeedChangeProducts(haveProductByIndex);
+	}
+
+	/**
+	 * Number need change products.
+	 *
+	 * @param haveProductByIndex the have product by index
+	 * @return the int
+	 */
+	private int numberNeedChangeProducts(Map<Integer, Boolean> haveProductByIndex) {
+		int countChanging = 0;
+		for (Map.Entry<Integer, Boolean> entry : haveProductByIndex.entrySet()) {
+			if (entry.getValue()) {
+				countChanging++;
+			}
+		}
+		return countChanging;
 	}
 
 	/** The Constant QUERY_INSERT_PRODUCT_PET. */

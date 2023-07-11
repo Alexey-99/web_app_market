@@ -39,34 +39,41 @@
 							<img
 								src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.LOGO_PNG_IMAGE_PATH}"
 								alt="logo" />
-							<h1 class="text-uppercase success_payment_form_title">
+							<h4 class="text-uppercase success_payment_form_title">
 								<fmt:message key="error_page_500.message" />
-							</h1>
+							</h4>
 							<div
 								class="success_payment_form_fotter d-flex justify-content-end">
 								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
-									<button class="nav-link menu_link text-uppercase" role="button">
+									<button
+										class="btn text-uppercase d-flex justify-content-center align-items-center success_payment_form_btn_submit"
+										role="button">
 										<h5>
 											<fmt:message key="error_page_500.btn.main_page" />
 										</h5>
 									</button>
 								</form>
 							</div>
-							<h2>
-								Request from ${pageContext.errorData.requestURI} is failed <br />
-								Servlet name: ${pageContext.errorData.servletName} <br />
-								Status code: ${pageContext.errorData.statusCode} <br />
-								Exception: ${pageContext.exception} <br /> Message from
-								exception: ${pageContext.exception.message} <br /> Stack trace:
-								<br />
-								<c:forEach var="trace"
-									items="${pageContext.exception.stackTrace}">
-			${trace}<br />
-								</c:forEach>
-							</h2>
+
+						</div>
+						<div>
+							<h1>Error 500</h1>
+							<ul>
+								<li>Request from ${pageContext.errorData.requestURI} is
+									failed</li>
+								<li>Servlet name: ${pageContext.errorData.servletName}</li>
+								<li>Status code: ${pageContext.errorData.statusCode}</li>
+								<li>Exception: ${pageContext.exception}</li>
+								<li>Message from exception:
+									${pageContext.exception.message}</li>
+								<li>Stack trace: <br /> <c:forEach var="element"
+										items="${pageContext.exception.stackTrace}">
+										${element}
+									</c:forEach></li>
+							</ul>
 						</div>
 					</div>
 				</div>

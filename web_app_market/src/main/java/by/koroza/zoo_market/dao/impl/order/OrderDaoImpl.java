@@ -196,7 +196,7 @@ public class OrderDaoImpl implements OrderDao {
 				statement.setDouble(4, order.getTotalPersonDiscountAmount());
 				statement.setDouble(5, order.getTotalDiscountAmount());
 				statement.setDouble(6, order.getTotalPaymentWithDiscountAmount());
-				statement.setInt(7, OrderStatus.WAITING_PAY.getStatusId());
+				statement.setInt(7, OrderStatus.WAITING_PAY.getId());
 				resultInsetOrder = statement.executeUpdate() > 0;
 			}
 			try (PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_LAST_INSERT_ID);

@@ -46,6 +46,7 @@ import by.koroza.zoo_market.web.command.impl.user.change.ChangePasswordCommand;
 import by.koroza.zoo_market.web.command.impl.user.change.ChangePersonInformationCommand;
 import by.koroza.zoo_market.web.command.impl.user.confirmation.ConfirmationEmailCommand;
 import by.koroza.zoo_market.web.command.impl.user.confirmation.SendOneMoreTimeConfirmationEmailCodeCommand;
+import by.koroza.zoo_market.web.command.impl.user.create.CreateOrderCommand;
 import by.koroza.zoo_market.web.command.impl.user.payment.OrderPaymentCommand;
 import by.koroza.zoo_market.web.command.impl.user.registration.RegistrationUserCommand;
 import by.koroza.zoo_market.web.command.impl.user.registration.verification.VerificationRegistrationInformationCommand;
@@ -67,121 +68,125 @@ import by.koroza.zoo_market.web.command.impl.user.sign.SignInPersonAccountComman
 import by.koroza.zoo_market.web.command.impl.user.sign.SignOutPersonalAccountCommand;
 
 public enum CommandType {
-	/* market page.product pet */
+//	market page.product pet
 	SHOW_PRODUCT_PETS_OFF_FILTER(new ShowProductPetsOffFilterCommand()),
 	SHOW_PRODUCT_PETS_INCLUDED_FILTER(new ShowProductPetsIncludedFilterCommand()),
 	SHOW_MARKET_PAGE_PRODUCT_PETS_BY_NUMBER_PAGE(new ShowProductPetNumberPageCommand()),
-	/* market page.product feeds and other */
+//	market page.product feeds and other
 	SHOW_PRODUCT_FEEDS_AND_OTHER_OFF_FILTER(new ShowProductFeedsAndOtherOffFilterCommand()),
 	SHOW_PRODUCT_FEEDS_AND_OTHER_INCLUDED_FILTER(new ShowProductFeedsAndOtherIncludedFilterCommand()),
 	SHOW_MARKET_PAGE_PRODUCT_FEEDS_AND_OTHER_BY_NUMBER_PAGE(new ShowProductFeedsAndOtherNumberPageCommand()),
-	/* home page */
+//	home page
 	SHOW_HOME_PAGE(new ShowHomePageCommand()),
-	/* basket page */
+//	basket page
 	SHOW_BACKET_PAGE(new ShowBacketPageCommand()),
-	/* registration */
+//	registration
 	REGISTRATION_USER(new RegistrationUserCommand()),
 	VERIFICATION_REGISTRATION_INFORMATION(new VerificationRegistrationInformationCommand()),
 	SHOW_REGISTRATION_FORN_VALDATED(new ShowRegistrationUserFormCommand()),
-	/* confirmation email */
+//	confirmation email
 	CONFIMATION_EMAIL(new ConfirmationEmailCommand()),
 	SHOW_CONFIMATION_EMAIL_FORM(new ShowConfirmationEmailFormCommand()),
 	SEND_ONE_MORE_TIME_CONFIMATION_EMAIL_CODE(new SendOneMoreTimeConfirmationEmailCodeCommand()),
-	/* sign in / out */
+//	sign in / out 
 	SIGN_IN_PERSON_ACCOUNT(new SignInPersonAccountCommand()),
 	SIGN_OUT_PERSONAL_ACCOUNT(new SignOutPersonalAccountCommand()),
-	/* change personal information */
+//	change personal information
 	CHANGE_PERSON_INFORMATION(new ChangePersonInformationCommand()), CHANGE_LOGIN(new ChangeLoginCommand()),
 	CHANGE_PASSWORD(new ChangePasswordCommand()), CHANGE_EMAIL(new ChangeEmailCommand()),
 	SHOW_CHANGE_EMAIL_FORM(new ShowChangeUserEmailFormComamnd()),
-	/* order payment */
+//	ORDER
+//	create_order
+	CREATE_ORDER(new CreateOrderCommand()),
+//	order_payment
 	ORDER_PAYMENT(new OrderPaymentCommand()),
-	/* change locale */
+//	change locale 
 	SET_RUSSIAN_LOCALE(new SetRussinLocaleCommand()), SET_ENGLISH_LOCALE(new SetEnglishLocaleCommand()),
-	/* personal account pages */
+//	personal account pages
 	SHOW_PERSONAL_ACCOUNT_PERSON_INFORMATION_PAGE(new ShowPersonalAccountPersonInfomationPageCommand()),
 	SHOW_PERSONAL_ACCOUNT_HISTORY_ORDERS_PAGE(new ShowPersonalAccountHistoryOrdersPageCommand()),
 	SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE(new ShowPersonalAccountAdminPage()),
-	/* admin page with all products */
+//	ADMIN PART
+//	admin page with all products
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER(new ShowAllProductsOffFilterCommand()),
-	/* create pet */
+//	create pet
 	ADMIN_PAGE_CREATE_PET_PRODUCT(new CraetePetProductCommand()),
 	ADMIN_PAGE_ADD_NEW_PRODUCT_PET(new AddPetProductCommand()),
 	ADMIN_PAGE_SHOW_CREATE_PET_PRODUCT_FORM(new ShowCreatePetProductFormCommand()),
-	/* create feeds and other */
+//	create feeds and other
 	ADMIN_PAGE_CREATE_FEED_AND_OTHER_PRODUCT(new CraeteProductFeedsAndOtherCommand()),
 	ADMIN_PAGE_ADD_NEW_PRODUCT_FEED_AND_OTHER(new AddOtherProductCommand()),
 	ADMIN_PAGE_SHOW_CREATE_FEED_AND_OTHER_PRODUCT_FORM(new ShowCreateFeedsAndOtherProductFormCommand()),
-	/* change pet */
+//	change pet
 	ADMIN_PAGE_CHANGE_PET_PRODUCT(new ChangeProductPetCommand()),
 	ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_PET(new UpdateChangedPetProductCommand()),
 	ADMIN_PAGE_SHOW_CHANGE_PET_PRODUCT_FORM(new ShowChangePetProductFormCommand()),
-	/* change feeds and other */
+//	change feeds and other
 	ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT(new ChangeProductFeedsAndOtherCommand()),
 	ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_FEED_AND_OTHER(new UpdateChangedFeedsAndOtherProductCommand()),
 	ADMIN_PAGE_SHOW_CHANGE_FEED_AND_OTHER_PRODUCT_FORM(new ShowChangeFeedsAndOtherProductFormCommand()),
-	/* SORTING PRODUCTS */
-	/* id */
+//	SORTING PRODUCTS
+//	product id
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_ID_ASCENDING(
 			new ShowAllProductsOffFilterSortingByIdAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_ID_DESCENDING(
 			new ShowAllProductsOffFilterSortingByIdDescendingCommand()),
-	/* product type */
+//	product type
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TYPE_ASCENDING(
 			new ShowAllProductsOffFilterSortingByProductTypeAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TYPE_DESCENDING(
 			new ShowAllProductsOffFilterSortingByProductTypeDescendingCommand()),
-	/* product brand */
+//	product brand
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_BRAND_ASCENDING(
 			new ShowAllProductsOffFilterSortingByProductBrandAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_BRAND_DESCENDING(
 			new ShowAllProductsOffFilterSortingByProductBrandDescendingCommand()),
-	/* product description */
+//	product description
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_DESCRIPTION_ASCENDING(
 			new ShowAllProductsOffFilterSortingByProductDescriptionAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_DESCRIPTION_DESCENDING(
 			new ShowAllProductsOffFilterSortingByProductDescriptionDescendingCommand()),
-	/* product types pets */
+//	product types pets
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TYPES_PETS_ASCENDING(
 			new ShowAllProductsOffFilterSortingByProductTypesPetsAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TYPES_PETS_DESCENDING(
 			new ShowAllProductsOffFilterSortingByProductTypesPetsDescendingCommand()),
-	/* product pet type */
+//	product pet type
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_TYPE_ASCENDING(
 			new ShowAllProductsOffFilterSortingByProductPetTypeAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_TYPE_DESCENDING(
 			new ShowAllProductsOffFilterSortingByProductPetTypeDescendingCommand()),
-	/* product pet breed */
+//	product pet breed
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_BREED_ASCENDING(
 			new ShowAllProductsOffFilterSortingByProductPetBreedAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_BREED_DESCENDING(
 			new ShowAllProductsOffFilterSortingByProductPetBreedDescendingCommand()),
-	/* product pet birth date */
+//	product pet birth date
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_BIRTH_DATE_ASCENDING(
 			new ShowAllProductsOffFilterSortingByProductPetBirthDateAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_BIRTH_DATE_DESCENDING(
 			new ShowAllProductsOffFilterSortingByProductPetBirthDateDescendingCommand()),
-	/* product price */
+//	product price
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PRICE_ASCENDING(
 			new ShowAllProductsOffFilterSortingByPriceAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PRICE_DESCENDING(
 			new ShowAllProductsOffFilterSortingByPriceDescendingCommand()),
-	/* product discount */
+//	product discount
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_DISCOUNT_ASCENDING(
 			new ShowAllProductsOffFilterSortingByDiscountAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_DISCOUNT_DESCENDING(
 			new ShowAllProductsOffFilterSortingByDiscountDescendingCommand()),
-	/* product total price */
+//	product total price
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TOTAL_PRICE_ASCENDING(
 			new ShowAllProductsOffFilterSortingByTotalPriceAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TOTAL_PRICE_DESCENDING(
 			new ShowAllProductsOffFilterSortingByTotalPriceDescendingCommand()),
-	/* product number of units */
+//	product number of units
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_NUMBER_OF_UNITS_ASCENDING(
 			new ShowAllProductsOffFilterSortingByNumberOfUnitsProductAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_NUMBER_OF_UNITS_DESCENDING(
 			new ShowAllProductsOffFilterSortingByNumberOfUnitsProductDescendingCommand()),
-	/* CHANGE_USER_STATUS */
+//	CHANGE_USER_STATUS
 	ADMIN_PAGE_CHANGE_USER_STATUS(new ChangeUserStatusCommand());
 
 	private Command command;

@@ -154,9 +154,9 @@ public class ConfirmationEmailCodeDaoImpl implements ConfirmationEmailCodeDao {
 
 	/** The Constant QUERY_CHANGE_STATUS_CONFIRMATION_CODE_WITH_USER_ID. */
 	private static final String QUERY_CHANGE_STATUS_CONFIRMATION_CODE_WITH_USER_ID = """
-			UPDATE verificate_сodes
-			SET verificate_сodes.is_open = ?
-			WHERE verificate_сodes.users_id = ? AND verificate_сodes.code != ?;
+			UPDATE confirmation_email_сodes
+			SET confirmation_email_сodes.is_open = ?
+			WHERE confirmation_email_сodes.users_id = ? AND confirmation_email_сodes.code != ?;
 			""";
 
 	/**

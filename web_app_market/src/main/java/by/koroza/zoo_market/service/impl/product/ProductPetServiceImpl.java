@@ -135,9 +135,28 @@ public class ProductPetServiceImpl implements ProductPetService {
 	 * @throws ServiceException the service exception
 	 */
 	@Override
-	public Map<Integer, Boolean> changeNumberOfUnitsProducts(List<Pet> productsPets) throws ServiceException {
+	public Map<Integer, Boolean> changeNumberOfUnitsProductsMinus(List<Pet> productsPets) throws ServiceException {
 		try {
-			return ProductPetDaoImpl.getInstance().changeNumberOfUnitsProducts(productsPets);
+			return ProductPetDaoImpl.getInstance().changeNumberOfUnitsProductsMinus(productsPets);
+		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
+
+	/**
+	 * Change number of units products plus.
+	 *
+	 * @param productsPets       the products pets
+	 * @param haveProductByIndex the have product by index
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
+	@Override
+	public boolean changeNumberOfUnitsProductsPlus(List<Pet> productsPets, Map<Integer, Boolean> haveProductByIndex)
+			throws ServiceException {
+		try {
+			return ProductPetDaoImpl.getInstance().changeNumberOfUnitsProductsPlus(productsPets, haveProductByIndex);
 		} catch (DaoException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);

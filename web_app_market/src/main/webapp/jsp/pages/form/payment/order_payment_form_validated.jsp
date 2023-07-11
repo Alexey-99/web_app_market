@@ -43,7 +43,7 @@
 								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-										name="${CommandName.COMMAND_SHOW_BACKET_PAGE}" />
+										value="${CommandName.COMMAND_SHOW_BACKET_PAGE}" />
 									<button class="close_btn border-0 bg-transparent" role="button">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
 											width="25px" height="25px">

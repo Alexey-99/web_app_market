@@ -8,31 +8,12 @@
 <title>footer</title>
 </head>
 <body>
-	<footer class="">
+	<footer class="pt-5 pb-5">
 		<div class="container">
-			<div class="row footer">
-				<div class="col-4">
-					<!-- юр информация-->
-					<p>OAO "Ковчег"</p>
-					<p>Адрес г. Минск. ул. Минская. д. 1</p>
-				</div>
-				<div class="col-4">
-					<!-- соц сети-->
-					соц сети
-				</div>
-				<div class="col-4">
-					<!-- телефон и график-->
-					<p>
-						life <a href="tel:+375251234567">+375251234567</a>
-					</p>
-					<p>
-						life <a href="tel:+375251234567">+375251234567</a>
-					</p>
-					<p>
-						life <a href="tel:+375251234567">+375251234567</a>
-					</p>
-					<p>график работы</p>
-					8:00 - 22:00
+			<div class="row">
+				<div class="col-12">
+					<h5 class="text-center">OOO "Zoo Ковчег" - магазин для жизни
+						Ваших питомцев</h5>
 				</div>
 			</div>
 		</div>

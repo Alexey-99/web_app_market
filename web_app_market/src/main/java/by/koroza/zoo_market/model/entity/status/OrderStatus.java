@@ -1,16 +1,16 @@
 package by.koroza.zoo_market.model.entity.status;
 
 public enum OrderStatus {
-	OPEN(1), WAITING_PAY(2), CLOSED(3);
+	OPEN(1), WAITING_PAY(2), CLOSED(3), PROCESSING(4);
 
-	private int statusId;
+	private int id;
 
 	private OrderStatus(int statusId) {
-		this.statusId = statusId;
+		this.id = statusId;
 	}
 
-	public int getStatusId() {
-		return statusId;
+	public int getId() {
+		return this.id;
 	}
 
 	public static OrderStatus findStatusByStatusId(int id) {

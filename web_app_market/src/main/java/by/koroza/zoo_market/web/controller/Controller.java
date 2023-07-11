@@ -4,6 +4,7 @@ import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARA
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.ERROR_PAGE_404_PATH;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.ERROR_PAGE_500_PATH;
 import static by.koroza.zoo_market.web.command.name.servlet.ServletName.MAIN_SERVLET_CONTROLLER_NAME;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SERVLET_COMMAND_EXCEPTION;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -68,6 +69,7 @@ public class Controller extends HttpServlet {
 		try {
 			router = command != null ? command.execute(request) : new Router(ERROR_PAGE_404_PATH);
 		} catch (CommandException e) {
+			request.getSession().setAttribute(ATTRIBUTE_SERVLET_COMMAND_EXCEPTION, e);
 			router = new Router(ERROR_PAGE_500_PATH);
 		} finally {
 			if (router == null) {
@@ -79,6 +81,7 @@ public class Controller extends HttpServlet {
 		case FORWARD -> request.getRequestDispatcher(router.getPagePath()).forward(request, response);
 		default -> {
 			log.log(Level.ERROR, "unknown router type: {}", router.getType());
+			response.sendRedirect(ERROR_PAGE_500_PATH);
 			request.getRequestDispatcher(ERROR_PAGE_500_PATH).forward(request, response);
 		}
 		}

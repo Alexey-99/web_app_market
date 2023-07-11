@@ -53,7 +53,18 @@ public interface ProductPetService {
 	 * @return the map
 	 * @throws ServiceException the service exception
 	 */
-	public Map<Integer, Boolean> changeNumberOfUnitsProducts(List<Pet> productsPets) throws ServiceException;
+	public Map<Integer, Boolean> changeNumberOfUnitsProductsMinus(List<Pet> productsPets) throws ServiceException;
+
+	/**
+	 * Change number of units products plus.
+	 *
+	 * @param productsPets       the products pets
+	 * @param haveProductByIndex the have product by index
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
+	public boolean changeNumberOfUnitsProductsPlus(List<Pet> productsPets, Map<Integer, Boolean> haveProductByIndex)
+			throws ServiceException;
 
 	/**
 	 * Add the product pet.

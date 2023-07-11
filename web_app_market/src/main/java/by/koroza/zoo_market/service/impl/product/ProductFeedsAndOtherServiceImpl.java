@@ -136,10 +136,30 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	 * @throws ServiceException the service exception
 	 */
 	@Override
-	public Map<Integer, Boolean> changeNumberOfUnitsProducts(List<FeedAndOther> productsFeedAndOther)
+	public Map<Integer, Boolean> changeNumberOfUnitsProductsMinus(List<FeedAndOther> productsFeedAndOther)
 			throws ServiceException {
 		try {
-			return ProductFeedsAndOtherDaoImpl.getInstance().changeNumberOfUnitsProducts(productsFeedAndOther);
+			return ProductFeedsAndOtherDaoImpl.getInstance().changeNumberOfUnitsProductsMinus(productsFeedAndOther);
+		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
+
+	/**
+	 * Change number of units products plus.
+	 *
+	 * @param productsFeedAndOther the products feed and other
+	 * @param haveProductByIndex   the have product by index
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
+	@Override
+	public boolean changeNumberOfUnitsProductsPlus(List<FeedAndOther> productsFeedAndOther,
+			Map<Integer, Boolean> haveProductByIndex) throws ServiceException {
+		try {
+			return ProductFeedsAndOtherDaoImpl.getInstance().changeNumberOfUnitsProductsPlus(productsFeedAndOther,
+					haveProductByIndex);
 		} catch (DaoException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
