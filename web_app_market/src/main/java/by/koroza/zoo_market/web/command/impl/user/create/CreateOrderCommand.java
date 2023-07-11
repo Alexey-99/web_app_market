@@ -1,5 +1,6 @@
 package by.koroza.zoo_market.web.command.impl.user.create;
 
+import static by.koroza.zoo_market.model.entity.status.OrderStatus.OPEN;
 import static by.koroza.zoo_market.model.entity.status.OrderStatus.PROCESSING;
 import static by.koroza.zoo_market.model.entity.status.UserRole.USER;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_IS_HAVE_ORDER_PRODUCTS_FEED_AND_OTHER;
@@ -77,12 +78,11 @@ public class CreateOrderCommand implements Command {
 		try {
 			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() >= USER.getIdRole()) {
 				Order order = (Order) session.getAttribute(ATTRIBUTE_ORDER);
-				System.out.println(PROCESSING);
 				if (order != null && (order.getProductsPets().size() + order.getOtherProducts().size()) > 0) {
+					order.setStatus(PROCESSING);
 					Map<String, String> mapInputExceptions = new HashMap<>();
 					String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
 					BankCard bankCard = createBankCardFromInputParameters(request, mapInputExceptions, sessionLocale);
-					order.setStatus(PROCESSING);
 					@SuppressWarnings("unchecked")
 					List<Pet> sortedPets = (List<Pet>) SortingProducts.getInstance()
 							.sortProductsList(order.getProductsPets(), new SortProductsByIdAscendingComparatorImpl());
@@ -108,6 +108,7 @@ public class CreateOrderCommand implements Command {
 								haveProductPets);
 						ProductFeedsAndOtherServiceImpl.getInstance()
 								.changeNumberOfUnitsProductsPlus(order.getOtherProducts(), haveProductFeedAndOther);
+						order.setStatus(OPEN);
 						session.setAttribute(ATTRIBUTE_ORDER_PAYMENT_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
 								mapInputExceptions);
 						router = new Router(ORDER_PAYMENT_FORM_VALIDATED_PAGE_PATH);
@@ -198,6 +199,26 @@ public class CreateOrderCommand implements Command {
 		return bankCard != null && isExistsBankCard(mapInputExceptions, sessionLocale, bankCard);
 	}
 
+	private boolean validSumBankCard(Map<String, String> mapInputExceptions, String sessionLocale, BankCard bankCard,
+			Order order, Map<Integer, Boolean> haveProductPets, Map<Integer, Boolean> haveProductFeedAndOther,
+			User user) throws ValidationException {
+		boolean result = false;
+		double totalPaymentWithDiscountAmount = OrderServiceImpl.getInstance().calcTotalPaymentWithDiscountAmount(order,
+				haveProductPets, haveProductFeedAndOther, user.getDiscount());
+		if (!BankCardValidationImpl.getInstance().validSum(bankCard, totalPaymentWithDiscountAmount)) {
+			if (sessionLocale.equals(RUSSIAN)) {
+				mapInputExceptions.put(TYPY_EXCEPTION_SUM, RU_MESSAGE_TYPY_EXCEPTION_SUM);
+			} else if (sessionLocale.equals(ENGLISH)) {
+				mapInputExceptions.put(TYPY_EXCEPTION_SUM, EN_MESSAGE_TYPY_EXCEPTION_SUM);
+			} else {
+				mapInputExceptions.put(TYPY_EXCEPTION_SUM, EN_MESSAGE_TYPY_EXCEPTION_SUM);
+			}
+		} else {
+			result = true;
+		}
+		return result;
+	}
+
 	private boolean isExistsBankCard(Map<String, String> mapInputExceptions, String sessionLocale, BankCard bankCard)
 			throws ValidationException {
 		boolean result = false;
@@ -213,26 +234,6 @@ public class CreateOrderCommand implements Command {
 			} else {
 				result = true;
 			}
-		}
-		return result;
-	}
-
-	public boolean validSumBankCard(Map<String, String> mapInputExceptions, String sessionLocale, BankCard bankCard,
-			Order order, Map<Integer, Boolean> haveProductPets, Map<Integer, Boolean> haveProductFeedAndOther,
-			User user) throws ValidationException { // TODO VALID SUM
-		boolean result = false;
-		double totalPaymentWithDiscountAmount = OrderServiceImpl.getInstance().calcTotalPaymentWithDiscountAmount(order,
-				haveProductPets, haveProductFeedAndOther, user.getDiscount());
-		if (!BankCardValidationImpl.getInstance().validSum(bankCard, totalPaymentWithDiscountAmount)) {
-			if (sessionLocale.equals(RUSSIAN)) {
-				mapInputExceptions.put(TYPY_EXCEPTION_SUM, RU_MESSAGE_TYPY_EXCEPTION_SUM);
-			} else if (sessionLocale.equals(ENGLISH)) {
-				mapInputExceptions.put(TYPY_EXCEPTION_SUM, EN_MESSAGE_TYPY_EXCEPTION_SUM);
-			} else {
-				mapInputExceptions.put(TYPY_EXCEPTION_SUM, EN_MESSAGE_TYPY_EXCEPTION_SUM);
-			}
-		} else {
-			result = true;
 		}
 		return result;
 	}

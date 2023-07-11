@@ -1,5 +1,7 @@
 package by.koroza.zoo_market.web.command.name.attribute;
 
+import static by.koroza.zoo_market.model.entity.status.OrderStatus.OPEN;
+
 public final class AttributeName {
 
 	public static final String ATTRIBUTE_SESSION_LOCALE = "locale";
@@ -78,12 +80,11 @@ public final class AttributeName {
 	public static final String ATTRIBUTE_BUFFER_CHANGE_USER_STATUS_LOGIN = "changing_user_login";
 	public static final String ATTRIBUTE_BUFFER_CHANGE_USER_STATUS_ROLE_ID = "changing_user_role_id";
 
-	public static final String ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE = "saved_products_id";
-
 //	IMAGE_CONTROLLER 
 	public static final String ATTRIBUTE_UPLOAD_FILE_EXCEPTION = "upload_file_exception";
 	public static final String ATTRIBUTE_UPLOAD_FILE_DIRECTORY = "upload_file_dir";
 
 	private AttributeName() {
+		System.out.println(OPEN);
 	}
 }

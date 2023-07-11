@@ -65,31 +65,6 @@
 								</button>
 							</form>
 						</li>
-						<li class="nav-item">
-							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-								method="get">
-								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
-								<button class="nav-link text-uppercase menu_link" role="button">
-									<h5>
-										<fmt:message key="header_top.promotions" />
-									</h5>
-								</button>
-							</form>
-						</li>
-						<li class="nav-item menu_item">
-							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-								method="get">
-								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
-								<button class="nav-link text-uppercase menu_link" role="button">
-									<h5>
-										<fmt:message key="header_top.news" />
-									</h5>
-								</button>
-							</form>
-						</li>
-
 						<c:if
 							test="${user != null && user.getRole().getIdRole() >= UserRole.WAITING_CODE_REGISTRATION.getIdRole()}">
 							<c:if
@@ -117,7 +92,7 @@
 										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_SHOW_BACKET_PAGE}" /> <input
 											class="productsIdXl" type="hidden"
-											name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
+											name="${ParameterName.PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
 										<button class="nav-link text-uppercase menu_link"
 											role="button" onclick="getProducts('.productsIdXl')">
 											<h5>
@@ -240,30 +215,6 @@
 								</button>
 							</form>
 						</li>
-						<li class="nav-item">
-							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-								method="get">
-								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
-								<button class="nav-link menu_link" role="button">
-									<h5>
-										<fmt:message key="header_top.promotions" />
-									</h5>
-								</button>
-							</form>
-						</li>
-						<li class="nav-item menu_item">
-							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
-								method="get">
-								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-									value="${CommandName.COMMAND_SHOW_HOME_PAGE}">
-								<button class="nav-link menu_link" role="button">
-									<h5>
-										<fmt:message key="header_top.news" />
-									</h5>
-								</button>
-							</form>
-						</li>
 						<c:if
 							test="${user != null && user.getRole().getIdRole() >= UserRole.WAITING_CODE_REGISTRATION.getIdRole()}">
 							<c:if
@@ -290,7 +241,7 @@
 										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 											value="${CommandName.COMMAND_SHOW_BACKET_PAGE}" /> <input
 											class="productsIdLg" type="hidden"
-											name="${AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE }" />
+											name="${ParameterName.PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
 										<button class="nav-link text-uppercase menu_link"
 											role="button" onclick="getProducts('.productsIdLg')">
 											<h5>

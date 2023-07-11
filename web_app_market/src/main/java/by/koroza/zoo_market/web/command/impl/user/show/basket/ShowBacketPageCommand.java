@@ -2,7 +2,7 @@ package by.koroza.zoo_market.web.command.impl.user.show.basket;
 
 import static by.koroza.zoo_market.model.entity.status.UserRole.USER;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_ORDER;
-import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE;
+import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.BACKET_WITH_PRODUCTS_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_PATH;
@@ -39,10 +39,9 @@ public class ShowBacketPageCommand implements Command {
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
 		Router router = null;
-		String[] productsIdArr = request.getParameterValues(ATTRIBUTE_SAVED_PRODUCTS_ID_IN_JSP_PAGE);
+		String[] productsIdArr = request.getParameterValues(PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE);
 		Map<String, String> productsIdMap = parseSavedIdProducts(
 				productsIdArr[0] != null ? productsIdArr[0] : productsIdArr[1]);
-
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		if (user != null && user.getRole().getIdRole() >= USER.getIdRole() && user.isVerificatedEmail()) {
