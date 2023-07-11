@@ -10,15 +10,16 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/items/home_page/footer.css" />
-<title></title>
+<title><fmt:message key="footer.title" /></title>
 </head>
 <body>
 	<footer class="pt-5 pb-5">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
-					<h5 class="text-center">OOO "Zoo Ковчег" - магазин для жизни
-						Ваших питомцев</h5>
+					<h5 class="text-center">
+						<fmt:message key="footer.message" />
+					</h5>
 				</div>
 			</div>
 		</div>
