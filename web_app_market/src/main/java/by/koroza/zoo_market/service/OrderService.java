@@ -88,6 +88,6 @@ public interface OrderService {
 	 * @param personalDiscountpercent the personal discount percent
 	 * @return the double
 	 */
-	double calcTotalPaymentWithDiscountAmount(Order order, Map<Integer, Boolean> haveProductPets,
+	public double calcTotalPaymentWithDiscountAmount(Order order, Map<Integer, Boolean> haveProductPets,
 			Map<Integer, Boolean> haveProductFeedAndOther, double personalDiscountPercent);
 }
