@@ -16,6 +16,7 @@ import by.koroza.zoo_market.service.validation.UserValidation;
  * @author Alexey
  */
 public class UserValidationImplTest {
+	@SuppressWarnings("unused")
 	private static Logger log = LogManager.getLogger();
 	private static UserValidation userValidation;
 
@@ -28,8 +29,18 @@ public class UserValidationImplTest {
 
 	@DataProvider(name = "ProviderExpectedEmails")
 	public Object[][] createEmails() {
-		return new Object[][] { { null, false }, { "", false }, { "example@gmail", false }, { "example@.com", false },
-				{ "example@gmail.com", true } };
+		return new Object[][] { { null, false }, { "", false }, { "email@gmail", false }, { "email@.com", false },
+				{ "email@gmail.com", true } };
+	}
+
+	@DataProvider(name = "ProviderExpectedLogins")
+	public Object[][] createLogins() {
+		return new Object[][] { { null, false }, { "", false }, { "login", true } };
+	}
+
+	@DataProvider(name = "ProviderExpectedPasswords")
+	public Object[][] createPasswords() {
+		return new Object[][] { { null, false }, { "", false }, { "password", true } };
 	}
 
 	/**
@@ -39,7 +50,6 @@ public class UserValidationImplTest {
 	@Test(dataProvider = "ProviderExpectedEmails", description = "This method check to email. If email incorrect - return false, if correct email - return true")
 	public void testValidEmail(String email, boolean expected) {
 		boolean actual = userValidation.validEmail(email);
-		log.info(email);
 		assertEquals(actual, expected);
 	}
 
@@ -47,9 +57,10 @@ public class UserValidationImplTest {
 	 * Test method for
 	 * {@link by.koroza.zoo_market.service.validation.impl.user.UserValidationImpl#validLogin(java.lang.String)}.
 	 */
-	@Test
-	public void testValidLogin() {
-		fail("Not yet implemented"); // TODO
+	@Test(dataProvider = "ProviderExpectedLogins", description = "This method check to login. If login incorrect - return false, if correct login - return true")
+	public void testValidLogin(String login, boolean expected) {
+		boolean actual = userValidation.validLogin(login);
+		assertEquals(actual, expected);
 	}
 
 	/**
@@ -65,9 +76,10 @@ public class UserValidationImplTest {
 	 * Test method for
 	 * {@link by.koroza.zoo_market.service.validation.impl.user.UserValidationImpl#validPassword(java.lang.String)}.
 	 */
-	@Test
-	public void testValidPassword() {
-		fail("Not yet implemented"); // TODO
+	@Test(dataProvider = "ProviderExpectedPasswords", description = "This method check to password. If password incorrect - return false, if correct password - return true")
+	public void testValidPassword(String password, boolean expected) {
+		boolean actual = userValidation.validPassword(password);
+		assertEquals(actual, expected);
 	}
 
 	/**
