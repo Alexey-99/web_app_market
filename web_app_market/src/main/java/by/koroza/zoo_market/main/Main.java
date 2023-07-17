@@ -8,12 +8,13 @@ package by.koroza.zoo_market.main;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import by.koroza.zoo_market.service.validation.impl.user.UserValidationImpl;
+
 public class Main {
-	int i;
 	@SuppressWarnings("unused")
 	private static final Logger log = LogManager.getLogger();
 
 	public static void main(String[] args) {
-
+		UserValidationImpl.getInstance().validEmail("example@gmail");
 	}
 }

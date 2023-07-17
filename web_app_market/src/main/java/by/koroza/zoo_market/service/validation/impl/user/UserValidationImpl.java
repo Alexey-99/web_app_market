@@ -21,7 +21,7 @@ public final class UserValidationImpl implements UserValidation {
 	private static final UserValidation INSTANCE = new UserValidationImpl();
 
 	/** The Constant REG_EX_EMAIL. */
-	private static final String REG_EX_EMAIL = "([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})";
+	private static final String REG_EX_EMAIL = "([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,})\\.([A-z]{2,8})";
 
 	/**
 	 * Instantiates a new user validation impl.
