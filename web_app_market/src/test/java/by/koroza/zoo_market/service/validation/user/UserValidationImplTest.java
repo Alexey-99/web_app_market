@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.service.validation.impl.user;
+package by.koroza.zoo_market.service.validation.user;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
@@ -11,6 +11,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import by.koroza.zoo_market.service.validation.UserValidation;
+import by.koroza.zoo_market.service.validation.impl.user.UserValidationImpl;
 
 /**
  * @author Alexey
