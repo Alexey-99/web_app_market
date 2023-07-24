@@ -71,7 +71,7 @@ public class UserValidationImplTest {
 	 */
 	@Test
 	public void testIsRepeatUserLogin() {
-		fail("Not yet implemented"); // TODO
+		fail("Not yet implemented");
 	}
 
 	/**

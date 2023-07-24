@@ -3,7 +3,6 @@ package by.koroza.zoo_market.dao;
 import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 import by.koroza.zoo_market.model.entity.code.ConfirmationEmailCode;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface ConfirmationDao.
  */
