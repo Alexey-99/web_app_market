@@ -22,6 +22,7 @@ public class UserValidationImplTest {
 	private static UserValidation userValidation;
 
 	/**
+	 * Sets the up before class.
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() {
