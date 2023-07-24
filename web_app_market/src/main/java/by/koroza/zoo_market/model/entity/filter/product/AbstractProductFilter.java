@@ -1,13 +1,13 @@
-package by.koroza.zoo_market.model.entity.filter;
+package by.koroza.zoo_market.model.entity.filter.product;
 
-public abstract class AbstractFilter {
+public abstract class AbstractProductFilter {
 	private boolean onlyProductsWithDiscount;
 	private double minDiscount;
 	private double maxDiscount;
 	private double minPrice;
 	private double maxPrice;
 
-	public AbstractFilter() {
+	public AbstractProductFilter() {
 		this.onlyProductsWithDiscount = false;
 		this.minDiscount = 0;
 		this.maxDiscount = 0;
@@ -78,7 +78,7 @@ public abstract class AbstractFilter {
 		if (!getClass().equals(object.getClass())) {
 			return false;
 		}
-		AbstractFilter otherAbstractFilter = (AbstractFilter) object;
+		AbstractProductFilter otherAbstractFilter = (AbstractProductFilter) object;
 		if (this.onlyProductsWithDiscount != otherAbstractFilter.onlyProductsWithDiscount) {
 			return false;
 		}

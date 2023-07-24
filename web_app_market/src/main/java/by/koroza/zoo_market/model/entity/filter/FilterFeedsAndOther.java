@@ -2,7 +2,9 @@ package by.koroza.zoo_market.model.entity.filter;
 
 import java.util.Arrays;
 
-public class FilterFeedsAndOther extends AbstractFilter {
+import by.koroza.zoo_market.model.entity.filter.product.AbstractProductFilter;
+
+public class FilterFeedsAndOther extends AbstractProductFilter {
 	private String[] choosedTypesProduct;
 	private String[] choosedProductBrand;
 	private String[] choosedTypesPets;
