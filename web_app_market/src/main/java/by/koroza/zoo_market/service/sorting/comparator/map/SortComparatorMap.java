@@ -6,8 +6,9 @@ import java.util.Map.Entry;
 import by.koroza.zoo_market.model.entity.market.product.abstraction.AbstractProduct;
 
 /**
- * The Interface SortComparator.
+ * The Interface SortComparatorMap.
  */
+@FunctionalInterface
 public interface SortComparatorMap extends Comparator<Entry<? extends AbstractProduct, Long>> {
 
 	/** The Constant EMPTY_LINE_NAME. */

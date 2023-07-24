@@ -5,13 +5,21 @@ import java.util.Comparator;
 import by.koroza.zoo_market.model.entity.market.product.abstraction.AbstractProduct;
 
 /**
- * The Interface SortComparator.
+ * The Interface SortComparatorListProduct.
  */
+@FunctionalInterface
 public interface SortComparatorListProduct extends Comparator<AbstractProduct> {
 
 	/** The Constant EMPTY_LINE_NAME. */
 	public static final String EMPTY_LINE_NAME = "-";
 
+	/**
+	 * Compare.
+	 *
+	 * @param o1 the o 1
+	 * @param o2 the o 2
+	 * @return the int
+	 */
 	@Override
 	public int compare(AbstractProduct o1, AbstractProduct o2);
 
