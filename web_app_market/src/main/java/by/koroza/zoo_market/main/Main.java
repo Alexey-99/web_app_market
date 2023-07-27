@@ -13,13 +13,6 @@ import by.koroza.zoo_market.dao.pool.ProxyConnection;
 public class Main {
 
 	public static void main(String[] args) {
-
-		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
-				PreparedStatement statment = connection.prepareStatement("")) {
-
-//			...
-		} catch (SQLException e) {
-//			 ...
-		}
+		
 	}
 }
