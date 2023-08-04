@@ -1,11 +1,18 @@
 package by.koroza.zoo_market.web.controller;
 
+/**
+ * The Class Router.
+ */
 public class Router {
 	/**
 	 * The Enum RouterType.
 	 */
 	public enum RouterType {
-		FORWARD, REDIRECT
+
+		/** The forward. */
+		FORWARD,
+		/** The redirect. */
+		REDIRECT
 	}
 
 	/** The type of command. */
@@ -17,33 +24,50 @@ public class Router {
 	/**
 	 * Instantiates a new router. Default type of router is FORWARD.
 	 *
-	 * @param pagePath the page path
+	 * @param path the path
 	 */
 	public Router(String path) {
 		this.type = RouterType.FORWARD;
 		this.pagePath = path;
 	}
 
+	/**
+	 * Get the type.
+	 *
+	 * @return the type
+	 */
 	public RouterType getType() {
 		return type;
 	}
 
-	public void setType(RouterType type) {
-		this.type = type;
-	}
-
+	/**
+	 * Set the forward.
+	 */
 	public void setForward() {
 		this.type = RouterType.FORWARD;
 	}
 
+	/**
+	 * Set the redirect.
+	 */
 	public void setRedirect() {
 		this.type = RouterType.FORWARD;
 	}
 
+	/**
+	 * Get the page path.
+	 *
+	 * @return the page path
+	 */
 	public String getPagePath() {
 		return pagePath;
 	}
 
+	/**
+	 * Set the page path.
+	 *
+	 * @param pagePath the new page path
+	 */
 	public void setPagePath(String pagePath) {
 		this.pagePath = pagePath;
 	}
