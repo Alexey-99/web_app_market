@@ -4,8 +4,7 @@ import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTR
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_PATH;
 
 import by.koroza.zoo_market.web.command.Command;
-import by.koroza.zoo_market.web.controller.Router;
-
+import by.koroza.zoo_market.web.controller.router.Router;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class SignOutPersonalAccountCommand implements Command {

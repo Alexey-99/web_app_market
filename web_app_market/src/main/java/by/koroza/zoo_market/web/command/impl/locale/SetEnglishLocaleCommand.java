@@ -10,8 +10,7 @@ import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARA
 import static by.koroza.zoo_market.web.command.name.servlet.ServletName.MAIN_SERVLET_CONTROLLER_NAME;
 
 import by.koroza.zoo_market.web.command.Command;
-import by.koroza.zoo_market.web.controller.Router;
-
+import by.koroza.zoo_market.web.controller.router.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
