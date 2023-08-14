@@ -6,8 +6,6 @@ public final class ColumnName {
 	public static final String ROLES_NAME = "roles.name";
 
 	public static final String USERS_ID = "users.id";
-	public static final String USERS_NAME = "users.name";
-	public static final String USERS_SURNAME = "users.surname";
 	public static final String USERS_ROLE_ID = "users.roles_id";
 	public static final String USERS_EMAIL = "users.email";
 	public static final String USERS_CONFIRMATION_EMAIL = "users.confirmation_email";
@@ -82,6 +80,7 @@ public final class ColumnName {
 			+ ")";
 	public static final String IDENTIFIER_COUNT_ROWS_OF_FEEDS_AND_OTHER_IMAGE_PATH = IDENTIFIER_COUNT_ROWS + "("
 			+ FEEDS_AND_OTHER_IMAGE_PATH + ")";
+	public static final String IDENTIFIER_COUNT_ROWS_OF_ORDERS_ID = IDENTIFIER_COUNT_ROWS + "(" + ORDERS_ID + ")";
 
 	private ColumnName() {
 	}

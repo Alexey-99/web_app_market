@@ -11,6 +11,7 @@ public final class ParameterName {
 	public static final String PARAMETER_IMAGE_FILE_PATH = "image_path";
 	public static final String PARAMETER_NUMBER_PAGE = "number_page";
 	public static final String PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE = "saved_products_id";
+	public static final String PARAMETER_PRODUCT_ID = "product_id";
 
 	private ParameterName() {
 	}

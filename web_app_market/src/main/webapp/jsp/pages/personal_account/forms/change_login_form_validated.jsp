@@ -71,8 +71,9 @@
 												id="personal_account_person_infomation.changing_login_form.login"
 												required name="${InputName.CHANGING_LOGIN_INPUT_USER_LOGIN}"
 												value="${user.getLogin()}"
-												placeholder='<fmt:message key="personal_account_person_infomation.changing_login_form.login"/>' />
-											<label class="text-lowercase"
+												placeholder='<fmt:message key="personal_account_person_infomation.changing_login_form.login"/>'
+												pattern="(\w|[А-Яа-я]){1,255}" /> <label
+												class="text-lowercase"
 												for="personal_account_person_infomation.changing_login_form.login">
 												<fmt:message
 													key="personal_account_person_infomation.changing_login_form.login" />
@@ -103,7 +104,8 @@
 													id="personal_account_person_infomation.changing_login_form.login"
 													required
 													name="${InputName.CHANGING_LOGIN_INPUT_USER_LOGIN}"
-													placeholder='<fmt:message key="personal_account_person_infomation.changing_login_form.login"/>' />
+													placeholder='<fmt:message key="personal_account_person_infomation.changing_login_form.login"/>'
+													pattern="(\w|[А-Яа-я]){1,255}" />
 												<div class="invalid-feedback">${changing_login_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_LOGIN)}</div>
 												<label class="text-lowercase"
 													for="personal_account_person_infomation.changing_login_form.login">
@@ -120,7 +122,8 @@
 													required
 													name="${InputName.CHANGING_LOGIN_INPUT_USER_LOGIN}"
 													value="${user.getLogin()}"
-													placeholder='<fmt:message key="personal_account_person_infomation.changing_login_form.login"/>' />
+													placeholder='<fmt:message key="personal_account_person_infomation.changing_login_form.login"/>'
+													pattern="(\w|[А-Яа-я]){1,255}" />
 												<div class="valid-feedback">
 													<fmt:message
 														key="personal_account_person_infomation.changing_login_form.valid_feed_back" />

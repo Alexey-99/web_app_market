@@ -26,11 +26,6 @@ public final class TypeInputExeception {
 //	- registration form (name, surname, email) form = RegistrationUserCommand.class	
 	public static final String TYPY_INPUT_EXCEPTION_EMAIL = "EMAIL";
 
-//	- change personal information form(name, surname, email) form = ChangePersonInformationCommand.class
-//	- registration form (name, surname, email) form = RegistrationUserCommand.class	
-	public static final String TYPY_INPUT_EXCEPTION_NAME = "NAME";
-	public static final String TYPY_INPUT_EXCEPTION_SURNAME = "SURNAME";
-
 //	MARKET PAGES
 //	- market products page include filter = ShowProductPetsIncludedFilterCommand.class
 	public static final String TYPE_INPUT_EXCEPTION_YEAR_MONTH = "YEAR_MONTH";

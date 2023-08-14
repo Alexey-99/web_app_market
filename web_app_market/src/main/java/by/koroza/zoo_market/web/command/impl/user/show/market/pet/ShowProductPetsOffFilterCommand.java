@@ -9,7 +9,6 @@ import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.REQU
 import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_NUMBER_PAGE;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.PRODUCTS_PETS_PAGE_PATH;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,6 +23,7 @@ import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.router.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -37,10 +37,10 @@ public class ShowProductPetsOffFilterCommand implements Command {
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP);
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER);
 		try {
-			List<Pet> pets = ProductPetServiceImpl.getInstance().getAllHavingProductsPets();
-			session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, pets);
-			Map<String, Set<String>> filterMap = MarketFilterProductFactoryImpl.getInstance().createFilterPets(pets,
-					(String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE));
+			Map<Pet, Long> pets = ProductPetServiceImpl.getInstance().getAllProductsPetsAndNumberOfUnits();
+			session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, pets.entrySet().stream().toList());
+			Map<String, Set<String>> filterMap = MarketFilterProductFactoryImpl.getInstance()
+					.createFilterPets(pets.keySet(), (String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE));
 			session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP, filterMap);
 		} catch (ServiceException e) {
 			log.log(Level.ERROR, e.getMessage());

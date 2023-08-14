@@ -123,14 +123,6 @@
 											</button>
 										</h4>
 										<span><fmt:message
-												key="personal_account_person_infomation.general_information.name" />
-										</span>
-										<h5>${user.getName()}</h5>
-										<span><fmt:message
-												key="personal_account_person_infomation.general_information.surname" />
-										</span>
-										<h5>${user.getSurname()}</h5>
-										<span><fmt:message
 												key="personal_account_person_infomation.general_information.email" /></span>
 										<h5>${user.getEmail()}</h5>
 									</div>
@@ -236,30 +228,6 @@
 									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 									method="post">
 									<div class="form-floating mb-3">
-										<input type="text" class="form-control"
-											id="personal_account_person_infomation.changing_general_information_form.name"
-											name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_NAME}"
-											value="${user.getName()}"
-											placeholder='<fmt:message key="personal_account_person_infomation.changing_general_information_form.name"/>' />
-										<label class="text-lowercase"
-											for="personal_account_person_infomation.changing_general_information_form.name">
-											<fmt:message
-												key="personal_account_person_infomation.changing_general_information_form.name" />
-										</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="text" class="form-control"
-											id="personal_account_person_infomation.changing_general_information_form.surname"
-											name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_SURNAME}"
-											value="${user.getSurname()}"
-											placeholder='<fmt:message key="personal_account_person_infomation.changing_general_information_form.surname"/>' />
-										<label class="text-lowercase"
-											for="personal_account_person_infomation.changing_general_information_form.surname">
-											<fmt:message
-												key="personal_account_person_infomation.changing_general_information_form.surname" />
-										</label>
-									</div>
-									<div class="form-floating mb-3">
 										<input type="email" class="form-control" required
 											id="personal_account_person_infomation.changing_general_information_form.email"
 											required
@@ -318,8 +286,9 @@
 											id="personal_account_person_infomation.changing_login_form.login"
 											name="${InputName.CHANGING_LOGIN_INPUT_USER_LOGIN}"
 											value="${user.getLogin()}"
-											placeholder='<fmt:message key="personal_account_person_infomation.changing_login_form.login"/>' />
-										<label class="text-lowercase"
+											placeholder='<fmt:message key="personal_account_person_infomation.changing_login_form.login"/>'
+											pattern="(\w|[А-Яа-я]){1,255}" /> <label
+											class="text-lowercase"
 											for="personal_account_person_infomation.changing_login_form.login">
 											<fmt:message
 												key="personal_account_person_infomation.changing_login_form.login" />
@@ -372,8 +341,9 @@
 												required
 												id="personal_account_person_infomation.changing_password_form.password"
 												name="${InputName.CHANGING_PASSWORD_INPUT_USER_PASSWORD}"
-												placeholder='<fmt:message key="personal_account_person_infomation.changing_password_form.password"/>' />
-											<label class="text-lowercase"
+												placeholder='<fmt:message key="personal_account_person_infomation.changing_password_form.password"/>'
+												pattern="(\w|[А-Яа-я]){5,255}" /> <label
+												class="text-lowercase"
 												for="personal_account_person_infomation.changing_password_form.password">
 												<fmt:message
 													key="personal_account_person_infomation.changing_password_form.password" />

@@ -29,6 +29,7 @@ import org.apache.logging.log4j.Logger;
 import by.koroza.zoo_market.dao.pool.ConnectionPool;
 import by.koroza.zoo_market.dao.pool.ProxyConnection;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
+import by.koroza.zoo_market.model.entity.status.ProductType;
 import by.koroza.zoo_market.dao.ProductFeedsAndOtherDao;
 import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 
@@ -502,5 +503,54 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 			throw new DaoException(e);
 		}
 		return imagePath;
+	}
+
+	private static final String QUERY_INSERT_PRODUCT_FEEDS_AND_OTHER_TO_ORDER_PRODUCTS = """
+			INSERT INTO order_products(order_products.orders_id, order_products.product_types_id, order_products.feeds_and_other_id)
+			VALUE(?, ?, ?);
+			""";
+
+	/**
+	 * Transfer feeds and other product from market to order.
+	 *
+	 * @param productId the product id
+	 * @param orderId   the order id
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
+	@Override
+	public boolean transferFeedsAndOtherProductFromMarketToOrder(long productId, long orderId) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
+			long numberOfUnitsProduct = 0;
+			try (PreparedStatement statement = connection
+					.prepareStatement(QUERY_SELECT_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
+				statement.setLong(1, productId);
+				try (ResultSet resultSet = statement.executeQuery()) {
+					while (resultSet.next()) {
+						numberOfUnitsProduct = resultSet.getLong(FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT);
+					}
+				}
+			}
+			if (numberOfUnitsProduct > 0) {
+				try (PreparedStatement statement = connection
+						.prepareStatement(QUERY_CHANGE_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
+					statement.setLong(1, numberOfUnitsProduct - 1);
+					statement.setLong(2, productId);
+					statement.execute();
+				}
+				try (PreparedStatement statement = connection
+						.prepareStatement(QUERY_INSERT_PRODUCT_FEEDS_AND_OTHER_TO_ORDER_PRODUCTS)) {
+					statement.setLong(1, orderId);
+					statement.setInt(2, ProductType.FEEDS_AND_OTHER.getId());
+					statement.setLong(3, productId);
+					result = statement.executeUpdate() > 0;
+				}
+			}
+		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new DaoException(e);
+		}
+		return result;
 	}
 }

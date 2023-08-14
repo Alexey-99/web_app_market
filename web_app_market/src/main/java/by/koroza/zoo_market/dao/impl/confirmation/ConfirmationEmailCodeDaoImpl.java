@@ -4,6 +4,7 @@ import static by.koroza.zoo_market.dao.name.ColumnName.CONFIRMATION_EMAIL_CODES_
 import static by.koroza.zoo_market.dao.name.ColumnName.CONFIRMATION_EMAIL_CODES_STATUS;
 import static by.koroza.zoo_market.dao.name.ColumnName.CONFIRMATION_EMAIL_CODES_OPEN_DATE_TIME;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_VERIFICATE_CODES_CODE;
+import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_LAST_INSERT_ID;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,6 +25,8 @@ import by.koroza.zoo_market.dao.exception.checkable.DaoException;
  * The Class ConfirmationEmailCodeDaoImpl.
  */
 public class ConfirmationEmailCodeDaoImpl implements ConfirmationEmailCodeDao {
+
+	/** The log. */
 	private static Logger log = LogManager.getLogger();
 
 	/** The Constant INSTANCE. */
@@ -60,11 +63,24 @@ public class ConfirmationEmailCodeDaoImpl implements ConfirmationEmailCodeDao {
 			VALUE (?, ?, ?, NOW());
 			""";
 
+	/** The Constant QUERY_SELECT_LAST_INSERT_ID. */
+	private static final String QUERY_SELECT_LAST_INSERT_ID = """
+			SELECT LAST_INSERT_ID();
+			""";
+
 	/** The Constant QUERY_CHANGE_STATUS_ALL_OLD_CONFIRMATION_CODE_WITH_USER_ID. */
 	private static final String QUERY_CHANGE_STATUS_ALL_OLD_CONFIRMATION_CODE_WITH_USER_ID = """
 			UPDATE confirmation_email_сodes
 			SET is_open = ?
-			WHERE users_id = ? AND id != LAST_INSERT_ID();
+			WHERE users_id = ? AND id != ?;
+			""";
+
+	/** The Constant QUERY_DELETE_OLD_CONFIRMATION_CODE_WITH_USER_ID. */
+	private static final String QUERY_DELETE_OLD_CONFIRMATION_CODE_WITH_USER_ID = """
+			DELETE FROM confirmation_email_сodes
+			WHERE users_id = ?
+			AND is_open = ?
+			AND id != ?;
 			""";
 
 	/**
@@ -87,10 +103,25 @@ public class ConfirmationEmailCodeDaoImpl implements ConfirmationEmailCodeDao {
 				statement.setBoolean(3, true);
 				resultInsertVerificateCode = statement.executeUpdate() > 0;
 			}
+			long codeId = 0;
+			try (PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_LAST_INSERT_ID);
+					ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					codeId = resultSet.getLong(IDENTIFIER_LAST_INSERT_ID);
+				}
+			}
 			try (PreparedStatement statement = connection
 					.prepareStatement(QUERY_CHANGE_STATUS_ALL_OLD_CONFIRMATION_CODE_WITH_USER_ID)) {
 				statement.setBoolean(1, false);
 				statement.setLong(2, userId);
+				statement.setLong(3, codeId);
+				statement.execute();
+			}
+			try (PreparedStatement statement = connection
+					.prepareStatement(QUERY_DELETE_OLD_CONFIRMATION_CODE_WITH_USER_ID)) {
+				statement.setLong(1, userId);
+				statement.setBoolean(2, false);
+				statement.setLong(3, codeId);
 				statement.execute();
 			}
 			boolean resultCountVerificateCode = false;
@@ -156,44 +187,54 @@ public class ConfirmationEmailCodeDaoImpl implements ConfirmationEmailCodeDao {
 	private static final String QUERY_CHANGE_STATUS_CONFIRMATION_CODE_WITH_USER_ID = """
 			UPDATE confirmation_email_сodes
 			SET confirmation_email_сodes.is_open = ?
-			WHERE confirmation_email_сodes.users_id = ? AND confirmation_email_сodes.code != ?;
+			WHERE confirmation_email_сodes.users_id = ? AND confirmation_email_сodes.code = ?;
+			""";
+
+	/**
+	 * The Constant QUERY_DELETE_OLD_CONFIRMATION_CODE_WITH_USER_WITHOUT_CODE_ID.
+	 */
+	private static final String QUERY_DELETE_OLD_CONFIRMATION_CODE_WITH_USER_WITHOUT_CODE_ID = """
+			DELETE FROM confirmation_email_сodes
+			WHERE users_id = ?
+			AND is_open = ?;
 			""";
 
 	/**
 	 * Change confirmation code status by user id.
 	 *
 	 * @param userId the user id
-	 * @param code   the code
-	 * @param status the status
+	 * @param code   the code is Object with code is String, status of code is
+	 *               boolean and date at create
 	 * @return true, if successful
 	 * @throws DaoException the dao exception
 	 */
 	@Override
-	public boolean changeConfirmationCodeStatusByUserId(long userId, String code, boolean status) throws DaoException {
-		boolean result = true;
+	public boolean changeConfirmationCodeStatusByUserId(long userId, ConfirmationEmailCode code) throws DaoException {
+		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
-			boolean resultChangeStatus = false;
 			try (PreparedStatement statement = connection
 					.prepareStatement(QUERY_CHANGE_STATUS_CONFIRMATION_CODE_WITH_USER_ID)) {
-				statement.setBoolean(1, status);
+				statement.setBoolean(1, code.isOpen());
 				statement.setLong(2, userId);
-				statement.setString(3, code);
-				resultChangeStatus = statement.executeUpdate() > 0;
+				statement.setString(3, code.getCode());
+				statement.execute();
 			}
-			boolean resultCountVerificateCode = false;
+			try (PreparedStatement statement = connection
+					.prepareStatement(QUERY_DELETE_OLD_CONFIRMATION_CODE_WITH_USER_WITHOUT_CODE_ID)) {
+				statement.setLong(1, userId);
+				statement.setBoolean(2, code.isOpen());
+				statement.execute();
+			}
 			try (PreparedStatement statement = connection
 					.prepareStatement(QUERY_SELECT_COUNT_CONFIRMATION_CODES_WITH_USER_ID_AND_STATUS_OPEN)) {
 				statement.setLong(1, userId);
 				statement.setBoolean(2, ConfirmationEmailCode.getStatusOpen());
 				try (ResultSet resultSet = statement.executeQuery()) {
 					while (resultSet.next()) {
-						if (resultSet.getLong(IDENTIFIER_COUNT_ROWS_OF_VERIFICATE_CODES_CODE) == 0) {
-							resultCountVerificateCode = true;
-						}
+						result = resultSet.getLong(IDENTIFIER_COUNT_ROWS_OF_VERIFICATE_CODES_CODE) == 0;
 					}
 				}
 			}
-			result = resultChangeStatus && resultCountVerificateCode;
 		} catch (SQLException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);

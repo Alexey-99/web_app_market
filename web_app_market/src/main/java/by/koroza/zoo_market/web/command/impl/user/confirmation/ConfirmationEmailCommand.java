@@ -18,6 +18,7 @@ import by.koroza.zoo_market.service.validation.impl.confirmation.ConfirmationEma
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.router.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -38,11 +39,12 @@ public class ConfirmationEmailCommand implements Command {
 					if (ConfirmationEmailCodeValidationImpl.getInstance().validConfirmationEmailCode(codeEntered,
 							code)) {
 						user.setVerificatedEmail(true);
+						code.setOpen(ConfirmationEmailCode.getStatusClosed());
 						session.setAttribute(ATTRIBUTE_USER, user);
 						UserServiceImpl.getInstance().changeConfirmationEmailStatus(user.getId(),
 								user.isVerificatedEmail());
 						ConfirmationEmailCodeServiceImpl.getInstance().changeConfirmationCodeStatusByUserId(
-								user.getId(), code.getCode(), ConfirmationEmailCode.getStatusClosed());
+								user.getId(), code);
 						router = new Router(HOME_PAGE_PATH);
 					} else {
 						router = new Router(CONFIMARTION_EMAIL_VALIDATED_PAGE_PATH);

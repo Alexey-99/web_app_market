@@ -58,26 +58,6 @@
 							</div>
 							<div
 								class="d-flex justify-content-center align-items-center flex-column verification_registration_information_body">
-								<span> <fmt:message
-										key="verification_registration_information.form.user_name" />
-								</span>
-								<h5>
-									<c:if
-										test="${user.getName() != null && !user.getName().isBlank()}">${user.getName()}</c:if>
-									<c:if
-										test="${user.getName() == null && user.getName().isBlank()}">(<fmt:message
-											key="verification_registration_information.form.not_entered" />)</c:if>
-								</h5>
-								<span><fmt:message
-										key="verification_registration_information.form.user_surname" />
-								</span>
-								<h5>
-									<c:if
-										test="${user.getSurname() != null && !user.getSurname().isBlank()}">${user.getSurname()}</c:if>
-									<c:if
-										test="${user.getSurname() == null && user.getSurname().isBlank()}">(<fmt:message
-											key="verification_registration_information.form.not_entered" />)</c:if>
-								</h5>
 								<span><fmt:message
 										key="verification_registration_information.form.user_email" />
 								</span>

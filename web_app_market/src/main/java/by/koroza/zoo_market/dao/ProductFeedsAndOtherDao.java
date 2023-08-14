@@ -103,4 +103,14 @@ public interface ProductFeedsAndOtherDao {
 	 * @throws DaoException the dao exception
 	 */
 	public String getProductImagePathById(long id) throws DaoException;
+
+	/**
+	 * Transfer feeds and other product from market to order.
+	 *
+	 * @param productId the product id
+	 * @param orderId   the order id
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
+	public boolean transferFeedsAndOtherProductFromMarketToOrder(long productId, long orderId) throws DaoException;
 }

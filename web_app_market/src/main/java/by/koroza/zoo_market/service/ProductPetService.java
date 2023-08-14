@@ -2,6 +2,7 @@ package by.koroza.zoo_market.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import by.koroza.zoo_market.model.entity.filter.FilterPet;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
@@ -36,7 +37,7 @@ public interface ProductPetService {
 	 * @return the products pets by filter
 	 * @throws ServiceException the service exception
 	 */
-	public List<Pet> getProductsPetsByFilter(FilterPet filter) throws ServiceException;
+	public List<Entry<Pet, Long>> getProductsPetsByFilter(FilterPet filter) throws ServiceException;
 
 	/**
 	 * Get the all products pets and number of units.
@@ -103,4 +104,14 @@ public interface ProductPetService {
 	 * @throws ServiceException the service exception
 	 */
 	public String getProductImagePathByProductId(long id) throws ServiceException;
+
+	/**
+	 * Transfer pet product from market to order.
+	 *
+	 * @param productId the product id
+	 * @param orderId   the order id
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
+	public boolean transferPetProductFromMarketToOrder(long productId, long orderId) throws ServiceException;
 }

@@ -79,6 +79,23 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	/**
+	 * Change order.
+	 *
+	 * @param order the order
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
+	@Override
+	public boolean changeOrder(Order order) throws ServiceException {
+		try {
+			return OrderDaoImpl.getInstance().changeOrder(order);
+		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
+
+	/**
 	 * Calculation total payment amount.
 	 *
 	 * @param pets          the pets

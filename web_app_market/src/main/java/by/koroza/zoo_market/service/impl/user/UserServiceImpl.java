@@ -7,10 +7,12 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import by.koroza.zoo_market.dao.OrderDao;
 import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 import by.koroza.zoo_market.dao.impl.order.OrderDaoImpl;
 import by.koroza.zoo_market.dao.impl.user.UserDaoImpl;
 import by.koroza.zoo_market.model.entity.market.order.Order;
+import by.koroza.zoo_market.model.entity.status.OrderStatus;
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.UserService;
 import by.koroza.zoo_market.service.exception.ServiceException;
@@ -165,23 +167,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * Change person information (name, surname, email).
-	 *
-	 * @param user the user
-	 * @return true, if successful
-	 * @throws ServiceException the service exception
-	 */
-	@Override
-	public boolean changePersonInformation(User user) throws ServiceException {
-		try {
-			return UserDaoImpl.getInstance().changePersonInformation(user);
-		} catch (DaoException e) {
-			log.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(e);
-		}
-	}
-
-	/**
 	 * Change login.
 	 *
 	 * @param userId the user id
@@ -276,6 +261,31 @@ public class UserServiceImpl implements UserService {
 			throw new ServiceException(e);
 		}
 		return false;
+	}
+
+	/**
+	 * Get the open order by user id.
+	 *
+	 * @param userId the user id
+	 * @return the open order by user id
+	 * @throws ServiceException the service exception
+	 */
+	@Override
+	public Order getOpenOrderByUserId(long userId) throws ServiceException {
+		try {
+			Order order = null;
+			OrderDao orderDao = OrderDaoImpl.getInstance();
+			if (orderDao.isHaveOpenOrderByUserId(userId)) {
+				order = orderDao.getOrderWithProductsByUserIdAndOrderStatus(userId, OrderStatus.OPEN);
+			} else {
+				order = new Order();
+				orderDao.addOrder(order, userId);
+			}
+			return order;
+		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		}
 	}
 
 	/**

@@ -31,10 +31,10 @@ public interface ConfirmationEmailCodeDao {
 	 * Change confirmation code status by user id.
 	 *
 	 * @param userId the user id
-	 * @param code   the code
-	 * @param status the status
+	 * @param code   the code is Object with code is String, status of code is
+	 *               boolean and date at create
 	 * @return true, if successful
 	 * @throws DaoException the dao exception
 	 */
-	public boolean changeConfirmationCodeStatusByUserId(long userId, String code, boolean status) throws DaoException;
+	public boolean changeConfirmationCodeStatusByUserId(long userId, ConfirmationEmailCode code) throws DaoException;
 }

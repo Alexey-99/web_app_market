@@ -57,6 +57,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.logging.log4j.Level;
@@ -73,6 +74,7 @@ import by.koroza.zoo_market.service.validation.impl.filter.FilterValidationImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.router.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -81,7 +83,7 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
-		List<Pet> pets = new ArrayList<>();
+		List<Entry<Pet, Long>> pets = new ArrayList<>();
 		HttpSession session = request.getSession();
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER);
@@ -94,17 +96,19 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 				pets = ProductPetServiceImpl.getInstance().getProductsPetsByFilter(filter);
 				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, pets);
 				if (session.getAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP) == null) {
-					List<Pet> allProductsPets = ProductPetServiceImpl.getInstance().getAllHavingProductsPets();
-					Map<String, Set<String>> filterMap = filterFactory.createFilterPets(allProductsPets, sessionLocale);
+					Map<String, Set<String>> filterMap = filterFactory.createFilterPets(
+							ProductPetServiceImpl.getInstance().getAllProductsPetsAndNumberOfUnits().keySet(),
+							sessionLocale);
 					session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP, filterMap);
 				}
 				session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER, filter);
 			} else {
 				session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
 						mapInputExceptions);
-				pets = ProductPetServiceImpl.getInstance().getAllHavingProductsPets();
+				Map<Pet, Long> mapPets = ProductPetServiceImpl.getInstance().getAllProductsPetsAndNumberOfUnits();
+				pets = mapPets.entrySet().stream().toList();
 				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, pets);
-				Map<String, Set<String>> filterMap = filterFactory.createFilterPets(pets, sessionLocale);
+				Map<String, Set<String>> filterMap = filterFactory.createFilterPets(mapPets.keySet(), sessionLocale);
 				session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP, filterMap);
 			}
 		} catch (ServiceException e) {

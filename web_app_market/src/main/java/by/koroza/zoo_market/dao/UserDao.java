@@ -78,15 +78,6 @@ public interface UserDao {
 	public Optional<User> getUserByLogin(String login, String password) throws DaoException;
 
 	/**
-	 * Change personal information (name, surname, email).
-	 *
-	 * @param user the user
-	 * @return true, if successful
-	 * @throws DaoException the dao exception
-	 */
-	public boolean changePersonInformation(User user) throws DaoException;
-
-	/**
 	 * Change login.
 	 *
 	 * @param userId the user id

@@ -1,6 +1,7 @@
 package by.koroza.zoo_market.web.command.impl.user.change;
 
 import static by.koroza.zoo_market.model.entity.status.UserRole.USER;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_CHANGING_EMAIL_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_CHANGING_PERSON_INFOMATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
@@ -8,11 +9,10 @@ import static by.koroza.zoo_market.web.command.name.exception.MessageInputExcept
 import static by.koroza.zoo_market.web.command.name.exception.MessageInputException.RU_MESSAGE_TYPY_INPUT_EXCEPTION_EMAIL;
 import static by.koroza.zoo_market.web.command.name.exception.TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL;
 import static by.koroza.zoo_market.web.command.name.input.InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_EMAIL;
-import static by.koroza.zoo_market.web.command.name.input.InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_NAME;
-import static by.koroza.zoo_market.web.command.name.input.InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_SURNAME;
 import static by.koroza.zoo_market.web.command.name.language.LanguageName.ENGLISH;
 import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIAN;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.CHANGE_PERSON_INFOMATION_FORM_VALIDATED_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.CONFIMARTION_EMAIL_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH;
 
@@ -31,45 +31,34 @@ import by.koroza.zoo_market.service.validation.impl.user.UserValidationImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.router.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-public class ChangePersonInformationCommand implements Command {
+public class ChangeEmailPersonAccountCommand implements Command {
 	private static Logger log = LogManager.getLogger();
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
 		Router router = null;
 		HttpSession session = request.getSession();
-		session.removeAttribute(ATTRIBUTE_CHANGING_PERSON_INFOMATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
+		session.removeAttribute(ATTRIBUTE_CHANGING_EMAIL_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
 			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() >= USER.getIdRole()) {
 				Map<String, String> mapInputExceptions = new HashMap<>();
 				String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
-				String name = getInputParameterName(request);
-				String surname = getInputParameterSurName(request);
 				String email = getInputParameterEmail(request, sessionLocale, mapInputExceptions);
 				if (mapInputExceptions.isEmpty()) {
-					if ((user.getEmail() != null ? !user.getEmail().equals(email)
-							: user.getEmail() == null && email != null)
-							|| (user.getName() != null ? !user.getName().equals(name)
-									: user.getName() == null && name != null)
-							|| (user.getSurname() != null ? !user.getSurname().equals(surname)
-									: user.getSurname() == null && surname != null)) {
-						user.setName(name);
-						user.setSurname(surname);
-						if (user.getEmail() != null ? !user.getEmail().equals(email)
-								: user.getEmail() == null && email != null) {
-							user.setEmail(email);
-							user.setVerificatedEmail(false);
-							UserServiceImpl.getInstance().changePersonInformation(user);
-							ConfirmationEmailCodeServiceImpl.getInstance().sendConfirmationEmailCode(user.getId(),
-									user.getEmail());
-						} else {
-							UserServiceImpl.getInstance().changePersonInformation(user);
-						}
-						router = new Router(PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH);
+					if (user.getEmail() != null ? !user.getEmail().equals(email)
+							: user.getEmail() == null && email != null) {
+						user.setEmail(email);
+						user.setVerificatedEmail(false);
+						UserServiceImpl.getInstance().changeEmail(user.getId(), user.getEmail());
+						ConfirmationEmailCodeServiceImpl.getInstance().sendConfirmationEmailCode(user.getId(),
+								user.getEmail());
+						session.setAttribute(ATTRIBUTE_USER, user);
+						router = new Router(CONFIMARTION_EMAIL_PAGE_PATH);
 					} else {
 						router = new Router(PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH);
 					}
@@ -86,16 +75,6 @@ public class ChangePersonInformationCommand implements Command {
 			throw new CommandException(e);
 		}
 		return router;
-	}
-
-	private String getInputParameterName(HttpServletRequest request) {
-		String name = (String) request.getParameter(CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_NAME);
-		return name;
-	}
-
-	private String getInputParameterSurName(HttpServletRequest request) {
-		String surname = (String) request.getParameter(CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_SURNAME);
-		return surname;
 	}
 
 	private String getInputParameterEmail(HttpServletRequest request, String sessionLocale,

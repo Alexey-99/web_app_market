@@ -1074,7 +1074,7 @@
 	<script src="js/products_pages.js"></script>
 
 	<script>
-		showToast(${list_products_feeds_and_other.stream().map(product -> product.getId()).toList()});
+		showToast(${list_products_feeds_and_other.stream().map(entry -> entry.getKey().getId()).toList()});
     </script>
 
 </body>

@@ -3,12 +3,14 @@ package by.koroza.zoo_market.web.tag;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_LIST_PRODUCTS_PETS;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
+import static by.koroza.zoo_market.web.command.name.command.CommandName.COMMAND_ADD_PRODUCT_PETS_TO_ORDER;
 import static by.koroza.zoo_market.web.command.name.command.CommandName.COMMAND_SHOW_MAKET_PAGE_PRODUCT_PETS_BY_NUMBER_PAGE;
 import static by.koroza.zoo_market.web.command.name.language.LanguageName.ENGLISH;
 import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIAN;
 import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_COMMAND;
 import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_IMAGE_FILE_PATH;
 import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_NUMBER_PAGE;
+import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_PRODUCT_ID;
 import static by.koroza.zoo_market.web.command.name.parameter.ParameterValue.NUMBER_FIRST_PAGE_VALUE;
 import static by.koroza.zoo_market.web.command.name.path.ImagePath.LOGO_PNG_IMAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.servlet.ServletName.MAIN_SERVLET_CONTROLLER_NAME;
@@ -18,43 +20,74 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
+import java.util.Map.Entry;
 
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.model.entity.status.UserRole;
 import by.koroza.zoo_market.model.entity.user.User;
+
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.tagext.TagSupport;
 
+/**
+ * The Class ProductPetPaginationTag.
+ */
 public class ProductPetPaginationTag extends TagSupport {
-	private static final long serialVersionUID = -8639846713001679127L;
-	private static final String FORMAT_NUMBER_PRODUCT_PRICE = "#0.00";
-	private static NumberFormat numberForrmatterPrice = new DecimalFormat(FORMAT_NUMBER_PRODUCT_PRICE);
 
-	private static int numberLastPage;
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = -8639846713001679127L;
+
+	/** The Constant FORMAT_NUMBER_PRODUCT_PRICE. */
+	private static final String FORMAT_NUMBER_PRODUCT_PRICE = "#0.00";
+
+	/** The number formatter price. */
+	private static NumberFormat numberFormatterPrice = new DecimalFormat(FORMAT_NUMBER_PRODUCT_PRICE);
+
+	/** The number last page. */
+	private int numberLastPage;
+
+	/** The max count products on page. */
 	private int maxCountProductsOnPage;
+
+	/** The number page. */
 	private int numberPage;
 
+	/**
+	 * Set the max count products on page.
+	 *
+	 * @param maxCountProductsOnPage the new max count products on page
+	 */
 	public void setMaxCountProductsOnPage(int maxCountProductsOnPage) {
-		this.maxCountProductsOnPage = maxCountProductsOnPage;
+		this.maxCountProductsOnPage = maxCountProductsOnPage >= 1 ? maxCountProductsOnPage : 1;
 	}
 
+	/**
+	 * Set the number page.
+	 *
+	 * @param numberPage the new number page
+	 */
 	public void setNumberPage(int numberPage) {
-		if (numberPage < 1) {
-			this.numberPage = 1;
-		} else {
-			this.numberPage = numberPage;
-		}
+		this.numberPage = numberPage >= 1 ? numberPage : 1;
 	}
 
+	/**
+	 * Do start tag.
+	 *
+	 * @return the int
+	 * @throws JspException the jsp exception
+	 */
 	@Override
 	public int doStartTag() throws JspException {
 		try {
 			HttpSession session = pageContext.getSession();
 			String locale = (String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE);
 			@SuppressWarnings("unchecked")
-			List<Pet> listProductPets = (List<Pet>) session.getAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS);
+			List<Entry<Pet, Long>> listProductPets = (List<Entry<Pet, Long>>) session
+					.getAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS);
 			User user = (User) session.getAttribute(ATTRIBUTE_USER);
+			setNumberLastPage(listProductPets);
+			setNumberPage();
 			printProducts(listProductPets, locale, user);
 			printPagination(listProductPets, locale);
 		} catch (IOException e) {
@@ -63,7 +96,32 @@ public class ProductPetPaginationTag extends TagSupport {
 		return SKIP_BODY;
 	}
 
-	private void printProducts(List<Pet> listProductPets, String locale, User user) throws IOException {
+	/**
+	 * Set the number last page.
+	 *
+	 * @param listProductPets the list product pets
+	 */
+	private void setNumberLastPage(List<Entry<Pet, Long>> listProductPets) {
+		int countPage = (int) Math.ceil((double) listProductPets.size() / this.maxCountProductsOnPage);
+		numberLastPage = countPage;
+	}
+
+	/**
+	 * Set the number page.
+	 */
+	private void setNumberPage() {
+		this.numberPage = this.numberPage <= this.numberLastPage ? this.numberPage : this.numberLastPage;
+	}
+
+	/**
+	 * Print the products cards.
+	 *
+	 * @param listProductPets the list product pets
+	 * @param locale          the locale
+	 * @param user            the user
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	private void printProducts(List<Entry<Pet, Long>> listProductPets, String locale, User user) throws IOException {
 		StringBuilder builder = new StringBuilder();
 		int indexFirstElement = maxCountProductsOnPage * (numberPage - 1);
 		builder.append("""
@@ -71,7 +129,7 @@ public class ProductPetPaginationTag extends TagSupport {
 				""");
 		for (int i = indexFirstElement; i < listProductPets.size()
 				&& i < indexFirstElement + maxCountProductsOnPage; i++) {
-			Pet pet = listProductPets.get(i);
+			Pet pet = listProductPets.get(i).getKey();
 			builder.append("""
 					<div class="col card_product">
 						<div class="card h-100 card_product_inner">
@@ -119,8 +177,8 @@ public class ProductPetPaginationTag extends TagSupport {
 					<ul class="discription_botton">
 					""");
 			if (locale.equalsIgnoreCase(RUSSIAN)) {
-				builder.append("<li> цена: ").append(numberForrmatterPrice.format(pet.getPrice())).append("</li>");
-				builder.append("<li> скидка: ").append(numberForrmatterPrice.format(pet.getDiscount()))
+				builder.append("<li> цена: ").append(numberFormatterPrice.format(pet.getPrice())).append("</li>");
+				builder.append("<li> скидка: ").append(numberFormatterPrice.format(pet.getDiscount()))
 						.append("""
 								<svg class="discription_botton_discont_procent_img" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48">
 									<path d="M289.899 516Q236 516 198 477.899t-38-92Q160 332 198.101 294t92-38Q344 256 382 294.101t38 92Q420 440 381.899 478t-92 38Zm-.017-60Q319 456 339.5 435.618q20.5-20.383 20.5-49.5Q360 357 339.618 336.5q-20.383-20.5-49.5-20.5Q261 316 240.5 336.382q-20.5 20.383-20.5 49.5Q220 415 240.382 435.5q20.383 20.5 49.5 20.5Zm380.017 440Q616 896 578 857.899t-38-92Q540 712 578.101 674t92-38Q724 636 762 674.101t38 92Q800 820 761.899 858t-92 38Zm-.017-60Q699 836 719.5 815.618q20.5-20.383 20.5-49.5Q740 737 719.618 716.5q-20.383-20.5-49.5-20.5Q641 696 620.5 716.382q-20.5 20.383-20.5 49.5Q600 795 620.382 815.5q20.383 20.5 49.5 20.5ZM202 896l-42-42 598-598 42 42-598 598Z"/>
@@ -128,10 +186,10 @@ public class ProductPetPaginationTag extends TagSupport {
 								</li>
 								<li> стоимость со скодкой:
 										""")
-						.append(" ").append(numberForrmatterPrice.format(pet.getTotalPrice())).append("</li>");
+						.append(" ").append(numberFormatterPrice.format(pet.getTotalPrice())).append("</li>");
 			} else if (locale.equalsIgnoreCase(ENGLISH)) {
-				builder.append("<li> price: ").append(numberForrmatterPrice.format(pet.getPrice())).append("</li>");
-				builder.append("<li> discount: ").append(numberForrmatterPrice.format(pet.getDiscount()))
+				builder.append("<li> price: ").append(numberFormatterPrice.format(pet.getPrice())).append("</li>");
+				builder.append("<li> discount: ").append(numberFormatterPrice.format(pet.getDiscount()))
 						.append("""
 								<svg class="discription_botton_discont_procent_img" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48">
 									<path d="M289.899 516Q236 516 198 477.899t-38-92Q160 332 198.101 294t92-38Q344 256 382 294.101t38 92Q420 440 381.899 478t-92 38Zm-.017-60Q319 456 339.5 435.618q20.5-20.383 20.5-49.5Q360 357 339.618 336.5q-20.383-20.5-49.5-20.5Q261 316 240.5 336.382q-20.5 20.383-20.5 49.5Q220 415 240.382 435.5q20.383 20.5 49.5 20.5Zm380.017 440Q616 896 578 857.899t-38-92Q540 712 578.101 674t92-38Q724 636 762 674.101t38 92Q800 820 761.899 858t-92 38Zm-.017-60Q699 836 719.5 815.618q20.5-20.383 20.5-49.5Q740 737 719.618 716.5q-20.383-20.5-49.5-20.5Q641 696 620.5 716.382q-20.5 20.383-20.5 49.5Q600 795 620.382 815.5q20.383 20.5 49.5 20.5ZM202 896l-42-42 598-598 42 42-598 598Z"/>
@@ -139,10 +197,10 @@ public class ProductPetPaginationTag extends TagSupport {
 								</li>
 								<li> total price:
 										""")
-						.append(" ").append(numberForrmatterPrice.format(pet.getTotalPrice())).append("</li>");
+						.append(" ").append(numberFormatterPrice.format(pet.getTotalPrice())).append("</li>");
 			} else {
-				builder.append("<li> price: ").append(numberForrmatterPrice.format(pet.getPrice())).append("</li>");
-				builder.append("<li> discount: ").append(numberForrmatterPrice.format(pet.getDiscount()))
+				builder.append("<li> price: ").append(numberFormatterPrice.format(pet.getPrice())).append("</li>");
+				builder.append("<li> discount: ").append(numberFormatterPrice.format(pet.getDiscount()))
 						.append("""
 								<svg class="discription_botton_discont_procent_img" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48">
 									<path d="M289.899 516Q236 516 198 477.899t-38-92Q160 332 198.101 294t92-38Q344 256 382 294.101t38 92Q420 440 381.899 478t-92 38Zm-.017-60Q319 456 339.5 435.618q20.5-20.383 20.5-49.5Q360 357 339.618 336.5q-20.383-20.5-49.5-20.5Q261 316 240.5 336.382q-20.5 20.383-20.5 49.5Q220 415 240.382 435.5q20.383 20.5 49.5 20.5Zm380.017 440Q616 896 578 857.899t-38-92Q540 712 578.101 674t92-38Q724 636 762 674.101t38 92Q800 820 761.899 858t-92 38Zm-.017-60Q699 836 719.5 815.618q20.5-20.383 20.5-49.5Q740 737 719.618 716.5q-20.383-20.5-49.5-20.5Q641 696 620.5 716.382q-20.5 20.383-20.5 49.5Q600 795 620.382 815.5q20.383 20.5 49.5 20.5ZM202 896l-42-42 598-598 42 42-598 598Z"/>
@@ -150,22 +208,32 @@ public class ProductPetPaginationTag extends TagSupport {
 								</li>
 								<li> total price:
 										""")
-						.append(" ").append(numberForrmatterPrice.format(pet.getTotalPrice())).append("</li>");
+						.append(" ").append(numberFormatterPrice.format(pet.getTotalPrice())).append("</li>");
 			}
-			builder.append("</ul> </div>");
-			if (user != null && user.getRole().getIdRole() >= UserRole.USER.getIdRole()
-					&& user.isVerificatedEmail() == true) {
+			builder.append("""
+					</ul>
+					<ul class="discription_botton">
+					""");
+			if (locale.equalsIgnoreCase(RUSSIAN)) {
+				builder.append("количество единиц: ").append(listProductPets.get(i).getValue());
+			} else if (locale.equalsIgnoreCase(ENGLISH)) {
+				builder.append("number of units: ").append(listProductPets.get(i).getValue());
+			} else {
+				builder.append("number of units: ").append(listProductPets.get(i).getValue());
+			}
+			builder.append("</ul>").append("</div>");
+			if (user != null && user.getRole().getIdRole() >= UserRole.USER.getIdRole() && user.isVerificatedEmail()) {
 				builder.append("""
-						<div class="row body_btns w-100">
-							<div class="col-12 d-flex justify-content-center body_btn">
-								<input type="hidden" id="productId" value="
-						""").append(pet.getId()).append("""
-						" />
-
-						""").append("<button class=\"w-100 h-100 body_btn_input\" id=\"liveToastBtn")
-						.append(pet.getId()).append("""
-								" type="button" onclick="addProductPet(
-								""").append(pet.getId()).append(", ").append(i).append(") \">");
+						<form class="body_btn" action=" """).append(MAIN_SERVLET_CONTROLLER_NAME).append("""
+						" method="get">
+								<input type="hidden" id="productId"
+								value=" """).append(pet.getId()).append("\"/>")
+						.append(createInputHidden(PARAMETER_COMMAND, COMMAND_ADD_PRODUCT_PETS_TO_ORDER)).append("\n")
+						.append(createInputHidden(PARAMETER_PRODUCT_ID, pet.getId())).append("\n")
+						.append(createInputHidden(PARAMETER_NUMBER_PAGE, this.numberPage)).append("\n")
+						.append("<button class=\"w-100 h-100 body_btn_input\" id=\"liveToastBtn").append(pet.getId())
+						.append("""
+								" role="button"> """);
 				if (locale.equalsIgnoreCase(RUSSIAN)) {
 					builder.append("в карзину");
 				} else if (locale.equalsIgnoreCase(ENGLISH)) {
@@ -174,9 +242,8 @@ public class ProductPetPaginationTag extends TagSupport {
 					builder.append("in basket");
 				}
 				builder.append("""
-								</button>
-							</div>
-						</div>
+									</button>
+								</form>
 						""");
 			}
 			builder.append("""
@@ -230,10 +297,15 @@ public class ProductPetPaginationTag extends TagSupport {
 		pageContext.getOut().write(builder.toString());
 	}
 
-	private void printPagination(List<Pet> listProductPets, String locale) throws IOException {
+	/**
+	 * Prints the pagination.
+	 *
+	 * @param listProductPets the list product pets
+	 * @param locale          the locale
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	private void printPagination(List<Entry<Pet, Long>> listProductPets, String locale) throws IOException {
 		StringBuilder builder = new StringBuilder();
-		int countPage = (int) Math.ceil((double) listProductPets.size() / this.maxCountProductsOnPage);
-		numberLastPage = countPage;
 		builder.append("""
 				<nav>
 					<ul class="pagination d-flex justify-content-center align-items-center">
@@ -259,7 +331,7 @@ public class ProductPetPaginationTag extends TagSupport {
 						</li>
 					""");
 		}
-		for (int i = 1; i < countPage + 1; i++) {
+		for (int i = 1; i < numberLastPage + 1; i++) {
 			if (i == this.numberPage) {
 				builder.append("""
 						<li class="page-item active" style="cursor: pointer">
@@ -308,5 +380,22 @@ public class ProductPetPaginationTag extends TagSupport {
 				</nav>
 				""");
 		pageContext.getOut().write(builder.toString());
+	}
+
+	/**
+	 * Create the input tag with type of hidden.
+	 *
+	 * @param parapeterName  the parameter name
+	 * @param parapeterValue the parameter value
+	 * @return the string
+	 */
+	private String createInputHidden(String parameterName, Object parameterValue) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("<input");
+		builder.append(" type=").append("\"").append("hidden").append("\"");
+		builder.append(" name=").append("\"").append(parameterName).append("\"");
+		builder.append(" value=").append("\"").append(parameterValue).append("\"");
+		builder.append(" />");
+		return builder.toString();
 	}
 }

@@ -90,4 +90,13 @@ public interface OrderService {
 	 */
 	public double calcTotalPaymentWithDiscountAmount(Order order, Map<Integer, Boolean> haveProductPets,
 			Map<Integer, Boolean> haveProductFeedAndOther, double personalDiscountPercent);
+
+	/**
+	 * Change order.
+	 *
+	 * @param order the order
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
+	public boolean changeOrder(Order order) throws ServiceException;
 }

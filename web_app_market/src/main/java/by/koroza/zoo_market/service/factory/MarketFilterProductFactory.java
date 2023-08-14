@@ -1,6 +1,5 @@
 package by.koroza.zoo_market.service.factory;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,14 +18,14 @@ public interface MarketFilterProductFactory {
 	 * @param sessionLocale the session locale
 	 * @return the map< string, set< string>>
 	 */
-	public Map<String, Set<String>> createFilterFeedAndOther(List<FeedAndOther> products, String sessionLocale);
+	public Map<String, Set<String>> createFilterFeedAndOther(Set<FeedAndOther> products, String sessionLocale);
 
 	/**
 	 * Create a new MarketFilterProduct object.
 	 *
-	 * @param petsList      the pets list
+	 * @param petsList      the pets set
 	 * @param sessionLocale the session locale
 	 * @return the map< string, set< string>>
 	 */
-	public Map<String, Set<String>> createFilterPets(List<Pet> petsList, String sessionLocale);
+	public Map<String, Set<String>> createFilterPets(Set<Pet> petsList, String sessionLocale);
 }

@@ -378,8 +378,8 @@
 							<input type="text" required class="form-control"
 								id="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login"
 								name="${InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_LOGIN}"
-								placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login"/>' />
-							<label class="text-lowercase"
+								placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login"/>'
+								pattern="(\w|[А-Яа-я]){0,255}" /> <label class="text-lowercase"
 								for="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login">
 								<fmt:message
 									key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login" />
@@ -392,8 +392,9 @@
 									class="form-control sign_in_form_input_password"
 									id="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.password"
 									name="${InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_PASSWORD}"
-									placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.password"/>' />
-								<label class="text-lowercase"
+									placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.password"/>'
+									pattern="(\w|[А-Яа-я]){0,255}" /> <label
+									class="text-lowercase"
 									for="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.password">
 									<fmt:message
 										key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.password" />
@@ -443,32 +444,6 @@
 					<form class="registration_form_body"
 						action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}" method="post">
 						<div class="form-floating mb-3">
-							<input type="text" class="form-control"
-								id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name"
-								name="${InputName.REGISTRATION_INPUT_USER_NAME}"
-								placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name"/>'
-								value='<c:if test="${user.getName() != null && !user.getName().isBlank()}">${user.getName()}</c:if>' />
-							<label class="text-lowercase registration_form_body_label"
-								for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name">
-								<fmt:message
-									key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_name" />
-								<span>*</span>
-							</label>
-						</div>
-						<div class="form-floating mb-3">
-							<input type="text" class="form-control "
-								id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname"
-								name="${InputName.REGISTRATION_INPUT_USER_SURNAME}"
-								value='<c:if test="${user.getSurname() != null && !user.getSurname().isBlank()}">${user.getSurname()}</c:if>'
-								placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname"/>' />
-							<label class="text-lowercase registration_form_body_label"
-								for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname">
-								<fmt:message
-									key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.user_surname" />
-								<span>*</span>
-							</label>
-						</div>
-						<div class="form-floating mb-3">
 							<input type="email" class="form-control"
 								id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.email_address"
 								required name="${InputName.REGISTRATION_INPUT_USER_EMAIL}"
@@ -486,6 +461,7 @@
 								id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login"
 								required name="${InputName.REGISTRATION_INPUT_USER_LOGIN}"
 								value='<c:if test="${user.getLogin() != null && !user.getLogin().isBlank()}">${user.getLogin()}</c:if>'
+								pattern="(\w|[А-Яа-я]){0,255}"
 								placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login"/>' />
 							<label class="text-lowercase registration_form_body_label"
 								for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login">
@@ -500,8 +476,9 @@
 										class="form-control registration_form_input_password"
 										id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password"
 										name="${InputName.REGISTRATION_INPUT_USER_PASSWORD}"
-										placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password"/>' />
-									<label class="text-lowercase registration_form_body_label"
+										placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password"/>'
+										pattern="(\w|[А-Яа-я]){0,255}" /> <label
+										class="text-lowercase registration_form_body_label"
 										for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password">
 										<fmt:message
 											key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password" />

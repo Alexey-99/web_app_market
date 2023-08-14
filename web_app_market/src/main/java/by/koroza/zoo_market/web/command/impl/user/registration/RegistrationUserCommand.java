@@ -13,14 +13,10 @@ import static by.koroza.zoo_market.web.command.name.exception.MessageInputExcept
 import static by.koroza.zoo_market.web.command.name.exception.MessageInputException.RU_MESSAGE_TYPY_INPUT_EXCEPTION_PASSWORD;
 import static by.koroza.zoo_market.web.command.name.exception.TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL;
 import static by.koroza.zoo_market.web.command.name.exception.TypeInputExeception.TYPY_INPUT_EXCEPTION_LOGIN;
-import static by.koroza.zoo_market.web.command.name.exception.TypeInputExeception.TYPY_INPUT_EXCEPTION_NAME;
 import static by.koroza.zoo_market.web.command.name.exception.TypeInputExeception.TYPY_INPUT_EXCEPTION_PASSWORD;
-import static by.koroza.zoo_market.web.command.name.exception.TypeInputExeception.TYPY_INPUT_EXCEPTION_SURNAME;
 import static by.koroza.zoo_market.web.command.name.input.InputName.REGISTRATION_INPUT_USER_EMAIL;
 import static by.koroza.zoo_market.web.command.name.input.InputName.REGISTRATION_INPUT_USER_LOGIN;
-import static by.koroza.zoo_market.web.command.name.input.InputName.REGISTRATION_INPUT_USER_NAME;
 import static by.koroza.zoo_market.web.command.name.input.InputName.REGISTRATION_INPUT_USER_PASSWORD;
-import static by.koroza.zoo_market.web.command.name.input.InputName.REGISTRATION_INPUT_USER_SURNAME;
 import static by.koroza.zoo_market.web.command.name.language.LanguageName.ENGLISH;
 import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIAN;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.REGISTRATION_FORM_PAGE_PATH;
@@ -45,6 +41,7 @@ import jakarta.servlet.http.HttpSession;
 public class RegistrationUserCommand implements Command {
 	private static Logger log = LogManager.getLogger();
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
 		HttpSession session = request.getSession();
@@ -59,8 +56,9 @@ public class RegistrationUserCommand implements Command {
 			throw new CommandException(e);
 		}
 		return session.getAttribute(ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE) == null
-				? new Router(VERIFICATION_REGISTRATION_INFORMATION_PAGE_PATH)
-				: new Router(REGISTRATION_FORM_PAGE_PATH);
+				|| ((Map<String, String>) session.getAttribute(ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE))
+						.isEmpty() ? new Router(VERIFICATION_REGISTRATION_INFORMATION_PAGE_PATH)
+								: new Router(REGISTRATION_FORM_PAGE_PATH);
 	}
 
 	private User getUserFromInputParameters(HttpServletRequest request, Map<String, String> mapInputExceptions)
@@ -75,16 +73,6 @@ public class RegistrationUserCommand implements Command {
 
 	private User createUser(HttpServletRequest request, Map<String, String> mapInputExceptions, String sessionLocale,
 			User user) throws ValidationException {
-		String userName = getInputParameterName(request);
-		if (!mapInputExceptions.containsKey(TYPY_INPUT_EXCEPTION_NAME)) {
-			user.setName(userName);
-		}
-
-		String userSurName = getInputParameterSurName(request);
-		if (!mapInputExceptions.containsKey(TYPY_INPUT_EXCEPTION_SURNAME)) {
-			user.setSurname(userSurName);
-		}
-
 		String email = getInputParameterEmail(request, sessionLocale, mapInputExceptions);
 		if (!mapInputExceptions.containsKey(TYPY_INPUT_EXCEPTION_EMAIL)) {
 			user.setEmail(email);
@@ -100,16 +88,6 @@ public class RegistrationUserCommand implements Command {
 			user.setPassword(password);
 		}
 		return user;
-	}
-
-	private String getInputParameterName(HttpServletRequest request) {
-		String userName = request.getParameter(REGISTRATION_INPUT_USER_NAME);
-		return userName;
-	}
-
-	private String getInputParameterSurName(HttpServletRequest request) {
-		String userSurName = request.getParameter(REGISTRATION_INPUT_USER_SURNAME);
-		return userSurName;
 	}
 
 	private String getInputParameterEmail(HttpServletRequest request, String sessionLocale,

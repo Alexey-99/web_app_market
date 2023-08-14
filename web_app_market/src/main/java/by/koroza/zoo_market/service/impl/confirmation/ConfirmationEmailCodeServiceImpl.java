@@ -62,17 +62,16 @@ public class ConfirmationEmailCodeServiceImpl implements ConfirmationEmailCodeSe
 	 * Change confirmation code status by user id.
 	 *
 	 * @param userId the user id
-	 * @param code   the code
-	 * @param status the status
+	 * @param code   the code is Object with code is String, status of code is
+	 *               boolean and date at create
 	 * @return true, if successful
 	 * @throws ServiceException the service exception
 	 */
 	@Override
-	public boolean changeConfirmationCodeStatusByUserId(long userId, String code, boolean status)
+	public boolean changeConfirmationCodeStatusByUserId(long userId, ConfirmationEmailCode code)
 			throws ServiceException {
 		try {
-			return ConfirmationEmailCodeDaoImpl.getInstance().changeConfirmationCodeStatusByUserId(userId, code,
-					status);
+			return ConfirmationEmailCodeDaoImpl.getInstance().changeConfirmationCodeStatusByUserId(userId, code);
 		} catch (DaoException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);

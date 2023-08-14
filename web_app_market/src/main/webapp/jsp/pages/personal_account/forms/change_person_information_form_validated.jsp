@@ -66,30 +66,6 @@
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 										method="get">
 										<div class="form-floating mb-3">
-											<input type="text" class="form-control"
-												id="personal_account_person_infomation.changing_general_information_form.name"
-												name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_NAME}"
-												value="${user.getName()}"
-												placeholder='<fmt:message key="personal_account_person_infomation.changing_general_information_form.name"/>' />
-											<label class="text-lowercase"
-												for="personal_account_person_infomation.changing_general_information_form.name">
-												<fmt:message
-													key="personal_account_person_infomation.changing_general_information_form.name" />
-											</label>
-										</div>
-										<div class="form-floating mb-3">
-											<input type="text" class="form-control"
-												id="personal_account_person_infomation.changing_general_information_form.surname"
-												name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_SURNAME}"
-												value="${user.getSurname()}"
-												placeholder='<fmt:message key="personal_account_person_infomation.changing_general_information_form.surname"/>' />
-											<label class="text-lowercase"
-												for="personal_account_person_infomation.changing_general_information_form.surname">
-												<fmt:message
-													key="personal_account_person_infomation.changing_general_information_form.surname" />
-											</label>
-										</div>
-										<div class="form-floating mb-3">
 											<input type="email" class="form-control"
 												id="personal_account_person_infomation.changing_general_information_form.email"
 												pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})"
@@ -120,81 +96,6 @@
 									<form class=" "
 										action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 										method="get">
-										<c:if
-											test="${changing_person_information_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_NAME)}">
-											<div class="form-floating mb-3">
-												<input type="text" class="form-control is-invalid"
-													id="personal_account_person_infomation.changing_general_information_form.name"
-													name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_NAME}"
-													value="${user.getName()}"
-													placeholder='<fmt:message key="personal_account_person_infomation.changing_general_information_form.name"/>' />
-												<label class="text-lowercase"
-													for="personal_account_person_infomation.changing_general_information_form.name">
-													<fmt:message
-														key="personal_account_person_infomation.changing_general_information_form.name" />
-												</label>
-												<div class="invalid-feedback">
-													${changing_person_information_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_NAME)}
-												</div>
-											</div>
-										</c:if>
-										<c:if
-											test="${!changing_person_information_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_NAME)}">
-											<div class="form-floating mb-3">
-												<input type="text" class="form-control is-valid"
-													id="personal_account_person_infomation.changing_general_information_form.name"
-													name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_NAME}"
-													value="${user.getName()}"
-													placeholder='<fmt:message key="personal_account_person_infomation.changing_general_information_form.name"/>' />
-												<label class="text-lowercase"
-													for="personal_account_person_infomation.changing_general_information_form.name">
-													<fmt:message
-														key="personal_account_person_infomation.changing_general_information_form.name" />
-												</label>
-												<div class="valid-feedback">
-													<fmt:message
-														key="personal_account_person_infomation.changing_general_information_form.valid_feed_back" />
-												</div>
-											</div>
-										</c:if>
-
-										<c:if
-											test="${changing_person_information_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_SURNAME)}">
-											<div class="form-floating mb-3">
-												<input type="text" class="form-control is-invalid"
-													id="personal_account_person_infomation.changing_general_information_form.surname"
-													name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_SURNAME}"
-													value="${user.getSurname()}"
-													placeholder='<fmt:message key="personal_account_person_infomation.changing_general_information_form.surname"/>' />
-												<label class="text-lowercase"
-													for="personal_account_person_infomation.changing_general_information_form.surname">
-													<fmt:message
-														key="personal_account_person_infomation.changing_general_information_form.surname" />
-												</label>
-												<div class="invalid-feedback">
-													${changing_person_information_input_exception_type_and_message.get(TypeInputExeception.TYPY_INPUT_EXCEPTION_SURNAME)}
-												</div>
-											</div>
-										</c:if>
-										<c:if
-											test="${!changing_person_information_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_SURNAME)}">
-											<div class="form-floating mb-3">
-												<input type="text" class="form-control is-valid"
-													id="personal_account_person_infomation.changing_general_information_form.surname"
-													name="${InputName.CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_SURNAME}"
-													value="${user.getSurname()}"
-													placeholder='<fmt:message key="personal_account_person_infomation.changing_general_information_form.surname"/>' />
-												<label class="text-lowercase"
-													for="personal_account_person_infomation.changing_general_information_form.surname">
-													<fmt:message
-														key="personal_account_person_infomation.changing_general_information_form.surname" />
-												</label>
-												<div class="valid-feedback">
-													<fmt:message
-														key="personal_account_person_infomation.changing_general_information_form.valid_feed_back" />
-												</div>
-											</div>
-										</c:if>
 										<c:if
 											test="${changing_person_information_input_exception_type_and_message.containsKey(TypeInputExeception.TYPY_INPUT_EXCEPTION_EMAIL)}">
 											<div class="form-floating mb-3">

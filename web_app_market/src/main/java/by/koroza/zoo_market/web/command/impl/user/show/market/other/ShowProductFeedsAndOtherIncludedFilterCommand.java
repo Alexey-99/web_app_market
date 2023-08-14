@@ -5,6 +5,7 @@ import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTR
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.REQUEST_ATTRIBUTE_NUMBER_PAGE;
 import static by.koroza.zoo_market.web.command.name.exception.MessageInputException.EN_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FILTER_MAX;
 import static by.koroza.zoo_market.web.command.name.exception.MessageInputException.EN_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FILTER_MIN;
 import static by.koroza.zoo_market.web.command.name.exception.MessageInputException.EN_MESSAGE_TYPE_INPUT_EXCEPTION_DISCOUNT_FILTER_MIN_OR_MAX_PART_ONE;
@@ -33,12 +34,15 @@ import static by.koroza.zoo_market.web.command.name.input.InputName.INPUT_PRODUC
 import static by.koroza.zoo_market.web.command.name.input.InputName.INPUT_PROMOTIONS;
 import static by.koroza.zoo_market.web.command.name.language.LanguageName.ENGLISH;
 import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIAN;
+import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_NUMBER_PAGE;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.PRODUCTS_FEED_AND_OTHER_PAGE_PATH;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -46,6 +50,7 @@ import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.model.entity.filter.FilterFeedsAndOther;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
+import by.koroza.zoo_market.service.ProductFeedsAndOtherService;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.factory.MarketFilterProductFactory;
 import by.koroza.zoo_market.service.factory.impl.MarketFilterProductFactoryImpl;
@@ -63,23 +68,22 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
-		List<FeedAndOther> productsByFilter = null;
+		List<Entry<FeedAndOther, Long>> products = new ArrayList<>();
 		HttpSession session = request.getSession();
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER);
+		ProductFeedsAndOtherService productFeedsAndOtherService = ProductFeedsAndOtherServiceImpl.getInstance();
 		try {
 			Map<String, String> mapInputExceptions = new HashMap<>();
 			String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
 			FilterFeedsAndOther filterFeedsAndOther = getInputParameters(request, sessionLocale, mapInputExceptions);
 			MarketFilterProductFactory filterFactory = MarketFilterProductFactoryImpl.getInstance();
 			if (mapInputExceptions.isEmpty()) {
-				productsByFilter = ProductFeedsAndOtherServiceImpl.getInstance()
-						.getProductsFeedAndOtherByFilter(filterFeedsAndOther);
-				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_FEEDS_AND_OTHER, productsByFilter);
+				products = productFeedsAndOtherService.getProductsFeedAndOtherByFilter(filterFeedsAndOther);
+				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_FEEDS_AND_OTHER, products);
 				if (session.getAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP) == null) {
-					List<FeedAndOther> allProductsFeedAndOther = ProductFeedsAndOtherServiceImpl.getInstance()
-							.getAllProductsFeedsAndOther();
-					Map<String, Set<String>> filterMap = filterFactory.createFilterFeedAndOther(allProductsFeedAndOther,
+					Map<String, Set<String>> filterMap = filterFactory.createFilterFeedAndOther(
+							productFeedsAndOtherService.getAllProductsFeedAndOtherAndNumberOfUnits().keySet(),
 							sessionLocale);
 					session.setAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP, filterMap);
 				}
@@ -87,19 +91,19 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 			} else {
 				session.setAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
 						mapInputExceptions);
-				List<FeedAndOther> allProductsFeedAndOther = ProductFeedsAndOtherServiceImpl.getInstance()
-						.getAllProductsFeedsAndOther();
+				Map<FeedAndOther, Long> allProductsFeedAndOther = productFeedsAndOtherService
+						.getAllProductsFeedAndOtherAndNumberOfUnits();
+				products = allProductsFeedAndOther.entrySet().stream().toList();
 				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_FEEDS_AND_OTHER, allProductsFeedAndOther);
-				if (session.getAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP) == null) {
-					Map<String, Set<String>> filterMap = filterFactory.createFilterFeedAndOther(allProductsFeedAndOther,
-							sessionLocale);
-					session.setAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP, filterMap);
-				}
+				Map<String, Set<String>> filterMap = filterFactory
+						.createFilterFeedAndOther(allProductsFeedAndOther.keySet(), sessionLocale);
+				session.setAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP, filterMap);
 			}
 		} catch (ServiceException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
+		request.setAttribute(REQUEST_ATTRIBUTE_NUMBER_PAGE, request.getParameter(PARAMETER_NUMBER_PAGE));
 		return new Router(PRODUCTS_FEED_AND_OTHER_PAGE_PATH);
 	}
 

@@ -1,5 +1,7 @@
 package by.koroza.zoo_market.web.command.name.command;
 
+import static by.koroza.zoo_market.web.command.CommandType.ADD_FEEDS_AND_OTHER_PRODUCT_TO_ORDER;
+import static by.koroza.zoo_market.web.command.CommandType.ADD_PET_PRODUCT_TO_ORDER;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_ADD_NEW_PRODUCT_FEED_AND_OTHER;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_ADD_NEW_PRODUCT_PET;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_CHANGE_FEED_AND_OTHER_PRODUCT;
@@ -39,7 +41,7 @@ import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_UPDATE_CHA
 import static by.koroza.zoo_market.web.command.CommandType.CHANGE_EMAIL;
 import static by.koroza.zoo_market.web.command.CommandType.CHANGE_LOGIN;
 import static by.koroza.zoo_market.web.command.CommandType.CHANGE_PASSWORD;
-import static by.koroza.zoo_market.web.command.CommandType.CHANGE_PERSON_INFORMATION;
+import static by.koroza.zoo_market.web.command.CommandType.CHANGE_EMAIL_PERSON_ACCOUNT;
 import static by.koroza.zoo_market.web.command.CommandType.CONFIMATION_EMAIL;
 import static by.koroza.zoo_market.web.command.CommandType.CREATE_ORDER;
 import static by.koroza.zoo_market.web.command.CommandType.ORDER_PAYMENT;
@@ -84,11 +86,16 @@ public final class CommandName {
 	public static final String COMMAND_SHOW_MAKET_PAGE_PRODUCT_PETS_BY_NUMBER_PAGE = SHOW_MARKET_PAGE_PRODUCT_PETS_BY_NUMBER_PAGE
 			.toString().toLowerCase();
 
+	public static final String COMMAND_ADD_PRODUCT_PETS_TO_ORDER = ADD_PET_PRODUCT_TO_ORDER.toString().toLowerCase();
+
 	public static final String COMMAND_SHOW_PRODUCT_FEED_AND_OTHER_OFF_FILTER_PAGE = SHOW_PRODUCT_FEEDS_AND_OTHER_OFF_FILTER
 			.toString().toLowerCase();
 	public static final String COMMAND_SHOW_PRODUCT_FEEDS_AND_OTHER_INCLUDED_FILTER_PAGE = SHOW_PRODUCT_FEEDS_AND_OTHER_INCLUDED_FILTER
 			.toString().toLowerCase();
 	public static final String COMMAND_SHOW_MAKET_PAGE_PRODUCT_FEEDS_AND_OTHER_BY_NUMBER_PAGE = SHOW_MARKET_PAGE_PRODUCT_FEEDS_AND_OTHER_BY_NUMBER_PAGE
+			.toString().toLowerCase();
+
+	public static final String COMMAND_ADD_PRODUCT_FEEDS_AND_OTHER_TO_ORDER = ADD_FEEDS_AND_OTHER_PRODUCT_TO_ORDER
 			.toString().toLowerCase();
 
 	public static final String COMMAND_REGISTRATION_USER = REGISTRATION_USER.toString().toLowerCase();
@@ -106,7 +113,8 @@ public final class CommandName {
 	public static final String COMMAND_SIGN_IN_PERSON_ACCOUNT = SIGN_IN_PERSON_ACCOUNT.toString().toLowerCase();
 	public static final String COMMAND_SIGN_OUT_PERSONAL_ACCOUNT = SIGN_OUT_PERSONAL_ACCOUNT.toString().toLowerCase();
 
-	public static final String COMMAND_CHANGING_PERSON_INFORMATION = CHANGE_PERSON_INFORMATION.toString().toLowerCase();
+	public static final String COMMAND_CHANGING_PERSON_INFORMATION = CHANGE_EMAIL_PERSON_ACCOUNT.toString()
+			.toLowerCase();
 	public static final String COMMAND_CHANGE_LOGIN = CHANGE_LOGIN.toString().toLowerCase();
 	public static final String COMMAND_CHANGE_PASSWORD = CHANGE_PASSWORD.toString().toLowerCase();
 	public static final String COMMAND_CHANGE_EMAIL = CHANGE_EMAIL.toString().toLowerCase();

@@ -8,19 +8,47 @@ import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.model.entity.status.OrderStatus;
 
+/**
+ * The Class Order.
+ */
 public class Order {
+
+	/** The id. */
 	private long id;
+
+	/** The user id. */
 	private long userId;
+
+	/** The products pets. */
 	private List<Pet> productsPets;
+
+	/** The other products. */
 	private List<FeedAndOther> otherProducts;
+
+	/** The total payment amount. */
 	private double totalPaymentAmount;
+
+	/** The total products discount amount. */
 	private double totalProductsDiscountAmount;
+
+	/** The total person discount amount. */
 	private double totalPersonDiscountAmount;
+
+	/** The total discount amount. */
 	private double totalDiscountAmount;
+
+	/** The total payment with discount amount. */
 	private double totalPaymentWithDiscountAmount;
+
+	/** The date creation. */
 	private LocalDate dateCreation;
+
+	/** The status. */
 	private OrderStatus status;
 
+	/**
+	 * Instantiates a new order.
+	 */
 	public Order() {
 		this.id = 0;
 		this.userId = 0;
@@ -35,98 +63,220 @@ public class Order {
 		this.status = OrderStatus.OPEN;
 	}
 
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public long getId() {
 		return this.id;
 	}
 
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 
+	/**
+	 * Gets the user id.
+	 *
+	 * @return the user id
+	 */
 	public long getUserId() {
 		return this.userId;
 	}
 
+	/**
+	 * Sets the user id.
+	 *
+	 * @param userId the new user id
+	 */
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 
+	/**
+	 * Gets the products pets.
+	 *
+	 * @return the products pets
+	 */
 	public List<Pet> getProductsPets() {
 		return this.productsPets;
 	}
 
+	/**
+	 * Sets the products pets.
+	 *
+	 * @param productsPets the new products pets
+	 */
 	public void setProductsPets(List<Pet> productsPets) {
 		this.productsPets = productsPets;
 	}
 
+	/**
+	 * Gets the other products.
+	 *
+	 * @return the other products
+	 */
 	public List<FeedAndOther> getOtherProducts() {
 		return this.otherProducts;
 	}
 
+	/**
+	 * Sets the other products.
+	 *
+	 * @param otherProducts the new other products
+	 */
 	public void setOtherProducts(List<FeedAndOther> otherProducts) {
 		this.otherProducts = otherProducts;
 	}
 
+	/**
+	 * Gets the total payment amount.
+	 *
+	 * @return the total payment amount
+	 */
 	public double getTotalPaymentAmount() {
 		return this.totalPaymentAmount;
 	}
 
+	/**
+	 * Sets the total payment amount.
+	 *
+	 * @param totalPaymentAmount the new total payment amount
+	 */
 	public void setTotalPaymentAmount(double totalPaymentAmount) {
 		this.totalPaymentAmount = totalPaymentAmount;
 	}
 
+	/**
+	 * Gets the total discount amount.
+	 *
+	 * @return the total discount amount
+	 */
 	public double getTotalDiscountAmount() {
 		return this.totalDiscountAmount;
 	}
 
+	/**
+	 * Sets the total discount amount.
+	 *
+	 * @param totalDiscountAmount the new total discount amount
+	 */
 	public void setTotalDiscountAmount(double totalDiscountAmount) {
 		this.totalDiscountAmount = totalDiscountAmount;
 	}
 
+	/**
+	 * Gets the total payment with discount amount.
+	 *
+	 * @return the total payment with discount amount
+	 */
 	public double getTotalPaymentWithDiscountAmount() {
 		return this.totalPaymentWithDiscountAmount;
 	}
 
+	/**
+	 * Sets the total payment with discount amount.
+	 *
+	 * @param totalPaymentWithDiscountAmount the new total payment with discount
+	 *                                       amount
+	 */
 	public void setTotalPaymentWithDiscountAmount(double totalPaymentWithDiscountAmount) {
 		this.totalPaymentWithDiscountAmount = totalPaymentWithDiscountAmount;
 	}
 
+	/**
+	 * Gets the total products discount amount.
+	 *
+	 * @return the total products discount amount
+	 */
 	public double getTotalProductsDiscountAmount() {
 		return this.totalProductsDiscountAmount;
 	}
 
+	/**
+	 * Sets the total products discount amount.
+	 *
+	 * @param totalProductsDiscountAmount the new total products discount amount
+	 */
 	public void setTotalProductsDiscountAmount(double totalProductsDiscountAmount) {
 		this.totalProductsDiscountAmount = totalProductsDiscountAmount;
 	}
 
+	/**
+	 * Gets the total person discount amount.
+	 *
+	 * @return the total person discount amount
+	 */
 	public double getTotalPersonDiscountAmount() {
 		return this.totalPersonDiscountAmount;
 	}
 
+	/**
+	 * Sets the total person discount amount.
+	 *
+	 * @param totalPersonDiscountAmount the new total person discount amount
+	 */
 	public void setTotalPersonDiscountAmount(double totalPersonDiscountAmount) {
 		this.totalPersonDiscountAmount = totalPersonDiscountAmount;
 	}
 
+	/**
+	 * Gets the date creation.
+	 *
+	 * @return the date creation
+	 */
 	public LocalDate getDateCreation() {
 		return this.dateCreation;
 	}
 
+	/**
+	 * Sets the date creation.
+	 *
+	 * @param dateCreation the new date creation
+	 */
 	public void setDateCreation(LocalDate dateCreation) {
 		this.dateCreation = dateCreation;
 	}
 
+	/**
+	 * Gets the status.
+	 *
+	 * @return the status
+	 */
 	public OrderStatus getStatus() {
 		return this.status;
 	}
 
+	/**
+	 * Sets the status.
+	 *
+	 * @param status the new status
+	 */
 	public void setStatus(OrderStatus status) {
 		this.status = status;
 	}
 
+	/**
+	 * Sets the status.
+	 *
+	 * @param id the new status
+	 * @throws IllegalArgumentException the illegal argument exception
+	 */
 	public void setStatus(int id) throws IllegalArgumentException {
 		this.status = OrderStatus.findStatusByStatusId(id);
 	}
 
+	/**
+	 * Hash code.
+	 *
+	 * @return the int
+	 */
 	@Override
 	public int hashCode() {
 		final int PRIME = 31;
@@ -145,6 +295,12 @@ public class Order {
 		return result;
 	}
 
+	/**
+	 * Equals.
+	 *
+	 * @param object the object
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
@@ -209,6 +365,11 @@ public class Order {
 		return true;
 	}
 
+	/**
+	 * To string.
+	 *
+	 * @return the string
+	 */
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -223,73 +384,159 @@ public class Order {
 		return builder.toString();
 	}
 
+	/**
+	 * The Class OrderBuilder.
+	 */
 	public static class OrderBuilder {
+
+		/** The order. */
 		private Order order;
 
+		/**
+		 * Instantiates a new order builder.
+		 */
 		public OrderBuilder() {
 			this.order = new Order();
 		}
 
+		/**
+		 * Sets the id.
+		 *
+		 * @param id the id
+		 * @return the order builder
+		 */
 		public OrderBuilder setId(long id) {
 			this.order.setId(id);
 			return this;
 		}
 
+		/**
+		 * Sets the user id.
+		 *
+		 * @param userId the user id
+		 * @return the order builder
+		 */
 		public OrderBuilder setUserId(long userId) {
 			this.order.setUserId(userId);
 			return this;
 		}
 
+		/**
+		 * Sets the products pets.
+		 *
+		 * @param pets the pets
+		 * @return the order builder
+		 */
 		public OrderBuilder setProductsPets(List<Pet> pets) {
 			this.order.setProductsPets(pets);
 			return this;
 		}
 
+		/**
+		 * Sets the other products.
+		 *
+		 * @param otherProducts the other products
+		 * @return the order builder
+		 */
 		public OrderBuilder setOtherProducts(List<FeedAndOther> otherProducts) {
 			this.order.setOtherProducts(otherProducts);
 			return this;
 		}
 
+		/**
+		 * Sets the total payment amount.
+		 *
+		 * @param totalPaymentAmount the total payment amount
+		 * @return the order builder
+		 */
 		public OrderBuilder setTotalPaymentAmount(double totalPaymentAmount) {
 			this.order.setTotalPaymentAmount(totalPaymentAmount);
 			return this;
 		}
 
+		/**
+		 * Sets the total discount amount.
+		 *
+		 * @param totalDiscountAmount the total discount amount
+		 * @return the order builder
+		 */
 		public OrderBuilder setTotalDiscountAmount(double totalDiscountAmount) {
 			this.order.setTotalDiscountAmount(totalDiscountAmount);
 			return this;
 		}
 
+		/**
+		 * Sets the date creation.
+		 *
+		 * @param dateCreation the date creation
+		 * @return the order builder
+		 */
 		public OrderBuilder setDateCreation(LocalDate dateCreation) {
 			this.order.setDateCreation(dateCreation);
 			return this;
 		}
 
+		/**
+		 * Sets the total payment with discount amount.
+		 *
+		 * @param totalPaymentWithDiscountAmount the total payment with discount amount
+		 * @return the order builder
+		 */
 		public OrderBuilder setTotalPaymentWithDiscountAmount(double totalPaymentWithDiscountAmount) {
 			this.order.setTotalPaymentWithDiscountAmount(totalPaymentWithDiscountAmount);
 			return this;
 		}
 
+		/**
+		 * Sets the total products discount amount.
+		 *
+		 * @param totalProductsDiscountAmount the total products discount amount
+		 * @return the order builder
+		 */
 		public OrderBuilder setTotalProductsDiscountAmount(double totalProductsDiscountAmount) {
 			this.order.setTotalProductsDiscountAmount(totalProductsDiscountAmount);
 			return this;
 		}
 
+		/**
+		 * Sets the total person discount amount.
+		 *
+		 * @param totalPersonDiscountAmount the total person discount amount
+		 * @return the order builder
+		 */
 		public OrderBuilder setTotalPersonDiscountAmount(double totalPersonDiscountAmount) {
 			this.order.setTotalPersonDiscountAmount(totalPersonDiscountAmount);
 			return this;
 		}
 
+		/**
+		 * Sets the status.
+		 *
+		 * @param status the status
+		 * @return the order builder
+		 */
 		public OrderBuilder setStatus(OrderStatus status) {
 			this.order.setStatus(status);
 			return this;
 		}
 
+		/**
+		 * Sets the status.
+		 *
+		 * @param id the id
+		 * @return the order builder
+		 * @throws IllegalArgumentException the illegal argument exception
+		 */
 		public OrderBuilder setStatus(int id) throws IllegalArgumentException {
 			this.order.setStatus(id);
 			return this;
 		}
 
+		/**
+		 * Builds the.
+		 *
+		 * @return the order
+		 */
 		public Order build() {
 			return this.order;
 		}

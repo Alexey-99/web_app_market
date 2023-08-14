@@ -40,10 +40,12 @@ import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product
 import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.type.ShowAllProductsOffFilterSortingByProductTypeDescendingCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetEnglishLocaleCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetRussinLocaleCommand;
+import by.koroza.zoo_market.web.command.impl.user.add.AddFeedAndOtherProductToOrderCommand;
+import by.koroza.zoo_market.web.command.impl.user.add.AddPetProductToOrderCommand;
 import by.koroza.zoo_market.web.command.impl.user.change.ChangeEmailCommand;
 import by.koroza.zoo_market.web.command.impl.user.change.ChangeLoginCommand;
 import by.koroza.zoo_market.web.command.impl.user.change.ChangePasswordCommand;
-import by.koroza.zoo_market.web.command.impl.user.change.ChangePersonInformationCommand;
+import by.koroza.zoo_market.web.command.impl.user.change.ChangeEmailPersonAccountCommand;
 import by.koroza.zoo_market.web.command.impl.user.confirmation.ConfirmationEmailCommand;
 import by.koroza.zoo_market.web.command.impl.user.confirmation.SendOneMoreTimeConfirmationEmailCodeCommand;
 import by.koroza.zoo_market.web.command.impl.user.create.CreateOrderCommand;
@@ -72,10 +74,14 @@ public enum CommandType {
 	SHOW_PRODUCT_PETS_OFF_FILTER(new ShowProductPetsOffFilterCommand()),
 	SHOW_PRODUCT_PETS_INCLUDED_FILTER(new ShowProductPetsIncludedFilterCommand()),
 	SHOW_MARKET_PAGE_PRODUCT_PETS_BY_NUMBER_PAGE(new ShowProductPetNumberPageCommand()),
+//	market page.add product pet in order
+	ADD_PET_PRODUCT_TO_ORDER(new AddPetProductToOrderCommand()),
 //	market page.product feeds and other
 	SHOW_PRODUCT_FEEDS_AND_OTHER_OFF_FILTER(new ShowProductFeedsAndOtherOffFilterCommand()),
 	SHOW_PRODUCT_FEEDS_AND_OTHER_INCLUDED_FILTER(new ShowProductFeedsAndOtherIncludedFilterCommand()),
 	SHOW_MARKET_PAGE_PRODUCT_FEEDS_AND_OTHER_BY_NUMBER_PAGE(new ShowProductFeedsAndOtherNumberPageCommand()),
+//	market page.add product feeds_and_othrer in order
+	ADD_FEEDS_AND_OTHER_PRODUCT_TO_ORDER(new AddFeedAndOtherProductToOrderCommand()),
 //	home page
 	SHOW_HOME_PAGE(new ShowHomePageCommand()),
 //	basket page
@@ -92,7 +98,7 @@ public enum CommandType {
 	SIGN_IN_PERSON_ACCOUNT(new SignInPersonAccountCommand()),
 	SIGN_OUT_PERSONAL_ACCOUNT(new SignOutPersonalAccountCommand()),
 //	change personal information
-	CHANGE_PERSON_INFORMATION(new ChangePersonInformationCommand()), CHANGE_LOGIN(new ChangeLoginCommand()),
+	CHANGE_EMAIL_PERSON_ACCOUNT(new ChangeEmailPersonAccountCommand()), CHANGE_LOGIN(new ChangeLoginCommand()),
 	CHANGE_PASSWORD(new ChangePasswordCommand()), CHANGE_EMAIL(new ChangeEmailCommand()),
 	SHOW_CHANGE_EMAIL_FORM(new ShowChangeUserEmailFormComamnd()),
 //	ORDER

@@ -75,8 +75,9 @@
 													id="personal_account_person_infomation.changing_password_form.password"
 													required
 													name="${InputName.CHANGING_PASSWORD_INPUT_USER_PASSWORD}"
-													placeholder='<fmt:message key="personal_account_person_infomation.changing_password_form.password"/>' />
-												<label class="text-lowercase"
+													placeholder='<fmt:message key="personal_account_person_infomation.changing_password_form.password"/>'
+													pattern="(\w|[А-Яа-я]){5,255}" /> <label
+													class="text-lowercase"
 													for="personal_account_person_infomation.changing_password_form.password">
 													<fmt:message
 														key="personal_account_person_infomation.changing_password_form.password" />
@@ -129,8 +130,9 @@
 														id="personal_account_person_infomation.changing_password_form.password"
 														required
 														name="${InputName.CHANGING_PASSWORD_INPUT_USER_PASSWORD}"
-														placeholder='<fmt:message key="personal_account_person_infomation.changing_password_form.password"/>' />
-													<label class="text-lowercase"
+														placeholder='<fmt:message key="personal_account_person_infomation.changing_password_form.password"/>'
+														pattern="(\w|[А-Яа-я]){5,255}" /> <label
+														class="text-lowercase"
 														for="personal_account_person_infomation.changing_password_form.password">
 														<fmt:message
 															key="personal_account_person_infomation.changing_password_form.password" />
@@ -167,8 +169,9 @@
 														id="personal_account_person_infomation.changing_password_form.password"
 														required
 														name="${InputName.CHANGING_PASSWORD_INPUT_USER_PASSWORD}"
-														placeholder='<fmt:message key="personal_account_person_infomation.changing_password_form.password"/>' />
-													<label class="text-lowercase"
+														placeholder='<fmt:message key="personal_account_person_infomation.changing_password_form.password"/>'
+														pattern="(\w|[А-Яа-я]){5,255}" /> <label
+														class="text-lowercase"
 														for="personal_account_person_infomation.changing_password_form.password">
 														<fmt:message
 															key="personal_account_person_infomation.changing_password_form.password" />

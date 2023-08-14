@@ -5,6 +5,8 @@ import static by.koroza.zoo_market.dao.name.ColumnName.ORDERS_USERS_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.ORDERS_TOTAL_PAYMENT_AMOUNT;
 import static by.koroza.zoo_market.dao.name.ColumnName.ORDERS_TOTAL_DISCOUNT_AMOUNT;
 import static by.koroza.zoo_market.dao.name.ColumnName.ORDERS_TOTAL_PAYMENT_WITH_DISCOUNT_AMOUNT;
+import static by.koroza.zoo_market.dao.name.ColumnName.ORDERS_TOTAL_PRODUCTS_DISCOUNT_AMOUNT;
+import static by.koroza.zoo_market.dao.name.ColumnName.ORDERS_TOTAL_PERSON_DISCOUNT_AMOUNT;
 import static by.koroza.zoo_market.dao.name.ColumnName.ORDERS_DATE;
 import static by.koroza.zoo_market.dao.name.ColumnName.ORDERS_STATUS_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_ID;
@@ -17,6 +19,7 @@ import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_BRAND;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_DESCRIPTION;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_PET_TYPE;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_LAST_INSERT_ID;
+import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_ORDERS_ID;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -196,7 +199,7 @@ public class OrderDaoImpl implements OrderDao {
 				statement.setDouble(4, order.getTotalPersonDiscountAmount());
 				statement.setDouble(5, order.getTotalDiscountAmount());
 				statement.setDouble(6, order.getTotalPaymentWithDiscountAmount());
-				statement.setInt(7, OrderStatus.WAITING_PAY.getId());
+				statement.setInt(7, order.getStatus().getId());
 				resultInsetOrder = statement.executeUpdate() > 0;
 			}
 			try (PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_LAST_INSERT_ID);
@@ -230,6 +233,151 @@ public class OrderDaoImpl implements OrderDao {
 						+ order.getProductsPets().size());
 			}
 			result = resultInsetOrder == true && resultInsetOrderProducts == true;
+		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new DaoException(e);
+		}
+		return result;
+	}
+
+	/** The Constant QUERY_SELECT_ORDERS_BY_USER_ID_AND_STATUS. */
+	private static final String QUERY_SELECT_ORDERS_BY_USER_ID_AND_STATUS = """
+			SELECT orders.id, orders.users_id, orders.total_payment_amount, orders.total_products_discount_amount,
+			orders.total_person_discount_amount, orders.total_discount_amount, orders.total_payment_with_discount_amount, orders.order_statuses_id
+			FROM orders
+			WHERE orders.users_id = ? AND orders.order_statuses_id = ?;
+			""";
+
+	/**
+	 * Get the order with products by user id and order status.
+	 *
+	 * @param userId the user id
+	 * @param status the status
+	 * @return the order with products by user id and order status
+	 * @throws DaoException the dao exception
+	 */
+	@Override
+	public Order getOrderWithProductsByUserIdAndOrderStatus(long userId, OrderStatus status) throws DaoException {
+		Order orderResult = null;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
+			try (PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_ORDERS_BY_USER_ID_AND_STATUS)) {
+				statement.setLong(1, userId);
+				statement.setInt(2, status.getId());
+				try (ResultSet resultSet = statement.executeQuery()) {
+					while (resultSet.next()) {
+						orderResult = new Order.OrderBuilder().setId(resultSet.getLong(ORDERS_ID))
+								.setUserId(resultSet.getLong(ORDERS_USERS_ID))
+								.setTotalPaymentAmount(resultSet.getDouble(ORDERS_TOTAL_PAYMENT_AMOUNT))
+								.setTotalProductsDiscountAmount(
+										resultSet.getDouble(ORDERS_TOTAL_PRODUCTS_DISCOUNT_AMOUNT))
+								.setTotalPersonDiscountAmount(resultSet.getDouble(ORDERS_TOTAL_PERSON_DISCOUNT_AMOUNT))
+								.setTotalDiscountAmount(resultSet.getDouble(ORDERS_TOTAL_DISCOUNT_AMOUNT))
+								.setTotalPaymentWithDiscountAmount(
+										resultSet.getDouble(ORDERS_TOTAL_PAYMENT_WITH_DISCOUNT_AMOUNT))
+								.setStatus(resultSet.getInt(ORDERS_STATUS_ID)).build();
+					}
+				}
+			}
+			try (PreparedStatement statement = connection
+					.prepareStatement(QUERY_SELECT_ORDER_PRODUCTS_PETS_BY_ORDERS_ID)) {
+				statement.setLong(1, orderResult.getId());
+				statement.setLong(2, ProductType.PETS.getId());
+				try (ResultSet resultSet = statement.executeQuery()) {
+					while (resultSet.next()) {
+						orderResult.getProductsPets().add(new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
+								.setSpecie(resultSet.getString(PETS_SPECIE)).setBreed(resultSet.getString(PETS_BREED))
+								.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toLocalDate()).build());
+					}
+				}
+			}
+			try (PreparedStatement statement = connection
+					.prepareStatement(QUERY_SELECT_ORDER_PRODUCTS_OTHER_PRODUCTS_BY_ORDERS_ID)) {
+				statement.setLong(1, orderResult.getId());
+				statement.setLong(2, ProductType.FEEDS_AND_OTHER.getId());
+				try (ResultSet resultSet = statement.executeQuery()) {
+					while (resultSet.next()) {
+						orderResult.getOtherProducts()
+								.add(new FeedAndOther.FeedAndOtherBuilder().setId(resultSet.getLong(FEEDS_AND_OTHER_ID))
+										.setProductType(resultSet.getString(FEEDS_AND_OTHER_TYPE))
+										.setBrand(resultSet.getString(FEEDS_AND_OTHER_BRAND))
+										.setDescriptions(FEEDS_AND_OTHER_DESCRIPTION)
+										.setPetTypes(resultSet.getString(FEEDS_AND_OTHER_PET_TYPE)).build());
+					}
+				}
+			}
+		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new DaoException(e);
+		}
+		return orderResult;
+	}
+
+	/** The Constant QUERY_SELECT_IS_HAVE_OPEN_ORDER. */
+	private static final String QUERY_SELECT_IS_HAVE_OPEN_ORDER = """
+			SELECT COUNT(orders.id)
+			FROM orders
+			WHERE orders.order_statuses_id = ? AND orders.users_id = ?;
+			""";
+
+	/**
+	 * Check if is have open order by user id.
+	 *
+	 * @param userId the user id
+	 * @return true, if is have open order by user id
+	 * @throws DaoException the dao exception
+	 */
+	@Override
+	public boolean isHaveOpenOrderByUserId(long userId) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_IS_HAVE_OPEN_ORDER)) {
+			statement.setInt(1, OrderStatus.OPEN.getId());
+			statement.setLong(2, userId);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					result = resultSet.getInt(IDENTIFIER_COUNT_ROWS_OF_ORDERS_ID) > 0;
+				}
+			}
+		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new DaoException(e);
+		}
+		return result;
+	}
+
+	/** The Constant QUERY_UPDATE_ORDER. */
+	private static final String QUERY_UPDATE_ORDER = """
+			UPDATE orders
+			SET orders.total_payment_amount = ?,
+			orders.total_products_discount_amount = ?,
+			orders.total_person_discount_amount = ?,
+			orders.total_discount_amount = ?,
+			orders.total_payment_with_discount_amount = ?,
+			orders.date = NOW(),
+			orders.order_statuses_id = ?
+			WHERE orders.id = ?;
+			""";
+
+	/**
+	 * Change order.
+	 *
+	 * @param order the order
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
+	@Override
+	public boolean changeOrder(Order order) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(QUERY_UPDATE_ORDER)) {
+			statement.setDouble(1, order.getTotalPaymentAmount());
+			statement.setDouble(2, order.getTotalProductsDiscountAmount());
+			statement.setDouble(3, order.getTotalPersonDiscountAmount());
+			statement.setDouble(4, order.getTotalDiscountAmount());
+			statement.setDouble(5, order.getTotalPaymentWithDiscountAmount());
+			statement.setInt(6, order.getStatus().getId());
+			statement.setLong(7, order.getId());
+			result = statement.executeUpdate() > 0;
 		} catch (SQLException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);

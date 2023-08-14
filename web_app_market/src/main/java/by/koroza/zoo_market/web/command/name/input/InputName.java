@@ -19,8 +19,6 @@ public final class InputName {
 	public static final String INPUT_PRODUCT_BREND = "product_brend";
 
 	/* REGISTRATION FORM */
-	public static final String REGISTRATION_INPUT_USER_NAME = "user_name";
-	public static final String REGISTRATION_INPUT_USER_SURNAME = "user_surname";
 	public static final String REGISTRATION_INPUT_USER_EMAIL = "user_email";
 	public static final String REGISTRATION_INPUT_USER_LOGIN = "user_login";
 	public static final String REGISTRATION_INPUT_USER_PASSWORD = "user_password";
@@ -35,8 +33,6 @@ public final class InputName {
 	/* PERSON_ACCOUNT */
 
 	/* CHANGING_PERSON_INFORMATION */
-	public static final String CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_NAME = "user_name1";
-	public static final String CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_SURNAME = "user_surname";
 	public static final String CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_EMAIL = "user_email";
 
 	/* CHANGING_LOGIN_AND_PASSWORD */

@@ -23,6 +23,9 @@ public final class UserValidationImpl implements UserValidation {
 	/** The Constant REG_EX_EMAIL. */
 	private static final String REG_EX_EMAIL = "([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,})\\.([A-z]{2,8})";
 
+	private static final String REG_EX_LOGIN = "(\\w|[А-Яа-я]){1,255}";
+	private static final String REG_EX_PASSWORD = "(\\w|[А-Яа-я]){5,255}";
+
 	/**
 	 * Instantiates a new user validation impl.
 	 */
@@ -57,7 +60,8 @@ public final class UserValidationImpl implements UserValidation {
 	 */
 	@Override
 	public boolean validLogin(String login) {
-		return login != null && !login.isBlank();
+		login = login.trim();
+		return login != null && !login.isBlank() && login.matches(REG_EX_LOGIN);
 	}
 
 	/**
@@ -85,6 +89,7 @@ public final class UserValidationImpl implements UserValidation {
 	 */
 	@Override
 	public boolean validPassword(String password) {
-		return password != null && !password.isBlank();
+		password = password.trim();
+		return password != null && !password.isBlank() && password.matches(REG_EX_PASSWORD);
 	}
 }

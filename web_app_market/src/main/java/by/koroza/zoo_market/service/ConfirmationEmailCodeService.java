@@ -18,15 +18,15 @@ public interface ConfirmationEmailCodeService {
 	public ConfirmationEmailCode getConfirmationEmailCodeByUserId(long userId) throws ServiceException;
 
 	/**
-	 * Change confirmation email code status by user id.
+	 * Change confirmation code status by user id.
 	 *
 	 * @param userId the user id
-	 * @param code   the code
-	 * @param status the status
+	 * @param code   the code is Object with code is String, status of code is
+	 *               boolean and date at create
 	 * @return true, if successful
 	 * @throws ServiceException the service exception
 	 */
-	public boolean changeConfirmationCodeStatusByUserId(long userId, String code, boolean status)
+	public boolean changeConfirmationCodeStatusByUserId(long userId, ConfirmationEmailCode code)
 			throws ServiceException;
 
 	/**

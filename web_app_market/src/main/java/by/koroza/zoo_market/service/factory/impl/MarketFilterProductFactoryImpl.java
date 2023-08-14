@@ -18,7 +18,6 @@ import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIA
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -58,7 +57,7 @@ public class MarketFilterProductFactoryImpl implements MarketFilterProductFactor
 	 * @return the map
 	 */
 	@Override
-	public Map<String, Set<String>> createFilterFeedAndOther(List<FeedAndOther> products, String sessionLocale) {
+	public Map<String, Set<String>> createFilterFeedAndOther(Set<FeedAndOther> products, String sessionLocale) {
 		Map<String, Set<String>> filterMap = new HashMap<>();
 		if (sessionLocale.equals(RUSSIAN)) {
 			Set<String> typesProductsSet = createFilterByTypeProduct(products);
@@ -120,7 +119,7 @@ public class MarketFilterProductFactoryImpl implements MarketFilterProductFactor
 	 * @return the map
 	 */
 	@Override
-	public Map<String, Set<String>> createFilterPets(List<Pet> petsList, String sessionLocale) {
+	public Map<String, Set<String>> createFilterPets(Set<Pet> petsList, String sessionLocale) {
 		Map<String, Set<String>> filterMap = new LinkedHashMap<>();
 		if (sessionLocale.equals(RUSSIAN)) {
 			filterMap.put(CHOOSE_TYPE_PET_RUS, createFilterBySpeciePets(petsList));
@@ -150,7 +149,7 @@ public class MarketFilterProductFactoryImpl implements MarketFilterProductFactor
 	 * @param products the products
 	 * @return the sets the
 	 */
-	private Set<String> createFilterByTypeProduct(List<FeedAndOther> products) {
+	private Set<String> createFilterByTypeProduct(Set<FeedAndOther> products) {
 		Set<String> typesProductsSet = new HashSet<>();
 		products.forEach(product -> typesProductsSet.add(product.getProductType()));
 		return typesProductsSet;
@@ -162,7 +161,7 @@ public class MarketFilterProductFactoryImpl implements MarketFilterProductFactor
 	 * @param products the products
 	 * @return the sets the
 	 */
-	private Set<String> createFilterByBrandProducts(List<FeedAndOther> products) {
+	private Set<String> createFilterByBrandProducts(Set<FeedAndOther> products) {
 		Set<String> brandsProductsSet = new HashSet<>();
 		products.forEach(product -> brandsProductsSet.add(product.getBrand()));
 		return brandsProductsSet;
@@ -175,7 +174,7 @@ public class MarketFilterProductFactoryImpl implements MarketFilterProductFactor
 	 * @param sessionLocale the session locale
 	 * @return the sets the
 	 */
-	private Set<String> createFilterByDiscountProducts(List<? extends AbstractProduct> products, String sessionLocale) {
+	private Set<String> createFilterByDiscountProducts(Set<? extends AbstractProduct> products, String sessionLocale) {
 		Set<String> promotionsPetsSet = null;
 		if (isHavingDiscountProducts(products)) {
 			promotionsPetsSet = new HashSet<>();
@@ -196,7 +195,7 @@ public class MarketFilterProductFactoryImpl implements MarketFilterProductFactor
 	 * @param products the products
 	 * @return true, if is having discount products
 	 */
-	private boolean isHavingDiscountProducts(List<? extends AbstractProduct> products) {
+	private boolean isHavingDiscountProducts(Set<? extends AbstractProduct> products) {
 		boolean isHavingDiscount = false;
 		for (AbstractProduct product : products) {
 			if (product.getDiscount() > 0) {
@@ -212,7 +211,7 @@ public class MarketFilterProductFactoryImpl implements MarketFilterProductFactor
 	 * @param products the products
 	 * @return the sets the
 	 */
-	private Set<String> createFilterByTypePet(List<FeedAndOther> products) {
+	private Set<String> createFilterByTypePet(Set<FeedAndOther> products) {
 		Set<String> typesPetsSet = new HashSet<>();
 		products.forEach(product -> product.getPetTypes().stream().forEach(type -> typesPetsSet.add(type)));
 		return typesPetsSet;
@@ -224,7 +223,7 @@ public class MarketFilterProductFactoryImpl implements MarketFilterProductFactor
 	 * @param petsList the pets list
 	 * @return the sets the
 	 */
-	private Set<String> createFilterBySpeciePets(List<Pet> petsList) {
+	private Set<String> createFilterBySpeciePets(Set<Pet> petsList) {
 		Set<String> speciesPetsSet = new HashSet<>();
 		petsList.forEach(pet -> speciesPetsSet.add(pet.getSpecie()));
 		return speciesPetsSet;
@@ -236,7 +235,7 @@ public class MarketFilterProductFactoryImpl implements MarketFilterProductFactor
 	 * @param petsList the pets list
 	 * @return the sets the
 	 */
-	private Set<String> createFilterByBreedPets(List<Pet> petsList) {
+	private Set<String> createFilterByBreedPets(Set<Pet> petsList) {
 		Set<String> breedsPetsSet = new HashSet<>();
 		petsList.forEach(pet -> breedsPetsSet.add(pet.getBreed()));
 		return breedsPetsSet;

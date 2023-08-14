@@ -7,9 +7,7 @@ import static by.koroza.zoo_market.dao.name.ColumnName.USERS_DISCOUNT;
 import static by.koroza.zoo_market.dao.name.ColumnName.USERS_EMAIL;
 import static by.koroza.zoo_market.dao.name.ColumnName.USERS_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.USERS_LOGIN;
-import static by.koroza.zoo_market.dao.name.ColumnName.USERS_NAME;
 import static by.koroza.zoo_market.dao.name.ColumnName.USERS_PASSWORD;
-import static by.koroza.zoo_market.dao.name.ColumnName.USERS_SURNAME;
 import static by.koroza.zoo_market.dao.name.ColumnName.USERS_CONFIRMATION_EMAIL;
 
 import java.sql.PreparedStatement;
@@ -94,8 +92,8 @@ public class UserDaoImpl implements UserDao {
 
 	/** The Constant QUERY_INSERT_USER. */
 	private static final String QUERY_INSERT_USER = """
-			INSERT INTO users(users.name, users.surname, users.login, users.password, users.email, users.confirmation_email, users.roles_id)
-			VALUES (?, ?, ?, ?, ?, ?, ?);
+			INSERT INTO users(users.login, users.password, users.email, users.confirmation_email, users.roles_id)
+			VALUES (?, ?, ?, ?, ?);
 			""";
 
 	/**
@@ -110,13 +108,11 @@ public class UserDaoImpl implements UserDao {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
 			try (PreparedStatement statement = connection.prepareStatement(QUERY_INSERT_USER)) {
-				statement.setString(1, user.getName());
-				statement.setString(2, user.getSurname());
-				statement.setString(3, user.getLogin());
-				statement.setString(4, user.getPassword());
-				statement.setString(5, user.getEmail());
-				statement.setBoolean(6, user.isVerificatedEmail());
-				statement.setInt(7, user.getRole().getIdRole());
+				statement.setString(1, user.getLogin());
+				statement.setString(2, user.getPassword());
+				statement.setString(3, user.getEmail());
+				statement.setBoolean(4, user.isVerificatedEmail());
+				statement.setInt(5, user.getRole().getIdRole());
 				result = statement.executeUpdate() > 0;
 			}
 			try (PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_LAST_INSERT_ID);
@@ -280,7 +276,6 @@ public class UserDaoImpl implements UserDao {
 			try (ResultSet resultSet = statement.executeQuery()) {
 				while (resultSet.next()) {
 					User userBuild = new User.UserBuilder().setId(resultSet.getLong(USERS_ID))
-							.setName(resultSet.getString(USERS_NAME)).setSurname(resultSet.getString(USERS_SURNAME))
 							.setEmail(resultSet.getString(USERS_EMAIL))
 							.setVerificatedEmail(resultSet.getBoolean(USERS_CONFIRMATION_EMAIL))
 							.setLogin(resultSet.getString(USERS_LOGIN))
@@ -295,41 +290,6 @@ public class UserDaoImpl implements UserDao {
 			throw new DaoException(e);
 		}
 		return user;
-	}
-
-	/** The Constant QUERY_CHANGE_PERSON_INFOMATION. */
-	private static final String QUERY_CHANGE_PERSON_INFOMATION = """
-			UPDATE users
-			SET users.name = ?,
-			users.surname = ?,
-			users.email = ?,
-			users.confirmation_email = ?
-			WHERE users.id = ?;
-			""";
-
-	/**
-	 * Change person information (name, surname, email).
-	 *
-	 * @param user the user
-	 * @return true, if successful
-	 * @throws DaoException the dao exception
-	 */
-	@Override
-	public boolean changePersonInformation(User user) throws DaoException {
-		boolean result = false;
-		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
-				PreparedStatement statement = connection.prepareStatement(QUERY_CHANGE_PERSON_INFOMATION)) {
-			statement.setString(1, user.getName());
-			statement.setString(2, user.getSurname());
-			statement.setString(3, user.getEmail());
-			statement.setBoolean(4, user.isVerificatedEmail());
-			statement.setLong(5, user.getId());
-			result = statement.executeUpdate() > 0;
-		} catch (SQLException e) {
-			log.log(Level.ERROR, e.getMessage());
-			throw new DaoException(e);
-		}
-		return result;
 	}
 
 	/** The Constant QUERY_CHANGE_LOGIN. */

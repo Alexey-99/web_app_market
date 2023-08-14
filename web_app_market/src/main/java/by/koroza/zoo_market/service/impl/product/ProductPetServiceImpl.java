@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -83,32 +84,34 @@ public class ProductPetServiceImpl implements ProductPetService {
 	 * @throws ServiceException the service exception
 	 */
 	@Override
-	public List<Pet> getProductsPetsByFilter(FilterPet filter) throws ServiceException {
-		List<Pet> listPetsWithFilter = new ArrayList<>();
+	public List<Entry<Pet, Long>> getProductsPetsByFilter(FilterPet filter) throws ServiceException {
+		List<Entry<Pet, Long>> productsPetsByFilter = new ArrayList<>();
 		try {
-			listPetsWithFilter = ProductPetDaoImpl.getInstance().getAllHavingProductsPets();
+			productsPetsByFilter = ProductPetDaoImpl.getInstance().getAllProductsPetsAndNumberOfUnits().entrySet()
+					.stream().toList();
 			if (filter.isOnlyProductsWithDiscount()) {
-				listPetsWithFilter = listPetsWithFilter.stream().filter(product -> product.getDiscount() > 0).toList();
+				productsPetsByFilter = productsPetsByFilter.stream().filter(entry -> entry.getKey().getDiscount() > 0)
+						.toList();
 			} else if (filter.getMaxDiscount() != 0 || filter.getMinDiscount() != 0) {
-				listPetsWithFilter = listPetsWithFilter.stream()
-						.filter(product -> product.getDiscount() >= filter.getMinDiscount()
-								&& product.getDiscount() <= filter.getMaxDiscount())
+				productsPetsByFilter = productsPetsByFilter.stream()
+						.filter(entry -> entry.getKey().getDiscount() >= filter.getMinDiscount()
+								&& entry.getKey().getDiscount() <= filter.getMaxDiscount())
 						.toList();
 			}
 			if (filter.getMaxPrice() != 0 || filter.getMinPrice() != 0) {
-				listPetsWithFilter = listPetsWithFilter.stream()
-						.filter(product -> product.getPrice() >= filter.getMinPrice()
-								&& product.getPrice() <= filter.getMaxPrice())
+				productsPetsByFilter = productsPetsByFilter.stream()
+						.filter(entry -> entry.getKey().getPrice() >= filter.getMinPrice()
+								&& entry.getKey().getPrice() <= filter.getMaxPrice())
 						.toList();
 			}
-			listPetsWithFilter = selectProductsPetsByBirthDate(filter, listPetsWithFilter);
-			listPetsWithFilter = selectProductsPetsBySpecie(filter, listPetsWithFilter);
-			listPetsWithFilter = selectProductsPetsByBreed(filter, listPetsWithFilter);
+			productsPetsByFilter = selectProductsPetsByBirthDate(filter, productsPetsByFilter);
+			productsPetsByFilter = selectProductsPetsBySpecie(filter, productsPetsByFilter);
+			productsPetsByFilter = selectProductsPetsByBreed(filter, productsPetsByFilter);
 		} catch (DaoException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
 		}
-		return listPetsWithFilter;
+		return productsPetsByFilter;
 	}
 
 	/**
@@ -234,69 +237,90 @@ public class ProductPetServiceImpl implements ProductPetService {
 	}
 
 	/**
-	 * Select products pets by birth date.
+	 * Transfer pet product from market to order.
 	 *
-	 * @param filter             the filter
-	 * @param listPetsWithFilter the list pets with filter
-	 * @return the list
+	 * @param productId the product id
+	 * @param orderId   the order id
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
 	 */
-	private List<Pet> selectProductsPetsByBirthDate(FilterPet filter, List<Pet> listPetsWithFilter) {
-		if ((filter.getMinNumberMonth() != 0 || filter.getMinNumberYear() != 0)
-				|| (filter.getMaxNumberMonth() != 0 || filter.getMaxNumberYear() != 0)) {
-			listPetsWithFilter = listPetsWithFilter.stream()
-					.filter(pet -> pet.getBirthDate()
-							.isAfter(LocalDate.now().minusYears(filter.getMaxNumberYear())
-									.minusMonths(filter.getMaxNumberMonth()))
-							&& pet.getBirthDate().isBefore(LocalDate.now().minusYears(filter.getMinNumberYear())
-									.minusMonths(filter.getMinNumberMonth())))
-					.toList();
+	@Override
+	public boolean transferPetProductFromMarketToOrder(long productId, long orderId) throws ServiceException {
+		try {
+			return ProductPetDaoImpl.getInstance().transferPetProductFromMarketToOrder(productId, orderId);
+		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
 		}
-		return listPetsWithFilter;
 	}
 
 	/**
-	 * Select products pets by species.
+	 * Select products pets by birth date.
 	 *
-	 * @param filter             the filter
-	 * @param listPetsWithFilter the list pets with filter
+	 * @param filter               the filter
+	 * @param productsPetsByFilter the products pets by filter
 	 * @return the list
 	 */
-	private List<Pet> selectProductsPetsBySpecie(FilterPet filter, List<Pet> listPetsWithFilter) {
+	private List<Entry<Pet, Long>> selectProductsPetsByBirthDate(FilterPet filter,
+			List<Entry<Pet, Long>> productsPetsByFilter) {
+		if ((filter.getMinNumberMonth() != 0 || filter.getMinNumberYear() != 0)
+				|| (filter.getMaxNumberMonth() != 0 || filter.getMaxNumberYear() != 0)) {
+			productsPetsByFilter = productsPetsByFilter.stream()
+					.filter(entry -> entry.getKey().getBirthDate()
+							.isAfter(LocalDate.now().minusYears(filter.getMaxNumberYear())
+									.minusMonths(filter.getMaxNumberMonth()))
+							&& entry.getKey().getBirthDate().isBefore(LocalDate.now()
+									.minusYears(filter.getMinNumberYear()).minusMonths(filter.getMinNumberMonth())))
+					.toList();
+		}
+		return productsPetsByFilter;
+	}
+
+	/**
+	 * Select products pets by specie.
+	 *
+	 * @param filter               the filter
+	 * @param productsPetsByFilter the products pets by filter
+	 * @return the list
+	 */
+	private List<Entry<Pet, Long>> selectProductsPetsBySpecie(FilterPet filter,
+			List<Entry<Pet, Long>> productsPetsByFilter) {
 		String[] typePets = filter.getChoosedTypesPets();
 		if (typePets != null) {
-			listPetsWithFilter = listPetsWithFilter.stream().filter(pet -> {
+			productsPetsByFilter = productsPetsByFilter.stream().filter(entry -> {
 				boolean flag = false;
 				for (String specie : typePets) {
-					if (pet.getSpecie().equalsIgnoreCase(specie)) {
+					if (entry.getKey().getSpecie().equalsIgnoreCase(specie)) {
 						flag = true;
 					}
 				}
 				return flag;
 			}).toList();
 		}
-		return listPetsWithFilter;
+		return productsPetsByFilter;
 	}
 
 	/**
 	 * Select products pets by breed.
 	 *
-	 * @param filter             the filter
-	 * @param listPetsWithFilter the list pets with filter
+	 * @param filter               the filter
+	 * @param productsPetsByFilter the products pets by filter
 	 * @return the list
 	 */
-	private List<Pet> selectProductsPetsByBreed(FilterPet filter, List<Pet> listPetsWithFilter) {
+	private List<Entry<Pet, Long>> selectProductsPetsByBreed(FilterPet filter,
+			List<Entry<Pet, Long>> productsPetsByFilter) {
 		String[] breedPets = filter.getChoosedBreedPets();
 		if (breedPets != null) {
-			listPetsWithFilter = listPetsWithFilter.stream().filter(pet -> {
+			productsPetsByFilter = productsPetsByFilter.stream().filter(entry -> {
 				boolean flag = false;
 				for (String breed : breedPets) {
-					if (pet.getBreed().equalsIgnoreCase(breed)) {
+					if (entry.getKey().getBreed().equalsIgnoreCase(breed)) {
 						flag = true;
 					}
 				}
 				return flag;
 			}).toList();
 		}
-		return listPetsWithFilter;
+		return productsPetsByFilter;
 	}
 }

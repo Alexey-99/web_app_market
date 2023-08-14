@@ -102,4 +102,14 @@ public interface ProductPetDao {
 	 * @throws DaoException the dao exception
 	 */
 	public String getProductImagePathById(long id) throws DaoException;
+
+	/**
+	 * Transfer pet product from market to order.
+	 *
+	 * @param productId the product id
+	 * @param orderId the order id
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
+	public boolean transferPetProductFromMarketToOrder(long productId, long orderId) throws DaoException;
 }

@@ -7,8 +7,6 @@ public class User {
 	private static final int QUANTITY_FOR_INCREASE_PERSONAL_PERSONAL_DISCOUNT = 50;
 	private static final double PERCENT_FOR_EACH_QUANTITY_OF_PRODUCTS = 1;
 	private long id;
-	private String name;
-	private String surname;
 	private String login;
 	private String password;
 	private String email;
@@ -17,8 +15,6 @@ public class User {
 	private double discount;
 
 	public User() {
-		this.name = null;
-		this.surname = null;
 		this.login = null;
 		this.password = null;
 		this.email = null;
@@ -33,22 +29,6 @@ public class User {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
 	}
 
 	public String getLogin() {
@@ -116,8 +96,6 @@ public class User {
 		final int PRIME = 31;
 		int result = 1;
 		result = result * PRIME + Long.hashCode(this.id);
-		result = result * PRIME + (this.name != null ? this.name.hashCode() : 1);
-		result = result * PRIME + (this.surname != null ? this.surname.hashCode() : 1);
 		result = result * PRIME + (this.login != null ? this.login.hashCode() : 1);
 		result = result * PRIME + (this.password != null ? this.password.hashCode() : 1);
 		result = result * PRIME + (this.email != null ? this.email.hashCode() : 1);
@@ -139,20 +117,6 @@ public class User {
 		}
 		User otherReservedUser = (User) object;
 		if (this.id != otherReservedUser.id) {
-			return false;
-		}
-		if (this.name == null) {
-			if (otherReservedUser.name != null) {
-				return false;
-			}
-		} else if (!this.name.equals(otherReservedUser.name)) {
-			return false;
-		}
-		if (this.surname == null) {
-			if (otherReservedUser.surname != null) {
-				return false;
-			}
-		} else if (!this.surname.equals(otherReservedUser.surname)) {
 			return false;
 		}
 		if (this.login == null) {
@@ -192,7 +156,21 @@ public class User {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(this.surname).append(" ").append(this.name);
+		builder.append("User [id=");
+		builder.append(id);
+		builder.append(", login=");
+		builder.append(login);
+		builder.append(", password=");
+		builder.append(password);
+		builder.append(", email=");
+		builder.append(email);
+		builder.append(", isVerificatedEmail=");
+		builder.append(isVerificatedEmail);
+		builder.append(", role=");
+		builder.append(role);
+		builder.append(", discount=");
+		builder.append(discount);
+		builder.append("]");
 		return builder.toString();
 	}
 
@@ -210,16 +188,6 @@ public class User {
 
 		public UserBuilder setRole(UserRole role) {
 			this.user.setRole(role);
-			return this;
-		}
-
-		public UserBuilder setName(String name) {
-			this.user.setName(name);
-			return this;
-		}
-
-		public UserBuilder setSurname(String surname) {
-			this.user.setSurname(surname);
 			return this;
 		}
 

@@ -1318,7 +1318,7 @@
 	<script src="js/products_pages.js"></script>
 
 	<script>
-		showToast(${list_products_pets.stream().map(pet -> pet.getId()).toList()});
+		showToast(${list_products_pets.stream().map(entry -> entry.getKey().getId()).toList()});
     </script>
 </body>
 </html>

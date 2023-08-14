@@ -2,6 +2,7 @@ package by.koroza.zoo_market.service;
 
 import java.util.Optional;
 
+import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 
@@ -78,15 +79,6 @@ public interface UserService {
 	public Optional<User> getUserByLogin(String login, String password) throws ServiceException;
 
 	/**
-	 * Change person information (name, surname, email).
-	 *
-	 * @param user the user
-	 * @return true, if successful
-	 * @throws ServiceException the service exception
-	 */
-	public boolean changePersonInformation(User user) throws ServiceException;
-
-	/**
 	 * Change login.
 	 *
 	 * @param userId the user id
@@ -133,4 +125,13 @@ public interface UserService {
 	 * @throws ServiceException the service exception
 	 */
 	public boolean changePersonPercentDiscount(User user) throws ServiceException;
+
+	/**
+	 * Get the open order by user id.
+	 *
+	 * @param userId the user id
+	 * @return the open order by user id
+	 * @throws ServiceException the service exception
+	 */
+	public Order getOpenOrderByUserId(long userId) throws ServiceException;
 }
