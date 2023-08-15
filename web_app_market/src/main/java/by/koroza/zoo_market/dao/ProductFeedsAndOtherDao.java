@@ -113,4 +113,14 @@ public interface ProductFeedsAndOtherDao {
 	 * @throws DaoException the dao exception
 	 */
 	public boolean transferFeedsAndOtherProductFromMarketToOrder(long productId, long orderId) throws DaoException;
+
+	/**
+	 * Transfer feeds and other product from order to market.
+	 *
+	 * @param productId the product id
+	 * @param orderId   the order id
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
+	public boolean transferFeedsAndOtherProductFromOrderToMarket(long productId, long orderId) throws DaoException;
 }

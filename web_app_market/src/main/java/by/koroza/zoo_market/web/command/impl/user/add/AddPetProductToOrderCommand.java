@@ -19,7 +19,6 @@ import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.order.OrderServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
-import by.koroza.zoo_market.service.impl.user.UserServiceImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.router.Router;
@@ -41,7 +40,7 @@ public class AddPetProductToOrderCommand implements Command {
 					long productId = Long.parseLong(productIdEntered);
 					Pet pet = ProductPetServiceImpl.getInstance().getProductPetById(productId);
 					if (pet != null) {
-						Order order = UserServiceImpl.getInstance().getOpenOrderByUserId(user.getId());
+						Order order = OrderServiceImpl.getInstance().getOpenOrderByUserId(user.getId());
 						if (ProductPetServiceImpl.getInstance().transferPetProductFromMarketToOrder(productId,
 								order.getId())) {
 							order.setTotalPaymentAmount(order.getTotalPaymentAmount() + pet.getPrice());

@@ -48,7 +48,9 @@ import by.koroza.zoo_market.web.command.impl.user.change.ChangePasswordCommand;
 import by.koroza.zoo_market.web.command.impl.user.change.ChangeEmailPersonAccountCommand;
 import by.koroza.zoo_market.web.command.impl.user.confirmation.ConfirmationEmailCommand;
 import by.koroza.zoo_market.web.command.impl.user.confirmation.SendOneMoreTimeConfirmationEmailCodeCommand;
-import by.koroza.zoo_market.web.command.impl.user.create.CreateOrderCommand;
+import by.koroza.zoo_market.web.command.impl.user.create.BankDataProcessingCommand;
+import by.koroza.zoo_market.web.command.impl.user.delete.DeleteFeedAndOtherProductFromOrderCommand;
+import by.koroza.zoo_market.web.command.impl.user.delete.DeletePetProductFromOrderCommand;
 import by.koroza.zoo_market.web.command.impl.user.payment.OrderPaymentCommand;
 import by.koroza.zoo_market.web.command.impl.user.registration.RegistrationUserCommand;
 import by.koroza.zoo_market.web.command.impl.user.registration.verification.VerificationRegistrationInformationCommand;
@@ -86,6 +88,9 @@ public enum CommandType {
 	SHOW_HOME_PAGE(new ShowHomePageCommand()),
 //	basket page
 	SHOW_BACKET_PAGE(new ShowBacketPageCommand()),
+//	basket page.delete product from order 
+	DELETE_PET_PRODUCT_FROM_ORDER(new DeletePetProductFromOrderCommand()),
+	DELETE_FEEDS_AND_OTHER_PRODUCT_FROM_ORDER(new DeleteFeedAndOtherProductFromOrderCommand()),
 //	registration
 	REGISTRATION_USER(new RegistrationUserCommand()),
 	VERIFICATION_REGISTRATION_INFORMATION(new VerificationRegistrationInformationCommand()),
@@ -103,7 +108,7 @@ public enum CommandType {
 	SHOW_CHANGE_EMAIL_FORM(new ShowChangeUserEmailFormComamnd()),
 //	ORDER
 //	create_order
-	CREATE_ORDER(new CreateOrderCommand()),
+	CREATE_ORDER(new BankDataProcessingCommand()),
 //	order_payment
 	ORDER_PAYMENT(new OrderPaymentCommand()),
 //	change locale 

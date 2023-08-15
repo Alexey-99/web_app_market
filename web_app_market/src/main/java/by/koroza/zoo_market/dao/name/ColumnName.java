@@ -81,6 +81,11 @@ public final class ColumnName {
 	public static final String IDENTIFIER_COUNT_ROWS_OF_FEEDS_AND_OTHER_IMAGE_PATH = IDENTIFIER_COUNT_ROWS + "("
 			+ FEEDS_AND_OTHER_IMAGE_PATH + ")";
 	public static final String IDENTIFIER_COUNT_ROWS_OF_ORDERS_ID = IDENTIFIER_COUNT_ROWS + "(" + ORDERS_ID + ")";
+	public static final String IDENTIFIER_COUNT_ROWS_OF_ORDER_PRODUCTS_ORDER_ID = IDENTIFIER_COUNT_ROWS + "("
+			+ ORDER_PRODUCTS_ORDER_ID + ")";
+	public static final String IDENTIFIER_COUNT_ROWS_OF_PETS_ID = IDENTIFIER_COUNT_ROWS + "(" + PETS_ID + ")";
+	public static final String IDENTIFIER_COUNT_ROWS_OF_FEEDS_AND_OTHER_ID = IDENTIFIER_COUNT_ROWS + "("
+			+ FEEDS_AND_OTHER_ID + ")";
 
 	private ColumnName() {
 	}

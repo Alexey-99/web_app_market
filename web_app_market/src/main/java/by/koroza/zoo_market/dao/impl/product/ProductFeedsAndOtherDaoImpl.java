@@ -9,9 +9,12 @@ import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_PET_TYPE;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_PRICE;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_TYPE;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_LAST_INSERT_ID;
+import static by.koroza.zoo_market.dao.name.ColumnName.PETS_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_IMAGE_PATH;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_FEEDS_AND_OTHER_IMAGE_PATH;
+import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_ORDER_PRODUCTS_ORDER_ID;
+import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_FEEDS_AND_OTHER_ID;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -547,6 +550,108 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 					result = statement.executeUpdate() > 0;
 				}
 			}
+		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new DaoException(e);
+		}
+		return result;
+	}
+
+	/** The Constant QUERY_SELECT_IS_HAVE_PRODUCT_FEEDS_AND_OTHER_IN_ORDER_BY_ID. */
+	private static final String QUERY_SELECT_IS_HAVE_PRODUCT_FEEDS_AND_OTHER_IN_ORDER_BY_ID = """
+			SELECT COUNT(order_products.orders_id)
+			FROM order_products
+			WHERE order_products.orders_id = ?
+			AND order_products.product_types_id = ?
+			AND order_products.feeds_and_other_id = ?;
+			""";
+
+	/**
+	 * The Constant QUERY_DELETE_PRODUCT_FEEDS_AND_OTHER_BY_ID_FROM_ORDER_PRODUCTS.
+	 */
+	private static final String QUERY_DELETE_PRODUCT_FEEDS_AND_OTHER_BY_ID_FROM_ORDER_PRODUCTS = """
+			DELETE
+			FROM order_products
+			WHERE order_products.orders_id = ?
+			AND order_products.product_types_id = ?
+			AND order_products.feeds_and_other_id = ?
+			LIMIT 1;
+			""";
+
+	/**
+	 * The Constant QUERY_SELECT_IS_HAVE_PRODUCT_FEEDS_AND_OTHER_IN_MARKET_BY_ID.
+	 */
+	private static final String QUERY_SELECT_IS_HAVE_PRODUCT_FEEDS_AND_OTHER_IN_MARKET_BY_ID = """
+			SELECT COUNT(feeds_and_other.id)
+			FROM feeds_and_other
+			WHERE feeds_and_other.id = ?;
+			""";
+
+	/**
+	 * Transfer feeds and other product from order to market.
+	 *
+	 * @param productId the product id
+	 * @param orderId   the order id
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
+	@Override
+	public boolean transferFeedsAndOtherProductFromOrderToMarket(long productId, long orderId) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
+			boolean isDeleteProiductInOrder = false;
+			boolean isHaveProductInOrderByID = false;
+			try (PreparedStatement statement = connection
+					.prepareStatement(QUERY_SELECT_IS_HAVE_PRODUCT_FEEDS_AND_OTHER_IN_ORDER_BY_ID)) {
+				statement.setLong(1, orderId);
+				statement.setInt(2, ProductType.FEEDS_AND_OTHER.getId());
+				statement.setLong(3, productId);
+				try (ResultSet resultSet = statement.executeQuery()) {
+					while (resultSet.next()) {
+						isHaveProductInOrderByID = resultSet
+								.getLong(IDENTIFIER_COUNT_ROWS_OF_ORDER_PRODUCTS_ORDER_ID) > 0;
+					}
+				}
+			}
+			if (isHaveProductInOrderByID) {
+				try (PreparedStatement statement = connection
+						.prepareStatement(QUERY_DELETE_PRODUCT_FEEDS_AND_OTHER_BY_ID_FROM_ORDER_PRODUCTS)) {
+					statement.setLong(1, orderId);
+					statement.setInt(2, ProductType.FEEDS_AND_OTHER.getId());
+					statement.setLong(3, productId);
+					isDeleteProiductInOrder = statement.executeUpdate() > 0;
+				}
+			}
+			boolean isChangedNumberOfUnitsProductInMarket = false;
+			boolean isHaveProductInMarketByID = false;
+			try (PreparedStatement statement = connection
+					.prepareStatement(QUERY_SELECT_IS_HAVE_PRODUCT_FEEDS_AND_OTHER_IN_MARKET_BY_ID)) {
+				statement.setLong(1, productId);
+				try (ResultSet resultSet = statement.executeQuery()) {
+					while (resultSet.next()) {
+						isHaveProductInMarketByID = resultSet.getLong(IDENTIFIER_COUNT_ROWS_OF_FEEDS_AND_OTHER_ID) > 0;
+					}
+				}
+			}
+			if (isHaveProductInMarketByID) {
+				long numberOfUnitsProduct = 0;
+				try (PreparedStatement statement = connection
+						.prepareStatement(QUERY_SELECT_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
+					statement.setLong(1, productId);
+					try (ResultSet resultSet = statement.executeQuery()) {
+						while (resultSet.next()) {
+							numberOfUnitsProduct = resultSet.getLong(PETS_NUMBER_OF_UNITS_PRODUCT);
+						}
+					}
+				}
+				try (PreparedStatement statement = connection
+						.prepareStatement(QUERY_CHANGE_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
+					statement.setLong(1, numberOfUnitsProduct + 1);
+					statement.setLong(2, productId);
+					isChangedNumberOfUnitsProductInMarket = statement.executeUpdate() > 0;
+				}
+			}
+			result = isDeleteProiductInOrder && isChangedNumberOfUnitsProductInMarket;
 		} catch (SQLException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new DaoException(e);

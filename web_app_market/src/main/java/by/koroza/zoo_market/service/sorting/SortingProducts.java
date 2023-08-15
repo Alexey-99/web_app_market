@@ -11,6 +11,8 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
+import by.koroza.zoo_market.model.entity.market.product.Pet;
 import by.koroza.zoo_market.model.entity.market.product.abstraction.AbstractProduct;
 import by.koroza.zoo_market.service.exception.SortingException;
 import by.koroza.zoo_market.service.sorting.comparator.list.product.SortComparatorListProduct;
@@ -65,16 +67,16 @@ public class SortingProducts {
 	/**
 	 * Sort products map.
 	 *
-	 * @param products   the products
+	 * @param list       the products
 	 * @param comparator the comparator
 	 * @return the list<? extends abstract product, long>
 	 * @throws SortingException the sorting exception
 	 */
-	public List<? extends AbstractProduct> sortProductsList(List<? extends AbstractProduct> products,
-			SortComparatorListProduct comparator) throws SortingException {
-		if (products != null) {
+	public List<Entry<Pet, Long>> sortProductsPets(List<Entry<Pet, Long>> list, SortComparatorListProduct comparator)
+			throws SortingException {
+		if (list != null) {
 			if (comparator != null) {
-				products.sort(comparator);
+				list.sort(comparator);
 			} else {
 				log.log(Level.ERROR, "comparator is null");
 				throw new SortingException("comparator is null");
@@ -83,6 +85,30 @@ public class SortingProducts {
 			log.log(Level.ERROR, "list is null");
 			throw new SortingException("list is null");
 		}
-		return new LinkedList<>(products);
+		return new LinkedList<>(list);
+	}
+
+	/**
+	 * Sort products map.
+	 *
+	 * @param list       the products
+	 * @param comparator the comparator
+	 * @return the list<? extends abstract product, long>
+	 * @throws SortingException the sorting exception
+	 */
+	public List<Entry<FeedAndOther, Long>> sortProductsFeedsAndOther(List<Entry<FeedAndOther, Long>> list,
+			SortComparatorListProduct comparator) throws SortingException {
+		if (list != null) {
+			if (comparator != null) {
+				list.sort(comparator);
+			} else {
+				log.log(Level.ERROR, "comparator is null");
+				throw new SortingException("comparator is null");
+			}
+		} else {
+			log.log(Level.ERROR, "list is null");
+			throw new SortingException("list is null");
+		}
+		return new LinkedList<>(list);
 	}
 }

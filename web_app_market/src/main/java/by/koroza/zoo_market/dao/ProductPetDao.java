@@ -107,9 +107,19 @@ public interface ProductPetDao {
 	 * Transfer pet product from market to order.
 	 *
 	 * @param productId the product id
-	 * @param orderId the order id
+	 * @param orderId   the order id
 	 * @return true, if successful
 	 * @throws DaoException the dao exception
 	 */
 	public boolean transferPetProductFromMarketToOrder(long productId, long orderId) throws DaoException;
+
+	/**
+	 * Transfer pet product from order to market.
+	 *
+	 * @param productId the product id
+	 * @param orderId   the order id
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
+	public boolean transferPetProductFromOrderToMarket(long productId, long orderId) throws DaoException;
 }

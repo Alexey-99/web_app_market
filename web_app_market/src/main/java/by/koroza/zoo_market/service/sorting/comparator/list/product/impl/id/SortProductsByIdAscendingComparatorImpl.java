@@ -1,5 +1,7 @@
 package by.koroza.zoo_market.service.sorting.comparator.list.product.impl.id;
 
+import java.util.Map.Entry;
+
 import by.koroza.zoo_market.model.entity.market.product.abstraction.AbstractProduct;
 import by.koroza.zoo_market.service.sorting.comparator.list.product.SortComparatorListProduct;
 
@@ -16,7 +18,7 @@ public class SortProductsByIdAscendingComparatorImpl implements SortComparatorLi
 	 * @return the int
 	 */
 	@Override
-	public int compare(AbstractProduct o1, AbstractProduct o2) {
-		return (int) (o1.getId() - o2.getId());
+	public int compare(Entry<? extends AbstractProduct, Long> o1, Entry<? extends AbstractProduct, Long> o2) {
+		return (int) (o1.getKey().getId() - o2.getKey().getId());
 	}
 }

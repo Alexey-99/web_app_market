@@ -1,10 +1,6 @@
 package by.koroza.zoo_market.web.command.impl.user.create;
 
-import static by.koroza.zoo_market.model.entity.status.OrderStatus.OPEN;
-import static by.koroza.zoo_market.model.entity.status.OrderStatus.PROCESSING;
 import static by.koroza.zoo_market.model.entity.status.UserRole.USER;
-import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_IS_HAVE_ORDER_PRODUCTS_FEED_AND_OTHER;
-import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_IS_HAVE_ORDER_PRODUCTS_PETS;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_ORDER;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_ORDER_PAYMENT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_SESSION_LOCALE;
@@ -40,6 +36,7 @@ import static by.koroza.zoo_market.web.command.name.path.PagePathName.ORDER_PREV
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -54,18 +51,17 @@ import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.exception.SortingException;
 import by.koroza.zoo_market.service.exception.ValidationException;
 import by.koroza.zoo_market.service.impl.order.OrderServiceImpl;
-import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
-import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
 import by.koroza.zoo_market.service.sorting.SortingProducts;
 import by.koroza.zoo_market.service.sorting.comparator.list.product.impl.id.SortProductsByIdAscendingComparatorImpl;
 import by.koroza.zoo_market.service.validation.impl.bank.BankCardValidationImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.router.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-public class CreateOrderCommand implements Command {
+public class BankDataProcessingCommand implements Command {
 	private static Logger log = LogManager.getLogger();
 
 	@Override
@@ -76,38 +72,25 @@ public class CreateOrderCommand implements Command {
 		session.removeAttribute(ATTRIBUTE_ORDER_PAYMENT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		try {
 			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() >= USER.getIdRole()) {
-				Order order = (Order) session.getAttribute(ATTRIBUTE_ORDER);
+				Order order = OrderServiceImpl.getInstance().getOpenOrderByUserId(user.getId());
 				if (order != null && (order.getProductsPets().size() + order.getOtherProducts().size()) > 0) {
-					order.setStatus(PROCESSING);
 					Map<String, String> mapInputExceptions = new HashMap<>();
 					String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
 					BankCard bankCard = createBankCardFromInputParameters(request, mapInputExceptions, sessionLocale);
-					@SuppressWarnings("unchecked")
-					List<Pet> sortedPets = (List<Pet>) SortingProducts.getInstance()
-							.sortProductsList(order.getProductsPets(), new SortProductsByIdAscendingComparatorImpl());
+					List<Entry<Pet, Long>> sortedPets = SortingProducts.getInstance()
+							.sortProductsPets(order.getProductsPets(), new SortProductsByIdAscendingComparatorImpl());
 					order.setProductsPets(sortedPets);
-					Map<Integer, Boolean> haveProductPets = ProductPetServiceImpl.getInstance()
-							.changeNumberOfUnitsProductsMinus(order.getProductsPets());
-					@SuppressWarnings("unchecked")
-					List<FeedAndOther> sortedProductFeedAndOther = (List<FeedAndOther>) SortingProducts.getInstance()
-							.sortProductsList(order.getOtherProducts(), new SortProductsByIdAscendingComparatorImpl());
+					List<Entry<FeedAndOther, Long>> sortedProductFeedAndOther = SortingProducts.getInstance()
+							.sortProductsFeedsAndOther(order.getOtherProducts(),
+									new SortProductsByIdAscendingComparatorImpl());
 					order.setOtherProducts(sortedProductFeedAndOther);
-					Map<Integer, Boolean> haveProductFeedAndOther = ProductFeedsAndOtherServiceImpl.getInstance()
-							.changeNumberOfUnitsProductsMinus(order.getOtherProducts());
 					if ((bankCard != null && mapInputExceptions.isEmpty())
 							&& (validationBankCard(mapInputExceptions, sessionLocale, bankCard))
-							&& (validSumBankCard(mapInputExceptions, sessionLocale, bankCard, order, haveProductPets,
-									haveProductFeedAndOther, user))) {
+							&& (validSumBankCard(mapInputExceptions, sessionLocale, bankCard, order,
+									user.getDiscount()))) {
 						session.setAttribute(ATTRIBUTE_ORDER, order);
-						session.setAttribute(ATTRIBUTE_IS_HAVE_ORDER_PRODUCTS_PETS, haveProductPets);
-						session.setAttribute(ATTRIBUTE_IS_HAVE_ORDER_PRODUCTS_FEED_AND_OTHER, haveProductFeedAndOther);
 						router = new Router(ORDER_PREVIEW_PAGE_PATH);
 					} else {
-						ProductPetServiceImpl.getInstance().changeNumberOfUnitsProductsPlus(order.getProductsPets(),
-								haveProductPets);
-						ProductFeedsAndOtherServiceImpl.getInstance()
-								.changeNumberOfUnitsProductsPlus(order.getOtherProducts(), haveProductFeedAndOther);
-						order.setStatus(OPEN);
 						session.setAttribute(ATTRIBUTE_ORDER_PAYMENT_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
 								mapInputExceptions);
 						router = new Router(ORDER_PAYMENT_FORM_VALIDATED_PAGE_PATH);
@@ -199,11 +182,10 @@ public class CreateOrderCommand implements Command {
 	}
 
 	private boolean validSumBankCard(Map<String, String> mapInputExceptions, String sessionLocale, BankCard bankCard,
-			Order order, Map<Integer, Boolean> haveProductPets, Map<Integer, Boolean> haveProductFeedAndOther,
-			User user) throws ValidationException {
+			Order order, double userPersonalDiscountPercent) throws ValidationException {
 		boolean result = false;
 		double totalPaymentWithDiscountAmount = OrderServiceImpl.getInstance().calcTotalPaymentWithDiscountAmount(order,
-				haveProductPets, haveProductFeedAndOther, user.getDiscount());
+				userPersonalDiscountPercent);
 		if (!BankCardValidationImpl.getInstance().validSum(bankCard, totalPaymentWithDiscountAmount)) {
 			if (sessionLocale.equals(RUSSIAN)) {
 				mapInputExceptions.put(TYPY_EXCEPTION_SUM, RU_MESSAGE_TYPY_EXCEPTION_SUM);

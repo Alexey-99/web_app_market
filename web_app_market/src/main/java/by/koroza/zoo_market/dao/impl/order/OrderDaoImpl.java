@@ -13,11 +13,18 @@ import static by.koroza.zoo_market.dao.name.ColumnName.PETS_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_SPECIE;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_BREED;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_BIRTH_DATE;
+import static by.koroza.zoo_market.dao.name.ColumnName.PETS_IMAGE_PATH;
+import static by.koroza.zoo_market.dao.name.ColumnName.PETS_PRICE;
+import static by.koroza.zoo_market.dao.name.ColumnName.PETS_DISCOUNT;
+import static by.koroza.zoo_market.dao.name.ColumnName.PETS_NUMBER_OF_UNITS_PRODUCT;
+import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_IMAGE_PATH;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_TYPE;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_BRAND;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_DESCRIPTION;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_PET_TYPE;
+import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_PRICE;
+import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_DISCOUNT;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_LAST_INSERT_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_ORDERS_ID;
 
@@ -27,6 +34,8 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -75,8 +84,10 @@ public class OrderDaoImpl implements OrderDao {
 
 	/** The Constant QUERY_SELECT_ORDERS_BY_USER_ID. */
 	private static final String QUERY_SELECT_ORDERS_BY_USER_ID = """
-			SELECT orders.id, orders.users_id, orders.total_payment_amount, orders.total_products_discount_amount,
-			orders.total_person_discount_amount, orders.total_discount_amount, orders.total_payment_with_discount_amount, orders.date, orders.order_statuses_id
+			SELECT orders.id, orders.users_id, orders.total_payment_amount,
+			orders.total_products_discount_amount, orders.total_person_discount_amount,
+			orders.total_discount_amount, orders.total_payment_with_discount_amount, orders.date,
+			orders.order_statuses_id
 			FROM orders INNER JOIN order_statuses
 			ON orders.order_statuses_id = order_statuses.id
 			WHERE orders.users_id = ?;
@@ -84,7 +95,8 @@ public class OrderDaoImpl implements OrderDao {
 
 	/** The Constant QUERY_SELECT_ORDER_PRODUCTS_PETS_BY_ORDERS_ID. */
 	private static final String QUERY_SELECT_ORDER_PRODUCTS_PETS_BY_ORDERS_ID = """
-			SELECT order_products.orders_id, pets.id, pets.specie, pets.breed, pets.birth_date
+			SELECT order_products.orders_id, pets.image_path, pets.id, pets.specie,
+			pets.breed, pets.birth_date, pets.price, pets.discount
 			FROM order_products INNER JOIN pets
 			ON order_products.pets_id = pets.id
 			WHERE order_products.orders_id = ? AND order_products.product_types_id = ?;
@@ -92,7 +104,9 @@ public class OrderDaoImpl implements OrderDao {
 
 	/** The Constant QUERY_SELECT_ORDER_PRODUCTS_OTHER_PRODUCTS_BY_ORDERS_ID. */
 	private static final String QUERY_SELECT_ORDER_PRODUCTS_OTHER_PRODUCTS_BY_ORDERS_ID = """
-			SELECT order_products.orders_id, feeds_and_other.id, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description, feeds_and_other.pet_type
+			SELECT order_products.orders_id, feeds_and_other.image_path, feeds_and_other.id,
+			feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
+			feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount
 			FROM order_products INNER JOIN feeds_and_other
 			ON order_products.feeds_and_other_id = feeds_and_other.id
 			WHERE order_products.orders_id = ? AND order_products.product_types_id = ?;
@@ -282,28 +296,51 @@ public class OrderDaoImpl implements OrderDao {
 					.prepareStatement(QUERY_SELECT_ORDER_PRODUCTS_PETS_BY_ORDERS_ID)) {
 				statement.setLong(1, orderResult.getId());
 				statement.setLong(2, ProductType.PETS.getId());
+				Map<Pet, Long> productsMap = new HashMap<>();
 				try (ResultSet resultSet = statement.executeQuery()) {
 					while (resultSet.next()) {
-						orderResult.getProductsPets().add(new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
-								.setSpecie(resultSet.getString(PETS_SPECIE)).setBreed(resultSet.getString(PETS_BREED))
-								.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toLocalDate()).build());
+						Pet pet = new Pet.PetBuilder().setImagePath(resultSet.getString(PETS_IMAGE_PATH))
+								.setId(resultSet.getLong(PETS_ID)).setSpecie(resultSet.getString(PETS_SPECIE))
+								.setBreed(resultSet.getString(PETS_BREED))
+								.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toLocalDate())
+								.setPrice(resultSet.getDouble(PETS_PRICE))
+								.setDiscount(resultSet.getDouble(PETS_DISCOUNT)).build();
+						pet.setTotalPrice(pet.getPrice() - (pet.getPrice() * pet.getDiscount() / 100));
+						if (productsMap.containsKey(pet)) {
+							productsMap.put(pet, productsMap.get(pet) + 1);
+						} else {
+							productsMap.put(pet, 1L);
+						}
 					}
 				}
+				orderResult.setProductsPets(productsMap.entrySet().stream().toList());
 			}
 			try (PreparedStatement statement = connection
 					.prepareStatement(QUERY_SELECT_ORDER_PRODUCTS_OTHER_PRODUCTS_BY_ORDERS_ID)) {
 				statement.setLong(1, orderResult.getId());
 				statement.setLong(2, ProductType.FEEDS_AND_OTHER.getId());
+				Map<FeedAndOther, Long> productsMap = new HashMap<>();
 				try (ResultSet resultSet = statement.executeQuery()) {
 					while (resultSet.next()) {
-						orderResult.getOtherProducts()
-								.add(new FeedAndOther.FeedAndOtherBuilder().setId(resultSet.getLong(FEEDS_AND_OTHER_ID))
-										.setProductType(resultSet.getString(FEEDS_AND_OTHER_TYPE))
-										.setBrand(resultSet.getString(FEEDS_AND_OTHER_BRAND))
-										.setDescriptions(FEEDS_AND_OTHER_DESCRIPTION)
-										.setPetTypes(resultSet.getString(FEEDS_AND_OTHER_PET_TYPE)).build());
+						FeedAndOther feedAndOther = new FeedAndOther.FeedAndOtherBuilder()
+								.setId(resultSet.getLong(FEEDS_AND_OTHER_ID))
+								.setImagePath(resultSet.getString(FEEDS_AND_OTHER_IMAGE_PATH))
+								.setProductType(resultSet.getString(FEEDS_AND_OTHER_TYPE))
+								.setBrand(resultSet.getString(FEEDS_AND_OTHER_BRAND))
+								.setDescriptions(resultSet.getString(FEEDS_AND_OTHER_DESCRIPTION))
+								.setPetTypes(resultSet.getString(FEEDS_AND_OTHER_PET_TYPE))
+								.setPrice(resultSet.getDouble(FEEDS_AND_OTHER_PRICE))
+								.setDiscount(resultSet.getDouble(FEEDS_AND_OTHER_DISCOUNT)).build();
+						feedAndOther.setTotalPrice(
+								feedAndOther.getPrice() - (feedAndOther.getPrice() * feedAndOther.getDiscount() / 100));
+						if (productsMap.containsKey(feedAndOther)) {
+							productsMap.put(feedAndOther, productsMap.get(feedAndOther) + 1);
+						} else {
+							productsMap.put(feedAndOther, 1L);
+						}
 					}
 				}
+				orderResult.setOtherProducts(productsMap.entrySet().stream().toList());
 			}
 		} catch (SQLException e) {
 			log.log(Level.ERROR, e.getMessage());

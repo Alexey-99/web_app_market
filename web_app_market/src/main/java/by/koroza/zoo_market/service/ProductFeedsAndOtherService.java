@@ -118,4 +118,13 @@ public interface ProductFeedsAndOtherService {
 	 */
 	public boolean transferFeedAndOtherProductFromMarketToOrder(long productId, long orderId) throws ServiceException;
 
+	/**
+	 * Transfer feeds and other product from order to market.
+	 *
+	 * @param productId the product id
+	 * @param orderId   the order id
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
+	public boolean transferFeedsAndOtherProductFromOrderToMarket(long productId, long orderId) throws ServiceException;
 }

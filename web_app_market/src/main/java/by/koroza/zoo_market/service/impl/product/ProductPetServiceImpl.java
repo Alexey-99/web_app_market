@@ -254,6 +254,16 @@ public class ProductPetServiceImpl implements ProductPetService {
 		}
 	}
 
+	@Override
+	public boolean transferPetProductFromOrderToMarket(long productId, long orderId) throws ServiceException {
+		try {
+			return ProductPetDaoImpl.getInstance().transferPetProductFromOrderToMarket(productId, orderId);
+		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
+
 	/**
 	 * Select products pets by birth date.
 	 *

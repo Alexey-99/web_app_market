@@ -1,6 +1,7 @@
 package by.koroza.zoo_market.service.sorting.comparator.list.product;
 
 import java.util.Comparator;
+import java.util.Map.Entry;
 
 import by.koroza.zoo_market.model.entity.market.product.abstraction.AbstractProduct;
 
@@ -8,7 +9,7 @@ import by.koroza.zoo_market.model.entity.market.product.abstraction.AbstractProd
  * The Interface SortComparatorListProduct.
  */
 @FunctionalInterface
-public interface SortComparatorListProduct extends Comparator<AbstractProduct> {
+public interface SortComparatorListProduct extends Comparator<Entry<? extends AbstractProduct, Long>> {
 
 	/** The Constant EMPTY_LINE_NAME. */
 	public static final String EMPTY_LINE_NAME = "-";
@@ -21,6 +22,5 @@ public interface SortComparatorListProduct extends Comparator<AbstractProduct> {
 	 * @return the int
 	 */
 	@Override
-	public int compare(AbstractProduct o1, AbstractProduct o2);
-
+	public int compare(Entry<? extends AbstractProduct, Long> o1, Entry<? extends AbstractProduct, Long> o2);
 }

@@ -149,8 +149,6 @@
 		class="col-xl-2 col-lg-6 justify-content-center flex-row flags_icons_btns_xl">
 		<form class="me-3"
 			action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}" method="get">
-			<input class="productsIdXlFlagEn" type="hidden"
-				name="${ParameterName.PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
 			<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 				value="${CommandName.COMMAND_SET_ENGLISH_LOCALE}" />
 			<button class="border-0 bg-transparent"
@@ -172,8 +170,6 @@
 		</form>
 		<form class="" action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 			method="get">
-			<input class="productsIdXlFlagRus" type="hidden"
-				name="${ParameterName.PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
 			<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 				value="${CommandName.COMMAND_SET_RUSSIAN_LOCALE}" />
 			<button class="border-0 bg-transparent"
@@ -296,8 +292,6 @@
 		<div class="col-lg-2 flags_icons_btns_lg">
 			<form class="me-3"
 				action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}" method="get">
-				<input class="productsIdLgFlagEn" type="hidden"
-					name="${ParameterName.PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
 				<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 					value="${CommandName.COMMAND_SET_ENGLISH_LOCALE}" />
 				<button class="border-0 bg-transparent"
@@ -319,8 +313,6 @@
 			</form>
 			<form class="" action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 				method="get">
-				<input class="productsIdLgFlagRus" type="hidden"
-					name="${ParameterName.PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
 				<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 					value="${CommandName.COMMAND_SET_RUSSIAN_LOCALE}" />
 				<button class="border-0 bg-transparent"
@@ -379,7 +371,7 @@
 								id="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login"
 								name="${InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_LOGIN}"
 								placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login"/>'
-								pattern="(\w|[А-Яа-я]){0,255}" /> <label class="text-lowercase"
+								pattern="(\w|[А-Яа-я]){1,255}" /> <label class="text-lowercase"
 								for="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login">
 								<fmt:message
 									key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.login" />
@@ -393,7 +385,7 @@
 									id="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.password"
 									name="${InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_PASSWORD}"
 									placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.password"/>'
-									pattern="(\w|[А-Яа-я]){0,255}" /> <label
+									pattern="(\w|[А-Яа-я]){3,255}" /> <label
 									class="text-lowercase"
 									for="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.password">
 									<fmt:message
@@ -461,7 +453,7 @@
 								id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login"
 								required name="${InputName.REGISTRATION_INPUT_USER_LOGIN}"
 								value='<c:if test="${user.getLogin() != null && !user.getLogin().isBlank()}">${user.getLogin()}</c:if>'
-								pattern="(\w|[А-Яа-я]){0,255}"
+								pattern="(\w|[А-Яа-я]){1,255}"
 								placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login"/>' />
 							<label class="text-lowercase registration_form_body_label"
 								for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.login">
@@ -477,7 +469,7 @@
 										id="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password"
 										name="${InputName.REGISTRATION_INPUT_USER_PASSWORD}"
 										placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password"/>'
-										pattern="(\w|[А-Яа-я]){0,255}" /> <label
+										pattern="(\w|[А-Яа-я]){5,255}" /> <label
 										class="text-lowercase registration_form_body_label"
 										for="header_top.sign_in_and_registartion_form.registartion_form.body.input_lable.password">
 										<fmt:message

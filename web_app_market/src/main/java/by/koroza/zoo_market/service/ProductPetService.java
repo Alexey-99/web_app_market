@@ -114,4 +114,14 @@ public interface ProductPetService {
 	 * @throws ServiceException the service exception
 	 */
 	public boolean transferPetProductFromMarketToOrder(long productId, long orderId) throws ServiceException;
+
+	/**
+	 * Transfer pet product from order to market.
+	 *
+	 * @param productId the product id
+	 * @param orderId the order id
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
+	public boolean transferPetProductFromOrderToMarket(long productId, long orderId) throws ServiceException;
 }

@@ -259,6 +259,25 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	}
 
 	/**
+	 * Transfer feeds and other product from order to market.
+	 *
+	 * @param productId the product id
+	 * @param orderId   the order id
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
+	@Override
+	public boolean transferFeedsAndOtherProductFromOrderToMarket(long productId, long orderId) throws ServiceException {
+		try {
+			return ProductFeedsAndOtherDaoImpl.getInstance().transferFeedsAndOtherProductFromOrderToMarket(productId,
+					orderId);
+		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
+
+	/**
 	 * Select products by type product.
 	 *
 	 * @param filter                 the filter

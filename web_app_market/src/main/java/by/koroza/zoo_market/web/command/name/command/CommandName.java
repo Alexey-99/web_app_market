@@ -44,6 +44,8 @@ import static by.koroza.zoo_market.web.command.CommandType.CHANGE_PASSWORD;
 import static by.koroza.zoo_market.web.command.CommandType.CHANGE_EMAIL_PERSON_ACCOUNT;
 import static by.koroza.zoo_market.web.command.CommandType.CONFIMATION_EMAIL;
 import static by.koroza.zoo_market.web.command.CommandType.CREATE_ORDER;
+import static by.koroza.zoo_market.web.command.CommandType.DELETE_FEEDS_AND_OTHER_PRODUCT_FROM_ORDER;
+import static by.koroza.zoo_market.web.command.CommandType.DELETE_PET_PRODUCT_FROM_ORDER;
 import static by.koroza.zoo_market.web.command.CommandType.ORDER_PAYMENT;
 import static by.koroza.zoo_market.web.command.CommandType.REGISTRATION_USER;
 import static by.koroza.zoo_market.web.command.CommandType.SEND_ONE_MORE_TIME_CONFIMATION_EMAIL_CODE;
@@ -87,6 +89,8 @@ public final class CommandName {
 			.toString().toLowerCase();
 
 	public static final String COMMAND_ADD_PRODUCT_PETS_TO_ORDER = ADD_PET_PRODUCT_TO_ORDER.toString().toLowerCase();
+	public static final String COMMAND_DELETE_PRODUCT_PETS_FROM_ORDER = DELETE_PET_PRODUCT_FROM_ORDER.toString()
+			.toLowerCase();
 
 	public static final String COMMAND_SHOW_PRODUCT_FEED_AND_OTHER_OFF_FILTER_PAGE = SHOW_PRODUCT_FEEDS_AND_OTHER_OFF_FILTER
 			.toString().toLowerCase();
@@ -96,6 +100,8 @@ public final class CommandName {
 			.toString().toLowerCase();
 
 	public static final String COMMAND_ADD_PRODUCT_FEEDS_AND_OTHER_TO_ORDER = ADD_FEEDS_AND_OTHER_PRODUCT_TO_ORDER
+			.toString().toLowerCase();
+	public static final String COMMAND_DELETE_PRODUCT_FEEDS_AND_OTHER_FROM_ORDER = DELETE_FEEDS_AND_OTHER_PRODUCT_FROM_ORDER
 			.toString().toLowerCase();
 
 	public static final String COMMAND_REGISTRATION_USER = REGISTRATION_USER.toString().toLowerCase();
@@ -226,5 +232,6 @@ public final class CommandName {
 			.toLowerCase();
 
 	private CommandName() {
+		System.out.println(DELETE_FEEDS_AND_OTHER_PRODUCT_FROM_ORDER);
 	}
 }

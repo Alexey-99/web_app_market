@@ -3,6 +3,7 @@ package by.koroza.zoo_market.model.entity.market.order;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
@@ -20,10 +21,10 @@ public class Order {
 	private long userId;
 
 	/** The products pets. */
-	private List<Pet> productsPets;
+	private List<Entry<Pet, Long>> productsPets;
 
 	/** The other products. */
-	private List<FeedAndOther> otherProducts;
+	private List<Entry<FeedAndOther, Long>> otherProducts;
 
 	/** The total payment amount. */
 	private double totalPaymentAmount;
@@ -104,7 +105,7 @@ public class Order {
 	 *
 	 * @return the products pets
 	 */
-	public List<Pet> getProductsPets() {
+	public List<Entry<Pet, Long>> getProductsPets() {
 		return this.productsPets;
 	}
 
@@ -113,7 +114,7 @@ public class Order {
 	 *
 	 * @param productsPets the new products pets
 	 */
-	public void setProductsPets(List<Pet> productsPets) {
+	public void setProductsPets(List<Entry<Pet, Long>> productsPets) {
 		this.productsPets = productsPets;
 	}
 
@@ -122,7 +123,7 @@ public class Order {
 	 *
 	 * @return the other products
 	 */
-	public List<FeedAndOther> getOtherProducts() {
+	public List<Entry<FeedAndOther, Long>> getOtherProducts() {
 		return this.otherProducts;
 	}
 
@@ -131,7 +132,7 @@ public class Order {
 	 *
 	 * @param otherProducts the new other products
 	 */
-	public void setOtherProducts(List<FeedAndOther> otherProducts) {
+	public void setOtherProducts(List<Entry<FeedAndOther, Long>> otherProducts) {
 		this.otherProducts = otherProducts;
 	}
 
@@ -427,7 +428,7 @@ public class Order {
 		 * @param pets the pets
 		 * @return the order builder
 		 */
-		public OrderBuilder setProductsPets(List<Pet> pets) {
+		public OrderBuilder setProductsPets(List<Entry<Pet, Long>> pets) {
 			this.order.setProductsPets(pets);
 			return this;
 		}
@@ -438,7 +439,7 @@ public class Order {
 		 * @param otherProducts the other products
 		 * @return the order builder
 		 */
-		public OrderBuilder setOtherProducts(List<FeedAndOther> otherProducts) {
+		public OrderBuilder setOtherProducts(List<Entry<FeedAndOther, Long>> otherProducts) {
 			this.order.setOtherProducts(otherProducts);
 			return this;
 		}
