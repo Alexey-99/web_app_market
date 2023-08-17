@@ -51,8 +51,9 @@ import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.exception.SortingException;
 import by.koroza.zoo_market.service.exception.ValidationException;
 import by.koroza.zoo_market.service.impl.order.OrderServiceImpl;
-import by.koroza.zoo_market.service.sorting.impl.SortingProductsImpl;
-import by.koroza.zoo_market.service.sorting.impl.comparator.list.product.impl.id.SortProductsByIdAscendingComparatorImpl;
+import by.koroza.zoo_market.service.sorting.product.SortingProducts;
+import by.koroza.zoo_market.service.sorting.product.impl.SortingProductsImpl;
+import by.koroza.zoo_market.service.sorting.product.impl.comparator.list.product.impl.id.SortProductsByIdAscendingComparatorImpl;
 import by.koroza.zoo_market.service.validation.impl.bank.BankCardValidationImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
@@ -69,6 +70,9 @@ public class BankDataProcessingCommand implements Command {
 	/** The log. */
 	private static Logger log = LogManager.getLogger();
 
+	/** The sort products. */
+	private final SortingProducts SORT_PRODUCTS = SortingProductsImpl.getInstance();
+
 	/**
 	 * Execute.
 	 *
@@ -78,13 +82,13 @@ public class BankDataProcessingCommand implements Command {
 	 */
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
-		final SortingProductsImpl SORT_PRODUCTS = SortingProductsImpl.getInstance();
+
 		Router router = null;
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		session.removeAttribute(ATTRIBUTE_ORDER_PAYMENT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		try {
-			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() >= USER.getIdRole()) {
+			if (user != null && user.isVerificatedEmail() && user.getRole().getId() >= USER.getId()) {
 				Order order = OrderServiceImpl.getInstance().getOpenOrderByUserId(user.getId());
 				if (order != null && (order.getProductsPets().size() + order.getOtherProducts().size()) > 0) {
 					Map<String, String> mapInputExceptions = new HashMap<>();

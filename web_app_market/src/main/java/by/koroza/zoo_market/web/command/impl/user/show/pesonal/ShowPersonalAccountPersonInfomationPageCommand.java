@@ -15,7 +15,7 @@ public class ShowPersonalAccountPersonInfomationPageCommand implements Command {
 	@Override
 	public Router execute(HttpServletRequest request) {
 		User user = (User) request.getSession().getAttribute(ATTRIBUTE_USER);
-		return user != null && user.isVerificatedEmail() && user.getRole().getIdRole() >= USER.getIdRole()
+		return user != null && user.isVerificatedEmail() && user.getRole().getId() >= USER.getId()
 				? new Router(PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH)
 				: new Router(HOME_PAGE_PATH);
 	}

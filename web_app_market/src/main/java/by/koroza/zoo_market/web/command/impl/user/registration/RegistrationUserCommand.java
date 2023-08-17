@@ -38,16 +38,27 @@ import by.koroza.zoo_market.web.controller.router.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * The Class RegistrationUserCommand.
+ */
 public class RegistrationUserCommand implements Command {
+
+	/** The log. */
 	private static Logger log = LogManager.getLogger();
 
-	@SuppressWarnings("unchecked")
+	/**
+	 * Execute.
+	 *
+	 * @param request the request
+	 * @return the router
+	 * @throws CommandException the command exception
+	 */
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
 		HttpSession session = request.getSession();
 		session.removeAttribute(ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
+		Map<String, String> mapInputExceptions = new HashMap<>();
 		try {
-			Map<String, String> mapInputExceptions = new HashMap<>();
 			User user = getUserFromInputParameters(request, mapInputExceptions);
 			session.setAttribute(ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE, mapInputExceptions);
 			session.setAttribute(ATTRIBUTE_USER, user);
@@ -55,12 +66,18 @@ public class RegistrationUserCommand implements Command {
 			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
-		return session.getAttribute(ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE) == null
-				|| ((Map<String, String>) session.getAttribute(ATTRIBUTE_REGISTRATION_INPUT_EXCEPTION_TYPE_AND_MASSAGE))
-						.isEmpty() ? new Router(VERIFICATION_REGISTRATION_INFORMATION_PAGE_PATH)
-								: new Router(REGISTRATION_FORM_PAGE_PATH);
+		return mapInputExceptions.isEmpty() ? new Router(VERIFICATION_REGISTRATION_INFORMATION_PAGE_PATH)
+				: new Router(REGISTRATION_FORM_PAGE_PATH);
 	}
 
+	/**
+	 * Get the user from input parameters.
+	 *
+	 * @param request            the request
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the user from input parameters
+	 * @throws ValidationException the validation exception
+	 */
 	private User getUserFromInputParameters(HttpServletRequest request, Map<String, String> mapInputExceptions)
 			throws ValidationException {
 		HttpSession session = request.getSession();
@@ -71,6 +88,16 @@ public class RegistrationUserCommand implements Command {
 		return user;
 	}
 
+	/**
+	 * Create the user.
+	 *
+	 * @param request            the request
+	 * @param mapInputExceptions the map input exceptions
+	 * @param sessionLocale      the session locale
+	 * @param user               the user
+	 * @return the user
+	 * @throws ValidationException the validation exception
+	 */
 	private User createUser(HttpServletRequest request, Map<String, String> mapInputExceptions, String sessionLocale,
 			User user) throws ValidationException {
 		String email = getInputParameterEmail(request, sessionLocale, mapInputExceptions);
@@ -90,6 +117,14 @@ public class RegistrationUserCommand implements Command {
 		return user;
 	}
 
+	/**
+	 * Get the input parameter email.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameter email
+	 */
 	private String getInputParameterEmail(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String userEmail = request.getParameter(REGISTRATION_INPUT_USER_EMAIL);
@@ -105,6 +140,15 @@ public class RegistrationUserCommand implements Command {
 		return userEmail;
 	}
 
+	/**
+	 * Get the input parameter login.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameter login
+	 * @throws ValidationException the validation exception
+	 */
 	private String getInputParameterLogin(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) throws ValidationException {
 		String userLogin = request.getParameter(REGISTRATION_INPUT_USER_LOGIN);
@@ -136,6 +180,14 @@ public class RegistrationUserCommand implements Command {
 		return userLogin;
 	}
 
+	/**
+	 * Get the input parameter password.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameter password
+	 */
 	private String getInputParameterPassword(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String userPassword = request.getParameter(REGISTRATION_INPUT_USER_PASSWORD);

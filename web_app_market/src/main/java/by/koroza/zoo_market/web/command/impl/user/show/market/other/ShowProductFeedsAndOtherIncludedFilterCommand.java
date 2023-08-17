@@ -55,8 +55,9 @@ import by.koroza.zoo_market.service.exception.SortingException;
 import by.koroza.zoo_market.service.factory.MarketFilterProductFactory;
 import by.koroza.zoo_market.service.factory.impl.MarketFilterProductFactoryImpl;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
-import by.koroza.zoo_market.service.sorting.impl.SortingProductsImpl;
-import by.koroza.zoo_market.service.sorting.impl.comparator.list.product.impl.id.SortProductsByIdAscendingComparatorImpl;
+import by.koroza.zoo_market.service.sorting.product.SortingProducts;
+import by.koroza.zoo_market.service.sorting.product.impl.SortingProductsImpl;
+import by.koroza.zoo_market.service.sorting.product.impl.comparator.list.product.impl.id.SortProductsByIdAscendingComparatorImpl;
 import by.koroza.zoo_market.service.validation.FilterValidation;
 import by.koroza.zoo_market.service.validation.impl.filter.FilterValidationImpl;
 import by.koroza.zoo_market.web.command.Command;
@@ -66,14 +67,30 @@ import by.koroza.zoo_market.web.controller.router.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * The Class ShowProductFeedsAndOtherIncludedFilterCommand.
+ */
 public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
+
+	/** The log. */
 	private static Logger log = LogManager.getLogger();
 
-	private static final ProductFeedsAndOtherService FEEDS_AND_OTHER_SERVICE = ProductFeedsAndOtherServiceImpl
-			.getInstance();
-	private static final MarketFilterProductFactory FILTER_FACTORY = MarketFilterProductFactoryImpl.getInstance();
-	private static final SortingProductsImpl SORT_PRODUCTS = SortingProductsImpl.getInstance();
+	/** The feeds and other service. */
+	private final ProductFeedsAndOtherService FEEDS_AND_OTHER_SERVICE = ProductFeedsAndOtherServiceImpl.getInstance();
 
+	/** The filter factory. */
+	private final MarketFilterProductFactory FILTER_FACTORY = MarketFilterProductFactoryImpl.getInstance();
+
+	/** The sort products. */
+	private final SortingProducts SORT_PRODUCTS = SortingProductsImpl.getInstance();
+
+	/**
+	 * Execute.
+	 *
+	 * @param request the request
+	 * @return the router
+	 * @throws CommandException the command exception
+	 */
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
 		HttpSession session = request.getSession();
@@ -117,6 +134,15 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 		return new Router(PRODUCTS_FEED_AND_OTHER_PAGE_PATH);
 	}
 
+	/**
+	 * Gets the input parameters.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameters
+	 * @throws ServiceException the service exception
+	 */
 	private FilterFeedsAndOther getInputParameters(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) throws ServiceException {
 		String[] choosedTypesProduct = getInputParameterTypesProduct(request);
@@ -144,26 +170,58 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 				.build() : null;
 	}
 
+	/**
+	 * Get the input parameter types product.
+	 *
+	 * @param request the request
+	 * @return the input parameter types product
+	 */
 	private String[] getInputParameterTypesProduct(HttpServletRequest request) {
 		String[] choosedTypesProduct = request.getParameterValues(INPUT_PRODUCT_TYPE);
 		return choosedTypesProduct;
 	}
 
+	/**
+	 * Get the input parameter brends product.
+	 *
+	 * @param request the request
+	 * @return the input parameter brends product
+	 */
 	private String[] getInputParameterBrendsProduct(HttpServletRequest request) {
 		String[] choosedBrendsProduct = request.getParameterValues(INPUT_PRODUCT_BREND);
 		return choosedBrendsProduct;
 	}
 
+	/**
+	 * Get the input parameter types pets.
+	 *
+	 * @param request the request
+	 * @return the input parameter types pets
+	 */
 	private String[] getInputParameterTypesPets(HttpServletRequest request) {
 		String[] choosedTypesPets = request.getParameterValues(INPUT_PET_TYPE);
 		return choosedTypesPets;
 	}
 
+	/**
+	 * Get the input parameter only products with discount.
+	 *
+	 * @param request the request
+	 * @return the input parameter only products with discount
+	 */
 	private boolean getInputParameterOnlyProductsWithDiscount(HttpServletRequest request) {
 		boolean onlyProductsWithDiscount = request.getParameterValues(INPUT_PROMOTIONS) != null;
 		return onlyProductsWithDiscount;
 	}
 
+	/**
+	 * Get the input parameters min max discount.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameters min max discount
+	 */
 	private String[] getInputParametersMinMaxDiscount(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		FilterValidation validator = FilterValidationImpl.getInstance();
@@ -220,6 +278,14 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 		return new String[] { minDiscount, maxDiscount };
 	}
 
+	/**
+	 * Get the input parameters min max price.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameters min max price
+	 */
 	private String[] getInputParametersMinMaxPrice(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		FilterValidation validator = FilterValidationImpl.getInstance();
@@ -273,6 +339,12 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 		return new String[] { minPrice, maxPrice };
 	}
 
+	/**
+	 * Find max price in list products.
+	 *
+	 * @return the double
+	 * @throws ServiceException the service exception
+	 */
 	private double findMaxPriceInListProducts() throws ServiceException {
 		double maxPrice = 0;
 		Map<FeedAndOther, Long> products = FEEDS_AND_OTHER_SERVICE.getAllProductsFeedAndOtherAndNumberOfUnits();

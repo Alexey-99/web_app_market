@@ -21,9 +21,21 @@ import by.koroza.zoo_market.web.controller.router.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * The Class VerificationRegistrationInformationCommand.
+ */
 public class VerificationRegistrationInformationCommand implements Command {
+
+	/** The log. */
 	private static Logger log = LogManager.getLogger();
 
+	/**
+	 * Execute.
+	 *
+	 * @param request the request
+	 * @return the router
+	 * @throws CommandException the command exception
+	 */
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
 		HttpSession session = request.getSession();
@@ -43,6 +55,14 @@ public class VerificationRegistrationInformationCommand implements Command {
 		return user != null ? new Router(CONFIMARTION_EMAIL_PAGE_PATH) : new Router(HOME_PAGE_PATH);
 	}
 
+	/**
+	 * Insert user to BD.
+	 *
+	 * @param user the user
+	 * @return true, if successful
+	 * @throws ServiceException       the service exception
+	 * @throws HashGeneratorException the hash generator exception
+	 */
 	private boolean insertUserToBD(User user) throws ServiceException, HashGeneratorException {
 		user.setPassword(HashGeneratorImpl.getInstance().getHash(user.getPassword()));
 		return UserServiceImpl.getInstance().addUser(user);

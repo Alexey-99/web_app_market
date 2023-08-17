@@ -35,9 +35,21 @@ import by.koroza.zoo_market.web.controller.router.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * The Class ChangeEmailPersonAccountCommand.
+ */
 public class ChangeEmailPersonAccountCommand implements Command {
+
+	/** The log. */
 	private static Logger log = LogManager.getLogger();
 
+	/**
+	 * Execute.
+	 *
+	 * @param request the request
+	 * @return the router
+	 * @throws CommandException the command exception
+	 */
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
 		Router router = null;
@@ -45,7 +57,7 @@ public class ChangeEmailPersonAccountCommand implements Command {
 		session.removeAttribute(ATTRIBUTE_CHANGING_EMAIL_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
-			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() >= USER.getIdRole()) {
+			if (user != null && user.isVerificatedEmail() && user.getRole().getId() >= USER.getId()) {
 				Map<String, String> mapInputExceptions = new HashMap<>();
 				String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
 				String email = getInputParameterEmail(request, sessionLocale, mapInputExceptions);
@@ -77,6 +89,14 @@ public class ChangeEmailPersonAccountCommand implements Command {
 		return router;
 	}
 
+	/**
+	 * Get the input parameter email.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameter email
+	 */
 	private String getInputParameterEmail(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String email = (String) request.getParameter(CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_EMAIL);

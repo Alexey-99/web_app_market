@@ -71,27 +71,42 @@ import by.koroza.zoo_market.service.exception.SortingException;
 import by.koroza.zoo_market.service.factory.MarketFilterProductFactory;
 import by.koroza.zoo_market.service.factory.impl.MarketFilterProductFactoryImpl;
 import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
-import by.koroza.zoo_market.service.sorting.SortingProducts;
-import by.koroza.zoo_market.service.sorting.impl.SortingProductsImpl;
-import by.koroza.zoo_market.service.sorting.impl.comparator.list.product.impl.id.SortProductsByIdAscendingComparatorImpl;
+import by.koroza.zoo_market.service.sorting.product.SortingProducts;
+import by.koroza.zoo_market.service.sorting.product.impl.SortingProductsImpl;
+import by.koroza.zoo_market.service.sorting.product.impl.comparator.list.product.impl.id.SortProductsByIdAscendingComparatorImpl;
 import by.koroza.zoo_market.service.validation.impl.filter.FilterValidationImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.router.Router;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * The Class ShowProductPetsIncludedFilterCommand.
+ */
 public class ShowProductPetsIncludedFilterCommand implements Command {
+
+	/** The log. */
 	private static Logger log = LogManager.getLogger();
 
+	/** The sort products. */
 	private final SortingProducts SORT_PRODUCTS = SortingProductsImpl.getInstance();
+
+	/** The product pet service. */
 	private final ProductPetService PRODUCT_PET_SERVICE = ProductPetServiceImpl.getInstance();
+
+	/** The filter factory. */
 	private final MarketFilterProductFactory FILTER_FACTORY = MarketFilterProductFactoryImpl.getInstance();
 
+	/**
+	 * Execute.
+	 *
+	 * @param request the request
+	 * @return the router
+	 * @throws CommandException the command exception
+	 */
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
-
 		HttpSession session = request.getSession();
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER);
@@ -127,6 +142,15 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 		return new Router(PRODUCTS_PETS_PAGE_PATH);
 	}
 
+	/**
+	 * Get the input parameters.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameters
+	 * @throws ServiceException the service exception
+	 */
 	private FilterPet getInputParameters(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) throws ServiceException {
 		String[] choosedTypesPets = getInputParameterTypesPets(request);
@@ -162,21 +186,47 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 				: null;
 	}
 
+	/**
+	 * Get the input parameter types pets.
+	 *
+	 * @param request the request
+	 * @return the input parameter types pets
+	 */
 	private String[] getInputParameterTypesPets(HttpServletRequest request) {
 		String[] choosedTypesPets = request.getParameterValues(INPUT_PET_TYPE);
 		return choosedTypesPets;
 	}
 
+	/**
+	 * Get the input parameter breed pets.
+	 *
+	 * @param request the request
+	 * @return the input parameter breed pets
+	 */
 	private String[] getInputParameterBreedPets(HttpServletRequest request) {
 		String[] choosedBreedPets = request.getParameterValues(INPUT_PET_BREED);
 		return choosedBreedPets;
 	}
 
+	/**
+	 * Get the input parameter only products with discount.
+	 *
+	 * @param request the request
+	 * @return the input parameter only products with discount
+	 */
 	private boolean getInputParameterOnlyProductsWithDiscount(HttpServletRequest request) {
 		boolean onlyProductsWithDiscount = request.getParameterValues(INPUT_PROMOTIONS) != null;
 		return onlyProductsWithDiscount;
 	}
 
+	/**
+	 * Get the input parameters min max discount.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameters min max discount
+	 */
 	private String[] getInputParametersMinMaxDiscount(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String minDiscount = request.getParameter(INPUT_MIN_PROCENT_PROMOTIONS);
@@ -232,6 +282,14 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 		return new String[] { minDiscount, maxDiscount };
 	}
 
+	/**
+	 * Get the input parameters min max price.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameters min max price
+	 */
 	private String[] getInputParametersMinMaxPrice(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String minPrice = request.getParameter(INPUT_MIN_PRICE_PET);
@@ -284,6 +342,14 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 		return new String[] { minPrice, maxPrice };
 	}
 
+	/**
+	 * Get the input parameters month year start end.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameters month year start end
+	 */
 	private String[] getInputParametersMonthYearStartEnd(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String minYear = request.getParameter(INPUT_MIN_NUMBER_YEARS_PET);
@@ -334,6 +400,12 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 		return new String[] { minYear, minMonths, maxYear, maxMonths };
 	}
 
+	/**
+	 * Find max price in list products.
+	 *
+	 * @return the double
+	 * @throws ServiceException the service exception
+	 */
 	private double findMaxPriceInListProducts() throws ServiceException {
 		double maxPrice = 0;
 		Map<Pet, Long> products = PRODUCT_PET_SERVICE.getAllProductsPetsAndNumberOfUnits();

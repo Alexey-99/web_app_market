@@ -51,7 +51,7 @@ public class ShowAllProductsOffFilterSortingByTotalPriceAscendingCommand impleme
 				Map<AbstractProduct, Long> products = new HashMap<>();
 				products.putAll(productPets);
 				products.putAll(productFeedsAndOther);
-				session.setAttribute(ATTRIBUTE_MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT, SortingProductsImpl.getInstance()
+				session.setAttribute(ATTRIBUTE_MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT, SortingOrdersImpl.getInstance()
 						.sortProductsMap(products, new SortProductsByTotalPriceAscendingComparatorImpl()));
 				session.setAttribute(SESSION_ATTRIBUTE_PET_CLASS_NAME, SESSION_ATTRIBUTE_PET_CLASS);
 				session.setAttribute(SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS_NAME,

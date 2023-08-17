@@ -82,7 +82,6 @@ public class ProductPetPaginationTag extends TagSupport {
 		try {
 			HttpSession session = pageContext.getSession();
 			String locale = (String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE);
-			@SuppressWarnings("unchecked")
 			List<Entry<Pet, Long>> listProductPets = (List<Entry<Pet, Long>>) session
 					.getAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS);
 			User user = (User) session.getAttribute(ATTRIBUTE_USER);
@@ -222,7 +221,7 @@ public class ProductPetPaginationTag extends TagSupport {
 				builder.append("number of units: ").append(listProductPets.get(i).getValue());
 			}
 			builder.append("</ul>").append("</div>");
-			if (user != null && user.getRole().getIdRole() >= UserRole.USER.getIdRole() && user.isVerificatedEmail()) {
+			if (user != null && user.getRole().getId() >= UserRole.USER.getId() && user.isVerificatedEmail()) {
 				builder.append("""
 						<form class="body_btn" action=" """).append(MAIN_SERVLET_CONTROLLER_NAME).append("""
 						" method="get">

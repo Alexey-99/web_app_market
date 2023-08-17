@@ -45,7 +45,7 @@ public class OrderPaymentCommand implements Command {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
-			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() >= USER.getIdRole()) {
+			if (user != null && user.isVerificatedEmail() && user.getRole().getId() >= USER.getId()) {
 				Order order = OrderServiceImpl.getInstance().getOpenOrderByUserId(user.getId());
 				if (order != null && (order.getProductsPets().size() + order.getOtherProducts().size()) > 0) {
 					order.setStatus(OrderStatus.CLOSED);

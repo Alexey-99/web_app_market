@@ -1,7 +1,7 @@
 package by.koroza.zoo_market.model.entity.status;
 
 public enum OrderStatus {
-	OPEN(1), WAITING_PAY(2), CLOSED(3), PROCESSING(4);
+	OPEN(1), WAITING_PAY(2), CLOSED(3);
 
 	private int id;
 

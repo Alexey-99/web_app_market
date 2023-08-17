@@ -39,12 +39,27 @@ import by.koroza.zoo_market.web.controller.router.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * The Class ChangePasswordCommand.
+ */
 public class ChangePasswordCommand implements Command {
+
+	/** The log. */
 	private static Logger log = LogManager.getLogger();
 
+	/** The user service. */
 	private final UserService USER_SERVICE = UserServiceImpl.getInstance();
+
+	/** The hash generator. */
 	private final HashGenerator HASH_GENERATOR = HashGeneratorImpl.getInstance();
 
+	/**
+	 * Execute.
+	 *
+	 * @param request the request
+	 * @return the router
+	 * @throws CommandException the command exception
+	 */
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
 		Router router = null;
@@ -52,7 +67,7 @@ public class ChangePasswordCommand implements Command {
 		session.removeAttribute(ATTRIBUTE_CHANGING_PASSWORD_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
-			if (user != null && user.getRole().getIdRole() >= USER.getIdRole()) {
+			if (user != null && user.getRole().getId() >= USER.getId() && user.isVerificatedEmail()) {
 				if (isCorrectOldLoginAndPassword(request, user.getId())) {
 					Map<String, String> mapInputExceptions = new HashMap<>();
 					String password = getInputParameterPassword(request, mapInputExceptions, user);
@@ -83,6 +98,15 @@ public class ChangePasswordCommand implements Command {
 		return router;
 	}
 
+	/**
+	 * Get the input parameter password.
+	 *
+	 * @param request            the request
+	 * @param mapInputExceptions the map input exceptions
+	 * @param user               the user
+	 * @return the input parameter password
+	 * @throws HashGeneratorException the hash generator exception
+	 */
 	private String getInputParameterPassword(HttpServletRequest request, Map<String, String> mapInputExceptions,
 			User user) throws HashGeneratorException {
 		String password = (String) request.getParameter(CHANGING_PASSWORD_INPUT_USER_NEW_PASSWORD);
@@ -105,6 +129,15 @@ public class ChangePasswordCommand implements Command {
 		return password;
 	}
 
+	/**
+	 * Check if is correct old login and password.
+	 *
+	 * @param request the request
+	 * @param userId  the user id
+	 * @return true, if is correct old login and password
+	 * @throws ServiceException       the service exception
+	 * @throws HashGeneratorException the hash generator exception
+	 */
 	private boolean isCorrectOldLoginAndPassword(HttpServletRequest request, long userId)
 			throws ServiceException, HashGeneratorException {
 		String oldlogin = (String) request.getParameter(CHANGING_PASSWORD_LOGIN_INPUT_USER_OLD_LOGIN);
