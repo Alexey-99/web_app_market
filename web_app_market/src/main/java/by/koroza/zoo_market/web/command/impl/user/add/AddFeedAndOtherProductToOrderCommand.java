@@ -46,7 +46,7 @@ public class AddFeedAndOtherProductToOrderCommand implements Command {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
-			if (user != null && user.getRole().getIdRole() >= USER.getIdRole() && user.isVerificatedEmail()) {
+			if (user != null && user.getRole().getId() >= USER.getId() && user.isVerificatedEmail()) {
 				String productIdEntered = request.getParameter(PARAMETER_PRODUCT_ID);
 				if (productIdEntered != null && productIdEntered.matches("\\d+")) {
 					long productId = Long.parseLong(productIdEntered);

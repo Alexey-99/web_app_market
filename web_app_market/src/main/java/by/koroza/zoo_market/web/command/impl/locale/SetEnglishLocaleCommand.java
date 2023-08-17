@@ -11,11 +11,21 @@ import static by.koroza.zoo_market.web.command.name.servlet.ServletName.MAIN_SER
 
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.controller.router.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * The Class SetEnglishLocaleCommand.
+ */
 public class SetEnglishLocaleCommand implements Command {
 
+	/**
+	 * Execute.
+	 *
+	 * @param request the request
+	 * @return the router
+	 */
 	@Override
 	public Router execute(HttpServletRequest request) {
 		HttpSession session = request.getSession();
