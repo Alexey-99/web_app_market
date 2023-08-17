@@ -19,9 +19,13 @@ import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.model.entity.filter.FilterPet;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
+import by.koroza.zoo_market.service.ProductPetService;
 import by.koroza.zoo_market.service.exception.ServiceException;
+import by.koroza.zoo_market.service.exception.SortingException;
 import by.koroza.zoo_market.service.factory.impl.MarketFilterProductFactoryImpl;
 import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
+import by.koroza.zoo_market.service.sorting.impl.SortingProductsImpl;
+import by.koroza.zoo_market.service.sorting.impl.comparator.list.product.impl.id.SortProductsByIdAscendingComparatorImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.router.Router;
@@ -34,21 +38,26 @@ public class ShowProductPetNumberPageCommand implements Command {
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
+		final SortingProductsImpl SORT_PRODUCTS = SortingProductsImpl.getInstance();
+		final ProductPetService PRODUCT_PET_SERVICE = ProductPetServiceImpl.getInstance();
 		HttpSession session = request.getSession();
 		try {
-			Map<Pet, Long> allProductsPets = ProductPetServiceImpl.getInstance().getAllProductsPetsAndNumberOfUnits();
+			Map<Pet, Long> allProductsPets = PRODUCT_PET_SERVICE.getAllProductsPetsAndNumberOfUnits();
 			Map<String, Set<String>> filterMap = MarketFilterProductFactoryImpl.getInstance().createFilterPets(
 					allProductsPets.keySet(), (String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE));
 			session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP, filterMap);
 			if (session.getAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER) != null) {
 				FilterPet filterPet = (FilterPet) session.getAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER);
-				List<Entry<Pet, Long>> productsPetsByFilter = ProductPetServiceImpl.getInstance()
-						.getProductsPetsByFilter(filterPet);
+				List<Entry<Pet, Long>> productsPetsByFilter = PRODUCT_PET_SERVICE.getProductsPetsByFilter(filterPet);
+				productsPetsByFilter = SORT_PRODUCTS.sortProductsPets(productsPetsByFilter,
+						new SortProductsByIdAscendingComparatorImpl());
 				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, productsPetsByFilter);
 			} else {
-				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, allProductsPets.entrySet().stream().toList());
+				List<Entry<Pet, Long>> products = SORT_PRODUCTS.sortProductsPets(
+						allProductsPets.entrySet().stream().toList(), new SortProductsByIdAscendingComparatorImpl());
+				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, products);
 			}
-		} catch (ServiceException e) {
+		} catch (ServiceException | SortingException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}

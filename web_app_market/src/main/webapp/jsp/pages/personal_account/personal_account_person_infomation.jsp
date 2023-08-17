@@ -294,6 +294,32 @@
 												key="personal_account_person_infomation.changing_login_form.login" />
 										</label>
 									</div>
+									<div class="form-floating mb-3">
+										<input type="text" class="form-control" required
+											id="personal_account_person_infomation.changing_login_form.login"
+											name="${InputName.CHANGING_LOGIN_INPUT_USER_LOGIN}"
+											value="${user.getLogin()}"
+											placeholder='<fmt:message key="personal_account_person_infomation.changing_login_form.login"/>'
+											pattern="(\w|[А-Яа-я]){1,255}" /> <label
+											class="text-lowercase"
+											for="personal_account_person_infomation.changing_login_form.login">
+											<fmt:message
+												key="personal_account_person_infomation.changing_login_form.login" />
+										</label>
+									</div>
+									<div class="form-floating mb-3">
+										<input type="text" class="form-control" required
+											id="personal_account_person_infomation.changing_login_form.login"
+											name="${InputName.CHANGING_LOGIN_INPUT_USER_LOGIN}"
+											value="${user.getLogin()}"
+											placeholder='<fmt:message key="personal_account_person_infomation.changing_login_form.login"/>'
+											pattern="(\w|[А-Яа-я]){1,255}" /> <label
+											class="text-lowercase"
+											for="personal_account_person_infomation.changing_login_form.login">
+											<fmt:message
+												key="personal_account_person_infomation.changing_login_form.login" />
+										</label>
+									</div>
 									<div
 										class="login_password_form_fotter d-flex justify-content-end">
 										<div class="btn login_password_form_btn_cancel"

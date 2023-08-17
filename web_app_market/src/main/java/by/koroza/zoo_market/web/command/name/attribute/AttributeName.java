@@ -14,8 +14,6 @@ public final class AttributeName {
 	public static final String ATTRIBUTE_USER = "user";
 //	CREATE ORDER
 	public static final String ATTRIBUTE_ORDER = "order";
-//	public static final String ATTRIBUTE_IS_HAVE_ORDER_PRODUCTS_PETS = "is_have_products_pets";
-//	public static final String ATTRIBUTE_IS_HAVE_ORDER_PRODUCTS_FEED_AND_OTHER = "is_have_products_feed_and_other";
 
 //	INPUT_EXCEPTIONS
 //	registration

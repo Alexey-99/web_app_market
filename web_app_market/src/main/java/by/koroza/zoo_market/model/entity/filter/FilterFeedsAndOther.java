@@ -161,8 +161,13 @@ public class FilterFeedsAndOther extends AbstractProductFilter {
 			return this;
 		}
 
-		public FilterFeedsAndOtherBuilder setMaxPrice(double maxPrice) {
-			this.filter.setMaxPrice(maxPrice);
+		public FilterFeedsAndOtherBuilder setMaxPriceAllProducts(double maxPriceAllProducts) {
+			this.filter.setMaxPriceAllProducts(maxPriceAllProducts);
+			return this;
+		}
+
+		public FilterFeedsAndOtherBuilder setMaxPriceEntered(double maxPriceEntered) {
+			this.filter.setMaxPriceEntered(maxPriceEntered);
 			return this;
 		}
 

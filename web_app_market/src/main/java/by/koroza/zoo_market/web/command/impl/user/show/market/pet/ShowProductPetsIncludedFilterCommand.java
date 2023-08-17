@@ -53,7 +53,6 @@ import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIA
 import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_NUMBER_PAGE;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.PRODUCTS_PETS_PAGE_PATH;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,10 +65,15 @@ import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.model.entity.filter.FilterPet;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
+import by.koroza.zoo_market.service.ProductPetService;
 import by.koroza.zoo_market.service.exception.ServiceException;
+import by.koroza.zoo_market.service.exception.SortingException;
 import by.koroza.zoo_market.service.factory.MarketFilterProductFactory;
 import by.koroza.zoo_market.service.factory.impl.MarketFilterProductFactoryImpl;
 import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
+import by.koroza.zoo_market.service.sorting.SortingProducts;
+import by.koroza.zoo_market.service.sorting.impl.SortingProductsImpl;
+import by.koroza.zoo_market.service.sorting.impl.comparator.list.product.impl.id.SortProductsByIdAscendingComparatorImpl;
 import by.koroza.zoo_market.service.validation.impl.filter.FilterValidationImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
@@ -81,9 +85,13 @@ import jakarta.servlet.http.HttpSession;
 public class ShowProductPetsIncludedFilterCommand implements Command {
 	private static Logger log = LogManager.getLogger();
 
+	private final SortingProducts SORT_PRODUCTS = SortingProductsImpl.getInstance();
+	private final ProductPetService PRODUCT_PET_SERVICE = ProductPetServiceImpl.getInstance();
+	private final MarketFilterProductFactory FILTER_FACTORY = MarketFilterProductFactoryImpl.getInstance();
+
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
-		List<Entry<Pet, Long>> pets = new ArrayList<>();
+
 		HttpSession session = request.getSession();
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER);
@@ -91,27 +99,27 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 			Map<String, String> mapInputExceptions = new HashMap<>();
 			String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
 			FilterPet filter = getInputParameters(request, sessionLocale, mapInputExceptions);
-			MarketFilterProductFactory filterFactory = MarketFilterProductFactoryImpl.getInstance();
 			if (mapInputExceptions.isEmpty()) {
-				pets = ProductPetServiceImpl.getInstance().getProductsPetsByFilter(filter);
+				List<Entry<Pet, Long>> pets = PRODUCT_PET_SERVICE.getProductsPetsByFilter(filter);
+				pets = SORT_PRODUCTS.sortProductsPets(pets, new SortProductsByIdAscendingComparatorImpl());
 				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, pets);
 				if (session.getAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP) == null) {
-					Map<String, Set<String>> filterMap = filterFactory.createFilterPets(
-							ProductPetServiceImpl.getInstance().getAllProductsPetsAndNumberOfUnits().keySet(),
-							sessionLocale);
+					Map<String, Set<String>> filterMap = FILTER_FACTORY.createFilterPets(
+							PRODUCT_PET_SERVICE.getAllProductsPetsAndNumberOfUnits().keySet(), sessionLocale);
 					session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP, filterMap);
 				}
 				session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER, filter);
 			} else {
 				session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
 						mapInputExceptions);
-				Map<Pet, Long> mapPets = ProductPetServiceImpl.getInstance().getAllProductsPetsAndNumberOfUnits();
-				pets = mapPets.entrySet().stream().toList();
-				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, pets);
-				Map<String, Set<String>> filterMap = filterFactory.createFilterPets(mapPets.keySet(), sessionLocale);
+				Map<Pet, Long> mapPets = PRODUCT_PET_SERVICE.getAllProductsPetsAndNumberOfUnits();
+				List<Entry<Pet, Long>> sortedPets = SORT_PRODUCTS.sortProductsPets(mapPets.entrySet().stream().toList(),
+						new SortProductsByIdAscendingComparatorImpl());
+				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, sortedPets);
+				Map<String, Set<String>> filterMap = FILTER_FACTORY.createFilterPets(mapPets.keySet(), sessionLocale);
 				session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP, filterMap);
 			}
-		} catch (ServiceException e) {
+		} catch (ServiceException | SortingException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
@@ -120,7 +128,7 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 	}
 
 	private FilterPet getInputParameters(HttpServletRequest request, String sessionLocale,
-			Map<String, String> mapInputExceptions) {
+			Map<String, String> mapInputExceptions) throws ServiceException {
 		String[] choosedTypesPets = getInputParameterTypesPets(request);
 		String[] choosedBreedPets = getInputParameterBreedPets(request);
 		boolean onlyPetsWithDiscont = getInputParameterOnlyProductsWithDiscount(request);
@@ -143,7 +151,9 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 						.setMaxDiscont(
 								maxDiscount != null && !maxDiscount.isBlank() ? Double.parseDouble(maxDiscount) : 0)
 						.setMinPrice(minPrice != null && !minPrice.isBlank() ? Double.parseDouble(minPrice) : 0)
-						.setMaxPrice(maxPrice != null && !maxPrice.isBlank() ? Double.parseDouble(maxPrice) : 0)
+						.setMaxPriceAllProducts(findMaxPriceInListProducts())
+						.setMaxPriceEntered(maxPrice != null && !maxPrice.isBlank() ? Double.parseDouble(maxPrice)
+								: findMaxPriceInListProducts())
 						.setMinNumberYear(minPrice != null && !minYear.isBlank() ? Integer.parseInt(minYear) : 0)
 						.setMinNumberMonth(minMonths != null && !minMonths.isBlank() ? Integer.parseInt(minMonths) : 0)
 						.setMaxNumberYear(maxYear != null && !maxYear.isBlank() ? Integer.parseInt(maxYear) : 0)
@@ -322,5 +332,18 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 			}
 		}
 		return new String[] { minYear, minMonths, maxYear, maxMonths };
+	}
+
+	private double findMaxPriceInListProducts() throws ServiceException {
+		double maxPrice = 0;
+		Map<Pet, Long> products = PRODUCT_PET_SERVICE.getAllProductsPetsAndNumberOfUnits();
+		for (Entry<Pet, Long> entry : products.entrySet()) {
+			Pet product = entry.getKey();
+			Long numberOfUnits = entry.getValue();
+			if (numberOfUnits > 0 && product.getPrice() > maxPrice) {
+				maxPrice = product.getPrice();
+			}
+		}
+		return maxPrice;
 	}
 }

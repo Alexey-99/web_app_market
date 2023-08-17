@@ -51,8 +51,8 @@ import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.exception.SortingException;
 import by.koroza.zoo_market.service.exception.ValidationException;
 import by.koroza.zoo_market.service.impl.order.OrderServiceImpl;
-import by.koroza.zoo_market.service.sorting.SortingProducts;
-import by.koroza.zoo_market.service.sorting.comparator.list.product.impl.id.SortProductsByIdAscendingComparatorImpl;
+import by.koroza.zoo_market.service.sorting.impl.SortingProductsImpl;
+import by.koroza.zoo_market.service.sorting.impl.comparator.list.product.impl.id.SortProductsByIdAscendingComparatorImpl;
 import by.koroza.zoo_market.service.validation.impl.bank.BankCardValidationImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
@@ -61,11 +61,24 @@ import by.koroza.zoo_market.web.controller.router.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * The Class BankDataProcessingCommand.
+ */
 public class BankDataProcessingCommand implements Command {
+
+	/** The log. */
 	private static Logger log = LogManager.getLogger();
 
+	/**
+	 * Execute.
+	 *
+	 * @param request the request
+	 * @return the router
+	 * @throws CommandException the command exception
+	 */
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
+		final SortingProductsImpl SORT_PRODUCTS = SortingProductsImpl.getInstance();
 		Router router = null;
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
@@ -77,12 +90,11 @@ public class BankDataProcessingCommand implements Command {
 					Map<String, String> mapInputExceptions = new HashMap<>();
 					String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
 					BankCard bankCard = createBankCardFromInputParameters(request, mapInputExceptions, sessionLocale);
-					List<Entry<Pet, Long>> sortedPets = SortingProducts.getInstance()
-							.sortProductsPets(order.getProductsPets(), new SortProductsByIdAscendingComparatorImpl());
+					List<Entry<Pet, Long>> sortedPets = SORT_PRODUCTS.sortProductsPets(order.getProductsPets(),
+							new SortProductsByIdAscendingComparatorImpl());
 					order.setProductsPets(sortedPets);
-					List<Entry<FeedAndOther, Long>> sortedProductFeedAndOther = SortingProducts.getInstance()
-							.sortProductsFeedsAndOther(order.getOtherProducts(),
-									new SortProductsByIdAscendingComparatorImpl());
+					List<Entry<FeedAndOther, Long>> sortedProductFeedAndOther = SORT_PRODUCTS.sortProductsFeedsAndOther(
+							order.getOtherProducts(), new SortProductsByIdAscendingComparatorImpl());
 					order.setOtherProducts(sortedProductFeedAndOther);
 					if ((bankCard != null && mapInputExceptions.isEmpty())
 							&& (validationBankCard(mapInputExceptions, sessionLocale, bankCard))
@@ -108,6 +120,14 @@ public class BankDataProcessingCommand implements Command {
 		return router;
 	}
 
+	/**
+	 * Creates the bank card from input parameters.
+	 *
+	 * @param request            the request
+	 * @param mapInputExceptions the map input exceptions
+	 * @param sessionLocale      the session locale
+	 * @return the bank card
+	 */
 	private BankCard createBankCardFromInputParameters(HttpServletRequest request,
 			Map<String, String> mapInputExceptions, String sessionLocale) {
 		String numberBankCard = getInputParameterNumberBankCard(request, sessionLocale, mapInputExceptions);
@@ -121,6 +141,14 @@ public class BankDataProcessingCommand implements Command {
 				: null;
 	}
 
+	/**
+	 * Gets the input parameter number bank card.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameter number bank card
+	 */
 	private String getInputParameterNumberBankCard(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String numberBankCard = request.getParameter(PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_NUMBER_BANK_CARD);
@@ -139,6 +167,14 @@ public class BankDataProcessingCommand implements Command {
 		return numberBankCard;
 	}
 
+	/**
+	 * Gets the input parameters month year.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameters month year
+	 */
 	private String[] getInputParametersMonthYear(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String month = request.getParameter(PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_MONTH);
@@ -161,6 +197,14 @@ public class BankDataProcessingCommand implements Command {
 		return new String[] { month, yaer };
 	}
 
+	/**
+	 * Gets the input parameter CVC.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameter CVC
+	 */
 	private String getInputParameterCVC(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String cvc = request.getParameter(PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_BANK_CARD_CVC);
@@ -176,11 +220,31 @@ public class BankDataProcessingCommand implements Command {
 		return cvc;
 	}
 
+	/**
+	 * Validation bank card.
+	 *
+	 * @param mapInputExceptions the map input exceptions
+	 * @param sessionLocale      the session locale
+	 * @param bankCard           the bank card
+	 * @return true, if successful
+	 * @throws ValidationException the validation exception
+	 */
 	private boolean validationBankCard(Map<String, String> mapInputExceptions, String sessionLocale, BankCard bankCard)
 			throws ValidationException {
 		return bankCard != null && isExistsBankCard(mapInputExceptions, sessionLocale, bankCard);
 	}
 
+	/**
+	 * Valid sum bank card.
+	 *
+	 * @param mapInputExceptions          the map input exceptions
+	 * @param sessionLocale               the session locale
+	 * @param bankCard                    the bank card
+	 * @param order                       the order
+	 * @param userPersonalDiscountPercent the user personal discount percent
+	 * @return true, if successful
+	 * @throws ValidationException the validation exception
+	 */
 	private boolean validSumBankCard(Map<String, String> mapInputExceptions, String sessionLocale, BankCard bankCard,
 			Order order, double userPersonalDiscountPercent) throws ValidationException {
 		boolean result = false;
@@ -200,6 +264,15 @@ public class BankDataProcessingCommand implements Command {
 		return result;
 	}
 
+	/**
+	 * Checks if is exists bank card.
+	 *
+	 * @param mapInputExceptions the map input exceptions
+	 * @param sessionLocale      the session locale
+	 * @param bankCard           the bank card
+	 * @return true, if is exists bank card
+	 * @throws ValidationException the validation exception
+	 */
 	private boolean isExistsBankCard(Map<String, String> mapInputExceptions, String sessionLocale, BankCard bankCard)
 			throws ValidationException {
 		boolean result = false;

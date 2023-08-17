@@ -167,7 +167,7 @@
 																				items="${products_pets_filter_map.get(FilterName.CHOOSE_VALUE_DISCOUNT_EN)}"
 																				var="value" varStatus="innerStutus">
 																				<label> <span
-																					class="span_input span_input_${FilterName.CHOOSE_VALUE_DISCOUNT_EN }">
+																					class="span_input span_input_${FilterName.CHOOSE_VALUE_DISCOUNT_EN}">
 																						<input type="checkbox"
 																						name="${InputName.INPUT_PROMOTIONS}"
 																						value="${value}" /> ${value}
@@ -405,7 +405,7 @@
 																							key="market_product_pets_page.filter.promotions_part.span_input.from" />
 																					</span> <input type="text" class="form-control is-invalid"
 																						pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
-																						aria-label="Процент скидки"
+																						aria-label="Процент скидки" value="0"
 																						name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}" />
 																					<span class="span_procent"><svg
 																							class="span_procent_img"
@@ -419,6 +419,7 @@
 																					<input type="text" class="form-control is-invalid"
 																						pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
 																						aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)"
+																						value="100"
 																						name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
 																					<span class="span_procent"> <svg
 																							class="span_procent_img"
@@ -440,7 +441,7 @@
 																							key="market_product_pets_page.filter.promotions_part.span_input.from" /></span>
 																					<input type="text" class="form-control"
 																						pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
-																						aria-label="Процент скидки"
+																						aria-label="Процент скидки" value="0"
 																						name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}" />
 																					<span class="span_procent"> <svg
 																							class="span_procent_img"
@@ -454,6 +455,7 @@
 																					<input type="text" class="form-control"
 																						pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
 																						aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)"
+																						value="100"
 																						name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
 																					<span class="span_procent"> <svg
 																							class="span_procent_img"
@@ -492,6 +494,7 @@
 																					pattern="[0-9]+(\.[0-9]{2})?"
 																					placeHolder="00,00 руб"
 																					name="${InputName.INPUT_MIN_PRICE_PET}"
+																					value="0.00"
 																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
 																				<span class="input-group-text"><fmt:message
 																						key="market_product_pets_page.filter.price_part.span_input.to" />
@@ -516,6 +519,7 @@
 																					pattern="[0-9]+(\.[0-9]{2})?"
 																					placeHolder="00,00 руб"
 																					name="${InputName.INPUT_MIN_PRICE_PET}"
+																					value="0.00"
 																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
 																				<span class="input-group-text"><fmt:message
 																						key="market_product_pets_page.filter.price_part.span_input.to" />
@@ -763,7 +767,7 @@
 																						key="market_product_pets_page.filter.promotions_part.span_input.from" />
 																				</span> <input type="text" class="form-control"
 																					pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
-																					aria-label="Процент скидки"
+																					aria-label="Процент скидки" value="0"
 																					name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}" />
 																				<span class="span_procent"> <svg
 																						class="span_procent_img"
@@ -777,6 +781,7 @@
 																				</span> <input type="text" class="form-control"
 																					pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
 																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)"
+																					value="100"
 																					name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
 																				<span class="span_procent"> <svg
 																						class="span_procent_img"
@@ -811,7 +816,7 @@
 																			<input type="text" class="form-control"
 																				pattern="[0-9]+(\.[0-9]{2})?"
 																				placeHolder="00,00 руб"
-																				name="${InputName.INPUT_MIN_PRICE_PET}"
+																				name="${InputName.INPUT_MIN_PRICE_PET}" value="0.00"
 																				aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
 																			<span class="input-group-text"><fmt:message
 																					key="market_product_pets_page.filter.price_part.span_input.to" /></span>
@@ -986,7 +991,7 @@
 																							key="market_product_pets_page.filter.promotions_part.span_input.from" /></span>
 																					<input type="text" class="form-control is-invalid"
 																						pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
-																						aria-label="Процент скидки"
+																						aria-label="Процент скидки" value="0"
 																						name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}" />
 																					<span class="span_procent"> <svg
 																							class="span_procent_img"
@@ -1000,6 +1005,7 @@
 																					<input type="text" class="form-control is-invalid"
 																						pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
 																						aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)"
+																						value="100"
 																						name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
 																					<span class="span_procent"><svg
 																							class="span_procent_img"
@@ -1021,7 +1027,7 @@
 																							key="market_product_pets_page.filter.promotions_part.span_input.from" /></span>
 																					<input type="text" class="form-control"
 																						pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
-																						aria-label="Процент скидки"
+																						aria-label="Процент скидки" value="0"
 																						name="${InputName.INPUT_MIN_PROCENT_PROMOTIONS}" />
 																					<span class="span_procent"> <svg
 																							class="span_procent_img"
@@ -1035,6 +1041,7 @@
 																					<input type="text" class="form-control"
 																						pattern="10{2}|[0-9]{0,2}(\.[0-9]{0,2})?"
 																						aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)"
+																						value="100"
 																						name="${InputName.INPUT_MAX_PROCENT_PROMOTIONS }" />
 																					<span class="span_procent"> <svg
 																							class="span_procent_img"
@@ -1072,7 +1079,7 @@
 																				<input type="text" class="form-control is-invalid"
 																					pattern="[0-9]+(\.[0-9]{2})?"
 																					placeHolder="00,00 руб"
-																					name="${InputName.INPUT_MIN_PRICE_PET}"
+																					name="${InputName.INPUT_MIN_PRICE_PET}" value="0"
 																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
 																				<span class="input-group-text"><fmt:message
 																						key="market_product_pets_page.filter.price_part.span_input.to" />
@@ -1096,7 +1103,7 @@
 																				</span> <input type="text" class="form-control"
 																					pattern="[0-9]+(\.[0-9]{2})?"
 																					placeHolder="00,00 руб"
-																					name="${InputName.INPUT_MIN_PRICE_PET}"
+																					name="${InputName.INPUT_MIN_PRICE_PET}" value="0"
 																					aria-label="Сумма в рублях (с точкой и двумя десятичными знаками)" />
 																				<span class="input-group-text"><fmt:message
 																						key="market_product_pets_page.filter.price_part.span_input.to" />

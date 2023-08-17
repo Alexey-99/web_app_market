@@ -39,9 +39,7 @@ import static by.koroza.zoo_market.web.command.name.command.CommandName.COMMAND_
 import static by.koroza.zoo_market.web.command.name.command.CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE;
 import static by.koroza.zoo_market.web.command.name.command.CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_HISTORY_ORDERS_PAGE;
 import static by.koroza.zoo_market.web.command.name.command.CommandName.COMMAND_SHOW_PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE;
-import static by.koroza.zoo_market.web.command.name.command.CommandName.COMMAND_SHOW_PRODUCT_FEEDS_AND_OTHER_INCLUDED_FILTER_PAGE;
 import static by.koroza.zoo_market.web.command.name.command.CommandName.COMMAND_SHOW_PRODUCT_FEED_AND_OTHER_OFF_FILTER_PAGE;
-import static by.koroza.zoo_market.web.command.name.command.CommandName.COMMAND_SHOW_PRODUCT_PETS_INCLUDED_FILTER_PAGE;
 import static by.koroza.zoo_market.web.command.name.command.CommandName.COMMAND_SHOW_PRODUCT_PETS_OFF_FILTER_PAGE;
 import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_COMMAND;
 import static by.koroza.zoo_market.web.command.name.servlet.ServletName.MAIN_SERVLET_CONTROLLER_NAME;
@@ -67,9 +65,7 @@ public class PreviousPageFilter extends HttpFilter implements Filter {
 	private static final String[] PAGE_COMMAND_NAMES = new String[] { COMMAND_SHOW_HOME_PAGE, COMMAND_SHOW_BACKET_PAGE,
 			COMMAND_SHOW_PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE, COMMAND_SHOW_PERSONAL_ACCOUNT_HISTORY_ORDERS_PAGE,
 			COMMAND_SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE, COMMAND_SHOW_PRODUCT_PETS_OFF_FILTER_PAGE,
-			COMMAND_SHOW_PRODUCT_PETS_INCLUDED_FILTER_PAGE, COMMAND_SHOW_PRODUCT_FEED_AND_OTHER_OFF_FILTER_PAGE,
-			COMMAND_SHOW_PRODUCT_FEEDS_AND_OTHER_INCLUDED_FILTER_PAGE,
-			COMMAND_SHOW_MAKET_PAGE_PRODUCT_PETS_BY_NUMBER_PAGE,
+			COMMAND_SHOW_PRODUCT_FEED_AND_OTHER_OFF_FILTER_PAGE, COMMAND_SHOW_MAKET_PAGE_PRODUCT_PETS_BY_NUMBER_PAGE,
 			COMMAND_SHOW_MAKET_PAGE_PRODUCT_FEEDS_AND_OTHER_BY_NUMBER_PAGE, COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_OFF_FILTER,
 			COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_ID_ASCENDING,
 			COMMAND_ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_ID_DESCENDING,

@@ -27,8 +27,8 @@ import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.exception.SortingException;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
-import by.koroza.zoo_market.service.sorting.SortingProducts;
 import by.koroza.zoo_market.service.sorting.comparator.map.impl.product.type.SortProductsByProductTypeAscendingComparatorImpl;
+import by.koroza.zoo_market.service.sorting.impl.SortingProductsImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.router.Router;
@@ -51,7 +51,7 @@ public class ShowAllProductsOffFilterSortingByProductTypeAscendingCommand implem
 				Map<AbstractProduct, Long> products = new HashMap<>();
 				products.putAll(productPets);
 				products.putAll(productFeedsAndOther);
-				session.setAttribute(ATTRIBUTE_MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT, SortingProducts.getInstance()
+				session.setAttribute(ATTRIBUTE_MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT, SortingProductsImpl.getInstance()
 						.sortProductsMap(products, new SortProductsByProductTypeAscendingComparatorImpl()));
 				session.setAttribute(SESSION_ATTRIBUTE_PET_CLASS_NAME, SESSION_ATTRIBUTE_PET_CLASS);
 				session.setAttribute(SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS_NAME,

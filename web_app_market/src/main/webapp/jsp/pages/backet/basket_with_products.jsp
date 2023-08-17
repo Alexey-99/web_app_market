@@ -292,7 +292,7 @@
 									varStatus="status">
 									<li class="body_list_item">
 										<h6>
-											${status.getIndex() + 1}.
+											<span class="fw-bolder">${status.getIndex() + 1}.</span>
 											<fmt:message key="basket_page.product.number" />
 											p-${entry.getKey().getId()}
 										</h6>
@@ -319,7 +319,7 @@
 									varStatus="status">
 									<li class="body_list_item">
 										<h6>
-											${status.getIndex() + 1}.
+											<span class="fw-bolder"> ${status.getIndex() + 1}.</span>
 											<fmt:message key="basket_page.product.number" />
 											o-${entry.getKey().getId()}
 										</h6>
@@ -464,7 +464,7 @@
 									<div
 										class="payment_information_form_fotter d-flex justify-content-end">
 										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-											value="${CommandName.COMMAND_CREATE_ORDER}" />
+											value="${CommandName.COMMAND_BANK_DATA_PROCESSING}" />
 										<button class="btn payment_information_form_btn_submit"
 											role="button">
 											<fmt:message key="basket_page.paymant_form.ready" />

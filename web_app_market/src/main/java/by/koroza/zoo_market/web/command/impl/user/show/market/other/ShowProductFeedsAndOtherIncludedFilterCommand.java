@@ -37,12 +37,11 @@ import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIA
 import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_NUMBER_PAGE;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.PRODUCTS_FEED_AND_OTHER_PAGE_PATH;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -52,38 +51,47 @@ import by.koroza.zoo_market.model.entity.filter.FilterFeedsAndOther;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.service.ProductFeedsAndOtherService;
 import by.koroza.zoo_market.service.exception.ServiceException;
+import by.koroza.zoo_market.service.exception.SortingException;
 import by.koroza.zoo_market.service.factory.MarketFilterProductFactory;
 import by.koroza.zoo_market.service.factory.impl.MarketFilterProductFactoryImpl;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
+import by.koroza.zoo_market.service.sorting.impl.SortingProductsImpl;
+import by.koroza.zoo_market.service.sorting.impl.comparator.list.product.impl.id.SortProductsByIdAscendingComparatorImpl;
 import by.koroza.zoo_market.service.validation.FilterValidation;
 import by.koroza.zoo_market.service.validation.impl.filter.FilterValidationImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.router.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 	private static Logger log = LogManager.getLogger();
 
+	private static final ProductFeedsAndOtherService FEEDS_AND_OTHER_SERVICE = ProductFeedsAndOtherServiceImpl
+			.getInstance();
+	private static final MarketFilterProductFactory FILTER_FACTORY = MarketFilterProductFactoryImpl.getInstance();
+	private static final SortingProductsImpl SORT_PRODUCTS = SortingProductsImpl.getInstance();
+
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
-		List<Entry<FeedAndOther, Long>> products = new ArrayList<>();
 		HttpSession session = request.getSession();
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER);
-		ProductFeedsAndOtherService productFeedsAndOtherService = ProductFeedsAndOtherServiceImpl.getInstance();
 		try {
 			Map<String, String> mapInputExceptions = new HashMap<>();
 			String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
 			FilterFeedsAndOther filterFeedsAndOther = getInputParameters(request, sessionLocale, mapInputExceptions);
-			MarketFilterProductFactory filterFactory = MarketFilterProductFactoryImpl.getInstance();
 			if (mapInputExceptions.isEmpty()) {
-				products = productFeedsAndOtherService.getProductsFeedAndOtherByFilter(filterFeedsAndOther);
+				List<Entry<FeedAndOther, Long>> products = FEEDS_AND_OTHER_SERVICE
+						.getProductsFeedAndOtherByFilter(filterFeedsAndOther);
+				products = SORT_PRODUCTS.sortProductsFeedsAndOther(products,
+						new SortProductsByIdAscendingComparatorImpl());
 				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_FEEDS_AND_OTHER, products);
 				if (session.getAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP) == null) {
-					Map<String, Set<String>> filterMap = filterFactory.createFilterFeedAndOther(
-							productFeedsAndOtherService.getAllProductsFeedAndOtherAndNumberOfUnits().keySet(),
+					Map<String, Set<String>> filterMap = FILTER_FACTORY.createFilterFeedAndOther(
+							FEEDS_AND_OTHER_SERVICE.getAllProductsFeedAndOtherAndNumberOfUnits().keySet(),
 							sessionLocale);
 					session.setAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP, filterMap);
 				}
@@ -91,15 +99,17 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 			} else {
 				session.setAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
 						mapInputExceptions);
-				Map<FeedAndOther, Long> allProductsFeedAndOther = productFeedsAndOtherService
+				Map<FeedAndOther, Long> allProductsFeedAndOther = FEEDS_AND_OTHER_SERVICE
 						.getAllProductsFeedAndOtherAndNumberOfUnits();
-				products = allProductsFeedAndOther.entrySet().stream().toList();
-				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_FEEDS_AND_OTHER, allProductsFeedAndOther);
-				Map<String, Set<String>> filterMap = filterFactory
+				List<Entry<FeedAndOther, Long>> products = SORT_PRODUCTS.sortProductsFeedsAndOther(
+						allProductsFeedAndOther.entrySet().stream().toList(),
+						new SortProductsByIdAscendingComparatorImpl());
+				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_FEEDS_AND_OTHER, products);
+				Map<String, Set<String>> filterMap = FILTER_FACTORY
 						.createFilterFeedAndOther(allProductsFeedAndOther.keySet(), sessionLocale);
 				session.setAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP, filterMap);
 			}
-		} catch (ServiceException e) {
+		} catch (ServiceException | SortingException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
@@ -108,7 +118,7 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 	}
 
 	private FilterFeedsAndOther getInputParameters(HttpServletRequest request, String sessionLocale,
-			Map<String, String> mapInputExceptions) {
+			Map<String, String> mapInputExceptions) throws ServiceException {
 		String[] choosedTypesProduct = getInputParameterTypesProduct(request);
 		String[] choosedBrendsProduct = getInputParameterBrendsProduct(request);
 		String[] choosedTypesPets = getInputParameterTypesPets(request);
@@ -119,15 +129,19 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 		String[] minMaxPrice = getInputParametersMinMaxPrice(request, sessionLocale, mapInputExceptions);
 		String minPrice = minMaxPrice[0];
 		String maxPrice = minMaxPrice[1];
-		return mapInputExceptions.isEmpty()
-				? new FilterFeedsAndOther.FilterFeedsAndOtherBuilder().setChoosedTypesPets(choosedTypesPets)
-						.setChoosedProductBrend(choosedBrendsProduct).setChoosedTypesProduct(choosedTypesProduct)
-						.setOnlyProductsWithDiscont(onlyProductsWithDiscount)
-						.setMinDiscont(!minDiscount.isBlank() ? Double.parseDouble(minDiscount) : 0)
-						.setMaxDiscont(!maxDiscount.isBlank() ? Double.parseDouble(maxDiscount) : 0)
-						.setMinPrice(!minPrice.isBlank() ? Double.parseDouble(minPrice) : 0)
-						.setMaxPrice(!maxPrice.isBlank() ? Double.parseDouble(maxPrice) : 0).build()
-				: null;
+		return mapInputExceptions.isEmpty() ? new FilterFeedsAndOther.FilterFeedsAndOtherBuilder()
+				.setChoosedTypesPets(choosedTypesPets).setChoosedProductBrend(choosedBrendsProduct)
+				.setChoosedTypesProduct(choosedTypesProduct).setOnlyProductsWithDiscont(onlyProductsWithDiscount)
+				.setMinDiscont(minDiscount != null && !minDiscount.isBlank() ? Double.parseDouble(minDiscount)
+						: FilterFeedsAndOther.MIN_DISCOUNT)
+				.setMaxDiscont(maxDiscount != null && !maxDiscount.isBlank() ? Double.parseDouble(maxDiscount)
+						: FilterFeedsAndOther.MAX_DISCOUNT)
+				.setMinPrice(minPrice != null && !minPrice.isBlank() ? Double.parseDouble(minPrice)
+						: FilterFeedsAndOther.MIN_PRICE)
+				.setMaxPriceAllProducts(findMaxPriceInListProducts())
+				.setMaxPriceEntered(maxPrice != null && !maxPrice.isBlank() ? Double.parseDouble(maxPrice)
+						: findMaxPriceInListProducts())
+				.build() : null;
 	}
 
 	private String[] getInputParameterTypesProduct(HttpServletRequest request) {
@@ -257,5 +271,18 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 			}
 		}
 		return new String[] { minPrice, maxPrice };
+	}
+
+	private double findMaxPriceInListProducts() throws ServiceException {
+		double maxPrice = 0;
+		Map<FeedAndOther, Long> products = FEEDS_AND_OTHER_SERVICE.getAllProductsFeedAndOtherAndNumberOfUnits();
+		for (Map.Entry<FeedAndOther, Long> entry : products.entrySet()) {
+			FeedAndOther product = entry.getKey();
+			Long numberOfUnits = entry.getValue();
+			if (numberOfUnits > 0 && product.getPrice() > maxPrice) {
+				maxPrice = product.getPrice();
+			}
+		}
+		return maxPrice;
 	}
 }

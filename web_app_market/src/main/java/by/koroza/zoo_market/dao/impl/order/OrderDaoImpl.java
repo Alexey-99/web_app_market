@@ -16,7 +16,6 @@ import static by.koroza.zoo_market.dao.name.ColumnName.PETS_BIRTH_DATE;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_IMAGE_PATH;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_PRICE;
 import static by.koroza.zoo_market.dao.name.ColumnName.PETS_DISCOUNT;
-import static by.koroza.zoo_market.dao.name.ColumnName.PETS_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_IMAGE_PATH;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_TYPE;
@@ -35,6 +34,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.HashMap;
 
 import org.apache.logging.log4j.Level;
@@ -144,15 +144,21 @@ public class OrderDaoImpl implements OrderDao {
 						.prepareStatement(QUERY_SELECT_ORDER_PRODUCTS_PETS_BY_ORDERS_ID)) {
 					statement.setLong(1, order.getId());
 					statement.setLong(2, ProductType.PETS.getId());
+					Map<Pet, Long> productsMap = new HashMap<>();
 					try (ResultSet resultSet = statement.executeQuery()) {
 						while (resultSet.next()) {
-							order.getProductsPets()
-									.add(new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
-											.setSpecie(resultSet.getString(PETS_SPECIE))
-											.setBreed(resultSet.getString(PETS_BREED))
-											.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toLocalDate()).build());
+							Pet pet = new Pet.PetBuilder().setImagePath(resultSet.getString(PETS_IMAGE_PATH))
+									.setId(resultSet.getLong(PETS_ID)).setSpecie(resultSet.getString(PETS_SPECIE))
+									.setBreed(resultSet.getString(PETS_BREED))
+									.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toLocalDate()).build();
+							if (productsMap.containsKey(pet)) {
+								productsMap.put(pet, productsMap.get(pet) + 1);
+							} else {
+								productsMap.put(pet, 1L);
+							}
 						}
 					}
+					order.setProductsPets(productsMap.entrySet().stream().toList());
 				}
 			}
 			for (Order order : orders) {
@@ -160,17 +166,24 @@ public class OrderDaoImpl implements OrderDao {
 						.prepareStatement(QUERY_SELECT_ORDER_PRODUCTS_OTHER_PRODUCTS_BY_ORDERS_ID)) {
 					statement.setLong(1, order.getId());
 					statement.setLong(2, ProductType.FEEDS_AND_OTHER.getId());
+					Map<FeedAndOther, Long> productsMap = new HashMap<>();
 					try (ResultSet resultSet = statement.executeQuery()) {
 						while (resultSet.next()) {
-							order.getOtherProducts()
-									.add(new FeedAndOther.FeedAndOtherBuilder()
-											.setId(resultSet.getLong(FEEDS_AND_OTHER_ID))
-											.setProductType(resultSet.getString(FEEDS_AND_OTHER_TYPE))
-											.setBrand(resultSet.getString(FEEDS_AND_OTHER_BRAND))
-											.setDescriptions(FEEDS_AND_OTHER_DESCRIPTION)
-											.setPetTypes(resultSet.getString(FEEDS_AND_OTHER_PET_TYPE)).build());
+							FeedAndOther feedAndOther = new FeedAndOther.FeedAndOtherBuilder()
+									.setId(resultSet.getLong(FEEDS_AND_OTHER_ID))
+									.setImagePath(resultSet.getString(FEEDS_AND_OTHER_IMAGE_PATH))
+									.setProductType(resultSet.getString(FEEDS_AND_OTHER_TYPE))
+									.setBrand(resultSet.getString(FEEDS_AND_OTHER_BRAND))
+									.setDescriptions(resultSet.getString(FEEDS_AND_OTHER_DESCRIPTION))
+									.setPetTypes(resultSet.getString(FEEDS_AND_OTHER_PET_TYPE)).build();
+							if (productsMap.containsKey(feedAndOther)) {
+								productsMap.put(feedAndOther, productsMap.get(feedAndOther) + 1);
+							} else {
+								productsMap.put(feedAndOther, 1L);
+							}
 						}
 					}
+					order.setOtherProducts(productsMap.entrySet().stream().toList());
 				}
 			}
 		} catch (SQLException | IllegalArgumentException e) {
@@ -225,20 +238,20 @@ public class OrderDaoImpl implements OrderDao {
 			boolean resultInsetOrderProducts = false;
 			try (PreparedStatement statement = connection.prepareStatement(QUERY_INSERT_ORDER_PRODUCTS)) {
 				int countInserts = 0;
-				for (Pet productPet : order.getProductsPets()) {
+				for (Entry<Pet, Long> entry : order.getProductsPets()) {
 					statement.setLong(1, order.getId());
 					statement.setLong(2, ProductType.PETS.getId());
-					statement.setLong(3, productPet.getId());
+					statement.setLong(3, entry.getKey().getId());
 					statement.setNull(4, Types.BIGINT);
 					if (statement.executeUpdate() > 0) {
 						countInserts++;
 					}
 				}
-				for (FeedAndOther productFeedAndOther : order.getOtherProducts()) {
+				for (Entry<FeedAndOther, Long> entry : order.getOtherProducts()) {
 					statement.setLong(1, order.getId());
 					statement.setLong(2, ProductType.FEEDS_AND_OTHER.getId());
 					statement.setNull(3, Types.BIGINT);
-					statement.setLong(4, productFeedAndOther.getId());
+					statement.setLong(4, entry.getKey().getId());
 					if (statement.executeUpdate() > 0) {
 						countInserts++;
 					}

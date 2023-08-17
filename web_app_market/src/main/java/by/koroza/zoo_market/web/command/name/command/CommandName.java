@@ -38,12 +38,12 @@ import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_CREAT
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_CREATE_PET_PRODUCT_FORM;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_FEED_AND_OTHER;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_UPDATE_CHANGED_PRODUCT_PET;
+import static by.koroza.zoo_market.web.command.CommandType.BANK_DATA_PROCESSING;
 import static by.koroza.zoo_market.web.command.CommandType.CHANGE_EMAIL;
 import static by.koroza.zoo_market.web.command.CommandType.CHANGE_LOGIN;
 import static by.koroza.zoo_market.web.command.CommandType.CHANGE_PASSWORD;
 import static by.koroza.zoo_market.web.command.CommandType.CHANGE_EMAIL_PERSON_ACCOUNT;
 import static by.koroza.zoo_market.web.command.CommandType.CONFIMATION_EMAIL;
-import static by.koroza.zoo_market.web.command.CommandType.CREATE_ORDER;
 import static by.koroza.zoo_market.web.command.CommandType.DELETE_FEEDS_AND_OTHER_PRODUCT_FROM_ORDER;
 import static by.koroza.zoo_market.web.command.CommandType.DELETE_PET_PRODUCT_FROM_ORDER;
 import static by.koroza.zoo_market.web.command.CommandType.ORDER_PAYMENT;
@@ -126,7 +126,7 @@ public final class CommandName {
 	public static final String COMMAND_CHANGE_EMAIL = CHANGE_EMAIL.toString().toLowerCase();
 	public static final String COMMAND_SHOW_CHANGE_EMAIL_FORM = SHOW_CHANGE_EMAIL_FORM.toString().toLowerCase();
 
-	public static final String COMMAND_CREATE_ORDER = CREATE_ORDER.toString().toLowerCase();
+	public static final String COMMAND_BANK_DATA_PROCESSING = BANK_DATA_PROCESSING.toString().toLowerCase();
 	public static final String COMMAND_ORDER_PAYMENT = ORDER_PAYMENT.toString().toLowerCase();
 
 	public static final String COMMAND_SET_ENGLISH_LOCALE = SET_ENGLISH_LOCALE.toString().toLowerCase();
@@ -232,6 +232,5 @@ public final class CommandName {
 			.toLowerCase();
 
 	private CommandName() {
-		System.out.println(DELETE_FEEDS_AND_OTHER_PRODUCT_FROM_ORDER);
 	}
 }

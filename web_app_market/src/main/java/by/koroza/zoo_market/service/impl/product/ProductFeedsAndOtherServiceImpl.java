@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 import by.koroza.zoo_market.dao.impl.product.ProductFeedsAndOtherDaoImpl;
 import by.koroza.zoo_market.model.entity.filter.FilterFeedsAndOther;
+import by.koroza.zoo_market.model.entity.filter.product.AbstractProductFilter;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.service.ProductFeedsAndOtherService;
 import by.koroza.zoo_market.service.exception.ServiceException;
@@ -93,16 +94,18 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 			if (filter.isOnlyProductsWithDiscount()) {
 				listProductsWithFilter = listProductsWithFilter.stream()
 						.filter(entry -> entry.getKey().getDiscount() > 0).toList();
-			} else if (filter.getMaxDiscount() != 0 || filter.getMinDiscount() != 0) {
+			} else if (filter.getMaxDiscount() != AbstractProductFilter.MAX_DISCOUNT
+					|| filter.getMinDiscount() != AbstractProductFilter.MIN_DISCOUNT) {
 				listProductsWithFilter = listProductsWithFilter.stream()
 						.filter(entry -> entry.getKey().getDiscount() >= filter.getMinDiscount()
 								&& entry.getKey().getDiscount() <= filter.getMaxDiscount())
 						.toList();
 			}
-			if (filter.getMaxPrice() != 0 || filter.getMinPrice() != 0) {
+			if (filter.getMaxPriceEntered() != filter.getMaxPriceAllProducts()
+					|| filter.getMinPrice() != AbstractProductFilter.MIN_PRICE) {
 				listProductsWithFilter = listProductsWithFilter.stream()
 						.filter(entry -> entry.getKey().getPrice() >= filter.getMinPrice()
-								&& entry.getKey().getPrice() <= filter.getMaxPrice())
+								&& entry.getKey().getPrice() <= filter.getMaxPriceEntered())
 						.toList();
 			}
 			listProductsWithFilter = selectProductsByTypeProduct(filter, listProductsWithFilter);

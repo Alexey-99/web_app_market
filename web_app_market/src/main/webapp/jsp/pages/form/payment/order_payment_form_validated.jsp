@@ -225,7 +225,7 @@
 								<div
 									class="payment_information_form_fotter d-flex justify-content-end">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-										value="${CommandName.COMMAND_ORDER_PAYMENT}" />
+										value="${CommandName.COMMAND_BANK_DATA_PROCESSING}" />
 									<button class="btn payment_information_form_btn_submit"
 										role="button">
 										<fmt:message key="basket_page.paymant_form.ready" />

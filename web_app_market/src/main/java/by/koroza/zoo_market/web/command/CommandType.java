@@ -107,8 +107,8 @@ public enum CommandType {
 	CHANGE_PASSWORD(new ChangePasswordCommand()), CHANGE_EMAIL(new ChangeEmailCommand()),
 	SHOW_CHANGE_EMAIL_FORM(new ShowChangeUserEmailFormComamnd()),
 //	ORDER
-//	create_order
-	CREATE_ORDER(new BankDataProcessingCommand()),
+//	bank data processing
+	BANK_DATA_PROCESSING(new BankDataProcessingCommand()),
 //	order_payment
 	ORDER_PAYMENT(new OrderPaymentCommand()),
 //	change locale 

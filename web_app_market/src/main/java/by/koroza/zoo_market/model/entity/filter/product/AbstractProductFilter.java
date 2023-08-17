@@ -1,18 +1,23 @@
 package by.koroza.zoo_market.model.entity.filter.product;
 
 public abstract class AbstractProductFilter {
+	public static final double MAX_DISCOUNT = 100;
+	public static final double MIN_DISCOUNT = 0;
+	public static final double MIN_PRICE = 0;
+
 	private boolean onlyProductsWithDiscount;
 	private double minDiscount;
 	private double maxDiscount;
 	private double minPrice;
-	private double maxPrice;
+	private double maxPriceAllProducts;
+	private double maxPriceEntered;
 
 	public AbstractProductFilter() {
 		this.onlyProductsWithDiscount = false;
-		this.minDiscount = 0;
-		this.maxDiscount = 0;
-		this.minPrice = 0;
-		this.maxPrice = 0;
+		this.minDiscount = MIN_DISCOUNT;
+		this.maxDiscount = MAX_DISCOUNT;
+		this.minPrice = MIN_PRICE;
+		this.maxPriceAllProducts = MIN_PRICE;
 	}
 
 	public boolean isOnlyProductsWithDiscount() {
@@ -47,12 +52,20 @@ public abstract class AbstractProductFilter {
 		this.minPrice = minPrice;
 	}
 
-	public double getMaxPrice() {
-		return this.maxPrice;
+	public double getMaxPriceAllProducts() {
+		return maxPriceAllProducts;
 	}
 
-	public void setMaxPrice(double maxPrice) {
-		this.maxPrice = maxPrice;
+	public void setMaxPriceAllProducts(double maxPriceAllProducts) {
+		this.maxPriceAllProducts = maxPriceAllProducts;
+	}
+
+	public double getMaxPriceEntered() {
+		return maxPriceEntered;
+	}
+
+	public void setMaxPriceEntered(double maxPriceEntered) {
+		this.maxPriceEntered = maxPriceEntered;
 	}
 
 	@Override
@@ -62,7 +75,8 @@ public abstract class AbstractProductFilter {
 		result = PRIME * result + Boolean.hashCode(this.onlyProductsWithDiscount);
 		result = PRIME * result + Double.hashCode(this.maxDiscount);
 		result = PRIME * result + Double.hashCode(this.minDiscount);
-		result = PRIME * result + Double.hashCode(this.maxPrice);
+		result = PRIME * result + Double.hashCode(this.maxPriceAllProducts);
+		result = PRIME * result + Double.hashCode(this.maxPriceEntered);
 		result = PRIME * result + Double.hashCode(this.minPrice);
 		return result;
 	}
@@ -88,7 +102,10 @@ public abstract class AbstractProductFilter {
 		if (this.minDiscount != otherAbstractFilter.minDiscount) {
 			return false;
 		}
-		if (this.maxPrice != otherAbstractFilter.maxPrice) {
+		if (this.maxPriceAllProducts != otherAbstractFilter.maxPriceAllProducts) {
+			return false;
+		}
+		if (this.maxPriceEntered != otherAbstractFilter.maxPriceEntered) {
 			return false;
 		}
 		if (this.minPrice != otherAbstractFilter.minPrice) {
@@ -100,42 +117,43 @@ public abstract class AbstractProductFilter {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		if (this.onlyProductsWithDiscount == true) {
+		if (this.onlyProductsWithDiscount) {
 			builder.append("Only products with discount: ").append(onlyProductsWithDiscount).append("; ");
 		} else {
-			if (minDiscount != 0) {
+			if (minDiscount > MIN_DISCOUNT) {
 				builder.append("min discount: ").append(minDiscount).append("; ");
 			}
-			if (maxDiscount != 0) {
+			if (maxDiscount < MAX_DISCOUNT) {
 				builder.append("max discount: ").append(maxDiscount).append("; ");
 			}
 		}
-		if (minPrice != 0) {
+		if (minPrice > MIN_PRICE) {
 			builder.append("min price: ").append(minPrice).append("; ");
 		}
-		if (maxPrice != 0) {
-			builder.append("max price: ").append(maxPrice).append("; ");
+
+		if (this.maxPriceEntered != this.maxPriceAllProducts) {
+			builder.append("max price: ").append(this.maxPriceEntered).append("; ");
 		}
 		return builder.toString();
 	}
 
 	public String toStringRus() {
 		StringBuilder builder = new StringBuilder();
-		if (this.onlyProductsWithDiscount == true) {
+		if (this.onlyProductsWithDiscount) {
 			builder.append("Только товары со скидками: ").append("да").append("; ");
 		} else {
-			if (minDiscount != 0) {
+			if (minDiscount > MIN_DISCOUNT) {
 				builder.append("Минимальная скидка товара: ").append(minDiscount).append("%; ");
 			}
-			if (maxDiscount != 0) {
+			if (maxDiscount < MAX_DISCOUNT) {
 				builder.append("максимальная скидка товара: ").append(maxDiscount).append("%; ");
 			}
 		}
-		if (minPrice != 0) {
+		if (minPrice > MIN_PRICE) {
 			builder.append("Минимальцая цена: ").append(minPrice).append("; ");
 		}
-		if (maxPrice != 0) {
-			builder.append("Максимальная цена: ").append(maxPrice).append("; ");
+		if (this.maxPriceEntered != this.maxPriceAllProducts) {
+			builder.append("Максимальная цена: ").append(this.maxPriceEntered).append("; ");
 		}
 		return builder.toString();
 	}

@@ -91,19 +91,19 @@
 						</div>
 						<div
 							class="row row-cols-1 row-cols-sm-1 row-cols-lg-2 row-cols-xxl-3 g-4">
-							<c:forEach items="${order.getProductsPets()}" var="pet"
+							<c:forEach items="${order.getProductsPets()}" var="entry"
 								varStatus="status">
-								<c:if test="${is_have_products_pets.get(status.getIndex())}">
+								<c:if test="${entry.getValue() > 0}">
 									<div class="col card_product">
 										<div class="card h-100 card_product_inner"
 											style="border: 2px var(--color1) solid;">
 											<div class="card-img-top card_img"
 												style="border: 1px solid var(--bs-card-border-color)">
-												<c:if test="${pet.getImagePath() != null}">
+												<c:if test="${entry.getKey().getImagePath() != null}">
 													<img class="w-100 h-100" alt=""
-														src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${pet.getImagePath()}" />
+														src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${entry.getKey().getImagePath()}" />
 												</c:if>
-												<c:if test="${pet.getImagePath() == null}">
+												<c:if test="${entry.getKey().getImagePath() == null}">
 													<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 														width="100%" height="100%" viewBox="0 0 64 64">
 <path
@@ -115,27 +115,31 @@
 												<div class="discription">
 													<ul class="discription_top">
 														<li><fmt:message key="basket_page.product.number" />
-															p-${pet.getId()}</li>
+															p-${entry.getKey().getId()}</li>
 														<li><fmt:message key="basket_page.product_pet.type" />
-															${pet.getBreed()}</li>
+															${entry.getKey().getBreed()}</li>
 														<li><fmt:message key="basket_page.product_pet.breed" />
-															${pet.getBreed()}</li>
+															${entry.getKey().getBreed()}</li>
 														<li><fmt:message
 																key="basket_page.product_pet.birth_date" />
-															${pet.getBirthDate()}</li>
+															${entry.getKey().getBirthDate()}</li>
 													</ul>
 													<ul class="discription_botton">
 														<li><fmt:message key="basket_page.product.price" />
-															${String.format("%,.2f", pet.getPrice())}</li>
+															${String.format("%,.2f", entry.getKey().getPrice())}</li>
 														<li><fmt:message key="basket_page.product.discount" />
-															${pet.getDiscount()} <img
+															${entry.getKey().getDiscount()} <img
 															class="discription_botton_discont_procent_img"
 															src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
 															alt="percent" /></li>
 														<li><fmt:message
 																key="basket_page.product.total_price" />
-															${String.format("%,.2f", pet.getTotalPrice())}</li>
+															${String.format("%,.2f", entry.getKey().getTotalPrice())}</li>
 													</ul>
+													<p class="w-100 text-center">
+														<fmt:message key="basket_page.product.number_of_units" />
+														${entry.getValue()}
+													</p>
 												</div>
 												<div class="row body_btns w-100">
 													<div class="col-12 body_btn">
@@ -150,17 +154,17 @@
 										</div>
 									</div>
 								</c:if>
-								<c:if test="${!is_have_products_pets.get(status.getIndex())}">
+								<c:if test="${entry.getValue() <= 0}">
 									<div class="col card_product">
 										<div class="card h-100 card_product_inner"
 											style="border: 2px var(--color4) solid;">
 											<div class="card-img-top card_img"
 												style="border: 1px solid var(--bs-card-border-color)">
-												<c:if test="${pet.getImagePath() != null}">
+												<c:if test="${entry.getKey().getImagePath() != null}">
 													<img class="w-100 h-100" alt=""
-														src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${pet.getImagePath()}" />
+														src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${entry.getKey().getImagePath()}" />
 												</c:if>
-												<c:if test="${pet.getImagePath() == null}">
+												<c:if test="${entry.getKey().getImagePath() == null}">
 													<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 														width="100%" height="100%" viewBox="0 0 64 64">
 <path
@@ -172,26 +176,26 @@
 												<div class="discription">
 													<ul class="discription_top">
 														<li><fmt:message key="basket_page.product.number" />
-															p-${pet.getId()}</li>
+															p-${entry.getKey().getId()}</li>
 														<li><fmt:message key="basket_page.product_pet.type" />
-															${pet.getBreed()}</li>
+															${entry.getKey().getBreed()}</li>
 														<li><fmt:message key="basket_page.product_pet.breed" />
-															${pet.getBreed()}</li>
+															${entry.getKey().getBreed()}</li>
 														<li><fmt:message
 																key="basket_page.product_pet.birth_date" />
-															${pet.getBirthDate()}</li>
+															${entry.getKey().getBirthDate()}</li>
 													</ul>
 													<ul class="discription_botton">
 														<li><fmt:message key="basket_page.product.price" />
-															${String.format("%,.2f", pet.getPrice())}</li>
+															${String.format("%,.2f", entry.getKey().getPrice())}</li>
 														<li><fmt:message key="basket_page.product.discount" />
-															${pet.getDiscount()} <img
+															${entry.getKey().getDiscount()} <img
 															class="discription_botton_discont_procent_img"
 															src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
 															alt="percent" /></li>
 														<li><fmt:message
 																key="basket_page.product.total_price" />
-															${String.format("%,.2f", pet.getTotalPrice())}</li>
+															${String.format("%,.2f", entry.getKey().getTotalPrice())}</li>
 													</ul>
 												</div>
 												<div class="row body_btns w-100">
@@ -209,20 +213,19 @@
 								</c:if>
 							</c:forEach>
 
-							<c:forEach items="${order.getOtherProducts()}" var="item"
+							<c:forEach items="${order.getOtherProducts()}" var="entry"
 								varStatus="status">
-								<c:if
-									test="${is_have_products_feed_and_other.get(status.getIndex())}">
+								<c:if test="${entry.getValue() > 0}">
 									<div class="col card_product">
 										<div class="card h-100 card_product_inner"
 											style="border: 2px var(--color1) solid;">
 											<div class="card-img-top card_img"
 												style="border: 1px solid var(--bs-card-border-color);">
-												<c:if test="${item.getImagePath() != null}">
+												<c:if test="${entry.getKey().getImagePath() != null}">
 													<img class="w-100 h-100" alt=""
-														src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${item.getImagePath()}" />
+														src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${entry.getKey().getImagePath()}" />
 												</c:if>
-												<c:if test="${item.getImagePath() == null}">
+												<c:if test="${entry.getKey().getImagePath() == null}">
 													<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 														width="100%" height="100%" viewBox="0 0 64 64">
 <path
@@ -234,32 +237,38 @@
 												<div class="discription">
 													<ul class="discription_top">
 														<li><fmt:message key="basket_page.product.number" />
-															o-${item.getId()}</li>
+															o-${entry.getKey().getId()}</li>
 														<li><fmt:message
 																key="basket_page.product_feed_and_other.type" />
-															${item.getProductType()}</li>
+															${entry.getKey().getProductType()}</li>
 														<li><fmt:message
 																key="basket_page.product_feed_and_other.brand" />
-															${item.getBrand()}</li>
+															${entry.getKey().getBrand()}</li>
 														<li><fmt:message
 																key="basket_page.product_feed_and_other.description" />
-															${item.getDescriptions()}</li>
+															${entry.getKey().getDescriptions()}</li>
 														<li><fmt:message
 																key="basket_page.product_feed_and_other.pet_types" />
-															${item.getPetTypes().toString().substring(1, item.getPetTypes().toString().length() - 1)}</li>
+															${entry.getKey().getPetTypes().toString().substring(1, entry.getKey().getPetTypes().toString().length() - 1)}
+														</li>
 													</ul>
 													<ul class="discription_botton">
 														<li><fmt:message key="basket_page.product.price" />
-															${String.format("%,.2f", item.getPrice())}</li>
+															${String.format("%,.2f", entry.getKey().getPrice())}</li>
 														<li><fmt:message key="basket_page.product.discount" />
-															${item.getDiscount()}<img
+															${entry.getKey().getDiscount()}<img
 															class="discription_botton_discont_procent_img"
 															src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
 															alt="percent" /></li>
 														<li><fmt:message
 																key="basket_page.product.total_price" />
-															${String.format("%,.2f", item.getTotalPrice())}</li>
+															${String.format("%,.2f", entry.getKey().getTotalPrice())}
+														</li>
 													</ul>
+													<p class="w-100 text-center">
+														<fmt:message key="basket_page.product.number_of_units" />
+														${entry.getValue()}
+													</p>
 												</div>
 												<div class="row body_btns w-100">
 													<div class="col-12 body_btn">
@@ -274,18 +283,17 @@
 										</div>
 									</div>
 								</c:if>
-								<c:if
-									test="${!is_have_products_feed_and_other.get(status.getIndex())}">
+								<c:if test="${entry.getValue() <= 0}">
 									<div class="col card_product">
 										<div class="card h-100 card_product_inner"
 											style="border: 2px var(--color4) solid;">
 											<div class="card-img-top card_img"
 												style="border: 1px solid var(--bs-card-border-color);">
-												<c:if test="${item.getImagePath() != null}">
+												<c:if test="${entry.getKey().getImagePath() != null}">
 													<img class="w-100 h-100" alt=""
-														src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${item.getImagePath()}" />
+														src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${entry.getKey().getImagePath()}" />
 												</c:if>
-												<c:if test="${item.getImagePath() == null}">
+												<c:if test="${entry.getKey().getImagePath() == null}">
 													<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 														width="100%" height="100%" viewBox="0 0 64 64">
 <path
@@ -297,31 +305,32 @@
 												<div class="discription">
 													<ul class="discription_top">
 														<li><fmt:message key="basket_page.product.number" />
-															o-${item.getId()}</li>
+															o-${entry.getKey().getId()}</li>
 														<li><fmt:message
 																key="basket_page.product_feed_and_other.type" />
-															${item.getProductType()}</li>
+															${entry.getKey().getProductType()}</li>
 														<li><fmt:message
 																key="basket_page.product_feed_and_other.brand" />
-															${item.getBrand()}</li>
+															${entry.getKey().getBrand()}</li>
 														<li><fmt:message
 																key="basket_page.product_feed_and_other.description" />
-															${item.getDescriptions()}</li>
+															${entry.getKey().getDescriptions()}</li>
 														<li><fmt:message
 																key="basket_page.product_feed_and_other.pet_types" />
-															${item.getPetTypes().toString().substring(1, item.getPetTypes().toString().length() - 1)}</li>
+															${entry.getKey().getPetTypes().toString().substring(1, entry.getKey().getPetTypes().toString().length() - 1)}
+														</li>
 													</ul>
 													<ul class="discription_botton">
 														<li><fmt:message key="basket_page.product.price" />
-															${String.format("%,.2f", item.getPrice())}</li>
+															${String.format("%,.2f", entry.getKey().getPrice())}</li>
 														<li><fmt:message key="basket_page.product.discount" />
-															${item.getDiscount()}<img
+															${entry.getKey().getDiscount()}<img
 															class="discription_botton_discont_procent_img"
 															src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${ImagePath.ICON_PERCENT_PNG_IMAGE_PATH}"
 															alt="percent" /></li>
 														<li><fmt:message
 																key="basket_page.product.total_price" />
-															${String.format("%,.2f", item.getTotalPrice())}</li>
+															${String.format("%,.2f", entry.getKey().getTotalPrice())}</li>
 													</ul>
 												</div>
 												<div class="row body_btns w-100">
@@ -393,29 +402,59 @@
 						</h1>
 						<div class="description_body">
 							<ul class="description_body_list">
-								<c:forEach items="${order.getProductsPets()}" var="pet"
+								<c:forEach items="${order.getProductsPets()}" var="entry"
 									varStatus="status">
-									<li class="body_list_item"><span class="fw-bolder">
-											${status.getIndex() + 1}. </span> <fmt:message
-											key="basket_page.product.number" /> p-${pet.getId()}<br />
-										<fmt:message key="basket_page.product.price" />
-										${String.format("%,.2f", pet.getPrice())} <br /> <fmt:message
-											key="basket_page.product.discount" />
-										${String.format("%,.2f", pet.getPrice() * pet.getDiscount() / 100)}
-										<br /> <fmt:message key="basket_page.product.total_price" />
-										${String.format("%,.2f", pet.getTotalPrice())}</li>
+									<li class="body_list_item">
+										<h6>
+											<span class="fw-bolder"> ${status.getIndex() + 1}. </span>
+											<fmt:message key="basket_page.product.number" />
+											p-${entry.getKey().getId()}
+										</h6>
+										<h6>
+											<fmt:message key="basket_page.product.price" />
+											${String.format("%,.2f", entry.getKey().getPrice())} *
+											${entry.getValue()} = ${String.format("%,.2f", entry.getKey().getPrice() * entry.getValue())}
+										</h6>
+										<h6>
+											<fmt:message key="basket_page.product.discount" />
+											${String.format("%,.2f", entry.getKey().getPrice() * entry.getKey().getDiscount() / 100)}
+											<c:if test="${entry.getKey().getDiscount() > 0}">
+										* ${entry.getValue()} = ${String.format("%,.2f", (entry.getKey().getPrice() * entry.getKey().getDiscount() / 100) * entry.getValue())}
+										</c:if>
+										</h6>
+										<h6>
+											<fmt:message key="basket_page.product.total_price" />
+											${String.format("%,.2f", entry.getKey().getTotalPrice())} *
+											${entry.getValue()} = ${String.format("%,.2f", entry.getKey().getTotalPrice() * entry.getValue())}
+										</h6>
+									</li>
 								</c:forEach>
-								<c:forEach items="${order.getOtherProducts()}" var="item"
+								<c:forEach items="${order.getOtherProducts()}" var="entry"
 									varStatus="status">
-									<li class="body_list_item"><span class="fw-bolder">
-											${status.getIndex() + 1}. </span> <fmt:message
-											key="basket_page.product.number" /> o-${item.getId()}<br />
-										<fmt:message key="basket_page.product.price" />
-										${String.format("%,.2f", item.getPrice())} <br /> <fmt:message
-											key="basket_page.product.discount" />
-										${String.format("%,.2f", item.getPrice() * item.getDiscount() / 100)}
-										<br /> <fmt:message key="basket_page.product.total_price" />
-										${String.format("%,.2f", item.getTotalPrice())}</li>
+									<li class="body_list_item">
+										<h6>
+											<span class="fw-bolder"> ${status.getIndex() + 1}. </span>
+											<fmt:message key="basket_page.product.number" />
+											o-${entry.getKey().getId()}
+										</h6>
+										<h6>
+											<fmt:message key="basket_page.product.price" />
+											${String.format("%,.2f", entry.getKey().getPrice())} *
+											${entry.getValue()} = ${String.format("%,.2f", entry.getKey().getPrice() * entry.getValue())}
+										</h6>
+										<h6>
+											<fmt:message key="basket_page.product.discount" />
+											${String.format("%,.2f", entry.getKey().getPrice() * entry.getKey().getDiscount() / 100)}
+											<c:if test="${entry.getKey().getDiscount() > 0}">
+										* ${entry.getValue()} = ${String.format("%,.2f", (entry.getKey().getPrice() * entry.getKey().getDiscount() / 100) * entry.getValue())}
+										</c:if>
+										</h6>
+										<h6>
+											<fmt:message key="basket_page.product.total_price" />
+											${String.format("%,.2f", entry.getKey().getTotalPrice())} *
+											${entry.getValue()} = ${String.format("%,.2f", entry.getKey().getTotalPrice() * entry.getValue())}
+										</h6>
+									</li>
 								</c:forEach>
 							</ul>
 							<div class="description_footer">

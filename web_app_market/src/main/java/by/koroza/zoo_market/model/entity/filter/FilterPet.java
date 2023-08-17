@@ -184,8 +184,7 @@ public class FilterPet extends AbstractProductFilter {
 						.append("; ");
 			}
 		}
-		
-		
+
 		return builder.toString();
 	}
 
@@ -226,8 +225,13 @@ public class FilterPet extends AbstractProductFilter {
 			return this;
 		}
 
-		public FilterPetBuilder setMaxPrice(double maxPrice) {
-			this.filter.setMaxPrice(maxPrice);
+		public FilterPetBuilder setMaxPriceAllProducts(double maxPriceAllProducts) {
+			this.filter.setMaxPriceAllProducts(maxPriceAllProducts);
+			return this;
+		}
+
+		public FilterPetBuilder setMaxPriceEntered(double maxPriceEntered) {
+			this.filter.setMaxPriceEntered(maxPriceEntered);
 			return this;
 		}
 
