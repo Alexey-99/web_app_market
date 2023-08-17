@@ -65,9 +65,9 @@
 							</form>
 						</li>
 						<c:if
-							test="${user != null && user.getRole().getIdRole() >= UserRole.WAITING_CODE_REGISTRATION.getIdRole()}">
+							test="${user != null && user.getRole().getId() >= UserRole.WAITING_CODE_REGISTRATION.getId()}">
 							<c:if
-								test="${user.getRole().getIdRole() == UserRole.WAITING_CODE_REGISTRATION.getIdRole() || !user.isVerificatedEmail()}">
+								test="${user.getRole().getId() == UserRole.WAITING_CODE_REGISTRATION.getId() || !user.isVerificatedEmail()}">
 								<li class="nav-item">
 									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 										method="get">
@@ -84,7 +84,7 @@
 								</li>
 							</c:if>
 							<c:if
-								test="${user.getRole().getIdRole() >= UserRole.USER.getIdRole() && user.isVerificatedEmail()}">
+								test="${user.getRole().getId() >= UserRole.USER.getId() && user.isVerificatedEmail()}">
 								<li class="nav-item">
 									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 										method="get">
@@ -130,7 +130,7 @@
 							</c:if>
 						</c:if>
 						<c:if
-							test="${user == null || user != null && user.getRole().getIdRole() < UserRole.WAITING_CODE_REGISTRATION.getIdRole()}">
+							test="${user == null || user != null && user.getRole().getId() < UserRole.WAITING_CODE_REGISTRATION.getId()}">
 							<li class="nav-item">
 								<button class="nav-link text-uppercase menu_link" role="button"
 									onclick="showSignInAndRegistrationForm()">
@@ -211,9 +211,9 @@
 							</form>
 						</li>
 						<c:if
-							test="${user != null && user.getRole().getIdRole() >= UserRole.WAITING_CODE_REGISTRATION.getIdRole()}">
+							test="${user != null && user.getRole().getId() >= UserRole.WAITING_CODE_REGISTRATION.getId()}">
 							<c:if
-								test="${user.getRole().getIdRole() == UserRole.WAITING_CODE_REGISTRATION.getIdRole() || !user.isVerificatedEmail()}">
+								test="${user.getRole().getId() == UserRole.WAITING_CODE_REGISTRATION.getId() || !user.isVerificatedEmail()}">
 								<li class="nav-item">
 									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 										method="get">
@@ -229,7 +229,7 @@
 								</li>
 							</c:if>
 							<c:if
-								test="${user.getRole().getIdRole() >= UserRole.USER.getIdRole() && user.isVerificatedEmail()}">
+								test="${user.getRole().getId() >= UserRole.USER.getId() && user.isVerificatedEmail()}">
 								<li class="nav-item">
 									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 										method="get">
@@ -275,7 +275,7 @@
 							</c:if>
 						</c:if>
 						<c:if
-							test="${user == null || user != null && user.getRole().getIdRole() < UserRole.WAITING_CODE_REGISTRATION.getIdRole()}">
+							test="${user == null || user != null && user.getRole().getId() < UserRole.WAITING_CODE_REGISTRATION.v()}">
 							<li class="nav-item">
 								<button class="nav-link menu_link" role="button"
 									onclick="showSignInAndRegistrationForm()">

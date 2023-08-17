@@ -113,7 +113,7 @@ public class UserDaoImpl implements UserDao {
 				statement.setString(2, user.getPassword());
 				statement.setString(3, user.getEmail());
 				statement.setBoolean(4, user.isVerificatedEmail());
-				statement.setInt(5, user.getRole().getIdRole());
+				statement.setInt(5, user.getRole().getId());
 				result = statement.executeUpdate() > 0;
 			}
 			try (PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_LAST_INSERT_ID);

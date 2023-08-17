@@ -47,8 +47,7 @@
 									<fmt:message key="personal_account.profile" />
 								</button>
 							</form>
-							<c:if
-								test="${user.getRole().getIdRole() != UserRole.ADMIN.getIdRole()}">
+							<c:if test="${user.getRole().getId() != UserRole.ADMIN.getId()}">
 								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
@@ -60,8 +59,7 @@
 									</button>
 								</form>
 							</c:if>
-							<c:if
-								test="${user.getRole().getIdRole() == UserRole.ADMIN.getIdRole()}">
+							<c:if test="${user.getRole().getId() == UserRole.ADMIN.getId()}">
 								<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 									method="get">
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
