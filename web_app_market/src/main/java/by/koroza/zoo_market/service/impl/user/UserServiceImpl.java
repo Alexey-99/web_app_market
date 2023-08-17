@@ -218,6 +218,26 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
+	 * Check if is exists user with login and password by user id.
+	 *
+	 * @param login    the login
+	 * @param password the password
+	 * @param userId   the user id
+	 * @return true, if is exists user with login and password by user id
+	 * @throws ServiceException the service exception
+	 */
+	@Override
+	public boolean isExistsUserWithLoginAndPasswordByUserId(String login, String password, long userId)
+			throws ServiceException {
+		try {
+			return UserDaoImpl.getInstance().isExistsUserWithLoginAndPasswordByUserId(login, password, userId);
+		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
+
+	/**
 	 * Change email.
 	 *
 	 * @param userId the user id

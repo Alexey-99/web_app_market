@@ -72,6 +72,7 @@ public final class ColumnName {
 	public static final String IDENTIFIER_LAST_INSERT_ID = "last_insert_id()";
 	public static final String IDENTIFIER_COUNT_ROWS = "COUNT";
 	public static final String IDENTIFIER_COUNT_ROWS_OF_USER_LOGINS = IDENTIFIER_COUNT_ROWS + "(" + USERS_LOGIN + ")";
+	public static final String IDENTIFIER_COUNT_ROWS_OF_USER_ID = IDENTIFIER_COUNT_ROWS + "(" + USERS_ID + ")";
 	public static final String IDENTIFIER_COUNT_ROWS_OF_VERIFICATE_CODES_CODE = IDENTIFIER_COUNT_ROWS + "("
 			+ CONFIRMATION_EMAIL_CODES_CODE + ")";
 	public static final String IDENTIFIER_COUNT_ROWS_OF_BANK_CARDS_ID = IDENTIFIER_COUNT_ROWS + "(" + BANK_CARDS_ID

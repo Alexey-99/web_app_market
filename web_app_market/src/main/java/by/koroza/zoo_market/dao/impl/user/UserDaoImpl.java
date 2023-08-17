@@ -1,5 +1,6 @@
 package by.koroza.zoo_market.dao.impl.user;
 
+import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_USER_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_USER_LOGINS;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_LAST_INSERT_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.ROLES_NAME;
@@ -374,8 +375,44 @@ public class UserDaoImpl implements UserDao {
 			statement.setString(1, login);
 			try (ResultSet resultSet = statement.executeQuery()) {
 				while (resultSet.next()) {
-					int count = resultSet.getInt(IDENTIFIER_COUNT_ROWS_OF_USER_LOGINS);
-					result = count > 0;
+					result = resultSet.getInt(IDENTIFIER_COUNT_ROWS_OF_USER_LOGINS) > 0;
+				}
+			}
+		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new DaoException(e);
+		}
+		return result;
+	}
+
+	private static final String QUERY_COUNT_ROW_WITH_LOGIN_AND_PASSWORD_BY_USER_ID = """
+			SELECT COUNT(users.id)
+			FROM users
+			WHERE users.login = ? AND users.password = ? AND users.id = ?;
+			""";
+
+	/**
+	 * Check if is exists user with login and password by user id.
+	 *
+	 * @param login    the login
+	 * @param password the password
+	 * @param userId   the user id
+	 * @return true, if is exists user with login and password by user id
+	 * @throws DaoException the dao exception
+	 */
+	@Override
+	public boolean isExistsUserWithLoginAndPasswordByUserId(String login, String password, long userId)
+			throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement(QUERY_COUNT_ROW_WITH_LOGIN_AND_PASSWORD_BY_USER_ID)) {
+			statement.setString(1, login);
+			statement.setString(2, password);
+			statement.setLong(3, userId);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					result = resultSet.getInt(IDENTIFIER_COUNT_ROWS_OF_USER_ID) > 0;
 				}
 			}
 		} catch (SQLException e) {

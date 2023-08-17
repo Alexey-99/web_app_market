@@ -124,4 +124,16 @@ public interface UserService {
 	 * @throws ServiceException the service exception
 	 */
 	public boolean changePersonPercentDiscount(User user) throws ServiceException;
+
+	/**
+	 * Check if is exists user with login and password by user id.
+	 *
+	 * @param login    the login
+	 * @param password the password
+	 * @param userId   the user id
+	 * @return true, if is exists user with login and password by user id
+	 * @throws ServiceException the service exception
+	 */
+	public boolean isExistsUserWithLoginAndPasswordByUserId(String login, String password, long userId)
+			throws ServiceException;
 }

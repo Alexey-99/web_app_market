@@ -7,10 +7,13 @@ import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTR
 import static by.koroza.zoo_market.web.command.name.exception.MessageInputException.EN_MESSAGE_TYPY_INPUT_EXCEPTION_PASSWORD;
 import static by.koroza.zoo_market.web.command.name.exception.MessageInputException.RU_MESSAGE_TYPY_INPUT_EXCEPTION_PASSWORD;
 import static by.koroza.zoo_market.web.command.name.exception.TypeInputExeception.TYPY_INPUT_EXCEPTION_PASSWORD;
-import static by.koroza.zoo_market.web.command.name.input.InputName.CHANGING_PASSWORD_INPUT_USER_PASSWORD;
+import static by.koroza.zoo_market.web.command.name.input.InputName.CHANGING_PASSWORD_INPUT_USER_NEW_PASSWORD;
+import static by.koroza.zoo_market.web.command.name.input.InputName.CHANGING_PASSWORD_LOGIN_INPUT_USER_OLD_LOGIN;
+import static by.koroza.zoo_market.web.command.name.input.InputName.CHANGING_PASSWORD_LOGIN_INPUT_USER_OLD_PASSWORD;
 import static by.koroza.zoo_market.web.command.name.language.LanguageName.ENGLISH;
 import static by.koroza.zoo_market.web.command.name.language.LanguageName.RUSSIAN;
-import static by.koroza.zoo_market.web.command.name.path.PagePathName.CHANGE_PASSWORD_FORM_VALIDATED_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.CHANGE_PASSWORD_FORM_VALIDATED_INCORRECT_NEW_PASSWORD_PAGE_PATH;
+import static by.koroza.zoo_market.web.command.name.path.PagePathName.CHANGE_PASSWORD_FORM_VALIDATED_INCORRECT_CURRENT_LOGIN_PASSWORD_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH;
 
@@ -22,6 +25,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.model.entity.user.User;
+import by.koroza.zoo_market.service.HashGenerator;
+import by.koroza.zoo_market.service.UserService;
 import by.koroza.zoo_market.service.exception.HashGeneratorException;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.hash.HashGeneratorImpl;
@@ -30,11 +35,15 @@ import by.koroza.zoo_market.service.validation.impl.user.UserValidationImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.router.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public class ChangePasswordCommand implements Command {
 	private static Logger log = LogManager.getLogger();
+
+	private final UserService USER_SERVICE = UserServiceImpl.getInstance();
+	private final HashGenerator HASH_GENERATOR = HashGeneratorImpl.getInstance();
 
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
@@ -44,22 +53,25 @@ public class ChangePasswordCommand implements Command {
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
 			if (user != null && user.getRole().getIdRole() >= USER.getIdRole()) {
-				Map<String, String> mapInputExceptions = new HashMap<>();
-				String password = getInputParameterPassword(request, mapInputExceptions, user);
-				if (mapInputExceptions.isEmpty()) {
-					if (user.getPassword() != null ? !user.getPassword().equals(password)
-							: user.getPassword() == null && password != null) {
-						UserServiceImpl.getInstance().changePassword(user.getId(),
-								HashGeneratorImpl.getInstance().getHash(password));
-						user.setPassword(HashGeneratorImpl.getInstance().getHash(password));
-						router = new Router(PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH);
+				if (isCorrectOldLoginAndPassword(request, user.getId())) {
+					Map<String, String> mapInputExceptions = new HashMap<>();
+					String password = getInputParameterPassword(request, mapInputExceptions, user);
+					if (mapInputExceptions.isEmpty()) {
+						if (user.getPassword() != null ? !user.getPassword().equals(password)
+								: user.getPassword() == null && password != null) {
+							USER_SERVICE.changePassword(user.getId(), HASH_GENERATOR.getHash(password));
+							user.setPassword(HashGeneratorImpl.getInstance().getHash(password));
+							router = new Router(PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH);
+						} else {
+							router = new Router(PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH);
+						}
 					} else {
-						router = new Router(PERSONAL_ACCOUNT_PERSON_INFOMATION_PAGE_PATH);
+						session.setAttribute(ATTRIBUTE_CHANGING_PASSWORD_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
+								mapInputExceptions);
+						router = new Router(CHANGE_PASSWORD_FORM_VALIDATED_INCORRECT_NEW_PASSWORD_PAGE_PATH);
 					}
 				} else {
-					session.setAttribute(ATTRIBUTE_CHANGING_PASSWORD_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
-							mapInputExceptions);
-					router = new Router(CHANGE_PASSWORD_FORM_VALIDATED_PAGE_PATH);
+					router = new Router(CHANGE_PASSWORD_FORM_VALIDATED_INCORRECT_CURRENT_LOGIN_PASSWORD_PAGE_PATH);
 				}
 			} else {
 				router = new Router(HOME_PAGE_PATH);
@@ -73,7 +85,7 @@ public class ChangePasswordCommand implements Command {
 
 	private String getInputParameterPassword(HttpServletRequest request, Map<String, String> mapInputExceptions,
 			User user) throws HashGeneratorException {
-		String password = (String) request.getParameter(CHANGING_PASSWORD_INPUT_USER_PASSWORD);
+		String password = (String) request.getParameter(CHANGING_PASSWORD_INPUT_USER_NEW_PASSWORD);
 		String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
 		if (user.getPassword() != null ? !user.getPassword().equals(HashGeneratorImpl.getInstance().getHash(password))
 				: user.getPassword() == null && password != null) {
@@ -91,5 +103,13 @@ public class ChangePasswordCommand implements Command {
 			}
 		}
 		return password;
+	}
+
+	private boolean isCorrectOldLoginAndPassword(HttpServletRequest request, long userId)
+			throws ServiceException, HashGeneratorException {
+		String oldlogin = (String) request.getParameter(CHANGING_PASSWORD_LOGIN_INPUT_USER_OLD_LOGIN);
+		String oldPassword = (String) request.getParameter(CHANGING_PASSWORD_LOGIN_INPUT_USER_OLD_PASSWORD);
+		return USER_SERVICE.isExistsUserWithLoginAndPasswordByUserId(oldlogin, HASH_GENERATOR.getHash(oldPassword),
+				userId);
 	}
 }

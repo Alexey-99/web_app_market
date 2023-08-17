@@ -60,8 +60,10 @@ public final class PagePathName {
 	public static final String SIGN_IN_VALIDATED_PAGE_PATH = "jsp/pages/form/sign_in/sign_in_exception.jsp";
 
 	public static final String CHANGE_PERSON_INFOMATION_FORM_VALIDATED_PAGE_PATH = "jsp/pages/personal_account/forms/change_person_information_form_validated.jsp";
-	public static final String CHANGE_LOGIN_FORM_VALIDATED_PAGE_PATH = "jsp/pages/personal_account/forms/change_login_form_validated.jsp";
-	public static final String CHANGE_PASSWORD_FORM_VALIDATED_PAGE_PATH = "jsp/pages/personal_account/forms/change_password_form_validated.jsp";
+	public static final String CHANGE_LOGIN_FORM_VALIDATED_INCORRECT_NEW_LOGIN_PAGE_PATH = "jsp/pages/personal_account/forms/change_login_form_validated_incorrect_new_login.jsp";
+	public static final String CHANGE_LOGIN_FORM_VALIDATED_INCORRECT_CURRENT_LOGIN_PASSWORD_PAGE_PATH = "jsp/pages/personal_account/forms/change_login_form_validated_incorrect_currect_login_and_pasword.jsp";
+	public static final String CHANGE_PASSWORD_FORM_VALIDATED_INCORRECT_NEW_PASSWORD_PAGE_PATH = "jsp/pages/personal_account/forms/change_password_form_validated_incorrect_new_password.jsp";
+	public static final String CHANGE_PASSWORD_FORM_VALIDATED_INCORRECT_CURRENT_LOGIN_PASSWORD_PAGE_PATH = "jsp/pages/personal_account/forms/change_password_form_validated_incorrect_current_login_and_password.jsp";
 	public static final String CHANGE_EMAIL_FORM_VALIDATED_PAGE_PATH = "jsp/pages/form/change/user/change_email_form_validated.jsp";
 
 	public static final String ORDER_PAYMENT_FORM_VALIDATED_PAGE_PATH = "jsp/pages/form/payment/order_payment_form_validated.jsp";

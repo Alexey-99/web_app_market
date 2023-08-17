@@ -36,8 +36,11 @@ public final class InputName {
 	public static final String CHANGING_PERSON_INFORMATION_FORM_INPUT_USER_EMAIL = "user_email";
 
 	/* CHANGING_LOGIN_AND_PASSWORD */
-	public static final String CHANGING_LOGIN_INPUT_USER_LOGIN = "user_login";
-	public static final String CHANGING_PASSWORD_INPUT_USER_PASSWORD = "user_password";
+	public static final String CHANGING_PASSWORD_LOGIN_INPUT_USER_OLD_LOGIN = "user_old_login";
+	public static final String CHANGING_PASSWORD_LOGIN_INPUT_USER_OLD_PASSWORD = "user_old_password";
+
+	public static final String CHANGING_LOGIN_INPUT_USER_NEW_LOGIN = "user_new_login";
+	public static final String CHANGING_PASSWORD_INPUT_USER_NEW_PASSWORD = "user_new_password";
 
 	/* PAYMENT_INFOMATION_FORM_BANK_CARD */
 	public static final String PAYMENT_INFOMATION_FORM_BANK_CARD_INPUT_NUMBER_BANK_CARD = "number_bank_card";
