@@ -15,14 +15,12 @@ import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_NUMBER_OF
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_FEEDS_AND_OTHER_IMAGE_PATH;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_ORDER_PRODUCTS_ORDER_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_FEEDS_AND_OTHER_ID;
+import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_ORDER_PRODUCTS_PRODUCT_FEEDS_AND_OTHER_ID;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.Level;
@@ -62,111 +60,6 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 		return INSTANCE;
 	}
 
-	/** The Constant QUERY_SELECT_ALL_HAVING_PRODUCTS_FEED_AND_OTHER. */
-	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_FEED_AND_OTHER = """
-			SELECT feeds_and_other.id, feeds_and_other.image_path, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
-			feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, feeds_and_other.number_of_units_products
-			FROM feeds_and_other
-			WHERE feeds_and_other.number_of_units_products > 0;
-			""";
-
-	/**
-	 * Get the all having products feed and other.
-	 *
-	 * @return the all having products feed and other
-	 * @throws DaoException the dao exception
-	 */
-	@Override
-	public List<FeedAndOther> getAllHavingProductsFeedAndOther() throws DaoException {
-		List<FeedAndOther> listFeedAndOther = new ArrayList<>();
-		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
-				PreparedStatement statement = connection
-						.prepareStatement(QUERY_SELECT_ALL_HAVING_PRODUCTS_FEED_AND_OTHER);
-				ResultSet resultSet = statement.executeQuery()) {
-			while (resultSet.next()) {
-				for (int i = 0; i < resultSet.getLong(FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT); i++) {
-					FeedAndOther feedAndOther = new FeedAndOther.FeedAndOtherBuilder()
-							.setId(resultSet.getLong(FEEDS_AND_OTHER_ID))
-							.setImagePath(resultSet.getString(FEEDS_AND_OTHER_IMAGE_PATH))
-							.setProductType(resultSet.getString(FEEDS_AND_OTHER_TYPE))
-							.setBrand(resultSet.getString(FEEDS_AND_OTHER_BRAND))
-							.setDescriptions(resultSet.getString(FEEDS_AND_OTHER_DESCRIPTION))
-							.setPetTypes(resultSet.getString(FEEDS_AND_OTHER_PET_TYPE))
-							.setPrice(resultSet.getDouble(FEEDS_AND_OTHER_PRICE))
-							.setDiscount(resultSet.getDouble(FEEDS_AND_OTHER_DISCOUNT))
-							.setUpdateDateTime(resultSet.getDate(FEEDS_AND_OTHER_DATE_UPDATE).toLocalDate(),
-									resultSet.getTime(FEEDS_AND_OTHER_DATE_UPDATE).toLocalTime())
-							.build();
-					feedAndOther.setTotalPrice(
-							feedAndOther.getPrice() - (feedAndOther.getPrice() * feedAndOther.getDiscount() / 100));
-					listFeedAndOther.add(feedAndOther);
-				}
-			}
-		} catch (SQLException e) {
-			log.log(Level.ERROR, e.getMessage());
-			throw new DaoException(e);
-		}
-		return listFeedAndOther;
-	}
-
-	/** The Constant CODE_OF_TYPE_PRODUCT_FEEDS_AND_OTHER. */
-	private static final char CODE_OF_TYPE_PRODUCT_FEEDS_AND_OTHER = 'o';
-
-	/** The Constant QUERY_SELECT_PRODUCTS_FEED_AND_OTHER_HAVING_BY_ID. */
-	private static final String QUERY_SELECT_PRODUCTS_FEED_AND_OTHER_HAVING_BY_ID = """
-			SELECT feeds_and_other.id, feeds_and_other.image_path, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
-			feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, feeds_and_other.number_of_units_products
-			FROM feeds_and_other
-			WHERE feeds_and_other.number_of_units_products > 0 AND feeds_and_other.id = ?;
-			""";
-
-	/**
-	 * Get the having products feed and other by product id.
-	 *
-	 * @param productsIdMap the products id map
-	 * @return the having products feed and other by id
-	 * @throws DaoException the dao exception
-	 */
-	@Override
-	public List<FeedAndOther> getHavingProductsFeedAndOtherById(Map<String, String> productsIdMap) throws DaoException {
-		List<FeedAndOther> listFeedAndOther = new ArrayList<>();
-		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
-			for (Map.Entry<String, String> entry : productsIdMap.entrySet()) {
-				char productType = entry.getKey().charAt(0);
-				String id = entry.getValue();
-				if (productType == CODE_OF_TYPE_PRODUCT_FEEDS_AND_OTHER) {
-					try (PreparedStatement statement = connection
-							.prepareStatement(QUERY_SELECT_PRODUCTS_FEED_AND_OTHER_HAVING_BY_ID)) {
-						statement.setLong(1, Long.parseLong(id));
-						try (ResultSet resultSet = statement.executeQuery()) {
-							while (resultSet.next()) {
-								FeedAndOther feedAndOther = new FeedAndOther.FeedAndOtherBuilder()
-										.setId(resultSet.getLong(FEEDS_AND_OTHER_ID))
-										.setImagePath(resultSet.getString(FEEDS_AND_OTHER_IMAGE_PATH))
-										.setProductType(resultSet.getString(FEEDS_AND_OTHER_TYPE))
-										.setBrand(resultSet.getString(FEEDS_AND_OTHER_BRAND))
-										.setDescriptions(resultSet.getString(FEEDS_AND_OTHER_DESCRIPTION))
-										.setPetTypes(resultSet.getString(FEEDS_AND_OTHER_PET_TYPE))
-										.setPrice(resultSet.getDouble(FEEDS_AND_OTHER_PRICE))
-										.setDiscount(resultSet.getDouble(FEEDS_AND_OTHER_DISCOUNT))
-										.setUpdateDateTime(resultSet.getDate(FEEDS_AND_OTHER_DATE_UPDATE).toLocalDate(),
-												resultSet.getTime(FEEDS_AND_OTHER_DATE_UPDATE).toLocalTime())
-										.build();
-								feedAndOther.setTotalPrice(feedAndOther.getPrice()
-										- (feedAndOther.getPrice() * feedAndOther.getDiscount() / 100));
-								listFeedAndOther.add(feedAndOther);
-							}
-						}
-					}
-				}
-			}
-		} catch (SQLException e) {
-			log.log(Level.ERROR, e.getMessage());
-			throw new DaoException(e);
-		}
-		return listFeedAndOther;
-	}
-
 	/** The Constant QUERY_SELECT_ALL_PRODUCTS_FEED_AND_OTHER. */
 	private static final String QUERY_SELECT_ALL_PRODUCTS_FEED_AND_OTHER = """
 			SELECT feeds_and_other.id, feeds_and_other.image_path, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
@@ -181,7 +74,7 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 	 * @throws DaoException the dao exception
 	 */
 	@Override
-	public Map<FeedAndOther, Long> getAllProductsFeedAndOtherAndNumberOfUnits() throws DaoException {
+	public Map<FeedAndOther, Long> getAllProductsAndNumberOfUnits() throws DaoException {
 		Map<FeedAndOther, Long> mapFeedAndOtherAndNumber = new HashMap<>();
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_ALL_PRODUCTS_FEED_AND_OTHER);
@@ -223,84 +116,6 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 			SET feeds_and_other.number_of_units_products = ?
 			WHERE feeds_and_other.id = ?;
 			""";
-
-	@Override
-	public Map<Integer, Boolean> changeNumberOfUnitsProductsMinus(List<FeedAndOther> productsFeedAndOther)
-			throws DaoException {
-		Map<Integer, Boolean> haveProductByIndex = new LinkedHashMap<>();
-		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
-			for (int i = 0; i < productsFeedAndOther.size(); i++) {
-				long numberOfUnitsProduct = 0;
-				try (PreparedStatement statement = connection
-						.prepareStatement(QUERY_SELECT_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
-					statement.setLong(1, productsFeedAndOther.get(i).getId());
-					try (ResultSet resultSet = statement.executeQuery()) {
-						while (resultSet.next()) {
-							numberOfUnitsProduct = resultSet.getLong(FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT);
-						}
-					}
-				}
-				if (numberOfUnitsProduct > 0) {
-					try (PreparedStatement statement = connection
-							.prepareStatement(QUERY_CHANGE_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
-						statement.setLong(1, numberOfUnitsProduct - 1);
-						statement.setLong(2, productsFeedAndOther.get(i).getId());
-						haveProductByIndex.put(i, statement.executeUpdate() > 0);
-					}
-				} else {
-					haveProductByIndex.put(i, false);
-				}
-			}
-		} catch (SQLException e) {
-			log.log(Level.ERROR, e.getMessage());
-			throw new DaoException(e);
-		}
-		return haveProductByIndex;
-	}
-
-	@Override
-	public boolean changeNumberOfUnitsProductsPlus(List<FeedAndOther> productsFeedAndOther,
-			Map<Integer, Boolean> haveProductByIndex) throws DaoException {
-		int countChanging = 0;
-		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
-			for (int i = 0; i < productsFeedAndOther.size(); i++) {
-				if (haveProductByIndex.get(i)) {
-					long numberOfUnitsProduct = 0;
-					try (PreparedStatement statement = connection
-							.prepareStatement(QUERY_SELECT_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
-						statement.setLong(1, productsFeedAndOther.get(i).getId());
-						try (ResultSet resultSet = statement.executeQuery()) {
-							while (resultSet.next()) {
-								numberOfUnitsProduct = resultSet.getLong(FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT);
-							}
-						}
-					}
-					try (PreparedStatement statement = connection
-							.prepareStatement(QUERY_CHANGE_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
-						statement.setLong(1, numberOfUnitsProduct + 1);
-						statement.setLong(2, productsFeedAndOther.get(i).getId());
-						if (statement.executeUpdate() > 0) {
-							countChanging++;
-						}
-					}
-				}
-			}
-		} catch (SQLException e) {
-			log.log(Level.ERROR, e.getMessage());
-			throw new DaoException(e);
-		}
-		return countChanging == numberNeedChangeProducts(haveProductByIndex);
-	}
-
-	private int numberNeedChangeProducts(Map<Integer, Boolean> haveProductByIndex) {
-		int countChanging = 0;
-		for (Map.Entry<Integer, Boolean> entry : haveProductByIndex.entrySet()) {
-			if (entry.getValue()) {
-				countChanging++;
-			}
-		}
-		return countChanging;
-	}
 
 	/** The Constant QUERY_INSERT_PRODUCT_FEEDS_AND_OTHER. */
 	private static final String QUERY_INSERT_PRODUCT_FEEDS_AND_OTHER = """
@@ -360,14 +175,14 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 			""";
 
 	/**
-	 * Get the product feed and other by product id.
+	 * Get the product by id.
 	 *
 	 * @param id the id
-	 * @return the product feed and other by id
+	 * @return the product by id
 	 * @throws DaoException the dao exception
 	 */
 	@Override
-	public FeedAndOther getProductFeedAndOtherById(long id) throws DaoException {
+	public FeedAndOther getProductById(long id) throws DaoException {
 		FeedAndOther feedAndOther = null;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_PRODUCT_FEED_AND_OTHER_BY_ID)) {
@@ -514,7 +329,7 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 			""";
 
 	/**
-	 * Transfer feeds and other product from market to order.
+	 * Transfer product from market to order.
 	 *
 	 * @param productId the product id
 	 * @param orderId   the order id
@@ -522,7 +337,7 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 	 * @throws DaoException the dao exception
 	 */
 	@Override
-	public boolean transferFeedsAndOtherProductFromMarketToOrder(long productId, long orderId) throws DaoException {
+	public boolean transferProductFromMarketToOrder(long productId, long orderId) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
 			long numberOfUnitsProduct = 0;
@@ -588,7 +403,7 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 			""";
 
 	/**
-	 * Transfer feeds and other product from order to market.
+	 * Transfer product from order to market.
 	 *
 	 * @param productId the product id
 	 * @param orderId   the order id
@@ -596,7 +411,7 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 	 * @throws DaoException the dao exception
 	 */
 	@Override
-	public boolean transferFeedsAndOtherProductFromOrderToMarket(long productId, long orderId) throws DaoException {
+	public boolean transferProductFromOrderToMarket(long productId, long orderId) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
 			boolean isDeleteProiductInOrder = false;
@@ -657,5 +472,77 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 			throw new DaoException(e);
 		}
 		return result;
+	}
+
+	/** The Constant QUERY_SELECT_FREE_NUMBER_OF_UNITS_BY_PRODUCT_ID. */
+	private static final String QUERY_SELECT_FREE_NUMBER_OF_UNITS_BY_PRODUCT_ID = """
+			SELECT feeds_and_other.number_of_units_products
+			FROM feeds_and_other
+			WHERE feeds_and_other.id = ?;
+			""";
+
+	/**
+	 * Get the free number of units by product id.
+	 *
+	 * @param productId the product id
+	 * @return the free number of units by product id
+	 * @throws DaoException the dao exception
+	 */
+	@Override
+	public long getFreeNumberOfUnitsByProductId(long productId) throws DaoException {
+		long numberOfUnits = 0;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement(QUERY_SELECT_FREE_NUMBER_OF_UNITS_BY_PRODUCT_ID)) {
+			statement.setLong(1, productId);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					numberOfUnits = resultSet.getLong(FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT);
+				}
+			}
+		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new DaoException(e);
+		}
+		return numberOfUnits;
+	}
+
+	/** The Constant QUERY_SELECT_QUANTITY_IN_OPEN_ORDERS_BY_PRODUCT_ID. */
+	private static final String QUERY_SELECT_QUANTITY_IN_OPEN_ORDERS_BY_PRODUCT_ID = """
+			SELECT COUNT(order_products.feeds_and_other_id)
+			FROM orders INNER JOIN order_products
+				ON orders.id = order_products.orders_id
+			WHERE orders.order_statuses_id = ?
+				AND order_products.product_types_id = ?
+				AND order_products.feeds_and_other_id = ?;
+			""";
+
+	/**
+	 * Get the quantity in orders by product id and order status.
+	 *
+	 * @param productId     the product id
+	 * @param orderStatusId the order status id
+	 * @return the quantity in orders by product id and order status
+	 * @throws DaoException the dao exception
+	 */
+	@Override
+	public long getQuantityInOrdersByProductIdAndOrderStatus(long productId, int orderStatusId) throws DaoException {
+		long quantity = 0;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement(QUERY_SELECT_QUANTITY_IN_OPEN_ORDERS_BY_PRODUCT_ID)) {
+			statement.setLong(1, orderStatusId);
+			statement.setInt(2, ProductType.FEEDS_AND_OTHER.getId());
+			statement.setLong(3, productId);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					quantity = resultSet.getLong(IDENTIFIER_COUNT_ROWS_OF_ORDER_PRODUCTS_PRODUCT_FEEDS_AND_OTHER_ID);
+				}
+			}
+		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new DaoException(e);
+		}
+		return quantity;
 	}
 }

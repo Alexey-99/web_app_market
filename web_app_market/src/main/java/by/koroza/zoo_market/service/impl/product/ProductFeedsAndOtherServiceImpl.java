@@ -43,52 +43,19 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 		return INSTANCE;
 	}
 
-//	/**
-//	 * Get the all products feeds and other.
-//	 *
-//	 * @return the all products feeds and other
-//	 * @throws ServiceException the service exception
-//	 */
-//	@Override
-//	public List<FeedAndOther> getAllHavingProducts() throws ServiceException {
-//		try {
-//			return ProductFeedsAndOtherDaoImpl.getInstance().getAllHavingProductsFeedAndOther();
-//		} catch (DaoException e) {
-//			log.log(Level.ERROR, e.getMessage());
-//			throw new ServiceException(e);
-//		}
-//	}
-
-//	/**
-//	 * Get the having products feed and other by id.
-//	 *
-//	 * @param productsIdMap the products id map
-//	 * @return the having products feed and other by id
-//	 * @throws ServiceException the service exception
-//	 */
-//	@Override
-//	public List<FeedAndOther> getHavingProductsById(Map<String, String> productsIdMap) throws ServiceException {
-//		try {
-//			return ProductFeedsAndOtherDaoImpl.getInstance().getHavingProductsFeedAndOtherById(productsIdMap);
-//		} catch (DaoException e) {
-//			log.log(Level.ERROR, e.getMessage());
-//			throw new ServiceException(e);
-//		}
-//	}
-
 	/**
-	 * Get the products feed and other by filter.
+	 * Get the products by filter.
 	 *
 	 * @param filter the filter
-	 * @return the products feed and other by filter
+	 * @return the products by filter
 	 * @throws ServiceException the service exception
 	 */
 	@Override
 	public List<Entry<FeedAndOther, Long>> getProductsByFilter(FilterFeedsAndOther filter) throws ServiceException {
 		List<Entry<FeedAndOther, Long>> listProductsWithFilter = new ArrayList<>();
 		try {
-			listProductsWithFilter = ProductFeedsAndOtherDaoImpl.getInstance()
-					.getAllProductsFeedAndOtherAndNumberOfUnits().entrySet().stream().toList();
+			listProductsWithFilter = ProductFeedsAndOtherDaoImpl.getInstance().getAllProductsAndNumberOfUnits()
+					.entrySet().stream().toList();
 			if (filter.isOnlyProductsWithDiscount()) {
 				listProductsWithFilter = listProductsWithFilter.stream()
 						.filter(entry -> entry.getKey().getDiscount() > 0).toList();
@@ -117,58 +84,20 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	}
 
 	/**
-	 * Get the all products feed and other and number of units.
+	 * Get the all products and number of units.
 	 *
-	 * @return the all products feed and other and number of units
+	 * @return the all products and number of units
 	 * @throws ServiceException the service exception
 	 */
 	@Override
 	public Map<FeedAndOther, Long> getAllProductsAndNumberOfUnits() throws ServiceException {
 		try {
-			return ProductFeedsAndOtherDaoImpl.getInstance().getAllProductsFeedAndOtherAndNumberOfUnits();
+			return ProductFeedsAndOtherDaoImpl.getInstance().getAllProductsAndNumberOfUnits();
 		} catch (DaoException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
 		}
 	}
-
-//	/**
-//	 * Change number of units products.
-//	 *
-//	 * @param order the order
-//	 * @return true, if successful
-//	 * @throws ServiceException the service exception
-//	 */
-//	@Override
-//	public Map<Integer, Boolean> changeNumberOfUnitsProductsMinus(List<FeedAndOther> productsFeedAndOther)
-//			throws ServiceException {
-//		try {
-//			return ProductFeedsAndOtherDaoImpl.getInstance().changeNumberOfUnitsProductsMinus(productsFeedAndOther);
-//		} catch (DaoException e) {
-//			log.log(Level.ERROR, e.getMessage());
-//			throw new ServiceException(e);
-//		}
-//	}
-//
-//	/**
-//	 * Change number of units products plus.
-//	 *
-//	 * @param productsFeedAndOther the products feed and other
-//	 * @param haveProductByIndex   the have product by index
-//	 * @return true, if successful
-//	 * @throws ServiceException the service exception
-//	 */
-//	@Override
-//	public boolean changeNumberOfUnitsProductsPlus(List<FeedAndOther> productsFeedAndOther,
-//			Map<Integer, Boolean> haveProductByIndex) throws ServiceException {
-//		try {
-//			return ProductFeedsAndOtherDaoImpl.getInstance().changeNumberOfUnitsProductsPlus(productsFeedAndOther,
-//					haveProductByIndex);
-//		} catch (DaoException e) {
-//			log.log(Level.ERROR, e.getMessage());
-//			throw new ServiceException(e);
-//		}
-//	}
 
 	/**
 	 * Add the product.
@@ -189,16 +118,16 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	}
 
 	/**
-	 * Get the product feed and other by id.
+	 * Get the product by id.
 	 *
 	 * @param id the id
-	 * @return the product feed and other by id
+	 * @return the product by id
 	 * @throws ServiceException the service exception
 	 */
 	@Override
 	public FeedAndOther getProductById(long id) throws ServiceException {
 		try {
-			return ProductFeedsAndOtherDaoImpl.getInstance().getProductFeedAndOtherById(id);
+			return ProductFeedsAndOtherDaoImpl.getInstance().getProductById(id);
 		} catch (DaoException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
@@ -241,7 +170,7 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	}
 
 	/**
-	 * Transfer feed and other product from market to order.
+	 * Transfer product from market to order.
 	 *
 	 * @param productId the product id
 	 * @param orderId   the order id
@@ -251,8 +180,7 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	@Override
 	public boolean transferProductFromMarketToOrder(long productId, long orderId) throws ServiceException {
 		try {
-			return ProductFeedsAndOtherDaoImpl.getInstance().transferFeedsAndOtherProductFromMarketToOrder(productId,
-					orderId);
+			return ProductFeedsAndOtherDaoImpl.getInstance().transferProductFromMarketToOrder(productId, orderId);
 		} catch (DaoException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
@@ -260,7 +188,7 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	}
 
 	/**
-	 * Transfer feeds and other product from order to market.
+	 * Transfer product from order to market.
 	 *
 	 * @param productId the product id
 	 * @param orderId   the order id
@@ -270,25 +198,47 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	@Override
 	public boolean transferProductFromOrderToMarket(long productId, long orderId) throws ServiceException {
 		try {
-			return ProductFeedsAndOtherDaoImpl.getInstance().transferFeedsAndOtherProductFromOrderToMarket(productId,
-					orderId);
+			return ProductFeedsAndOtherDaoImpl.getInstance().transferProductFromOrderToMarket(productId, orderId);
 		} catch (DaoException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
 		}
 	}
 
+	/**
+	 * Get the free number of units by product id.
+	 *
+	 * @param productId the product id
+	 * @return the free number of units by product id
+	 * @throws ServiceException the service exception
+	 */
 	@Override
 	public long getFreeNumberOfUnitsByProductId(long productId) throws ServiceException {
-		// TODO Auto-generated method stub
-		return 0;
+		try {
+			return ProductFeedsAndOtherDaoImpl.getInstance().getFreeNumberOfUnitsByProductId(productId);
+		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		}
 	}
 
+	/**
+	 * Get the quantity in orders by product id and order status.
+	 *
+	 * @param productId     the product id
+	 * @param orderStatusId the order status id
+	 * @return the quantity in orders by product id and order status
+	 * @throws ServiceException the service exception
+	 */
 	@Override
 	public long getQuantityInOrdersByProductIdAndOrderStatus(long productId, int orderStatusId)
 			throws ServiceException {
-		// TODO Auto-generated method stub
-		return 0;
+		try {
+			return ProductFeedsAndOtherDaoImpl.getInstance().getFreeNumberOfUnitsByProductId(productId);
+		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		}
 	}
 
 	/**

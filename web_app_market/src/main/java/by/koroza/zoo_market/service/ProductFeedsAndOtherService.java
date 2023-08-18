@@ -13,36 +13,19 @@ import by.koroza.zoo_market.service.exception.ServiceException;
  */
 public interface ProductFeedsAndOtherService extends ProductService {
 
-//	/**
-//	 * Get the all products feeds and other.
-//	 *
-//	 * @return the all products feeds and other
-//	 * @throws ServiceException the service exception
-//	 */
-//	public List<FeedAndOther> getAllProductsFeedsAndOther() throws ServiceException;
-
-//	/**
-//	 * Get the all having products feed and other by id.
-//	 *
-//	 * @param productsIdMap the products id map
-//	 * @return the having products feed and other by id
-//	 * @throws ServiceException the service exception
-//	 */
-//	public List<FeedAndOther> getAllHavingProductsById(Map<String, String> productsIdMap) throws ServiceException;
-
 	/**
-	 * Get the products feed and other by filter.
+	 * Get the products by filter.
 	 *
 	 * @param filter the filter
-	 * @return the products feed and other by filter
+	 * @return the products by filter
 	 * @throws ServiceException the service exception
 	 */
 	public List<Entry<FeedAndOther, Long>> getProductsByFilter(FilterFeedsAndOther filter) throws ServiceException;
 
 	/**
-	 * Get the all products feed and other and number of units.
+	 * Get the all products and number of units.
 	 *
-	 * @return the all products feed and other and number of units
+	 * @return the all products and number of units
 	 * @throws ServiceException the service exception
 	 */
 	public Map<FeedAndOther, Long> getAllProductsAndNumberOfUnits() throws ServiceException;
@@ -58,10 +41,10 @@ public interface ProductFeedsAndOtherService extends ProductService {
 	public boolean addProduct(FeedAndOther product, long numberOfUnitsProduct) throws ServiceException;
 
 	/**
-	 * Get the product feed and other by id.
+	 * Get the product by id.
 	 *
 	 * @param id the id
-	 * @return the product feed and other by id
+	 * @return the product by id
 	 * @throws ServiceException the service exception
 	 */
 	public FeedAndOther getProductById(long id) throws ServiceException;
@@ -75,33 +58,4 @@ public interface ProductFeedsAndOtherService extends ProductService {
 	 * @throws ServiceException the service exception
 	 */
 	public boolean updateProductById(FeedAndOther product, long numberOfUnitsProduct) throws ServiceException;
-
-//	/**
-//	 * Get the product image path by product id.
-//	 *
-//	 * @param id the id
-//	 * @return the product image path by id
-//	 * @throws ServiceException the service exception
-//	 */
-//	public String getProductImagePathByProductId(long id) throws ServiceException;
-//
-//	/**
-//	 * Transfer feed and other product from market to order.
-//	 *
-//	 * @param productId the product id
-//	 * @param orderId   the order id
-//	 * @return true, if successful
-//	 * @throws ServiceException the service exception
-//	 */
-//	public boolean transferProductFromMarketToOrder(long productId, long orderId) throws ServiceException;
-//
-//	/**
-//	 * Transfer feeds and other product from order to market.
-//	 *
-//	 * @param productId the product id
-//	 * @param orderId   the order id
-//	 * @return true, if successful
-//	 * @throws ServiceException the service exception
-//	 */
-//	public boolean transferProductFromOrderToMarket(long productId, long orderId) throws ServiceException;
 }

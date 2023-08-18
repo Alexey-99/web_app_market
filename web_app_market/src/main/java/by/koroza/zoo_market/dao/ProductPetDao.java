@@ -1,6 +1,5 @@
 package by.koroza.zoo_market.dao;
 
-import java.util.List;
 import java.util.Map;
 
 import by.koroza.zoo_market.dao.exception.checkable.DaoException;
@@ -9,136 +8,42 @@ import by.koroza.zoo_market.model.entity.market.product.Pet;
 /**
  * The Interface ProductPetDao.
  */
-public interface ProductPetDao {
+public interface ProductPetDao extends ProductDao {
 
 	/**
-	 * Get the all having products pets.
+	 * Get the all products and number of units.
 	 *
-	 * @return the all having products pets
+	 * @return the all products and number of units
 	 * @throws DaoException the dao exception
 	 */
-	public List<Pet> getAllHavingProductsPets() throws DaoException;
+	public Map<Pet, Long> getAllProductsAndNumberOfUnits() throws DaoException;
 
 	/**
-	 * Get the products pets by id.
-	 *
-	 * @param productsIdMap the products id map
-	 * @return the products pets by id
-	 * @throws DaoException the dao exception
-	 */
-	public List<Pet> getProductsPetsById(Map<String, String> productsIdMap) throws DaoException;
-
-	/**
-	 * Get the all products pets and number of units.
-	 *
-	 * @return the all products pets and number of units
-	 * @throws DaoException the dao exception
-	 */
-	public Map<Pet, Long> getAllProductsPetsAndNumberOfUnits() throws DaoException;
-
-	/**
-	 * Change number of units products.
-	 *
-	 * @param productsPets the products pets
-	 * @return the map
-	 * @throws DaoException the dao exception
-	 */
-	public Map<Integer, Boolean> changeNumberOfUnitsProductsMinus(List<Pet> productsPets) throws DaoException;
-
-	/**
-	 * Change number of units products plus.
-	 *
-	 * @param productsPets       the products pets
-	 * @param haveProductByIndex the have product by index
-	 * @return true, if successful
-	 * @throws DaoException the dao exception
-	 */
-	public boolean changeNumberOfUnitsProductsPlus(List<Pet> productsPets, Map<Integer, Boolean> haveProductByIndex)
-			throws DaoException;
-
-	/**
-	 * Add the product pet.
+	 * Add the product.
 	 *
 	 * @param pet                  the pet
 	 * @param numberOfUnitsProduct the number of units product
 	 * @return true, if successful
 	 * @throws DaoException the dao exception
 	 */
-	public boolean addProductPet(Pet pet, long numberOfUnitsProduct) throws DaoException;
+	public boolean addProduct(Pet pet, long numberOfUnitsProduct) throws DaoException;
 
 	/**
-	 * Get the product pet by id.
+	 * Get the product by id.
 	 *
 	 * @param id the id
-	 * @return the product pet by id
+	 * @return the product by id
 	 * @throws DaoException the dao exception
 	 */
-	public Pet getProductPetById(long id) throws DaoException;
+	public Pet getProductById(long id) throws DaoException;
 
 	/**
-	 * Update product pet.
+	 * Update product by id.
 	 *
 	 * @param pet                  the pet
 	 * @param numberOfUnitsProduct the number of units product
 	 * @return true, if successful
 	 * @throws DaoException the dao exception
 	 */
-	public boolean updateProductPet(Pet pet, long numberOfUnitsProduct) throws DaoException;
-
-	/**
-	 * Exists product with image path.
-	 *
-	 * @param imagePath the image path
-	 * @return true, if successful
-	 * @throws DaoException the dao exception
-	 */
-	public boolean existsProductWithImagePath(String imagePath) throws DaoException;
-
-	/**
-	 * Get the product image path by product id.
-	 *
-	 * @param id the id
-	 * @return the product image path by id
-	 * @throws DaoException the dao exception
-	 */
-	public String getProductImagePathById(long id) throws DaoException;
-
-	/**
-	 * Transfer pet product from market to order.
-	 *
-	 * @param productId the product id
-	 * @param orderId   the order id
-	 * @return true, if successful
-	 * @throws DaoException the dao exception
-	 */
-	public boolean transferPetProductFromMarketToOrder(long productId, long orderId) throws DaoException;
-
-	/**
-	 * Transfer pet product from order to market.
-	 *
-	 * @param productId the product id
-	 * @param orderId   the order id
-	 * @return true, if successful
-	 * @throws DaoException the dao exception
-	 */
-	public boolean transferPetProductFromOrderToMarket(long productId, long orderId) throws DaoException;
-
-	/**
-	 * Get the free number of units by product id.
-	 *
-	 * @param productId the product id
-	 * @return the free number of units by product id
-	 * @throws DaoException the dao exception
-	 */
-	public long getFreeNumberOfUnitsByProductId(long productId) throws DaoException;
-
-	/**
-	 * Get the quantity in orders by product id and order status.
-	 *
-	 * @param productId     the product id
-	 * @param orderStatusId the order status id
-	 * @return the quantity in orders by product id and order status
-	 * @throws DaoException the dao exception
-	 */
-	public long getQuantityInOrdersByProductIdAndOrderStatus(long productId, int orderStatusId) throws DaoException;
+	public boolean updateProductById(Pet pet, long numberOfUnitsProduct) throws DaoException;
 }

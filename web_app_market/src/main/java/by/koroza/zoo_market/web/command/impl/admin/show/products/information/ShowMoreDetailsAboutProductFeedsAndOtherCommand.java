@@ -12,17 +12,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.koroza.zoo_market.model.entity.detalization.InformatorAboutProductFeedAndOther;
-import by.koroza.zoo_market.model.entity.detalization.InformatorAboutProductPet;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.status.OrderStatus;
 import by.koroza.zoo_market.model.entity.user.User;
 import by.koroza.zoo_market.service.OrderService;
 import by.koroza.zoo_market.service.ProductFeedsAndOtherService;
-import by.koroza.zoo_market.service.ProductPetService;
 import by.koroza.zoo_market.service.exception.ServiceException;
 import by.koroza.zoo_market.service.impl.order.OrderServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
-import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.router.Router;
@@ -46,32 +43,33 @@ public class ShowMoreDetailsAboutProductFeedsAndOtherCommand extends ShowMoreDet
 			if (user != null && user.isVerificatedEmail() && user.getRole().getId() == ADMIN.getId()) {
 				String productId = request.getParameter(PARAMETER_PRODUCT_ID);
 				if (productId != null && productId.matches("\\d+")) {
-					FeedAndOther product = PRODUCT_FFED_AND_OTHER_SERVICE
-							.getProductFeedAndOtherById(Long.parseLong(productId));
+					FeedAndOther product = PRODUCT_FFED_AND_OTHER_SERVICE.getProductById(Long.parseLong(productId));
 					if (product != null) {
 						InformatorAboutProductFeedAndOther informatorAboutProduct = new InformatorAboutProductFeedAndOther();
 						informatorAboutProduct.setProduct(product);
 						informatorAboutProduct.setQuantityAvailable(
 								PRODUCT_FFED_AND_OTHER_SERVICE.getFreeNumberOfUnitsByProductId(product.getId()));
-						
-						informatorAboutProduct.setQuantityInReserveInOpenOrders(PRODUCT_PET_SERVICE
-								.getQuantityInOrdersByProductIdAndOrderStatus(pet.getId(), OrderStatus.OPEN.getId()));
+						informatorAboutProduct.setQuantityInReserveInOpenOrders(
+								PRODUCT_FFED_AND_OTHER_SERVICE.getQuantityInOrdersByProductIdAndOrderStatus(
+										product.getId(), OrderStatus.OPEN.getId()));
 						informatorAboutProduct.setQuantityInReserveInWaitingPayOrders(
-								PRODUCT_PET_SERVICE.getQuantityInOrdersByProductIdAndOrderStatus(pet.getId(),
-										OrderStatus.WAITING_PAY.getId()));
+								PRODUCT_FFED_AND_OTHER_SERVICE.getQuantityInOrdersByProductIdAndOrderStatus(
+										product.getId(), OrderStatus.WAITING_PAY.getId()));
 						informatorAboutProduct
 								.setQuantityInReserve(informatorAboutProduct.getQuantityInReserveInOpenOrders()
 										+ informatorAboutProduct.getQuantityInReserveInWaitingPayOrders());
-						informatorAboutProduct.setQuantityInReserveInCloseOrders(PRODUCT_PET_SERVICE
-								.getQuantityInOrdersByProductIdAndOrderStatus(pet.getId(), OrderStatus.CLOSED.getId()));
-						informatorAboutProduct.setDetailsOpenOrdersWithProduct(ORDER_SERVICE
-								.getDetailsAboutOrdersByProductIdAndOrderStatus(OrderStatus.OPEN.getId(), pet.getId()));
+						informatorAboutProduct.setQuantityInReserveInCloseOrders(
+								PRODUCT_FFED_AND_OTHER_SERVICE.getQuantityInOrdersByProductIdAndOrderStatus(
+										product.getId(), OrderStatus.CLOSED.getId()));
+						informatorAboutProduct.setDetailsOpenOrdersWithProduct(
+								ORDER_SERVICE.getDetailsAboutOrdersByProductIdAndOrderStatus(OrderStatus.OPEN.getId(),
+										product.getId()));
 						informatorAboutProduct.setDetailsWaitingPayOrdersWithProduct(
 								ORDER_SERVICE.getDetailsAboutOrdersByProductIdAndOrderStatus(
-										OrderStatus.WAITING_PAY.getId(), pet.getId()));
+										OrderStatus.WAITING_PAY.getId(), product.getId()));
 						informatorAboutProduct.setDetailsCloseOrdersWithProduct(
 								ORDER_SERVICE.getDetailsAboutOrdersByProductIdAndOrderStatus(OrderStatus.CLOSED.getId(),
-										pet.getId()));
+										product.getId()));
 						router = new Router(
 								PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_MORE_DETAILS_ABOUT_PRODUCT_FEED_AND_OTHER_PAGE_PATH);
 					} else {

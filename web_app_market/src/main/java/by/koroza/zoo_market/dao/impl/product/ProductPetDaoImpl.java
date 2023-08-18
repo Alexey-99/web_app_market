@@ -18,10 +18,7 @@ import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.Level;
@@ -61,100 +58,6 @@ public class ProductPetDaoImpl implements ProductPetDao {
 		return INSTANCE;
 	}
 
-	/** The Constant QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS. */
-	private static final String QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS = """
-			SELECT pets.id, pets.image_path, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
-			FROM pets
-			WHERE pets.number_of_units_products > 0;
-			""";
-
-	/**
-	 * Get the all having products pets.
-	 *
-	 * @return the all having products pets
-	 * @throws DaoException the dao exception
-	 */
-	@Override
-	public List<Pet> getAllHavingProductsPets() throws DaoException {
-		List<Pet> listPets = new ArrayList<>();
-		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
-				PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_ALL_HAVING_PRODUCTS_PETS);
-				ResultSet resultSet = statement.executeQuery()) {
-			while (resultSet.next()) {
-				for (int i = 0; i < resultSet.getLong(PETS_NUMBER_OF_UNITS_PRODUCT); i++) {
-					Pet pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
-							.setImagePath(resultSet.getString(PETS_IMAGE_PATH))
-							.setSpecie(resultSet.getString(PETS_SPECIE)).setBreed(resultSet.getString(PETS_BREED))
-							.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toString())
-							.setPrice(resultSet.getDouble(PETS_PRICE)).setDiscount(resultSet.getDouble(PETS_DISCOUNT))
-							.setUpdateDateTime(resultSet.getDate(PETS_DATE_UPDATE).toLocalDate(),
-									resultSet.getTime(PETS_DATE_UPDATE).toLocalTime())
-							.build();
-					pet.setTotalPrice(pet.getPrice() - (pet.getPrice() * pet.getDiscount() / 100));
-					listPets.add(pet);
-				}
-			}
-		} catch (SQLException e) {
-			log.log(Level.ERROR, e.getMessage());
-			throw new DaoException(e);
-		}
-		return listPets;
-	}
-
-	/** The Constant CODE_OF_TYPE_PRODUCT_PET. */
-	private static final char CODE_OF_TYPE_PRODUCT_PET = 'p';
-
-	/** The Constant QUERY_SELECT_HAVING_PRODUCT_PET_BY_ID. */
-	private static final String QUERY_SELECT_HAVING_PRODUCT_PET_BY_ID = """
-			SELECT pets.id, pets.image_path, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
-			FROM pets
-			WHERE pets.number_of_units_products > 0 AND pets.id = ?;
-			""";
-
-	/**
-	 * Get the products pets by id.
-	 *
-	 * @param productsIdMap the products id map
-	 * @return the products pets by id
-	 * @throws DaoException the dao exception
-	 */
-	@Override
-	public List<Pet> getProductsPetsById(Map<String, String> productsIdMap) throws DaoException {
-		List<Pet> listPets = new ArrayList<>();
-		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
-			for (Map.Entry<String, String> entry : productsIdMap.entrySet()) {
-				char productType = entry.getKey().charAt(0);
-				String id = entry.getValue();
-				if (productType == CODE_OF_TYPE_PRODUCT_PET) {
-					try (PreparedStatement statement = connection
-							.prepareStatement(QUERY_SELECT_HAVING_PRODUCT_PET_BY_ID)) {
-						statement.setLong(1, Long.parseLong(id));
-						try (ResultSet resultSet = statement.executeQuery()) {
-							while (resultSet.next()) {
-								Pet pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
-										.setImagePath(resultSet.getString(PETS_IMAGE_PATH))
-										.setSpecie(resultSet.getString(PETS_SPECIE))
-										.setBreed(resultSet.getString(PETS_BREED))
-										.setBirthDate(resultSet.getDate(PETS_BIRTH_DATE).toString())
-										.setPrice(resultSet.getDouble(PETS_PRICE))
-										.setDiscount(resultSet.getDouble(PETS_DISCOUNT))
-										.setUpdateDateTime(resultSet.getDate(PETS_DATE_UPDATE).toLocalDate(),
-												resultSet.getTime(PETS_DATE_UPDATE).toLocalTime())
-										.build();
-								pet.setTotalPrice(pet.getPrice() - (pet.getPrice() * pet.getDiscount() / 100));
-								listPets.add(pet);
-							}
-						}
-					}
-				}
-			}
-		} catch (SQLException e) {
-			log.log(Level.ERROR, e.getMessage());
-			throw new DaoException(e);
-		}
-		return listPets;
-	}
-
 	/** The Constant QUERY_SELECT_ALL_PRODUCTS_PETS. */
 	private static final String QUERY_SELECT_ALL_PRODUCTS_PETS = """
 			SELECT pets.id, pets.image_path, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
@@ -168,7 +71,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	 * @throws DaoException the dao exception
 	 */
 	@Override
-	public Map<Pet, Long> getAllProductsPetsAndNumberOfUnits() throws DaoException {
+	public Map<Pet, Long> getAllProductsAndNumberOfUnits() throws DaoException {
 		Map<Pet, Long> mapPetsAndNumber = new HashMap<>();
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_ALL_PRODUCTS_PETS);
@@ -207,7 +110,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	 * @throws DaoException the dao exception
 	 */
 	@Override
-	public Pet getProductPetById(long id) throws DaoException {
+	public Pet getProductById(long id) throws DaoException {
 		Pet pet = null;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_PRODUCT_PET_BY_ID)) {
@@ -246,104 +149,6 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			WHERE pets.id = ?;
 			""";
 
-	/**
-	 * Change number of units products.
-	 *
-	 * @param productsPets the products pets
-	 * @return the map
-	 * @throws DaoException the dao exception
-	 */
-	@Override
-	public Map<Integer, Boolean> changeNumberOfUnitsProductsMinus(List<Pet> productsPets) throws DaoException {
-		Map<Integer, Boolean> haveProductByIndex = new LinkedHashMap<>();
-		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
-			for (int i = 0; i < productsPets.size(); i++) {
-				long numberOfUnitsProduct = 0;
-				try (PreparedStatement statement = connection
-						.prepareStatement(QUERY_SELECT_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
-					statement.setLong(1, productsPets.get(i).getId());
-					try (ResultSet resultSet = statement.executeQuery()) {
-						while (resultSet.next()) {
-							numberOfUnitsProduct = resultSet.getLong(PETS_NUMBER_OF_UNITS_PRODUCT);
-						}
-					}
-				}
-				if (numberOfUnitsProduct > 0) {
-					try (PreparedStatement statement = connection
-							.prepareStatement(QUERY_CHANGE_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
-						statement.setLong(1, numberOfUnitsProduct - 1);
-						statement.setLong(2, productsPets.get(i).getId());
-						haveProductByIndex.put(i, statement.executeUpdate() > 0);
-					}
-				} else {
-					haveProductByIndex.put(i, false);
-				}
-			}
-		} catch (SQLException e) {
-			log.log(Level.ERROR, e.getMessage());
-			throw new DaoException(e);
-		}
-		return haveProductByIndex;
-	}
-
-	/**
-	 * Change number of units products plus.
-	 *
-	 * @param productsPets       the products pets
-	 * @param haveProductByIndex the have product by index
-	 * @return true, if successful
-	 * @throws DaoException the dao exception
-	 */
-	@Override
-	public boolean changeNumberOfUnitsProductsPlus(List<Pet> productsPets, Map<Integer, Boolean> haveProductByIndex)
-			throws DaoException {
-		int countChanging = 0;
-		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
-			for (int i = 0; i < productsPets.size(); i++) {
-				if (haveProductByIndex.get(i)) {
-					long numberOfUnitsProduct = 0;
-					try (PreparedStatement statement = connection
-							.prepareStatement(QUERY_SELECT_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
-						statement.setLong(1, productsPets.get(i).getId());
-						try (ResultSet resultSet = statement.executeQuery()) {
-							while (resultSet.next()) {
-								numberOfUnitsProduct = resultSet.getLong(PETS_NUMBER_OF_UNITS_PRODUCT);
-							}
-						}
-					}
-					try (PreparedStatement statement = connection
-							.prepareStatement(QUERY_CHANGE_NUMBER_OF_UNITS_PRODUCTS_BY_PRODUCT_ID)) {
-						statement.setLong(1, numberOfUnitsProduct + 1);
-						statement.setLong(2, productsPets.get(i).getId());
-						if (statement.executeUpdate() > 0) {
-							countChanging++;
-						}
-					}
-				}
-			}
-		} catch (SQLException e) {
-			log.log(Level.ERROR, e.getMessage());
-			throw new DaoException(e);
-		}
-		return countChanging == numberNeedChangeProducts(haveProductByIndex);
-	}
-
-	/**
-	 * Number need change products.
-	 *
-	 * @param haveProductByIndex the have product by index
-	 * @return the int
-	 */
-	private int numberNeedChangeProducts(Map<Integer, Boolean> haveProductByIndex) {
-		int countChanging = 0;
-		for (Map.Entry<Integer, Boolean> entry : haveProductByIndex.entrySet()) {
-			if (entry.getValue()) {
-				countChanging++;
-			}
-		}
-		return countChanging;
-	}
-
 	/** The Constant QUERY_INSERT_PRODUCT_PET. */
 	private static final String QUERY_INSERT_PRODUCT_PET = """
 			INSERT INTO pets(pets.image_path, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.number_of_units_products)
@@ -364,7 +169,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	 * @throws DaoException the dao exception
 	 */
 	@Override
-	public boolean addProductPet(Pet pet, long numberOfUnitsProduct) throws DaoException {
+	public boolean addProduct(Pet pet, long numberOfUnitsProduct) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
 			try (PreparedStatement statement = connection.prepareStatement(QUERY_INSERT_PRODUCT_PET)) {
@@ -405,7 +210,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	 * @throws DaoException the dao exception
 	 */
 	@Override
-	public boolean transferPetProductFromMarketToOrder(long productId, long orderId) throws DaoException {
+	public boolean transferProductFromMarketToOrder(long productId, long orderId) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
 			long numberOfUnitsProduct = 0;
@@ -472,7 +277,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	 * @throws DaoException the dao exception
 	 */
 	@Override
-	public boolean transferPetProductFromOrderToMarket(long productId, long orderId) throws DaoException {
+	public boolean transferProductFromOrderToMarket(long productId, long orderId) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
 			boolean isDeleteProiductInOrder = false;
@@ -558,7 +363,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	 * @throws DaoException the dao exception
 	 */
 	@Override
-	public boolean updateProductPet(Pet pet, long numberOfUnitsProduct) throws DaoException {
+	public boolean updateProductById(Pet pet, long numberOfUnitsProduct) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(QUERY_UPDETE_PRODUCT_PET_BY_ID)) {
@@ -682,7 +487,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			FROM orders INNER JOIN order_products
 				ON orders.id = order_products.orders_id
 			WHERE orders.order_statuses_id = ?
-				AND order_products.product_types_id = 1
+				AND order_products.product_types_id = ?
 				AND order_products.pets_id = ?;
 			""";
 
@@ -701,7 +506,8 @@ public class ProductPetDaoImpl implements ProductPetDao {
 				PreparedStatement statement = connection
 						.prepareStatement(QUERY_SELECT_QUANTITY_IN_OPEN_ORDERS_BY_PRODUCT_ID)) {
 			statement.setLong(1, orderStatusId);
-			statement.setLong(2, productId);
+			statement.setInt(2, ProductType.PETS.getId());
+			statement.setLong(3, productId);
 			try (ResultSet resultSet = statement.executeQuery()) {
 				while (resultSet.next()) {
 					quantity = resultSet.getLong(IDENTIFIER_COUNT_ROWS_OF_ORDER_PRODUCTS_PRODUCT_PETS_ID);

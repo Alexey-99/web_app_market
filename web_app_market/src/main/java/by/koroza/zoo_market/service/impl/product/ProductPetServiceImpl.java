@@ -36,7 +36,7 @@ public class ProductPetServiceImpl implements ProductPetService {
 	}
 
 	/**
-	 * Get the single instance of ProductPetServiceImpl.
+	 * Gets the single instance of ProductPetServiceImpl.
 	 *
 	 * @return single instance of ProductPetServiceImpl
 	 */
@@ -44,52 +44,19 @@ public class ProductPetServiceImpl implements ProductPetService {
 		return INSTANCE;
 	}
 
-//	/**
-//	 * Get the all having products pets.
-//	 *
-//	 * @return the all having products pets
-//	 * @throws ServiceException the service exception
-//	 */
-//	@Override
-//	public List<Pet> getAllHavingProducts() throws ServiceException {
-//		try {
-//			return ProductPetDaoImpl.getInstance().getAllHavingProductsPets();
-//		} catch (DaoException e) {
-//			log.log(Level.ERROR, e.getMessage());
-//			throw new ServiceException(e);
-//		}
-//	}
-
 	/**
-	 * Get the products pets by product id.
-	 *
-	 * @param productsIdMap the products id map
-	 * @return the products pets by id
-	 * @throws ServiceException the service exception
-	 */
-//	@Override
-//	public List<Pet> getProductsPetsById(Map<String, String> productsIdMap) throws ServiceException {
-//		try {
-//			return ProductPetDaoImpl.getInstance().getProductsPetsById(productsIdMap);
-//		} catch (DaoException e) {
-//			log.log(Level.ERROR, e.getMessage());
-//			throw new ServiceException(e);
-//		}
-//	}
-
-	/**
-	 * Get the products pets by filter.
+	 * Get the products by filter.
 	 *
 	 * @param filter the filter
-	 * @return the products pets by filter
+	 * @return the products by filter
 	 * @throws ServiceException the service exception
 	 */
 	@Override
 	public List<Entry<Pet, Long>> getProductsByFilter(FilterPet filter) throws ServiceException {
 		List<Entry<Pet, Long>> productsPetsByFilter = new ArrayList<>();
 		try {
-			productsPetsByFilter = ProductPetDaoImpl.getInstance().getAllProductsPetsAndNumberOfUnits().entrySet()
-					.stream().toList();
+			productsPetsByFilter = ProductPetDaoImpl.getInstance().getAllProductsAndNumberOfUnits().entrySet().stream()
+					.toList();
 			if (filter.isOnlyProductsWithDiscount()) {
 				productsPetsByFilter = productsPetsByFilter.stream().filter(entry -> entry.getKey().getDiscount() > 0)
 						.toList();
@@ -118,59 +85,23 @@ public class ProductPetServiceImpl implements ProductPetService {
 	}
 
 	/**
-	 * Get the all products pets and number of units.
+	 * Get the all products and number of units.
 	 *
-	 * @return the all products pets and number of units
+	 * @return the all products and number of units
 	 * @throws ServiceException the service exception
 	 */
 	@Override
 	public Map<Pet, Long> getAllProductsAndNumberOfUnits() throws ServiceException {
 		try {
-			return ProductPetDaoImpl.getInstance().getAllProductsPetsAndNumberOfUnits();
+			return ProductPetDaoImpl.getInstance().getAllProductsAndNumberOfUnits();
 		} catch (DaoException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
 		}
 	}
 
-//	/**
-//	 * Change number of units products.
-//	 *
-//	 * @param productsPets the products pets
-//	 * @return the map
-//	 * @throws ServiceException the service exception
-//	 */
-//	@Override
-//	public Map<Integer, Boolean> changeNumberOfUnitsProductsMinus(List<Pet> productsPets) throws ServiceException {
-//		try {
-//			return ProductPetDaoImpl.getInstance().changeNumberOfUnitsProductsMinus(productsPets);
-//		} catch (DaoException e) {
-//			log.log(Level.ERROR, e.getMessage());
-//			throw new ServiceException(e);
-//		}
-//	}
-//
-//	/**
-//	 * Change number of units products plus.
-//	 *
-//	 * @param productsPets       the products pets
-//	 * @param haveProductByIndex the have product by index
-//	 * @return true, if successful
-//	 * @throws ServiceException the service exception
-//	 */
-//	@Override
-//	public boolean changeNumberOfUnitsProductsPlus(List<Pet> productsPets, Map<Integer, Boolean> haveProductByIndex)
-//			throws ServiceException {
-//		try {
-//			return ProductPetDaoImpl.getInstance().changeNumberOfUnitsProductsPlus(productsPets, haveProductByIndex);
-//		} catch (DaoException e) {
-//			log.log(Level.ERROR, e.getMessage());
-//			throw new ServiceException(e);
-//		}
-//	}
-
 	/**
-	 * Add the product pet.
+	 * Add the product.
 	 *
 	 * @param pet                  the pet
 	 * @param numberOfUnitsProduct the number of units product
@@ -180,7 +111,7 @@ public class ProductPetServiceImpl implements ProductPetService {
 	@Override
 	public boolean addProduct(Pet pet, long numberOfUnitsProduct) throws ServiceException {
 		try {
-			return ProductPetDaoImpl.getInstance().addProductPet(pet, numberOfUnitsProduct);
+			return ProductPetDaoImpl.getInstance().addProduct(pet, numberOfUnitsProduct);
 		} catch (DaoException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
@@ -188,16 +119,16 @@ public class ProductPetServiceImpl implements ProductPetService {
 	}
 
 	/**
-	 * Get the product pet by id.
+	 * Get the product by id.
 	 *
 	 * @param id the id
-	 * @return the product pet by id
+	 * @return the product by id
 	 * @throws ServiceException the service exception
 	 */
 	@Override
 	public Pet getProductById(long id) throws ServiceException {
 		try {
-			return ProductPetDaoImpl.getInstance().getProductPetById(id);
+			return ProductPetDaoImpl.getInstance().getProductById(id);
 		} catch (DaoException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
@@ -205,7 +136,7 @@ public class ProductPetServiceImpl implements ProductPetService {
 	}
 
 	/**
-	 * Update product pet.
+	 * Update product by id.
 	 *
 	 * @param pet                  the pet
 	 * @param numberOfUnitsProduct the number of units product
@@ -215,7 +146,7 @@ public class ProductPetServiceImpl implements ProductPetService {
 	@Override
 	public boolean updateProductById(Pet pet, long numberOfUnitsProduct) throws ServiceException {
 		try {
-			return ProductPetDaoImpl.getInstance().updateProductPet(pet, numberOfUnitsProduct);
+			return ProductPetDaoImpl.getInstance().updateProductById(pet, numberOfUnitsProduct);
 		} catch (DaoException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
@@ -240,7 +171,7 @@ public class ProductPetServiceImpl implements ProductPetService {
 	}
 
 	/**
-	 * Transfer pet product from market to order.
+	 * Transfer product from market to order.
 	 *
 	 * @param productId the product id
 	 * @param orderId   the order id
@@ -250,7 +181,7 @@ public class ProductPetServiceImpl implements ProductPetService {
 	@Override
 	public boolean transferProductFromMarketToOrder(long productId, long orderId) throws ServiceException {
 		try {
-			return ProductPetDaoImpl.getInstance().transferPetProductFromMarketToOrder(productId, orderId);
+			return ProductPetDaoImpl.getInstance().transferProductFromMarketToOrder(productId, orderId);
 		} catch (DaoException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
@@ -258,7 +189,7 @@ public class ProductPetServiceImpl implements ProductPetService {
 	}
 
 	/**
-	 * Transfer pet product from order to market.
+	 * Transfer product from order to market.
 	 *
 	 * @param productId the product id
 	 * @param orderId   the order id
@@ -268,7 +199,7 @@ public class ProductPetServiceImpl implements ProductPetService {
 	@Override
 	public boolean transferProductFromOrderToMarket(long productId, long orderId) throws ServiceException {
 		try {
-			return ProductPetDaoImpl.getInstance().transferPetProductFromOrderToMarket(productId, orderId);
+			return ProductPetDaoImpl.getInstance().transferProductFromOrderToMarket(productId, orderId);
 		} catch (DaoException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
