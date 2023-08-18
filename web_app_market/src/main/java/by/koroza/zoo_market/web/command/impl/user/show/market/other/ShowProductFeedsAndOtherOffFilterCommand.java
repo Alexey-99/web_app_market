@@ -55,7 +55,7 @@ public class ShowProductFeedsAndOtherOffFilterCommand implements Command {
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER);
 		try {
 			Map<FeedAndOther, Long> productsFeedAndOther = ProductFeedsAndOtherServiceImpl.getInstance()
-					.getAllProductsFeedAndOtherAndNumberOfUnits();
+					.getAllProductsAndNumberOfUnits();
 			List<Entry<FeedAndOther, Long>> sortedProductFeedAndOther = SortingProductsImpl.getInstance()
 					.sortProductsFeedsAndOther(productsFeedAndOther.entrySet().stream().toList(),
 							new SortProductsByIdAscendingComparatorImpl());

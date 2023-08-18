@@ -50,12 +50,11 @@ public class AddFeedAndOtherProductToOrderCommand implements Command {
 				String productIdEntered = request.getParameter(PARAMETER_PRODUCT_ID);
 				if (productIdEntered != null && productIdEntered.matches("\\d+")) {
 					long productId = Long.parseLong(productIdEntered);
-					FeedAndOther product = ProductFeedsAndOtherServiceImpl.getInstance()
-							.getProductFeedAndOtherById(productId);
+					FeedAndOther product = ProductFeedsAndOtherServiceImpl.getInstance().getProductById(productId);
 					if (product != null) {
 						Order order = OrderServiceImpl.getInstance().getOpenOrderByUserId(user.getId());
-						if (ProductFeedsAndOtherServiceImpl.getInstance()
-								.transferFeedAndOtherProductFromMarketToOrder(productId, order.getId())) {
+						if (ProductFeedsAndOtherServiceImpl.getInstance().transferProductFromMarketToOrder(productId,
+								order.getId())) {
 							order.setTotalPaymentAmount(order.getTotalPaymentAmount() + product.getPrice());
 							order.setTotalProductsDiscountAmount(order.getTotalProductsDiscountAmount()
 									+ (product.getPrice() * product.getDiscount() / 100));

@@ -681,25 +681,27 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			SELECT COUNT(order_products.pets_id)
 			FROM orders INNER JOIN order_products
 				ON orders.id = order_products.orders_id
-			WHERE orders.order_statuses_id = 1
+			WHERE orders.order_statuses_id = ?
 				AND order_products.product_types_id = 1
 				AND order_products.pets_id = ?;
 			""";
 
 	/**
-	 * Get the quantity in open orders by product id.
+	 * Get the quantity in orders by product id and order status.
 	 *
-	 * @param productId the product id
-	 * @return the quantity in open orders by product id
+	 * @param productId     the product id
+	 * @param orderStatusId the order status id
+	 * @return the quantity in orders by product id and order status
 	 * @throws DaoException the dao exception
 	 */
 	@Override
-	public long getQuantityInOpenOrdersByProductId(long productId) throws DaoException {
+	public long getQuantityInOrdersByProductIdAndOrderStatus(long productId, int orderStatusId) throws DaoException {
 		long quantity = 0;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection
 						.prepareStatement(QUERY_SELECT_QUANTITY_IN_OPEN_ORDERS_BY_PRODUCT_ID)) {
-			statement.setLong(1, productId);
+			statement.setLong(1, orderStatusId);
+			statement.setLong(2, productId);
 			try (ResultSet resultSet = statement.executeQuery()) {
 				while (resultSet.next()) {
 					quantity = resultSet.getLong(IDENTIFIER_COUNT_ROWS_OF_ORDER_PRODUCTS_PRODUCT_PETS_ID);

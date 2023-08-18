@@ -115,19 +115,19 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 			String sessionLocale = (String) request.getSession().getAttribute(ATTRIBUTE_SESSION_LOCALE);
 			FilterPet filter = getInputParameters(request, sessionLocale, mapInputExceptions);
 			if (mapInputExceptions.isEmpty()) {
-				List<Entry<Pet, Long>> pets = PRODUCT_PET_SERVICE.getProductsPetsByFilter(filter);
+				List<Entry<Pet, Long>> pets = PRODUCT_PET_SERVICE.getProductsByFilter(filter);
 				pets = SORT_PRODUCTS.sortProductsPets(pets, new SortProductsByIdAscendingComparatorImpl());
 				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, pets);
 				if (session.getAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP) == null) {
 					Map<String, Set<String>> filterMap = FILTER_FACTORY.createFilterPets(
-							PRODUCT_PET_SERVICE.getAllProductsPetsAndNumberOfUnits().keySet(), sessionLocale);
+							PRODUCT_PET_SERVICE.getAllProductsAndNumberOfUnits().keySet(), sessionLocale);
 					session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP, filterMap);
 				}
 				session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER, filter);
 			} else {
 				session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
 						mapInputExceptions);
-				Map<Pet, Long> mapPets = PRODUCT_PET_SERVICE.getAllProductsPetsAndNumberOfUnits();
+				Map<Pet, Long> mapPets = PRODUCT_PET_SERVICE.getAllProductsAndNumberOfUnits();
 				List<Entry<Pet, Long>> sortedPets = SORT_PRODUCTS.sortProductsPets(mapPets.entrySet().stream().toList(),
 						new SortProductsByIdAscendingComparatorImpl());
 				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, sortedPets);
@@ -408,7 +408,7 @@ public class ShowProductPetsIncludedFilterCommand implements Command {
 	 */
 	private double findMaxPriceInListProducts() throws ServiceException {
 		double maxPrice = 0;
-		Map<Pet, Long> products = PRODUCT_PET_SERVICE.getAllProductsPetsAndNumberOfUnits();
+		Map<Pet, Long> products = PRODUCT_PET_SERVICE.getAllProductsAndNumberOfUnits();
 		for (Entry<Pet, Long> entry : products.entrySet()) {
 			Pet product = entry.getKey();
 			Long numberOfUnits = entry.getValue();

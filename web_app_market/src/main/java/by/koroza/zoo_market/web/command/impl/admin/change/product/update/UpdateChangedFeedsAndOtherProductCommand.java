@@ -63,10 +63,9 @@ public class UpdateChangedFeedsAndOtherProductCommand implements Command {
 					if (oldImagePath != null) {
 						ImageFileServiceImpl.getInstance().removeProductImage(oldImagePath);
 					}
-					Map<Pet, Long> productPets = ProductPetServiceImpl.getInstance()
-							.getAllProductsPetsAndNumberOfUnits();
+					Map<Pet, Long> productPets = ProductPetServiceImpl.getInstance().getAllProductsAndNumberOfUnits();
 					Map<FeedAndOther, Long> productFeedsAndOther = ProductFeedsAndOtherServiceImpl.getInstance()
-							.getAllProductsFeedAndOtherAndNumberOfUnits();
+							.getAllProductsAndNumberOfUnits();
 					Map<AbstractProduct, Long> products = new HashMap<>();
 					products.putAll(productPets);
 					products.putAll(productFeedsAndOther);

@@ -54,7 +54,7 @@ public class ShowProductPetsOffFilterCommand implements Command {
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP);
 		session.removeAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER);
 		try {
-			Map<Pet, Long> pets = ProductPetServiceImpl.getInstance().getAllProductsPetsAndNumberOfUnits();
+			Map<Pet, Long> pets = ProductPetServiceImpl.getInstance().getAllProductsAndNumberOfUnits();
 			List<Entry<Pet, Long>> sortedPets = SortingProductsImpl.getInstance()
 					.sortProductsPets(pets.entrySet().stream().toList(), new SortProductsByIdAscendingComparatorImpl());
 			session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, sortedPets);

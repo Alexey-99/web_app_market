@@ -56,7 +56,7 @@ public class ShowProductFeedsAndOtherNumberPageCommand implements Command {
 		HttpSession session = request.getSession();
 		try {
 			Map<FeedAndOther, Long> allProductsFeedAndOther = ProductFeedsAndOtherServiceImpl.getInstance()
-					.getAllProductsFeedAndOtherAndNumberOfUnits();
+					.getAllProductsAndNumberOfUnits();
 			Map<String, Set<String>> filterMap = MarketFilterProductFactoryImpl.getInstance().createFilterFeedAndOther(
 					allProductsFeedAndOther.keySet(), (String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE));
 			session.setAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP, filterMap);
@@ -64,7 +64,7 @@ public class ShowProductFeedsAndOtherNumberPageCommand implements Command {
 				FilterFeedsAndOther filterFeedsAndOther = (FilterFeedsAndOther) session
 						.getAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER);
 				List<Entry<FeedAndOther, Long>> productsByFilter = ProductFeedsAndOtherServiceImpl.getInstance()
-						.getProductsFeedAndOtherByFilter(filterFeedsAndOther);
+						.getProductsByFilter(filterFeedsAndOther);
 				productsByFilter = SORT_PRODUCTS.sortProductsFeedsAndOther(productsByFilter,
 						new SortProductsByIdAscendingComparatorImpl());
 				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_FEEDS_AND_OTHER, productsByFilter);

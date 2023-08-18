@@ -59,10 +59,9 @@ public class AddOtherProductCommand implements Command {
 					long numberOfUnitsProduct = (long) session
 							.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT);
 					FEEDS_AND_OTHER_SERVICE.addProduct(otherProduct, numberOfUnitsProduct);
-
-					Map<Pet, Long> productPets = PET_SERVICE.getAllProductsPetsAndNumberOfUnits();
+					Map<Pet, Long> productPets = PET_SERVICE.getAllProductsAndNumberOfUnits();
 					Map<FeedAndOther, Long> productFeedsAndOther = FEEDS_AND_OTHER_SERVICE
-							.getAllProductsFeedAndOtherAndNumberOfUnits();
+							.getAllProductsAndNumberOfUnits();
 					Map<AbstractProduct, Long> products = new HashMap<>();
 					products.putAll(productPets);
 					products.putAll(productFeedsAndOther);

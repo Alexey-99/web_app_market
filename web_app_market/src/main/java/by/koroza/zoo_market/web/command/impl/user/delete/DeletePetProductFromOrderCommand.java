@@ -51,10 +51,10 @@ public class DeletePetProductFromOrderCommand implements Command {
 				String productIdEntered = request.getParameter(PARAMETER_PRODUCT_ID);
 				if (productIdEntered != null && productIdEntered.matches("\\d+")) {
 					long productId = Long.parseLong(productIdEntered);
-					Pet pet = ProductPetServiceImpl.getInstance().getProductPetById(productId);
+					Pet pet = ProductPetServiceImpl.getInstance().getProductById(productId);
 					if (pet != null) {
 						Order order = OrderServiceImpl.getInstance().getOpenOrderByUserId(user.getId());
-						if (ProductPetServiceImpl.getInstance().transferPetProductFromOrderToMarket(productId,
+						if (ProductPetServiceImpl.getInstance().transferProductFromOrderToMarket(productId,
 								order.getId())) {
 							order.setTotalPaymentAmount(order.getTotalPaymentAmount() - pet.getPrice());
 							order.setTotalProductsDiscountAmount(order.getTotalProductsDiscountAmount()

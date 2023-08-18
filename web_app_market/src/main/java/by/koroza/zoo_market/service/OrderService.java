@@ -2,6 +2,7 @@ package by.koroza.zoo_market.service;
 
 import java.util.List;
 
+import by.koroza.zoo_market.model.entity.detalization.OrderDetalizationByProduct;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.service.exception.ServiceException;
 
@@ -55,4 +56,15 @@ public interface OrderService {
 	 * @return the double
 	 */
 	public double calcTotalPaymentWithDiscountAmount(Order order, double personalDiscountPercent);
+
+	/**
+	 * Get the details about orders by product id and order status.
+	 *
+	 * @param orderStatusId the order status id
+	 * @param productId     the product id
+	 * @return the details about orders by product id and order status
+	 * @throws ServiceException the service exception
+	 */
+	public List<OrderDetalizationByProduct> getDetailsAboutOrdersByProductIdAndOrderStatus(int orderStatusId,
+			long productId) throws ServiceException;
 }

@@ -57,11 +57,11 @@ public class AddPetProductCommand implements Command {
 				if (pet != null) {
 					long numberOfUnitsProduct = (long) session
 							.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT);
-					PET_SERVICE.addProductPet(pet, numberOfUnitsProduct);
+					PET_SERVICE.addProduct(pet, numberOfUnitsProduct);
 
-					Map<Pet, Long> productPets = PET_SERVICE.getAllProductsPetsAndNumberOfUnits();
+					Map<Pet, Long> productPets = PET_SERVICE.getAllProductsAndNumberOfUnits();
 					Map<FeedAndOther, Long> productFeedsAndOther = FEEDS_AND_OTHER_SERVICE
-							.getAllProductsFeedAndOtherAndNumberOfUnits();
+							.getAllProductsAndNumberOfUnits();
 					Map<AbstractProduct, Long> products = new HashMap<>();
 					products.putAll(productPets);
 					products.putAll(productFeedsAndOther);

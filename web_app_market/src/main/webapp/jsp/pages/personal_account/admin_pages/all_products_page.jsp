@@ -325,7 +325,7 @@
 												<button class="border-0 bg-transparent text-lowercase"
 													role="button">
 													<fmt:message
-														key="admin_page.all_products.col.number_of_units" />
+														key="admin_page.all_products.col.number_of_units_in_available" />
 												</button>
 											</form>
 										</th>

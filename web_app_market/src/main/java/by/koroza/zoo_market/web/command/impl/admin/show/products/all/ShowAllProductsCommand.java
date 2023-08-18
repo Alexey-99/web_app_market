@@ -46,9 +46,9 @@ public class ShowAllProductsCommand implements Command {
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
 			if (user != null && user.isVerificatedEmail() && user.getRole().getId() == ADMIN.getId()) {
-				Map<Pet, Long> productPets = ProductPetServiceImpl.getInstance().getAllProductsPetsAndNumberOfUnits();
+				Map<Pet, Long> productPets = ProductPetServiceImpl.getInstance().getAllProductsAndNumberOfUnits();
 				Map<FeedAndOther, Long> productFeedsAndOther = ProductFeedsAndOtherServiceImpl.getInstance()
-						.getAllProductsFeedAndOtherAndNumberOfUnits();
+						.getAllProductsAndNumberOfUnits();
 				Map<AbstractProduct, Long> products = new HashMap<>();
 				products.putAll(productPets);
 				products.putAll(productFeedsAndOther);

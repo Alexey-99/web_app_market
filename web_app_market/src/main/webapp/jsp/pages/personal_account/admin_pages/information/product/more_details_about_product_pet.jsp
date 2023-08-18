@@ -38,7 +38,7 @@
 <!-- map_product_pet_and_number_of_units = AttributeName.ATTRIBUTE_MAP_PRODUCT_PET_AND_NUMBER_OF_UNITS_PRODUCT -->
 <!-- map_product_feeds_and_other_and_number_of_units = AttributeName.ATTRIBUTE_MAP_PRODUCT_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT -->
 <!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
-<!-- details_map = AttributeName.SESSION_ATTRIBUTE_SHOW_MORE_DETAILS_ABOUT_RODUCT -->
+<!-- informator = AttributeName.SESSION_ATTRIBUTE_SHOW_MORE_DETAILS_ABOUT_RODUCT -->
 </head>
 <body>
 
@@ -83,7 +83,8 @@
 										<th class="border-0 text-lowercase" scope="col"><fmt:message
 												key="admin_page.all_products.col.price_with_discount" /></th>
 										<th class="border-0 text-lowercase" scope="col"><fmt:message
-												key="admin_page.all_products.col.number_of_units" /></th>
+												key="admin_page.all_products.col.number_of_units_in_available" />
+										</th>
 										<th class="border-0 text-lowercase" scope="col"><fmt:message
 												key="admin_page.all_products.col.change" /></th>
 									</tr>
@@ -91,17 +92,17 @@
 								<tbody class="">
 									<tr class="align-middle">
 										<td class=" table_row_product_img"
-											onclick="showProductImage('p-${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getId()}')"
+											onclick="showProductImage('p-${informator.getProduct().getId()}')"
 											style="height: auto;">
 											<div class="card-img-top"
 												style="border: 1px solid var(--bs-card-border-color); margin: 0 auto; display: flex; justify-content: center; align-items: center; height: auto;">
 												<c:if
-													test="${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getImagePath() != null}">
+													test="${informator.getProduct().getImagePath() != null}">
 													<img class="" style="width: 35px; height: 35px" alt=""
-														src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getImagePath()}" />
+														src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${informator.getProduct().getImagePath()}" />
 												</c:if>
 												<c:if
-													test="${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getImagePath() == null}">
+													test="${informator.getProduct().getImagePath() == null}">
 													<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 														width="35px" height="35px" viewBox="0 0 64 64">
 <path
@@ -110,49 +111,54 @@
 												</c:if>
 											</div>
 										</td>
-										<th class="" scope="row">
-											p-${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getId()}
+										<th class="text-lowercase" scope="row">
+											<div class="d-flex justify-content-center align-items-center">
+												p-${informator.getProduct().getId()}</div>
 										</th>
-										<td class="text-lowercase">${ProductType.PETS.toString()}</td>
 										<td class="text-lowercase">
-											<div class="d-flex justify-content-center align-items-center">
-												${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getSpecie()}
-											</div>
+											<div class="d-flex justify-content-center align-items-center">${ProductType.PETS.toString()}</div>
 										</td>
 										<td class="text-lowercase">
 											<div class="d-flex justify-content-center align-items-center">
-												${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getBreed()}
+												${informator.getProduct().getSpecie()}</div>
+										</td>
+										<td class="text-lowercase">
+											<div class="d-flex justify-content-center align-items-center">
+												${informator.getProduct().getBreed()}</div>
+										</td>
+										<td class="">
+											<div class="d-flex justify-content-center align-items-center">
+												${informator.getProduct().getBirthDate().toString()}</div>
+										</td>
+										<td class="">
+											<div class="d-flex justify-content-center align-items-center">
+												${String.format("%,.2f", informator.getProduct().getPrice())}
 											</div>
 										</td>
 										<td class="">
 											<div class="d-flex justify-content-center align-items-center">
-												${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getBirthDate().toString()}
+												${String.format("%,.2f", informator.getProduct().getDiscount())}
 											</div>
 										</td>
 										<td class="">
 											<div class="d-flex justify-content-center align-items-center">
-												${String.format("%,.2f", details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getPrice())}
+												${String.format("%,.2f", informator.getProduct().getTotalPrice())}
 											</div>
 										</td>
 										<td class="">
 											<div class="d-flex justify-content-center align-items-center">
-												${String.format("%,.2f", details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getDiscount())}
-											</div>
-										</td>
-										<td class="">
-											<div class="d-flex justify-content-center align-items-center">
-												${String.format("%,.2f", details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getTotalPrice())}
-											</div>
-										</td>
-										<td class="">
-											<div class="d-flex justify-content-center align-items-center">
-												${details_map.get(ShowMoreDetailsAboutProduct.QUANTITY_AVAILABLE)}
-											</div>
+												${informator.getQuantityAvailable()}</div>
 										</td>
 										<td class="edit_product_td">
-											<form action="">
-												<button class="bg-transparent"
-													style="border: none; width: 100%;" role="button">
+											<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}">
+												<input type="hidden"
+													name="${ParameterName.PARAMETER_COMMAND}"
+													value="${CommandName.COMMAND_ADMIN_PAGE_SHOW_CHANGE_PET_PRODUCT_FORM}">
+												<input type="hidden"
+													name="${ParameterName.PARAMETER_PRODUCT_ID}"
+													value="${informator.getProduct().getId()}">
+												<button class="bg-transparent w-100" style="border: none;"
+													role="button">
 													<svg class="w-100" style="margin: 0 auto"
 														xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"
 														width="25px" height="25px">
@@ -164,13 +170,13 @@
 										</td>
 									</tr>
 									<div
-										class="position-fixed d-none d-flex justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 image_product_id image_product_id_p-${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getId()}">
+										class="position-fixed d-none d-flex justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 image_product_id image_product_id_p-${informator.getProduct().getId()}">
 										<div
-											class="position-relative w-100 d-flex flex-column image_product_id_inner image_product_id_p-${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getId()}_inner"
+											class="position-relative w-100 d-flex flex-column image_product_id_inner image_product_id_p-${dinformator.getProduct().getId()}_inner"
 											style="height: 60vh; max-width: 70vh">
 											<div class="image_product_id_top">
 												<div class="close_btn"
-													onclick="closedProductImage('p-${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getId()}')">
+													onclick="closedProductImage('p-${informator.getProduct().getId()}')">
 													<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
 														width="25px" height="25px">
                           <path
@@ -186,13 +192,13 @@
 											<div
 												class="image_product_id_body h-100 d-flex justify-content-center align-items-center">
 												<c:if
-													test="${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getImagePath() != null}">
+													test="${informator.getProduct().getImagePath() != null}">
 													<img class="" style="max-height: 420px; max-width: 550px;"
 														alt=""
-														src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getImagePath()}" />
+														src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${informator.getProduct().getImagePath()}" />
 												</c:if>
 												<c:if
-													test="${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getImagePath() == null}">
+													test="${informator.getProduct().getImagePath() == null}">
 													<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 														width="auto" height="45vh" viewBox="0 0 64 64">
 <path
@@ -204,6 +210,327 @@
 									</div>
 								</tbody>
 							</table>
+
+							<div class="accordion accordion_form" id="accordionExample">
+								<div class="accordion-item">
+									<h2 class="accordion-header">
+										<button
+											class="accordion-button accordion_header_btn collapsed text-uppercase"
+											type="button" data-bs-toggle="collapse"
+											data-bs-target="#collapse_QUANTITY_IN_CLOSED_ORDERS"
+											aria-expanded="false"
+											aria-controls="collapse_QUANTITY_IN_CLOSED_ORDERS">
+											<div
+												class="d-flex flex-row justify-content-between w-100 align-items-center">
+												<div class="accordion_header_btn_id_and_date_order">
+													<fmt:message
+														key="admin_page.all_products.col.more_details.available_in_close_orders" />
+												</div>
+												<div class="accordion_header_btn_status_order pe-4">
+													${informator.getQuantityInReserveInCloseOrders()}</div>
+											</div>
+										</button>
+									</h2>
+									<div id="collapse_QUANTITY_IN_CLOSED_ORDERS"
+										class="accordion-collapse collapse">
+										<div class="accordion-body">
+											<table class="table table-striped table-hover">
+												<thead class="">
+													<tr class="align-middle">
+														<th class="border-0 text-lowercase text-center"
+															scope="col"><fmt:message
+																key="admin_page.all_products.col.more_details.col.order_number" />
+														</th>
+														<th class="border-0 text-lowercase text-center"
+															scope="col"><fmt:message
+																key="admin_page.all_products.col.more_details.col.quantity" />
+														</th>
+														<th class="border-0 text-lowercase text-center"
+															scope="col"><fmt:message
+																key="admin_page.all_products.col.more_details.col.order_total_sum" />
+														</th>
+														<th class="border-0 text-lowercase text-center"
+															scope="col"><fmt:message
+																key="admin_page.all_products.col.more_details.col.user_id" />
+														</th>
+														<th class="border-0 text-lowercase text-center"
+															scope="col"><fmt:message
+																key="admin_page.all_products.col.more_details.col.user_login" />
+														</th>
+													</tr>
+												</thead>
+												<tbody class="">
+													<c:forEach
+														items="${informator.getDetailsCloseOrdersWithProduct()}"
+														var="item">
+														<tr class="align-middle">
+															<td class="">
+																<div
+																	class="d-flex justify-content-center align-items-center">
+																	${item.getOrderId()}</div>
+															</td>
+															<td class="">
+																<div
+																	class="d-flex justify-content-center align-items-center">
+																	${item.getQuantityProduct()}</div>
+															</td>
+															<td class="">
+																<div
+																	class="d-flex justify-content-center align-items-center">
+																	${item.getTotalSum()}</div>
+															</td>
+															<td class="">
+																<div
+																	class="d-flex justify-content-center align-items-center">
+																	${item.getUserId()}</div>
+															</td>
+															<td class="">
+																<div
+																	class="d-flex justify-content-center align-items-center">
+																	${item.getUserLogin()}</div>
+															</td>
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="accordion accordion_form" id="accordionExample">
+								<div class="accordion-item">
+									<h2 class="accordion-header">
+										<button
+											class="accordion-button accordion_header_btn collapsed text-uppercase"
+											type="button" data-bs-toggle="collapse"
+											data-bs-target="#collapse_QUANTITY_IN_RESERVE"
+											aria-expanded="false"
+											aria-controls="collapse_QUANTITY_IN_RESERVE">
+											<div
+												class="d-flex flex-row justify-content-between w-100 align-items-center">
+												<div class="accordion_header_btn_id_and_date_order">
+													<fmt:message
+														key="admin_page.all_products.col.more_details.available_in_reserve" />
+												</div>
+												<div class="accordion_header_btn_status_order pe-4">
+													${informator.getQuantityInReserve()}</div>
+											</div>
+										</button>
+									</h2>
+									<div id="collapse_QUANTITY_IN_RESERVE"
+										class="accordion-collapse collapse">
+										<div class="accordion-body">
+
+											<div class="accordion accordion_form" id="accordionExample">
+												<div class="accordion-item">
+													<h2 class="accordion-header">
+														<button
+															class="accordion-button accordion_header_btn collapsed text-uppercase"
+															type="button" data-bs-toggle="collapse"
+															data-bs-target="#collapse_QUANTITY_IN_RESERVE_IN_OPEN_ORDERS"
+															aria-expanded="false"
+															aria-controls="collapse_QUANTITY_IN_RESERVE_IN_OPEN_ORDERS">
+															<div
+																class="d-flex flex-row justify-content-between w-100 align-items-center">
+																<div class="accordion_header_btn_id_and_date_order">
+																	<fmt:message
+																		key="admin_page.all_products.col.more_details.available_in_reserve.in_open_orders" />
+																</div>
+																<div class="accordion_header_btn_status_order pe-4">
+																	${informator.getQuantityInReserveInOpenOrders()}</div>
+															</div>
+														</button>
+													</h2>
+													<div id="collapse_QUANTITY_IN_RESERVE_IN_OPEN_ORDERS"
+														class="accordion-collapse collapse">
+														<div class="accordion-body">
+															<table class="table table-striped table-hover">
+																<thead class="">
+																	<tr class="align-middle">
+																		<th class="border-0 text-lowercase text-center"
+																			scope="col"><fmt:message
+																				key="admin_page.all_products.col.more_details.col.order_number" />
+																		</th>
+																		<th class="border-0 text-lowercase text-center"
+																			scope="col"><fmt:message
+																				key="admin_page.all_products.col.more_details.col.quantity" />
+																		</th>
+																		<th class="border-0 text-lowercase text-center"
+																			scope="col"><fmt:message
+																				key="admin_page.all_products.col.more_details.col.order_total_sum" />
+																		</th>
+																		<th class="border-0 text-lowercase text-center"
+																			scope="col"><fmt:message
+																				key="admin_page.all_products.col.more_details.col.user_id" />
+																		</th>
+																		<th class="border-0 text-lowercase text-center"
+																			scope="col"><fmt:message
+																				key="admin_page.all_products.col.more_details.col.user_login" />
+																		</th>
+																		<th class="border-0 text-lowercase text-center"
+																			scope="col"><fmt:message
+																				key="admin_page.all_products.col.change" /></th>
+																	</tr>
+																</thead>
+																<tbody class="">
+																	<c:forEach
+																		items="${informator.getDetailsOpenOrdersWithProduct()}"
+																		var="item">
+																		<tr class="align-middle">
+																			<td class="">
+																				<div
+																					class="d-flex justify-content-center align-items-center">
+																					${item.getOrderId()}</div>
+																			</td>
+																			<td class="">
+																				<div
+																					class="d-flex justify-content-center align-items-center">
+																					${item.getQuantityProduct()}</div>
+																			</td>
+																			<td class="">
+																				<div
+																					class="d-flex justify-content-center align-items-center">
+																					${item.getTotalSum()}</div>
+																			</td>
+																			<td class="">
+																				<div
+																					class="d-flex justify-content-center align-items-center">
+																					${item.getUserId()}</div>
+																			</td>
+																			<td class="">
+																				<div
+																					class="d-flex justify-content-center align-items-center">
+																					${item.getUserLogin()}</div>
+																			</td>
+																			<td class="edit_product_td">
+																				<form action="">
+																					<button class="bg-transparent"
+																						style="border: none; width: 100%;" role="button">
+																						<svg class="w-100" style="margin: 0 auto"
+																							xmlns="http://www.w3.org/2000/svg"
+																							viewBox="0 0 30 30" width="25px" height="25px">
+                      <path
+																								d="M 22.828125 3 C 22.316375 3 21.804562 3.1954375 21.414062 3.5859375 L 19 6 L 24 11 L 26.414062 8.5859375 C 27.195062 7.8049375 27.195062 6.5388125 26.414062 5.7578125 L 24.242188 3.5859375 C 23.851688 3.1954375 23.339875 3 22.828125 3 z M 17 8 L 5.2597656 19.740234 C 5.2597656 19.740234 6.1775313 19.658 6.5195312 20 C 6.8615312 20.342 6.58 22.58 7 23 C 7.42 23.42 9.6438906 23.124359 9.9628906 23.443359 C 10.281891 23.762359 10.259766 24.740234 10.259766 24.740234 L 22 13 L 17 8 z M 4 23 L 3.0566406 25.671875 A 1 1 0 0 0 3 26 A 1 1 0 0 0 4 27 A 1 1 0 0 0 4.328125 26.943359 A 1 1 0 0 0 4.3378906 26.939453 L 4.3632812 26.931641 A 1 1 0 0 0 4.3691406 26.927734 L 7 26 L 5.5 24.5 L 4 23 z" />
+                    </svg>
+																					</button>
+																				</form>
+																			</td>
+																		</tr>
+																	</c:forEach>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div class="accordion accordion_form" id="accordionExample">
+												<div class="accordion-item">
+													<h2 class="accordion-header">
+														<button
+															class="accordion-button accordion_header_btn collapsed text-uppercase"
+															type="button" data-bs-toggle="collapse"
+															data-bs-target="#collapse_QUANTITY_IN_RESERVE_IN_WAITING_PAYMENTS_ORDERS"
+															aria-expanded="false"
+															aria-controls="collapse_QUANTITY_IN_RESERVE_IN_WAITING_PAYMENTS_ORDERS">
+															<div
+																class="d-flex flex-row justify-content-between w-100 align-items-center">
+																<div class="accordion_header_btn_id_and_date_order">
+																	<fmt:message
+																		key="admin_page.all_products.col.more_details.available_in_reserve.in_waiting_payment_orders" />
+																</div>
+																<div class="accordion_header_btn_status_order pe-4">
+																	${informator.getQuantityInReserveInWaitingPayOrders()}</div>
+															</div>
+														</button>
+													</h2>
+													<div
+														id="collapse_QUANTITY_IN_RESERVE_IN_WAITING_PAYMENTS_ORDERS"
+														class="accordion-collapse collapse">
+														<div class="accordion-body">
+															<table class="table table-striped table-hover">
+																<thead class="">
+																	<tr class="align-middle">
+																		<th class="border-0 text-lowercase text-center"
+																			scope="col"><fmt:message
+																				key="admin_page.all_products.col.more_details.col.order_number" />
+																		</th>
+																		<th class="border-0 text-lowercase text-center"
+																			scope="col"><fmt:message
+																				key="admin_page.all_products.col.more_details.col.quantity" />
+																		</th>
+																		<th class="border-0 text-lowercase text-center"
+																			scope="col"><fmt:message
+																				key="admin_page.all_products.col.more_details.col.order_total_sum" />
+																		</th>
+																		<th class="border-0 text-lowercase text-center"
+																			scope="col"><fmt:message
+																				key="admin_page.all_products.col.more_details.col.user_id" />
+																		</th>
+																		<th class="border-0 text-lowercase text-center"
+																			scope="col"><fmt:message
+																				key="admin_page.all_products.col.more_details.col.user_login" />
+																		</th>
+																		<th class="border-0 text-lowercase" scope="col"><fmt:message
+																				key="admin_page.all_products.col.change" /></th>
+																	</tr>
+																</thead>
+																<tbody class="edit_product_td">
+																	<c:forEach
+																		items="${informator.getDetailsWaitingPayOrdersWithProduct()}"
+																		var="item">
+																		<tr class="align-middle">
+																			<td class="">
+																				<div
+																					class="d-flex justify-content-center align-items-center">
+																					${item.getOrderId()}</div>
+																			</td>
+																			<td class="">
+																				<div
+																					class="d-flex justify-content-center align-items-center">
+																					${item.getQuantityProduct()}</div>
+																			</td>
+																			<td class="">
+																				<div
+																					class="d-flex justify-content-center align-items-center">
+																					${item.getTotalSum()}</div>
+																			</td>
+																			<td class="">
+																				<div
+																					class="d-flex justify-content-center align-items-center">
+																					${item.getUserId()}</div>
+																			</td>
+																			<td class="">
+																				<div
+																					class="d-flex justify-content-center align-items-center">
+																					${item.getUserLogin()}</div>
+																			</td>
+																			<td class="">
+																				<form action="">
+																					<button class="bg-transparent"
+																						style="border: none; width: 100%;" role="button">
+																						<svg class="w-100" style="margin: 0 auto"
+																							xmlns="http://www.w3.org/2000/svg"
+																							viewBox="0 0 30 30" width="25px" height="25px">
+                      <path
+																								d="M 22.828125 3 C 22.316375 3 21.804562 3.1954375 21.414062 3.5859375 L 19 6 L 24 11 L 26.414062 8.5859375 C 27.195062 7.8049375 27.195062 6.5388125 26.414062 5.7578125 L 24.242188 3.5859375 C 23.851688 3.1954375 23.339875 3 22.828125 3 z M 17 8 L 5.2597656 19.740234 C 5.2597656 19.740234 6.1775313 19.658 6.5195312 20 C 6.8615312 20.342 6.58 22.58 7 23 C 7.42 23.42 9.6438906 23.124359 9.9628906 23.443359 C 10.281891 23.762359 10.259766 24.740234 10.259766 24.740234 L 22 13 L 17 8 z M 4 23 L 3.0566406 25.671875 A 1 1 0 0 0 3 26 A 1 1 0 0 0 4 27 A 1 1 0 0 0 4.328125 26.943359 A 1 1 0 0 0 4.3378906 26.939453 L 4.3632812 26.931641 A 1 1 0 0 0 4.3691406 26.927734 L 7 26 L 5.5 24.5 L 4 23 z" />
+                    </svg>
+																					</button>
+																				</form>
+																			</td>
+																		</tr>
+																	</c:forEach>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

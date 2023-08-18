@@ -54,6 +54,7 @@
 									<div class="add_product_form_top_title">
 										<h2 class="form_title text-center mb-3 text-lowercase">
 											<fmt:message key="change_product_form_validated.title" />
+											${product_pet.getId()}
 										</h2>
 									</div>
 									<div
@@ -62,7 +63,7 @@
 											method="get">
 											<input type="hidden"
 												name="${ParameterName.PARAMETER_COMMAND}"
-												value="${CommandName.COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_OFF_FILTER }">
+												value="${CommandName.COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_OFF_FILTER}">
 											<button class="close_btn" role="button">
 												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
 													width="25px" height="25px">
@@ -133,6 +134,7 @@
 													id="change_product_form_validated.change_pet.lable.type_pet"
 													name="${InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_SPECIE}"
 													value="${product_pet.getSpecie()}"
+													pattern="(\w|[А-Яа-я]){1,255}" maxLength="255"
 													placeholder='<fmt:message key="change_product_form_validated.change_pet.lable.type_pet"/>' />
 												<label class="text-lowercase"
 													for="change_product_form_validated.change_pet.lable.type_pet"><fmt:message
@@ -144,6 +146,7 @@
 													id="change_product_form_validated.change_pet.lable.breed_pet"
 													name="${InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_BREED}"
 													value="${product_pet.getBreed()}"
+													pattern="(\w|[А-Яа-я]){1,255}" maxLength="255"
 													placeholder='<fmt:message key="change_product_form_validated.change_pet.lable.breed_pet"/>' />
 												<label class="text-lowercase"
 													for="change_product_form_validated.change_pet.lable.breed_pet">
@@ -168,7 +171,7 @@
 													id="change_product_form_validated.change_pet.lable.price_pet"
 													name="${InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_PRICE}"
 													value="${product_pet.getPrice()}"
-													pattern="^(\d+)(\.\d{1,2})?$"
+													pattern="^(\d+)(\.\d{1,2})?$" maxLength="255"
 													placeholder='<fmt:message key="change_product_form_validated.change_pet.lable.price_pet"/>' />
 												<label class="text-lowercase"
 													for="change_product_form_validated.change_pet.lable.price_pet">
@@ -181,7 +184,7 @@
 													id="change_product_form_validated.change_pet.lable.discount_pet"
 													name="${InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_DISCOUNT}"
 													value="${product_pet.getDiscount()}"
-													pattern="^(\d+)(\.\d{1,2})?$"
+													pattern="^(\d+)(\.\d{1,2})?$" maxLength="255"
 													placeholder='<fmt:message key="change_product_form_validated.change_pet.lable.discount_pet"/>' />
 												<label class="text-lowercase"
 													for="change_product_form_validated.change_pet.lable.discount_pet">
@@ -304,6 +307,7 @@
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_pet.lable.type_pet"
 														name="${InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_SPECIE}"
+														pattern="(\w|[А-Яа-я]){1,255}" maxLength="255"
 														placeholder='<fmt:message key="change_product_form_validated.change_pet.lable.type_pet"/>' />
 													<label class="text-lowercase"
 														for="change_product_form_validated.change_pet.lable.type_pet">
@@ -322,6 +326,7 @@
 														id="change_product_form_validated.change_pet.lable.type_pet"
 														name="${InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_SPECIE}"
 														value="${product_pet.getSpecie()}"
+														pattern="(\w|[А-Яа-я]){1,255}" maxLength="255"
 														placeholder='<fmt:message key="change_product_form_validated.change_pet.lable.type_pet"/>' />
 													<label class="text-lowercase"
 														for="change_product_form_validated.change_pet.lable.type_pet">
@@ -340,6 +345,7 @@
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_pet.lable.breed_pet"
 														name="${InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_BREED}"
+														pattern="(\w|[А-Яа-я]){1,255}" maxLength="255"
 														placeholder='<fmt:message key="change_product_form_validated.change_pet.lable.breed_pet"/>' />
 													<label class="text-lowercase"
 														for="change_product_form_validated.change_pet.lable.breed_pet">
@@ -358,6 +364,7 @@
 														id="change_product_form_validated.change_pet.lable.breed_pet"
 														name="${InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_BREED}"
 														value="${product_pet.getBreed()}"
+														pattern="(\w|[А-Яа-я]){1,255}" maxLength="255"
 														placeholder='<fmt:message key="change_product_form_validated.change_pet.lable.breed_pet"/>' />
 													<label class="text-lowercase"
 														for="change_product_form_validated.change_pet.lable.breed_pet">
@@ -412,7 +419,7 @@
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_pet.lable.price_pet"
 														name="${InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_PRICE}"
-														pattern="^(\d+)(\.\d{1,2})?$"
+														pattern="^(\d+)(\.\d{1,2})?$" maxLength="255"
 														placeholder='<fmt:message key="change_product_form_validated.change_pet.lable.price_pet"/>' />
 													<label class="text-lowercase"
 														for="change_product_form_validated.change_pet.lable.price_pet">
@@ -431,7 +438,7 @@
 														id="change_product_form_validated.change_pet.lable.price_pet"
 														name="${InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_PRICE}"
 														value="${product_pet.getPrice()}"
-														pattern="^(\d+)(\.\d{1,2})?$"
+														pattern="^(\d+)(\.\d{1,2})?$" maxLength="255"
 														placeholder='<fmt:message key="change_product_form_validated.change_pet.lable.price_pet"/>' />
 													<label class="text-lowercase"
 														for="change_product_form_validated.change_pet.lable.price_pet">
@@ -450,7 +457,7 @@
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_pet.lable.discount_pet"
 														name="${InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_DISCOUNT}"
-														pattern="^(\d+)(\.\d{1,2})?$"
+														pattern="^(\d+)(\.\d{1,2})?$" maxLength="255"
 														placeholder='<fmt:message key="change_product_form_validated.change_pet.lable.discount_pet"/>' />
 													<label class="text-lowercase"
 														for="change_product_form_validated.change_pet.lable.discount_pet">
@@ -469,7 +476,7 @@
 														id="change_product_form_validated.change_pet.lable.discount_pet"
 														name="${InputName.ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_DISCOUNT}"
 														value="${product_pet.getDiscount()}"
-														pattern="^(\d+)(\.\d{1,2})?$"
+														pattern="^(\d+)(\.\d{1,2})?$" maxLength="255"
 														placeholder='<fmt:message key="change_product_form_validated.change_pet.lable.discount_pet"/>' />
 													<label class="text-lowercase"
 														for="change_product_form_validated.change_pet.lable.discount_pet">

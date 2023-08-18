@@ -102,14 +102,13 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 			FilterFeedsAndOther filterFeedsAndOther = getInputParameters(request, sessionLocale, mapInputExceptions);
 			if (mapInputExceptions.isEmpty()) {
 				List<Entry<FeedAndOther, Long>> products = FEEDS_AND_OTHER_SERVICE
-						.getProductsFeedAndOtherByFilter(filterFeedsAndOther);
+						.getProductsByFilter(filterFeedsAndOther);
 				products = SORT_PRODUCTS.sortProductsFeedsAndOther(products,
 						new SortProductsByIdAscendingComparatorImpl());
 				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_FEEDS_AND_OTHER, products);
 				if (session.getAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP) == null) {
 					Map<String, Set<String>> filterMap = FILTER_FACTORY.createFilterFeedAndOther(
-							FEEDS_AND_OTHER_SERVICE.getAllProductsFeedAndOtherAndNumberOfUnits().keySet(),
-							sessionLocale);
+							FEEDS_AND_OTHER_SERVICE.getAllProductsAndNumberOfUnits().keySet(), sessionLocale);
 					session.setAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_MAP, filterMap);
 				}
 				session.setAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER, filterFeedsAndOther);
@@ -117,7 +116,7 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 				session.setAttribute(ATTRIBUTE_PRODUCTS_FEEDS_AND_OTHER_FILTER_INPUT_EXCEPTION_TYPE_AND_MASSAGE,
 						mapInputExceptions);
 				Map<FeedAndOther, Long> allProductsFeedAndOther = FEEDS_AND_OTHER_SERVICE
-						.getAllProductsFeedAndOtherAndNumberOfUnits();
+						.getAllProductsAndNumberOfUnits();
 				List<Entry<FeedAndOther, Long>> products = SORT_PRODUCTS.sortProductsFeedsAndOther(
 						allProductsFeedAndOther.entrySet().stream().toList(),
 						new SortProductsByIdAscendingComparatorImpl());
@@ -347,7 +346,7 @@ public class ShowProductFeedsAndOtherIncludedFilterCommand implements Command {
 	 */
 	private double findMaxPriceInListProducts() throws ServiceException {
 		double maxPrice = 0;
-		Map<FeedAndOther, Long> products = FEEDS_AND_OTHER_SERVICE.getAllProductsFeedAndOtherAndNumberOfUnits();
+		Map<FeedAndOther, Long> products = FEEDS_AND_OTHER_SERVICE.getAllProductsAndNumberOfUnits();
 		for (Map.Entry<FeedAndOther, Long> entry : products.entrySet()) {
 			FeedAndOther product = entry.getKey();
 			Long numberOfUnits = entry.getValue();

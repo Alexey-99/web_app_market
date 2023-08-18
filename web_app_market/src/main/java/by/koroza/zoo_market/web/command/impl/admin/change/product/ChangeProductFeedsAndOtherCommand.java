@@ -115,7 +115,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 		long id = Long.parseLong(request.getParameter(ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_ID));
 		FeedAndOther productFeedAndOther = session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER) != null
 				? (FeedAndOther) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER)
-				: ProductFeedsAndOtherServiceImpl.getInstance().getProductFeedAndOtherById(id);
+				: ProductFeedsAndOtherServiceImpl.getInstance().getProductById(id);
 		if (productFeedAndOther != null) {
 			getInputParameterImage(request, productFeedAndOther, sessionLocale, mapInputExceptions);
 			String type = getInputParameterProductType(request, sessionLocale, mapInputExceptions);

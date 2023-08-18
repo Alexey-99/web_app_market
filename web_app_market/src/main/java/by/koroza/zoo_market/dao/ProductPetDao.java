@@ -133,11 +133,12 @@ public interface ProductPetDao {
 	public long getFreeNumberOfUnitsByProductId(long productId) throws DaoException;
 
 	/**
-	 * Get the quantity in open orders by product id.
+	 * Get the quantity in orders by product id and order status.
 	 *
-	 * @param productId the product id
-	 * @return the quantity in open orders by product id
+	 * @param productId     the product id
+	 * @param orderStatusId the order status id
+	 * @return the quantity in orders by product id and order status
 	 * @throws DaoException the dao exception
 	 */
-	public long getQuantityInOpenOrdersByProductId(long productId) throws DaoException;
+	public long getQuantityInOrdersByProductIdAndOrderStatus(long productId, int orderStatusId) throws DaoException;
 }

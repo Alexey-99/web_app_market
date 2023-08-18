@@ -43,39 +43,38 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 		return INSTANCE;
 	}
 
-	/**
-	 * Get the all products feeds and other.
-	 *
-	 * @return the all products feeds and other
-	 * @throws ServiceException the service exception
-	 */
-	@Override
-	public List<FeedAndOther> getAllProductsFeedsAndOther() throws ServiceException {
-		try {
-			return ProductFeedsAndOtherDaoImpl.getInstance().getAllHavingProductsFeedAndOther();
-		} catch (DaoException e) {
-			log.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(e);
-		}
-	}
+//	/**
+//	 * Get the all products feeds and other.
+//	 *
+//	 * @return the all products feeds and other
+//	 * @throws ServiceException the service exception
+//	 */
+//	@Override
+//	public List<FeedAndOther> getAllHavingProducts() throws ServiceException {
+//		try {
+//			return ProductFeedsAndOtherDaoImpl.getInstance().getAllHavingProductsFeedAndOther();
+//		} catch (DaoException e) {
+//			log.log(Level.ERROR, e.getMessage());
+//			throw new ServiceException(e);
+//		}
+//	}
 
-	/**
-	 * Get the having products feed and other by id.
-	 *
-	 * @param productsIdMap the products id map
-	 * @return the having products feed and other by id
-	 * @throws ServiceException the service exception
-	 */
-	@Override
-	public List<FeedAndOther> getHavingProductsFeedAndOtherById(Map<String, String> productsIdMap)
-			throws ServiceException {
-		try {
-			return ProductFeedsAndOtherDaoImpl.getInstance().getHavingProductsFeedAndOtherById(productsIdMap);
-		} catch (DaoException e) {
-			log.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(e);
-		}
-	}
+//	/**
+//	 * Get the having products feed and other by id.
+//	 *
+//	 * @param productsIdMap the products id map
+//	 * @return the having products feed and other by id
+//	 * @throws ServiceException the service exception
+//	 */
+//	@Override
+//	public List<FeedAndOther> getHavingProductsById(Map<String, String> productsIdMap) throws ServiceException {
+//		try {
+//			return ProductFeedsAndOtherDaoImpl.getInstance().getHavingProductsFeedAndOtherById(productsIdMap);
+//		} catch (DaoException e) {
+//			log.log(Level.ERROR, e.getMessage());
+//			throw new ServiceException(e);
+//		}
+//	}
 
 	/**
 	 * Get the products feed and other by filter.
@@ -85,8 +84,7 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	 * @throws ServiceException the service exception
 	 */
 	@Override
-	public List<Entry<FeedAndOther, Long>> getProductsFeedAndOtherByFilter(FilterFeedsAndOther filter)
-			throws ServiceException {
+	public List<Entry<FeedAndOther, Long>> getProductsByFilter(FilterFeedsAndOther filter) throws ServiceException {
 		List<Entry<FeedAndOther, Long>> listProductsWithFilter = new ArrayList<>();
 		try {
 			listProductsWithFilter = ProductFeedsAndOtherDaoImpl.getInstance()
@@ -125,7 +123,7 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	 * @throws ServiceException the service exception
 	 */
 	@Override
-	public Map<FeedAndOther, Long> getAllProductsFeedAndOtherAndNumberOfUnits() throws ServiceException {
+	public Map<FeedAndOther, Long> getAllProductsAndNumberOfUnits() throws ServiceException {
 		try {
 			return ProductFeedsAndOtherDaoImpl.getInstance().getAllProductsFeedAndOtherAndNumberOfUnits();
 		} catch (DaoException e) {
@@ -134,43 +132,43 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 		}
 	}
 
-	/**
-	 * Change number of units products.
-	 *
-	 * @param order the order
-	 * @return true, if successful
-	 * @throws ServiceException the service exception
-	 */
-	@Override
-	public Map<Integer, Boolean> changeNumberOfUnitsProductsMinus(List<FeedAndOther> productsFeedAndOther)
-			throws ServiceException {
-		try {
-			return ProductFeedsAndOtherDaoImpl.getInstance().changeNumberOfUnitsProductsMinus(productsFeedAndOther);
-		} catch (DaoException e) {
-			log.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(e);
-		}
-	}
-
-	/**
-	 * Change number of units products plus.
-	 *
-	 * @param productsFeedAndOther the products feed and other
-	 * @param haveProductByIndex   the have product by index
-	 * @return true, if successful
-	 * @throws ServiceException the service exception
-	 */
-	@Override
-	public boolean changeNumberOfUnitsProductsPlus(List<FeedAndOther> productsFeedAndOther,
-			Map<Integer, Boolean> haveProductByIndex) throws ServiceException {
-		try {
-			return ProductFeedsAndOtherDaoImpl.getInstance().changeNumberOfUnitsProductsPlus(productsFeedAndOther,
-					haveProductByIndex);
-		} catch (DaoException e) {
-			log.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(e);
-		}
-	}
+//	/**
+//	 * Change number of units products.
+//	 *
+//	 * @param order the order
+//	 * @return true, if successful
+//	 * @throws ServiceException the service exception
+//	 */
+//	@Override
+//	public Map<Integer, Boolean> changeNumberOfUnitsProductsMinus(List<FeedAndOther> productsFeedAndOther)
+//			throws ServiceException {
+//		try {
+//			return ProductFeedsAndOtherDaoImpl.getInstance().changeNumberOfUnitsProductsMinus(productsFeedAndOther);
+//		} catch (DaoException e) {
+//			log.log(Level.ERROR, e.getMessage());
+//			throw new ServiceException(e);
+//		}
+//	}
+//
+//	/**
+//	 * Change number of units products plus.
+//	 *
+//	 * @param productsFeedAndOther the products feed and other
+//	 * @param haveProductByIndex   the have product by index
+//	 * @return true, if successful
+//	 * @throws ServiceException the service exception
+//	 */
+//	@Override
+//	public boolean changeNumberOfUnitsProductsPlus(List<FeedAndOther> productsFeedAndOther,
+//			Map<Integer, Boolean> haveProductByIndex) throws ServiceException {
+//		try {
+//			return ProductFeedsAndOtherDaoImpl.getInstance().changeNumberOfUnitsProductsPlus(productsFeedAndOther,
+//					haveProductByIndex);
+//		} catch (DaoException e) {
+//			log.log(Level.ERROR, e.getMessage());
+//			throw new ServiceException(e);
+//		}
+//	}
 
 	/**
 	 * Add the product.
@@ -198,7 +196,7 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	 * @throws ServiceException the service exception
 	 */
 	@Override
-	public FeedAndOther getProductFeedAndOtherById(long id) throws ServiceException {
+	public FeedAndOther getProductById(long id) throws ServiceException {
 		try {
 			return ProductFeedsAndOtherDaoImpl.getInstance().getProductFeedAndOtherById(id);
 		} catch (DaoException e) {
@@ -251,7 +249,7 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	 * @throws ServiceException the service exception
 	 */
 	@Override
-	public boolean transferFeedAndOtherProductFromMarketToOrder(long productId, long orderId) throws ServiceException {
+	public boolean transferProductFromMarketToOrder(long productId, long orderId) throws ServiceException {
 		try {
 			return ProductFeedsAndOtherDaoImpl.getInstance().transferFeedsAndOtherProductFromMarketToOrder(productId,
 					orderId);
@@ -270,7 +268,7 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	 * @throws ServiceException the service exception
 	 */
 	@Override
-	public boolean transferFeedsAndOtherProductFromOrderToMarket(long productId, long orderId) throws ServiceException {
+	public boolean transferProductFromOrderToMarket(long productId, long orderId) throws ServiceException {
 		try {
 			return ProductFeedsAndOtherDaoImpl.getInstance().transferFeedsAndOtherProductFromOrderToMarket(productId,
 					orderId);
@@ -278,6 +276,19 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
 		}
+	}
+
+	@Override
+	public long getFreeNumberOfUnitsByProductId(long productId) throws ServiceException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public long getQuantityInOrdersByProductIdAndOrderStatus(long productId, int orderStatusId)
+			throws ServiceException {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	/**

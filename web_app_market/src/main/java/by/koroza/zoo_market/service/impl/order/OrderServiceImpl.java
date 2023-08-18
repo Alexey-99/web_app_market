@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import by.koroza.zoo_market.dao.OrderDao;
 import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 import by.koroza.zoo_market.dao.impl.order.OrderDaoImpl;
+import by.koroza.zoo_market.model.entity.detalization.OrderDetalizationByProduct;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
@@ -144,6 +145,25 @@ public class OrderServiceImpl implements OrderService {
 		double totalDiscountAmount = calcTotalDiscountAmount(petsList, productsFeedsAndOtherList,
 				personalDiscountPercent);
 		return totalPaymentAmount - totalDiscountAmount;
+	}
+
+	/**
+	 * Gets the details about orders by product id and order status.
+	 *
+	 * @param orderStatusId the order status id
+	 * @param productId     the product id
+	 * @return the details about orders by product id and order status
+	 * @throws ServiceException the service exception
+	 */
+	@Override
+	public List<OrderDetalizationByProduct> getDetailsAboutOrdersByProductIdAndOrderStatus(int orderStatusId,
+			long productId) throws ServiceException {
+		try {
+			return OrderDaoImpl.getInstance().getDetailsAboutOrdersByProductIdAndOrderStatus(orderStatusId, productId);
+		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		}
 	}
 
 	/**

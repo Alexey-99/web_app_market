@@ -60,13 +60,13 @@ public class ShowProductPetNumberPageCommand implements Command {
 
 		HttpSession session = request.getSession();
 		try {
-			Map<Pet, Long> allProductsPets = PRODUCT_PET_SERVICE.getAllProductsPetsAndNumberOfUnits();
+			Map<Pet, Long> allProductsPets = PRODUCT_PET_SERVICE.getAllProductsAndNumberOfUnits();
 			Map<String, Set<String>> filterMap = MarketFilterProductFactoryImpl.getInstance().createFilterPets(
 					allProductsPets.keySet(), (String) session.getAttribute(ATTRIBUTE_SESSION_LOCALE));
 			session.setAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER_MAP, filterMap);
 			if (session.getAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER) != null) {
 				FilterPet filterPet = (FilterPet) session.getAttribute(ATTRIBUTE_PRODUCTS_PETS_FILTER);
-				List<Entry<Pet, Long>> productsPetsByFilter = PRODUCT_PET_SERVICE.getProductsPetsByFilter(filterPet);
+				List<Entry<Pet, Long>> productsPetsByFilter = PRODUCT_PET_SERVICE.getProductsByFilter(filterPet);
 				productsPetsByFilter = SORT_PRODUCTS.sortProductsPets(productsPetsByFilter,
 						new SortProductsByIdAscendingComparatorImpl());
 				session.setAttribute(ATTRIBUTE_LIST_PRODUCTS_PETS, productsPetsByFilter);

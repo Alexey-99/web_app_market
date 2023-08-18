@@ -11,24 +11,7 @@ import by.koroza.zoo_market.service.exception.ServiceException;
 /**
  * The Interface ProductPetService.
  */
-public interface ProductPetService {
-
-	/**
-	 * Get the all having products pets.
-	 *
-	 * @return the all having products pets
-	 * @throws ServiceException the service exception
-	 */
-	public List<Pet> getAllHavingProductsPets() throws ServiceException;
-
-	/**
-	 * Get the products pets by id.
-	 *
-	 * @param productsIdMap the products id map
-	 * @return the products pets by id
-	 * @throws ServiceException the service exception
-	 */
-	public List<Pet> getProductsPetsById(Map<String, String> productsIdMap) throws ServiceException;
+public interface ProductPetService extends ProductService {
 
 	/**
 	 * Get the products pets by filter.
@@ -37,7 +20,7 @@ public interface ProductPetService {
 	 * @return the products pets by filter
 	 * @throws ServiceException the service exception
 	 */
-	public List<Entry<Pet, Long>> getProductsPetsByFilter(FilterPet filter) throws ServiceException;
+	public List<Entry<Pet, Long>> getProductsByFilter(FilterPet filter) throws ServiceException;
 
 	/**
 	 * Get the all products pets and number of units.
@@ -45,27 +28,7 @@ public interface ProductPetService {
 	 * @return the all products pets and number of units
 	 * @throws ServiceException the service exception
 	 */
-	public Map<Pet, Long> getAllProductsPetsAndNumberOfUnits() throws ServiceException;
-
-	/**
-	 * Change number of units products.
-	 *
-	 * @param productsPets the products pets
-	 * @return the map
-	 * @throws ServiceException the service exception
-	 */
-	public Map<Integer, Boolean> changeNumberOfUnitsProductsMinus(List<Pet> productsPets) throws ServiceException;
-
-	/**
-	 * Change number of units products plus.
-	 *
-	 * @param productsPets       the products pets
-	 * @param haveProductByIndex the have product by index
-	 * @return true, if successful
-	 * @throws ServiceException the service exception
-	 */
-	public boolean changeNumberOfUnitsProductsPlus(List<Pet> productsPets, Map<Integer, Boolean> haveProductByIndex)
-			throws ServiceException;
+	public Map<Pet, Long> getAllProductsAndNumberOfUnits() throws ServiceException;
 
 	/**
 	 * Add the product pet.
@@ -75,7 +38,7 @@ public interface ProductPetService {
 	 * @return true, if successful
 	 * @throws ServiceException the service exception
 	 */
-	public boolean addProductPet(Pet pet, long numberOfUnitsProduct) throws ServiceException;
+	public boolean addProduct(Pet pet, long numberOfUnitsProduct) throws ServiceException;
 
 	/**
 	 * Get the product pet by id.
@@ -84,7 +47,7 @@ public interface ProductPetService {
 	 * @return the product pet by id
 	 * @throws ServiceException the service exception
 	 */
-	public Pet getProductPetById(long id) throws ServiceException;
+	public Pet getProductById(long id) throws ServiceException;
 
 	/**
 	 * Update product pet.
@@ -94,52 +57,5 @@ public interface ProductPetService {
 	 * @return true, if successful
 	 * @throws ServiceException the service exception
 	 */
-	public boolean updateProductPet(Pet pet, long numberOfUnitsProduct) throws ServiceException;
-
-	/**
-	 * Get the product image path by product id.
-	 *
-	 * @param id the id
-	 * @return the product image path
-	 * @throws ServiceException the service exception
-	 */
-	public String getProductImagePathByProductId(long id) throws ServiceException;
-
-	/**
-	 * Transfer pet product from market to order.
-	 *
-	 * @param productId the product id
-	 * @param orderId   the order id
-	 * @return true, if successful
-	 * @throws ServiceException the service exception
-	 */
-	public boolean transferPetProductFromMarketToOrder(long productId, long orderId) throws ServiceException;
-
-	/**
-	 * Transfer pet product from order to market.
-	 *
-	 * @param productId the product id
-	 * @param orderId   the order id
-	 * @return true, if successful
-	 * @throws ServiceException the service exception
-	 */
-	public boolean transferPetProductFromOrderToMarket(long productId, long orderId) throws ServiceException;
-
-	/**
-	 * Get the free number of units by product id.
-	 *
-	 * @param productId the product id
-	 * @return the free number of units by product id
-	 * @throws ServiceException the service exception
-	 */
-	public long getFreeNumberOfUnitsByProductId(long productId) throws ServiceException;
-
-	/**
-	 * Get the quantity in open orders by product id.
-	 *
-	 * @param productId the product id
-	 * @return the quantity in open orders by product id
-	 * @throws ServiceException the service exception
-	 */
-	public long getQuantityInOpenOrdersByProductId(long productId) throws ServiceException;
+	public boolean updateProductById(Pet pet, long numberOfUnitsProduct) throws ServiceException;
 }

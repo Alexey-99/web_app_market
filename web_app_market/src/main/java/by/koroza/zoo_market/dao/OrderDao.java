@@ -3,6 +3,7 @@ package by.koroza.zoo_market.dao;
 import java.util.List;
 
 import by.koroza.zoo_market.dao.exception.checkable.DaoException;
+import by.koroza.zoo_market.model.entity.detalization.OrderDetalizationByProduct;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.status.OrderStatus;
 
@@ -57,4 +58,15 @@ public interface OrderDao {
 	 * @throws DaoException the dao exception
 	 */
 	public boolean changeOrder(Order order) throws DaoException;
+
+	/**
+	 * Get the details about orders by product id and order status.
+	 *
+	 * @param orderStatusId the order status id
+	 * @param productId     the product id
+	 * @return the details about orders by product id and order status
+	 * @throws DaoException the dao exception
+	 */
+	public List<OrderDetalizationByProduct> getDetailsAboutOrdersByProductIdAndOrderStatus(int orderStatusId,
+			long productId) throws DaoException;
 }

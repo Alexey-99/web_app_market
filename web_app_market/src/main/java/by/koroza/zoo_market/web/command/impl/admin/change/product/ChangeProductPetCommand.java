@@ -60,6 +60,7 @@ import by.koroza.zoo_market.service.validation.impl.product.ProductPetValidation
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.router.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
@@ -108,7 +109,7 @@ public class ChangeProductPetCommand implements Command {
 		long id = Long.parseLong(request.getParameter(ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM_INPUT_ID));
 		Pet pet = session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET) != null
 				? (Pet) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET)
-				: ProductPetServiceImpl.getInstance().getProductPetById(id);
+				: ProductPetServiceImpl.getInstance().getProductById(id);
 		if (pet != null) {
 			getInputParameterImage(request, pet, sessionLocale, mapInputExceptions);
 			String specie = getInputParameterSpecie(request, sessionLocale, mapInputExceptions);
