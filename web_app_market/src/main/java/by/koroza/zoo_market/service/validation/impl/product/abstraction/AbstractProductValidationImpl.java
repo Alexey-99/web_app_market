@@ -1,11 +1,11 @@
 package by.koroza.zoo_market.service.validation.impl.product.abstraction;
 
-import by.koroza.zoo_market.service.validation.AbstractProductValidation;
+import by.koroza.zoo_market.service.validation.ProductValidation;
 
 /**
  * The Class AbstractProductValidationImpl.
  */
-public abstract class AbstractProductValidationImpl implements AbstractProductValidation {
+public abstract class AbstractProductValidationImpl implements ProductValidation {
 
 	/** The Constant PATTERN_FOR_PRICE_AND_DISCOUNT. */
 	private static final String PATTERN_FOR_PRICE_AND_DISCOUNT = "^(\\d+)(\\.\\d{1,2})?$";

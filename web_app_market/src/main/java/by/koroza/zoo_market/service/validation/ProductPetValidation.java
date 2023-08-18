@@ -3,7 +3,7 @@ package by.koroza.zoo_market.service.validation;
 /**
  * The Interface ProductPetValidation.
  */
-public interface ProductPetValidation extends AbstractProductValidation {
+public interface ProductPetValidation extends ProductValidation {
 
 	/**
 	 * Validation pet species.
