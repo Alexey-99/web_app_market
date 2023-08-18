@@ -15,7 +15,7 @@ public class ShowCreateFeedsAndOtherProductFormCommand implements Command {
 	@Override
 	public Router execute(HttpServletRequest request) {
 		User user = (User) request.getSession().getAttribute(ATTRIBUTE_USER);
-		return user != null && user.getRole().getIdRole() == ADMIN.getIdRole() && user.isVerificatedEmail()
+		return user != null && user.getRole().getId() == ADMIN.getId() && user.isVerificatedEmail()
 				? new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM)
 				: new Router(HOME_PAGE_PATH);
 	}

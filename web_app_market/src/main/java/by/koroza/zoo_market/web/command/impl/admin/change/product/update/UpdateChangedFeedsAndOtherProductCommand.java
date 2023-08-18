@@ -29,11 +29,12 @@ import by.koroza.zoo_market.service.exception.SortingException;
 import by.koroza.zoo_market.service.impl.image.ImageFileServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductFeedsAndOtherServiceImpl;
 import by.koroza.zoo_market.service.impl.product.ProductPetServiceImpl;
-import by.koroza.zoo_market.service.sorting.comparator.map.impl.product.id.SortProductsByIdAscendingComparatorImpl;
-import by.koroza.zoo_market.service.sorting.impl.SortingProductsImpl;
+import by.koroza.zoo_market.service.sorting.product.impl.SortingProductsImpl;
+import by.koroza.zoo_market.service.sorting.product.impl.comparator.map.impl.product.id.SortProductsByIdAscendingComparatorImpl;
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.router.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -47,7 +48,7 @@ public class UpdateChangedFeedsAndOtherProductCommand implements Command {
 		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
-			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() == ADMIN.getIdRole()) {
+			if (user != null && user.isVerificatedEmail() && user.getRole().getId() == ADMIN.getId()) {
 				FeedAndOther productFeedAndOther = session
 						.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER) != null
 								? (FeedAndOther) session.getAttribute(ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER)
@@ -69,7 +70,7 @@ public class UpdateChangedFeedsAndOtherProductCommand implements Command {
 					Map<AbstractProduct, Long> products = new HashMap<>();
 					products.putAll(productPets);
 					products.putAll(productFeedsAndOther);
-					session.setAttribute(ATTRIBUTE_MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT, SortingOrdersImpl
+					session.setAttribute(ATTRIBUTE_MAP_PRODUCTS_AND_NUMBER_OF_UNITS_PRODUCT, SortingProductsImpl
 							.getInstance().sortProductsMap(products, new SortProductsByIdAscendingComparatorImpl()));
 					session.setAttribute(SESSION_ATTRIBUTE_PET_CLASS_NAME, SESSION_ATTRIBUTE_PET_CLASS);
 					session.setAttribute(SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS_NAME,

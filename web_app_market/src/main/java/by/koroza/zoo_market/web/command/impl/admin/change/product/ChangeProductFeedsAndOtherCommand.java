@@ -63,6 +63,7 @@ import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.router.Router;
 import jakarta.servlet.http.HttpServletRequest;
+
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
@@ -76,7 +77,7 @@ public class ChangeProductFeedsAndOtherCommand implements Command {
 		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
-			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() == ADMIN.getIdRole()) {
+			if (user != null && user.isVerificatedEmail() && user.getRole().getId() == ADMIN.getId()) {
 				Map<String, String> mapInputExceptions = new HashMap<>();
 				Map<FeedAndOther, Long> productAndNumber = getInputParameters(request, mapInputExceptions);
 				if (mapInputExceptions.isEmpty()) {

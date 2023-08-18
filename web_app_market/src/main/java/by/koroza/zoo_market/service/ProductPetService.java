@@ -119,9 +119,27 @@ public interface ProductPetService {
 	 * Transfer pet product from order to market.
 	 *
 	 * @param productId the product id
-	 * @param orderId the order id
+	 * @param orderId   the order id
 	 * @return true, if successful
 	 * @throws ServiceException the service exception
 	 */
 	public boolean transferPetProductFromOrderToMarket(long productId, long orderId) throws ServiceException;
+
+	/**
+	 * Get the free number of units by product id.
+	 *
+	 * @param productId the product id
+	 * @return the free number of units by product id
+	 * @throws ServiceException the service exception
+	 */
+	public long getFreeNumberOfUnitsByProductId(long productId) throws ServiceException;
+
+	/**
+	 * Get the quantity in open orders by product id.
+	 *
+	 * @param productId the product id
+	 * @return the quantity in open orders by product id
+	 * @throws ServiceException the service exception
+	 */
+	public long getQuantityInOpenOrdersByProductId(long productId) throws ServiceException;
 }

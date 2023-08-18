@@ -257,10 +257,52 @@ public class ProductPetServiceImpl implements ProductPetService {
 		}
 	}
 
+	/**
+	 * Transfer pet product from order to market.
+	 *
+	 * @param productId the product id
+	 * @param orderId   the order id
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
 	@Override
 	public boolean transferPetProductFromOrderToMarket(long productId, long orderId) throws ServiceException {
 		try {
 			return ProductPetDaoImpl.getInstance().transferPetProductFromOrderToMarket(productId, orderId);
+		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
+
+	/**
+	 * Get the free number of units by product id.
+	 *
+	 * @param productId the product id
+	 * @return the free number of units by product id
+	 * @throws ServiceException the service exception
+	 */
+	@Override
+	public long getFreeNumberOfUnitsByProductId(long productId) throws ServiceException {
+		try {
+			return ProductPetDaoImpl.getInstance().getFreeNumberOfUnitsByProductId(productId);
+		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
+
+	/**
+	 * Get the quantity in open orders by product id.
+	 *
+	 * @param productId the product id
+	 * @return the quantity in open orders by product id
+	 * @throws ServiceException the service exception
+	 */
+	@Override
+	public long getQuantityInOpenOrdersByProductId(long productId) throws ServiceException {
+		try {
+			return ProductPetDaoImpl.getInstance().getQuantityInOpenOrdersByProductId(productId);
 		} catch (DaoException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);

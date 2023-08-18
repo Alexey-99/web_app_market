@@ -66,9 +66,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
+/**
+ * The Class CraeteProductFeedsAndOtherCommand.
+ */
 public class CraeteProductFeedsAndOtherCommand implements Command {
+
+	/** The log. */
 	private static Logger log = LogManager.getLogger();
 
+	/**
+	 * Execute.
+	 *
+	 * @param request the request
+	 * @return the router
+	 * @throws CommandException the command exception
+	 */
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
 		Router router = null;
@@ -76,7 +88,7 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
-			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() == ADMIN.getIdRole()) {
+			if (user != null && user.isVerificatedEmail() && user.getRole().getId() == ADMIN.getId()) {
 				Map<String, String> mapInputExceptions = new HashMap<>();
 				Map<FeedAndOther, Long> productAndNumber = getInputParameters(request, mapInputExceptions);
 				if (mapInputExceptions.isEmpty()) {
@@ -106,6 +118,15 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 		return router;
 	}
 
+	/**
+	 * Get the input parameters.
+	 *
+	 * @param request            the request
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameters
+	 * @throws IOException      Signals that an I/O exception has occurred.
+	 * @throws ServiceException the service exception
+	 */
 	private Map<FeedAndOther, Long> getInputParameters(HttpServletRequest request,
 			Map<String, String> mapInputExceptions) throws IOException, ServiceException {
 		Map<FeedAndOther, Long> petAndNumber = new HashMap<>();
@@ -149,6 +170,17 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 		return petAndNumber;
 	}
 
+	/**
+	 * Get the input parameter image.
+	 *
+	 * @param request             the request
+	 * @param productFeedAndOther the product feed and other
+	 * @param sessionLocale       the session locale
+	 * @param mapInputExceptions  the map input exceptions
+	 * @return the input parameter image
+	 * @throws ServiceException the service exception
+	 * @throws IOException      Signals that an I/O exception has occurred.
+	 */
 	private void getInputParameterImage(HttpServletRequest request, FeedAndOther productFeedAndOther,
 			String sessionLocale, Map<String, String> mapInputExceptions) throws ServiceException, IOException {
 		String oldImagePath = productFeedAndOther.getImagePath();
@@ -177,6 +209,15 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 		}
 	}
 
+	/**
+	 * Get the input parameter product type.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameter product type
+	 * @throws ServiceException the service exception
+	 */
 	private String getInputParameterProductType(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) throws ServiceException {
 		String type = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE);
@@ -195,6 +236,15 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 		return type;
 	}
 
+	/**
+	 * Get the input parameter product brand.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameter product brand
+	 * @throws ServiceException the service exception
+	 */
 	private String getInputParameterProductBrand(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) throws ServiceException {
 		String brand = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND);
@@ -210,6 +260,15 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 		return brand;
 	}
 
+	/**
+	 * Get the input parameter product description.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameter product description
+	 * @throws ServiceException the service exception
+	 */
 	private String getInputParameterProductDescription(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) throws ServiceException {
 		String description = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION);
@@ -228,6 +287,15 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 		return description;
 	}
 
+	/**
+	 * Get the input parameter product pet types.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameter product pet types
+	 * @throws ServiceException the service exception
+	 */
 	private String getInputParameterProductPetTypes(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) throws ServiceException {
 		String petTypes = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES);
@@ -246,6 +314,15 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 		return petTypes;
 	}
 
+	/**
+	 * Get the input parameter product price.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameter product price
+	 * @throws ServiceException the service exception
+	 */
 	private String getInputParameterProductPrice(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) throws ServiceException {
 		String price = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRICE);
@@ -261,6 +338,15 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 		return price;
 	}
 
+	/**
+	 * Get the input parameter product discount.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameter product discount
+	 * @throws ServiceException the service exception
+	 */
 	private String getInputParameterProductDiscount(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) throws ServiceException {
 		String discount = request.getParameter(ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT);
@@ -279,6 +365,15 @@ public class CraeteProductFeedsAndOtherCommand implements Command {
 		return discount;
 	}
 
+	/**
+	 * Get the input parameter product number of units product.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameter product number of units product
+	 * @throws ServiceException the service exception
+	 */
 	private String getInputParameterProductNumberOfUnitsProduct(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) throws ServiceException {
 		String numberOfUnitsProduct = request

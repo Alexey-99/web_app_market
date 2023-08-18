@@ -58,13 +58,26 @@ import by.koroza.zoo_market.service.validation.impl.product.ProductPetValidation
 import by.koroza.zoo_market.web.command.Command;
 import by.koroza.zoo_market.web.command.exception.CommandException;
 import by.koroza.zoo_market.web.controller.router.Router;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
+/**
+ * The Class CraetePetProductCommand.
+ */
 public class CraetePetProductCommand implements Command {
+
+	/** The log. */
 	private static Logger log = LogManager.getLogger();
 
+	/**
+	 * Execute.
+	 *
+	 * @param request the request
+	 * @return the router
+	 * @throws CommandException the command exception
+	 */
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
 		Router router = null;
@@ -72,7 +85,7 @@ public class CraetePetProductCommand implements Command {
 		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CREATE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		try {
-			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() == ADMIN.getIdRole()) {
+			if (user != null && user.isVerificatedEmail() && user.getRole().getId() == ADMIN.getId()) {
 				Map<String, String> mapInputExceptions = new HashMap<>();
 				Map<Pet, Long> petAndNumber = getInputParameters(request, mapInputExceptions);
 				if (mapInputExceptions.isEmpty()) {
@@ -98,6 +111,15 @@ public class CraetePetProductCommand implements Command {
 		return router;
 	}
 
+	/**
+	 * Get the input parameters.
+	 *
+	 * @param request            the request
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameters
+	 * @throws IOException      Signals that an I/O exception has occurred.
+	 * @throws ServiceException the service exception
+	 */
 	private Map<Pet, Long> getInputParameters(HttpServletRequest request, Map<String, String> mapInputExceptions)
 			throws IOException, ServiceException {
 		Map<Pet, Long> petAndNumber = new HashMap<>();
@@ -136,6 +158,17 @@ public class CraetePetProductCommand implements Command {
 		return petAndNumber;
 	}
 
+	/**
+	 * Get the input parameter image.
+	 *
+	 * @param request            the request
+	 * @param pet                the pet
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameter image
+	 * @throws ServiceException the service exception
+	 * @throws IOException      Signals that an I/O exception has occurred.
+	 */
 	private void getInputParameterImage(HttpServletRequest request, Pet pet, String sessionLocale,
 			Map<String, String> mapInputExceptions) throws ServiceException, IOException {
 		String oldImagePath = pet.getImagePath();
@@ -164,6 +197,14 @@ public class CraetePetProductCommand implements Command {
 		}
 	}
 
+	/**
+	 * Get the input parameter species.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameter species
+	 */
 	private String getInputParameterSpecie(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String specie = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE);
@@ -179,6 +220,14 @@ public class CraetePetProductCommand implements Command {
 		return specie;
 	}
 
+	/**
+	 * Get the input parameter breed.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameter breed
+	 */
 	private String getInputParameterBreed(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String breed = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED);
@@ -194,6 +243,14 @@ public class CraetePetProductCommand implements Command {
 		return breed;
 	}
 
+	/**
+	 * Get the input parameter birth date.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameter birth date
+	 */
 	private String getInputParameterBirthDate(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String birthDate = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE);
@@ -212,6 +269,14 @@ public class CraetePetProductCommand implements Command {
 		return birthDate;
 	}
 
+	/**
+	 * Get the input parameter price.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameter price
+	 */
 	private String getInputParameterPrice(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String price = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE);
@@ -227,6 +292,14 @@ public class CraetePetProductCommand implements Command {
 		return price;
 	}
 
+	/**
+	 * Get the input parameter discount.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameter discount
+	 */
 	private String getInputParameterDiscount(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String discount = request.getParameter(ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT);
@@ -245,6 +318,14 @@ public class CraetePetProductCommand implements Command {
 		return discount;
 	}
 
+	/**
+	 * Get the input parameter number of units product.
+	 *
+	 * @param request            the request
+	 * @param sessionLocale      the session locale
+	 * @param mapInputExceptions the map input exceptions
+	 * @return the input parameter number of units product
+	 */
 	private String getInputParameterNumberOfUnitsProduct(HttpServletRequest request, String sessionLocale,
 			Map<String, String> mapInputExceptions) {
 		String numberOfUnitsProduct = request

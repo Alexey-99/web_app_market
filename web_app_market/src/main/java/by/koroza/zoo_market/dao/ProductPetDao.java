@@ -122,4 +122,22 @@ public interface ProductPetDao {
 	 * @throws DaoException the dao exception
 	 */
 	public boolean transferPetProductFromOrderToMarket(long productId, long orderId) throws DaoException;
+
+	/**
+	 * Get the free number of units by product id.
+	 *
+	 * @param productId the product id
+	 * @return the free number of units by product id
+	 * @throws DaoException the dao exception
+	 */
+	public long getFreeNumberOfUnitsByProductId(long productId) throws DaoException;
+
+	/**
+	 * Get the quantity in open orders by product id.
+	 *
+	 * @param productId the product id
+	 * @return the quantity in open orders by product id
+	 * @throws DaoException the dao exception
+	 */
+	public long getQuantityInOpenOrdersByProductId(long productId) throws DaoException;
 }

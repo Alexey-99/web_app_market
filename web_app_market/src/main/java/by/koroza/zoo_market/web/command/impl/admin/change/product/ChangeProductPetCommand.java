@@ -74,7 +74,7 @@ public class ChangeProductPetCommand implements Command {
 		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 		session.removeAttribute(ATTRIBUTE_ADMIN_PAGE_CHANGE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
 		try {
-			if (user != null && user.isVerificatedEmail() && user.getRole().getIdRole() == ADMIN.getIdRole()) {
+			if (user != null && user.isVerificatedEmail() && user.getRole().getId() == ADMIN.getId()) {
 				Map<String, String> mapInputExceptions = new HashMap<>();
 				Map<Pet, Long> petAndNumber = getInputParameters(request, mapInputExceptions);
 				if (mapInputExceptions.isEmpty()) {

@@ -13,6 +13,7 @@ import static by.koroza.zoo_market.dao.name.ColumnName.PETS_IMAGE_PATH;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_PETS_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_PETS_IMAGE_PATH;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_ORDER_PRODUCTS_ORDER_ID;
+import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_ORDER_PRODUCTS_PRODUCT_PETS_ID;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -632,7 +633,6 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			statement.setLong(1, id);
 			try (ResultSet resultSet = statement.executeQuery()) {
 				while (resultSet.next()) {
-
 					imagePath = resultSet.getString(PETS_IMAGE_PATH);
 				}
 			}
@@ -641,5 +641,74 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			throw new DaoException(e);
 		}
 		return imagePath;
+	}
+
+	/** The Constant QUERY_SELECT_FREE_NUMBER_OF_UNITS_BY_PRODUCT_ID. */
+	private static final String QUERY_SELECT_FREE_NUMBER_OF_UNITS_BY_PRODUCT_ID = """
+			SELECT pets.number_of_units_products
+			FROM pets
+			WHERE pets.id = ?;
+			""";
+
+	/**
+	 * Get the free number of units by product id.
+	 *
+	 * @param productId the product id
+	 * @return the free number of units by product id
+	 * @throws DaoException the dao exception
+	 */
+	@Override
+	public long getFreeNumberOfUnitsByProductId(long productId) throws DaoException {
+		long numberOfUnits = 0;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement(QUERY_SELECT_FREE_NUMBER_OF_UNITS_BY_PRODUCT_ID)) {
+			statement.setLong(1, productId);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					numberOfUnits = resultSet.getLong(PETS_NUMBER_OF_UNITS_PRODUCT);
+				}
+			}
+		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new DaoException(e);
+		}
+		return numberOfUnits;
+	}
+
+	/** The Constant QUERY_SELECT_QUANTITY_IN_OPEN_ORDERS_BY_PRODUCT_ID. */
+	private static final String QUERY_SELECT_QUANTITY_IN_OPEN_ORDERS_BY_PRODUCT_ID = """
+			SELECT COUNT(order_products.pets_id)
+			FROM orders INNER JOIN order_products
+				ON orders.id = order_products.orders_id
+			WHERE orders.order_statuses_id = 1
+				AND order_products.product_types_id = 1
+				AND order_products.pets_id = ?;
+			""";
+
+	/**
+	 * Get the quantity in open orders by product id.
+	 *
+	 * @param productId the product id
+	 * @return the quantity in open orders by product id
+	 * @throws DaoException the dao exception
+	 */
+	@Override
+	public long getQuantityInOpenOrdersByProductId(long productId) throws DaoException {
+		long quantity = 0;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement(QUERY_SELECT_QUANTITY_IN_OPEN_ORDERS_BY_PRODUCT_ID)) {
+			statement.setLong(1, productId);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					quantity = resultSet.getLong(IDENTIFIER_COUNT_ROWS_OF_ORDER_PRODUCTS_PRODUCT_PETS_ID);
+				}
+			}
+		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new DaoException(e);
+		}
+		return quantity;
 	}
 }

@@ -159,11 +159,11 @@
 													<fmt:message
 														key="change_user_status.form.select.optional.select_role" />
 												</option>
-												<option value="${UserRole.USER.getIdRole()}">
+												<option value="${UserRole.USER.getId()}">
 													<fmt:message
 														key="change_user_status.form.select.optional.user" />
 												</option>
-												<option value="${UserRole.ADMIN.getIdRole()}">
+												<option value="${UserRole.ADMIN.getId()}">
 													<fmt:message
 														key="change_user_status.form.select.optional.admin" />
 												</option>
@@ -255,6 +255,7 @@
 												<input type="text" class="form-control"
 													id="admin_page.all_products.add_product_form.add_pet.lable.type_pet"
 													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_SPECIE}"
+													pattern="^([А-Яа-я]|\w){1,255}$" maxlength="255"
 													placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_pet.lable.type_pet"/>' />
 												<label class="text-lowercase"
 													for="admin_page.all_products.add_product_form.add_pet.lable.type_pet"><fmt:message
@@ -265,14 +266,15 @@
 												<input type="text" class="form-control "
 													id="admin_page.all_products.add_product_form.add_pet.lable.breed_pet"
 													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BREED}"
-													placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_pet.lable.breed_pet"/>' />
-												<label class="text-lowercase"
+													placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_pet.lable.breed_pet"/>'
+													pattern="^([А-Яа-я]|\w){1,255}$" maxlength="255" /> <label
+													class="text-lowercase"
 													for="admin_page.all_products.add_product_form.add_pet.lable.breed_pet"><fmt:message
 														key="admin_page.all_products.add_product_form.add_pet.lable.breed_pet" />
 												</label>
 											</div>
 											<div class="form-floating mb-3">
-												<input type="date" class="form-control "
+												<input type="date" class="form-control"
 													id="admin_page.all_products.add_product_form.add_pet.lable.birth_date_pet"
 													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_BIRTH_DATE}"
 													placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_pet.lable.birth_date_pet"/>' />
@@ -286,7 +288,7 @@
 													id="admin_page.all_products.add_product_form.add_pet.lable.price_pet"
 													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_PRICE}"
 													placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_pet.lable.price_pet"/>'
-													pattern="^(\d+)(\.\d{1,2})?$" /> <label
+													pattern="^(\d+)(\.\d{1,2})?$" value="0" /> <label
 													class="text-lowercase"
 													for="admin_page.all_products.add_product_form.add_pet.lable.price_pet"><fmt:message
 														key="admin_page.all_products.add_product_form.add_pet.lable.price_pet" />
@@ -297,7 +299,7 @@
 													id="admin_page.all_products.add_product_form.add_pet.lable.discount_pet"
 													name="${InputName.ADMIN_PAGE_CREATE_PET_PRODUCT_FORM_INPUT_DISCOUNT}"
 													placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_pet.lable.discount_pet"/>'
-													pattern="^(\d+)(\.\d{1,2})?$" /> <label
+													pattern="^(\d+)(\.\d{1,2})?$" value="0" /> <label
 													class="text-lowercase"
 													for="admin_page.all_products.add_product_form.add_pet.lable.discount_pet"><fmt:message
 														key="admin_page.all_products.add_product_form.add_pet.lable.discount_pet" />
@@ -359,6 +361,7 @@
 												<input type="text" class="form-control"
 													id="admin_page.all_products.add_product_form.add_feeds_and_other.lable.type_product"
 													name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE}"
+													pattern="^([А-Яа-я]|\w){1,255}$" maxlength="255"
 													placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_feeds_and_other.lable.type_product"/>' />
 												<label class="text-lowercase"
 													for="admin_page.all_products.add_product_form.add_feeds_and_other.lable.type_product"><fmt:message
@@ -369,6 +372,7 @@
 												<input type="text" class="form-control"
 													id="admin_page.all_products.add_product_form.add_feeds_and_other.lable.brand_product"
 													name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND}"
+													pattern="^([А-Яа-я]|\w){1,255}$" maxlength="255"
 													placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_feeds_and_other.lable.brand_product"/>' />
 												<label class="text-lowercase"
 													for="admin_page.all_products.add_product_form.add_feeds_and_other.lable.brand_product"><fmt:message
@@ -378,6 +382,7 @@
 												<input type="text" class="form-control"
 													id="admin_page.all_products.add_product_form.add_feeds_and_other.lable.description_product"
 													name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION}"
+													pattern="^([А-Яа-я]|\w){1,255}$" maxlength="255"
 													placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_feeds_and_other.lable.description_product"/>' />
 												<label class="text-lowercase"
 													for="admin_page.all_products.add_product_form.add_feeds_and_other.lable.description_product"><fmt:message
@@ -388,6 +393,7 @@
 												<input type="text" class="form-control"
 													id="admin_page.all_products.add_product_form.add_feeds_and_other.lable.types_pet_for_product"
 													name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES}"
+													pattern="^([А-я]|\w)+(\,\s*([А-я]|\w)+)*$" maxlength="255"
 													placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_feeds_and_other.lable.types_pet_for_product"/>' />
 												<label class="text-lowercase"
 													for="admin_page.all_products.add_product_form.add_feeds_and_other.lable.types_pet_for_product"><fmt:message

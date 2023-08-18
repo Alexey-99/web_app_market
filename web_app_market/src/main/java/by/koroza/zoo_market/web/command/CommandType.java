@@ -5,47 +5,49 @@ import by.koroza.zoo_market.web.command.impl.admin.change.product.ChangeProductP
 import by.koroza.zoo_market.web.command.impl.admin.change.product.update.UpdateChangedFeedsAndOtherProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.change.product.update.UpdateChangedPetProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.change.user.status.ChangeUserStatusCommand;
-import by.koroza.zoo_market.web.command.impl.admin.create.CraeteProductFeedsAndOtherCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.CraetePetProductCommand;
+import by.koroza.zoo_market.web.command.impl.admin.create.CraeteProductFeedsAndOtherCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.add.AddOtherProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.add.AddPetProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.form.change.product.ShowChangeFeedsAndOtherProductFormCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.form.change.product.ShowChangePetProductFormCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.form.create.ShowCreateFeedsAndOtherProductFormCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.form.create.ShowCreatePetProductFormCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.ShowAllProductsOffFilterCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.numberunits.ShowAllProductsOffFilterSortingByNumberOfUnitsProductAscendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.numberunits.ShowAllProductsOffFilterSortingByNumberOfUnitsProductDescendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.discount.ShowAllProductsOffFilterSortingByDiscountAscendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.discount.ShowAllProductsOffFilterSortingByDiscountDescendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.id.ShowAllProductsOffFilterSortingByIdAscendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.id.ShowAllProductsOffFilterSortingByIdDescendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.other.brand.ShowAllProductsOffFilterSortingByProductBrandAscendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.other.brand.ShowAllProductsOffFilterSortingByProductBrandDescendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.other.description.ShowAllProductsOffFilterSortingByProductDescriptionAscendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.other.description.ShowAllProductsOffFilterSortingByProductDescriptionDescendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.other.typespets.ShowAllProductsOffFilterSortingByProductTypesPetsAscendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.other.typespets.ShowAllProductsOffFilterSortingByProductTypesPetsDescendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.pet.birthdate.ShowAllProductsOffFilterSortingByProductPetBirthDateAscendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.pet.birthdate.ShowAllProductsOffFilterSortingByProductPetBirthDateDescendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.pet.breed.ShowAllProductsOffFilterSortingByProductPetBreedAscendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.pet.breed.ShowAllProductsOffFilterSortingByProductPetBreedDescendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.pet.type.ShowAllProductsOffFilterSortingByProductPetTypeAscendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.pet.type.ShowAllProductsOffFilterSortingByProductPetTypeDescendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.price.ShowAllProductsOffFilterSortingByPriceAscendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.price.ShowAllProductsOffFilterSortingByPriceDescendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.totalprice.ShowAllProductsOffFilterSortingByTotalPriceAscendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.totalprice.ShowAllProductsOffFilterSortingByTotalPriceDescendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.type.ShowAllProductsOffFilterSortingByProductTypeAscendingCommand;
-import by.koroza.zoo_market.web.command.impl.admin.show.products.sorting.product.type.ShowAllProductsOffFilterSortingByProductTypeDescendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.ShowAllProductsCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.numberunits.ShowAllProductsSortingByNumberOfUnitsProductAscendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.numberunits.ShowAllProductsSortingByNumberOfUnitsProductDescendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.discount.ShowAllProductsSortingByDiscountAscendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.discount.ShowAllProductsSortingByDiscountDescendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.id.ShowAllProductsSortingByIdAscendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.id.ShowAllProductsSortingByIdDescendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.other.brand.ShowAllProductsSortingByProductBrandAscendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.other.brand.ShowAllProductsSortingByProductBrandDescendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.other.description.ShowAllProductsSortingByProductDescriptionAscendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.other.description.ShowAllProductsSortingByProductDescriptionDescendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.other.typespets.ShowAllProductsSortingByProductTypesPetsAscendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.other.typespets.ShowAllProductsSortingByProductTypesPetsDescendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.pet.birthdate.ShowAllProductsSortingByProductPetBirthDateAscendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.pet.birthdate.ShowAllProductsSortingByProductPetBirthDateDescendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.pet.breed.ShowAllProductsSortingByProductPetBreedAscendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.pet.breed.ShowAllProductsSortingByProductPetBreedDescendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.pet.type.ShowAllProductsSortingByProductPetTypeAscendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.pet.type.ShowAllProductsSortingByProductPetTypeDescendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.price.ShowAllProductsSortingByPriceAscendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.price.ShowAllProductsSortingByPriceDescendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.totalprice.ShowAllProductsSortingByTotalPriceAscendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.totalprice.ShowAllProductsSortingByTotalPriceDescendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.type.ShowAllProductsSortingByProductTypeAscendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.type.ShowAllProductsSortingByProductTypeDescendingCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.information.ShowMoreDetailsAboutProductFeedsAndOtherCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.products.information.ShowMoreDetailsAboutProductPetCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetEnglishLocaleCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetRussinLocaleCommand;
 import by.koroza.zoo_market.web.command.impl.user.add.AddFeedAndOtherProductToOrderCommand;
 import by.koroza.zoo_market.web.command.impl.user.add.AddPetProductToOrderCommand;
 import by.koroza.zoo_market.web.command.impl.user.change.ChangeEmailCommand;
+import by.koroza.zoo_market.web.command.impl.user.change.ChangeEmailPersonAccountCommand;
 import by.koroza.zoo_market.web.command.impl.user.change.ChangeLoginCommand;
 import by.koroza.zoo_market.web.command.impl.user.change.ChangePasswordCommand;
-import by.koroza.zoo_market.web.command.impl.user.change.ChangeEmailPersonAccountCommand;
 import by.koroza.zoo_market.web.command.impl.user.confirmation.ConfirmationEmailCommand;
 import by.koroza.zoo_market.web.command.impl.user.confirmation.SendOneMoreTimeConfirmationEmailCodeCommand;
 import by.koroza.zoo_market.web.command.impl.user.create.BankDataProcessingCommand;
@@ -119,7 +121,7 @@ public enum CommandType {
 	SHOW_PERSONAL_ACCOUNT_ADMIN_PAGE(new ShowPersonalAccountAdminPage()),
 //	ADMIN PART
 //	admin page with all products
-	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER(new ShowAllProductsOffFilterCommand()),
+	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER(new ShowAllProductsCommand()),
 //	create pet
 	ADMIN_PAGE_CREATE_PET_PRODUCT(new CraetePetProductCommand()),
 	ADMIN_PAGE_ADD_NEW_PRODUCT_PET(new AddPetProductCommand()),
@@ -139,64 +141,67 @@ public enum CommandType {
 //	SORTING PRODUCTS
 //	product id
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_ID_ASCENDING(
-			new ShowAllProductsOffFilterSortingByIdAscendingCommand()),
+			new ShowAllProductsSortingByIdAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_ID_DESCENDING(
-			new ShowAllProductsOffFilterSortingByIdDescendingCommand()),
+			new ShowAllProductsSortingByIdDescendingCommand()),
 //	product type
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TYPE_ASCENDING(
-			new ShowAllProductsOffFilterSortingByProductTypeAscendingCommand()),
+			new ShowAllProductsSortingByProductTypeAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TYPE_DESCENDING(
-			new ShowAllProductsOffFilterSortingByProductTypeDescendingCommand()),
+			new ShowAllProductsSortingByProductTypeDescendingCommand()),
 //	product brand
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_BRAND_ASCENDING(
-			new ShowAllProductsOffFilterSortingByProductBrandAscendingCommand()),
+			new ShowAllProductsSortingByProductBrandAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_BRAND_DESCENDING(
-			new ShowAllProductsOffFilterSortingByProductBrandDescendingCommand()),
+			new ShowAllProductsSortingByProductBrandDescendingCommand()),
 //	product description
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_DESCRIPTION_ASCENDING(
-			new ShowAllProductsOffFilterSortingByProductDescriptionAscendingCommand()),
+			new ShowAllProductsSortingByProductDescriptionAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_DESCRIPTION_DESCENDING(
-			new ShowAllProductsOffFilterSortingByProductDescriptionDescendingCommand()),
+			new ShowAllProductsSortingByProductDescriptionDescendingCommand()),
 //	product types pets
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TYPES_PETS_ASCENDING(
-			new ShowAllProductsOffFilterSortingByProductTypesPetsAscendingCommand()),
+			new ShowAllProductsSortingByProductTypesPetsAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TYPES_PETS_DESCENDING(
-			new ShowAllProductsOffFilterSortingByProductTypesPetsDescendingCommand()),
+			new ShowAllProductsSortingByProductTypesPetsDescendingCommand()),
 //	product pet type
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_TYPE_ASCENDING(
-			new ShowAllProductsOffFilterSortingByProductPetTypeAscendingCommand()),
+			new ShowAllProductsSortingByProductPetTypeAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_TYPE_DESCENDING(
-			new ShowAllProductsOffFilterSortingByProductPetTypeDescendingCommand()),
+			new ShowAllProductsSortingByProductPetTypeDescendingCommand()),
 //	product pet breed
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_BREED_ASCENDING(
-			new ShowAllProductsOffFilterSortingByProductPetBreedAscendingCommand()),
+			new ShowAllProductsSortingByProductPetBreedAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_BREED_DESCENDING(
-			new ShowAllProductsOffFilterSortingByProductPetBreedDescendingCommand()),
+			new ShowAllProductsSortingByProductPetBreedDescendingCommand()),
 //	product pet birth date
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_BIRTH_DATE_ASCENDING(
-			new ShowAllProductsOffFilterSortingByProductPetBirthDateAscendingCommand()),
+			new ShowAllProductsSortingByProductPetBirthDateAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PET_BIRTH_DATE_DESCENDING(
-			new ShowAllProductsOffFilterSortingByProductPetBirthDateDescendingCommand()),
+			new ShowAllProductsSortingByProductPetBirthDateDescendingCommand()),
 //	product price
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PRICE_ASCENDING(
-			new ShowAllProductsOffFilterSortingByPriceAscendingCommand()),
+			new ShowAllProductsSortingByPriceAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_PRICE_DESCENDING(
-			new ShowAllProductsOffFilterSortingByPriceDescendingCommand()),
+			new ShowAllProductsSortingByPriceDescendingCommand()),
 //	product discount
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_DISCOUNT_ASCENDING(
-			new ShowAllProductsOffFilterSortingByDiscountAscendingCommand()),
+			new ShowAllProductsSortingByDiscountAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_DISCOUNT_DESCENDING(
-			new ShowAllProductsOffFilterSortingByDiscountDescendingCommand()),
+			new ShowAllProductsSortingByDiscountDescendingCommand()),
 //	product total price
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TOTAL_PRICE_ASCENDING(
-			new ShowAllProductsOffFilterSortingByTotalPriceAscendingCommand()),
+			new ShowAllProductsSortingByTotalPriceAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TOTAL_PRICE_DESCENDING(
-			new ShowAllProductsOffFilterSortingByTotalPriceDescendingCommand()),
+			new ShowAllProductsSortingByTotalPriceDescendingCommand()),
 //	product number of units
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_NUMBER_OF_UNITS_ASCENDING(
-			new ShowAllProductsOffFilterSortingByNumberOfUnitsProductAscendingCommand()),
+			new ShowAllProductsSortingByNumberOfUnitsProductAscendingCommand()),
 	ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_NUMBER_OF_UNITS_DESCENDING(
-			new ShowAllProductsOffFilterSortingByNumberOfUnitsProductDescendingCommand()),
+			new ShowAllProductsSortingByNumberOfUnitsProductDescendingCommand()),
+//	SHOW MORE DETAILS
+	ADMIN_PAGE_SHOW_MORE_DETAILS_ABOUT_PRODUCT_PET(new ShowMoreDetailsAboutProductPetCommand()),
+	ADMIN_PAGE_SHOW_MORE_DETAILS_ABOUT_PRODUCT_FEEDS_AND_OTHER(new ShowMoreDetailsAboutProductFeedsAndOtherCommand()),
 //	CHANGE_USER_STATUS
 	ADMIN_PAGE_CHANGE_USER_STATUS(new ChangeUserStatusCommand());
 

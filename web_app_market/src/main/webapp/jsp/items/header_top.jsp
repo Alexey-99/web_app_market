@@ -275,7 +275,7 @@
 							</c:if>
 						</c:if>
 						<c:if
-							test="${user == null || user != null && user.getRole().getId() < UserRole.WAITING_CODE_REGISTRATION.v()}">
+							test="${user == null || user != null && user.getRole().getId() < UserRole.WAITING_CODE_REGISTRATION.getId()}">
 							<li class="nav-item">
 								<button class="nav-link menu_link" role="button"
 									onclick="showSignInAndRegistrationForm()">
@@ -385,7 +385,7 @@
 									id="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.password"
 									name="${InputName.SIGN_IN_PERSONAL_ACCOUNT_INPUT_USER_PASSWORD}"
 									placeholder='<fmt:message key="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.password"/>'
-									pattern="(\w|[А-Яа-я]){3,255}" /> <label
+									pattern="(\w|[А-Яа-я]){5,255}" /> <label
 									class="text-lowercase"
 									for="header_top.sign_in_and_registartion_form.sign_in_form.sign_in_form_body.input_lable.password">
 									<fmt:message
