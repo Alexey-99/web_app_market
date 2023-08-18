@@ -1,6 +1,6 @@
 package by.koroza.zoo_market.web.command.impl.admin.show.products.information;
 
-public abstract class ShowMoreDetailsAboutProduct {
+public class ShowMoreDetailsAboutProduct {
 
 	public static final String PRODUCT = "PRODUCT";
 	public static final String QUANTITY_AVAILABLE = "QUANTITY AVAILABLE";

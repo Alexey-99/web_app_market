@@ -59,6 +59,8 @@ public final class AttributeName {
 
 	public static final String SESSION_ATTRIBUTE_PET_CLASS_NAME = "pet_class";
 	public static final String SESSION_ATTRIBUTE_FEED_AND_OTHER_CLASS_NAME = "feed_and_other_class";
+	
+	public static final String SESSION_ATTRIBUTE_SHOW_MORE_DETAILS_ABOUT_RODUCT = "details_map";
 
 //	BASKET PAGE
 //	public static final String ATTRIBUTE_FOR_LIST_PETS = "productsPets";

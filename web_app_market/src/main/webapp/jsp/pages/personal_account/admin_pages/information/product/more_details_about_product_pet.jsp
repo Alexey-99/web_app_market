@@ -15,6 +15,8 @@
 <%@page
 	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
 <%@page import="by.koroza.zoo_market.model.entity.status.ProductType"%>
+<%@page
+	import="by.koroza.zoo_market.web.command.impl.admin.show.products.information.ShowMoreDetailsAboutProduct"%>
 <fmt:setLocale value="${locale}" scope="session" />
 <fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
@@ -36,6 +38,7 @@
 <!-- map_product_pet_and_number_of_units = AttributeName.ATTRIBUTE_MAP_PRODUCT_PET_AND_NUMBER_OF_UNITS_PRODUCT -->
 <!-- map_product_feeds_and_other_and_number_of_units = AttributeName.ATTRIBUTE_MAP_PRODUCT_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT -->
 <!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
+<!-- details_map = AttributeName.SESSION_ATTRIBUTE_SHOW_MORE_DETAILS_ABOUT_RODUCT -->
 </head>
 <body>
 
@@ -88,15 +91,17 @@
 								<tbody class="">
 									<tr class="align-middle">
 										<td class=" table_row_product_img"
-											onclick="showProductImage('p-${information.getKey().getId()}')"
+											onclick="showProductImage('p-${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getId()}')"
 											style="height: auto;">
 											<div class="card-img-top"
 												style="border: 1px solid var(--bs-card-border-color); margin: 0 auto; display: flex; justify-content: center; align-items: center; height: auto;">
-												<c:if test="${product.getKey().getImagePath() != null}">
+												<c:if
+													test="${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getImagePath() != null}">
 													<img class="" style="width: 35px; height: 35px" alt=""
-														src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product.getKey().getImagePath()}" />
+														src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getImagePath()}" />
 												</c:if>
-												<c:if test="${product.getKey().getImagePath() == null}">
+												<c:if
+													test="${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getImagePath() == null}">
 													<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 														width="35px" height="35px" viewBox="0 0 64 64">
 <path
@@ -105,33 +110,43 @@
 												</c:if>
 											</div>
 										</td>
-										<th class="" scope="row">p-${product.getKey().getId()}</th>
+										<th class="" scope="row">
+											p-${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getId()}
+										</th>
 										<td class="text-lowercase">${ProductType.PETS.toString()}</td>
 										<td class="text-lowercase">
-											<div class="d-flex justify-content-center align-items-center">${product.getKey().getSpecie()}
+											<div class="d-flex justify-content-center align-items-center">
+												${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getSpecie()}
 											</div>
 										</td>
 										<td class="text-lowercase">
-											<div class="d-flex justify-content-center align-items-center">${product.getKey().getBreed()}
+											<div class="d-flex justify-content-center align-items-center">
+												${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getBreed()}
 											</div>
 										</td>
 										<td class="">
-											<div class="d-flex justify-content-center align-items-center">${product.getKey().getBirthDate().toString()}
+											<div class="d-flex justify-content-center align-items-center">
+												${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getBirthDate().toString()}
 											</div>
 										</td>
 										<td class="">
-											<div class="d-flex justify-content-center align-items-center">${String.format("%,.2f", product.getKey().getPrice())}
+											<div class="d-flex justify-content-center align-items-center">
+												${String.format("%,.2f", details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getPrice())}
 											</div>
 										</td>
 										<td class="">
-											<div class="d-flex justify-content-center align-items-center">${String.format("%,.2f", product.getKey().getDiscount())}
+											<div class="d-flex justify-content-center align-items-center">
+												${String.format("%,.2f", details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getDiscount())}
 											</div>
 										</td>
 										<td class="">
-											<div class="d-flex justify-content-center align-items-center">${String.format("%,.2f", product.getKey().getTotalPrice())}</div>
+											<div class="d-flex justify-content-center align-items-center">
+												${String.format("%,.2f", details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getTotalPrice())}
+											</div>
 										</td>
 										<td class="">
-											<div class="d-flex justify-content-center align-items-center">${product.getValue()}
+											<div class="d-flex justify-content-center align-items-center">
+												${details_map.get(ShowMoreDetailsAboutProduct.QUANTITY_AVAILABLE)}
 											</div>
 										</td>
 										<td class="edit_product_td">
@@ -149,13 +164,13 @@
 										</td>
 									</tr>
 									<div
-										class="position-fixed d-none d-flex justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 image_product_id image_product_id_p-${product.getKey().getId()}">
+										class="position-fixed d-none d-flex justify-content-center align-items-center top-0 end-0 right-0 w-100 h-100 image_product_id image_product_id_p-${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getId()}">
 										<div
-											class="position-relative w-100 d-flex flex-column image_product_id_inner image_product_id_p-${product.getKey().getId()}_inner"
+											class="position-relative w-100 d-flex flex-column image_product_id_inner image_product_id_p-${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getId()}_inner"
 											style="height: 60vh; max-width: 70vh">
 											<div class="image_product_id_top">
 												<div class="close_btn"
-													onclick="closedProductImage('p-${product.getKey().getId()}')">
+													onclick="closedProductImage('p-${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getId()}')">
 													<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
 														width="25px" height="25px">
                           <path
@@ -170,12 +185,14 @@
 											</div>
 											<div
 												class="image_product_id_body h-100 d-flex justify-content-center align-items-center">
-												<c:if test="${product.getKey().getImagePath() != null}">
+												<c:if
+													test="${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getImagePath() != null}">
 													<img class="" style="max-height: 420px; max-width: 550px;"
 														alt=""
-														src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${product.getKey().getImagePath()}" />
+														src="${ServletName.SERVLET_SHOW_IMAGE_NAME}?${ParameterName.PARAMETER_IMAGE_FILE_PATH}=${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getImagePath()}" />
 												</c:if>
-												<c:if test="${product.getKey().getImagePath() == null}">
+												<c:if
+													test="${details_map.get(ShowMoreDetailsAboutProduct.PRODUCT).getImagePath() == null}">
 													<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 														width="auto" height="45vh" viewBox="0 0 64 64">
 <path

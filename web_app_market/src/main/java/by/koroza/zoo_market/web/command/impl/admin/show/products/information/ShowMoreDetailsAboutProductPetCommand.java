@@ -1,19 +1,13 @@
 package by.koroza.zoo_market.web.command.impl.admin.show.products.information;
 
 import static by.koroza.zoo_market.model.entity.status.UserRole.ADMIN;
-import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_ADMIN_PAGE_CREATE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE;
-import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET;
-import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.SESSION_ATTRIBUTE_SHOW_MORE_DETAILS_ABOUT_RODUCT;
 import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_PRODUCT_ID;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.path.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_CREATE_PET_PRODUCT_FORM;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_MORE_DETAILS_ABOUT_PRODUCT_PET_PAGE_PATH;
-import static by.koroza.zoo_market.web.command.name.path.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_VERIFICATION_INFORMATION_FOR_CREATE_PET_PRODUCT;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH;
 
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -56,7 +50,7 @@ public class ShowMoreDetailsAboutProductPetCommand extends ShowMoreDetailsAboutP
 								PRODUCT_PET_SERVICE.getFreeNumberOfUnitsByProductId(petIdLong));
 						information.put(QUANTITY_IN_RESERVE,
 								PRODUCT_PET_SERVICE.getQuantityInOpenOrdersByProductId(petIdLong));
-						session.setAttribute("information", information);
+						session.setAttribute(SESSION_ATTRIBUTE_SHOW_MORE_DETAILS_ABOUT_RODUCT, information);
 						router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_MORE_DETAILS_ABOUT_PRODUCT_PET_PAGE_PATH);
 					}
 				} else {
