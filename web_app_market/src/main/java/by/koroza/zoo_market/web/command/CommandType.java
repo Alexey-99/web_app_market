@@ -1,12 +1,16 @@
 package by.koroza.zoo_market.web.command;
 
-import by.koroza.zoo_market.web.command.impl.admin.change.order.ChangeQuantityProductFeedAndOtherCommand;
-import by.koroza.zoo_market.web.command.impl.admin.change.order.ChangeQuantityProductPetCommand;
+import by.koroza.zoo_market.web.command.impl.admin.change.order.quantity.ChangeQuantityProductFeedAndOtherCommand;
+import by.koroza.zoo_market.web.command.impl.admin.change.order.quantity.ChangeQuantityProductPetCommand;
+import by.koroza.zoo_market.web.command.impl.admin.change.order.status.ChangeOrderStatusWithProductFeedAndOtherCommand;
+import by.koroza.zoo_market.web.command.impl.admin.change.order.status.ChangeOrderStatusWithProductPetCommand;
 import by.koroza.zoo_market.web.command.impl.admin.change.product.ChangeProductFeedsAndOtherCommand;
 import by.koroza.zoo_market.web.command.impl.admin.change.product.ChangeProductPetCommand;
 import by.koroza.zoo_market.web.command.impl.admin.change.product.update.UpdateChangedFeedsAndOtherProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.change.product.update.UpdateChangedPetProductCommand;
-import by.koroza.zoo_market.web.command.impl.admin.change.user.status.ChangeUserStatusCommand;
+import by.koroza.zoo_market.web.command.impl.admin.change.user.status.AdminPageChangeUserRoleCommand;
+import by.koroza.zoo_market.web.command.impl.admin.change.user.status.ChangeUserRoleCommand;
+import by.koroza.zoo_market.web.command.impl.admin.change.user.verification.AdminPageChangeConfirmationEmailCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.CraetePetProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.CraeteProductFeedsAndOtherCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.add.AddOtherProductCommand;
@@ -42,6 +46,7 @@ import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.pro
 import by.koroza.zoo_market.web.command.impl.admin.show.products.all.sorting.product.type.ShowAllProductsSortingByProductTypeDescendingCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.products.information.ShowMoreDetailsAboutProductFeedsAndOtherCommand;
 import by.koroza.zoo_market.web.command.impl.admin.show.products.information.ShowMoreDetailsAboutProductPetCommand;
+import by.koroza.zoo_market.web.command.impl.admin.show.user.ShowAllUsersCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetEnglishLocaleCommand;
 import by.koroza.zoo_market.web.command.impl.locale.SetRussinLocaleCommand;
 import by.koroza.zoo_market.web.command.impl.user.add.AddFeedAndOtherProductToOrderCommand;
@@ -207,8 +212,16 @@ public enum CommandType {
 //	CHANGE_ORDER
 	ADMIN_PAGE_CHANGE_QUANTITY_PRODUCT_IN_ORDER_FEED_AND_OTHER(new ChangeQuantityProductFeedAndOtherCommand()),
 	ADMIN_PAGE_CHANGE_QUANTITY_PRODUCT_IN_ORDER_PET(new ChangeQuantityProductPetCommand()),
-//	CHANGE_USER_STATUS
-	ADMIN_PAGE_CHANGE_USER_STATUS(new ChangeUserStatusCommand());
+	ADMIN_PAGE_CHANGE_ORDER_STATUS_WITH_PRODUCT_FEED_AND_OTHER(new ChangeOrderStatusWithProductFeedAndOtherCommand()),
+	ADMIN_PAGE_CHANGE_ORDER_STATUS_WITH_PRODUCT_PET(new ChangeOrderStatusWithProductPetCommand()),
+
+//	SHOW ALL USERS
+	ADMIN_PAGE_SHOW_ALL_USERS(new ShowAllUsersCommand()),
+
+//	CHANGE_USER
+	ADMIN_PAGE_CHANGE_USER_STATUS(new ChangeUserRoleCommand()),
+	ADMIN_PAGE_SHOW_ALL_USERS_CHANGE_USER_STATUS(new AdminPageChangeUserRoleCommand()),
+	ADMIN_PAGE_SHOW_ALL_USERS_CHANGE_USER_CONFIRMATION_EMAIL(new AdminPageChangeConfirmationEmailCommand());
 
 	private Command command;
 

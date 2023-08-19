@@ -282,6 +282,22 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
+	 * Get the all users.
+	 *
+	 * @return the all users
+	 * @throws ServiceException the service exception
+	 */
+	@Override
+	public List<User> getAllUsers() throws ServiceException {
+		try {
+			return UserDaoImpl.getInstance().getAllUsers();
+		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
+
+	/**
 	 * Number products of all orders.
 	 *
 	 * @param allOrders the all orders

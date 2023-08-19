@@ -1,5 +1,6 @@
 package by.koroza.zoo_market.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import by.koroza.zoo_market.dao.exception.checkable.DaoException;
@@ -137,4 +138,12 @@ public interface UserDao {
 	 */
 	public boolean isExistsUserWithLoginAndPasswordByUserId(String login, String password, long userId)
 			throws DaoException;
+
+	/**
+	 * Get the all users.
+	 *
+	 * @return the all users
+	 * @throws DaoException the dao exception
+	 */
+	public List<User> getAllUsers() throws DaoException;
 }

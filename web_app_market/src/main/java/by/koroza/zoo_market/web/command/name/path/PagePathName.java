@@ -28,7 +28,7 @@ public final class PagePathName {
 
 //	ADMIN_PAGES
 //	ADMIN_OPERATIONS
-	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH = "jsp/pages/personal_account/admin_pages/all_products_page.jsp";
+	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH = "jsp/pages/personal_account/admin_pages/products/all_products_page.jsp";
 
 //	ADMIN_change_user_status_form_validated 
 	public static final String PERSONAL_ACCOUNT_ADMIN_CHANGE_USER_STATUS_FORM_VALIDATED_PATH = "jsp/pages/form/admin/change/user/change_user_status_form_validated.jsp";
@@ -51,6 +51,8 @@ public final class PagePathName {
 //	ADMIN_SHOW_MORE_DETAILS_PRODUCT
 	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_MORE_DETAILS_ABOUT_PRODUCT_FEED_AND_OTHER_PAGE_PATH = "jsp/pages/personal_account/admin_pages/information/product/more_details_about_product_feeds_and_other.jsp";
 	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_MORE_DETAILS_ABOUT_PRODUCT_PET_PAGE_PATH = "jsp/pages/personal_account/admin_pages/information/product/more_details_about_product_pet.jsp";
+//	ADMIN_SHOW_ALL_USERS
+	public static final String PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_USERS_PAGE_PATH = "jsp/pages/personal_account/admin_pages/users/all_users_page.jsp";
 
 //	REGISTRATION
 	public static final String REGISTRATION_FORM_PAGE_PATH = "jsp/pages/form/registration/registration_form.jsp";

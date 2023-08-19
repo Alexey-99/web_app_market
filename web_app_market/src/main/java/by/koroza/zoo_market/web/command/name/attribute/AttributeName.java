@@ -66,6 +66,9 @@ public final class AttributeName {
 
 	public static final String REQUEST_ATTRIBUTE_COMMAND = "sorting_command";
 
+//	LIST_USERS - admin page - all users
+	public static final String ATTRIBUTE_LIST_USERS = "list_users";
+
 //	BUFFER
 //	create or change product
 	public static final String ATTRIBUTE_BUFFER_PRODUCT_PET = "product_pet";

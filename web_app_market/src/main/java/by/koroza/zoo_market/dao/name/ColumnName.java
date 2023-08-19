@@ -8,11 +8,12 @@ public final class ColumnName {
 	public static final String USERS_ID = "users.id";
 	public static final String USERS_ROLE_ID = "users.roles_id";
 	public static final String USERS_EMAIL = "users.email";
-	public static final String USERS_CONFIRMATION_EMAIL = "users.confirmation_email";
+	public static final String USERS_CONFIRMATION_EMAIL = "users.is_confirmation_email";
 	public static final String USERS_LOGIN = "users.login";
 	public static final String USERS_PASSWORD = "users.password";
 	public static final String USERS_DISCOUNT = "users.discount";
 	public static final String USERS_DATE_CREATE = "users.date_create";
+	public static final String USERS_IS_ACTIVE = "users.is_active";
 
 	public static final String PETS_ID = "pets.id";
 	public static final String PETS_IMAGE_PATH = "pets.image_path";

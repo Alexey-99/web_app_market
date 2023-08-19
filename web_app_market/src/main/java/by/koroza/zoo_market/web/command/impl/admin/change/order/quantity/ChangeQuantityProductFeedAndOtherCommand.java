@@ -1,4 +1,4 @@
-package by.koroza.zoo_market.web.command.impl.admin.change.order;
+package by.koroza.zoo_market.web.command.impl.admin.change.order.quantity;
 
 import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_PRODUCT_ID;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_PATH;
@@ -49,12 +49,12 @@ public class ChangeQuantityProductFeedAndOtherCommand implements Command {
 		try {
 			if (user != null && user.isVerificatedEmail() && user.getRole().getId() == ADMIN.getId()) {
 				String productId = request.getParameter(PARAMETER_PRODUCT_ID);
-				if (productId != null && productId.matches("^(\\d)+$")) {
+				if (productId != null && productId.trim().matches("^(\\d)+$")) {
 					productId = productId.trim();
 					String orderId = request.getParameter(PARAMETER_ORDER_ID);
 					String quantity = request.getParameter(ADMIN_PAGE_CHANGE_QUANTITY_PRODUCT_IN_OPEN_ORDER_FORM_INPUT);
-					if ((orderId != null && orderId.matches("^(\\d)+$"))
-							&& (quantity != null && quantity.matches("^(\\d)+$"))) {
+					if ((orderId != null && orderId.trim().matches("^(\\d)+$"))
+							&& (quantity != null && quantity.trim().matches("^(\\d)+$"))) {
 						OrderServiceImpl.getInstance().changeQuantityProductFeedAndOtherInOrderByOrderId(
 								Long.parseLong(orderId.trim()), OrderStatus.OPEN.getId(), Long.parseLong(productId),
 								Long.parseLong(quantity.trim()), user.getDiscount());
@@ -69,9 +69,7 @@ public class ChangeQuantityProductFeedAndOtherCommand implements Command {
 			} else {
 				router = new Router(HOME_PAGE_PATH);
 			}
-		} catch (
-
-		ServiceException e) {
+		} catch (ServiceException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}

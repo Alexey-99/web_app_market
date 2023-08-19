@@ -89,9 +89,7 @@
 									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 										method="get">
 										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-											value="${CommandName.COMMAND_SHOW_BACKET_PAGE}" /> <input
-											class="productsIdXl" type="hidden"
-											name="${ParameterName.PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
+											value="${CommandName.COMMAND_SHOW_BACKET_PAGE}" />
 										<button class="nav-link text-uppercase menu_link"
 											role="button" onclick="getProducts('.productsIdXl')">
 											<h5>
@@ -234,9 +232,7 @@
 									<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 										method="get">
 										<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
-											value="${CommandName.COMMAND_SHOW_BACKET_PAGE}" /> <input
-											class="productsIdLg" type="hidden"
-											name="${ParameterName.PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
+											value="${CommandName.COMMAND_SHOW_BACKET_PAGE}" />
 										<button class="nav-link text-uppercase menu_link"
 											role="button" onclick="getProducts('.productsIdLg')">
 											<h5>

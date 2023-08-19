@@ -28,7 +28,7 @@ import by.koroza.zoo_market.web.controller.router.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-public class ShowMoreDetailsAboutProductPetCommand extends ShowMoreDetailsAboutProduct implements Command {
+public class ShowMoreDetailsAboutProductPetCommand implements Command {
 	private static Logger log = LogManager.getLogger();
 
 	private final ProductPetService PRODUCT_PET_SERVICE = ProductPetServiceImpl.getInstance();
@@ -59,14 +59,15 @@ public class ShowMoreDetailsAboutProductPetCommand extends ShowMoreDetailsAboutP
 										+ informatorAboutProduct.getQuantityInReserveInWaitingPayOrders());
 						informatorAboutProduct.setQuantityInReserveInCloseOrders(PRODUCT_PET_SERVICE
 								.getQuantityInOrdersByProductIdAndOrderStatus(pet.getId(), OrderStatus.CLOSED.getId()));
-						informatorAboutProduct.setDetailsOpenOrdersWithProduct(ORDER_SERVICE
-								.getDetailsAboutOrdersByProductPetIdAndOrderStatus(OrderStatus.OPEN.getId(), pet.getId()));
+						informatorAboutProduct.setDetailsOpenOrdersWithProduct(
+								ORDER_SERVICE.getDetailsAboutOrdersByProductPetIdAndOrderStatus(
+										OrderStatus.OPEN.getId(), pet.getId()));
 						informatorAboutProduct.setDetailsWaitingPayOrdersWithProduct(
 								ORDER_SERVICE.getDetailsAboutOrdersByProductPetIdAndOrderStatus(
 										OrderStatus.WAITING_PAY.getId(), pet.getId()));
 						informatorAboutProduct.setDetailsCloseOrdersWithProduct(
-								ORDER_SERVICE.getDetailsAboutOrdersByProductPetIdAndOrderStatus(OrderStatus.CLOSED.getId(),
-										pet.getId()));
+								ORDER_SERVICE.getDetailsAboutOrdersByProductPetIdAndOrderStatus(
+										OrderStatus.CLOSED.getId(), pet.getId()));
 						session.setAttribute(SESSION_ATTRIBUTE_SHOW_MORE_DETAILS_ABOUT_RODUCT, informatorAboutProduct);
 						router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_MORE_DETAILS_ABOUT_PRODUCT_PET_PAGE_PATH);
 					} else {

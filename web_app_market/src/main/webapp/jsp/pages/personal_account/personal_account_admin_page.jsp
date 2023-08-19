@@ -109,12 +109,23 @@
 										key="personal_account_admin_page.operation.show_all_products" />
 								</button>
 							</form>
+
 							<button
 								class="btn btn-primary person_account_menu_link w-100 btn_last"
 								role="button" onclick="showChangeUserStatusForm()">
 								<fmt:message
 									key="personal_account_admin_page.operation.change_user_status" />
 							</button>
+							<form action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+								method="get">
+								<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
+									value="${CommandName.COMMAND_ADMIN_PAGE_SHOW_ALL_USERS}" />
+								<button class="btn btn-primary person_account_menu_link w-100"
+									role="button">
+									<fmt:message
+										key="personal_account_admin_page.operation.show_all_clients" />
+								</button>
+							</form>
 						</div>
 					</div>
 

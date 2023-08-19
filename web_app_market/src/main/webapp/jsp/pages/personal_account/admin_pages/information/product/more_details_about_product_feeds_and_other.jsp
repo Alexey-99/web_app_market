@@ -15,6 +15,7 @@
 <%@page
 	import="by.koroza.zoo_market.web.command.name.servlet.ServletName"%>
 <%@page import="by.koroza.zoo_market.model.entity.status.ProductType"%>
+<%@page import="by.koroza.zoo_market.model.entity.status.OrderStatus"%>
 <fmt:setLocale value="${locale}" scope="session" />
 <fmt:setBundle basename="${PagePathName.PAGE_CONTENT_PROPERTIES}" />
 <!DOCTYPE html>
@@ -244,6 +245,10 @@
 															scope="col"><fmt:message
 																key="admin_page.all_products.col.more_details.col.user_login" />
 														</td>
+														<td class="border-0 text-lowercase text-center"
+															scope="col"><fmt:message
+																key="admin_page.all_products.col.more_details.col.order_status" />
+														</td>
 													</tr>
 												</thead>
 												<tbody class="">
@@ -275,6 +280,75 @@
 																<div
 																	class="d-flex justify-content-center align-items-center">
 																	${item.getUserLogin()}</div>
+															</td>
+															<td class="edit_product_td">
+																<button class="bg-transparent w-100"
+																	style="border: none;" data-bs-toggle="modal"
+																	data-bs-target="#orderStatus${item.getOrderId()}">
+																	${item.getStatus()}</button>
+																<div class="modal fade"
+																	id="orderStatus${item.getOrderId()}" tabindex="-1"
+																	aria-labelledby="exampleModalLabel" aria-hidden="true">
+																	<div class="modal-dialog">
+																		<div class="modal-content">
+																			<div class="modal-header">
+																				<h1 class="modal-title fs-5" id="exampleModalLabel">
+																					<fmt:message
+																						key="admin_page.all_products.col.more_details.form.change_order_status.title" />
+																					${item.getOrderId()}
+																				</h1>
+																				<button type="button" class="btn-close"
+																					data-bs-dismiss="modal" aria-label="Закрыть"></button>
+																			</div>
+																			<form
+																				action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+																				method="get">
+																				<div class="modal-body">
+																					<input type="hidden"
+																						name="${ParameterName.PARAMETER_COMMAND}"
+																						value="${CommandName.COMMAND_ADMIN_PAGE_CHANGE_ORDER_STATUS_WITH_PRODUCT_FEED_AND_OTHER}" />
+																					<input type="hidden"
+																						name="${ParameterName.PARAMETER_ORDER_ID}"
+																						value="${item.getOrderId()}" /> <input
+																						type="hidden"
+																						name="${ParameterName.PARAMETER_PRODUCT_ID}"
+																						value="${informator.getProduct().getId()}" /> <select
+																						name="${InputName.ADMIN_PAGE_CHANGE_ORDER_STATUS_FORM_INPUT}"
+																						class="form-select" required
+																						aria-label="select example">
+																						<option value="">
+																							<fmt:message
+																								key="admin_page.all_products.col.more_details.form.change_order_status.description" />
+																						</option>
+																						<option value="${OrderStatus.OPEN.getId()}">
+																							<fmt:message
+																								key="admin_page.all_products.col.more_details.form.change_order_status.status.open" />
+																						</option>
+																						<option value="${OrderStatus.WAITING_PAY.getId()}">
+																							<fmt:message
+																								key="admin_page.all_products.col.more_details.form.change_order_status.status.waiting_pay" />
+																						</option>
+																						<option value="${OrderStatus.CLOSED.getId()}">
+																							<fmt:message
+																								key="admin_page.all_products.col.more_details.form.change_order_status.status.closed" />
+																						</option>
+																					</select>
+																				</div>
+																				<div class="modal-footer">
+																					<button type="button" class="btn btn-secondary"
+																						data-bs-dismiss="modal">
+																						<fmt:message
+																							key="admin_page.all_products.col.more_details.form.change_order_status.footer_btn.close" />
+																					</button>
+																					<button role="button" class="btn btn-primary">
+																						<fmt:message
+																							key="admin_page.all_products.col.more_details.form.change_order_status.footer_btn.save" />
+																					</button>
+																				</div>
+																			</form>
+																		</div>
+																	</div>
+																</div>
 															</td>
 														</tr>
 													</c:forEach>
@@ -338,27 +412,26 @@
 																		<td class="border-0 text-lowercase text-center"
 																			scope="col"><fmt:message
 																				key="admin_page.all_products.col.more_details.col.order_number" />
-
 																		</td>
 																		<td class="border-0 text-lowercase text-center"
 																			scope="col"><fmt:message
 																				key="admin_page.all_products.col.more_details.col.quantity" />
-
 																		</td>
 																		<td class="border-0 text-lowercase text-center"
 																			scope="col"><fmt:message
 																				key="admin_page.all_products.col.more_details.col.order_total_sum" />
-
 																		</td>
 																		<td class="border-0 text-lowercase text-center"
 																			scope="col"><fmt:message
 																				key="admin_page.all_products.col.more_details.col.user_id" />
-
 																		</td>
 																		<td class="border-0 text-lowercase text-center"
 																			scope="col"><fmt:message
 																				key="admin_page.all_products.col.more_details.col.user_login" />
-
+																		</td>
+																		<td class="border-0 text-lowercase text-center"
+																			scope="col"><fmt:message
+																				key="admin_page.all_products.col.more_details.col.order_status" />
 																		</td>
 																	</tr>
 																</thead>
@@ -375,18 +448,20 @@
 																			<td class="edit_product_td">
 																				<button class="bg-transparent w-100"
 																					style="border: none;" data-bs-toggle="modal"
-																					data-bs-target="#exampleModal">
+																					data-bs-target="#quantityProduct">
 																					${item.getQuantityProduct()}</button>
-																				<div class="modal fade" id="exampleModal"
+																				<div class="modal fade" id="quantityProduct"
 																					tabindex="-1" aria-labelledby="exampleModalLabel"
 																					aria-hidden="true">
 																					<div class="modal-dialog">
 																						<div class="modal-content">
 																							<div class="modal-header">
 																								<h1 class="modal-title fs-5"
-																									id="exampleModalLabel">Изменение
-																									количества товара в заказе с номером
-																									${item.getOrderId()}</h1>
+																									id="exampleModalLabel">
+																									<fmt:message
+																										key="admin_page.all_products.col.more_details.form.change_quantity_product_in_order.title" />
+																									${item.getOrderId()}
+																								</h1>
 																								<button type="button" class="btn-close"
 																									data-bs-dismiss="modal" aria-label="Закрыть"></button>
 																							</div>
@@ -409,9 +484,14 @@
 																								</div>
 																								<div class="modal-footer">
 																									<button type="button" class="btn btn-secondary"
-																										data-bs-dismiss="modal">Закрыть</button>
-																									<button role="button" class="btn btn-primary">Сохранить
-																										изменения</button>
+																										data-bs-dismiss="modal">
+																										<fmt:message
+																											key="admin_page.all_products.col.more_details.form.change_quantity_product_in_order.footer_btn.close" />
+																									</button>
+																									<button role="button" class="btn btn-primary">
+																										<fmt:message
+																											key="admin_page.all_products.col.more_details.form.change_quantity_product_in_order.footer_btn.save" />
+																									</button>
 																								</div>
 																							</form>
 																						</div>
@@ -432,6 +512,79 @@
 																				<div
 																					class="d-flex justify-content-center align-items-center">
 																					${item.getUserLogin()}</div>
+																			</td>
+																			<td class="edit_product_td">
+																				<button class="bg-transparent w-100"
+																					style="border: none;" data-bs-toggle="modal"
+																					data-bs-target="#orderStatus${item.getOrderId()}">
+																					${item.getStatus()}</button>
+																				<div class="modal fade"
+																					id="orderStatus${item.getOrderId()}" tabindex="-1"
+																					aria-labelledby="exampleModalLabel"
+																					aria-hidden="true">
+																					<div class="modal-dialog">
+																						<div class="modal-content">
+																							<div class="modal-header">
+																								<h1 class="modal-title fs-5"
+																									id="exampleModalLabel">
+																									<fmt:message
+																										key="admin_page.all_products.col.more_details.form.change_order_status.title" />
+																									${item.getOrderId()}
+																								</h1>
+																								<button type="button" class="btn-close"
+																									data-bs-dismiss="modal" aria-label="Закрыть"></button>
+																							</div>
+																							<form
+																								action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+																								method="get">
+																								<div class="modal-body">
+																									<input type="hidden"
+																										name="${ParameterName.PARAMETER_COMMAND}"
+																										value="${CommandName.COMMAND_ADMIN_PAGE_CHANGE_ORDER_STATUS_WITH_PRODUCT_FEED_AND_OTHER}" />
+																									<input type="hidden"
+																										name="${ParameterName.PARAMETER_ORDER_ID}"
+																										value="${item.getOrderId()}" /> <input
+																										type="hidden"
+																										name="${ParameterName.PARAMETER_PRODUCT_ID}"
+																										value="${informator.getProduct().getId()}" />
+																									<select
+																										name="${InputName.ADMIN_PAGE_CHANGE_ORDER_STATUS_FORM_INPUT}"
+																										class="form-select" required
+																										aria-label="select example">
+																										<option value="">
+																											<fmt:message
+																												key="admin_page.all_products.col.more_details.form.change_order_status.description" />
+																										</option>
+																										<option value="${OrderStatus.OPEN.getId()}">
+																											<fmt:message
+																												key="admin_page.all_products.col.more_details.form.change_order_status.status.open" />
+																										</option>
+																										<option
+																											value="${OrderStatus.WAITING_PAY.getId()}">
+																											<fmt:message
+																												key="admin_page.all_products.col.more_details.form.change_order_status.status.waiting_pay" />
+																										</option>
+																										<option value="${OrderStatus.CLOSED.getId()}">
+																											<fmt:message
+																												key="admin_page.all_products.col.more_details.form.change_order_status.status.closed" />
+																										</option>
+																									</select>
+																								</div>
+																								<div class="modal-footer">
+																									<button type="button" class="btn btn-secondary"
+																										data-bs-dismiss="modal">
+																										<fmt:message
+																											key="admin_page.all_products.col.more_details.form.change_order_status.footer_btn.close" />
+																									</button>
+																									<button role="button" class="btn btn-primary">
+																										<fmt:message
+																											key="admin_page.all_products.col.more_details.form.change_order_status.footer_btn.save" />
+																									</button>
+																								</div>
+																							</form>
+																						</div>
+																					</div>
+																				</div>
 																			</td>
 																		</tr>
 																	</c:forEach>
@@ -489,9 +642,13 @@
 																			scope="col"><fmt:message
 																				key="admin_page.all_products.col.more_details.col.user_login" />
 																		</td>
+																		<td class="border-0 text-lowercase text-center"
+																			scope="col"><fmt:message
+																				key="admin_page.all_products.col.more_details.col.order_status" />
+																		</td>
 																	</tr>
 																</thead>
-																<tbody class="edit_product_td">
+																<tbody class="">
 																	<c:forEach
 																		items="${informator.getDetailsWaitingPayOrdersWithProduct()}"
 																		var="item">
@@ -520,6 +677,79 @@
 																				<div
 																					class="d-flex justify-content-center align-items-center">
 																					${item.getUserLogin()}</div>
+																			</td>
+																			<td class="edit_product_td">
+																				<button class="bg-transparent w-100"
+																					style="border: none;" data-bs-toggle="modal"
+																					data-bs-target="#orderStatus${item.getOrderId()}">
+																					${item.getStatus()}</button>
+																				<div class="modal fade"
+																					id="orderStatus${item.getOrderId()}" tabindex="-1"
+																					aria-labelledby="exampleModalLabel"
+																					aria-hidden="true">
+																					<div class="modal-dialog">
+																						<div class="modal-content">
+																							<div class="modal-header">
+																								<h1 class="modal-title fs-5"
+																									id="exampleModalLabel">
+																									<fmt:message
+																										key="admin_page.all_products.col.more_details.form.change_order_status.title" />
+																									${item.getOrderId()}
+																								</h1>
+																								<button type="button" class="btn-close"
+																									data-bs-dismiss="modal" aria-label="Закрыть"></button>
+																							</div>
+																							<form
+																								action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
+																								method="get">
+																								<div class="modal-body">
+																									<input type="hidden"
+																										name="${ParameterName.PARAMETER_COMMAND}"
+																										value="${CommandName.COMMAND_ADMIN_PAGE_CHANGE_ORDER_STATUS_WITH_PRODUCT_FEED_AND_OTHER}" />
+																									<input type="hidden"
+																										name="${ParameterName.PARAMETER_ORDER_ID}"
+																										value="${item.getOrderId()}" /> <input
+																										type="hidden"
+																										name="${ParameterName.PARAMETER_PRODUCT_ID}"
+																										value="${informator.getProduct().getId()}" />
+																									<select
+																										name="${InputName.ADMIN_PAGE_CHANGE_ORDER_STATUS_FORM_INPUT}"
+																										class="form-select" required
+																										aria-label="select example">
+																										<option value="">
+																											<fmt:message
+																												key="admin_page.all_products.col.more_details.form.change_order_status.description" />
+																										</option>
+																										<option value="${OrderStatus.OPEN.getId()}">
+																											<fmt:message
+																												key="admin_page.all_products.col.more_details.form.change_order_status.status.open" />
+																										</option>
+																										<option
+																											value="${OrderStatus.WAITING_PAY.getId()}">
+																											<fmt:message
+																												key="admin_page.all_products.col.more_details.form.change_order_status.status.waiting_pay" />
+																										</option>
+																										<option value="${OrderStatus.CLOSED.getId()}">
+																											<fmt:message
+																												key="admin_page.all_products.col.more_details.form.change_order_status.status.closed" />
+																										</option>
+																									</select>
+																								</div>
+																								<div class="modal-footer">
+																									<button type="button" class="btn btn-secondary"
+																										data-bs-dismiss="modal">
+																										<fmt:message
+																											key="admin_page.all_products.col.more_details.form.change_order_status.footer_btn.close" />
+																									</button>
+																									<button role="button" class="btn btn-primary">
+																										<fmt:message
+																											key="admin_page.all_products.col.more_details.form.change_order_status.footer_btn.save" />
+																									</button>
+																								</div>
+																							</form>
+																						</div>
+																					</div>
+																				</div>
 																			</td>
 																		</tr>
 																	</c:forEach>

@@ -1,5 +1,6 @@
 package by.koroza.zoo_market.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import by.koroza.zoo_market.model.entity.user.User;
@@ -136,4 +137,12 @@ public interface UserService {
 	 */
 	public boolean isExistsUserWithLoginAndPasswordByUserId(String login, String password, long userId)
 			throws ServiceException;
+
+	/**
+	 * Get the all users.
+	 *
+	 * @return the all users
+	 * @throws ServiceException the service exception
+	 */
+	public List<User> getAllUsers() throws ServiceException;
 }

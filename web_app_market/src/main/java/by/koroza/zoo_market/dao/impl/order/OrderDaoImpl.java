@@ -445,7 +445,7 @@ public class OrderDaoImpl implements OrderDao {
 	 * SELECT_GET_DETAILS_INFORMATION_ABOUT_ORDERS_BY_PRODUCT_PET_ID_AND_ORDER_STATUS.
 	 */
 	private static final String SELECT_GET_DETAILS_INFORMATION_ABOUT_ORDERS_BY_PRODUCT_PET_ID_AND_ORDER_STATUS = """
-			SELECT orders.id, orders.total_payment_with_discount_amount, orders.users_id, users.login, COUNT(order_products.pets_id)
+			SELECT orders.id, orders.total_payment_with_discount_amount, orders.users_id, users.login, COUNT(order_products.pets_id), orders.order_statuses_id
 			FROM orders INNER JOIN order_products INNER JOIN users
 				ON orders.id = order_products.orders_id AND users.id = orders.users_id
 			WHERE orders.order_statuses_id = ?
@@ -477,7 +477,8 @@ public class OrderDaoImpl implements OrderDao {
 					listDetails.add(new OrderDetalizationByProduct(resultSet.getLong(ORDERS_ID),
 							resultSet.getLong(IDENTIFIER_COUNT_ROWS_OF_ORDER_PRODUCTS_PRODUCT_PETS_ID),
 							resultSet.getDouble(ORDERS_TOTAL_PAYMENT_WITH_DISCOUNT_AMOUNT),
-							resultSet.getLong(ORDERS_USERS_ID), resultSet.getString(USERS_LOGIN)));
+							resultSet.getLong(ORDERS_USERS_ID), resultSet.getString(USERS_LOGIN),
+							resultSet.getInt(ORDERS_STATUS_ID)));
 				}
 			}
 		} catch (SQLException e) {
@@ -492,7 +493,8 @@ public class OrderDaoImpl implements OrderDao {
 	 * SELECT_GET_DETAILS_INFORMATION_ABOUT_ORDERS_BY_PRODUCT_FEED_AND_OTHER_ID_AND_ORDER_STATUS.
 	 */
 	private static final String SELECT_GET_DETAILS_INFORMATION_ABOUT_ORDERS_BY_PRODUCT_FEED_AND_OTHER_ID_AND_ORDER_STATUS = """
-			SELECT orders.id, orders.total_payment_with_discount_amount, orders.users_id, users.login, COUNT(order_products.feeds_and_other_id)
+			SELECT orders.id, orders.total_payment_with_discount_amount, orders.users_id, users.login,
+				COUNT(order_products.feeds_and_other_id), orders.order_statuses_id
 			FROM orders INNER JOIN order_products INNER JOIN users
 				ON orders.id = order_products.orders_id AND users.id = orders.users_id
 			WHERE orders.order_statuses_id = ?
@@ -525,7 +527,8 @@ public class OrderDaoImpl implements OrderDao {
 					listDetails.add(new OrderDetalizationByProduct(resultSet.getLong(ORDERS_ID),
 							resultSet.getLong(IDENTIFIER_COUNT_ROWS_OF_ORDER_PRODUCTS_PRODUCT_FEEDS_AND_OTHER_ID),
 							resultSet.getDouble(ORDERS_TOTAL_PAYMENT_WITH_DISCOUNT_AMOUNT),
-							resultSet.getLong(ORDERS_USERS_ID), resultSet.getString(USERS_LOGIN)));
+							resultSet.getLong(ORDERS_USERS_ID), resultSet.getString(USERS_LOGIN),
+							resultSet.getInt(ORDERS_STATUS_ID)));
 				}
 			}
 		} catch (SQLException e) {

@@ -28,7 +28,7 @@ import by.koroza.zoo_market.web.controller.router.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-public class ShowMoreDetailsAboutProductFeedsAndOtherCommand extends ShowMoreDetailsAboutProduct implements Command {
+public class ShowMoreDetailsAboutProductFeedsAndOtherCommand implements Command {
 	private static Logger log = LogManager.getLogger();
 
 	private final ProductFeedsAndOtherService PRODUCT_FFED_AND_OTHER_SERVICE = ProductFeedsAndOtherServiceImpl

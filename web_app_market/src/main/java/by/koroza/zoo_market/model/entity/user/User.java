@@ -1,5 +1,7 @@
 package by.koroza.zoo_market.model.entity.user;
 
+import java.time.LocalDateTime;
+
 import by.koroza.zoo_market.model.entity.status.UserRole;
 
 public class User {
@@ -14,6 +16,7 @@ public class User {
 	private boolean isActive;
 	private UserRole role;
 	private double discount;
+	private LocalDateTime dateAtCreate;
 
 	public User() {
 		this.login = null;
@@ -23,6 +26,7 @@ public class User {
 		this.isVerificatedEmail = false;
 		this.isActive = true;
 		this.discount = 0;
+		dateAtCreate = LocalDateTime.now();
 	}
 
 	public long getId() {
@@ -81,6 +85,10 @@ public class User {
 		this.role = role;
 	}
 
+	public void setRole(int roleId) {
+		this.role = UserRole.findStatusByStatusId(roleId);
+	}
+
 	public double getDiscount() {
 		return this.discount;
 	}
@@ -99,6 +107,14 @@ public class User {
 
 	public static double getPercentForEachQuantityOfProducts() {
 		return PERCENT_FOR_EACH_QUANTITY_OF_PRODUCTS;
+	}
+
+	public LocalDateTime getDateAtCreate() {
+		return this.dateAtCreate;
+	}
+
+	public void setDateAtCreate(LocalDateTime dateAtCreate) {
+		this.dateAtCreate = dateAtCreate;
 	}
 
 	@Override
@@ -197,6 +213,11 @@ public class User {
 			this.user = new User();
 		}
 
+		public UserBuilder setDateAtCreate(LocalDateTime dateAtCreate) {
+			this.user.setDateAtCreate(dateAtCreate);
+			return this;
+		}
+
 		public UserBuilder setId(long id) {
 			this.user.setId(id);
 			return this;
@@ -204,6 +225,11 @@ public class User {
 
 		public UserBuilder setRole(UserRole role) {
 			this.user.setRole(role);
+			return this;
+		}
+
+		public UserBuilder setRole(int roleId) {
+			this.user.setRole(roleId);
 			return this;
 		}
 
@@ -219,6 +245,11 @@ public class User {
 
 		public UserBuilder setEmail(String email) {
 			this.user.setEmail(email);
+			return this;
+		}
+
+		public UserBuilder setActive(boolean isActive) {
+			this.user.setActive(isActive);
 			return this;
 		}
 

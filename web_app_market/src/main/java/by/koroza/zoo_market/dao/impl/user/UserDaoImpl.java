@@ -10,10 +10,16 @@ import static by.koroza.zoo_market.dao.name.ColumnName.USERS_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.USERS_LOGIN;
 import static by.koroza.zoo_market.dao.name.ColumnName.USERS_PASSWORD;
 import static by.koroza.zoo_market.dao.name.ColumnName.USERS_CONFIRMATION_EMAIL;
+import static by.koroza.zoo_market.dao.name.ColumnName.USERS_ROLE_ID;
+import static by.koroza.zoo_market.dao.name.ColumnName.USERS_DATE_CREATE;
+import static by.koroza.zoo_market.dao.name.ColumnName.USERS_IS_ACTIVE;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.logging.log4j.Level;
@@ -93,7 +99,7 @@ public class UserDaoImpl implements UserDao {
 
 	/** The Constant QUERY_INSERT_USER. */
 	private static final String QUERY_INSERT_USER = """
-			INSERT INTO users(users.login, users.password, users.email, users.confirmation_email, users.roles_id)
+			INSERT INTO users(users.login, users.password, users.email, users.is_confirmation_email, users.roles_id)
 			VALUES (?, ?, ?, ?, ?);
 			""";
 
@@ -224,7 +230,7 @@ public class UserDaoImpl implements UserDao {
 	/** The Constant QUERY_CHANGE_VERIFICATE_EMAIL_STATUS. */
 	private static final String QUERY_CHANGE_VERIFICATE_EMAIL_STATUS = """
 			UPDATE users
-			SET users.confirmation_email = ?
+			SET users.is_confirmation_email = ?
 			WHERE users.id = ?;
 			""";
 
@@ -253,7 +259,7 @@ public class UserDaoImpl implements UserDao {
 
 	/** The Constant QUERY_GET_USER_BY_LOGIN_AND_PASSWORD. */
 	private static final String QUERY_GET_USER_BY_LOGIN_AND_PASSWORD = """
-			SELECT users.id, users.name, users.surname, roles.name, users.email, users.confirmation_email, users.login, users.password, users.discount, users.date_create
+			SELECT users.id, roles.name, users.email, users.is_confirmation_email, users.login, users.password, users.discount, users.date_create, users.is_active
 			FROM users INNER JOIN roles
 			ON users.roles_id = roles.id
 			WHERE users.login = ? AND users.password = ?;
@@ -281,7 +287,8 @@ public class UserDaoImpl implements UserDao {
 							.setVerificatedEmail(resultSet.getBoolean(USERS_CONFIRMATION_EMAIL))
 							.setLogin(resultSet.getString(USERS_LOGIN))
 							.setRole(UserRole.valueOf(resultSet.getString(ROLES_NAME)))
-							.setDiscount(resultSet.getDouble(USERS_DISCOUNT)).build();
+							.setDiscount(resultSet.getDouble(USERS_DISCOUNT))
+							.setActive(resultSet.getBoolean(USERS_IS_ACTIVE)).build();
 					userBuild.setPassword(resultSet.getString(USERS_PASSWORD));
 					user = Optional.of(userBuild);
 				}
@@ -426,7 +433,7 @@ public class UserDaoImpl implements UserDao {
 	private static final String QUERY_CHANGE_EMAIL = """
 			UPDATE users
 			SET users.email = ?,
-			users.confirmation_email = false
+			users.is_confirmation_email = false
 			WHERE users.id = ?;
 			""";
 
@@ -481,5 +488,40 @@ public class UserDaoImpl implements UserDao {
 			throw new DaoException(e);
 		}
 		return result;
+	}
+
+	/** The Constant QUERY_SELECT_ALL_USERS. */
+	private static final String QUERY_SELECT_ALL_USERS = """
+			SELECT users.id, users.roles_id, users.email, users.is_confirmation_email, users.login, users.discount, users.date_create, users.is_active
+			FROM users;
+			""";
+
+	/**
+	 * Get the all users.
+	 *
+	 * @return the all users
+	 * @throws DaoException the dao exception
+	 */
+	@Override
+	public List<User> getAllUsers() throws DaoException {
+		List<User> users = new ArrayList<>();
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_ALL_USERS);
+				ResultSet resultSet = statement.executeQuery()) {
+			while (resultSet.next()) {
+				users.add(new User.UserBuilder().setId(resultSet.getLong(USERS_ID))
+						.setRole(resultSet.getInt(USERS_ROLE_ID)).setEmail(resultSet.getString(USERS_EMAIL))
+						.setVerificatedEmail(resultSet.getBoolean(USERS_CONFIRMATION_EMAIL))
+						.setLogin(resultSet.getString(USERS_LOGIN))
+						.setDateAtCreate(LocalDateTime.of(resultSet.getDate(USERS_DATE_CREATE).toLocalDate(),
+								resultSet.getTime(USERS_DATE_CREATE).toLocalTime()))
+						.setDiscount(resultSet.getDouble(USERS_DISCOUNT))
+						.setActive(resultSet.getBoolean(USERS_IS_ACTIVE)).build());
+			}
+		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new DaoException(e);
+		}
+		return users;
 	}
 }

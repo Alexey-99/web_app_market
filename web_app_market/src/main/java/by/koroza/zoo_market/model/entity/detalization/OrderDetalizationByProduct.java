@@ -1,19 +1,31 @@
 package by.koroza.zoo_market.model.entity.detalization;
 
+import by.koroza.zoo_market.model.entity.status.OrderStatus;
+
 public class OrderDetalizationByProduct {
 	private long orderId;
 	private long quantityProduct;
 	private double totalSum;
 	private long userId;
 	private String userLogin;
+	private OrderStatus status;
 
 	public OrderDetalizationByProduct(long orderId, long quantityProduct, double totalSum, long userId,
-			String userLogin) {
+			String userLogin, int orderStatusId) {
 		this.orderId = orderId;
 		this.quantityProduct = quantityProduct;
 		this.totalSum = totalSum;
 		this.userId = userId;
 		this.userLogin = userLogin;
+		this.status = OrderStatus.findStatusByStatusId(orderStatusId);
+	}
+
+	public OrderStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(OrderStatus status) {
+		this.status = status;
 	}
 
 	public long getOrderId() {
@@ -65,6 +77,7 @@ public class OrderDetalizationByProduct {
 		result = result * PRIME + Double.hashCode(this.totalSum);
 		result = result * PRIME + Long.hashCode(this.userId);
 		result = result * PRIME + (this.userLogin != null ? this.userLogin.hashCode() : 1);
+		result = result * PRIME + (this.status != null ? this.status.hashCode() : 1);
 		return result;
 	}
 
@@ -97,6 +110,13 @@ public class OrderDetalizationByProduct {
 				return false;
 			}
 		} else if (!this.userLogin.equals(other.userLogin)) {
+			return false;
+		}
+		if (this.status == null) {
+			if (other.status != null) {
+				return false;
+			}
+		} else if (!this.status.equals(other.status)) {
 			return false;
 		}
 		return true;

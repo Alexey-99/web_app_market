@@ -13,7 +13,7 @@ public enum OrderStatus {
 		return this.id;
 	}
 
-	public static OrderStatus findStatusByStatusId(int id) {
+	public static OrderStatus findStatusByStatusId(int id) throws IllegalArgumentException {
 		OrderStatus status = null;
 		switch (id) {
 		case 1 -> status = OPEN;
