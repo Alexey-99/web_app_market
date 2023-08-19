@@ -148,18 +148,40 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	/**
-	 * Gets the details about orders by product id and order status.
+	 * Get the details about orders by product pet id and order status.
 	 *
 	 * @param orderStatusId the order status id
 	 * @param productId     the product id
-	 * @return the details about orders by product id and order status
+	 * @return the details about orders by product pet id and order status
 	 * @throws ServiceException the service exception
 	 */
 	@Override
-	public List<OrderDetalizationByProduct> getDetailsAboutOrdersByProductIdAndOrderStatus(int orderStatusId,
+	public List<OrderDetalizationByProduct> getDetailsAboutOrdersByProductPetIdAndOrderStatus(int orderStatusId,
 			long productId) throws ServiceException {
 		try {
-			return OrderDaoImpl.getInstance().getDetailsAboutOrdersByProductIdAndOrderStatus(orderStatusId, productId);
+			return OrderDaoImpl.getInstance().getDetailsAboutOrdersByProductPetIdAndOrderStatus(orderStatusId,
+					productId);
+		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
+
+	/**
+	 * Get the details about orders by product feed and other id and order status.
+	 *
+	 * @param orderStatusId the order status id
+	 * @param productId     the product id
+	 * @return the details about orders by product feed and other id and order
+	 *         status
+	 * @throws ServiceException the service exception
+	 */
+	@Override
+	public List<OrderDetalizationByProduct> getDetailsAboutOrdersByProductFeedAndOtherIdAndOrderStatus(
+			int orderStatusId, long productId) throws ServiceException {
+		try {
+			return OrderDaoImpl.getInstance().getDetailsAboutOrdersByProductFeedAndOtherIdAndOrderStatus(orderStatusId,
+					productId);
 		} catch (DaoException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);

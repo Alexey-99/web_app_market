@@ -65,6 +65,18 @@ public interface OrderService {
 	 * @return the details about orders by product id and order status
 	 * @throws ServiceException the service exception
 	 */
-	public List<OrderDetalizationByProduct> getDetailsAboutOrdersByProductIdAndOrderStatus(int orderStatusId,
+	public List<OrderDetalizationByProduct> getDetailsAboutOrdersByProductPetIdAndOrderStatus(int orderStatusId,
 			long productId) throws ServiceException;
+
+	/**
+	 * Get the details about orders by product feed and other id and order status.
+	 *
+	 * @param orderStatusId the order status id
+	 * @param productId     the product id
+	 * @return the details about orders by product feed and other id and order
+	 *         status
+	 * @throws ServiceException the service exception
+	 */
+	public List<OrderDetalizationByProduct> getDetailsAboutOrdersByProductFeedAndOtherIdAndOrderStatus(
+			int orderStatusId, long productId) throws ServiceException;
 }

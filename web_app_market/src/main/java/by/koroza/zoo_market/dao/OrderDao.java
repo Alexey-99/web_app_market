@@ -67,6 +67,18 @@ public interface OrderDao {
 	 * @return the details about orders by product id and order status
 	 * @throws DaoException the dao exception
 	 */
-	public List<OrderDetalizationByProduct> getDetailsAboutOrdersByProductIdAndOrderStatus(int orderStatusId,
+	public List<OrderDetalizationByProduct> getDetailsAboutOrdersByProductPetIdAndOrderStatus(int orderStatusId,
 			long productId) throws DaoException;
+
+	/**
+	 * Get the details about orders by product feed and other id and order status.
+	 *
+	 * @param orderStatusId the order status id
+	 * @param productId     the product id
+	 * @return the details about orders by product feed and other id and order
+	 *         status
+	 * @throws DaoException the dao exception
+	 */
+	public List<OrderDetalizationByProduct> getDetailsAboutOrdersByProductFeedAndOtherIdAndOrderStatus(
+			int orderStatusId, long productId) throws DaoException;
 }

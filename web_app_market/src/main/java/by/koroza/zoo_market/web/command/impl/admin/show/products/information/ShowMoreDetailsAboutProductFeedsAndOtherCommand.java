@@ -2,6 +2,7 @@ package by.koroza.zoo_market.web.command.impl.admin.show.products.information;
 
 import static by.koroza.zoo_market.model.entity.status.UserRole.ADMIN;
 import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.ATTRIBUTE_USER;
+import static by.koroza.zoo_market.web.command.name.attribute.AttributeName.SESSION_ATTRIBUTE_SHOW_MORE_DETAILS_ABOUT_RODUCT;
 import static by.koroza.zoo_market.web.command.name.parameter.ParameterName.PARAMETER_PRODUCT_ID;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.HOME_PAGE_PATH;
 import static by.koroza.zoo_market.web.command.name.path.PagePathName.PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH;
@@ -62,14 +63,15 @@ public class ShowMoreDetailsAboutProductFeedsAndOtherCommand extends ShowMoreDet
 								PRODUCT_FFED_AND_OTHER_SERVICE.getQuantityInOrdersByProductIdAndOrderStatus(
 										product.getId(), OrderStatus.CLOSED.getId()));
 						informatorAboutProduct.setDetailsOpenOrdersWithProduct(
-								ORDER_SERVICE.getDetailsAboutOrdersByProductIdAndOrderStatus(OrderStatus.OPEN.getId(),
-										product.getId()));
+								ORDER_SERVICE.getDetailsAboutOrdersByProductFeedAndOtherIdAndOrderStatus(
+										OrderStatus.OPEN.getId(), product.getId()));
 						informatorAboutProduct.setDetailsWaitingPayOrdersWithProduct(
-								ORDER_SERVICE.getDetailsAboutOrdersByProductIdAndOrderStatus(
+								ORDER_SERVICE.getDetailsAboutOrdersByProductFeedAndOtherIdAndOrderStatus(
 										OrderStatus.WAITING_PAY.getId(), product.getId()));
 						informatorAboutProduct.setDetailsCloseOrdersWithProduct(
-								ORDER_SERVICE.getDetailsAboutOrdersByProductIdAndOrderStatus(OrderStatus.CLOSED.getId(),
-										product.getId()));
+								ORDER_SERVICE.getDetailsAboutOrdersByProductFeedAndOtherIdAndOrderStatus(
+										OrderStatus.CLOSED.getId(), product.getId()));
+						session.setAttribute(SESSION_ATTRIBUTE_SHOW_MORE_DETAILS_ABOUT_RODUCT, informatorAboutProduct);
 						router = new Router(
 								PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_MORE_DETAILS_ABOUT_PRODUCT_FEED_AND_OTHER_PAGE_PATH);
 					} else {
@@ -88,5 +90,4 @@ public class ShowMoreDetailsAboutProductFeedsAndOtherCommand extends ShowMoreDet
 
 		return router;
 	}
-
 }

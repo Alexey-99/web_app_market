@@ -64,29 +64,30 @@
 							<table class="table table-striped table-hover">
 								<thead class="">
 									<tr class="align-middle">
-										<th class="border-0 text-lowercase" scope="col"><fmt:message
-												key="admin_page.all_products.col.picture" /></th>
-										<th class="border-0 text-lowercase" scope="col"><fmt:message
-												key="admin_page.all_products.col.number_of_product" /></th>
-										<th class="border-0 text-lowercase" scope="col"><fmt:message
-												key="admin_page.all_products.col.product_type" /></th>
-										<th class="border-0 text-lowercase" scope="col"><fmt:message
-												key="admin_page.all_products.col.specie_pet" /></th>
-										<th class="border-0 text-lowercase" scope="col"><fmt:message
-												key="admin_page.all_products.col.breed_pet" /></th>
-										<th class="border-0 text-lowercase" scope="col"><fmt:message
-												key="admin_page.all_products.col.birth_date_pet" /></th>
-										<th class="border-0 text-lowercase" scope="col"><fmt:message
-												key="admin_page.all_products.col.price" /></th>
-										<th class="border-0 text-lowercase" scope="col"><fmt:message
-												key="admin_page.all_products.col.discount" /></th>
-										<th class="border-0 text-lowercase" scope="col"><fmt:message
-												key="admin_page.all_products.col.price_with_discount" /></th>
-										<th class="border-0 text-lowercase" scope="col"><fmt:message
+										<td class="border-0 text-lowercase" scope="col"><fmt:message
+												key="admin_page.all_products.col.picture" /></td>
+										<td class="border-0 text-lowercase" scope="col"><fmt:message
+												key="admin_page.all_products.col.number_of_product" /></td>
+										<td class="border-0 text-lowercase" scope="col"><fmt:message
+												key="admin_page.all_products.col.product_type" /></td>
+										<td class="border-0 text-lowercase" scope="col"><fmt:message
+												key="admin_page.all_products.col.specie_pet" /></td>
+										<td class="border-0 text-lowercase" scope="col"><fmt:message
+												key="admin_page.all_products.col.breed_pet" /></td>
+										<td class="border-0 text-lowercase" scope="col"><fmt:message
+												key="admin_page.all_products.col.birth_date_pet" /></td>
+										<td class="border-0 text-lowercase" scope="col"><fmt:message
+												key="admin_page.all_products.col.price" /></td>
+										<td class="border-0 text-lowercase" scope="col"><fmt:message
+												key="admin_page.all_products.col.discount" /></td>
+										<td class="border-0 text-lowercase" scope="col"><fmt:message
+												key="admin_page.all_products.col.price_with_discount" /></td>
+										<td class="border-0 text-lowercase" scope="col"><fmt:message
 												key="admin_page.all_products.col.number_of_units_in_available" />
-										</th>
-										<th class="border-0 text-lowercase" scope="col"><fmt:message
-												key="admin_page.all_products.col.change" /></th>
+										</td>
+										<td class="border-0 text-lowercase" scope="col"><fmt:message
+												key="admin_page.all_products.col.change" /></td>
+
 									</tr>
 								</thead>
 								<tbody class="">
@@ -116,7 +117,8 @@
 												p-${informator.getProduct().getId()}</div>
 										</th>
 										<td class="text-lowercase">
-											<div class="d-flex justify-content-center align-items-center">${ProductType.PETS.toString()}</div>
+											<div class="d-flex justify-content-center align-items-center">
+												${ProductType.PETS.toString()}</div>
 										</td>
 										<td class="text-lowercase">
 											<div class="d-flex justify-content-center align-items-center">

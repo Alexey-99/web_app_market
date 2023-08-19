@@ -60,12 +60,12 @@ public class ShowMoreDetailsAboutProductPetCommand extends ShowMoreDetailsAboutP
 						informatorAboutProduct.setQuantityInReserveInCloseOrders(PRODUCT_PET_SERVICE
 								.getQuantityInOrdersByProductIdAndOrderStatus(pet.getId(), OrderStatus.CLOSED.getId()));
 						informatorAboutProduct.setDetailsOpenOrdersWithProduct(ORDER_SERVICE
-								.getDetailsAboutOrdersByProductIdAndOrderStatus(OrderStatus.OPEN.getId(), pet.getId()));
+								.getDetailsAboutOrdersByProductPetIdAndOrderStatus(OrderStatus.OPEN.getId(), pet.getId()));
 						informatorAboutProduct.setDetailsWaitingPayOrdersWithProduct(
-								ORDER_SERVICE.getDetailsAboutOrdersByProductIdAndOrderStatus(
+								ORDER_SERVICE.getDetailsAboutOrdersByProductPetIdAndOrderStatus(
 										OrderStatus.WAITING_PAY.getId(), pet.getId()));
 						informatorAboutProduct.setDetailsCloseOrdersWithProduct(
-								ORDER_SERVICE.getDetailsAboutOrdersByProductIdAndOrderStatus(OrderStatus.CLOSED.getId(),
+								ORDER_SERVICE.getDetailsAboutOrdersByProductPetIdAndOrderStatus(OrderStatus.CLOSED.getId(),
 										pet.getId()));
 						session.setAttribute(SESSION_ATTRIBUTE_SHOW_MORE_DETAILS_ABOUT_RODUCT, informatorAboutProduct);
 						router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_MORE_DETAILS_ABOUT_PRODUCT_PET_PAGE_PATH);

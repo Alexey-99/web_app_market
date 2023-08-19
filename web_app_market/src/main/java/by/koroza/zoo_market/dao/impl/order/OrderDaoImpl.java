@@ -27,6 +27,7 @@ import static by.koroza.zoo_market.dao.name.ColumnName.FEEDS_AND_OTHER_DISCOUNT;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_LAST_INSERT_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_ORDERS_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_ORDER_PRODUCTS_PRODUCT_PETS_ID;
+import static by.koroza.zoo_market.dao.name.ColumnName.IDENTIFIER_COUNT_ROWS_OF_ORDER_PRODUCTS_PRODUCT_FEEDS_AND_OTHER_ID;
 import static by.koroza.zoo_market.dao.name.ColumnName.USERS_LOGIN;
 
 import java.sql.PreparedStatement;
@@ -448,7 +449,7 @@ public class OrderDaoImpl implements OrderDao {
 			FROM orders INNER JOIN order_products INNER JOIN users
 				ON orders.id = order_products.orders_id AND users.id = orders.users_id
 			WHERE orders.order_statuses_id = ?
-				AND order_products.product_types_id = 1
+				AND order_products.product_types_id = ?
 				AND order_products.pets_id = ?
 			GROUP BY orders.id;
 			""";
@@ -462,18 +463,67 @@ public class OrderDaoImpl implements OrderDao {
 	 * @throws DaoException the dao exception
 	 */
 	@Override
-	public List<OrderDetalizationByProduct> getDetailsAboutOrdersByProductIdAndOrderStatus(int orderStatusId,
+	public List<OrderDetalizationByProduct> getDetailsAboutOrdersByProductPetIdAndOrderStatus(int orderStatusId,
 			long productId) throws DaoException {
 		List<OrderDetalizationByProduct> listDetails = new LinkedList<>();
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(
 						SELECT_GET_DETAILS_INFORMATION_ABOUT_ORDERS_BY_PRODUCT_PET_ID_AND_ORDER_STATUS)) {
 			statement.setInt(1, orderStatusId);
-			statement.setLong(2, productId);
+			statement.setInt(2, ProductType.PETS.getId());
+			statement.setLong(3, productId);
 			try (ResultSet resultSet = statement.executeQuery()) {
 				while (resultSet.next()) {
 					listDetails.add(new OrderDetalizationByProduct(resultSet.getLong(ORDERS_ID),
 							resultSet.getLong(IDENTIFIER_COUNT_ROWS_OF_ORDER_PRODUCTS_PRODUCT_PETS_ID),
+							resultSet.getDouble(ORDERS_TOTAL_PAYMENT_WITH_DISCOUNT_AMOUNT),
+							resultSet.getLong(ORDERS_USERS_ID), resultSet.getString(USERS_LOGIN)));
+				}
+			}
+		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new DaoException(e);
+		}
+		return listDetails;
+	}
+
+	/**
+	 * The Constant
+	 * SELECT_GET_DETAILS_INFORMATION_ABOUT_ORDERS_BY_PRODUCT_FEED_AND_OTHER_ID_AND_ORDER_STATUS.
+	 */
+	private static final String SELECT_GET_DETAILS_INFORMATION_ABOUT_ORDERS_BY_PRODUCT_FEED_AND_OTHER_ID_AND_ORDER_STATUS = """
+			SELECT orders.id, orders.total_payment_with_discount_amount, orders.users_id, users.login, COUNT(order_products.feeds_and_other_id)
+			FROM orders INNER JOIN order_products INNER JOIN users
+				ON orders.id = order_products.orders_id AND users.id = orders.users_id
+			WHERE orders.order_statuses_id = ?
+				AND order_products.product_types_id = ?
+				AND order_products.feeds_and_other_id = ?
+			GROUP BY orders.id;
+			""";
+
+	/**
+	 * Get the details about orders by product feed and other id and order status.
+	 *
+	 * @param orderStatusId the order status id
+	 * @param productId     the product id
+	 * @return the details about orders by product feed and other id and order
+	 *         status
+	 * @throws DaoException the dao exception
+	 */
+	@Override
+	public List<OrderDetalizationByProduct> getDetailsAboutOrdersByProductFeedAndOtherIdAndOrderStatus(
+			int orderStatusId, long productId) throws DaoException {
+		List<OrderDetalizationByProduct> listDetails = new LinkedList<>();
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(
+						SELECT_GET_DETAILS_INFORMATION_ABOUT_ORDERS_BY_PRODUCT_FEED_AND_OTHER_ID_AND_ORDER_STATUS)) {
+			statement.setInt(1, orderStatusId);
+			statement.setInt(2, ProductType.FEEDS_AND_OTHER.getId());
+			statement.setLong(3, productId);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					listDetails.add(new OrderDetalizationByProduct(resultSet.getLong(ORDERS_ID),
+							resultSet.getLong(IDENTIFIER_COUNT_ROWS_OF_ORDER_PRODUCTS_PRODUCT_FEEDS_AND_OTHER_ID),
 							resultSet.getDouble(ORDERS_TOTAL_PAYMENT_WITH_DISCOUNT_AMOUNT),
 							resultSet.getLong(ORDERS_USERS_ID), resultSet.getString(USERS_LOGIN)));
 				}

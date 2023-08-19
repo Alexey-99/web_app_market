@@ -234,7 +234,8 @@ public class ProductFeedsAndOtherServiceImpl implements ProductFeedsAndOtherServ
 	public long getQuantityInOrdersByProductIdAndOrderStatus(long productId, int orderStatusId)
 			throws ServiceException {
 		try {
-			return ProductFeedsAndOtherDaoImpl.getInstance().getFreeNumberOfUnitsByProductId(productId);
+			return ProductFeedsAndOtherDaoImpl.getInstance().getQuantityInOrdersByProductIdAndOrderStatus(productId,
+					orderStatusId);
 		} catch (DaoException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
