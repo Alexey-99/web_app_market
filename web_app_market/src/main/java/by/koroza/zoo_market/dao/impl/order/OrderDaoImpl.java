@@ -534,4 +534,144 @@ public class OrderDaoImpl implements OrderDao {
 		}
 		return listDetails;
 	}
+
+	/**
+	 * The Constant
+	 * SELECT_SELECT_QUANTITY_PRODUCT_FEED_AND_OTHER_BY_ORDER_ID_AND_ORDER_STATUS.
+	 */
+	private static final String SELECT_SELECT_QUANTITY_PRODUCT_FEED_AND_OTHER_BY_ORDER_ID_AND_ORDER_STATUS = """
+			SELECT COUNT(order_products.feeds_and_other_id)
+			FROM orders INNER JOIN order_products
+				ON orders.id = order_products.orders_id
+			WHERE orders.id = ?
+				AND orders.order_statuses_id = ?
+				AND order_products.product_types_id = ?
+				AND order_products.feeds_and_other_id = ?
+			GROUP BY orders.id;
+			""";
+
+	/**
+	 * Get the quantity product feed and other in order by id and order status.
+	 *
+	 * @param orderId   the order id
+	 * @param statusId  the status id
+	 * @param productId the product id
+	 * @return the quantity product feed and other in order by id and order status
+	 * @throws DaoException the dao exception
+	 */
+	@Override
+	public long getQuantityProductFeedAndOtherInOrderByIdAndOrderStatus(long orderId, int orderStatusId, long productId)
+			throws DaoException {
+		long quantity = 0;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement(SELECT_SELECT_QUANTITY_PRODUCT_FEED_AND_OTHER_BY_ORDER_ID_AND_ORDER_STATUS)) {
+			statement.setLong(1, orderId);
+			statement.setInt(2, orderStatusId);
+			statement.setInt(3, ProductType.FEEDS_AND_OTHER.getId());
+			statement.setLong(4, productId);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					quantity = resultSet.getLong(IDENTIFIER_COUNT_ROWS_OF_ORDER_PRODUCTS_PRODUCT_FEEDS_AND_OTHER_ID);
+				}
+			}
+		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new DaoException(e);
+		}
+		return quantity;
+	}
+
+	/**
+	 * The Constant
+	 * SELECT_SELECT_QUANTITY_PRODUCT_PETS_BY_ORDER_ID_AND_ORDER_STATUS.
+	 */
+	private static final String SELECT_SELECT_QUANTITY_PRODUCT_PETS_BY_ORDER_ID_AND_ORDER_STATUS = """
+			SELECT COUNT(order_products.pets_id)
+			FROM orders INNER JOIN order_products
+				ON orders.id = order_products.orders_id
+			WHERE orders.id = ?
+				AND orders.order_statuses_id = ?
+				AND order_products.product_types_id = ?
+				AND order_products.pets_id = ?
+			GROUP BY orders.id;
+			""";
+
+	/**
+	 * Get the quantity product pet in order by id and order status.
+	 *
+	 * @param orderId       the order id
+	 * @param orderStatusId the order status id
+	 * @param productId     the product id
+	 * @return the quantity product pet in order by id and order status
+	 * @throws DaoException the dao exception
+	 */
+	@Override
+	public long getQuantityProductPetInOrderByIdAndOrderStatus(long orderId, int orderStatusId, long productId)
+			throws DaoException {
+		long quantity = 0;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement(SELECT_SELECT_QUANTITY_PRODUCT_PETS_BY_ORDER_ID_AND_ORDER_STATUS)) {
+			statement.setLong(1, orderId);
+			statement.setInt(2, orderStatusId);
+			statement.setInt(3, ProductType.PETS.getId());
+			statement.setLong(4, productId);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					quantity = resultSet.getLong(IDENTIFIER_COUNT_ROWS_OF_ORDER_PRODUCTS_PRODUCT_PETS_ID);
+				}
+			}
+		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new DaoException(e);
+		}
+		return quantity;
+	}
+
+	/** The Constant QUERY_SELECT_ORDER_BY_ORDER_ID. */
+	private static final String QUERY_SELECT_ORDER_BY_ORDER_ID = """
+			SELECT orders.id, orders.users_id, orders.total_payment_amount,
+			orders.total_products_discount_amount, orders.total_person_discount_amount,
+			orders.total_discount_amount, orders.total_payment_with_discount_amount, orders.date,
+			orders.order_statuses_id
+			FROM orders
+			WHERE orders.id = ?;
+			""";
+
+	/**
+	 * Get the order without products by order id.
+	 *
+	 * @param orderId the order id
+	 * @return the order with out products by order id
+	 * @throws DaoException the dao exception
+	 */
+	@Override
+	public Order getOrderWithoutProductsByOrderId(long orderId) throws DaoException {
+		Order order = null;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
+			try (PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_ORDER_BY_ORDER_ID)) {
+				statement.setLong(1, orderId);
+				try (ResultSet resultSet = statement.executeQuery()) {
+					while (resultSet.next()) {
+						order = new Order.OrderBuilder().setId(resultSet.getLong(ORDERS_ID))
+								.setUserId(resultSet.getLong(ORDERS_USERS_ID))
+								.setTotalPaymentAmount(resultSet.getDouble(ORDERS_TOTAL_PAYMENT_AMOUNT))
+								.setTotalProductsDiscountAmount(
+										resultSet.getDouble(ORDERS_TOTAL_PRODUCTS_DISCOUNT_AMOUNT))
+								.setTotalPersonDiscountAmount(resultSet.getDouble(ORDERS_TOTAL_PERSON_DISCOUNT_AMOUNT))
+								.setTotalDiscountAmount(resultSet.getDouble(ORDERS_TOTAL_DISCOUNT_AMOUNT))
+								.setTotalPaymentWithDiscountAmount(
+										resultSet.getDouble(ORDERS_TOTAL_PAYMENT_WITH_DISCOUNT_AMOUNT))
+								.setDateCreation(resultSet.getDate(ORDERS_DATE).toLocalDate())
+								.setStatus(resultSet.getInt(ORDERS_STATUS_ID)).build();
+					}
+				}
+			}
+		} catch (SQLException | IllegalArgumentException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new DaoException(e);
+		}
+		return order;
+	}
 }

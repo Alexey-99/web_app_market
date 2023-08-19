@@ -11,6 +11,7 @@ public class User {
 	private String password;
 	private String email;
 	private boolean isVerificatedEmail;
+	private boolean isActive;
 	private UserRole role;
 	private double discount;
 
@@ -20,6 +21,7 @@ public class User {
 		this.email = null;
 		this.role = UserRole.REGISTRATING_USER;
 		this.isVerificatedEmail = false;
+		this.isActive = true;
 		this.discount = 0;
 	}
 
@@ -63,6 +65,14 @@ public class User {
 		this.isVerificatedEmail = isVerificatedEmail;
 	}
 
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
 	public UserRole getRole() {
 		return this.role;
 	}
@@ -100,6 +110,7 @@ public class User {
 		result = result * PRIME + (this.password != null ? this.password.hashCode() : 1);
 		result = result * PRIME + (this.email != null ? this.email.hashCode() : 1);
 		result = result * PRIME + Boolean.hashCode(this.isVerificatedEmail);
+		result = result * PRIME + Boolean.hashCode(this.isActive);
 		result = result * PRIME + (this.role != null ? this.role.hashCode() : 1);
 		return result;
 	}
@@ -141,7 +152,10 @@ public class User {
 			return false;
 		}
 		if (this.isVerificatedEmail != otherReservedUser.isVerificatedEmail) {
-
+			return false;
+		}
+		if (this.isActive != otherReservedUser.isActive) {
+			return false;
 		}
 		if (this.role == null) {
 			if (otherReservedUser.role != null) {
@@ -166,6 +180,8 @@ public class User {
 		builder.append(email);
 		builder.append(", isVerificatedEmail=");
 		builder.append(isVerificatedEmail);
+		builder.append(", isActive=");
+		builder.append(isActive);
 		builder.append(", role=");
 		builder.append(role);
 		builder.append(", discount=");

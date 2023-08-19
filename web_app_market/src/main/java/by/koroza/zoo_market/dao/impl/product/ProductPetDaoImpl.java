@@ -59,7 +59,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	}
 
 	/** The Constant QUERY_SELECT_ALL_PRODUCTS_PETS. */
-	private static final String QUERY_SELECT_ALL_PRODUCTS_PETS = """
+	private static final String QUERY_SELECT_ALL_PRODUCTS = """
 			SELECT pets.id, pets.image_path, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
 			FROM pets
 			""";
@@ -74,7 +74,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	public Map<Pet, Long> getAllProductsAndNumberOfUnits() throws DaoException {
 		Map<Pet, Long> mapPetsAndNumber = new HashMap<>();
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
-				PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_ALL_PRODUCTS_PETS);
+				PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_ALL_PRODUCTS);
 				ResultSet resultSet = statement.executeQuery()) {
 			while (resultSet.next()) {
 				Pet pet = new Pet.PetBuilder().setId(resultSet.getLong(PETS_ID))
@@ -96,7 +96,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	}
 
 	/** The Constant QUERY_SELECT_PRODUCT_PET_BY_ID. */
-	private static final String QUERY_SELECT_PRODUCT_PET_BY_ID = """
+	private static final String QUERY_SELECT_PRODUCT_BY_ID = """
 			SELECT pets.id, pets.image_path, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.date_update, pets.number_of_units_products
 			FROM pets
 			WHERE pets.id = ?;
@@ -113,7 +113,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	public Pet getProductById(long id) throws DaoException {
 		Pet pet = null;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
-				PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_PRODUCT_PET_BY_ID)) {
+				PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_PRODUCT_BY_ID)) {
 			statement.setLong(1, id);
 			try (ResultSet resultSet = statement.executeQuery()) {
 				while (resultSet.next()) {
@@ -150,7 +150,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			""";
 
 	/** The Constant QUERY_INSERT_PRODUCT_PET. */
-	private static final String QUERY_INSERT_PRODUCT_PET = """
+	private static final String QUERY_INSERT_PRODUCT = """
 			INSERT INTO pets(pets.image_path, pets.specie, pets.breed, pets.birth_date, pets.price, pets.discount, pets.number_of_units_products)
 			VALUE(?, ?, ?, ?, ?, ?, ?);
 			""";
@@ -172,7 +172,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	public boolean addProduct(Pet pet, long numberOfUnitsProduct) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
-			try (PreparedStatement statement = connection.prepareStatement(QUERY_INSERT_PRODUCT_PET)) {
+			try (PreparedStatement statement = connection.prepareStatement(QUERY_INSERT_PRODUCT)) {
 				statement.setString(1, pet.getImagePath());
 				statement.setString(2, pet.getSpecie());
 				statement.setString(3, pet.getBreed());
@@ -196,7 +196,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	}
 
 	/** The Constant QUERY_INSERT_PRODUCT_PET_TO_ORDER_PRODUCTS. */
-	private static final String QUERY_INSERT_PRODUCT_PET_TO_ORDER_PRODUCTS = """
+	private static final String QUERY_INSERT_PRODUCT_TO_ORDER_PRODUCTS = """
 			INSERT INTO order_products(order_products.orders_id, order_products.product_types_id, order_products.pets_id)
 			VALUE(?, ?, ?);
 			""";
@@ -231,7 +231,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 					statement.execute();
 				}
 				try (PreparedStatement statement = connection
-						.prepareStatement(QUERY_INSERT_PRODUCT_PET_TO_ORDER_PRODUCTS)) {
+						.prepareStatement(QUERY_INSERT_PRODUCT_TO_ORDER_PRODUCTS)) {
 					statement.setLong(1, orderId);
 					statement.setInt(2, ProductType.PETS.getId());
 					statement.setLong(3, productId);
@@ -245,7 +245,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 		return result;
 	}
 
-	private static final String QUERY_SELECT_IS_HAVE_PRODUCT_PET_IN_ORDER_BY_ID = """
+	private static final String QUERY_SELECT_IS_HAVE_PRODUCT_IN_ORDER_BY_ID = """
 			SELECT COUNT(order_products.orders_id)
 			FROM order_products
 			WHERE order_products.orders_id = ?
@@ -253,7 +253,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			AND order_products.pets_id = ?;
 			""";
 
-	private static final String QUERY_DELETE_PRODUCT_PET_BY_ID_FROM_ORDER_PRODUCTS = """
+	public static final String QUERY_DELETE_PRODUCT_BY_ID_FROM_ORDER_PRODUCTS = """
 			DELETE
 			FROM order_products
 			WHERE order_products.orders_id = ?
@@ -262,7 +262,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			LIMIT 1;
 			""";
 
-	private static final String QUERY_SELECT_IS_HAVE_PRODUCT_PET_IN_MARKET_BY_ID = """
+	private static final String QUERY_SELECT_IS_HAVE_PRODUCT_IN_MARKET_BY_ID = """
 			SELECT COUNT(pets.id)
 			FROM pets
 			WHERE pets.id = ?;
@@ -283,7 +283,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			boolean isDeleteProiductInOrder = false;
 			boolean isHaveProductInOrderByID = false;
 			try (PreparedStatement statement = connection
-					.prepareStatement(QUERY_SELECT_IS_HAVE_PRODUCT_PET_IN_ORDER_BY_ID)) {
+					.prepareStatement(QUERY_SELECT_IS_HAVE_PRODUCT_IN_ORDER_BY_ID)) {
 				statement.setLong(1, orderId);
 				statement.setInt(2, ProductType.PETS.getId());
 				statement.setLong(3, productId);
@@ -296,7 +296,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			}
 			if (isHaveProductInOrderByID) {
 				try (PreparedStatement statement = connection
-						.prepareStatement(QUERY_DELETE_PRODUCT_PET_BY_ID_FROM_ORDER_PRODUCTS)) {
+						.prepareStatement(QUERY_DELETE_PRODUCT_BY_ID_FROM_ORDER_PRODUCTS)) {
 					statement.setLong(1, orderId);
 					statement.setInt(2, ProductType.PETS.getId());
 					statement.setLong(3, productId);
@@ -306,7 +306,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			boolean isChangedNumberOfUnitsProductInMarket = false;
 			boolean isHaveProductInMarketByID = false;
 			try (PreparedStatement statement = connection
-					.prepareStatement(QUERY_SELECT_IS_HAVE_PRODUCT_PET_IN_MARKET_BY_ID)) {
+					.prepareStatement(QUERY_SELECT_IS_HAVE_PRODUCT_IN_MARKET_BY_ID)) {
 				statement.setLong(1, productId);
 				try (ResultSet resultSet = statement.executeQuery()) {
 					while (resultSet.next()) {
@@ -341,7 +341,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	}
 
 	/** The Constant QUERY_UPDETE_PRODUCT_PET_BY_ID. */
-	private static final String QUERY_UPDETE_PRODUCT_PET_BY_ID = """
+	private static final String QUERY_UPDATE_PRODUCT_BY_ID = """
 			UPDATE pets
 			SET pets.image_path = ?,
 			pets.specie = ?,
@@ -366,7 +366,7 @@ public class ProductPetDaoImpl implements ProductPetDao {
 	public boolean updateProductById(Pet pet, long numberOfUnitsProduct) throws DaoException {
 		boolean result = false;
 		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
-				PreparedStatement statement = connection.prepareStatement(QUERY_UPDETE_PRODUCT_PET_BY_ID)) {
+				PreparedStatement statement = connection.prepareStatement(QUERY_UPDATE_PRODUCT_BY_ID)) {
 			statement.setString(1, pet.getImagePath());
 			statement.setString(2, pet.getSpecie());
 			statement.setString(3, pet.getBreed());
@@ -518,5 +518,54 @@ public class ProductPetDaoImpl implements ProductPetDao {
 			throw new DaoException(e);
 		}
 		return quantity;
+	}
+
+	/**
+	 * Add the product to order.
+	 *
+	 * @param orderId   the order id
+	 * @param productId the product id
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
+	@Override
+	public boolean addProductToOrder(long orderId, long productId) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(QUERY_INSERT_PRODUCT_TO_ORDER_PRODUCTS)) {
+			statement.setLong(1, orderId);
+			statement.setInt(2, ProductType.PETS.getId());
+			statement.setLong(3, productId);
+			result = statement.executeUpdate() > 0;
+		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new DaoException(e);
+		}
+		return result;
+	}
+
+	/**
+	 * Delete product from order.
+	 *
+	 * @param orderId   the order id
+	 * @param productId the product id
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
+	@Override
+	public boolean deleteProductFromOrder(long orderId, long productId) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement(QUERY_DELETE_PRODUCT_BY_ID_FROM_ORDER_PRODUCTS)) {
+			statement.setLong(1, orderId);
+			statement.setInt(2, ProductType.PETS.getId());
+			statement.setLong(3, productId);
+			result = statement.executeUpdate() > 0;
+		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new DaoException(e);
+		}
+		return result;
 	}
 }

@@ -382,7 +382,8 @@
 												<input type="text" class="form-control"
 													id="admin_page.all_products.add_product_form.add_feeds_and_other.lable.description_product"
 													name="${InputName.ADMIN_PAGE_CREATE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION}"
-													pattern="^([А-Яа-я]|\w){1,255}$" maxlength="255"
+													pattern="^([А-Яа-я]|\w)+(\s*([А-Яа-я]|\w))*$"
+													maxlength="255"
 													placeholder='<fmt:message key="admin_page.all_products.add_product_form.add_feeds_and_other.lable.description_product"/>' />
 												<label class="text-lowercase"
 													for="admin_page.all_products.add_product_form.add_feeds_and_other.lable.description_product"><fmt:message

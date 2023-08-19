@@ -10,8 +10,9 @@ public final class ParameterName {
 	public static final String PARAMETER_UPLOAD_FILE_EXCEPTION = "upload_file_exception";
 	public static final String PARAMETER_IMAGE_FILE_PATH = "image_path";
 	public static final String PARAMETER_NUMBER_PAGE = "number_page";
-	public static final String PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE = "saved_products_id"; //TODO DELETE
+	public static final String PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE = "saved_products_id"; // TODO DELETE
 	public static final String PARAMETER_PRODUCT_ID = "product_id";
+	public static final String PARAMETER_ORDER_ID = "order_id";
 
 	private ParameterName() {
 	}

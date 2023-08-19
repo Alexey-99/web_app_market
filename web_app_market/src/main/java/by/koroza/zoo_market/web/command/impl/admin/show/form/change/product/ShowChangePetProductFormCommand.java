@@ -53,14 +53,13 @@ public class ShowChangePetProductFormCommand implements Command {
 			if (user != null && user.isVerificatedEmail() && user.getRole().getId() == ADMIN.getId()) {
 				String productId = request.getParameter(PARAMETER_PRODUCT_ID);
 				if (productId != null && productId.matches("\\d+")) {
-					long petIdLong = Long.parseLong(productId);
-					Pet pet = PRODUCT_PET_SERVICE.getProductById(petIdLong);
-					if (pet != null) {
+					Pet product = PRODUCT_PET_SERVICE.getProductById(Long.parseLong(productId));
+					if (product != null) {
 						session.removeAttribute(
 								ATTRIBUTE_ADMIN_PAGE_CHANGE_PET_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE);
-						session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET, pet);
+						session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET, product);
 						session.setAttribute(ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT,
-								PRODUCT_PET_SERVICE.getFreeNumberOfUnitsByProductId(pet.getId()));
+								PRODUCT_PET_SERVICE.getFreeNumberOfUnitsByProductId(product.getId()));
 						router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_CHANGE_PET_PRODUCT_FORM);
 					} else {
 						router = new Router(PERSONAL_ACCOUNT_ADMIN_PAGE_SHOW_ALL_PRODUCTS_PATH);

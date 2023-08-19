@@ -31,10 +31,8 @@
 <link rel="stylesheet" href="css/items/admin/all_products_page.css" />
 <title><fmt:message key="change_product_form_validated.title" /></title>
 <!-- user = AttributeName.ATTRIBUTE_USER -->
-<!-- map_product_pet_and_number_of_units = AttributeName.ATTRIBUTE_MAP_PRODUCT_PET_AND_NUMBER_OF_UNITS_PRODUCT -->
-<!-- map_product_feeds_and_other_and_number_of_units = AttributeName.ATTRIBUTE_MAP_PRODUCT_FEED_AND_OTHER_AND_NUMBER_OF_UNITS_PRODUCT -->
-<!-- product_pet = AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET -->
-<!-- product_pet_number_of_units = AttributeName.ATTRIBUTE_BUFFER_PRODUCT_PET_NUMBER_OF_UNITS_PRODUCT -->
+<!-- product_feeds_and_other = AttributeName.ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER -->
+<!-- product_feeds_and_other_number_of_units = AttributeName.ATTRIBUTE_BUFFER_PRODUCT_FEEDS_AND_OTHER_NUMBER_OF_UNITS_PRODUCT -->
 <!-- admin_page_change_feeds_and_other_product_input_exception_type_and_message = AttributeName.ATTRIBUTE_ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_INPUT_EXCEPTION_TYPE_AND_MASSAGE -->
 <!-- locale = AttributeName.ATTRIBUTE_SESSION_LOCALE -->
 </head>
@@ -54,8 +52,8 @@
 								<div class="add_product_form_top">
 									<div class="add_product_form_top_title">
 										<h2 class="form_title text-center mb-3 text-lowercase">
-											<fmt:message
-												key="admin_page.all_products.change_product_form.title" />
+											<fmt:message key="change_product_form_validated.title" />
+											${product_feeds_and_other.getId()}
 										</h2>
 									</div>
 									<div
@@ -64,7 +62,7 @@
 											method="get">
 											<input type="hidden"
 												name="${ParameterName.PARAMETER_COMMAND}"
-												value="${CommandName.COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_OFF_FILTER }">
+												value="${CommandName.COMMAND_ADMIN_PAGE_SHOW_PRODUCTS_OFF_FILTER}">
 											<button class="close_btn" role="button">
 												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
 													width="25px" height="25px">
@@ -137,6 +135,7 @@
 													id="change_product_form_validated.change_feeds_and_other.lable.type_product"
 													name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE}"
 													value="${product_feeds_and_other.getProductType()}"
+													pattern="^([А-Яа-я]|\w){1,255}$" maxlength="255"
 													placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.type_product"/>' />
 												<label class="text-lowercase"
 													for="change_product_form_validated.change_feeds_and_other.lable.type_product">
@@ -149,6 +148,7 @@
 													id="change_product_form_validated.change_feeds_and_other.lable.brand_product"
 													name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND}"
 													value="${product_feeds_and_other.getBrand()}"
+													pattern="^([А-Яа-я]|\w){1,255}$" maxlength="255"
 													placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.brand_product"/>' />
 												<label class="text-lowercase"
 													for="change_product_form_validated.change_feeds_and_other.lable.brand_product">
@@ -161,6 +161,8 @@
 													id="change_product_form_validated.change_feeds_and_other.lable.description_product"
 													name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION}"
 													value="${product_feeds_and_other.getDescriptions()}"
+													pattern="^([А-Яа-я]|\w)+(\s*([А-Яа-я]|\w))*$"
+													maxlength="255"
 													placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.description_product"/>' />
 												<label class="text-lowercase"
 													for="change_product_form_validated.change_feeds_and_other.lable.description_product">
@@ -172,6 +174,7 @@
 												<input type="text" class="form-control"
 													id="change_product_form_validated.change_feeds_and_other.lable.types_pet_for_product"
 													name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES}"
+													pattern="^([А-я]|\w)+(\,\s*([А-я]|\w)+)*$" maxlength="255"
 													value='<c:if test="${product_feeds_and_other.getPetTypes() != null}">${product_feeds_and_other.getPetTypes().toString().substring(1, product_feeds_and_other.getPetTypes().toString().length() - 1)}</c:if>'
 													placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.types_pet_for_product"/>' />
 												<label class="text-lowercase"
@@ -330,6 +333,7 @@
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_feeds_and_other.lable.type_product"
 														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE}"
+														pattern="^([А-Яа-я]|\w){1,255}$" maxlength="255"
 														placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.type_product"/>' />
 													<label class="text-lowercase"
 														for="change_product_form_validated.change_feeds_and_other.lable.type_product">
@@ -348,6 +352,7 @@
 														id="change_product_form_validated.change_feeds_and_other.lable.type_product"
 														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PRODUCT_TYPE}"
 														value="${product_feeds_and_other.getProductType()}"
+														pattern="^([А-Яа-я]|\w){1,255}$" maxlength="255"
 														placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.type_product"/>' />
 													<label class="text-lowercase"
 														for="change_product_form_validated.change_feeds_and_other.lable.type_product">
@@ -366,6 +371,7 @@
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_feeds_and_other.lable.brand_product"
 														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND}"
+														pattern="^([А-Яа-я]|\w){1,255}$" maxlength="255"
 														placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.brand_product"/>' />
 													<label class="text-lowercase"
 														for="change_product_form_validated.change_feeds_and_other.lable.brand_product">
@@ -384,6 +390,7 @@
 														id="change_product_form_validated.change_feeds_and_other.lable.brand_product"
 														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_BRAND}"
 														value="${product_feeds_and_other.getBrand()}"
+														pattern="^([А-Яа-я]|\w){1,255}$" maxlength="255"
 														placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.brand_product"/>' />
 													<label class="text-lowercase"
 														for="change_product_form_validated.change_feeds_and_other.lable.brand_product">
@@ -402,6 +409,8 @@
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_feeds_and_other.lable.description_product"
 														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION}"
+														pattern="^([А-Яа-я]|\w)+(\s*([А-Яа-я]|\w))*$"
+														maxlength="255"
 														placeholder='<fmt:message key="change_product_form_validated.change_feeds_and_other.lable.description_product"/>' />
 													<label class="text-lowercase"
 														for="change_product_form_validated.change_feeds_and_other.lable.description_product">
@@ -420,6 +429,8 @@
 														id="change_product_form_validated.change_feeds_and_other.lable.description_product"
 														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DESCRIPTION}"
 														value="${product_feeds_and_other.getDescriptions()}"
+														pattern="^([А-Яа-я]|\w)+(\s*([А-Яа-я]|\w))*$"
+														maxlength="255"
 														placeholder='<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.description_product" />' />
 													<label class="text-lowercase"
@@ -439,6 +450,7 @@
 													<input type="text" class="form-control is-invalid"
 														id="change_product_form_validated.change_feeds_and_other.lable.types_pet_for_product"
 														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES}"
+														pattern="^([А-я]|\w)+(\,\s*([А-я]|\w)+)*$" maxlength="255"
 														placeholder='<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.types_pet_for_product" />' />
 													<label class="text-lowercase"
@@ -457,6 +469,7 @@
 													<input type="text" class="form-control is-valid"
 														id="change_product_form_validated.change_feeds_and_other.lable.types_pet_for_product"
 														name="${InputName.ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_PET_TYPES}"
+														pattern="^([А-я]|\w)+(\,\s*([А-я]|\w)+)*$" maxlength="255"
 														value='<c:if test="${product_feeds_and_other.getPetTypes() != null}">${product_feeds_and_other.getPetTypes().toString().substring(1, product_feeds_and_other.getPetTypes().toString().length() - 1)}</c:if>'
 														placeholder='<fmt:message
 															key="change_product_form_validated.change_feeds_and_other.lable.types_pet_for_product" />' />

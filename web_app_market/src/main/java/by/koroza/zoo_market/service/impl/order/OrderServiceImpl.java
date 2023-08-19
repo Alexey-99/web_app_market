@@ -11,10 +11,13 @@ import org.apache.logging.log4j.Logger;
 import by.koroza.zoo_market.dao.OrderDao;
 import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 import by.koroza.zoo_market.dao.impl.order.OrderDaoImpl;
+import by.koroza.zoo_market.dao.impl.product.ProductFeedsAndOtherDaoImpl;
+import by.koroza.zoo_market.dao.impl.product.ProductPetDaoImpl;
 import by.koroza.zoo_market.model.entity.detalization.OrderDetalizationByProduct;
 import by.koroza.zoo_market.model.entity.market.order.Order;
 import by.koroza.zoo_market.model.entity.market.product.FeedAndOther;
 import by.koroza.zoo_market.model.entity.market.product.Pet;
+import by.koroza.zoo_market.model.entity.market.product.abstraction.AbstractProduct;
 import by.koroza.zoo_market.model.entity.status.OrderStatus;
 import by.koroza.zoo_market.service.OrderService;
 import by.koroza.zoo_market.service.exception.ServiceException;
@@ -182,6 +185,152 @@ public class OrderServiceImpl implements OrderService {
 		try {
 			return OrderDaoImpl.getInstance().getDetailsAboutOrdersByProductFeedAndOtherIdAndOrderStatus(orderStatusId,
 					productId);
+		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
+
+	/**
+	 * Change quantity product feed and other in order by order id.
+	 *
+	 * @param orderId       the order id
+	 * @param orderStatusId the order status id
+	 * @param productId     the product id
+	 * @param quantity      the quantity
+	 * @param userDiscount  the user discount
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
+	@Override
+	public boolean changeQuantityProductFeedAndOtherInOrderByOrderId(long orderId, int orderStatusId, long productId,
+			long quantity, double userDiscount) throws ServiceException {
+		boolean result = false;
+		try {
+			Order order = OrderServiceImpl.getInstance().getOrderWithoutProductsByOrderId(orderId);
+			FeedAndOther product = ProductFeedsAndOtherDaoImpl.getInstance().getProductById(productId);
+			if (order != null && product != null) {
+				long quantityNow = OrderDaoImpl.getInstance().getQuantityProductFeedAndOtherInOrderByIdAndOrderStatus(
+						order.getId(), order.getStatus().getId(), product.getId());
+				if (quantityNow < quantity) {
+					for (int i = 0; i < quantity - quantityNow; i++) {
+						if (ProductFeedsAndOtherDaoImpl.getInstance().addProductToOrder(order.getId(),
+								product.getId())) {
+							addProductToOrder(order, product, userDiscount);
+						}
+					}
+				} else if (quantityNow > quantity) {
+					for (int i = 0; i < quantityNow - quantity; i++) {
+						if (ProductFeedsAndOtherDaoImpl.getInstance().deleteProductFromOrder(orderId, productId)) {
+							deleteProductFromOrder(order, product, userDiscount);
+						}
+					}
+				}
+				changeOrder(order);
+				result = OrderDaoImpl.getInstance().getQuantityProductFeedAndOtherInOrderByIdAndOrderStatus(
+						order.getId(), order.getStatus().getId(), product.getId()) == quantity;
+			} else {
+				result = false;
+			}
+		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		}
+		return result;
+	}
+
+	/**
+	 * Change quantity product pet in order by order id.
+	 *
+	 * @param orderId       the order id
+	 * @param orderStatusId the order status id
+	 * @param productId     the product id
+	 * @param quantity      the quantity
+	 * @param userDiscount  the user discount
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
+	@Override
+	public boolean changeQuantityProductPetInOrderByOrderId(long orderId, int orderStatusId, long productId,
+			long quantity, double userDiscount) throws ServiceException {
+		boolean result = false;
+		try {
+			Order order = getOrderWithoutProductsByOrderId(orderId);
+			Pet product = ProductPetDaoImpl.getInstance().getProductById(productId);
+			if (order != null && product != null) {
+				long quantityNow = OrderDaoImpl.getInstance().getQuantityProductPetInOrderByIdAndOrderStatus(
+						order.getId(), order.getStatus().getId(), product.getId());
+				if (quantityNow < quantity) {
+					for (int i = 0; i < quantity - quantityNow; i++) {
+						if (ProductPetDaoImpl.getInstance().addProductToOrder(order.getId(), product.getId())) {
+							addProductToOrder(order, product, userDiscount);
+						}
+					}
+				} else if (quantityNow > quantity) {
+					for (int i = 0; i < quantityNow - quantity; i++) {
+						if (ProductPetDaoImpl.getInstance().deleteProductFromOrder(order.getId(), product.getId())) {
+							deleteProductFromOrder(order, product, userDiscount);
+						}
+					}
+				}
+				changeOrder(order);
+				result = OrderDaoImpl.getInstance().getQuantityProductFeedAndOtherInOrderByIdAndOrderStatus(
+						order.getId(), order.getStatus().getId(), product.getId()) == quantity;
+			} else {
+				result = false;
+			}
+		} catch (DaoException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		}
+		return result;
+	}
+
+	/**
+	 * Delete product from order.
+	 *
+	 * @param order        the order
+	 * @param product      the product
+	 * @param userDiscount the user discount
+	 */
+	private void deleteProductFromOrder(Order order, AbstractProduct product, double userDiscount) {
+		order.setTotalPaymentAmount(order.getTotalPaymentAmount() - product.getPrice());
+		order.setTotalProductsDiscountAmount(
+				order.getTotalProductsDiscountAmount() - (product.getPrice() * product.getDiscount() / 100));
+		order.setTotalPersonDiscountAmount(
+				order.getTotalPersonDiscountAmount() - (product.getPrice() * userDiscount / 100));
+		order.setTotalDiscountAmount(order.getTotalProductsDiscountAmount() + order.getTotalPersonDiscountAmount());
+		order.setTotalPaymentWithDiscountAmount(order.getTotalPaymentAmount() - order.getTotalDiscountAmount());
+	}
+
+	/**
+	 * Adds the product to order.
+	 *
+	 * @param order        the order
+	 * @param product      the product
+	 * @param userDiscount the user discount
+	 */
+	private void addProductToOrder(Order order, AbstractProduct product, double userDiscount) {
+		order.setTotalPaymentAmount(order.getTotalPaymentAmount() + product.getPrice());
+		order.setTotalProductsDiscountAmount(
+				order.getTotalProductsDiscountAmount() + (product.getPrice() * product.getDiscount() / 100));
+		order.setTotalPersonDiscountAmount(
+				order.getTotalPersonDiscountAmount() + (product.getPrice() * userDiscount / 100));
+		order.setTotalDiscountAmount(order.getTotalProductsDiscountAmount() + order.getTotalPersonDiscountAmount());
+		order.setTotalPaymentWithDiscountAmount(order.getTotalPaymentAmount() - order.getTotalDiscountAmount());
+	}
+
+	/**
+	 * Get the order without products by order id.
+	 *
+	 * @param orderId the order id
+	 * @return the order without products by order id
+	 * @throws ServiceException the service exception
+	 */
+	@Override
+	public Order getOrderWithoutProductsByOrderId(long orderId) throws ServiceException {
+		try {
+			return OrderDaoImpl.getInstance().getOrderWithoutProductsByOrderId(orderId);
 		} catch (DaoException e) {
 			log.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);

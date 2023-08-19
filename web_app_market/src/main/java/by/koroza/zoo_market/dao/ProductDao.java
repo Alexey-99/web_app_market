@@ -8,7 +8,7 @@ import by.koroza.zoo_market.dao.exception.checkable.DaoException;
 public interface ProductDao {
 
 	/**
-	 * Exist product with image path.
+	 * Exists product with image path.
 	 *
 	 * @param imagePath the image path
 	 * @return true, if successful
@@ -63,4 +63,24 @@ public interface ProductDao {
 	 * @throws DaoException the dao exception
 	 */
 	public long getQuantityInOrdersByProductIdAndOrderStatus(long productId, int orderStatusId) throws DaoException;
+
+	/**
+	 * Add the product to order.
+	 *
+	 * @param orderId   the order id
+	 * @param productId the product id
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
+	public boolean addProductToOrder(long orderId, long productId) throws DaoException;
+
+	/**
+	 * Delete product from order.
+	 *
+	 * @param orderId   the order id
+	 * @param productId the product id
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
+	public boolean deleteProductFromOrder(long orderId, long productId) throws DaoException;
 }

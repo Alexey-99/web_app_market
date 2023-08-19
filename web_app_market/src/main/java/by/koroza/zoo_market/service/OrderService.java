@@ -79,4 +79,41 @@ public interface OrderService {
 	 */
 	public List<OrderDetalizationByProduct> getDetailsAboutOrdersByProductFeedAndOtherIdAndOrderStatus(
 			int orderStatusId, long productId) throws ServiceException;
+
+	/**
+	 * Change quantity product feed and other in order by order id.
+	 *
+	 * @param orderId       the order id
+	 * @param orderStatusId the order status id
+	 * @param productId     the product id
+	 * @param quantity      the quantity
+	 * @param userDiscount  the user discount
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
+	public boolean changeQuantityProductFeedAndOtherInOrderByOrderId(long orderId, int orderStatusId, long productId,
+			long quantity, double userDiscount) throws ServiceException;
+
+	/**
+	 * Change quantity product pet in order by order id.
+	 *
+	 * @param orderId       the order id
+	 * @param orderStatusId the order status id
+	 * @param productId     the product id
+	 * @param quantity      the quantity
+	 * @param userDiscount  the user discount
+	 * @return true, if successful
+	 * @throws ServiceException the service exception
+	 */
+	public boolean changeQuantityProductPetInOrderByOrderId(long orderId, int orderStatusId, long productId,
+			long quantity, double userDiscount) throws ServiceException;
+
+	/**
+	 * Get the order without products by order id.
+	 *
+	 * @param orderId the order id
+	 * @return the order without products by order id
+	 * @throws ServiceException the service exception
+	 */
+	public Order getOrderWithoutProductsByOrderId(long orderId) throws ServiceException;
 }

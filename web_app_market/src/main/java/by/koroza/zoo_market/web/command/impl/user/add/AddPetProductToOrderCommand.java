@@ -50,16 +50,16 @@ public class AddPetProductToOrderCommand implements Command {
 				String productIdEntered = request.getParameter(PARAMETER_PRODUCT_ID);
 				if (productIdEntered != null && productIdEntered.matches("\\d+")) {
 					long productId = Long.parseLong(productIdEntered);
-					Pet pet = ProductPetServiceImpl.getInstance().getProductById(productId);
-					if (pet != null) {
+					Pet product = ProductPetServiceImpl.getInstance().getProductById(productId);
+					if (product != null) {
 						Order order = OrderServiceImpl.getInstance().getOpenOrderByUserId(user.getId());
 						if (ProductPetServiceImpl.getInstance().transferProductFromMarketToOrder(productId,
 								order.getId())) {
-							order.setTotalPaymentAmount(order.getTotalPaymentAmount() + pet.getPrice());
+							order.setTotalPaymentAmount(order.getTotalPaymentAmount() + product.getPrice());
 							order.setTotalProductsDiscountAmount(order.getTotalProductsDiscountAmount()
-									+ (pet.getPrice() * pet.getDiscount() / 100));
-							order.setTotalPersonDiscountAmount(
-									order.getTotalPaymentAmount() * user.getDiscount() / 100);
+									+ (product.getPrice() * product.getDiscount() / 100));
+							order.setTotalPersonDiscountAmount(order.getTotalPersonDiscountAmount()
+									+ (product.getPrice() * user.getDiscount() / 100));
 							order.setTotalDiscountAmount(
 									order.getTotalProductsDiscountAmount() + order.getTotalPersonDiscountAmount());
 							order.setTotalPaymentWithDiscountAmount(

@@ -89,6 +89,8 @@ public final class InputName {
 	public static final String ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_DISCOUNT = "other_product_discount";
 	public static final String ADMIN_PAGE_CHANGE_FEEDS_AND_OTHER_PRODUCT_FORM_INPUT_NUMBER_OF_UNITS_PRODUCT = "other_product_number_of_units_product";
 
+	public static final String ADMIN_PAGE_CHANGE_QUANTITY_PRODUCT_IN_OPEN_ORDER_FORM_INPUT = "quantity_product";
+
 	/* CHANGE_USER_STATUS */
 	public static final String ADMIN_PAGE_CHANGE_USER_STATUS_FORM_INPUT_LOGIN = "user_login";
 	public static final String ADMIN_PAGE_CHANGE_USER_STATUS_FORM_SELECT_USER_ROLE = "user_role";

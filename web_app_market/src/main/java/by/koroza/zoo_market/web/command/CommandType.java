@@ -1,5 +1,7 @@
 package by.koroza.zoo_market.web.command;
 
+import by.koroza.zoo_market.web.command.impl.admin.change.order.ChangeQuantityProductFeedAndOtherCommand;
+import by.koroza.zoo_market.web.command.impl.admin.change.order.ChangeQuantityProductPetCommand;
 import by.koroza.zoo_market.web.command.impl.admin.change.product.ChangeProductFeedsAndOtherCommand;
 import by.koroza.zoo_market.web.command.impl.admin.change.product.ChangeProductPetCommand;
 import by.koroza.zoo_market.web.command.impl.admin.change.product.update.UpdateChangedFeedsAndOtherProductCommand;
@@ -202,6 +204,9 @@ public enum CommandType {
 //	SHOW MORE DETAILS
 	ADMIN_PAGE_SHOW_MORE_DETAILS_ABOUT_PRODUCT_PET(new ShowMoreDetailsAboutProductPetCommand()),
 	ADMIN_PAGE_SHOW_MORE_DETAILS_ABOUT_PRODUCT_FEEDS_AND_OTHER(new ShowMoreDetailsAboutProductFeedsAndOtherCommand()),
+//	CHANGE_ORDER
+	ADMIN_PAGE_CHANGE_QUANTITY_PRODUCT_IN_ORDER_FEED_AND_OTHER(new ChangeQuantityProductFeedAndOtherCommand()),
+	ADMIN_PAGE_CHANGE_QUANTITY_PRODUCT_IN_ORDER_PET(new ChangeQuantityProductPetCommand()),
 //	CHANGE_USER_STATUS
 	ADMIN_PAGE_CHANGE_USER_STATUS(new ChangeUserStatusCommand());
 

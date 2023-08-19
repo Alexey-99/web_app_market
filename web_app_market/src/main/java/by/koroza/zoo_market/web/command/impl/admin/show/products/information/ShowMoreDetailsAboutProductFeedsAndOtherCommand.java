@@ -87,7 +87,6 @@ public class ShowMoreDetailsAboutProductFeedsAndOtherCommand extends ShowMoreDet
 			log.log(Level.ERROR, e.getMessage());
 			throw new CommandException(e);
 		}
-
 		return router;
 	}
 }

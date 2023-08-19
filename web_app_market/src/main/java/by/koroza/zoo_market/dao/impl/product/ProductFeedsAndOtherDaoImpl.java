@@ -171,7 +171,7 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 			SELECT feeds_and_other.id, feeds_and_other.image_path, feeds_and_other.type, feeds_and_other.brand, feeds_and_other.description,
 			feeds_and_other.pet_type, feeds_and_other.price, feeds_and_other.discount, feeds_and_other.date_update, feeds_and_other.number_of_units_products
 			FROM feeds_and_other
-			WHERE feeds_and_other.number_of_units_products > 0 AND feeds_and_other.id = ?;
+			WHERE feeds_and_other.id = ?;
 			""";
 
 	/**
@@ -323,7 +323,7 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 		return imagePath;
 	}
 
-	private static final String QUERY_INSERT_PRODUCT_FEEDS_AND_OTHER_TO_ORDER_PRODUCTS = """
+	private static final String QUERY_INSERT_PRODUCT_TO_ORDER_PRODUCTS = """
 			INSERT INTO order_products(order_products.orders_id, order_products.product_types_id, order_products.feeds_and_other_id)
 			VALUE(?, ?, ?);
 			""";
@@ -358,7 +358,7 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 					statement.execute();
 				}
 				try (PreparedStatement statement = connection
-						.prepareStatement(QUERY_INSERT_PRODUCT_FEEDS_AND_OTHER_TO_ORDER_PRODUCTS)) {
+						.prepareStatement(QUERY_INSERT_PRODUCT_TO_ORDER_PRODUCTS)) {
 					statement.setLong(1, orderId);
 					statement.setInt(2, ProductType.FEEDS_AND_OTHER.getId());
 					statement.setLong(3, productId);
@@ -384,7 +384,7 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 	/**
 	 * The Constant QUERY_DELETE_PRODUCT_FEEDS_AND_OTHER_BY_ID_FROM_ORDER_PRODUCTS.
 	 */
-	private static final String QUERY_DELETE_PRODUCT_FEEDS_AND_OTHER_BY_ID_FROM_ORDER_PRODUCTS = """
+	private static final String QUERY_DELETE_PRODUCT_BY_ID_FROM_ORDER_PRODUCTS = """
 			DELETE
 			FROM order_products
 			WHERE order_products.orders_id = ?
@@ -430,7 +430,7 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 			}
 			if (isHaveProductInOrderByID) {
 				try (PreparedStatement statement = connection
-						.prepareStatement(QUERY_DELETE_PRODUCT_FEEDS_AND_OTHER_BY_ID_FROM_ORDER_PRODUCTS)) {
+						.prepareStatement(QUERY_DELETE_PRODUCT_BY_ID_FROM_ORDER_PRODUCTS)) {
 					statement.setLong(1, orderId);
 					statement.setInt(2, ProductType.FEEDS_AND_OTHER.getId());
 					statement.setLong(3, productId);
@@ -544,5 +544,53 @@ public class ProductFeedsAndOtherDaoImpl implements ProductFeedsAndOtherDao {
 			throw new DaoException(e);
 		}
 		return quantity;
+	}
+
+	/**
+	 * Add the product to order.
+	 *
+	 * @param orderId   the order id
+	 * @param productId the product id
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
+	@Override
+	public boolean addProductToOrder(long orderId, long productId) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(QUERY_INSERT_PRODUCT_TO_ORDER_PRODUCTS)) {
+			statement.setLong(1, orderId);
+			statement.setInt(2, ProductType.FEEDS_AND_OTHER.getId());
+			statement.setLong(3, productId);
+			result = statement.executeUpdate() > 0;
+		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new DaoException(e);
+		}
+		return result;
+	}
+
+	/**
+	 * Delete product from order.
+	 *
+	 * @param orderId   the order id
+	 * @param productId the product id
+	 * @return true, if successful
+	 * @throws DaoException the dao exception
+	 */
+	public boolean deleteProductFromOrder(long orderId, long productId) throws DaoException {
+		boolean result = false;
+		try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement(QUERY_DELETE_PRODUCT_BY_ID_FROM_ORDER_PRODUCTS)) {
+			statement.setLong(1, orderId);
+			statement.setInt(2, ProductType.FEEDS_AND_OTHER.getId());
+			statement.setLong(3, productId);
+			result = statement.executeUpdate() > 0;
+		} catch (SQLException e) {
+			log.log(Level.ERROR, e.getMessage());
+			throw new DaoException(e);
+		}
+		return result;
 	}
 }
