@@ -10,7 +10,6 @@ import by.koroza.zoo_market.web.command.impl.admin.change.product.update.UpdateC
 import by.koroza.zoo_market.web.command.impl.admin.change.product.update.UpdateChangedPetProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.change.user.status.AdminPageChangeUserRoleCommand;
 import by.koroza.zoo_market.web.command.impl.admin.change.user.status.ChangeUserRoleCommand;
-import by.koroza.zoo_market.web.command.impl.admin.change.user.verification.AdminPageChangeConfirmationEmailCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.CraetePetProductCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.CraeteProductFeedsAndOtherCommand;
 import by.koroza.zoo_market.web.command.impl.admin.create.add.AddOtherProductCommand;
@@ -220,8 +219,7 @@ public enum CommandType {
 
 //	CHANGE_USER
 	ADMIN_PAGE_CHANGE_USER_STATUS(new ChangeUserRoleCommand()),
-	ADMIN_PAGE_SHOW_ALL_USERS_CHANGE_USER_STATUS(new AdminPageChangeUserRoleCommand()),
-	ADMIN_PAGE_SHOW_ALL_USERS_CHANGE_USER_CONFIRMATION_EMAIL(new AdminPageChangeConfirmationEmailCommand());
+	ADMIN_PAGE_SHOW_ALL_USERS_CHANGE_USER_STATUS(new AdminPageChangeUserRoleCommand());
 
 	private Command command;
 

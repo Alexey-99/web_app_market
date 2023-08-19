@@ -37,7 +37,6 @@ import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_ALL_P
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TYPE_ASCENDING;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_ALL_PRODUCTS_OFF_FILTER_SORTING_BY_PRODUCT_TYPE_DESCENDING;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_ALL_USERS;
-import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_ALL_USERS_CHANGE_USER_CONFIRMATION_EMAIL;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_ALL_USERS_CHANGE_USER_STATUS;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_CHANGE_FEED_AND_OTHER_PRODUCT_FORM;
 import static by.koroza.zoo_market.web.command.CommandType.ADMIN_PAGE_SHOW_CHANGE_PET_PRODUCT_FORM;
@@ -262,11 +261,7 @@ public final class CommandName {
 			.toLowerCase();
 	public static final String COMMAND_ADMIN_PAGE_SHOW_ALL_USERS_CHANGE_USER_STATUS = ADMIN_PAGE_SHOW_ALL_USERS_CHANGE_USER_STATUS
 			.toString().toLowerCase();
-//	IS_CONFIRMATION_EMAIL
-	public static final String COMMAND_ADMIN_PAGE_SHOW_ALL_USERS_CHANGE_USER_CONFIRMATION_EMAIL = ADMIN_PAGE_SHOW_ALL_USERS_CHANGE_USER_CONFIRMATION_EMAIL
-			.toString().toLowerCase();
 
 	private CommandName() {
-		System.out.println(ADMIN_PAGE_SHOW_ALL_USERS_CHANGE_USER_CONFIRMATION_EMAIL);
 	}
 }
