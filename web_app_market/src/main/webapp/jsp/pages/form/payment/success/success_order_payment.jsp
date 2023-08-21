@@ -65,9 +65,5 @@
 
 	<script src="js/bootstrap.bundle.js"></script>
 	<script src="js/basket.js"></script>
-
-	<script>
-		deleteAllProductsFromLocalStorage();
-	</script>
 </body>
 </html>

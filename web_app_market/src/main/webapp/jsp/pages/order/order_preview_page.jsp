@@ -52,9 +52,6 @@
 										<form class="h-100" style="width: 50vh"
 											action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 											method="get">
-											<input class="productsId_preview_order_page_top"
-												type="hidden"
-												name="${ParameterName.PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
 											<input type="hidden"
 												name="${ParameterName.PARAMETER_COMMAND}"
 												value="${CommandName.COMMAND_SHOW_BACKET_PAGE}">
@@ -362,9 +359,6 @@
 								<form class="h-100" style="width: 50vh"
 									action="${ServletName.MAIN_SERVLET_CONTROLLER_NAME}"
 									method="get">
-									<input class="productsId_preview_order_page_bottom"
-										type="hidden"
-										name="${ParameterName.PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
 									<input type="hidden" name="${ParameterName.PARAMETER_COMMAND}"
 										value="${CommandName.COMMAND_SHOW_BACKET_PAGE}">
 									<button style="min-width: 42vh"

@@ -143,10 +143,7 @@
 															value="${CommandName.COMMAND_DELETE_PRODUCT_PETS_FROM_ORDER}" />
 														<input type="hidden"
 															name="${ParameterName.PARAMETER_PRODUCT_ID}"
-															value="${entry.getKey().getId()}" /> <input
-															class="productsId_cards_pet_${status.getIndex()}"
-															type="hidden"
-															name="${ParameterName.PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
+															value="${entry.getKey().getId()}" />
 														<button class="w-100 h-100 body_btn_input"
 															id="liveToastBtn${status.getIndex()}" role="button"
 															onclick="deleteProducAndGetProducts('.productsId_cards_pet_${status.getIndex()}' ,'p', ${entry.getKey().getId()})">
@@ -237,10 +234,7 @@
 															value="${CommandName.COMMAND_DELETE_PRODUCT_FEEDS_AND_OTHER_FROM_ORDER}" />
 														<input type="hidden"
 															name="${ParameterName.PARAMETER_PRODUCT_ID}"
-															value="${entry.getKey().getId()}" /> <input
-															class="productsId_cards_item_${status.getIndex()}"
-															type="hidden"
-															name="${ParameterName.PARAMETER_SAVED_PRODUCTS_ID_IN_JSP_PAGE}" />
+															value="${entry.getKey().getId()}" />
 														<button class="w-100 h-100 body_btn_input" role="button"
 															id="liveToastBtn${order.getProductsPets().size() + status.getIndex()}"
 															onclick="deleteProducAndGetProducts('.productsId_cards_item_${status.getIndex()}' ,'o', ${entry.getKey().getId()})">

@@ -63,7 +63,9 @@ public class ImageFileServiceImpl implements ImageFileService {
 					path.mkdirs();
 				}
 				imagePath = STORAGE_IMAGES_FOLDER_PATH.concat("/").concat(submittedName);
-				Files.copy(inputStream, Path.of(imagePath), StandardCopyOption.REPLACE_EXISTING);
+				if (!new File(imagePath).exists()) {
+					Files.copy(inputStream, Path.of(imagePath), StandardCopyOption.REPLACE_EXISTING);
+				}
 			}
 		} catch (IOException e) {
 			log.log(Level.ERROR, e.getMessage());

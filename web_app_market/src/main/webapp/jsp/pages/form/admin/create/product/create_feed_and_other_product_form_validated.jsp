@@ -124,7 +124,7 @@
 													<label> <span class="span_input span_input_1">
 															<input type="checkbox"
 															name="${InputName.ADMIN_PAGE_PRODUCT_FORM_INPUT_WITHOUT_IMAGE}"
-															value="${ParameterValue.ADMIN_PAGE_CREATE_PRODUCT_FORM_WITHOUT_IMAGE}" />
+															value="${ParameterValue.ADMIN_PAGE_PRODUCT_FORM_WITHOUT_IMAGE}" />
 															<fmt:message
 																key="add_product_form_validated.add_pet.input.without_image" />
 													</span>
