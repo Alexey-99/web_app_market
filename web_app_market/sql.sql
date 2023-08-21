@@ -95,8 +95,8 @@ CREATE TABLE IF NOT EXISTS product_types (
     name VARCHAR(255)
 )  ENGINE=INNODB;
 
-insert into product_types(name)
-values ('PETS'), ('FEEDS_AND_OTHER');
+INSERT INTO product_types(name)
+VALUES ('PETS'), ('FEEDS_AND_OTHER');
 
 CREATE TABLE IF NOT EXISTS order_products (
     orders_id BIGINT UNSIGNED,
@@ -137,5 +137,5 @@ CREATE TABLE IF NOT EXISTS bank_cards (
     sum DECIMAL DEFAULT 0
 )  ENGINE=INNODB;
 
-insert into bank_cards(number, month_end, year_end, cvc, sum)
-values('1478 5236 9632 5874', 04, 26, 123, 20), ('9876 5412 3654 7896', 06, 28, 987, 2000), ('9632 5874 1258 9632', 01, 23, 654, 0); 
+INSERT INTO bank_cards(number, month_end, year_end, cvc, sum)
+VALUES ('1478 5236 9632 5874', 04, 26, 123, 20), ('9876 5412 3654 7896', 06, 28, 987, 2000), ('9632 5874 1258 9632', 01, 23, 654, 0); 
