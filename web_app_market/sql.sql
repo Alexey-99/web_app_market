@@ -10,7 +10,6 @@ DROP TABLE IF EXISTS order_statuses;
 DROP TABLE IF EXISTS feeds_and_other;
 DROP TABLE IF EXISTS pets;
 DROP TABLE IF EXISTS product_statuses;
-DROP TABLE IF EXISTS verificate_сodes;
 DROP TABLE IF EXISTS confirmation_email_сodes;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS roles; 
@@ -34,7 +33,7 @@ CREATE TABLE IF NOT EXISTS users (
     is_confirmation_email BOOLEAN DEFAULT FALSE,
     login VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    discount DECIMAL(3,2) DEFAULT 0,
+    discount DECIMAL(5,2) DEFAULT 0,
     is_active boolean default true,
     date_create DATETIME DEFAULT NOW()
 )  ENGINE=INNODB;
@@ -46,7 +45,7 @@ CREATE TABLE IF NOT EXISTS pets (
     breed VARCHAR(255),
     birth_date DATE,
     price DECIMAL(65,2) UNSIGNED,
-    discount DECIMAL(3,2) DEFAULT 0,
+    discount DECIMAL(5,2) DEFAULT 0,
     number_of_units_products BIGINT DEFAULT 0,
     date_update DATETIME DEFAULT NOW()
 )  ENGINE=INNODB;
@@ -60,7 +59,7 @@ CREATE TABLE IF NOT EXISTS feeds_and_other (
     pet_type VARCHAR(255) NOT NULL DEFAULT 'all',
     FULLTEXT ( pet_type ),
     price DECIMAL(65,2) UNSIGNED,
-    discount DECIMAL(3,2) DEFAULT 0,
+    discount DECIMAL(5,2) DEFAULT 0,
     number_of_units_products BIGINT DEFAULT 0,
     date_update DATETIME DEFAULT NOW()
 )  ENGINE=INNODB;
